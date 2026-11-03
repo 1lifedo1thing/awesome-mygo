@@ -1,4 +1,4 @@
-import { APPS, INSTALL_CMDS, type InstallTab, MYGO_SITE, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, fill, langDef, pad2, pick } from '@awesome-mygo/catalog';
+import { APPS, INSTALL_CMDS, INSTALL_TABS, type InstallTab, MYGO_SITE, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, fill, langDef, pad2, pick } from '@awesome-mygo/catalog';
 import { Link, createFileRoute } from '@tanstack/react-router';
 import { type CSSProperties, type PointerEvent, useRef, useState } from 'react';
 import { Docky, KindTag, MonoTile, WinBar, appView } from '../components/bits';
@@ -8,7 +8,7 @@ import { pageHead } from '../lib/seo';
 import { useSite } from '../lib/site';
 
 export const Route = createFileRoute('/')({
-	head: ({ match }) => pageHead(match.search.lang, null, 'hero_p'),
+	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/', title: null, desc: 'hero_p', app: match.search.app }),
 	component: HomePage,
 });
 
@@ -150,9 +150,9 @@ function Hero() {
 
 				<div className='install wi wi2'>
 					<div role='tablist' aria-label={t.a_install} className='install-tabs'>
-						{(['bun', 'go'] as const).map((k) => (
-							<button key={k} type='button' role='tab' aria-selected={tab === k} onClick={() => setTab(k)} className='install-tab'>
-								{k === 'bun' ? 'bunx' : 'go run'}
+						{INSTALL_TABS.map((it) => (
+							<button key={it.key} type='button' role='tab' aria-selected={tab === it.key} onClick={() => setTab(it.key)} className='install-tab'>
+								{it.label}
 							</button>
 						))}
 					</div>
@@ -248,11 +248,12 @@ function HeroCode() {
 
 function Categories() {
 	const t = useT();
+	const nState = STATE_SOLUTIONS.length;
 	const cats = [
-		{ to: '/showcase', span: 'b7', name: t.cat_show_name, path: '~/showcase', n: APPS.length, numTone: 'cyan', badge: t.cat_show_badge, amber: false, desc: t.cat_show_desc },
-		{ to: '/plugins', span: 'b5', name: t.nav_plugins, path: '~/plugins', n: PLUGINS.length, numTone: 'fg', badge: t.cat_plug_badge, amber: false, desc: t.cat_plug_desc },
-		{ to: '/ui', span: 'b5', name: t.cat_ui_name, path: '~/ui', n: UI_LIBS.length, numTone: 'fg', badge: fill(t.cat_ui_badge, { n: UI_LIBS.length }), amber: false, desc: t.cat_ui_desc },
-		{ to: '/state', span: 'b7', name: t.cat_state_name, path: '~/state', n: STATE_SOLUTIONS.length, numTone: 'dim', badge: t.cat_state_badge, amber: true, desc: t.cat_state_desc },
+		{ to: '/showcase', span: 'b7', name: t.cat_show_name, path: '~/showcase', n: APPS.length, numTone: 'cyan', badge: t.cat_show_badge, amber: false, pulse: false, desc: t.cat_show_desc },
+		{ to: '/plugins', span: 'b5', name: t.nav_plugins, path: '~/plugins', n: PLUGINS.length, numTone: 'fg', badge: t.cat_plug_badge, amber: false, pulse: false, desc: fill(t.cat_plug_desc, { n: PLUGINS.length }) },
+		{ to: '/ui', span: 'b5', name: t.cat_ui_name, path: '~/ui', n: UI_LIBS.length, numTone: 'fg', badge: fill(t.cat_ui_badge, { n: UI_LIBS.length }), amber: false, pulse: false, desc: t.cat_ui_desc },
+		{ to: '/state', span: 'b7', name: t.cat_state_name, path: '~/state', n: nState, numTone: nState ? 'fg' : 'dim', badge: nState ? fill(t.cat_state_count, { n: nState }) : t.cat_state_badge, amber: true, pulse: nState === 0, desc: t.cat_state_desc },
 	] as const;
 	return (
 		<section aria-labelledby='cats' className='sec sec-cats'>
@@ -273,7 +274,7 @@ function Categories() {
 							<span className='cat-top'>
 								<span className='mono-12 c-muted'>{c.path}</span>
 								<span className={`badge ${c.amber ? 'badge-amber' : ''}`}>
-									<span className={`badge-dot ${c.amber ? 'pulse' : ''}`} />
+									<span className={`badge-dot ${c.pulse ? 'pulse' : ''}`} />
 									{c.badge}
 								</span>
 							</span>

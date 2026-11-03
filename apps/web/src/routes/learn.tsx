@@ -1,11 +1,11 @@
-import { ARTICLE, DOCS, pad2, pick } from '@awesome-mygo/catalog';
+import { ARTICLE, DOCS, RESOURCES, hostOf, pad2, pick } from '@awesome-mygo/catalog';
 import { createFileRoute } from '@tanstack/react-router';
 import { useLang, useT } from '../lib/lang';
 import { tilt } from '../lib/motion';
 import { pageHead } from '../lib/seo';
 
 export const Route = createFileRoute('/learn')({
-	head: ({ match }) => pageHead(match.search.lang, 'learn_h', 'hero_p'),
+	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/learn', title: 'learn_h', desc: 'hero_p' }),
 	component: LearnPage,
 });
 
@@ -26,6 +26,17 @@ function LearnPage() {
 				</span>
 				<span className='arrow article-more'>{t.read_full}</span>
 			</a>
+			<div className='stack-16'>
+				<h2 className='guides-h'>{t.res_h}</h2>
+				<div className='res-grid'>
+					{RESOURCES.map((r) => (
+						<a key={r.key} className='res' href={r.url} target='_blank' rel='noopener'>
+							<span className='res-name'>{t[r.key]}</span>
+							<span className='res-host'>{hostOf(r.url)}</span>
+						</a>
+					))}
+				</div>
+			</div>
 			<div className='stack-16'>
 				<h2 className='guides-h'>{t.guides_h}</h2>
 				<div className='docs'>

@@ -1,4 +1,4 @@
-import { UI_LIBS, type UiLibKey } from '@awesome-mygo/catalog';
+import { NATIVE_UI_DOCS, UI_LIBS, type UiLibKey } from '@awesome-mygo/catalog';
 import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 import { WinBar } from '../components/bits';
@@ -7,20 +7,18 @@ import { pageHead } from '../lib/seo';
 import { useSite } from '../lib/site';
 
 export const Route = createFileRoute('/ui')({
-	head: ({ match }) => pageHead(match.search.lang, 'cat_ui_name', 'ui_p'),
+	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/ui', title: 'cat_ui_name', desc: 'ui_p' }),
 	component: UiPage,
 });
+
+const KEYS: readonly UiLibKey[] = ['theme', 'retro', 'icons'];
+const TAG: Record<UiLibKey, 'tag_theme' | 'tag_retro' | 'tag_icons'> = { theme: 'tag_theme', retro: 'tag_retro', icons: 'tag_icons' };
 
 function UiPage() {
 	const t = useT();
 	const { openSubmit } = useSite();
 	const [filter, setFilter] = useState<'all' | UiLibKey>('all');
-	const count = (k: UiLibKey) => UI_LIBS.filter((l) => l.key === k).length;
-	const chips = [
-		{ key: 'all', label: `${t.all} · ${UI_LIBS.length}` },
-		{ key: 'theme', label: `${t.tag_theme} · ${count('theme')}` },
-		{ key: 'retro', label: `${t.tag_retro} · ${count('retro')}` },
-	] as const;
+	const chips = [{ key: 'all' as const, label: `${t.all} · ${UI_LIBS.length}` }, ...KEYS.map((k) => ({ key: k, label: `${t[TAG[k]]} · ${UI_LIBS.filter((l) => l.key === k).length}` }))];
 	const libs = UI_LIBS.filter((l) => filter === 'all' || l.key === filter);
 
 	return (
@@ -29,6 +27,9 @@ function UiPage() {
 				<span className='kicker'>~/UI · {UI_LIBS.length} LIBRARIES</span>
 				<h1 className='page-h1'>{t.cat_ui_name}</h1>
 				<p className='page-p mw-700'>{t.ui_p}</p>
+				<a className='inline-link' href={NATIVE_UI_DOCS} target='_blank' rel='noopener'>
+					{t.ui_builtin}
+				</a>
 			</div>
 			<div className='chips' role='group' aria-label={t.a_filter}>
 				{chips.map((c) => (
@@ -42,11 +43,15 @@ function UiPage() {
 					<div key={l.repo} className={`rv d${k} flex`}>
 						<article className='win lib'>
 							<WinBar label={`github.com/${l.repo}`} size='md' className='lib-bar' />
-							<div className='dots lib-shot'>
-								<span className='lib-shot-label'>
-									[{l.name} {t.shot}]
-								</span>
-							</div>
+							{l.image ? (
+								<div className='lib-shot lib-shot-img'>
+									<img src={l.image} alt={`${l.name} ${t.shot}`} width={1200} height={750} loading='lazy' decoding='async' />
+								</div>
+							) : (
+								<div className='dots lib-shot'>
+									<span className='lib-shot-label'>{l.name}</span>
+								</div>
+							)}
 							<div className='lib-body'>
 								<div className='lib-head'>
 									<div className='stack-4'>
@@ -56,9 +61,16 @@ function UiPage() {
 									<span className='lib-tag'>{t[l.tagKey]}</span>
 								</div>
 								<p className='lib-desc'>{t[l.descKey]}</p>
-								<a className='btn-c btn-44 self-start' href={l.url} target='_blank' rel='noopener'>
-									{t.on_github}
-								</a>
+								<div className='cta-acts'>
+									<a className='btn-c btn-44' href={l.url} target='_blank' rel='noopener'>
+										{t.on_github}
+									</a>
+									{l.homepage && (
+										<a className='btn-g btn-44 btn-outline' href={l.homepage} target='_blank' rel='noopener'>
+											{t.visit}
+										</a>
+									)}
+								</div>
 							</div>
 						</article>
 					</div>

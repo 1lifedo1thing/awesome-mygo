@@ -2573,3 +2573,124 @@ html:lang(ko) .site {
 		transform: none !important;
 	}
 }
+
+/* ---- additions: screenshots, plugin surfaces, resources, palette keyboard state ---- */
+/* The hero windows' entrance animation keeps `transform: none` filled forever with `both`, which cancels the .win:hover lift; `backwards` only fills the delay before it starts. */
+.hero-win.wi {
+	animation-fill-mode: backwards;
+}
+.drawer-shot {
+	flex: none;
+	aspect-ratio: 16 / 10;
+	border-bottom: 1px solid var(--line-2);
+	background: var(--well-2);
+	overflow: hidden;
+}
+.drawer-shot img,
+.lib-shot-img img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: top center;
+}
+.lib-shot-img {
+	padding: 0;
+	overflow: hidden;
+}
+.inline-link {
+	align-self: flex-start;
+	font-size: 15px;
+	font-weight: 600;
+	text-decoration: none;
+}
+.lib-tag-amber {
+	border-color: var(--amber);
+	color: var(--amber);
+}
+.cta-amber {
+	border-color: var(--amber);
+}
+.surf {
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 6px;
+	font-family: var(--f-mono);
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0;
+	padding: 2px 8px;
+	border-radius: 999px;
+	border: 1px solid currentColor;
+}
+.surf-web {
+	color: var(--amber);
+}
+.surf-native {
+	color: var(--cyan);
+}
+.surf-both {
+	color: var(--fg-2);
+}
+.res-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+	gap: 12px;
+}
+.res,
+.res:hover {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	padding: 16px 18px;
+	border: 1px solid var(--line-2);
+	border-radius: 14px;
+	background: var(--panel);
+	color: var(--fg);
+	text-decoration: none;
+	transition: border-color 0.15s;
+}
+.res:hover {
+	border-color: var(--cyan);
+}
+.res-name {
+	font-size: 16px;
+	font-weight: 700;
+}
+.res-host {
+	font-family: var(--f-mono);
+	font-size: 12px;
+	color: var(--fg-3);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.jump[aria-selected='true'],
+.result[aria-selected='true'] {
+	background: rgba(63, 211, 245, 0.07);
+}
+.palette-foot {
+	padding: 10px 20px;
+	border-top: 1px solid var(--line-2);
+	font-family: var(--f-mono);
+	font-size: 11px;
+	color: var(--fg-3);
+}
+/* The 3D wall's own box sits in front of the windows pushed back with translateZ, and the bottom fade covers the far ones, so neither may take the pointer; only the windows do. */
+.wall,
+.stage-glow,
+.stage-fade {
+	pointer-events: none;
+}
+.wall .side,
+.wall .center-win {
+	pointer-events: auto;
+}
+/* A single listed solution keeps a column's width instead of stretching across the page, and its social card shows whole. */
+.state-list {
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 500px), 1fr));
+}
+.state-list .lib-shot-img {
+	height: auto;
+	aspect-ratio: 1200 / 630;
+}

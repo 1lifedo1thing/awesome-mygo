@@ -5,5 +5,7 @@
 	"compatibility_flags": ["nodejs_compat"],
 	// TanStack Start's Worker entry: server-renders every route; the client bundle and public/ are served as static assets.
 	"main": "@tanstack/react-start/server-entry",
+	// The zone mygodock.dev must be on the Cloudflare account that deploys; the custom domain creates its DNS record and certificate.
+	"routes": [{ "pattern": "mygodock.dev", "custom_domain": true }],
 	"observability": { "enabled": true }
 }

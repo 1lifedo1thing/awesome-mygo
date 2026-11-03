@@ -7,6 +7,8 @@ export type CopyKey = 'cmd' | 'cmd0' | 'cmd1' | 'det' | 'line';
 
 export interface SubmitForm extends EntryDraft {
 	cat: SubmitCat;
+	// Only used for showcase entries: whether the app draws native UI or shows a web frontend.
+	mode: 'native' | 'web';
 }
 
 interface Site {
@@ -42,7 +44,7 @@ export function SiteProvider({ children }: { children: ReactNode }) {
 
 	const [palette, setPalette] = useState(false);
 	const [modal, setModal] = useState(false);
-	const [form, setForm] = useState<SubmitForm>({ cat: 'ui', name: '', url: '', desc: '' });
+	const [form, setForm] = useState<SubmitForm>({ cat: 'ui', mode: 'native', name: '', url: '', desc: '' });
 	const [copied, setCopied] = useState<CopyKey | null>(null);
 	const copyTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 	// True when the open drawer pushed its own history entry, so closing it can step back instead of stacking another entry.
@@ -84,10 +86,12 @@ export function SiteProvider({ children }: { children: ReactNode }) {
 		if (!app) pushedApp.current = false;
 	}, [app]);
 
+	const openPalette = useCallback(() => setPalette(true), []);
+
 	const value = useMemo<Site>(
 		() => ({
 			palette,
-			openPalette: () => setPalette(true),
+			openPalette,
 			closePalette: () => setPalette(false),
 			modal,
 			openSubmit: (cat) => {
@@ -105,7 +109,7 @@ export function SiteProvider({ children }: { children: ReactNode }) {
 			openApp,
 			closeApp,
 		}),
-		[palette, modal, form, copied, copy, app, openApp, closeApp],
+		[palette, openPalette, modal, form, copied, copy, app, openApp, closeApp],
 	);
 
 	return <SiteContext.Provider value={value}>{children}</SiteContext.Provider>;

@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as LearnRouteImport } from './routes/learn'
 import { Route as PluginsRouteImport } from './routes/plugins'
 import { Route as ShowcaseRouteImport } from './routes/showcase'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as StateRouteImport } from './routes/state'
 import { Route as UiRouteImport } from './routes/ui'
 
@@ -36,6 +37,11 @@ const ShowcaseRoute = ShowcaseRouteImport.update({
   path: '/showcase',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StateRoute = StateRouteImport.update({
   id: '/state',
   path: '/state',
@@ -52,6 +58,7 @@ export interface FileRoutesByFullPath {
   '/learn': typeof LearnRoute
   '/plugins': typeof PluginsRoute
   '/showcase': typeof ShowcaseRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/state': typeof StateRoute
   '/ui': typeof UiRoute
 }
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/learn': typeof LearnRoute
   '/plugins': typeof PluginsRoute
   '/showcase': typeof ShowcaseRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/state': typeof StateRoute
   '/ui': typeof UiRoute
 }
@@ -69,15 +77,38 @@ export interface FileRoutesById {
   '/learn': typeof LearnRoute
   '/plugins': typeof PluginsRoute
   '/showcase': typeof ShowcaseRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/state': typeof StateRoute
   '/ui': typeof UiRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/learn' | '/plugins' | '/showcase' | '/state' | '/ui'
+  fullPaths:
+    | '/'
+    | '/learn'
+    | '/plugins'
+    | '/showcase'
+    | '/sitemap.xml'
+    | '/state'
+    | '/ui'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/learn' | '/plugins' | '/showcase' | '/state' | '/ui'
-  id: '__root__' | '/' | '/learn' | '/plugins' | '/showcase' | '/state' | '/ui'
+  to:
+    | '/'
+    | '/learn'
+    | '/plugins'
+    | '/showcase'
+    | '/sitemap.xml'
+    | '/state'
+    | '/ui'
+  id:
+    | '__root__'
+    | '/'
+    | '/learn'
+    | '/plugins'
+    | '/showcase'
+    | '/sitemap.xml'
+    | '/state'
+    | '/ui'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -85,6 +116,7 @@ export interface RootRouteChildren {
   LearnRoute: typeof LearnRoute
   PluginsRoute: typeof PluginsRoute
   ShowcaseRoute: typeof ShowcaseRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StateRoute: typeof StateRoute
   UiRoute: typeof UiRoute
 }
@@ -119,6 +151,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShowcaseRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/state': {
       id: '/state'
       path: '/state'
@@ -141,6 +180,7 @@ const rootRouteChildren: RootRouteChildren = {
   LearnRoute: LearnRoute,
   PluginsRoute: PluginsRoute,
   ShowcaseRoute: ShowcaseRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   StateRoute: StateRoute,
   UiRoute: UiRoute,
 }

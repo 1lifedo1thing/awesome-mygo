@@ -35,7 +35,9 @@ export function Background() {
 			c.width = w * dpr;
 			c.height = h * dpr;
 			ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-			const n = Math.max(30, Math.min(110, Math.round((w * h) / 15000)));
+			// Connecting lines cost O(n²) per frame; phones and touch screens (no pointer to react to) get fewer points.
+			const cap = w < 700 || window.matchMedia('(pointer: coarse)').matches ? 50 : 110;
+			const n = Math.max(30, Math.min(cap, Math.round((w * h) / 15000)));
 			pts = Array.from({ length: n }, () => ({
 				x: Math.random() * w,
 				y: Math.random() * h,
