@@ -2694,3 +2694,15 @@ html:lang(ko) .site {
 	height: auto;
 	aspect-ratio: 1200 / 630;
 }
+
+/* Official app icons: the files already carry a 22.5% corner, so the box matches it (and its shadow follows the same curve) instead of the letter tiles' rounder corner. */
+.app-icon {
+	display: block;
+	object-fit: cover;
+	border-radius: 22.5%;
+	background: none;
+}
+.other-tile.app-icon {
+	border-radius: 22.5%;
+	background: none;
+}

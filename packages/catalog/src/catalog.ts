@@ -46,6 +46,8 @@ export interface App {
 	about: Localized;
 	// Screenshot under /shots/, when the project provides one.
 	image?: string;
+	// The app's official icon, normalised to one size and corner radius, under /icons/.
+	icon: string;
 }
 
 const N: AppKind = 'native';
@@ -107,7 +109,7 @@ const shot = (file: string | undefined) => (file ? `/shots/${file}` : undefined)
 export const APPS: readonly App[] = APP_ROWS.map(([slug, name, author, kind, url, desc]) => {
 	const about = ABOUT[slug];
 	if (!about) throw new Error(`Missing ABOUT entry for app ${slug}`);
-	return { slug, name, author, kind, url, desc, about, image: shot(IMAGES[slug]) };
+	return { slug, name, author, kind, url, desc, about, image: shot(IMAGES[slug]), icon: `/icons/${slug}.webp` };
 });
 
 export function appBySlug(slug: string): App | undefined {

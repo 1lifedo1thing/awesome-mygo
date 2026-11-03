@@ -31,6 +31,10 @@ describe('catalog data', () => {
 		expect(Object.keys(ABOUT).sort()).toEqual(APPS.map((a) => a.slug).sort());
 	});
 
+	it('has an icon for every app', () => {
+		for (const a of APPS) expect(a.icon).toBe(`/icons/${a.slug}.webp`);
+	});
+
 	it('serves screenshots from /shots/', () => {
 		for (const img of [...APPS.map((a) => a.image), ...UI_LIBS.map((l) => l.image), ...STATE_SOLUTIONS.map((s) => s.image)]) {
 			if (img) expect(img).toMatch(/^\/shots\/[a-z0-9-]+\.(webp|svg)$/);

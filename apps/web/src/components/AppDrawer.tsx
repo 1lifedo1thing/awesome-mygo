@@ -80,9 +80,7 @@ function Drawer({ app }: { app: App }) {
 							<div className='others'>
 								{others.map((o) => (
 									<button key={o.slug} type='button' className='row other' onClick={() => openApp(o.slug)}>
-										<span aria-hidden='true' className='other-tile'>
-											{o.name.charAt(0).toUpperCase()}
-										</span>
+										<img className='other-tile app-icon' src={o.icon} alt='' width={32} height={32} loading='lazy' decoding='async' />
 										<span className='other-text'>
 											<span className='other-name'>{o.name}</span>
 											<span className='other-desc'>{pick(o.desc, lang)}</span>
