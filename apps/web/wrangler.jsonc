@@ -1,0 +1,9 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "awesome-mygo",
+	"compatibility_date": "2026-06-20",
+	"compatibility_flags": ["nodejs_compat"],
+	// TanStack Start's Worker entry: server-renders every route; the client bundle and public/ are served as static assets.
+	"main": "@tanstack/react-start/server-entry",
+	"observability": { "enabled": true }
+}
