@@ -14,6 +14,12 @@ export function pageHead(lang: LangCode | undefined, title: StringKey | null, de
 			{ property: 'og:site_name', content: SITE_NAME },
 			{ property: 'og:title', content: fullTitle },
 			{ property: 'og:description', content: tr[desc] },
+			{ property: 'og:image', content: '/og-image-1200x630.png' },
+			{ property: 'og:image:width', content: '1200' },
+			{ property: 'og:image:height', content: '630' },
+			{ property: 'og:image:alt', content: 'awesome-mygo' },
+			{ name: 'twitter:card', content: 'summary_large_image' },
+			{ name: 'twitter:image', content: '/og-image-1200x630.png' },
 		],
 	};
 }
