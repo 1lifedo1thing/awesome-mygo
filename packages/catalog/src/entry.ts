@@ -1,9 +1,12 @@
-// Submission form: the README line a contributor pastes into a PR on the upstream list.
+// Submission form. Apps go to egoist/mygo's showcase.ts; everything else is a README line on fksune/awesome-mygo.
 
 export const SUBMIT_CATS = ['ui', 'state', 'plugin', 'showcase', 'article'] as const;
 export type SubmitCat = (typeof SUBMIT_CATS)[number];
 
-export const DESC_MAX = 120;
+// A README line stays one line; showcase.ts asks for "a sentence or two".
+export function descMax(cat: SubmitCat): number {
+	return cat === 'showcase' ? 300 : 120;
+}
 
 export interface EntryDraft {
 	name: string;
@@ -23,4 +26,10 @@ export function isEntryComplete(d: EntryDraft): boolean {
 // Missing fields render as placeholders so the preview always shows the final shape.
 export function readmeEntry(d: EntryDraft, placeholders: { name: string; desc: string }): string {
 	return `- [${d.name.trim() || placeholders.name}](${d.url.trim() || 'https://…'}) - ${d.desc.trim() || placeholders.desc}`;
+}
+
+// An entry for egoist/mygo website/src/showcase.ts, in that file's shape (two-space indent, double quotes).
+export function showcaseEntry(d: EntryDraft, mode: 'native' | 'web', placeholders: { name: string; desc: string }): string {
+	const q = (s: string) => JSON.stringify(s);
+	return ['{', `  name: ${q(d.name.trim() || placeholders.name)},`, `  description: ${q(d.desc.trim() || placeholders.desc)},`, `  url: ${q(d.url.trim() || 'https://…')},`, `  mode: ${q(mode)},`, '},'].join('\n');
 }
