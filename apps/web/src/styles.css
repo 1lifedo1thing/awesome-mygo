@@ -564,6 +564,11 @@ html:lang(ko) .site {
 	color: var(--fg);
 	text-decoration: none;
 }
+.brand-mark {
+	width: 32px;
+	height: 32px;
+	display: block;
+}
 .brand-name {
 	font-family: var(--f-display);
 	font-weight: 800;

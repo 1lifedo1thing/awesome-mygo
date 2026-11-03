@@ -42,15 +42,7 @@ export function KindTag({ app, label }: { app: App; label: string }) {
 }
 
 export function Logo() {
-	return (
-		<svg aria-hidden='true' width='32' height='32' viewBox='0 0 64 64'>
-			<rect x='2' y='2' width='60' height='60' rx='17' fill='#12161B' stroke='#313A45' strokeWidth='1.6' />
-			<rect x='8' y='40' width='48' height='14' rx='7' fill='#1C2229' />
-			<rect x='13.5' y='43.5' width='7' height='7' rx='2.2' fill='#7E8B97' />
-			<rect x='43.5' y='43.5' width='7' height='7' rx='2.2' fill='#FFB547' />
-			<rect x='24' y='21' width='16' height='16' rx='4.6' fill='#3FD3F5' />
-		</svg>
-	);
+	return <img className='brand-mark' src='/icon-192.png' width={32} height={32} alt='' />;
 }
 
 const EAR_STROKE = { stroke: '#B8C1C9', strokeWidth: 1.2 };

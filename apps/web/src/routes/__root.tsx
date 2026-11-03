@@ -26,7 +26,10 @@ export const Route = createRootRoute({
 			{ name: 'color-scheme', content: 'dark' },
 		],
 		links: [
-			{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+			{ rel: 'icon', href: '/favicon.ico', sizes: 'any' },
+			{ rel: 'icon', type: 'image/png', sizes: '32x32', href: '/icon-32.png' },
+			{ rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+			{ rel: 'manifest', href: '/site.webmanifest' },
 			{ rel: 'preconnect', href: 'https://fonts.googleapis.com' },
 			{ rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: 'anonymous' },
 			{ rel: 'stylesheet', href: FONTS },
