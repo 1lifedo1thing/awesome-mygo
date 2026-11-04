@@ -1,0 +1,28 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "lody-mygo",
+	"name": "Lody Native",
+	"author": "lbr77",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/lbr77/lody-mygo",
+	"repo": "lbr77/lody-mygo",
+	"summary": {
+		"en": "An unofficial native macOS client for Lody, drawn on the GPU with no web view.",
+		"zh-CN": "非官方的 Lody macOS 客户端，直接在 GPU 上绘制，没有 Web 视图。",
+		"zh-TW": "非官方的 Lody macOS 用戶端，直接在 GPU 上繪製，沒有 Web 視圖。",
+		"ja": "Lody の非公式 macOS クライアント。GPU で直接描画し、Web ビューは使いません。",
+		"ko": "Lody의 비공식 macOS 클라이언트. 웹 뷰 없이 GPU로 직접 그립니다."
+	},
+	"description": {
+		"en": "An unofficial macOS client for Lody, written in Go and drawn on the GPU by MyGo's native UI, with no web view. It follows Lody's desktop app one to one: chats grouped by machine and project, streaming Markdown with code and diagrams, scheduled tasks, and terminals, files and Git on your machines through the Lody daemon. It needs a Lody account and macOS 12 or later.",
+		"zh-CN": "非官方的 Lody macOS 客户端，用 Go 编写，由 MyGo 原生 UI 直接在 GPU 上绘制，没有 Web 视图。它一比一还原 Lody 桌面应用：按机器和项目分组的对话、带代码高亮与图表的流式 Markdown、定时任务，以及通过 Lody 守护进程使用各台机器上的终端、文件和 Git。需要 Lody 账号，支持 macOS 12 及以上版本。",
+		"zh-TW": "非官方的 Lody macOS 用戶端，以 Go 撰寫，由 MyGo 原生 UI 直接在 GPU 上繪製，沒有 Web 視圖。它一比一重現 Lody 桌面應用程式：依機器與專案分組的對話、具程式碼標示與圖表的串流 Markdown、排程任務，以及透過 Lody 常駐程式使用各台機器上的終端機、檔案與 Git。需要 Lody 帳號，支援 macOS 12 以上版本。",
+		"ja": "Lody の非公式 macOS クライアント。Go で書かれ、MyGo のネイティブ UI で GPU に直接描画されており、Web ビューはありません。Lody のデスクトップアプリを忠実に再現し、マシンとプロジェクトごとにまとめたチャット、コードのハイライトや図を含むストリーミング Markdown、スケジュールタスク、Lody デーモン経由での各マシンのターミナル・ファイル・Git を扱えます。Lody アカウントと macOS 12 以降が必要です。",
+		"ko": "Lody의 비공식 macOS 클라이언트로, Go로 작성하고 MyGo의 네이티브 UI로 GPU에 직접 그리며 웹 뷰가 없습니다. Lody 데스크톱 앱을 그대로 따라 머신과 프로젝트별로 묶인 대화, 코드 하이라이트와 다이어그램을 담은 스트리밍 Markdown, 예약 작업, Lody 데몬을 통한 각 머신의 터미널·파일·Git을 다룹니다. Lody 계정과 macOS 12 이상이 필요합니다."
+	},
+	"added": "2026-11-04T12:28:00Z",
+	"icon": {
+		"file": "lody-mygo.webp"
+	}
+}
