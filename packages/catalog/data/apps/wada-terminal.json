@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "wada-terminal",
+	"name": "wada-terminal",
+	"author": "xleotranx",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/xleotranx/wada-terminal",
+	"repo": "xleotranx/wada-terminal",
+	"summary": {
+		"en": "A native macOS terminal for coding agents that keeps them running after you close the window.",
+		"zh-CN": "面向编程智能体的原生 macOS 终端，关掉窗口后智能体仍在运行。",
+		"zh-TW": "為程式開發代理設計的原生 macOS 終端機，關掉視窗後代理仍持續執行。",
+		"ja": "コーディングエージェント向けのネイティブな macOS ターミナル。閉じてもエージェントは動き続ける。",
+		"ko": "코딩 에이전트를 위한 네이티브 macOS 터미널. 창을 닫아도 에이전트는 계속 실행됩니다."
+	},
+	"description": {
+		"en": "A terminal for coding agents drawn with MyGo's native UI and using Ghostty's emulator, with no web view and no xterm.js. Programs run in a core process that outlives the window, so agents keep working after you close it, and reopening brings back the tabs, splits and spaces. A colored dot shows which agent is working, waiting for you or finished. The macOS build needs macOS 12 or newer.",
+		"zh-CN": "面向编程智能体的终端，由 MyGo 原生 UI 绘制，终端模拟器来自 Ghostty，没有 Web 视图，也没有 xterm.js。程序运行在独立于窗口的核心进程中，关掉窗口后智能体仍在工作，重新打开时标签页、分屏和空间都会恢复；彩色圆点标出哪个智能体正在工作、在等你回应或已完成。macOS 版需要 macOS 12 或更高版本。",
+		"zh-TW": "專為程式開發代理設計的終端機，由 MyGo 原生 UI 繪製，終端模擬器來自 Ghostty，沒有 Web 視圖，也沒有 xterm.js。程式在獨立於視窗的核心程序中執行，關掉視窗後代理仍會繼續工作，重新開啟時分頁、分割窗格和空間都會恢復；彩色圓點標示哪個代理正在工作、等你回應或已完成。macOS 版需要 macOS 12 以上。",
+		"ja": "コーディングエージェントのためのターミナル。MyGo のネイティブ UI で描かれ、エミュレーターには Ghostty のものを使っており、Web ビューも xterm.js もありません。プログラムはウィンドウとは別のコアプロセスで動くため、ウィンドウを閉じてもエージェントは作業を続け、開き直せばタブ、分割、スペースが戻ります。色付きのドットで、どのエージェントが作業中か、返答待ちか、完了したかがわかります。macOS 版は macOS 12 以降が必要です。",
+		"ko": "코딩 에이전트를 위한 터미널로, MyGo의 네이티브 UI로 그리고 Ghostty의 에뮬레이터를 쓰며 웹 뷰도 xterm.js도 없습니다. 프로그램이 창과 별개인 코어 프로세스에서 돌아가 창을 닫아도 에이전트는 계속 일하고, 다시 열면 탭, 분할, 스페이스가 그대로 돌아옵니다. 색깔 점으로 어떤 에이전트가 작업 중인지, 응답을 기다리는지, 끝났는지 알려 줍니다. macOS 빌드는 macOS 12 이상이 필요합니다."
+	},
+	"added": "2026-11-04T16:31:52Z",
+	"icon": {
+		"file": "wada-terminal.webp"
+	},
+	"screenshot": "wada-terminal.webp"
+}
