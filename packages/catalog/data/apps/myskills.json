@@ -6,6 +6,7 @@
 	"kind": "native",
 	"category": "DeveloperApplication",
 	"url": "https://github.com/legibet/myskills",
+	"repo": "legibet/myskills",
 	"summary": {
 		"en": "Manage a private library of agent skills and enable them per project or globally.",
 		"zh-CN": "管理私人 agent skills 库，按需在项目或全局启用。",

@@ -10,16 +10,16 @@
 	"summary": {
 		"en": "One shortcut hands the text at hand to your own model.",
 		"zh-CN": "一个快捷键，把手头的文字交给你的大模型。",
-		"zh-TW": "一個快捷鍵，把手邊的文字交給你的大型模型。",
+		"zh-TW": "一個快捷鍵，把手邊的文字交給你的大型語言模型。",
 		"ja": "ショートカット一つで、手元のテキストを自分のモデルに渡す。",
 		"ko": "단축키 하나로 지금 보는 텍스트를 내 모델에 넘깁니다."
 	},
 	"description": {
-		"en": "Double-tap ⌥ to translate the selected text, ⌥Space to polish text or ask a question, and ⌥S to translate a part of the screen. It also has Markdown notes in the style of Raycast Notes, built-in themes and custom modes. Runs on your own model: Claude, OpenAI, DeepSeek, a local Ollama and others.",
-		"zh-CN": "双击 ⌥ 翻译选中的文字，⌥Space 润色或提问，⌥S 框选屏幕识别并翻译。还有类似 Raycast Notes 的 Markdown 随手记，内置多套主题，支持自定义模式。由你自己的模型驱动：Claude、OpenAI、DeepSeek、本地 Ollama 等。",
-		"zh-TW": "連按兩下 ⌥ 翻譯選取的文字，⌥Space 潤飾或提問，⌥S 框選螢幕辨識並翻譯。還有類似 Raycast Notes 的 Markdown 隨手記，內建多套主題，支援自訂模式。由你自己的模型驅動：Claude、OpenAI、DeepSeek、本機 Ollama 等。",
-		"ja": "⌥ の二度押しで選択中のテキストを翻訳、⌥Space で文章を整えたり質問したり、⌥S で画面の一部を範囲選択して翻訳します。Raycast Notes のような Markdown メモ、複数の内蔵テーマ、カスタムモードにも対応。Claude、OpenAI、DeepSeek、ローカルの Ollama など、自分のモデルで動きます。",
-		"ko": "⌥를 두 번 눌러 선택한 텍스트를 번역하고, ⌥Space로 글을 다듬거나 질문하며, ⌥S로 화면 일부를 선택해 번역합니다. Raycast Notes 같은 Markdown 메모, 여러 내장 테마, 사용자 지정 모드도 지원합니다. Claude, OpenAI, DeepSeek, 로컬 Ollama 등 내 모델로 동작합니다."
+		"en": "Double-tap ⌥ to translate the selected text, ⌥Space to polish text or ask a question, and ⌥S to translate a part of the screen. It also has Markdown notes in the style of Raycast Notes, built-in themes and custom modes. Runs on your own model: Claude, OpenAI, DeepSeek, a local Ollama and others. It needs macOS 15.2 or later.",
+		"zh-CN": "双击 ⌥ 翻译选中的文字，⌥Space 润色或提问，⌥S 框选屏幕识别并翻译。还有类似 Raycast Notes 的 Markdown 随手记，内置多套主题，支持自定义模式。由你自己的模型驱动：Claude、OpenAI、DeepSeek、本地 Ollama 等。需要 macOS 15.2 或更新版本。",
+		"zh-TW": "連按兩下 ⌥ 翻譯選取的文字，⌥Space 潤飾或提問，⌥S 框選螢幕辨識並翻譯。還有類似 Raycast Notes 的 Markdown 隨手記，內建多套主題，支援自訂模式。由你自己的模型驅動：Claude、OpenAI、DeepSeek、本機 Ollama 等。需要 macOS 15.2 或更新版本。",
+		"ja": "⌥ の二度押しで選択中のテキストを翻訳、⌥Space で文章を整えたり質問したり、⌥S で画面の一部を範囲選択して翻訳します。Raycast Notes のような Markdown メモ、複数の内蔵テーマ、カスタムモードにも対応。Claude、OpenAI、DeepSeek、ローカルの Ollama など、自分のモデルで動きます。macOS 15.2 以降が必要です。",
+		"ko": "⌥를 두 번 눌러 선택한 텍스트를 번역하고, ⌥Space로 글을 다듬거나 질문하며, ⌥S로 화면 일부를 선택해 번역합니다. Raycast Notes 같은 Markdown 메모, 여러 내장 테마, 사용자 지정 모드도 지원합니다. Claude, OpenAI, DeepSeek, 로컬 Ollama 등 내 모델로 동작합니다. macOS 15.2 이상이 필요합니다."
 	},
 	"icon": {
 		"file": "kami.webp"

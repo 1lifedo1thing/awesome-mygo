@@ -6,19 +6,20 @@
 	"kind": "native",
 	"category": "DeveloperApplication",
 	"url": "https://github.com/jhzhang09/gocompare",
+	"repo": "jhzhang09/gocompare",
 	"summary": {
 		"en": "A native diff and merge workbench for text, files, folders, tables and images, local or remote.",
 		"zh-CN": "原生的比较与合并工作台：文本、文件、目录、表格和图片，本地或远程皆可。",
 		"zh-TW": "原生的比對與合併工作台：文字、檔案、目錄、表格和圖片，本機或遠端皆可。",
-		"ja": "テキスト、ファイル、フォルダー、表、画像を比べてマージするネイティブなワークベンチ。",
-		"ko": "텍스트, 파일, 폴더, 표, 이미지를 비교하고 병합하는 네이티브 워크벤치."
+		"ja": "テキスト、ファイル、フォルダー、表、画像を、ローカルでもリモートでも比べてマージするワークベンチ。",
+		"ko": "텍스트, 파일, 폴더, 표, 이미지를 로컬과 원격 모두에서 비교하고 병합하는 네이티브 워크벤치."
 	},
 	"description": {
-		"en": "A file and folder comparison tool drawn with MyGo’s native UI, with no web view. It compares text and files side by side with both sides editable and applies changes hunk by hunk, merges three ways, compares folders and syncs them with a preview, backups and rollback, and compares CSV and Excel tables, PNG, JPEG and GIF images (with a slider and a tolerance map), audio tags, PE versions and .reg exports. Either side can sit on an SFTP, SMB, FTP or WebDAV server, and a CLI with the same core works with Git and CI.",
-		"zh-CN": "用 MyGo 原生 UI 绘制的文件与目录比较工具，没有 Web 视图。它可以左右对比文本和文件，两侧都能编辑，按差异块逐处应用修改；支持三方合并；比较目录并在预览、备份、可回滚的前提下同步；还能比较 CSV 与 Excel 表格、PNG/JPEG/GIF 图片（滑块对比与容差图）、音频标签、PE 版本和 .reg 导出文件。任意一侧都可以放在 SFTP、SMB、FTP 或 WebDAV 服务器上，另有共用同一核心的命令行，可接入 Git 与 CI。",
-		"zh-TW": "用 MyGo 原生 UI 繪製的檔案與目錄比對工具，沒有 Web 視圖。它可以左右比對文字和檔案，兩側都能編輯，依差異區塊逐處套用修改；支援三方合併；比對目錄並在預覽、備份、可回復的前提下同步；還能比對 CSV 與 Excel 表格、PNG/JPEG/GIF 圖片（滑桿比對與容差圖）、音訊標籤、PE 版本和 .reg 匯出檔。任一側都可以放在 SFTP、SMB、FTP 或 WebDAV 伺服器上，另有共用同一核心的命令列，可接入 Git 與 CI。",
-		"ja": "MyGo のネイティブ UI で描かれたファイル・フォルダー比較ツール。Web ビューはありません。テキストとファイルを左右に並べて両側とも編集でき、差分を一つずつ反映できます。3 方向マージ、プレビュー・バックアップ・ロールバック付きのフォルダー比較と同期に加え、CSV や Excel の表、PNG・JPEG・GIF 画像（スライダーと許容値マップ）、音声タグ、PE のバージョン、.reg エクスポートも比較できます。どちらの側も SFTP・SMB・FTP・WebDAV サーバー上に置け、同じコアを使う CLI は Git や CI と連携します。",
-		"ko": "MyGo의 네이티브 UI로 그린 파일·폴더 비교 도구로, 웹 뷰가 없습니다. 텍스트와 파일을 좌우로 비교하며 양쪽 모두 편집할 수 있고 변경을 덩어리 단위로 적용합니다. 3방향 병합, 미리보기·백업·롤백을 갖춘 폴더 비교와 동기화를 지원하며, CSV·Excel 표, PNG·JPEG·GIF 이미지(슬라이더와 허용 오차 맵), 오디오 태그, PE 버전, .reg 내보내기도 비교합니다. 어느 쪽이든 SFTP, SMB, FTP, WebDAV 서버에 둘 수 있고, 같은 코어를 쓰는 CLI는 Git 및 CI와 함께 동작합니다."
+		"en": "A cross-platform file and folder comparison tool drawn with MyGo's native UI, with no web view. It diffs text and files side by side with both sides editable, merges three ways, and compares and syncs folders with a preview, backups and rollback. It also compares CSV and Excel tables, images, audio tags, Windows executables and .reg exports, locally or over SFTP, SMB, FTP and WebDAV, and comes with a CLI on the same core.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的跨平台文件与目录比较工具，没有 Web 视图。左右对比文本和文件，两侧都可编辑；支持三方合并，比较并同步目录，同步前可预览，并有备份与回滚。还能比较 CSV 与 Excel 表格、图片、音频标签、Windows 可执行文件和 .reg 导出文件，可在本地或通过 SFTP、SMB、FTP、WebDAV 进行，并附带共用同一核心的命令行工具。",
+		"zh-TW": "以 MyGo 原生 UI 繪製的跨平台檔案與目錄比對工具，沒有 Web 視圖。左右比對文字和檔案，兩側都可編輯；支援三方合併，比對並同步目錄，同步前可預覽，並有備份與回復。還能比對 CSV 與 Excel 表格、圖片、音訊標籤、Windows 執行檔和 .reg 匯出檔，可在本機或透過 SFTP、SMB、FTP、WebDAV 進行，並附帶共用同一核心的命令列工具。",
+		"ja": "MyGo のネイティブ UI で描かれたクロスプラットフォームのファイル・フォルダー比較ツールで、Web ビューはありません。テキストとファイルを左右に並べて両側とも編集でき、3 方向マージや、プレビュー・バックアップ・ロールバック付きのフォルダー比較と同期に対応します。CSV や Excel の表、画像、音声タグ、Windows の実行ファイル、.reg エクスポートも、ローカルでも SFTP・SMB・FTP・WebDAV 越しでも比較でき、同じコアの CLI も付いています。",
+		"ko": "MyGo의 네이티브 UI로 그린 크로스 플랫폼 파일·폴더 비교 도구로, 웹 뷰가 없습니다. 텍스트와 파일을 좌우로 비교하며 양쪽 모두 편집할 수 있고, 3방향 병합과 미리보기·백업·롤백을 갖춘 폴더 비교·동기화를 지원합니다. CSV·Excel 표, 이미지, 오디오 태그, Windows 실행 파일, .reg 내보내기도 로컬이나 SFTP, SMB, FTP, WebDAV를 통해 비교할 수 있고, 같은 코어를 쓰는 CLI도 함께 제공합니다."
 	},
 	"screenshot": "gocompare.webp",
 	"icon": {

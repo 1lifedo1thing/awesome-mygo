@@ -6,11 +6,12 @@
 	"kind": "native",
 	"category": "UtilitiesApplication",
 	"url": "https://github.com/lsj5031/joplin-lite",
+	"repo": "lsj5031/joplin-lite",
 	"summary": {
 		"en": "A quiet, native desktop home for your Joplin notes.",
 		"zh-CN": "安静、原生的 Joplin 笔记桌面客户端。",
 		"zh-TW": "安靜、原生的 Joplin 筆記桌面用戶端。",
-		"ja": "Joplin のノートを静かに読める、ネイティブなデスクトップアプリ。",
+		"ja": "Joplin のノートのための、静かでネイティブなデスクトップアプリ。",
 		"ko": "Joplin 노트를 위한 조용하고 네이티브한 데스크톱 앱."
 	},
 	"description": {

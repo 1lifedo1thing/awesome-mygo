@@ -15,11 +15,11 @@
 		"ko": "Windows의 모든 소리를 AirPlay 2 수신기로 보내는 트레이 앱."
 	},
 	"description": {
-		"en": "A Windows 10 and 11 tray app drawn with MyGo's native UI, with no web view. It captures all system audio through WASAPI loopback, or a single application, and streams it as uncompressed ALAC over AirPlay 2 to HomePod, HomePod stereo pairs, Mac receivers and Apple TV. It is audio only, with no screen mirroring, and does not support receivers that require Apple FairPlay.",
-		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 10 和 11 托盘应用，没有 Web 视图。它通过 WASAPI 环回捕获系统的全部声音，也可以只捕获单个应用，再以未压缩的 ALAC 经 AirPlay 2 推送到 HomePod、HomePod 立体声对、Mac 接收端和 Apple TV。只传输音频，不支持屏幕镜像，也不支持需要 Apple FairPlay 的接收端。",
-		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows 10 與 11 系統匣程式，沒有 Web 視圖。它透過 WASAPI 環回擷取系統的所有聲音，也可以只擷取單一應用程式，再以未壓縮的 ALAC 經 AirPlay 2 串流到 HomePod、HomePod 立體聲組、Mac 接收器和 Apple TV。只傳輸音訊，不支援螢幕鏡像，也不支援需要 Apple FairPlay 的接收器。",
-		"ja": "MyGo のネイティブ UI で描かれた Windows 10・11 用のタスクトレイ常駐アプリで、Web ビューは使いません。WASAPI ループバックでシステムの音をまるごと、または特定のアプリだけを取り込み、非圧縮の ALAC にして AirPlay 2 で HomePod、HomePod のステレオペア、Mac、Apple TV へ送ります。音声専用で画面ミラーリングはできず、Apple FairPlay が必要なレシーバーには対応していません。",
-		"ko": "MyGo의 네이티브 UI로 그린 Windows 10·11용 트레이 앱으로, 웹 뷰를 쓰지 않습니다. WASAPI 루프백으로 시스템 소리 전체 또는 특정 앱의 소리만 캡처해 압축하지 않은 ALAC로 AirPlay 2를 통해 HomePod, HomePod 스테레오 페어, Mac, Apple TV에 보냅니다. 오디오 전용이라 화면 미러링은 되지 않으며, Apple FairPlay가 필요한 수신기는 지원하지 않습니다."
+		"en": "A Windows 10 and 11 tray app drawn with MyGo's native UI, with no web view. It captures all system audio through WASAPI loopback, or a single application, and streams it as uncompressed ALAC over AirPlay 2 to HomePod, HomePod stereo pairs and Mac receivers; Apple TV support is in but not yet tested on hardware. It is audio only, with no screen mirroring, and does not support receivers that require Apple FairPlay.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 10 和 11 托盘应用，没有 Web 视图。它通过 WASAPI 环回捕获系统的全部声音，也可以只捕获单个应用，再以未压缩的 ALAC 经 AirPlay 2 推送到 HomePod、HomePod 立体声对和 Mac 接收端；Apple TV 已支持，但尚未在真机上验证。只传输音频，不支持屏幕镜像，也不支持需要 Apple FairPlay 的接收端。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows 10 與 11 系統匣程式，沒有 Web 視圖。它透過 WASAPI 環回擷取系統的所有聲音，也可以只擷取單一應用程式，再以未壓縮的 ALAC 經 AirPlay 2 串流到 HomePod、HomePod 立體聲組和 Mac 接收器；Apple TV 已支援，但尚未在實機上驗證。只傳輸音訊，不支援螢幕鏡像，也不支援需要 Apple FairPlay 的接收器。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows 10・11 用のタスクトレイ常駐アプリで、Web ビューは使いません。WASAPI ループバックでシステムの音をまるごと、または特定のアプリだけを取り込み、非圧縮の ALAC にして AirPlay 2 で HomePod、HomePod のステレオペア、Mac へ送ります。Apple TV にも対応していますが、実機ではまだ検証されていません。音声専用で画面ミラーリングはできず、Apple FairPlay が必要なレシーバーには対応していません。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows 10·11용 트레이 앱으로, 웹 뷰를 쓰지 않습니다. WASAPI 루프백으로 시스템 소리 전체 또는 특정 앱의 소리만 캡처해 압축하지 않은 ALAC로 AirPlay 2를 통해 HomePod, HomePod 스테레오 페어, Mac에 보냅니다. Apple TV도 지원하지만 아직 실제 기기에서 검증되지 않았습니다. 오디오 전용이라 화면 미러링은 되지 않으며, Apple FairPlay가 필요한 수신기는 지원하지 않습니다."
 	},
 	"icon": {
 		"file": "saundo.webp"
