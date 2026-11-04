@@ -1147,14 +1147,6 @@ html:lang(ko) .site {
 	transform: translateZ(60px);
 	transform-style: preserve-3d;
 }
-.docky-peek {
-	position: absolute;
-	left: 50%;
-	top: -62px;
-	margin-left: -60px;
-	z-index: 2;
-	overflow: visible;
-}
 .code-win {
 	border: 1px solid var(--cyan);
 	border-radius: 16px;

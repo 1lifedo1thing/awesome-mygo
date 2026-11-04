@@ -1,7 +1,7 @@
 import { APPS, INSTALL_CMDS, INSTALL_TABS, type InstallTab, MYGO_SITE, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, fill, langDef, pad2, pick } from '@awesome-mygo/catalog';
 import { Link, createFileRoute } from '@tanstack/react-router';
 import { type CSSProperties, type PointerEvent, useRef, useState } from 'react';
-import { Docky, KindTag, MonoTile, WinBar, appView } from '../components/bits';
+import { KindTag, MonoTile, WinBar, appView } from '../components/bits';
 import { useLang, useT } from '../lib/lang';
 import { prefersReducedMotion, tilt, useCountUp } from '../lib/motion';
 import { pageHead } from '../lib/seo';
@@ -213,7 +213,6 @@ function Hero() {
 					})}
 					<div className='center-win'>
 						<div className='bob rel'>
-							<Docky variant='peek' className='wi wi3 docky-peek' />
 							<div className='code-win wi wi2'>
 								<WinBar size='lg' className='code-bar'>
 									<span className='code-title'>my-app — main.go</span>
