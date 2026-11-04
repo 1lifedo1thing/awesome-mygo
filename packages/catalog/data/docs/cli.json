@@ -1,0 +1,13 @@
+{
+	"$schema": "../schema/doc.schema.json",
+	"slug": "cli",
+	"title": "The mygo CLI",
+	"file": "cli.md",
+	"summary": {
+		"en": "Its commands and flags",
+		"zh-CN": "mygo 命令行的命令与参数",
+		"zh-TW": "mygo 命令列的指令與參數",
+		"ja": "コマンドとフラグ",
+		"ko": "명령과 플래그"
+	}
+}

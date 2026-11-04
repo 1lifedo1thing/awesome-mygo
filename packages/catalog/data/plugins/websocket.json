@@ -1,0 +1,23 @@
+{
+	"$schema": "../schema/plugin.schema.json",
+	"slug": "websocket",
+	"name": "WebSocket",
+	"mark": "Ws",
+	"official": true,
+	"surface": "web",
+	"import": "github.com/egoist/mygo/plugins/websocket",
+	"npm": "@mygo-plugins/websocket",
+	"tags": [
+		"websocket",
+		"headers"
+	],
+	"docs": "https://github.com/egoist/mygo/blob/main/docs/plugins/websocket.md",
+	"summary": {
+		"en": "A WebSocket whose connections Go makes, with headers on the handshake.",
+		"zh-CN": "由 Go 建立连接的 WebSocket，可在握手阶段携带自定义请求头。",
+		"zh-TW": "由 Go 建立連線的 WebSocket，可在交握時攜帶自訂標頭。",
+		"ja": "Go が接続を張る WebSocket。ハンドシェイクにヘッダーを付けられます。",
+		"ko": "Go가 연결하는 WebSocket으로, 핸드셰이크에 헤더를 추가할 수 있습니다."
+	},
+	"added": "2026-11-03T16:09:40Z"
+}

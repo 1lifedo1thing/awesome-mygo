@@ -1,0 +1,19 @@
+{
+	"$schema": "../schema/ui.schema.json",
+	"slug": "mygo-platinum",
+	"name": "mygo-platinum",
+	"author": "Zhao Lei",
+	"tag": "retro",
+	"summary": {
+		"en": "UI components inspired by the late-1990s \"Platinum\" desktop theme, for a classic desktop feel.",
+		"zh-CN": "还原 90 年代末「Platinum」桌面主题的 UI 组件，让应用拥有经典桌面质感。",
+		"zh-TW": "重現 90 年代末「Platinum」桌面主題的 UI 元件，讓應用擁有經典桌面質感。",
+		"ja": "90 年代末の「Platinum」デスクトップテーマを再現した UI コンポーネント。",
+		"ko": "1990년대 후반 \"Platinum\" 데스크톱 테마를 재현한 UI 컴포넌트."
+	},
+	"repo": "firede/mygo-platinum",
+	"url": "https://github.com/firede/mygo-platinum",
+	"homepage": "https://mygo-platinum.firede.com",
+	"screenshot": "mygo-platinum.webp",
+	"added": "2026-11-03T16:09:40Z"
+}

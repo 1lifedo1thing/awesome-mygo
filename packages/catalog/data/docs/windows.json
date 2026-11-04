@@ -1,0 +1,13 @@
+{
+	"$schema": "../schema/doc.schema.json",
+	"slug": "windows",
+	"title": "Windows",
+	"file": "windows.md",
+	"summary": {
+		"en": "Creating and arranging windows, events, navigation, downloads, printing",
+		"zh-CN": "创建与排列窗口、事件、导航、下载与打印",
+		"zh-TW": "建立與排列視窗、事件、導覽、下載與列印",
+		"ja": "ウィンドウの作成と配置、イベント、ナビゲーション、ダウンロード、印刷",
+		"ko": "창 생성·배치, 이벤트, 탐색, 다운로드, 인쇄"
+	}
+}

@@ -56,21 +56,21 @@ bot 开出 PR 后，*Complete submission* workflow 会补上表单问不到的�
 
 ## 收录项目
 
-所有条目都在 [`packages/catalog/data`](packages/catalog/data) 下的 JSON 文件里，每个类别一个文件，应用除外，每个应用一个文件：
+每个条目都是 [`packages/catalog/data`](packages/catalog/data) 下单独的一个 JSON 文件，放在所属类别的目录里，以 `slug` 命名：
 
 | 文件 | 内容 |
 |---|---|
-| `apps/<slug>.json` | 用 MyGo 做的应用，每个应用一个文件，以 slug 命名 |
-| `ui.json` | UI 组件库 |
-| `state.json` | 状态管理 |
-| `plugins.json` | 插件 |
-| `articles.json` | 文章 |
-| `docs.json` | MyGo 官方指南 |
+| `apps/<slug>.json` | 用 MyGo 做的应用 |
+| `ui/<slug>.json` | UI 组件库 |
+| `state/<slug>.json` | 状态管理 |
+| `plugins/<slug>.json` | 插件 |
+| `articles/<slug>.json` | 文章 |
+| `docs/<slug>.json` | MyGo 官方指南 |
 
 添加方式有两种：
 
-- **在站点上：** 点「提交」填表，或者直接粘贴整条 JSON 条目，然后提交：不需要 GitHub 账号，站点的 bot 会替你开 PR。有 GitHub 账号的话，也可以把生成的条目提交为 Issue，或在 GitHub 编辑器里打开对应的 JSON 文件自己加上。
-- **在仓库里：** 应用就在 `apps/` 下加一个文件，其他类别在对应文件的列表里加一个对象，然后提 PR。
+- **在站点上：** 点「提交」填表，或者直接粘贴整条 JSON 条目，然后提交：不需要 GitHub 账号，站点的 bot 会替你开 PR。有 GitHub 账号的话，也可以把生成的条目提交为 Issue，或在 GitHub 编辑器里打开为这个条目新建的文件自己加上。
+- **在仓库里：** 在所属类别的目录下加一个文件，然后提 PR。
 
 一个应用的文件 `apps/my-app.json` 长这样：
 
@@ -89,7 +89,8 @@ bot 开出 PR 后，*Complete submission* workflow 会补上表单问不到的�
 }
 ```
 
-- 文件名与 `slug` 相同。`added` 是应用加入作品集的时间（UTC），站点 bot 会自动填写，手动添加时写当前时间。每个应用一个文件，所以同时添加应用的多个 PR 不会互相冲突。
+- 文件名与 `slug` 相同。`added` 是条目加入站点的时间（UTC），站点 bot 会自动填写，手动添加时写当前时间。除官方指南外每个类别都有这个字段：作品集可以按它把最新的应用排在前面，UI 组件库、状态管理、文章和社区插件按它从早到晚排列；官方插件和官方指南按名字排列。每个条目一个文件，所以同时添加条目的多个 PR 不会互相冲突。
+- 其他类别的文件同样在字段外带 `$schema`、`slug` 和 `added`，具体字段见 `data/schema/` 里对应的 schema。
 - `url` 是应用主页：官网，没有官网就填仓库地址，不要求在 GitHub 上。开源应用再用 `repo` 填 GitHub 仓库（`owner/name`），闭源应用不填。
 - 文本字段按语言各写一份。`en` 必填；`zh-CN`、`zh-TW`、`ja`、`ko` 可选，缺少的语言显示英文。
 - 每个文件都在 `$schema` 里指向自己的 JSON Schema（在 `data/schema/`），VS Code 等编辑器会在你输入时补全并检查字段。

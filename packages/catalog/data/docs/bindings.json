@@ -1,0 +1,13 @@
+{
+	"$schema": "../schema/doc.schema.json",
+	"slug": "bindings",
+	"title": "Calling Go from the frontend",
+	"file": "bindings.md",
+	"summary": {
+		"en": "Bound services, channels, typed events and the generated TS client",
+		"zh-CN": "绑定服务、通道、类型化事件与生成的 TS 客户端",
+		"zh-TW": "綁定服務、通道、型別化事件與產生的 TS 用戶端",
+		"ja": "バインド、チャネル、型付きイベント、生成される TS クライアント",
+		"ko": "바인딩, 채널, 타입 이벤트, 생성된 TS 클라이언트"
+	}
+}

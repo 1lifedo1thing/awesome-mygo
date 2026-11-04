@@ -56,21 +56,21 @@ When the bot opens a pull request, the *Complete submission* workflow fills in w
 
 ## Adding a project
 
-Every entry lives in a JSON file under [`packages/catalog/data`](packages/catalog/data), one file per category, except apps, which have one file each:
+Every entry is a JSON file of its own under [`packages/catalog/data`](packages/catalog/data), in its category's directory and named after its `slug`:
 
 | File | Lists |
 |---|---|
-| `apps/<slug>.json` | Apps built with MyGo, one file per app named after its slug |
-| `ui.json` | UI component libraries |
-| `state.json` | State management |
-| `plugins.json` | Plugins |
-| `articles.json` | Articles |
-| `docs.json` | MyGo's guides |
+| `apps/<slug>.json` | Apps built with MyGo |
+| `ui/<slug>.json` | UI component libraries |
+| `state/<slug>.json` | State management |
+| `plugins/<slug>.json` | Plugins |
+| `articles/<slug>.json` | Articles |
+| `docs/<slug>.json` | MyGo's guides |
 
 There are two ways to add one:
 
-- **On the site:** click "Submit" and fill in the form, or paste a whole entry as JSON, then submit it directly: no GitHub account needed, the site's bot opens the pull request for you. With a GitHub account you can also send the generated entry as an issue, or open the JSON file in GitHub's editor and add it yourself.
-- **In the repository:** add a file to `apps/` for an app, or an object to the list in the category's file, and open a pull request.
+- **On the site:** click "Submit" and fill in the form, or paste a whole entry as JSON, then submit it directly: no GitHub account needed, the site's bot opens the pull request for you. With a GitHub account you can also send the generated entry as an issue, or open the entry's new file in GitHub's editor and add it yourself.
+- **In the repository:** add a file to the category's directory and open a pull request.
 
 An app's file, `apps/my-app.json`, looks like this:
 
@@ -89,7 +89,8 @@ An app's file, `apps/my-app.json`, looks like this:
 }
 ```
 
-- The file is named after `slug`. `added` is when the app joined the showcase, in UTC; the site bot sets it, and by hand you write the current time. Keeping each app in its own file means pull requests that add apps at the same time never conflict.
+- The file is named after `slug`. `added` is when the entry joined the site, in UTC; the site bot sets it, and by hand you write the current time. Every category but the guides has it: the showcase can list apps newest first by it, and UI libraries, state management, articles and community plugins are listed oldest first. Official plugins and the guides are listed by name. Keeping each entry in its own file means pull requests that add entries at the same time never conflict.
+- The other categories' files have the same `$schema`, `slug` and `added` around their fields; their schemas in `data/schema/` list the fields.
 - `url` is the app's homepage: its website, or its repository if it has none; it need not be on GitHub. An open-source app adds its GitHub repository as `repo` (`owner/name`); a closed-source one leaves it out.
 - Text fields hold one string per language. `en` is required; `zh-CN`, `zh-TW`, `ja` and `ko` are optional, and a missing language shows the English text.
 - Each file names its JSON Schema (in `data/schema/`) in `$schema`, so VS Code and other editors complete and check the fields as you type.

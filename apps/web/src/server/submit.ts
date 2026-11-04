@@ -1,4 +1,4 @@
-import { CatalogError, DATA_DIR, SITE_REPO, SITE_URL, SUBMIT_LABELS, type SubmitCat, appFileText, appendEntry, codeFence, entryPath, slugify } from '@awesome-mygo/catalog';
+import { CatalogError, DATA_DIR, SITE_REPO, SITE_URL, SUBMIT_LABELS, type SubmitCat, alreadyListed, codeFence, entryFileText, entryPath, slugify } from '@awesome-mygo/catalog';
 import { createAppAuth } from '@octokit/auth-app';
 import { Octokit } from '@octokit/core';
 
@@ -33,13 +33,6 @@ async function installation(cfg: BotConfig): Promise<Octokit> {
 	return octokit;
 }
 
-function fromBase64(b64: string): string {
-	const bin = atob(b64.replace(/\s/g, ''));
-	const bytes = new Uint8Array(bin.length);
-	for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
-	return new TextDecoder().decode(bytes);
-}
-
 function toBase64(text: string): string {
 	let bin = '';
 	for (const b of new TextEncoder().encode(text)) bin += String.fromCharCode(b);
@@ -69,7 +62,7 @@ export async function verifyTurnstile(secret: string, token: string, ip: string)
 // The marker the submission workflow reads an app's screenshot link from (packages/enrich, submittedScreenshot). The link has passed isBadShot, so it holds no space, quote, backtick or angle bracket and cannot end the comment.
 const shotMarker = (url: string) => `<!-- submitted-screenshot: ${url} -->`;
 
-// Opens the pull request and returns it. Throws a CatalogError when the entry does not fit the file on main (e.g. it is already listed), and SubmissionsBusy when too many are open. screenshot is an app's screenshot link from the form, which is not part of the entry: the pull request carries it for the submission workflow.
+// Opens the pull request and returns it. Throws a CatalogError when the entry is already listed or would not pass its file's check, and SubmissionsBusy when too many are open. screenshot is an app's screenshot link from the form, which is not part of the entry: the pull request carries it for the submission workflow.
 export async function openSubmission(cfg: BotConfig, cat: SubmitCat, name: string, entry: Record<string, unknown>, screenshot?: string): Promise<{ url: string; number: number }> {
 	const gh = await installation(cfg);
 	const repo = { owner: OWNER, repo: REPO };
@@ -81,25 +74,18 @@ export async function openSubmission(cfg: BotConfig, cat: SubmitCat, name: strin
 	const file = entryPath(cat, entry);
 	const path = `${DATA_DIR}/${file}`;
 	const { data: ref } = await gh.request('GET /repos/{owner}/{repo}/git/ref/{ref}', { ...repo, ref: `heads/${BASE}` });
-	// An app is a new file of its own, so it only has to be new; any other entry is added to its category's file as main has it.
-	let next: string;
-	let sha: string | undefined;
-	if (cat === 'showcase') {
-		if (await fileExists(gh, path, ref.object.sha)) throw new CatalogError(`${file}: an app with this slug is already listed`);
-		next = appFileText(entry);
-	} else {
-		const { data: current } = await gh.request('GET /repos/{owner}/{repo}/contents/{path}', { ...repo, path, ref: ref.object.sha });
-		if (Array.isArray(current) || current.type !== 'file' || !('content' in current) || !current.content) throw new Error(`${path} on ${BASE} is not a readable file`);
-		next = appendEntry(cat, fromBase64(current.content), entry);
-		sha = current.sha;
-	}
+	// Every entry is a new file of its own, so it only has to be new: no file of its slug on main, and nothing the site lists already under the field its category keeps unique.
+	if (await fileExists(gh, path, ref.object.sha)) throw new CatalogError(`${file}: an entry with this slug is already listed`);
+	const listed = alreadyListed(cat, entry);
+	if (listed) throw new CatalogError(`${file}: the site already lists it, as ${listed}`);
+	const next = entryFileText(cat, entry);
 
 	// '@' is dropped from the title so a name cannot mention anyone.
 	const plainName = name.replace(/@/g, '');
 	const branch = `${BRANCH_PREFIX}${cat}-${slugify(plainName)}-${crypto.randomUUID().slice(0, 8)}`;
 	await gh.request('POST /repos/{owner}/{repo}/git/refs', { ...repo, ref: `refs/heads/${branch}`, sha: ref.object.sha });
 	try {
-		await gh.request('PUT /repos/{owner}/{repo}/contents/{path}', { ...repo, path, branch, sha, message: `feat(catalog): add ${plainName}`, content: toBase64(next) });
+		await gh.request('PUT /repos/{owner}/{repo}/contents/{path}', { ...repo, path, branch, message: `feat(catalog): add ${plainName}`, content: toBase64(next) });
 		const body = [
 			`Submitted through the form on ${SITE_URL} by a visitor without a GitHub account, so the site's bot opened this pull request.`,
 			`Category: ${label} (\`${path}\`)`,

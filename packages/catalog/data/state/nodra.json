@@ -1,0 +1,24 @@
+{
+	"$schema": "../schema/state.schema.json",
+	"slug": "nodra",
+	"name": "Nodra",
+	"author": "yldm-tech",
+	"summary": {
+		"en": "A concurrency-safe reactive state store for Go desktop applications. It provides Zustand-like ergonomics for MyGo apps while keeping state independent from the renderer and persistence backend.",
+		"zh-CN": "面向 Go 桌面应用的并发安全响应式状态库，为 MyGo 提供类似 Zustand 的使用体验，同时让状态与渲染器和持久化后端保持独立。",
+		"zh-TW": "面向 Go 桌面應用的並行安全響應式狀態庫，為 MyGo 提供類似 Zustand 的使用體驗，同時讓狀態與渲染器和持久化後端保持獨立。",
+		"ja": "Go デスクトップアプリ向けの並行安全なリアクティブ状態ライブラリ。MyGo で Zustand に似た操作感を提供し、状態をレンダラーや永続化バックエンドから分離します。",
+		"ko": "Go 데스크톱 애플리케이션을 위한 동시성 안전 반응형 상태 라이브러리. MyGo에서 Zustand와 비슷한 사용성을 제공하며 상태를 렌더러와 영속성 백엔드에서 분리합니다."
+	},
+	"repo": "yldm-tech/nodra",
+	"url": "https://github.com/yldm-tech/nodra",
+	"homepage": "https://nodra.yldm.ai",
+	"install": "go get github.com/yldm-tech/nodra@latest",
+	"tags": [
+		"store",
+		"reactive",
+		"devtools"
+	],
+	"screenshot": "nodra.webp",
+	"added": "2026-11-03T18:58:18Z"
+}

@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { addedAppFiles, addedEntries, appCategories, appNameFrom, hasAllLanguages, iconCut, iconOf, isPortrait, isSquarish, lengthCaps, overCaps, joinRepoPath, pickMygoJson, readmeImages, repoOfEntry, repoScreenshots, resolveImage, setCategory, sniffImage, submittedScreenshot } from './source.ts';
+import { addedFiles, appCategories, appNameFrom, hasAllLanguages, iconCut, iconOf, isPortrait, isSquarish, lengthCaps, overCaps, joinRepoPath, pickMygoJson, readmeImages, repoOfEntry, repoScreenshots, resolveImage, setCategory, sniffImage, submittedScreenshot } from './source.ts';
 
 describe('app names', () => {
 	it('takes mygo.json’s spelling of the same name only', () => {
@@ -29,16 +29,10 @@ describe('app names', () => {
 });
 
 describe('submitted entries', () => {
-	it('finds the entries a branch adds, by content', () => {
-		const base = [{ slug: 'a' }, { slug: 'b' }];
-		expect(addedEntries(base, [...base, { slug: 'c' }])).toEqual([2]);
-		expect(addedEntries(base, [{ slug: 'b' }, { slug: 'a' }])).toEqual([]);
-		expect(addedEntries([], [{ slug: 'a' }])).toEqual([0]);
-	});
-
-	it('finds the app files a branch adds', () => {
-		expect(addedAppFiles(['2048.json', 'nova.json', ''], ['nova.json', 'saundo.json', '2048.json', 'pinup.json', '.DS_Store'])).toEqual(['pinup.json', 'saundo.json']);
-		expect(addedAppFiles(['nova.json'], ['nova.json'])).toEqual([]);
+	it('finds the entry files a branch adds', () => {
+		expect(addedFiles(['2048.json', 'nova.json', ''], ['nova.json', 'saundo.json', '2048.json', 'pinup.json', '.DS_Store'])).toEqual(['pinup.json', 'saundo.json']);
+		expect(addedFiles(['nova.json'], ['nova.json'])).toEqual([]);
+		expect(addedFiles([], ['onevra.json'])).toEqual(['onevra.json']);
 	});
 
 	it('takes the repository from repo, or from a GitHub link', () => {

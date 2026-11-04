@@ -1,0 +1,13 @@
+{
+	"$schema": "../schema/doc.schema.json",
+	"slug": "native",
+	"title": "Desktop APIs",
+	"file": "native.md",
+	"summary": {
+		"en": "Dialogs, notifications, clipboard, dark mode, secrets, global shortcuts and more",
+		"zh-CN": "对话框、通知、剪贴板、深色模式、密钥、全局快捷键等",
+		"zh-TW": "對話框、通知、剪貼簿、深色模式、密鑰、全域快捷鍵等",
+		"ja": "ダイアログ、通知、クリップボード、ダークモード、シークレット、グローバルショートカットなど",
+		"ko": "대화상자, 알림, 클립보드, 다크 모드, 비밀 정보, 전역 단축키 등"
+	}
+}

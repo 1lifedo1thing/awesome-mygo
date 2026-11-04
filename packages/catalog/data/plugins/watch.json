@@ -1,0 +1,23 @@
+{
+	"$schema": "../schema/plugin.schema.json",
+	"slug": "watch",
+	"name": "Watch",
+	"mark": "Wa",
+	"official": true,
+	"surface": "web",
+	"import": "github.com/egoist/mygo/plugins/watch",
+	"npm": "@mygo-plugins/watch",
+	"tags": [
+		"files",
+		"events"
+	],
+	"docs": "https://github.com/egoist/mygo/blob/main/docs/plugins/watch.md",
+	"summary": {
+		"en": "Changes to files, in the directories the app lets pages watch.",
+		"zh-CN": "监听文件变化，范围限于应用允许页面监听的目录。",
+		"zh-TW": "監聽檔案變化，範圍限於應用允許頁面監聽的目錄。",
+		"ja": "アプリが許可したディレクトリ内のファイル変更をページで監視。",
+		"ko": "앱이 허용한 디렉터리 안의 파일 변경을 페이지에서 감시합니다."
+	},
+	"added": "2026-11-03T18:58:18Z"
+}

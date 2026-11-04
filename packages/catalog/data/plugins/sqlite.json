@@ -1,0 +1,23 @@
+{
+	"$schema": "../schema/plugin.schema.json",
+	"slug": "sqlite",
+	"name": "SQLite",
+	"mark": "Sq",
+	"official": true,
+	"surface": "web",
+	"import": "github.com/egoist/mygo/plugins/sqlite",
+	"npm": "@mygo-plugins/sqlite",
+	"tags": [
+		"database",
+		"no-cgo"
+	],
+	"docs": "https://github.com/egoist/mygo/blob/main/docs/plugins/sqlite.md",
+	"summary": {
+		"en": "Local databases with parameterized queries and atomic transactions, SQLite compiled with Zig and no cgo.",
+		"zh-CN": "本地数据库：参数化查询与原子事务，SQLite 引擎用 Zig 编译，无需 cgo。",
+		"zh-TW": "本機資料庫：參數化查詢與原子交易，SQLite 引擎以 Zig 編譯，無需 cgo。",
+		"ja": "パラメータ化クエリとアトミックなトランザクションを備えたローカル DB。SQLite を Zig でコンパイルし、cgo 不要。",
+		"ko": "매개변수화 쿼리와 원자적 트랜잭션을 갖춘 로컬 데이터베이스. SQLite를 Zig로 컴파일해 cgo가 필요 없습니다."
+	},
+	"added": "2026-11-03T18:58:18Z"
+}

@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import { promisify } from 'node:util';
 import { DEFAULT_MODEL, README_LIMIT, type LlmConfig, writeCopy } from './copy.ts';
 import { downloadImage, isDefaultIcon, writeIcon, writeShot } from './image.ts';
-import { APP_DIR, DATA_FILES, type DataFile, type Entry, type EntryKind, addedAppFiles, addedEntries, appCategories, appNameFrom, hasAllLanguages, iconOf, pickMygoJson, readmeImages, repoOfEntry, repoScreenshots, resolveImage, setCategory, submittedScreenshot } from './source.ts';
+import { ENTRY_DIRS, type Entry, type EntryKind, addedFiles, appCategories, appNameFrom, hasAllLanguages, iconOf, pickMygoJson, readmeImages, repoOfEntry, repoScreenshots, resolveImage, setCategory, submittedScreenshot } from './source.ts';
 
 // Run by .github/workflows/enrich-submission.yml on a pull request the submission bot opened. It finds the entries the branch adds, then for each fills in what the form cannot ask for: an app's icon (from its mygo.json) and screenshot (the first landscape one in its README, or else in a screenshot folder of the repository), its category when the submission names none, and the copy in every site language. It changes files in the working tree and writes a Markdown report for the pull request; the workflow runs the catalog checks and commits.
 //
@@ -184,35 +184,28 @@ const json = (v: unknown) => `${JSON.stringify(v, null, '\t')}\n`;
 async function main(): Promise<void> {
 	const cfg: LlmConfig | undefined = env.LLM_API_KEY ? { apiKey: env.LLM_API_KEY, baseURL: env.LLM_BASE_URL || undefined, model: env.LLM_MODEL || DEFAULT_MODEL } : undefined;
 
-	// Apps: the files in data/apps/ that the base branch does not have.
-	const appDir = `${DATA_DIR}/${APP_DIR}`;
-	const { stdout: listed } = await run('git', ['ls-tree', '--name-only', `${BASE_REF}:${appDir}`], { cwd: ROOT, maxBuffer: 4 * 1024 * 1024 });
-	const newApps = addedAppFiles(listed.split('\n'), await readdir(join(ROOT, appDir)));
-	// The bot's pull request adds one app, and its body may carry the screenshot link from the form; with several apps it would be unclear whose it is, so it is left out.
-	const pr = env.PR && env.GITHUB_REPOSITORY ? await github<{ body: string | null }>(`/repos/${env.GITHUB_REPOSITORY}/pulls/${env.PR}`) : undefined;
-	const submitted = newApps.length === 1 ? submittedScreenshot(pr?.body) : undefined;
-	if (newApps.length) {
-		const examples = await Promise.all(EXAMPLE_APPS.map(async (slug) => JSON.parse(await readFile(join(ROOT, appDir, `${slug}.json`), 'utf8')) as Entry));
-		for (const name of newApps) {
-			const path = join(ROOT, appDir, name);
-			const entry = JSON.parse(await readFile(path, 'utf8')) as Entry;
-			await complete(cfg, 'app', `${appDir}/${name}`, entry, examples, submitted);
-			await writeFile(path, json(entry));
-		}
+	// Each kind's new entries: the files in its directory that the base branch does not have.
+	const added: { kind: EntryKind; dir: string; known: string[]; names: string[] }[] = [];
+	for (const kind of Object.keys(ENTRY_DIRS) as EntryKind[]) {
+		const dir = `${DATA_DIR}/${ENTRY_DIRS[kind]}`;
+		const { stdout: listed } = await run('git', ['ls-tree', '--name-only', `${BASE_REF}:${dir}`], { cwd: ROOT, maxBuffer: 4 * 1024 * 1024 });
+		const known = listed.split('\n').filter(Boolean);
+		const names = addedFiles(known, await readdir(join(ROOT, dir)));
+		if (names.length) added.push({ kind, dir, known, names });
 	}
-
-	// The other categories: the entries a list file gains.
-	for (const file of Object.keys(DATA_FILES) as DataFile[]) {
-		const { list } = DATA_FILES[file];
-		const path = join(ROOT, DATA_DIR, file);
-		const head = JSON.parse(await readFile(path, 'utf8')) as Record<string, Entry[]>;
-		const { stdout } = await run('git', ['show', `${BASE_REF}:${DATA_DIR}/${file}`], { cwd: ROOT, maxBuffer: 32 * 1024 * 1024 });
-		const base = JSON.parse(stdout) as Record<string, Entry[]>;
-		const added = addedEntries(base[list] ?? [], head[list]);
-		if (!added.length) continue;
-		const examples = (base[list] ?? []).slice(-2);
-		for (const i of added) await complete(cfg, file, `${DATA_DIR}/${file}`, head[list][i], examples);
-		await writeFile(path, json(head));
+	// The bot's pull request adds one app, and its body may carry the screenshot link from the form; with several apps it would be unclear whose it is, so it is left out.
+	const newApps = added.find((a) => a.kind === 'app')?.names ?? [];
+	const pr = newApps.length === 1 && env.PR && env.GITHUB_REPOSITORY ? await github<{ body: string | null }>(`/repos/${env.GITHUB_REPOSITORY}/pulls/${env.PR}`) : undefined;
+	const submitted = newApps.length === 1 ? submittedScreenshot(pr?.body) : undefined;
+	for (const { kind, dir, known, names } of added) {
+		const read = async (name: string) => JSON.parse(await readFile(join(ROOT, dir, name), 'utf8')) as Entry;
+		// The voice to match: for apps the hand-written ones, for the rest the two entries added last before this branch.
+		const examples = kind === 'app' ? await Promise.all(EXAMPLE_APPS.map((slug) => read(`${slug}.json`))) : (await Promise.all(known.map(read))).sort((a, b) => String(a.added ?? '').localeCompare(String(b.added ?? ''))).slice(-2);
+		for (const name of names) {
+			const entry = await read(name);
+			await complete(cfg, kind, `${dir}/${name}`, entry, examples, kind === 'app' ? submitted : undefined);
+			await writeFile(join(ROOT, dir, name), json(entry));
+		}
 	}
 
 	const text = report.length ? report.join('\n') : 'The branch adds no entry this workflow completes.';

@@ -1,0 +1,13 @@
+{
+	"$schema": "../schema/doc.schema.json",
+	"slug": "getting-started",
+	"title": "Getting started",
+	"file": "getting-started.md",
+	"summary": {
+		"en": "Install the tools, then create, develop and build an app, with native UI or a web frontend",
+		"zh-CN": "安装工具，创建、开发与构建应用，原生 UI 或 Web 前端皆可",
+		"zh-TW": "安裝工具，建立、開發與建置應用，原生 UI 或 Web 前端皆可",
+		"ja": "ツールを入れて、ネイティブ UI か Web フロントエンドのアプリを作成・開発・ビルド",
+		"ko": "도구 설치 후 네이티브 UI 또는 웹 프런트엔드 앱 생성·개발·빌드"
+	}
+}

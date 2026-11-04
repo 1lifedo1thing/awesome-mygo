@@ -1,63 +1,59 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
 	"$id": "ui.schema.json",
-	"title": "UI component libraries, themes and icons",
+	"title": "A UI component library, theme or icon set, one file per library named after its slug",
 	"type": "object",
-	"required": [
-		"libraries"
-	],
 	"additionalProperties": false,
+	"required": [
+		"slug",
+		"name",
+		"author",
+		"tag",
+		"summary",
+		"repo",
+		"url",
+		"added"
+	],
 	"properties": {
 		"$schema": {
 			"type": "string"
 		},
-		"libraries": {
-			"type": "array",
-			"items": {
-				"type": "object",
-				"additionalProperties": false,
-				"required": [
-					"name",
-					"author",
-					"tag",
-					"summary",
-					"repo",
-					"url"
-				],
-				"properties": {
-					"name": {
-						"type": "string",
-						"minLength": 1
-					},
-					"author": {
-						"type": "string",
-						"minLength": 1
-					},
-					"tag": {
-						"enum": [
-							"theme",
-							"retro",
-							"icons"
-						],
-						"description": "The filter it appears under."
-					},
-					"summary": {
-						"$ref": "common.schema.json#/$defs/text"
-					},
-					"repo": {
-						"$ref": "common.schema.json#/$defs/repo"
-					},
-					"url": {
-						"$ref": "common.schema.json#/$defs/url"
-					},
-					"homepage": {
-						"$ref": "common.schema.json#/$defs/url"
-					},
-					"screenshot": {
-						"$ref": "common.schema.json#/$defs/screenshot"
-					}
-				}
-			}
+		"slug": {
+			"$ref": "common.schema.json#/$defs/slug"
+		},
+		"name": {
+			"type": "string",
+			"minLength": 1
+		},
+		"author": {
+			"type": "string",
+			"minLength": 1
+		},
+		"tag": {
+			"enum": [
+				"theme",
+				"retro",
+				"icons"
+			],
+			"description": "The filter it appears under."
+		},
+		"summary": {
+			"$ref": "common.schema.json#/$defs/text"
+		},
+		"repo": {
+			"$ref": "common.schema.json#/$defs/repo"
+		},
+		"url": {
+			"$ref": "common.schema.json#/$defs/url"
+		},
+		"homepage": {
+			"$ref": "common.schema.json#/$defs/url"
+		},
+		"screenshot": {
+			"$ref": "common.schema.json#/$defs/screenshot"
+		},
+		"added": {
+			"$ref": "common.schema.json#/$defs/added"
 		}
 	}
 }

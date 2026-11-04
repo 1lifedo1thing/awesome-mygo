@@ -1,0 +1,33 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "doc.schema.json",
+	"title": "One of the official MyGo guides, one file per guide named after its slug",
+	"type": "object",
+	"additionalProperties": false,
+	"required": [
+		"slug",
+		"title",
+		"file",
+		"summary"
+	],
+	"properties": {
+		"$schema": {
+			"type": "string"
+		},
+		"slug": {
+			"$ref": "common.schema.json#/$defs/slug"
+		},
+		"title": {
+			"type": "string",
+			"minLength": 1
+		},
+		"file": {
+			"type": "string",
+			"minLength": 1,
+			"description": "Path under egoist/mygo docs/."
+		},
+		"summary": {
+			"$ref": "common.schema.json#/$defs/text"
+		}
+	}
+}

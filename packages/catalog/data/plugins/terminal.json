@@ -1,0 +1,22 @@
+{
+	"$schema": "../schema/plugin.schema.json",
+	"slug": "terminal",
+	"name": "Terminal",
+	"mark": "Tm",
+	"official": true,
+	"surface": "native",
+	"import": "github.com/egoist/mygo/plugins/terminal",
+	"tags": [
+		"ghostty",
+		"pty"
+	],
+	"docs": "https://github.com/egoist/mygo/blob/main/docs/plugins/terminal.md",
+	"summary": {
+		"en": "A terminal view for native UI that runs the shell or any program with Ghostty’s terminal emulator.",
+		"zh-CN": "原生 UI 的终端视图，用 Ghostty 的终端模拟器运行 shell 或任意程序。",
+		"zh-TW": "原生 UI 的終端機視圖，以 Ghostty 的終端模擬器執行 shell 或任意程式。",
+		"ja": "Ghostty のターミナルエミュレータでシェルや任意のプログラムを動かす、ネイティブ UI 用ターミナルビュー。",
+		"ko": "Ghostty 터미널 에뮬레이터로 셸이나 아무 프로그램을 실행하는 네이티브 UI용 터미널 뷰."
+	},
+	"added": "2026-11-03T18:58:18Z"
+}

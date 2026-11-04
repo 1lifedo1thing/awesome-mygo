@@ -1,0 +1,13 @@
+{
+	"$schema": "../schema/doc.schema.json",
+	"slug": "ui",
+	"title": "Native UI",
+	"file": "ui/README.md",
+	"summary": {
+		"en": "Views, layout, input, navigation, accessibility, and a page per component",
+		"zh-CN": "视图、布局、输入、导航、无障碍，以及每个组件的文档",
+		"zh-TW": "視圖、版面、輸入、導覽、無障礙，以及每個元件的文件",
+		"ja": "ビュー、レイアウト、入力、ナビゲーション、アクセシビリティとコンポーネントごとの解説",
+		"ko": "뷰, 레이아웃, 입력, 탐색, 접근성과 컴포넌트별 문서"
+	}
+}

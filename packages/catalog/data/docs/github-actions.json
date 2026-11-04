@@ -1,0 +1,13 @@
+{
+	"$schema": "../schema/doc.schema.json",
+	"slug": "github-actions",
+	"title": "GitHub Actions",
+	"file": "github-actions.md",
+	"summary": {
+		"en": "Build, sign, notarize and publish on a tag push",
+		"zh-CN": "打 tag 自动构建、签名、公证并发布",
+		"zh-TW": "推送 tag 自動建置、簽章、公證並發布",
+		"ja": "タグの push でビルド・署名・公証・公開",
+		"ko": "태그 푸시로 빌드·서명·공증·배포"
+	}
+}
