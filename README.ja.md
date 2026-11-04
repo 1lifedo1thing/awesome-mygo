@@ -1,4 +1,4 @@
-# MyGo Dock
+# Awesome MyGo
 
 [![Website](https://img.shields.io/badge/website-mygodock.dev-3fd3f5)](https://mygodock.dev)
 [![CI](https://github.com/yldm-tech/awesome-mygo/actions/workflows/ci.yml/badge.svg)](https://github.com/yldm-tech/awesome-mygo/actions/workflows/ci.yml)
@@ -8,7 +8,7 @@
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · 日本語 · [한국어](README.ko.md)
 
-[![MyGo Dock](.github/assets/banner.png)](https://mygodock.dev)
+[![Awesome MyGo](.github/assets/banner.png)](https://mygodock.dev)
 
 ## サイトの内容
 

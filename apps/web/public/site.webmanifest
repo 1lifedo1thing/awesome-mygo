@@ -1,7 +1,7 @@
 {
 	"id": "/",
-	"name": "MyGo Dock",
-	"short_name": "MyGo Dock",
+	"name": "Awesome MyGo",
+	"short_name": "Awesome MyGo",
 	"description": "收录用 Go 和 MyGo 开发的桌面应用、UI 组件库、官方插件与文档。",
 	"lang": "zh-CN",
 	"start_url": "/",

@@ -48,7 +48,7 @@ export function Showcase() {
 				<div className='flex flex-wrap items-center gap-x-3 gap-y-2 px-1.5 pt-[5px] pb-[7px]'>
 					<nav aria-label={t.a_crumbs} className='hidden whitespace-nowrap desk:block'>
 						<Link to='/' className={lnk}>
-							MyGo Dock
+							Awesome MyGo
 						</Link>{' '}
 						<span aria-hidden='true'>▸</span> {t.cat_show_name}
 					</nav>

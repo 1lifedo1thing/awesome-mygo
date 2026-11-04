@@ -2,10 +2,10 @@ import { type App, APPS, DEFAULT_LANG, LANGS, type LangCode, SITE_URL, type Stri
 import type { MetaDescriptor } from '@tanstack/react-router';
 import type { JSX } from 'react';
 
-export const SITE_NAME = 'MyGo Dock';
+export const SITE_NAME = 'Awesome MyGo';
 const OG_IMAGE = `${SITE_URL}/og-image-1200x630.png`;
 const OG_LOCALE: Record<LangCode, string> = { 'zh-CN': 'zh_CN', 'zh-TW': 'zh_TW', en: 'en_US', ja: 'ja_JP', ko: 'ko_KR' };
-// The site as every page's JSON-LD names it. Google resolves an @id only within one page, so the other pages embed this node in isPartOf instead of pointing at the home page's. There is no publisher Organization: the owner, yldm-tech, has no site or logo of its own to describe it with, and the MyGo Dock mark belongs to the site, not to an organization.
+// The site as every page's JSON-LD names it. Google resolves an @id only within one page, so the other pages embed this node in isPartOf instead of pointing at the home page's. There is no publisher Organization: the owner, yldm-tech, has no site or logo of its own to describe it with, and the Awesome MyGo mark belongs to the site, not to an organization.
 const WEBSITE = { '@type': 'WebSite', '@id': `${SITE_URL}/#website`, name: SITE_NAME, url: `${SITE_URL}/` };
 
 export type SitePath = '/' | '/ui' | '/state' | '/plugins' | '/showcase' | '/learn';

@@ -633,7 +633,7 @@ html:lang(ko) .site {
 .lang {
 	position: relative;
 }
-/* Square, in the language button's frame. */
+/* Square, in the language button's frame: the GitHub link and the retro theme switch. */
 .gh-btn {
 	display: flex;
 	align-items: center;
@@ -2582,8 +2582,11 @@ button.btn-pr:disabled {
 }
 
 /* ---- responsive (from the design) ---- */
-/* Between the burger breakpoint and 1200px the nav and the header actions share one row; the search button drops its label there, so the GitHub button fits without wrapping English or Japanese onto a second row. */
-@media (max-width: 1200px) {
+/* Between the burger breakpoint and 1240px the brand, the nav and the header actions share one row; the search button drops its label and the gaps tighten there, so English and Japanese still fit one row down to 1100px. */
+@media (max-width: 1240px) {
+	.hdr-in {
+		column-gap: 14px;
+	}
 	.sbtn {
 		min-width: 0;
 	}
