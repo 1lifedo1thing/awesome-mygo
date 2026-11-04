@@ -1,4 +1,5 @@
-import { DEFAULT_LANG, type LangCode, isLangCode, langIndex } from './lang';
+import type { App } from './catalog';
+import { DEFAULT_LANG, type LangCode, fill, isLangCode, langIndex, pick } from './lang';
 import { STRINGS, type StringKey } from './strings';
 
 export type Translations = Record<StringKey, string>;
@@ -15,4 +16,10 @@ export function t(lang: LangCode): Translations {
 		cache.set(code, dict);
 	}
 	return dict;
+}
+
+// The meta description of an app's own page: its one-line summary, then who made it and with what, as many summaries alone are too short for a search snippet and name neither Go nor MyGo. A summary ending in a full-width stop needs no space before the next sentence; one in English (also the fallback for a missing language) does.
+export function appDescription(app: App, lang: LangCode): string {
+	const summary = pick(app.desc, lang);
+	return `${summary}${summary.endsWith('。') ? '' : ' '}${fill(t(lang).app_desc_tail, { x: app.author })}`;
 }

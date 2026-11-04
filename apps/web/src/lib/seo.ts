@@ -1,13 +1,12 @@
-import { type App, APPS, DEFAULT_LANG, LANGS, type LangCode, SITE_REPO, SITE_URL, type StringKey, authorProfile, pick, t } from '@awesome-mygo/catalog';
+import { type App, APPS, DEFAULT_LANG, LANGS, type LangCode, SITE_URL, type StringKey, appDescription, authorProfile, pick, t } from '@awesome-mygo/catalog';
 import type { MetaDescriptor } from '@tanstack/react-router';
 import type { JSX } from 'react';
 
 export const SITE_NAME = 'MyGo Dock';
 const OG_IMAGE = `${SITE_URL}/og-image-1200x630.png`;
 const OG_LOCALE: Record<LangCode, string> = { 'zh-CN': 'zh_CN', 'zh-TW': 'zh_TW', en: 'en_US', ja: 'ja_JP', ko: 'ko_KR' };
-// Node ids shared by every page's JSON-LD: the site, and the publisher it belongs to.
-const WEBSITE_ID = `${SITE_URL}/#website`;
-const ORG_ID = `${SITE_URL}/#organization`;
+// The site as every page's JSON-LD names it. Google resolves an @id only within one page, so the other pages embed this node in isPartOf instead of pointing at the home page's. There is no publisher Organization: the owner, yldm-tech, has no site or logo of its own to describe it with, and the MyGo Dock mark belongs to the site, not to an organization.
+const WEBSITE = { '@type': 'WebSite', '@id': `${SITE_URL}/#website`, name: SITE_NAME, url: `${SITE_URL}/` };
 
 export type SitePath = '/' | '/ui' | '/state' | '/plugins' | '/showcase' | '/learn';
 export const SITE_PATHS: readonly SitePath[] = ['/', '/ui', '/state', '/plugins', '/showcase', '/learn'];
@@ -52,13 +51,10 @@ export function pageHead(p: PageSeo) {
 
 	const jsonLd: LdJson[] = [];
 	if (p.path === '/') {
-		jsonLd.push(
-			{ '@type': 'WebSite', '@id': WEBSITE_ID, name: SITE_NAME, url: `${SITE_URL}/`, inLanguage: lang, description: desc, publisher: { '@id': ORG_ID } },
-			{ '@type': 'Organization', '@id': ORG_ID, name: SITE_NAME, url: `${SITE_URL}/`, logo: { '@type': 'ImageObject', url: `${SITE_URL}/icon-512.png`, width: 512, height: 512 }, sameAs: [SITE_REPO] },
-		);
+		jsonLd.push({ ...WEBSITE, inLanguage: lang, description: desc });
 	} else {
 		// Every section page is a curated collection one level under home.
-		const collection: LdJson = { '@type': 'CollectionPage', url, name: title, description: desc, inLanguage: lang, isPartOf: { '@id': WEBSITE_ID } };
+		const collection: LdJson = { '@type': 'CollectionPage', url, name: title, description: desc, inLanguage: lang, isPartOf: WEBSITE };
 		// The showcase's list only points at each app's own page, which carries the app's full SoftwareApplication data.
 		if (p.path === '/showcase') collection.mainEntity = { '@type': 'ItemList', itemListElement: APPS.map((a, i) => ({ '@type': 'ListItem', position: i + 1, url: pageUrl(appPath(a.slug), lang) })) };
 		jsonLd.push(
@@ -73,14 +69,14 @@ export function pageHead(p: PageSeo) {
 	return headTags({ lang, path: p.path, title, desc, imageAlt: tr.og_alt, jsonLd });
 }
 
-// The head of an app's own page. The title stays short: the name and a localized descriptor, as names such as Pulse or Kero say little alone. The description is the app's one-line summary.
+// The head of an app's own page. The title stays short: the name and a localized descriptor, as names such as Pulse or Kero say little alone. The description is the app's one-line summary followed by its author and the Go and MyGo context (appDescription).
 export function appHead(app: App, langParam: LangCode | undefined) {
 	const lang = langParam ?? DEFAULT_LANG;
 	const tr = t(lang);
 	const path = appPath(app.slug);
 	const url = pageUrl(path, lang);
 	const title = `${app.name} — ${tr.app_kind} · ${SITE_NAME}`;
-	const desc = pick(app.desc, lang);
+	const desc = appDescription(app, lang);
 	const shot = rasterShot(app);
 	const profile = authorProfile(app.author);
 
@@ -89,13 +85,13 @@ export function appHead(app: App, langParam: LangCode | undefined) {
 		name: app.name,
 		url,
 		sameAs: app.url,
-		description: desc,
+		description: pick(app.desc, lang),
 		...(app.category ? { applicationCategory: app.category } : {}),
 		author: { '@type': 'Person', name: app.author, ...(profile ? { url: profile } : {}) },
 		...(shot ? { screenshot: shot } : {}),
 	};
 	const jsonLd = [
-		{ '@type': 'ItemPage', url, name: title, inLanguage: lang, isPartOf: { '@id': WEBSITE_ID }, mainEntity: software },
+		{ '@type': 'ItemPage', url, name: title, inLanguage: lang, isPartOf: WEBSITE, mainEntity: software },
 		breadcrumbs([
 			{ name: tr.nav_home, item: pageUrl('/', lang) },
 			{ name: tr.cat_show_name, item: pageUrl('/showcase', lang) },

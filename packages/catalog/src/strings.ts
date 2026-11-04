@@ -103,6 +103,8 @@ export const STRINGS = {
 	more_by: ['{x} 的其他作品', '{x} 的其他作品', 'More by {x}', '{x} のほかの作品', '{x}의 다른 앱'],
 	app_kind: ['用 Go 开发的桌面应用', '用 Go 開發的桌面應用', 'Desktop app built with Go', 'Go 製のデスクトップアプリ', 'Go로 만든 데스크톱 앱'],
 	app_shot: ['应用截图', '應用截圖', 'screenshot', 'スクリーンショット', '스크린샷'],
+	// Follows an app's one-line summary in its page's meta description.
+	app_desc_tail: ['由 {x} 用 Go 与 MyGo 开发的桌面应用。', '由 {x} 用 Go 與 MyGo 開發的桌面應用。', 'A desktop app by {x}, built with Go and MyGo.', '{x} が Go と MyGo で作ったデスクトップアプリ。', '제작: {x} · Go와 MyGo로 만든 데스크톱 앱.'],
 	full_page: ['查看详情页 →', '查看詳情頁 →', 'Full details →', '詳細ページへ →', '상세 페이지 →'],
 	a_crumbs: ['当前位置', '目前位置', 'Breadcrumb', 'パンくずリスト', '현재 위치'],
 	a_pager: ['上一个和下一个应用', '上一個和下一個應用', 'Previous and next app', '前後のアプリ', '이전 앱과 다음 앱'],

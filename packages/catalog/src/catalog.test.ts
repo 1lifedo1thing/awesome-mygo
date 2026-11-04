@@ -13,10 +13,10 @@ import state from '../data/state.json';
 import ui from '../data/ui.json';
 import { AILOGO_CDN, APP_CATEGORIES, APPS, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, authorProfile, hostOf, readApps } from './catalog';
 import { SUBMIT_CATS, SUBMIT_FILES, appendEntry, buildEntry, codeFence, descMax, editUrl, entryProblem, isBadUrl, isEntryComplete, issueUrl, jsonEntry, slugify } from './entry';
-import { LANGS, type LangCode, type Text, fill, langRedirectScript, negotiateLang, pick } from './lang';
+import { LANGS, type LangCode, type Text, fill, langRedirectScript, negotiateLang, pick, validateRootSearch } from './lang';
 import { buildSearchIndex, searchCatalog } from './search';
 import { STRINGS } from './strings';
-import { t } from './translate';
+import { appDescription, t } from './translate';
 import { CatalogError, readList, unique } from './validate';
 
 // The tests run on Node 24; this package has no Node type definitions, so the one function needed is declared here.
@@ -88,10 +88,11 @@ describe('catalog data', () => {
 		expect(appBySlug('nope')).toBeUndefined();
 	});
 
-	it('names a category for every app, from the values its schema allows', () => {
+	// The category is optional (the submission form and bot write entries without one), so only its value is checked.
+	it('takes an app category only from the values its schema allows', () => {
 		const schemaEnum = (appsSchema as unknown as { properties: { apps: { items: { properties: { category: { enum: string[] } } } } } }).properties.apps.items.properties.category.enum;
 		expect(schemaEnum).toEqual([...APP_CATEGORIES]);
-		for (const a of APPS) expect(APP_CATEGORIES, a.slug).toContain(a.category);
+		for (const a of APPS) if (a.category !== undefined) expect(APP_CATEGORIES, a.slug).toContain(a.category);
 		const entry = { slug: 'kit', name: 'Kit', author: 'someone', kind: 'native', url: 'https://x.dev', summary: { en: 'A kit.' }, description: { en: 'A kit.' } };
 		expect(readApps({ apps: [entry] })[0].category).toBeUndefined();
 		expect(() => readApps({ apps: [{ ...entry, category: 'DesktopApplication' }] })).toThrow(/category must be one of/);
@@ -180,6 +181,16 @@ describe('negotiateLang', () => {
 		expect(negotiateLang(null, 'en-US', { userAgent: CHROME, referrer: '', origin: SITE })).toBe('en');
 	});
 
+	it('treats browsers that carry a search brand in their UA as browsers', () => {
+		const browsers: [string, string][] = [
+			['Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/140.0.0.0 Mobile Safari/537.36 DuckDuckGo/5', 'en-US'],
+			['Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 DuckDuckGo/7 Safari/605.1.15', 'en-US'],
+			['Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 NAVER(inapp; search; 2000; 12.10.0; 15PRO)', 'ko-KR'],
+			['Mozilla/5.0 (Linux; Android 14; SM-S921N Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/140.0.0.0 Mobile Safari/537.36 NAVER(inapp; search; 2000; 12.10.0)', 'ko-KR'],
+		];
+		for (const [userAgent, browser] of browsers) expect(negotiateLang(null, browser, { userAgent, referrer: '', origin: SITE }), userAgent).toBe(browser.slice(0, 2));
+	});
+
 	it('keeps visitors from another site on the language the URL declares, unless they saved a choice', () => {
 		expect(negotiateLang(null, 'en-US', { userAgent: CHROME, referrer: 'https://www.google.com/', origin: SITE })).toBe('zh-CN');
 		expect(negotiateLang(null, 'en-US', { userAgent: CHROME, referrer: 'https://mygodock.dev.example.com/', origin: SITE })).toBe('zh-CN');
@@ -240,6 +251,41 @@ describe('langRedirectScript', () => {
 	});
 });
 
+describe('validateRootSearch', () => {
+	it('drops a lang that is not a site language, so it never reaches the render', () => {
+		for (const lang of ['fr', 'EN', 'zh-cn', '', 123, ['en', 'ja'], null]) {
+			const v = validateRootSearch({ lang });
+			// The key must be present (as undefined) to override the raw value TanStack merges the result over.
+			expect('lang' in v, JSON.stringify(lang)).toBe(true);
+			expect(v.lang, JSON.stringify(lang)).toBeUndefined();
+		}
+		for (const L of LANGS) expect(validateRootSearch({ lang: L.code }).lang).toBe(L.code);
+	});
+
+	it('keeps app slugs, numeric ones included, and drops anything else', () => {
+		expect(validateRootSearch({ app: 2048 }).app).toBe('2048');
+		expect(validateRootSearch({ app: 'kero' }).app).toBe('kero');
+		for (const app of ['Bad Slug', '', 'a'.repeat(65), ['kero', 'pulse'], { x: 1 }]) {
+			const v = validateRootSearch({ app });
+			expect('app' in v, JSON.stringify(app)).toBe(true);
+			expect(v.app, JSON.stringify(app)).toBeUndefined();
+		}
+	});
+
+	it('round-trips every app slug through the URL as the router writes and reads it', () => {
+		// The router writes strings as plain text (stringifySearchWith(JSON.stringify)) and its default reader JSON-parses each value that can begin JSON, which turns ?app=2048 into a number.
+		const parse = (v: string): unknown => {
+			try {
+				return JSON.parse(v);
+			} catch {
+				return v;
+			}
+		};
+		const read = (query: string) => Object.fromEntries([...new URLSearchParams(query)].map(([k, v]) => [k, parse(v)]));
+		for (const a of APPS) expect(validateRootSearch(read(new URLSearchParams({ app: a.slug, lang: 'ja' }).toString())), a.slug).toEqual({ app: a.slug, lang: 'ja' });
+	});
+});
+
 describe('t', () => {
 	it('falls back to the default language for a value that is not a site language', () => {
 		expect(t('fr' as LangCode)).toBe(t('zh-CN'));
@@ -275,6 +321,18 @@ describe('search snippets', () => {
 			expect(new Set(descs).size, L.code).toBe(PAGES.length);
 			for (const d of descs) expect(width(d), `${L.code}: ${d}`).toBeLessThanOrEqual(160);
 		});
+	});
+
+	it('gives every app page its own description that fits the snippet', () => {
+		for (const L of LANGS) {
+			const descs = APPS.map((a) => appDescription(a, L.code));
+			expect(new Set(descs).size, L.code).toBe(APPS.length);
+			for (const d of descs) expect(width(d), `${L.code}: ${d}`).toBeLessThanOrEqual(160);
+		}
+		const kero = appBySlug('kero');
+		if (!kero) throw new Error('kero is missing');
+		expect(appDescription(kero, 'en')).toBe(`${kero.desc.en} A desktop app by ${kero.author}, built with Go and MyGo.`);
+		expect(appDescription(kero, 'zh-CN')).toBe(`${pick(kero.desc, 'zh-CN')}由 ${kero.author} 用 Go 与 MyGo 开发的桌面应用。`);
 	});
 });
 
