@@ -1,9 +1,9 @@
-// Submission form. Apps go to egoist/mygo's showcase.ts; everything else is a README line on fksune/awesome-mygo.
+// Submission form. Apps go to egoist/mygo's showcase.ts as a pull request; everything else is an issue on this site's repository.
 
 export const SUBMIT_CATS = ['ui', 'state', 'plugin', 'showcase', 'article'] as const;
 export type SubmitCat = (typeof SUBMIT_CATS)[number];
 
-// A README line stays one line; showcase.ts asks for "a sentence or two".
+// A list entry stays one line; showcase.ts asks for "a sentence or two".
 export function descMax(cat: SubmitCat): number {
 	return cat === 'showcase' ? 300 : 120;
 }
@@ -24,8 +24,14 @@ export function isEntryComplete(d: EntryDraft): boolean {
 }
 
 // Missing fields render as placeholders so the preview always shows the final shape.
-export function readmeEntry(d: EntryDraft, placeholders: { name: string; desc: string }): string {
+export function listEntry(d: EntryDraft, placeholders: { name: string; desc: string }): string {
 	return `- [${d.name.trim() || placeholders.name}](${d.url.trim() || 'https://…'}) - ${d.desc.trim() || placeholders.desc}`;
+}
+
+// A new-issue link on repo, prefilled with the entry, so a submission is one click once the form is filled.
+export function issueUrl(repo: string, catLabel: string, d: EntryDraft, placeholders: { name: string; desc: string }): string {
+	const q = new URLSearchParams({ title: `Add ${d.name.trim() || placeholders.name} (${catLabel})`, body: `${catLabel}\n\n${listEntry(d, placeholders)}\n` });
+	return `${repo}/issues/new?${q}`;
 }
 
 // An entry for egoist/mygo website/src/showcase.ts, in that file's shape (two-space indent, double quotes).

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { ABOUT } from './about';
 import { AILOGO_CDN, APPS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, hostOf } from './catalog';
-import { descMax, isBadUrl, isEntryComplete, readmeEntry, showcaseEntry } from './entry';
+import { descMax, isBadUrl, isEntryComplete, issueUrl, listEntry, showcaseEntry } from './entry';
 import { LANGS, fill, langRedirectScript, negotiateLang } from './lang';
 import { buildSearchIndex, searchCatalog } from './search';
 import { STRINGS } from './strings';
@@ -158,15 +158,22 @@ describe('search', () => {
 	});
 });
 
-describe('README entry', () => {
+describe('list entry', () => {
 	const ph = { name: 'Name', desc: 'One-line description.' };
 
 	it('renders placeholders for empty fields', () => {
-		expect(readmeEntry({ name: '', url: '', desc: '' }, ph)).toBe('- [Name](https://…) - One-line description.');
+		expect(listEntry({ name: '', url: '', desc: '' }, ph)).toBe('- [Name](https://…) - One-line description.');
 	});
 
 	it('trims the fields', () => {
-		expect(readmeEntry({ name: ' kit ', url: ' https://x.dev ', desc: ' Does a thing ' }, ph)).toBe('- [kit](https://x.dev) - Does a thing');
+		expect(listEntry({ name: ' kit ', url: ' https://x.dev ', desc: ' Does a thing ' }, ph)).toBe('- [kit](https://x.dev) - Does a thing');
+	});
+
+	it('opens a prefilled issue on the given repository', () => {
+		const u = new URL(issueUrl('https://github.com/yldm-tech/awesome-mygo', 'UI', { name: 'kit', url: 'https://x.dev', desc: 'Does a thing' }, ph));
+		expect(u.origin + u.pathname).toBe('https://github.com/yldm-tech/awesome-mygo/issues/new');
+		expect(u.searchParams.get('title')).toBe('Add kit (UI)');
+		expect(u.searchParams.get('body')).toBe('UI\n\n- [kit](https://x.dev) - Does a thing\n');
 	});
 
 	it('flags non-https links only once something is typed', () => {

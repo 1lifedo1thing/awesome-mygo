@@ -1,4 +1,4 @@
-import { LIST_REPO, SHOWCASE_SOURCE, SUBMIT_CATS, type SubmitCat, descMax, isBadUrl, isEntryComplete, readmeEntry, showcaseEntry } from '@awesome-mygo/catalog';
+import { SHOWCASE_SOURCE, SITE_REPO, SUBMIT_CATS, type SubmitCat, descMax, isBadUrl, isEntryComplete, issueUrl, listEntry, showcaseEntry } from '@awesome-mygo/catalog';
 import { useDialog } from '../lib/dialog';
 import { useT } from '../lib/lang';
 import { useSite } from '../lib/site';
@@ -20,7 +20,9 @@ function Modal() {
 	const urlBad = isBadUrl(form.url);
 	const ok = isEntryComplete(form) && form.desc.length <= max;
 	const ph = { name: t.m_name, desc: t.md_desc };
-	const entry = isShow ? showcaseEntry(form, form.mode, ph) : readmeEntry(form, ph);
+	const entry = isShow ? showcaseEntry(form, form.mode, ph) : listEntry(form, ph);
+	// Apps go to MyGo's own showcase.ts as a pull request; everything else opens an issue here, prefilled with the entry.
+	const target = isShow ? SHOWCASE_SOURCE : issueUrl(SITE_REPO, catLabel[form.cat], form, ph);
 
 	return (
 		<div className='overlay overlay-center fade'>
@@ -98,7 +100,7 @@ function Modal() {
 				</div>
 				<div className='stack-8'>
 					<span className='field-label'>
-						{t.m_preview} · {isShow ? 'website/src/showcase.ts' : `README.md › ${catLabel[form.cat]}`}
+						{t.m_preview} · {isShow ? 'website/src/showcase.ts' : `Issue › ${catLabel[form.cat]}`}
 					</span>
 					<div className='md-preview'>
 						{!isShow && <span className='c-cyan'>+ </span>}
@@ -109,7 +111,7 @@ function Modal() {
 					<button type='button' className='btn-g btn-copy-line' onClick={() => ok && copy(entry, 'line')} disabled={!ok}>
 						{copied === 'line' ? t.copied : t.copy_entry}
 					</button>
-					<a className='btn-c btn-pr' href={isShow ? SHOWCASE_SOURCE : LIST_REPO} target='_blank' rel='noopener'>
+					<a className='btn-c btn-pr' href={target} target='_blank' rel='noopener'>
 						{isShow ? t.go_pr_show : t.go_pr}
 					</a>
 				</div>

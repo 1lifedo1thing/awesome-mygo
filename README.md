@@ -8,7 +8,7 @@ The apps, plugins, components and guides around [MyGo](https://github.com/egoist
 
 English · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · [日本語](README.ja.md) · [한국어](README.ko.md)
 
-[![MyGo Dock](apps/web/public/og-image-1200x630.png)](https://mygodock.dev)
+[![MyGo Dock](.github/assets/banner.png)](https://mygodock.dev)
 
 ## What is on the site
 
@@ -49,7 +49,7 @@ pnpm preview      # the production build in the Workers runtime
 
 ## Adding a project
 
-Apps come from MyGo's own showcase. To list an app, open a pull request on [`egoist/mygo` `website/src/showcase.ts`](https://github.com/egoist/mygo/blob/main/website/src/showcase.ts); the site's "Submit" form writes the entry for you. Other kinds of project can also go to [fksune/awesome-mygo](https://github.com/fksune/awesome-mygo).
+Apps come from MyGo's own showcase. To list an app, open a pull request on [`egoist/mygo` `website/src/showcase.ts`](https://github.com/egoist/mygo/blob/main/website/src/showcase.ts). For components, plugins, state solutions and articles, [open an issue](https://github.com/yldm-tech/awesome-mygo/issues/new) here. The site's "Submit" form writes either one for you: the showcase entry, or an issue with the entry filled in.
 
 To add something to this site directly, edit `packages/catalog/src`:
 
@@ -63,7 +63,6 @@ Run `pnpm test` before opening a pull request: it fails on a missing translation
 ## Credits
 
 - [MyGo](https://github.com/egoist/mygo) is made by [egoist](https://github.com/egoist) (MIT). The showcase, plugin and guide data follows its repository and site.
-- [fksune/awesome-mygo](https://github.com/fksune/awesome-mygo) (CC0-1.0) lists components, articles and apps.
 - App icons are from [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo) (MIT) or the apps' own icons. Screenshots come from egoist/mygo's showcase and the projects' READMEs. Both belong to the apps' authors; names and logos are their trademarks and are shown to identify them.
 
 ## License
