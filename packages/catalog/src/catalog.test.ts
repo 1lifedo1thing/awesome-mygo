@@ -10,7 +10,7 @@ import stateSchema from '../data/schema/state.schema.json';
 import uiSchema from '../data/schema/ui.schema.json';
 import state from '../data/state.json';
 import ui from '../data/ui.json';
-import { AILOGO_CDN, APP_CATEGORIES, APP_GROUPS, APPS, GROUP_CATEGORY, appGroup, appSource, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, authorProfile, hostOf, readAppEntry, readAppFile, readApps, readPlugins } from './catalog';
+import { AILOGO_CDN, APP_CATEGORIES, APP_GROUPS, APPS, GROUP_CATEGORY, appGroup, appSource, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, authorProfile, byName, byNewest, hostOf, readAppEntry, readAppFile, readApps, readPlugins } from './catalog';
 import { LIST_FILES, type ListCat, SUBMIT_CATS, appFileText, appendEntry, buildEntry, codeFence, descMax, editUrl, entryCats, entryPath, entryProblem, guessFromLink, isBadUrl, isEntryComplete, issueUrl, jsonEntry, missingFields, parseEntryJson, pastedEntryProblem, pastedName, slugify, withScheme } from './entry';
 import { LANGS, type LangCode, type Text, fill, langRedirectScript, negotiateLang, pick, validateRootSearch } from './lang';
 import { buildSearchIndex, searchCatalog } from './search';
@@ -107,17 +107,18 @@ describe('catalog data', () => {
 	});
 
 	// Apps are one file each so that submissions arriving together never edit the same file; their order comes from when each was added.
-	it('keeps each app in a file named after its slug, in the order they were added', () => {
+	it('keeps each app in a file named after its slug, and lists them by name in natural order', () => {
 		const app = { $schema: '../schema/app.schema.json', slug: 'kit', name: 'Kit', author: 'someone', kind: 'native', url: 'https://x.dev', summary: { en: 'A kit.' }, description: { en: 'A kit.' }, added: '2026-11-04T12:00:00Z' };
 		expect(readAppFile('kit.json', app).added).toBe('2026-11-04T12:00:00Z');
 		expect(() => readAppFile('other.json', app)).toThrow(/apps\/other.json \(Kit\): slug must match the file name/);
 		expect(() => readAppFile('kit.json', { ...app, added: undefined })).toThrow(/added is required/);
 		expect(() => readAppFile('kit.json', { ...app, added: '2026-11-04' })).toThrow(/added must be a UTC time/);
 		expect(() => readAppFile('kit.json', { ...app, $schema: './schema/apps.schema.json' })).toThrow(/\$schema must be/);
-		const later = { ...app, slug: 'aaa', added: '2026-11-05T00:00:00Z' };
-		const same = { ...app, slug: 'abc' };
-		expect(readApps({ 'aaa.json': later, 'kit.json': app, 'abc.json': same }).map((a) => a.slug)).toEqual(['abc', 'kit', 'aaa']);
-		for (let i = 1; i < APPS.length; i++) expect((APPS[i - 1].added ?? '') <= (APPS[i].added ?? ''), APPS[i].slug).toBe(true);
+		const files = { 'app-10.json': { ...app, slug: 'app-10', name: 'App 10' }, 'app-9.json': { ...app, slug: 'app-9', name: 'app 9', added: '2026-11-05T00:00:00Z' }, '2048.json': { ...app, slug: '2048', name: '2048' }, 'kit.json': app };
+		const apps = readApps(files);
+		expect(apps.map((a) => a.slug)).toEqual(['2048', 'app-9', 'app-10', 'kit']);
+		expect([...apps].sort(byNewest).map((a) => a.slug)).toEqual(['app-9', '2048', 'app-10', 'kit']);
+		for (let i = 1; i < APPS.length; i++) expect(byName(APPS[i - 1], APPS[i]), APPS[i].slug).toBeLessThan(0);
 	});
 
 	it('resolves apps by slug', () => {

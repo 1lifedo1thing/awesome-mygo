@@ -5,12 +5,11 @@ import { AppLink } from '../../components/bits';
 import { LikeButton } from '../../components/Like';
 import { useLang, useT } from '../../lib/lang';
 import { useLikes } from '../../lib/likes';
-import { groupChips } from '../../lib/showcase';
+import { type AppSort, groupChips, sortApps } from '../../lib/showcase';
 import { useSite } from '../../lib/site';
 import { AppIcon, Note, StatusBar, Win, btnGo, btnSm, iconLabel, likeBtn, lnk, seg, select, well } from '../ui';
 import { noShot } from './AppPage';
 
-type Sort = 'default' | 'likes' | 'az' | 'author';
 
 const N_NATIVE = APPS.filter((a) => a.kind === 'native').length;
 const N_WEB = APPS.length - N_NATIVE;
@@ -37,7 +36,7 @@ export function Showcase() {
 	const setFilter = (next: { cat?: typeof group; ui?: AppKind }) => void navigate({ search: (prev) => ({ ...prev, ...next }), replace: true, resetScroll: false });
 	const [author, setAuthor] = useState<string | null>(null);
 	const { status: likes, counts } = useLikes();
-	const [sort, setSort] = useState<Sort>('default');
+	const [sort, setSort] = useState<AppSort>('natural');
 
 	const kinds = [
 		{ key: 'all', label: t.all, n: APPS.length },
@@ -48,10 +47,11 @@ export function Showcase() {
 	const ofKind = APPS.filter((a) => kind === 'all' || a.kind === kind);
 	const groups = groupChips(ofKind, group);
 	const inGroup = group ? (groups.find((g) => g.key === group)?.apps ?? []) : ofKind;
-	const list = inGroup.filter((a) => author === null || a.author === author);
-	if (sort === 'az') list.sort((a, b) => a.name.localeCompare(b.name));
-	if (sort === 'author') list.sort((a, b) => a.author.localeCompare(b.author));
-	if (sort === 'likes') list.sort((a, b) => (counts[likeKey.app(b)] ?? 0) - (counts[likeKey.app(a)] ?? 0));
+	const list = sortApps(
+		inGroup.filter((a) => author === null || a.author === author),
+		sort,
+		counts,
+	);
 
 	return (
 		<div className='relative mx-auto max-w-[1440px] px-3.5 pt-3.5 desk:px-10 desk:pt-[30px] min-[1261px]:grid min-[1261px]:grid-cols-[minmax(0,1fr)_260px] min-[1261px]:items-start min-[1261px]:gap-x-10 min-[1261px]:pr-6'>
@@ -83,11 +83,10 @@ export function Showcase() {
 					<span className='flex-1' />
 					<label className='flex items-center gap-1.5 whitespace-nowrap'>
 						{t.sort}
-						<select value={sort} onChange={(e) => setSort(e.target.value as Sort)} className={select}>
-							<option value='default'>{t.sort_def}</option>
+						<select value={sort} onChange={(e) => setSort(e.target.value as AppSort)} className={select}>
+							<option value='natural'>{t.sort_natural}</option>
+							<option value='newest'>{t.sort_new}</option>
 							{likes !== 'off' && <option value='likes'>{t.sort_likes}</option>}
-							<option value='az'>{t.sort_az}</option>
-							<option value='author'>{t.sort_author}</option>
 						</select>
 					</label>
 				</div>

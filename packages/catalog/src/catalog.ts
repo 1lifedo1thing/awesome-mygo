@@ -104,7 +104,7 @@ export interface App {
 	image?: string;
 	// The app's icon: its ai-logo avatar on the ai-logo CDN, its official icon under /icons/, or none, for the letter tile.
 	icon?: string;
-	// When it joined the showcase (UTC, e.g. 2026-11-04T12:00:00Z); the showcase lists apps in this order. Set by the submission bot, so an entry checked before it is submitted has none yet.
+	// When it joined the showcase (UTC, e.g. 2026-11-04T12:00:00Z), for the showcase's newest-first order. Set by the submission bot, so an entry checked before it is submitted has none yet.
 	added?: string;
 }
 
@@ -154,14 +154,26 @@ export function readAppFile(name: string, json: unknown): App {
 	const app = readApp(r);
 	if (name !== `${app.slug}.json`) r.fail('slug', `must match the file name, ${name}`);
 	if (r.raw.$schema !== APP_SCHEMA) r.fail('$schema', `must be "${APP_SCHEMA}"`);
-	if (!app.added) r.fail('added', 'is required: the showcase lists apps in the order they were added');
+	if (!app.added) r.fail('added', 'is required: the showcase can list apps newest first by it');
 	return app;
 }
 
-// The apps of data/apps/, keyed by file name, in the order they were added; apps added at the same second go by slug.
+// Names in natural order: letter case aside, and numbers by their value, so 2048 comes before apigo and App 9 before App 10.
+const NATURAL = new Intl.Collator('en', { numeric: true, sensitivity: 'base' });
+
+// The showcase's default order, and the order APPS is in: by name, naturally; the same name goes by slug.
+export function byName(a: App, b: App): number {
+	return NATURAL.compare(a.name, b.name) || a.slug.localeCompare(b.slug);
+}
+
+// The newest app first, by when it was added; apps added at the same second go by name.
+export function byNewest(a: App, b: App): number {
+	return (b.added ?? '').localeCompare(a.added ?? '') || byName(a, b);
+}
+
+// The apps of data/apps/, keyed by file name, by name in natural order.
 export function readApps(files: Record<string, unknown>): App[] {
-	const apps = Object.entries(files).map(([name, json]) => readAppFile(name, json));
-	return apps.sort((a, b) => (a.added ?? '').localeCompare(b.added ?? '') || a.slug.localeCompare(b.slug));
+	return Object.entries(files).map(([name, json]) => readAppFile(name, json)).sort(byName);
 }
 
 // Every file in data/apps/, through Vite (the site's build and the tests both run on it), keyed by its file name.
