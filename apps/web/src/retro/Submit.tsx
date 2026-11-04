@@ -44,7 +44,7 @@ function Dialog() {
 	const { closeSubmit, form, setFormField, copy, copied } = useSite();
 	const t = useT();
 	const ref = useDialog<HTMLDivElement>();
-	const { bot, lang, round, setToken, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send } = useSubmit();
+	const { bot, lang, round, setToken, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint } = useSubmit();
 
 	const copyBtn = (
 		<button type='button' className={`${btn} ${off}`} onClick={() => ok && copy(entry, 'line')} disabled={!ok}>
@@ -97,7 +97,7 @@ function Dialog() {
 								<label htmlFor='f-url' className='mb-1 block text-muted'>
 									{t.m_link}
 								</label>
-								<input id='f-url' type='url' value={form.url} onChange={(e) => setFormField('url', e.target.value)} placeholder='https://github.com/…' className={input} aria-invalid={urlBad} aria-describedby={urlBad ? 'f-url-err' : undefined} />
+								<input id='f-url' type='url' value={form.url} onChange={(e) => setFormField('url', e.target.value)} onBlur={onUrlBlur} placeholder='https://github.com/…' className={input} aria-invalid={urlBad} aria-describedby={urlBad ? 'f-url-err' : undefined} />
 							</div>
 						</div>
 
@@ -123,14 +123,14 @@ function Dialog() {
 							<textarea id='f-desc' rows={isShow ? 3 : 2} maxLength={max} value={form.desc} onChange={(e) => setFormField('desc', e.target.value.slice(0, max))} placeholder={t.m_desc_ph} className='block w-full min-w-0 resize-y rounded-md border border-line bg-hi px-2 py-1 outline-offset-0 placeholder:text-faint' />
 						</div>
 
-						<div className='min-w-0'>
-							<span className='mb-1 block text-muted'>
+						<details className='min-w-0'>
+							<summary className='mb-1 w-fit cursor-pointer text-muted'>
 								{t.m_preview} · <span lang='en'>{`${DATA_DIR}/${file}`}</span>
-							</span>
+							</summary>
 							<pre lang='en' className='m-0 max-h-[200px] overflow-auto rounded-lg bg-ink px-3 py-2.5 font-mono break-all whitespace-pre-wrap text-paper'>
 								{entry}
 							</pre>
-						</div>
+						</details>
 
 						{bot.enabled ? (
 							status.kind === 'done' ? (
@@ -142,10 +142,9 @@ function Dialog() {
 								</div>
 							) : (
 								<>
-									<div className='min-h-[65px]'>
-										<Captcha siteKey={bot.siteKey} lang={lang} round={round} onToken={setToken} onFail={() => setStatus({ kind: 'error', message: t.sub_failed })} theme='light' />
-									</div>
+									<Captcha siteKey={bot.siteKey} lang={lang} round={round} onToken={setToken} onFail={() => setStatus({ kind: 'error', message: t.sub_failed })} theme='light' />
 									{status.kind === 'error' && <Err>{status.message}</Err>}
+									{hint && <p className='m-0 text-right text-muted' aria-live='polite'>{hint}</p>}
 									<div className='flex flex-wrap justify-end gap-2.5 pt-1'>
 										{copyBtn}
 										<button type='button' className={`${btnGo} ${off}`} onClick={send} disabled={!canSend}>

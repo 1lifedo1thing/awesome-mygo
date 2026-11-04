@@ -1,4 +1,4 @@
-import { type LangCode, SITE_REPO, SUBMIT_FILES, type SubmitCat, descMax, editUrl, entryProblem, fill, isBadUrl, isEntryComplete, issueUrl, jsonEntry, needsAuthor, needsRepo, repoOf } from '@awesome-mygo/catalog';
+import { type DraftField, type LangCode, SITE_REPO, SUBMIT_FILES, type SubmitCat, descMax, editUrl, entryProblem, fill, guessFromLink, isBadUrl, isEntryComplete, issueUrl, jsonEntry, missingFields, needsAuthor, needsRepo, repoOf, withScheme } from '@awesome-mygo/catalog';
 import { useEffect, useRef, useState } from 'react';
 import { useLang, useT } from './lang';
 import { useSite } from './site';
@@ -34,7 +34,7 @@ function useBot(): Bot {
 
 export type Status = { kind: 'idle' } | { kind: 'sending' } | { kind: 'done'; url: string; number: number } | { kind: 'error'; message: string };
 
-// The Turnstile widget. A token is good for one submission, so changing `round` renders a fresh widget.
+// The Turnstile widget. A token is good for one submission, so changing `round` renders a fresh widget. It stays out of sight unless Cloudflare needs the visitor to click, so most visitors never see it.
 export function Captcha({ siteKey, lang, round, onToken, onFail, theme = 'dark' }: { siteKey: string; lang: LangCode; round: number; onToken: (token: string) => void; onFail: () => void; theme?: 'dark' | 'light' }) {
 	const box = useRef<HTMLDivElement>(null);
 	const handlers = useRef({ onToken, onFail });
@@ -49,6 +49,7 @@ export function Captcha({ siteKey, lang, round, onToken, onFail, theme = 'dark' 
 					sitekey: siteKey,
 					theme,
 					size: 'flexible',
+					appearance: 'interaction-only',
 					language: lang.toLowerCase(),
 					callback: (token) => handlers.current.onToken(token),
 					'expired-callback': () => handlers.current.onToken(''),
@@ -67,13 +68,15 @@ export function Captcha({ siteKey, lang, round, onToken, onFail, theme = 'dark' 
 }
 
 export function useSubmit() {
-	const { form } = useSite();
+	const { form, setFormField } = useSite();
 	const t = useT();
 	const lang = useLang();
 	const bot = useBot();
 	const [token, setToken] = useState('');
 	const [round, setRound] = useState(0);
 	const [status, setStatus] = useState<Status>({ kind: 'idle' });
+	// The link is judged once the visitor leaves the field, not while they are still typing it.
+	const [urlTouched, setUrlTouched] = useState(false);
 
 	// A result or an error belongs to what was submitted; editing the form clears it.
 	useEffect(() => setStatus({ kind: 'idle' }), [form.cat, form.mode, form.name, form.author, form.url, form.desc]);
@@ -81,7 +84,7 @@ export function useSubmit() {
 	const catLabel: Record<SubmitCat, string> = { ui: t.cat_ui_name, state: t.cat_state_name, plugin: t.nav_plugins, showcase: t.cat_show_name, article: t.article };
 	const isShow = form.cat === 'showcase';
 	const max = descMax(form.cat);
-	const urlBad = isBadUrl(form.url);
+	const urlBad = urlTouched && isBadUrl(form.url);
 	const ok = isEntryComplete(form.cat, form) && form.desc.length <= max;
 	const ph = { name: t.m_name, desc: t.md_desc };
 	const withAuthor = needsAuthor(form.cat);
@@ -90,8 +93,24 @@ export function useSubmit() {
 	// Every category ends up as an entry in its JSON file here: either an issue prefilled with the entry, or GitHub's editor on that file for a pull request.
 	const issue = issueUrl(SITE_REPO, form.cat, catLabel[form.cat], form, entry, ph);
 	const edit = editUrl(SITE_REPO, form.cat);
-	const repoMissing = needsRepo(form.cat) && form.url.length > 0 && !urlBad && !repoOf(form.url);
+	const repoMissing = urlTouched && needsRepo(form.cat) && form.url.length > 0 && !isBadUrl(form.url) && !repoOf(form.url);
 	const canSend = bot.enabled && !entryProblem(form.cat, form) && token !== '' && status.kind !== 'sending';
+
+	// Leaving the link field: add the missing https://, and from a GitHub repository link fill in the name and author the visitor has not typed.
+	const onUrlBlur = () => {
+		setUrlTouched(true);
+		const url = withScheme(form.url);
+		if (url !== form.url) setFormField('url', url);
+		const guess = guessFromLink(url);
+		if (!guess) return;
+		if (!form.name.trim()) setFormField('name', guess.name);
+		if (withAuthor && !form.author.trim()) setFormField('author', guess.author);
+	};
+
+	// Why the submit button is not ready yet, in words.
+	const fieldLabel: Record<DraftField, string> = { url: t.m_link, name: t.m_name, author: t.m_author, desc: t.m_desc_l };
+	const missing = missingFields(form.cat, form);
+	const hint = status.kind === 'sending' || status.kind === 'done' ? '' : missing.length > 0 ? fill(t.sub_need, { x: new Intl.ListFormat(lang, { type: 'conjunction' }).format(missing.map((f) => fieldLabel[f])) }) : bot.enabled && !token ? t.sub_wait : '';
 
 	const errorText = (body: { error?: string; message?: string }): string => {
 		switch (body.error) {
@@ -125,5 +144,5 @@ export function useSubmit() {
 		setRound((n) => n + 1);
 	};
 
-	return { bot, lang, token, setToken, round, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send };
+	return { bot, lang, token, setToken, round, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint };
 }

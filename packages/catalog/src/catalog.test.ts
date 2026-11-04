@@ -12,7 +12,7 @@ import uiSchema from '../data/schema/ui.schema.json';
 import state from '../data/state.json';
 import ui from '../data/ui.json';
 import { AILOGO_CDN, APP_CATEGORIES, APPS, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, authorProfile, hostOf, readApps, readPlugins } from './catalog';
-import { SUBMIT_CATS, SUBMIT_FILES, appendEntry, buildEntry, codeFence, descMax, editUrl, entryProblem, isBadUrl, isEntryComplete, issueUrl, jsonEntry, slugify } from './entry';
+import { SUBMIT_CATS, SUBMIT_FILES, appendEntry, buildEntry, codeFence, descMax, editUrl, entryProblem, guessFromLink, isBadUrl, isEntryComplete, issueUrl, jsonEntry, missingFields, slugify, withScheme } from './entry';
 import { LANGS, type LangCode, type Text, fill, langRedirectScript, negotiateLang, pick, validateRootSearch } from './lang';
 import { buildSearchIndex, searchCatalog } from './search';
 import { LOCALES } from './strings';
@@ -395,6 +395,29 @@ describe('search', () => {
 describe('submission entry', () => {
 	const ph = { name: 'Name', desc: 'One-line description.' };
 	const draft = { name: 'My "Kit"', author: 'someone', url: 'https://github.com/someone/my-kit', desc: 'Widgets for MyGo.' };
+
+	it('reads a link typed without its scheme as https, and leaves other schemes for the check', () => {
+		expect(withScheme(' github.com/you/app ')).toBe('https://github.com/you/app');
+		expect(withScheme('mygo.dev')).toBe('https://mygo.dev');
+		expect(withScheme('https://x.dev')).toBe('https://x.dev');
+		expect(withScheme('http://x.dev')).toBe('http://x.dev');
+		expect(isBadUrl(withScheme('http://x.dev'))).toBe(true);
+		expect(withScheme('my app')).toBe('my app');
+		expect(withScheme('')).toBe('');
+	});
+
+	it('offers the repository name and owner of a GitHub link', () => {
+		expect(guessFromLink('https://github.com/you/my-app.git')).toEqual({ name: 'my-app', author: 'you' });
+		expect(guessFromLink('https://my-app.dev')).toBeUndefined();
+	});
+
+	it('lists what a draft still lacks, and nothing once it is complete', () => {
+		const empty = { name: '', author: '', url: '', desc: '' };
+		expect(missingFields('showcase', empty)).toEqual(['url', 'name', 'author', 'desc']);
+		expect(missingFields('article', empty)).toEqual(['url', 'name']);
+		expect(missingFields('ui', { ...draft, url: 'http://x.dev' })).toEqual(['url']);
+		for (const cat of SUBMIT_CATS) expect(missingFields(cat, draft).length === 0).toBe(isEntryComplete(cat, draft));
+	});
 
 	it('writes, for every category, an entry with the fields its schema requires and no others', () => {
 		for (const cat of SUBMIT_CATS) {

@@ -1,7 +1,7 @@
 // Cloudflare Turnstile, loaded only when the submit form needs it. https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/
 
 export interface Turnstile {
-	render(el: HTMLElement, options: { sitekey: string; theme?: 'light' | 'dark' | 'auto'; size?: 'normal' | 'flexible' | 'compact'; language?: string; callback?: (token: string) => void; 'expired-callback'?: () => void; 'error-callback'?: () => void }): string;
+	render(el: HTMLElement, options: { sitekey: string; theme?: 'light' | 'dark' | 'auto'; size?: 'normal' | 'flexible' | 'compact'; appearance?: 'always' | 'execute' | 'interaction-only'; language?: string; callback?: (token: string) => void; 'expired-callback'?: () => void; 'error-callback'?: () => void }): string;
 	reset(widgetId: string): void;
 	remove(widgetId: string): void;
 }
