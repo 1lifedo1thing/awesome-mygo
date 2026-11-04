@@ -86,7 +86,7 @@ describe('catalog data', () => {
 		}
 	});
 
-	// Which apps have which kind of icon is the data's business: the submission bot takes an app's official icon from its mygo.json and leaves it out when mygo init's default is in use, and it reports which in the pull request.
+	// Which apps have which kind of icon is the data's business: the submission bot takes an app's icon from where MyGo finds it and leaves it out when it is MyGo's default one from mygo init, and it reports which in the pull request.
 	it('takes icons from ai-logo or a local official icon named after the app', () => {
 		for (const a of APPS) {
 			if (!a.icon) continue;

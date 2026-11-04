@@ -50,11 +50,25 @@ export function joinRepoPath(fromFile: string, rel: string): string | undefined 
 	return parts.join('/');
 }
 
-// The app icon mygo.json names, as a repository path. `mygo init` writes no icon, so an app without one shows MyGo's default icon and gets none here; only raster icons are taken, as an .icns or .icon bundle cannot be converted.
-export function iconPathOf(mygoJsonPath: string, mygo: unknown): string | undefined {
-	const icon = (mygo as { icon?: unknown } | null)?.icon;
-	if (typeof icon !== 'string' || !/\.(png|jpe?g|webp)$/i.test(icon)) return undefined;
-	return joinRepoPath(mygoJsonPath, icon);
+export type IconSource = { path: string } | { macOnly: string } | undefined;
+
+// The app's icon as MyGo builds it (cmd/mygo/config.go): mygo.json's `icon`, a square PNG, or else resources/icon.png beside mygo.json when it exists, which is where `mygo init` puts MyGo's default icon; the caller tells that one apart by its pixels. An app whose only icon is macos.icon (an Icon Composer .icon, an Assets.car or an .icns) has one of its own that cannot be converted here: { macOnly } names it. undefined when the app has no icon at all.
+export function iconOf(mygoJsonPath: string, mygo: unknown, paths: readonly string[]): IconSource {
+	const cfg = (mygo ?? {}) as { icon?: unknown; macos?: { icon?: unknown } };
+	if (typeof cfg.icon === 'string' && cfg.icon.trim()) {
+		const path = joinRepoPath(mygoJsonPath, cfg.icon.trim());
+		if (path && /\.(png|jpe?g|webp)$/i.test(path)) return { path };
+	}
+	const fallback = joinRepoPath(mygoJsonPath, 'resources/icon.png');
+	if (fallback !== undefined && paths.includes(fallback)) return { path: fallback };
+	const mac = cfg.macos?.icon;
+	if (typeof mac === 'string' && mac.trim()) return { macOnly: joinRepoPath(mygoJsonPath, mac.trim()) ?? mac.trim() };
+	return undefined;
+}
+
+// Whether an image's width and height are close enough to make it square: an app icon or a logo, not a screenshot of a desktop window.
+export function isSquarish(width: number, height: number): boolean {
+	return width > 0 && height > 0 && Math.max(width, height) / Math.min(width, height) < 1.15;
 }
 
 export const SITE_LANGS = ['en', 'zh-CN', 'zh-TW', 'ja', 'ko'] as const;
