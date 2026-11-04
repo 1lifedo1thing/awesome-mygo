@@ -1,0 +1,23 @@
+# Cache headers for the static assets (Cloudflare Workers static assets read this file; wrangler never serves it). Rules must not overlap: Cloudflare joins the values of every matching rule. robots.txt, sitemap.xml and site.webmanifest keep the default revalidate-every-time caching so crawlers see changes at once.
+
+# Vite content-hashes every file name under /assets, so a changed file always gets a new URL.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Screenshots, icons and the share image keep their names when replaced, so they are cached for a day and then revalidated.
+/shots/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+/icons/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+/og-image-1200x630.png
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+/favicon.ico
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+/icon-32.png
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+/icon-192.png
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+/icon-512.png
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+/apple-touch-icon.png
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
