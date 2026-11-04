@@ -670,6 +670,11 @@ html:lang(ko) .site {
 	font-size: 14px;
 	font-weight: 600;
 	text-align: left;
+	text-decoration: none;
+	box-sizing: border-box;
+}
+.lang-item:hover {
+	color: var(--fg);
 }
 .lang-item[aria-checked='true'] {
 	background: rgba(63, 211, 245, 0.1);
@@ -1956,6 +1961,20 @@ html:lang(ko) .site {
 	letter-spacing: -0.06em;
 	color: var(--bar);
 	white-space: nowrap;
+}
+.ftr-nav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px 24px;
+	font-size: 14px;
+	font-weight: 600;
+}
+.ftr-nav a {
+	color: var(--fg-2);
+	text-decoration: none;
+}
+.ftr-nav a:hover {
+	color: var(--cyan);
 }
 .ftr-row {
 	display: flex;
