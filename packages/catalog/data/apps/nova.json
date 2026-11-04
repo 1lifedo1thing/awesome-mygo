@@ -6,6 +6,7 @@
 	"kind": "native",
 	"category": "GameApplication",
 	"url": "https://github.com/yaffalhakim1/nova",
+	"repo": "yaffalhakim1/nova",
 	"summary": {
 		"en": "A native Windows game launcher: finds your installed games, shows Steam's artwork and starts them.",
 		"zh-CN": "原生 Windows 游戏启动器：找出已安装的游戏，配上 Steam 的封面，一键启动。",
