@@ -1,11 +1,34 @@
 import { type App, APPS, type LangCode, appGroup, appSource, authorProfile, fill, hostOf, likeKey, pick } from '@awesome-mygo/catalog';
 import { Link } from '@tanstack/react-router';
 import { useLang, useT } from '../lib/lang';
+import { appBadgeMarkdown } from '../lib/seo';
 import { useSite } from '../lib/site';
 import { AppLink, type AppView, MonoTile, appView } from './bits';
 import { LikeButton } from './Like';
 
 // The parts of an app's own page in the original look.
+
+// The README badge for the app's author: the badge as it shows, its Markdown and a copy button. The badge's alt text and the Markdown stay in English, as they go into the project's README, not this page.
+export function AppBadge({ app }: { app: App }) {
+	const t = useT();
+	const { copy, copied } = useSite();
+	const md = appBadgeMarkdown(app.slug);
+	return (
+		<section className='app-badge' aria-labelledby='app-badge-h'>
+			<h2 id='app-badge-h' className='app-sec-h'>
+				{t.badge_h}
+			</h2>
+			<p className='app-badge-p'>{t.badge_p}</p>
+			<img className='app-badge-img' src='/badge.svg' alt='Listed on Awesome MyGo' width={200} height={28} loading='lazy' decoding='async' />
+			<div className='app-badge-code'>
+				<code lang='en'>{md}</code>
+				<button type='button' className='cmd-copy' onClick={() => copy(md, 'badge')} aria-label={t.a_copy_badge}>
+					{copied === 'badge' ? t.copied : t.copy}
+				</button>
+			</div>
+		</section>
+	);
+}
 
 // The day the app joined the showcase, in the page's language. Formatted in UTC so the server's render and the visitor's browser agree on the day.
 function addedOn(added: string, lang: LangCode): string {

@@ -1,8 +1,9 @@
-// Builds each app's share card (card.ts) into the client output as /og/<slug>.png, from the catalog of the same build, so an app the submission bot adds gets its card on the deploy that adds it. `vite dev` renders a card on request instead.
+// Builds each app's share card (card.ts) into the client output as /og/<slug>.png, from the catalog of the same build, so an app the submission bot adds gets its card on the deploy that adds it, and the README badge (badge.ts) as /badge.svg. `vite dev` renders them on request instead.
 import { join } from 'node:path';
 import { APPS, appBySlug } from '@awesome-mygo/catalog';
 import type { Plugin } from 'vite';
 import { appCardPath } from '../src/lib/seo';
+import { renderBadge } from './badge';
 import { renderCard } from './card';
 
 export function ogCards(): Plugin {
@@ -14,6 +15,14 @@ export function ogCards(): Plugin {
 		},
 		configureServer(server) {
 			server.middlewares.use((req, res, next) => {
+				if (req.url?.split('?')[0] === '/badge.svg') {
+					renderBadge(paths).then((svg) => {
+						res.setHeader('Content-Type', 'image/svg+xml');
+						res.setHeader('Cache-Control', 'no-store');
+						res.end(svg);
+					}, next);
+					return;
+				}
 				const slug = req.url?.match(/^\/og\/([a-z0-9-]+)\.png(?:\?|$)/)?.[1];
 				const app = slug ? appBySlug(slug) : undefined;
 				if (!app) return next();
@@ -29,6 +38,7 @@ export function ogCards(): Plugin {
 			if (this.environment.name !== 'client') return;
 			const cards = await Promise.all(APPS.map(async (app) => ({ app, png: await renderCard(app, paths) })));
 			for (const { app, png } of cards) this.emitFile({ type: 'asset', fileName: appCardPath(app.slug).slice(1), source: png });
+			this.emitFile({ type: 'asset', fileName: 'badge.svg', source: await renderBadge(paths) });
 		},
 	};
 }

@@ -18,6 +18,9 @@ export const appPath = (slug: string): AppPath => `/apps/${slug}`;
 // An app's share card, a 1200×630 PNG built with the site (apps/web/og).
 export const appCardPath = (slug: string) => `/og/${slug}.png`;
 
+// The Markdown of the README badge an app's author can add: the badge (/badge.svg, built with the site in apps/web/og) linking to the app's page here. Readers of the project's README find the showcase from it; GitHub marks README links nofollow, so it is a way in for people rather than for search ranking.
+export const appBadgeMarkdown = (slug: string) => `[![Listed on Awesome MyGo](${SITE_URL}/badge.svg)](${SITE_URL}${appPath(slug)})`;
+
 // Simplified Chinese lives at the bare path, other languages at ?lang=…. Any other query (?app= for the retro look's quick-view window, utm tags…) is left out of canonical URLs: an app's canonical page is its /apps/<slug> page.
 export function pageUrl(path: SitePath | AppPath, lang: LangCode): string {
 	return `${SITE_URL}${path}${lang !== DEFAULT_LANG ? `?lang=${lang}` : ''}`;

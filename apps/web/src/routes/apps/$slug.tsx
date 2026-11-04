@@ -1,6 +1,6 @@
 import { appBySlug, appGroup, pick } from '@awesome-mygo/catalog';
 import { Link, createFileRoute, notFound } from '@tanstack/react-router';
-import { AppActions, AppFacts, AppPager, MoreBy } from '../../components/AppDetail';
+import { AppActions, AppBadge, AppFacts, AppPager, MoreBy } from '../../components/AppDetail';
 import { KindTag, MonoTile, WinBar, appView } from '../../components/bits';
 import { useLang, useT } from '../../lib/lang';
 import { appHead } from '../../lib/seo';
@@ -80,6 +80,7 @@ function AppPage() {
 				</div>
 				<aside className='app-side'>
 					<AppFacts view={v} kindLabel={kindLabel} />
+					<AppBadge app={app} />
 				</aside>
 			</div>
 			<MoreBy app={app} />

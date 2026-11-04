@@ -4,6 +4,7 @@ import { neighbours } from '../../components/AppDetail';
 import { AppLink, type AppView, appView } from '../../components/bits';
 import { LikeButton } from '../../components/Like';
 import { useLang, useT } from '../../lib/lang';
+import { appBadgeMarkdown } from '../../lib/seo';
 import { useSite } from '../../lib/site';
 import { AppIcon, KindTag, StatusBar, Win, btn, btnGo, iconLabel, likeBtnLg, lnk, well } from '../ui';
 
@@ -81,6 +82,30 @@ export function AppFacts({ view }: { view: AppView }) {
 				#{view.num} / {APPS.length}
 			</dd>
 		</dl>
+	);
+}
+
+// The README badge for the app's author, as on the original look's page: the badge, its Markdown (in English, as it goes into the project's README) and a copy button.
+function AppBadge({ app }: { app: App }) {
+	const t = useT();
+	const { copy, copied } = useSite();
+	const md = appBadgeMarkdown(app.slug);
+	return (
+		<section aria-labelledby='app-badge-h' className='grid min-w-0 gap-1.5 border-t border-line pt-2.5'>
+			<h2 id='app-badge-h' className='m-0 text-[13px] font-normal text-muted'>
+				{t.badge_h}
+			</h2>
+			<p className='m-0 leading-[20px] [&:lang(ko)]:break-keep'>{t.badge_p}</p>
+			<img src='/badge.svg' alt='Listed on Awesome MyGo' width={200} height={28} loading='lazy' decoding='async' className='block h-7 w-auto' />
+			<div className='flex min-w-0 items-center gap-2'>
+				<code lang='en' className='min-w-0 flex-1 overflow-x-auto rounded-md border border-line bg-paper px-2 py-1 font-mono text-xs whitespace-nowrap [scrollbar-width:none]'>
+					{md}
+				</code>
+				<button type='button' className={btn} onClick={() => copy(md, 'badge')} aria-label={t.a_copy_badge}>
+					{copied === 'badge' ? t.copied : t.copy}
+				</button>
+			</div>
+		</section>
 	);
 }
 
@@ -178,6 +203,7 @@ function Page({ app }: { app: App }) {
 						<div className='relative empty:hidden desk:min-h-0 desk:overflow-y-auto'>
 							<MoreBy app={app} quick={false} />
 						</div>
+						<AppBadge app={app} />
 					</div>
 				</article>
 				<nav aria-label={t.a_pager} className='flex flex-wrap justify-between gap-2.5 px-1.5 pt-2 pb-1.5'>

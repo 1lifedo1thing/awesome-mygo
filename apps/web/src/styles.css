@@ -3031,6 +3031,43 @@ a.hero-win {
 .app-side .facts {
 	background: var(--panel);
 }
+.app-badge {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+.app-badge-p {
+	margin: 0;
+	font-size: 14px;
+	line-height: 1.55;
+	color: var(--fg-2);
+}
+.app-badge-img {
+	display: block;
+	align-self: flex-start;
+	width: auto;
+	height: 28px;
+}
+.app-badge-code {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 4px 4px 4px 12px;
+	border: 1px solid var(--line-2);
+	border-radius: 8px;
+	background: var(--well-2);
+}
+/* The Markdown is one long line; it scrolls inside its box rather than widening the column. */
+.app-badge-code code {
+	flex: 1 1 auto;
+	min-width: 0;
+	overflow-x: auto;
+	white-space: nowrap;
+	font-family: var(--f-mono);
+	font-size: 12px;
+	color: var(--fg-2);
+	scrollbar-width: none;
+}
 .app-more {
 	display: flex;
 	flex-direction: column;
