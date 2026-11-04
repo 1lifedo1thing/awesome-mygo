@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { APPS, DOCS, PLUGINS, UI_LIBS, appBySlug, hostOf } from './catalog';
-import { isBadUrl, isEntryComplete, readmeEntry } from './entry';
+import { ABOUT } from './about';
+import { AILOGO_CDN, APPS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, hostOf } from './catalog';
+import { descMax, isBadUrl, isEntryComplete, readmeEntry, showcaseEntry } from './entry';
 import { LANGS, fill, negotiateLang } from './lang';
 import { buildSearchIndex, searchCatalog } from './search';
 import { STRINGS } from './strings';
@@ -14,15 +15,31 @@ describe('catalog data', () => {
 	});
 
 	it('links only to https URLs', () => {
-		for (const u of [...APPS.map((a) => a.url), ...UI_LIBS.map((l) => l.url), ...PLUGINS.map((p) => p.url), ...DOCS.map((d) => d.url)]) {
+		for (const u of [...APPS.map((a) => a.url), ...UI_LIBS.map((l) => l.url), ...PLUGINS.map((p) => p.url), ...DOCS.map((d) => d.url), ...STATE_SOLUTIONS.map((s) => s.url)]) {
 			expect(u.startsWith('https://')).toBe(true);
 		}
 	});
 
 	it('translates every app, doc and string into every language', () => {
-		for (const v of [...APPS.map((a) => a.desc), ...DOCS.map((d) => d.desc), ...Object.values(STRINGS)]) {
+		for (const v of [...APPS.map((a) => a.desc), ...APPS.map((a) => a.about), ...STATE_SOLUTIONS.map((s) => s.desc), ...DOCS.map((d) => d.desc), ...Object.values(STRINGS)]) {
 			expect(v).toHaveLength(LANGS.length);
 			for (const s of v) expect(s.trim()).not.toBe('');
+		}
+	});
+
+	it('has a long description for every app and none for unknown slugs', () => {
+		expect(Object.keys(ABOUT).sort()).toEqual(APPS.map((a) => a.slug).sort());
+	});
+
+	it('takes icons from ai-logo, and the official icon only for the apps it does not list', () => {
+		const local = APPS.filter((a) => !a.icon.startsWith(AILOGO_CDN)).map((a) => a.slug);
+		expect(local.sort()).toEqual(['2048', 'repo-hopper', 'tomoru', 'uma']);
+		for (const a of APPS) expect(a.icon).toMatch(a.icon.startsWith(AILOGO_CDN) ? /^https:\/\/ailogo\.yldm\.ai\/avatar\/[a-z0-9]+\.webp$/ : new RegExp(`^/icons/${a.slug}\\.webp$`));
+	});
+
+	it('serves screenshots from /shots/', () => {
+		for (const img of [...APPS.map((a) => a.image), ...UI_LIBS.map((l) => l.image), ...STATE_SOLUTIONS.map((s) => s.image)]) {
+			if (img) expect(img).toMatch(/^\/shots\/[a-z0-9-]+\.(webp|svg)$/);
 		}
 	});
 
@@ -83,6 +100,10 @@ describe('search', () => {
 		expect(names).toContain('MyGo 云音乐');
 	});
 
+	it('finds state solutions', () => {
+		expect(searchCatalog(index, 'zustand').map((r) => r.name)).toEqual(['Nodra']);
+	});
+
 	it('finds plugins by tag and the cli by command', () => {
 		expect(searchCatalog(index, 'no-cors').map((r) => r.name)).toEqual(['Fetch']);
 		expect(searchCatalog(index, 'doctor')[0]?.target).toEqual({ type: 'page', path: '/plugins' });
@@ -110,5 +131,17 @@ describe('README entry', () => {
 		expect(isEntryComplete({ name: 'a', url: 'https://x', desc: 'd' })).toBe(true);
 		expect(isEntryComplete({ name: 'a', url: 'http://x', desc: 'd' })).toBe(false);
 		expect(isEntryComplete({ name: 'a', url: 'https://x', desc: ' ' })).toBe(false);
+	});
+});
+
+describe('showcase entry', () => {
+	it('matches the shape of showcase.ts and escapes quotes', () => {
+		expect(showcaseEntry({ name: 'My "App"', url: 'https://x.dev', desc: 'Does a thing.' }, 'native', { name: 'Name', desc: 'Desc' })).toBe(
+			['{', '  name: "My \\"App\\"",', '  description: "Does a thing.",', '  url: "https://x.dev",', '  mode: "native",', '},'].join('\n'),
+		);
+	});
+
+	it('allows a longer description for apps', () => {
+		expect(descMax('showcase')).toBeGreaterThan(descMax('ui'));
 	});
 });

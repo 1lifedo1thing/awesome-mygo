@@ -1,14 +1,21 @@
-import { APPS, appBySlug, fill, pick } from '@awesome-mygo/catalog';
+import { type App, APPS, appBySlug, fill, pick } from '@awesome-mygo/catalog';
+import { useDialog } from '../lib/dialog';
 import { useLang, useT } from '../lib/lang';
 import { useSite } from '../lib/site';
 import { CloseIcon, KindTag, MonoTile, WinBar, appView } from './bits';
 
 export function AppDrawer() {
-	const { app: slug, closeApp, openApp, copy, copied } = useSite();
+	const { app: slug } = useSite();
+	const app = slug ? appBySlug(slug) : undefined;
+	return app ? <Drawer app={app} /> : null;
+}
+
+// Stays mounted while prev/next/"more by" switch apps, so focus and scroll lock are not reset on every switch.
+function Drawer({ app }: { app: App }) {
+	const { closeApp, openApp, copy, copied } = useSite();
 	const t = useT();
 	const lang = useLang();
-	const app = slug ? appBySlug(slug) : undefined;
-	if (!app) return null;
+	const ref = useDialog<HTMLElement>();
 
 	const v = appView(app);
 	const kindLabel = app.kind === 'native' ? 'Native UI' : t.web_fe;
@@ -19,27 +26,33 @@ export function AppDrawer() {
 
 	return (
 		<div className='drawer-wrap'>
-			<button type='button' className='scrim fade' onClick={closeApp} aria-label={t.close_detail} />
-			<aside role='dialog' aria-modal='true' aria-labelledby='dt' className='drawer'>
+			<button type='button' className='scrim fade' onClick={closeApp} aria-label={t.close_detail} tabIndex={-1} />
+			<aside ref={ref} role='dialog' aria-modal='true' aria-labelledby='dt' className='drawer'>
 				<div className='drawer-bar'>
 					<WinBar label={v.host} size='lg' className='drawer-winbar' />
 					<button type='button' className='btn-g icon-btn icon-40' onClick={closeApp} aria-label={t.close}>
 						<CloseIcon />
 					</button>
 				</div>
-				<div className='dots drawer-hero'>
-					<span aria-hidden='true' className='drawer-num'>
-						{v.num}
-					</span>
-					<MonoTile view={v} size={112} />
-				</div>
+				{app.image ? (
+					<div className='drawer-shot'>
+						<img key={app.slug} src={app.image} alt={`${app.name} ${t.shot}`} width={1200} height={750} decoding='async' />
+					</div>
+				) : (
+					<div className='dots drawer-hero'>
+						<span aria-hidden='true' className='drawer-num'>
+							{v.num}
+						</span>
+						<MonoTile view={v} size={112} />
+					</div>
+				)}
 				<div className='drawer-body'>
 					<div className='stack-8'>
 						<KindTag app={app} label={kindLabel} />
 						<h2 id='dt' className='drawer-title'>
 							{app.name}
 						</h2>
-						<p className='drawer-desc'>{pick(app.desc, lang)}</p>
+						<p className='drawer-desc'>{pick(app.about, lang)}</p>
 					</div>
 					<dl className='facts'>
 						<dt>{t.f_author}</dt>
@@ -67,9 +80,7 @@ export function AppDrawer() {
 							<div className='others'>
 								{others.map((o) => (
 									<button key={o.slug} type='button' className='row other' onClick={() => openApp(o.slug)}>
-										<span aria-hidden='true' className='other-tile'>
-											{o.name.charAt(0).toUpperCase()}
-										</span>
+										<img className='other-tile app-icon' src={o.icon} alt='' width={32} height={32} loading='lazy' decoding='async' />
 										<span className='other-text'>
 											<span className='other-name'>{o.name}</span>
 											<span className='other-desc'>{pick(o.desc, lang)}</span>

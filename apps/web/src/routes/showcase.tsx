@@ -7,7 +7,7 @@ import { pageHead } from '../lib/seo';
 import { useSite } from '../lib/site';
 
 export const Route = createFileRoute('/showcase')({
-	head: ({ match }) => pageHead(match.search.lang, 'cat_show_name', 'cat_show_desc'),
+	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/showcase', title: 'cat_show_name', desc: 'cat_show_desc', app: match.search.app }),
 	component: ShowcasePage,
 });
 

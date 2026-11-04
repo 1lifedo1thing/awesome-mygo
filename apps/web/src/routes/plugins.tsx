@@ -1,5 +1,6 @@
-import { CLI_CMDS, COMMUNITY_PLUGINS, PLUGINS, PLUGINS_DOC, fill } from '@awesome-mygo/catalog';
+import { CLI_CMDS, COMMUNITY_PLUGINS, PLUGINS, PLUGINS_DOC, type PluginSurface, fill } from '@awesome-mygo/catalog';
 import { createFileRoute } from '@tanstack/react-router';
+import { useState } from 'react';
 import { WinBar } from '../components/bits';
 import { useT } from '../lib/lang';
 import { tilt } from '../lib/motion';
@@ -7,13 +8,22 @@ import { pageHead } from '../lib/seo';
 import { useSite } from '../lib/site';
 
 export const Route = createFileRoute('/plugins')({
-	head: ({ match }) => pageHead(match.search.lang, 'nav_plugins', 'plug_p'),
+	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/plugins', title: 'nav_plugins', desc: 'plug_p' }),
 	component: PluginsPage,
 });
 
 function PluginsPage() {
 	const t = useT();
 	const { openSubmit, copy, copied } = useSite();
+	const [surface, setSurface] = useState<'all' | 'web' | 'native'>('all');
+	const surfLabel: Record<PluginSurface, string> = { web: t.surf_web, native: t.surf_native, both: t.surf_both };
+	// A plugin for both kinds of window shows under either filter.
+	const fits = (s: PluginSurface) => surface === 'all' || s === surface || s === 'both';
+	const chips = [
+		{ key: 'all' as const, label: `${t.all} · ${PLUGINS.length}` },
+		{ key: 'web' as const, label: `${t.surf_web} · ${PLUGINS.filter((p) => p.surface !== 'native').length}` },
+		{ key: 'native' as const, label: `${t.surf_native} · ${PLUGINS.filter((p) => p.surface !== 'web').length}` },
+	];
 	return (
 		<section className='page enter gap-40'>
 			<div className='stack-14'>
@@ -21,9 +31,16 @@ function PluginsPage() {
 				<h1 className='page-h1'>{t.nav_plugins}</h1>
 				<p className='page-p mw-720'>{t.plug_p}</p>
 			</div>
+			<div className='chips' role='group' aria-label={t.a_filter}>
+				{chips.map((c) => (
+					<button key={c.key} type='button' className='chip' onClick={() => setSurface(c.key)} aria-pressed={surface === c.key}>
+						{c.label}
+					</button>
+				))}
+			</div>
 			<div className='plug-grid'>
-				{PLUGINS.map((p, k) => (
-					<div key={p.slug} className={`rv d${k} flex`}>
+				{PLUGINS.filter((p) => fits(p.surface)).map((p, k) => (
+					<div key={p.slug} className={`rv d${k % 6} flex`}>
 						<a className='tile plug' href={p.url} target='_blank' rel='noopener' {...tilt}>
 							<span className='glare' aria-hidden='true' />
 							<span className='plug-top'>
@@ -31,7 +48,9 @@ function PluginsPage() {
 								<span className='official'>OFFICIAL</span>
 							</span>
 							<span className='plug-mark'>{p.mark}</span>
-							<span className='plug-name'>{p.name}</span>
+							<span className='plug-name'>
+								{p.name} <span className={`surf surf-${p.surface}`}>{surfLabel[p.surface]}</span>
+							</span>
 							<span className='plug-desc'>{t[p.descKey]}</span>
 							<span className='plug-tags'>
 								{p.tags.map((tg) => (

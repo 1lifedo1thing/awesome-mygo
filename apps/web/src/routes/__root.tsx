@@ -1,4 +1,4 @@
-import { DEFAULT_LANG, LANG_STORAGE_KEY, negotiateLang } from '@awesome-mygo/catalog';
+import { DEFAULT_LANG, LANG_STORAGE_KEY, type LangCode, negotiateLang } from '@awesome-mygo/catalog';
 import { HeadContent, Link, Outlet, Scripts, createRootRoute, retainSearchParams, useNavigate } from '@tanstack/react-router';
 import { type ReactNode, useEffect } from 'react';
 import { AppDrawer } from '../components/AppDrawer';
@@ -12,13 +12,25 @@ import { useReveal, useScrolledPast } from '../lib/motion';
 import { SiteProvider, useSite } from '../lib/site';
 import styles from '../styles.css?url';
 
-const FONTS =
-	'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap';
+// Only the CJK face of the page's language is requested (the others' stylesheets alone are large), and only the weights the styles use. English keeps Simplified Chinese as the fallback for app names such as 留白.
+const CJK: Record<LangCode, string> = {
+	'zh-CN': 'Noto+Sans+SC',
+	'zh-TW': 'Noto+Sans+TC',
+	en: 'Noto+Sans+SC',
+	ja: 'Noto+Sans+JP',
+	ko: 'Noto+Sans+KR',
+};
+
+function fontsHref(lang: LangCode): string {
+	const families = ['Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800', 'JetBrains+Mono:wght@400;700', `${CJK[lang]}:wght@400;500;600;700;900`];
+	if (lang === 'en') families.unshift('Inter:wght@400;500;600;700;800;900');
+	return `https://fonts.googleapis.com/css2?${families.map((f) => `family=${f}`).join('&')}&display=swap`;
+}
 
 export const Route = createRootRoute({
 	validateSearch: validateRootSearch,
 	search: { middlewares: [retainSearchParams<RootSearch>(['lang'])] },
-	head: () => ({
+	head: ({ match }) => ({
 		meta: [
 			{ charSet: 'utf-8' },
 			{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -32,7 +44,7 @@ export const Route = createRootRoute({
 			{ rel: 'manifest', href: '/site.webmanifest' },
 			{ rel: 'preconnect', href: 'https://fonts.googleapis.com' },
 			{ rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: 'anonymous' },
-			{ rel: 'stylesheet', href: FONTS },
+			{ rel: 'stylesheet', href: fontsHref(match.search.lang ?? DEFAULT_LANG) },
 			{ rel: 'stylesheet', href: styles },
 		],
 	}),

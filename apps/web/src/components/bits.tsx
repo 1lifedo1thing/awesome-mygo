@@ -29,7 +29,9 @@ export function appView(app: App): AppView {
 	return { app, index, num: pad2(index + 1), host: hostOf(app.url), initial: app.name.charAt(0).toUpperCase(), tone: (index % 3) as 0 | 1 | 2 };
 }
 
+// The app's official icon; the letter tile stays as the fallback for an app without one.
 export function MonoTile({ view, size }: { view: AppView; size: 52 | 56 | 112 }) {
+	if (view.app.icon) return <img className={`mono-tile app-icon mono-${size}`} src={view.app.icon} alt='' width={size} height={size} loading='lazy' decoding='async' />;
 	return (
 		<span className={`mono-tile mono-${size} tone-${view.tone}`} aria-hidden='true'>
 			{view.initial}
