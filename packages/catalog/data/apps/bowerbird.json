@@ -1,0 +1,19 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"added": "2026-11-04T16:36:00Z",
+	"author": "owocc",
+	"category": "DesignApplication",
+	"description": {
+		"en": "Point Bowerbird at a folder and it becomes a library: files are hashed with SHA-256 to remove duplicates, palettes are extracted on import, and assets can be filtered by color, type, tag, virtual folder and orientation. Images and video preview in place, previews and imports are extensible through plugins with a plugin store, and a library is a portable .library package with no upload and no account. It runs on macOS, Windows and Linux, with a mobile app and a browser extension in the same workspace.",
+		"zh-CN": "把文件夹交给 Bowerbird 就成了一个素材库：文件按 SHA-256 去重、导入时自动提色板，可按颜色、类型、标签、虚拟文件夹和方向筛选，图片视频都能原地预览。预览和导入都支持插件，还有插件商店；库是可携带的 .library 包，不上传、不开账号。macOS、Windows、Linux 都能跑，同一仓库里还有移动端和浏览器扩展。"
+	},
+	"kind": "web",
+	"name": "Bowerbird",
+	"repo": "owocc/bowerbird",
+	"slug": "bowerbird",
+	"summary": {
+		"en": "Local-first asset library for images, video and files, built with MyGo.",
+		"zh-CN": "本地优先的素材库，收图片、视频和各类文件，基于 MyGo 构建。"
+	},
+	"url": "https://github.com/owocc/bowerbird"
+}
