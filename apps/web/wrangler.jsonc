@@ -8,6 +8,8 @@
 	// The zone mygodock.dev must be on the Cloudflare account that deploys; the custom domain creates its DNS record and certificate.
 	"routes": [{ "pattern": "mygodock.dev", "custom_domain": true }],
 	"observability": { "enabled": true },
+	// Keep Preview URLs on (wrangler disables them when this is missing) so each pull request gets its own preview link.
+	"preview_urls": true,
 	// Anonymous submissions (/api/submit): at most 3 a minute from one IP. namespace_id only has to be unique within the Cloudflare account. The GitHub App and Turnstile keys are secrets (GITHUB_APP_ID, GITHUB_APP_PRIVATE_KEY, TURNSTILE_SITE_KEY, TURNSTILE_SECRET_KEY); without them the form keeps to GitHub links.
 	"ratelimits": [{ "name": "SUBMIT_LIMIT", "namespace_id": "4170", "simple": { "limit": 3, "period": 60 } }],
 	// Workers Builds deploys each pull request as a Preview with `wrangler preview`, which needs this block. Bindings are not inherited from the top level, so the rate limiter is declared again, with its own counter. Previews have none of the bot's secrets, so their submit form keeps to the GitHub links.
