@@ -80,6 +80,30 @@ export function hasAllLanguages(text: unknown): boolean {
 	return SITE_LANGS.every((l) => typeof t[l] === 'string' && (t[l] as string).trim() !== '');
 }
 
+export type Caps = Partial<Record<(typeof SITE_LANGS)[number], number>>;
+
+// The longest text each language has in a field of the example entries: the length new copy should keep within, as hand-written entries set it.
+export function lengthCaps(examples: readonly Entry[], field: 'summary' | 'description'): Caps {
+	const caps: Caps = {};
+	for (const e of examples) {
+		const t = e[field] as Record<string, unknown> | undefined;
+		for (const l of SITE_LANGS) {
+			const v = t?.[l];
+			if (typeof v === 'string') caps[l] = Math.max(caps[l] ?? 0, [...v].length);
+		}
+	}
+	return caps;
+}
+
+// The languages in which text runs more than a tenth past its cap, as "en 580/405".
+export function overCaps(text: Record<string, string>, caps: Caps): string[] {
+	return SITE_LANGS.flatMap((l) => {
+		const cap = caps[l];
+		const len = typeof text[l] === 'string' ? [...text[l]].length : 0;
+		return cap && len > cap * 1.1 ? [`${l} ${len}/${cap}`] : [];
+	});
+}
+
 // The app's name as mygo.json spells it, when the submitted name is the same word in other letter case: the form offers the repository's name (myskills), while the app calls itself MySkills. A name the visitor chose differently is kept.
 export function appNameFrom(submitted: string, mygo: unknown): string | undefined {
 	const name = (mygo as { name?: unknown } | null)?.name;
