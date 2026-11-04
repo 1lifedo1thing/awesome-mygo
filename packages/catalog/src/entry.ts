@@ -23,8 +23,11 @@ export function descMax(cat: SubmitCat): number {
 export interface EntryDraft {
 	name: string;
 	author: string;
+	// The showcase's homepage, a plugin's docs, an article; for UI components and state management, the GitHub repository.
 	url: string;
 	desc: string;
+	// Showcase only: the app's GitHub repository link, for an open-source app. Optional, since an app need not be open source.
+	repo?: string;
 	// Showcase only: the app's schema.org category, from the group its author picked. Left out when none was picked.
 	category?: AppCategory;
 }
@@ -94,7 +97,7 @@ export function buildEntry(cat: SubmitCat, d: EntryDraft, mode: 'native' | 'web'
 	const repo = repoOf(url);
 	switch (cat) {
 		case 'showcase':
-			return { slug: slugify(name), name, author, kind: mode, ...(d.category ? { category: d.category } : {}), url, summary, description: summary };
+			return { slug: slugify(name), name, author, kind: mode, ...(d.category ? { category: d.category } : {}), url, ...(repoOf(d.repo ?? '') ? { repo: repoOf(d.repo ?? '') } : {}), summary, description: summary };
 		case 'ui':
 			return { name, author, tag: 'theme', summary, repo: repo ?? 'owner/name', url };
 		case 'state':
@@ -110,6 +113,11 @@ export function jsonEntry(cat: SubmitCat, d: EntryDraft, mode: 'native' | 'web',
 	return JSON.stringify(buildEntry(cat, d, mode, placeholders), null, 2);
 }
 
+// A showcase app's optional GitHub link that is filled in but is not a repository link.
+export function isBadRepo(link: string): boolean {
+	return link.trim().length > 0 && !repoOf(link);
+}
+
 // UI components and state management are listed by their GitHub repository.
 export function needsRepo(cat: SubmitCat): boolean {
 	return cat === 'ui' || cat === 'state';
@@ -123,7 +131,52 @@ export function entryProblem(cat: SubmitCat, d: EntryDraft): string | undefined 
 	if ([d.name, d.author, d.url, d.desc].some((v) => /[\u0000-\u001f\u007f]/.test(v))) return 'fields must be a single line of text';
 	if (/\s/.test(d.url.trim())) return 'the link must not contain spaces';
 	if (needsRepo(cat) && !repoOf(d.url)) return 'UI components and state management need a GitHub repository link';
+	if (cat === 'showcase' && d.repo?.trim() && (isBadRepo(d.repo) || d.repo.length > 300)) return 'the GitHub repository must be a link like https://github.com/owner/name';
 	return undefined;
+}
+
+// ---- a pasted entry ----
+
+// A contributor may paste a whole entry instead of filling in the form: it then goes into its data file as written, translations and all, once it passes the same check the file does.
+
+// The pasted text as one entry, or why it is not one.
+export function parseEntryJson(text: string): { entry: Record<string, unknown> } | { error: 'json' | 'object' } {
+	let v: unknown;
+	try {
+		v = JSON.parse(text);
+	} catch {
+		return { error: 'json' };
+	}
+	return v && typeof v === 'object' && !Array.isArray(v) ? { entry: v as Record<string, unknown> } : { error: 'object' };
+}
+
+// Why entry cannot be submitted as a cat entry, or undefined when it can. The file's own check names the field; the rest are the limits the form's fields have.
+export function pastedEntryProblem(cat: SubmitCat, entry: Record<string, unknown>): string | undefined {
+	const { list, check } = SUBMIT_FILES[cat];
+	try {
+		check({ [list]: [entry] });
+	} catch (err) {
+		if (err instanceof CatalogError) return err.message;
+		throw err;
+	}
+	// Images live in the repository, and a visitor cannot add one; a maintainer adds them after merging.
+	if (entry.screenshot !== undefined || (entry.icon as { file?: unknown } | undefined)?.file !== undefined) return 'screenshot and icon.file name images in the repository, which a maintainer adds; leave them out';
+	const name = pastedName(entry);
+	if (name.length > 80 || /[\u0000-\u001f\u007f]/.test(name)) return 'the name must be a single line of at most 80 characters';
+	const url = String(entry.url ?? entry.docs ?? '');
+	if (url.length > 300) return 'the link is longer than 300 characters';
+	return undefined;
+}
+
+// The categories whose file accepts entry. The form switches to the category when exactly one does.
+export function entryCats(entry: Record<string, unknown>): SubmitCat[] {
+	return SUBMIT_CATS.filter((cat) => !pastedEntryProblem(cat, entry));
+}
+
+// The entry's name, for pull request and issue titles: articles have a title instead.
+export function pastedName(entry: Record<string, unknown>): string {
+	const v = entry.name ?? entry.title;
+	return typeof v === 'string' ? v.trim() : '';
 }
 
 // The data file with entry added at the end of its list, formatted as the repository keeps it. Throws a CatalogError, naming the field, when the result would not pass the file's check, e.g. a duplicate.

@@ -12,11 +12,11 @@
 
 ## 網站內容
 
-- **作品**：26 款用 MyGo 打造的桌面應用，每款都有完整介紹、截圖（專案有提供時）、介面類型（原生 UI 或 Web 前端），以及同一作者的其他作品。
-- **外掛**：11 個官方外掛，標明適用於網頁、原生 UI 還是兩者，另有 `mygo-cli` 工具鏈。
+- **作品**：用 MyGo 打造的桌面應用，每款都有完整介紹、截圖（專案有提供時）、介面類型（原生 UI 或 Web 前端），以及同一作者的其他作品。
+- **外掛**：官方外掛，標明適用於網頁、原生 UI 還是兩者，另有 `mygo-cli` 工具鏈。
 - **UI 元件**：為 MyGo 應用打造的元件庫、主題與圖示。
 - **狀態管理**：MyGo 應用的狀態方案，以及 MyGo 內建的綁定服務、通道和型別化事件。
-- **文件**：20 篇官方指南、一篇社群文章和官方資源。
+- **文件**：官方指南、社群文章和官方資源。
 - 用 <kbd>⌘K</kbd> / <kbd>Ctrl+K</kbd> **搜尋**全部內容；想收錄某個專案時，提交表單會替你寫好條目。
 
 網站支援簡體中文、繁體中文、英語、日語和韓語。每個頁面在每種語言下都有獨立網址（`?lang=en`），由伺服器端渲染，並帶有 hreflang 連結和 sitemap。
@@ -29,6 +29,7 @@ pnpm monorepo，由 [TanStack Start](https://tanstack.com/start) 執行在 [Clou
 |---|---|
 | `apps/web` | 網站：React 19、TanStack Start（伺服器端渲染），以及帶 `@cloudflare/vite-plugin` 的 Vite。`wrangler.jsonc` 把它部署到 `mygodock.dev`。 |
 | `packages/catalog` | 資料：`data/*.json`（應用、UI 元件、狀態方案、外掛、文章、指南）及其 JSON Schema，五種語言的介面文案，搜尋與提交表單的條目。測試會驗證每個條目。 |
+| `packages/enrich` | 補全提交 bot 開的 PR：從專案倉庫取應用圖示和截圖，並用 Claude 寫五種語言的文案。由 `.github/workflows/enrich-submission.yml` 執行。 |
 
 應用圖示來自 [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo)，由它的 CDN 提供；它未收錄的少數應用使用 `apps/web/public/icons/` 裡的官方圖示。
 
@@ -49,6 +50,8 @@ pnpm preview      # 在 Workers 執行環境中執行正式建置
 
 表單的直接提交透過安裝在本倉庫上的 GitHub App 完成，前面有 Cloudflare Turnstile 人機驗證和依 IP 的限流。給這個 App 開 *Contents* 和 *Pull requests* 的讀寫權限，把它的私鑰轉成 PKCS#8（`openssl pkcs8 -topk8 -nocrypt -in key.pem -out key-pkcs8.pem`），然後在 `apps/web` 下用 `wrangler secret put` 設定四個 secret：`GITHUB_APP_ID`、`GITHUB_APP_PRIVATE_KEY`（PKCS#8 檔案）、`TURNSTILE_SITE_KEY` 和 `TURNSTILE_SECRET_KEY`。四個都設好之前，表單只提供 GitHub 連結。本機測試時，把 Turnstile 的[測試金鑰](https://developers.cloudflare.com/turnstile/troubleshooting/testing/)寫進 `apps/web/.dev.vars`。
 
+bot 開出 PR 後，*Complete submission* workflow 會補上表單問不到的內容：應用圖示，依 MyGo 的查找方式取（`mygo.json` 的 `icon`，沒有則用 `resources/icon.png`；如果是 `mygo init` 產生的 MyGo 預設圖示就不加）、README 裡第一張不是圖示或其他方形 logo 的截圖，以及五種語言的簡介和介紹。它會跑 catalog 檢查，以 bot 身分推到同一分支，並在 PR 裡留言說明做了什麼；合併前仍需維護者審核。需要在倉庫的 Actions 設定裡配置 secret：`SUBMIT_APP_PRIVATE_KEY`（App 的 PKCS#8 私鑰，與 Worker 用的相同）、`LLM_API_KEY`（Anthropic Messages API 的金鑰），走閘道時再加 `LLM_BASE_URL`；以及變數 `SUBMIT_APP_CLIENT_ID`（App 的 Client ID）。變數 `LLM_MODEL` 可以換模型（預設 `claude-opus-5-5`）。沒有 `LLM_API_KEY` 時文案維持提交時的樣子。
+
 ## 收錄專案
 
 所有條目都在 [`packages/catalog/data`](packages/catalog/data) 下的 JSON 檔案裡，每個類別一個檔案：
@@ -64,7 +67,7 @@ pnpm preview      # 在 Workers 執行環境中執行正式建置
 
 新增方式有兩種：
 
-- **在網站上：** 點「提交」填表，然後直接提交：不需要 GitHub 帳號，網站的 bot 會替你開 PR。有 GitHub 帳號的話，也可以把產生的條目提交為 Issue，或在 GitHub 編輯器裡開啟對應的 JSON 檔案自己加上。
+- **在網站上：** 點「提交」填表，或者直接貼上整條 JSON 條目，然後提交：不需要 GitHub 帳號，網站的 bot 會替你開 PR。有 GitHub 帳號的話，也可以把產生的條目提交為 Issue，或在 GitHub 編輯器裡開啟對應的 JSON 檔案自己加上。
 - **在倉庫裡：** 在檔案的清單裡加一個物件，然後提 PR。
 
 `apps.json` 中的一個條目長這樣：
@@ -75,12 +78,14 @@ pnpm preview      # 在 Workers 執行環境中執行正式建置
   "name": "My App",
   "author": "your-github-login",
   "kind": "native",
-  "url": "https://github.com/you/my-app",
+  "url": "https://my-app.dev",
+  "repo": "you/my-app",
   "summary": { "en": "One line about the app.", "ja": "アプリの一行説明。" },
   "description": { "en": "A few sentences for the detail drawer." }
 }
 ```
 
+- `url` 是應用首頁：官網，沒有官網就填倉庫網址，不要求在 GitHub 上。開源應用再用 `repo` 填 GitHub 倉庫（`owner/name`），閉源應用不填。
 - 文字欄位依語言各寫一份。`en` 必填；`zh-CN`、`zh-TW`、`ja`、`ko` 可選，缺少的語言顯示英文。
 - 每個檔案都在 `$schema` 裡指向自己的 JSON Schema（在 `data/schema/`），VS Code 等編輯器會在你輸入時補全並檢查欄位。
 - 連結必須是 https。截圖請把寬約 1200px 的 WebP 放進 `apps/web/public/shots/`，並寫 `"screenshot": "my-app.webp"`。應用圖示寫 `"icon": { "ailogo": "<id>" }`，id 來自 [ai-logo](https://github.com/yldm-tech/ai-logo)；不寫則顯示字母圖示。

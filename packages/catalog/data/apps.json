@@ -641,6 +641,86 @@
 			}
 		},
 		{
+			"slug": "myskills",
+			"name": "MySkills",
+			"author": "legibet",
+			"kind": "native",
+			"category": "DeveloperApplication",
+			"url": "https://github.com/legibet/myskills",
+			"summary": {
+				"en": "Manage a private library of agent skills and enable them per project or globally.",
+				"zh-CN": "管理私人 agent skills 库，按需在项目或全局启用。",
+				"zh-TW": "管理私人 agent skills 資料庫，依需求在專案或全域啟用。",
+				"ja": "agent skills の個人ライブラリを管理し、プロジェクトごとやグローバルに有効化。",
+				"ko": "개인 agent skills 라이브러리를 관리하고 프로젝트별 또는 전역으로 활성화합니다."
+			},
+			"description": {
+				"en": "A desktop app and command line tool that keeps agent skills in a private library, added from GitHub, any git remote, a local folder or skills.sh. It enables them per project or globally, as a symlink or as a copy to commit that it flags when outdated or edited, for agents such as Claude Code and Antigravity. The macOS and Linux app is drawn with MyGo's native UI.",
+				"zh-CN": "一款桌面应用兼命令行工具，把 agent skills 存进私人库，可从 GitHub、任意 git 远程仓库、本地文件夹或 skills.sh 添加。技能可按项目或全局启用，方式是符号链接，或复制进项目一起提交，副本过期或被改动时会提示；支持 Claude Code、Antigravity 等 agent。macOS 与 Linux 桌面应用由 MyGo 原生 UI 绘制。",
+				"zh-TW": "一款桌面應用程式兼命令列工具，把 agent skills 存進私人資料庫，可從 GitHub、任何 git 遠端儲存庫、本機資料夾或 skills.sh 加入。技能可依專案或全域啟用，方式是符號連結，或複製進專案一起提交，副本過期或遭修改時會提示；支援 Claude Code、Antigravity 等 agent。macOS 與 Linux 桌面應用程式由 MyGo 原生 UI 繪製。",
+				"ja": "agent skills を個人ライブラリにまとめるデスクトップアプリ兼コマンドラインツール。スキルは GitHub、任意の git リモート、ローカルフォルダー、skills.sh から追加できます。プロジェクトごとまたはグローバルに、シンボリックリンクかコミット用のコピーとして有効化し、コピーが古くなったり編集されたりすると知らせます。Claude Code や Antigravity などのエージェントに対応し、macOS・Linux 版アプリは MyGo のネイティブ UI で描かれています。",
+				"ko": "agent skills를 개인 라이브러리에 모아 관리하는 데스크톱 앱이자 명령줄 도구입니다. GitHub, 임의의 git 원격 저장소, 로컬 폴더, skills.sh에서 스킬을 추가하고, 프로젝트별 또는 전역으로 심볼릭 링크나 커밋용 복사본으로 활성화하며, 복사본이 오래되거나 수정되면 알려 줍니다. Claude Code, Antigravity 등의 에이전트를 지원하고, macOS·Linux 앱은 MyGo의 네이티브 UI로 그렸습니다."
+			},
+			"screenshot": "myskills.webp",
+			"icon": {
+				"file": "myskills.webp"
+			}
+		},
+		{
+			"slug": "pudmusic",
+			"name": "PudMusic",
+			"author": "ShellMonster",
+			"kind": "native",
+			"category": "MultimediaApplication",
+			"url": "https://github.com/ShellMonster/PudMusic",
+			"repo": "ShellMonster/PudMusic",
+			"summary": {
+				"en": "A desktop music player for macOS and Windows that plays Bilibili music and local audio files.",
+				"zh-CN": "macOS 与 Windows 桌面音乐播放器，播放 B 站音乐内容和本地音频文件。",
+				"zh-TW": "macOS 與 Windows 桌面音樂播放器，播放 B 站音樂內容與本機音訊檔案。",
+				"ja": "Bilibili の音楽とローカルの音声ファイルを再生する macOS・Windows 用音楽プレーヤー。",
+				"ko": "Bilibili 음악과 로컬 오디오 파일을 재생하는 macOS·Windows 음악 플레이어."
+			},
+			"description": {
+				"en": "A music player for macOS and Windows, rebuilt from Biu in Go and drawn with MyGo's native UI, with no WebView. It plays Bilibili music, with Hi-Res lossless and other online quality levels after a QR-code login, and local FLAC, MP3, WAV, AIFF, AAC, M4A and OGG Vorbis files. It has a play queue, lyrics, a mini player and system media controls.",
+				"zh-CN": "基于 Biu 用 Go 重新实现、由 MyGo 原生 UI 绘制的 macOS 与 Windows 音乐播放器，不依赖 WebView。可播放 B 站音乐内容，扫码登录后可选择 Hi-Res 无损等在线音质，也能播放本地 FLAC、MP3、WAV、AIFF、AAC、M4A 和 OGG Vorbis 文件；提供播放队列、歌词、迷你播放器和系统媒体控制。",
+				"zh-TW": "以 Biu 為基礎用 Go 重新實作、由 MyGo 原生 UI 繪製的 macOS 與 Windows 音樂播放器，不依賴 WebView。可播放 B 站音樂內容，掃碼登入後可選擇 Hi-Res 無損等線上音質，也能播放本機 FLAC、MP3、WAV、AIFF、AAC、M4A 與 OGG Vorbis 檔案；提供播放佇列、歌詞、迷你播放器與系統媒體控制。",
+				"ja": "Biu をもとに Go で作り直し、MyGo のネイティブ UI で描いた macOS・Windows 向けの音楽プレーヤー。WebView は使いません。Bilibili の音楽を再生でき、QR コードでログインすると Hi-Res ロスレスなどのオンライン音質を選べます。ローカルの FLAC、MP3、WAV、AIFF、AAC、M4A、OGG Vorbis ファイルも再生でき、再生キュー、歌詞表示、ミニプレーヤー、システムのメディアコントロールに対応します。",
+				"ko": "Biu를 바탕으로 Go로 다시 만들고 MyGo의 네이티브 UI로 그린 macOS·Windows용 음악 플레이어로, WebView를 쓰지 않습니다. Bilibili 음악을 재생하며 QR 코드로 로그인하면 Hi-Res 무손실 등 온라인 음질을 고를 수 있고, 로컬 FLAC, MP3, WAV, AIFF, AAC, M4A, OGG Vorbis 파일도 재생합니다. 재생 대기열, 가사, 미니 플레이어, 시스템 미디어 컨트롤을 지원합니다."
+			},
+			"icon": {
+				"file": "pudmusic.webp"
+			},
+			"screenshot": "pudmusic.webp"
+		},
+		{
+			"slug": "saundo",
+			"name": "saundo",
+			"author": "4202217",
+			"kind": "native",
+			"category": "UtilitiesApplication",
+			"url": "https://github.com/4202217/saundo",
+			"repo": "4202217/saundo",
+			"summary": {
+				"en": "A Windows tray app that streams all system audio to AirPlay 2 receivers such as HomePod.",
+				"zh-CN": "把 Windows 的全部声音推送到 AirPlay 2 接收端的托盘应用。",
+				"zh-TW": "把 Windows 的所有聲音串流到 AirPlay 2 接收器的系統匣程式。",
+				"ja": "Windows の音をまるごと AirPlay 2 レシーバーへ送る、タスクトレイ常駐アプリ。",
+				"ko": "Windows의 모든 소리를 AirPlay 2 수신기로 보내는 트레이 앱."
+			},
+			"description": {
+				"en": "A Windows 10 and 11 tray app drawn with MyGo's native UI, with no web view. It captures all system audio through WASAPI loopback, or a single application, and streams it as uncompressed ALAC over AirPlay 2 to HomePod, HomePod stereo pairs, Mac receivers and Apple TV. It is audio only, with no screen mirroring, and does not support receivers that require Apple FairPlay.",
+				"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 10 和 11 托盘应用，没有 Web 视图。它通过 WASAPI 环回捕获系统的全部声音，也可以只捕获单个应用，再以未压缩的 ALAC 经 AirPlay 2 推送到 HomePod、HomePod 立体声对、Mac 接收端和 Apple TV。只传输音频，不支持屏幕镜像，也不支持需要 Apple FairPlay 的接收端。",
+				"zh-TW": "用 MyGo 原生 UI 繪製的 Windows 10 與 11 系統匣程式，沒有 Web 視圖。它透過 WASAPI 環回擷取系統的所有聲音，也可以只擷取單一應用程式，再以未壓縮的 ALAC 經 AirPlay 2 串流到 HomePod、HomePod 立體聲組、Mac 接收器和 Apple TV。只傳輸音訊，不支援螢幕鏡像，也不支援需要 Apple FairPlay 的接收器。",
+				"ja": "MyGo のネイティブ UI で描かれた Windows 10・11 用のタスクトレイ常駐アプリで、Web ビューは使いません。WASAPI ループバックでシステムの音をまるごと、または特定のアプリだけを取り込み、非圧縮の ALAC にして AirPlay 2 で HomePod、HomePod のステレオペア、Mac、Apple TV へ送ります。音声専用で画面ミラーリングはできず、Apple FairPlay が必要なレシーバーには対応していません。",
+				"ko": "MyGo의 네이티브 UI로 그린 Windows 10·11용 트레이 앱으로, 웹 뷰를 쓰지 않습니다. WASAPI 루프백으로 시스템 소리 전체 또는 특정 앱의 소리만 캡처해 압축하지 않은 ALAC로 AirPlay 2를 통해 HomePod, HomePod 스테레오 페어, Mac, Apple TV에 보냅니다. 오디오 전용이라 화면 미러링은 되지 않으며, Apple FairPlay가 필요한 수신기는 지원하지 않습니다."
+			},
+			"icon": {
+				"file": "saundo.webp"
+			},
+			"screenshot": "saundo.webp"
+		},
+		{
 			"slug": "gocompare",
 			"name": "GoCompare",
 			"author": "jhzhang09",

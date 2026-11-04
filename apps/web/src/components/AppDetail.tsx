@@ -1,4 +1,4 @@
-import { type App, APPS, fill, likeKey, pick } from '@awesome-mygo/catalog';
+import { type App, APPS, appSource, fill, hostOf, likeKey, pick } from '@awesome-mygo/catalog';
 import { useLang, useT } from '../lib/lang';
 import { useSite } from '../lib/site';
 import { AppLink, type AppView } from './bits';
@@ -8,6 +8,7 @@ import { LikeButton } from './Like';
 
 export function AppFacts({ view, kindLabel }: { view: AppView; kindLabel: string }) {
 	const t = useT();
+	const src = appSource(view.app);
 	return (
 		<dl className='facts'>
 			<dt>{t.f_author}</dt>
@@ -16,6 +17,16 @@ export function AppFacts({ view, kindLabel }: { view: AppView; kindLabel: string
 			<dd>{kindLabel}</dd>
 			<dt>{t.f_site}</dt>
 			<dd className='mono-13 break'>{view.host}</dd>
+			{src && (
+				<>
+					<dt>{t.f_src}</dt>
+					<dd className='mono-13 break'>
+						<a href={src} target='_blank' rel='noopener'>
+							{hostOf(src)}
+						</a>
+					</dd>
+				</>
+			)}
 			<dt>{t.f_no}</dt>
 			<dd className='mono-13'>
 				#{view.num} / {APPS.length}

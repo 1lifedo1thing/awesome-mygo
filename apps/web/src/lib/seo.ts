@@ -1,4 +1,4 @@
-import { type App, APPS, DEFAULT_LANG, LANGS, type LangCode, SITE_URL, type StringKey, appDescription, authorProfile, pick, t } from '@awesome-mygo/catalog';
+import { type App, APPS, DEFAULT_LANG, LANGS, type LangCode, SITE_URL, type StringKey, appDescription, appSource, authorProfile, pick, t } from '@awesome-mygo/catalog';
 import type { MetaDescriptor } from '@tanstack/react-router';
 import type { JSX } from 'react';
 
@@ -84,7 +84,7 @@ export function appHead(app: App, langParam: LangCode | undefined) {
 		'@type': 'SoftwareApplication',
 		name: app.name,
 		url,
-		sameAs: app.url,
+		sameAs: [app.url, appSource(app)].filter((u): u is string => u !== undefined),
 		description: pick(app.desc, lang),
 		...(app.category ? { applicationCategory: app.category } : {}),
 		author: { '@type': 'Person', name: app.author, ...(profile ? { url: profile } : {}) },

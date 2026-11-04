@@ -12,11 +12,11 @@ English · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) ·
 
 ## What is on the site
 
-- **Showcase**: 26 desktop apps built with MyGo. Each has its full description, a screenshot where the project has one, its interface (native UI or web frontend) and its other apps by the same author.
-- **Plugins**: the 11 official plugins, marked by the kind of window they serve (web pages, native UI or both), plus the `mygo-cli` toolchain.
+- **Showcase**: desktop apps built with MyGo. Each has its full description, a screenshot where the project has one, its interface (native UI or web frontend) and its other apps by the same author.
+- **Plugins**: the official plugins, marked by the kind of window they serve (web pages, native UI or both), plus the `mygo-cli` toolchain.
 - **UI components**: component libraries, themes and icons made for MyGo apps.
 - **State**: state management for MyGo apps, beside MyGo's own bound services, channels and typed events.
-- **Learn**: the 20 official guides, a community article and the official resources.
+- **Learn**: the official guides, community articles and the official resources.
 - **Search** across everything with <kbd>⌘K</kbd> / <kbd>Ctrl+K</kbd>, and a form that writes the entry for a project you want listed.
 
 The site speaks Simplified Chinese, Traditional Chinese, English, Japanese and Korean. Every page has its own address per language (`?lang=en`), is rendered on the server, and has hreflang links and a sitemap.
@@ -29,6 +29,7 @@ A pnpm monorepo, served by [TanStack Start](https://tanstack.com/start) on [Clou
 |---|---|
 | `apps/web` | The site: React 19, TanStack Start (server rendering) and Vite with `@cloudflare/vite-plugin`. `wrangler.jsonc` deploys it to `mygodock.dev`. |
 | `packages/catalog` | The data: `data/*.json` (apps, UI components, state solutions, plugins, articles, guides) and their JSON Schemas, the UI copy in five languages, search and the submit form's entries. Its tests validate every entry. |
+| `packages/enrich` | Completes a pull request the submission bot opens: the app's icon and screenshot from its repository, and its copy in all five languages (written with Claude). Run by `.github/workflows/enrich-submission.yml`. |
 
 App icons come from [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo), served by its CDN; the few apps it does not list use their official icon from `apps/web/public/icons/`.
 
@@ -49,6 +50,8 @@ pnpm preview      # the production build in the Workers runtime
 
 Direct submissions from the form go through a GitHub App installed on this repository, with Cloudflare Turnstile and a per-IP rate limit in front of it. Give the app *Contents* and *Pull requests* read and write access, convert its private key to PKCS#8 (`openssl pkcs8 -topk8 -nocrypt -in key.pem -out key-pkcs8.pem`), and set four secrets with `wrangler secret put` in `apps/web`: `GITHUB_APP_ID`, `GITHUB_APP_PRIVATE_KEY` (the PKCS#8 file), `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY`. Until all four are set, the form offers only the GitHub links. For local testing, put Turnstile's [test keys](https://developers.cloudflare.com/turnstile/troubleshooting/testing/) in `apps/web/.dev.vars`.
 
+When the bot opens a pull request, the *Complete submission* workflow fills in what the form cannot ask for: the app's icon where MyGo looks for it (`icon` in `mygo.json`, else `resources/icon.png`; none when that is MyGo's default icon, as `mygo init` leaves it), the first screenshot in its README that is not the icon or another square logo, and the summary and description in all five languages. It runs the catalog checks, pushes to the same branch as the bot and comments what it did; a maintainer still reviews the result before merging. It needs, in the repository's Actions settings, the secrets `SUBMIT_APP_PRIVATE_KEY` (the app's PKCS#8 key, as for the Worker), `LLM_API_KEY` (an Anthropic Messages API key) and, for a gateway, `LLM_BASE_URL`, and the variable `SUBMIT_APP_CLIENT_ID` (the app's client ID); the variable `LLM_MODEL` overrides the model (`claude-opus-5-5`). Without `LLM_API_KEY` the copy stays as submitted.
+
 ## Adding a project
 
 Every entry lives in a JSON file under [`packages/catalog/data`](packages/catalog/data), one file per category:
@@ -64,7 +67,7 @@ Every entry lives in a JSON file under [`packages/catalog/data`](packages/catalo
 
 There are two ways to add one:
 
-- **On the site:** click "Submit" and fill in the form, then submit it directly: no GitHub account needed, the site's bot opens the pull request for you. With a GitHub account you can also send the generated entry as an issue, or open the JSON file in GitHub's editor and add it yourself.
+- **On the site:** click "Submit" and fill in the form, or paste a whole entry as JSON, then submit it directly: no GitHub account needed, the site's bot opens the pull request for you. With a GitHub account you can also send the generated entry as an issue, or open the JSON file in GitHub's editor and add it yourself.
 - **In the repository:** add an object to the list in the file and open a pull request.
 
 An entry in `apps.json` looks like this:
@@ -75,12 +78,14 @@ An entry in `apps.json` looks like this:
   "name": "My App",
   "author": "your-github-login",
   "kind": "native",
-  "url": "https://github.com/you/my-app",
+  "url": "https://my-app.dev",
+  "repo": "you/my-app",
   "summary": { "en": "One line about the app.", "ja": "アプリの一行説明。" },
   "description": { "en": "A few sentences for the detail drawer." }
 }
 ```
 
+- `url` is the app's homepage: its website, or its repository if it has none; it need not be on GitHub. An open-source app adds its GitHub repository as `repo` (`owner/name`); a closed-source one leaves it out.
 - Text fields hold one string per language. `en` is required; `zh-CN`, `zh-TW`, `ja` and `ko` are optional, and a missing language shows the English text.
 - Each file names its JSON Schema (in `data/schema/`) in `$schema`, so VS Code and other editors complete and check the fields as you type.
 - Links must be https. For a screenshot, add a WebP about 1200px wide to `apps/web/public/shots/` and set `"screenshot": "my-app.webp"`. For an app icon, set `"icon": { "ailogo": "<id>" }` with an [ai-logo](https://github.com/yldm-tech/ai-logo) id, or leave it out for a letter tile.

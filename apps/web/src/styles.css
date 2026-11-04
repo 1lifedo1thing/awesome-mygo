@@ -2628,6 +2628,12 @@ html:lang(ko) .site {
 	padding: 12px 14px;
 	resize: vertical;
 }
+/* A pasted JSON entry: set like the preview it replaces. */
+.field-code {
+	font-family: var(--f-mono);
+	font-size: 13px;
+	line-height: 1.7;
+}
 .field-err {
 	margin: -6px 0 0;
 	font-size: 13px;

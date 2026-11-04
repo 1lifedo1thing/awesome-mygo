@@ -1,11 +1,12 @@
-import { APP_CATEGORIES, CatalogError, type EntryDraft, SUBMIT_CATS, type SubmitCat, buildEntry, entryProblem } from '@awesome-mygo/catalog';
+import { APP_CATEGORIES, CatalogError, type EntryDraft, SUBMIT_CATS, type SubmitCat, buildEntry, entryProblem, pastedEntryProblem, pastedName } from '@awesome-mygo/catalog';
 import { createFileRoute } from '@tanstack/react-router';
 import { env } from 'cloudflare:workers';
 import { type BotConfig, SubmissionsBusy, openSubmission, verifyTurnstile } from '../../server/submit';
 
 // GET says whether the bot is set up (and gives the Turnstile site key); POST submits an entry. Error codes: invalid, limited, captcha, busy, disabled, github.
 
-type Submission = EntryDraft & { cat: SubmitCat; mode: 'native' | 'web'; token: string };
+// Either the form's fields, from which the entry is built, or an entry pasted whole, which goes in as written.
+type Submission = { cat: SubmitCat; token: string } & ({ kind: 'form'; draft: EntryDraft; mode: 'native' | 'web' } | { kind: 'entry'; entry: Record<string, unknown> });
 
 const MAX_BODY = 16 * 1024;
 
@@ -42,13 +43,18 @@ async function readSubmission(request: Request): Promise<Submission | undefined>
 	const r = raw as Record<string, unknown>;
 	const str = (k: string) => (typeof r[k] === 'string' ? (r[k] as string) : undefined);
 	const cat = SUBMIT_CATS.find((c) => c === r.cat);
+	const token = str('token');
+	if (!cat || !token || token.length > 2048) return undefined;
+	if (r.entry !== undefined) return r.entry && typeof r.entry === 'object' && !Array.isArray(r.entry) ? { cat, token, kind: 'entry', entry: r.entry as Record<string, unknown> } : undefined;
 	const mode = r.mode === 'web' ? 'web' : r.mode === 'native' || r.mode === undefined ? 'native' : undefined;
-	const [name, author, url, desc, token] = [str('name'), str('author') ?? '', str('url'), str('desc') ?? '', str('token')];
+	const [name, author, url, desc, repo] = [str('name'), str('author') ?? '', str('url'), str('desc') ?? '', str('repo')];
 	// A showcase entry may name its category; anything not in the schema's list is refused rather than dropped.
 	const category = r.category === undefined ? undefined : APP_CATEGORIES.find((c) => c === r.category);
 	if (r.category !== undefined && (!category || cat !== 'showcase')) return undefined;
-	if (!cat || !mode || name === undefined || url === undefined || !token || token.length > 2048) return undefined;
-	return { cat, mode, name, author, url, desc, token, category };
+	// Only a showcase app has a repository besides its link.
+	if (r.repo !== undefined && (repo === undefined || cat !== 'showcase')) return undefined;
+	if (!mode || name === undefined || url === undefined) return undefined;
+	return { cat, token, kind: 'form', mode, draft: { name, author, url, desc, category, repo } };
 }
 
 export const Route = createFileRoute('/api/submit')({
@@ -64,13 +70,13 @@ export const Route = createFileRoute('/api/submit')({
 				const ip = request.headers.get('cf-connecting-ip') ?? '';
 				if (!(await env.SUBMIT_LIMIT.limit({ key: ip || 'unknown' })).success) return json({ error: 'limited' }, 429);
 				const sub = await readSubmission(request);
-				if (!sub) return json({ error: 'invalid', message: 'expected a JSON object with cat, name, url, desc, author, token and, for the showcase, an optional category' }, 400);
-				const problem = entryProblem(sub.cat, sub);
+				if (!sub) return json({ error: 'invalid', message: 'expected a JSON object with cat, token and either entry (a whole entry) or name, url, desc, author and, for the showcase, an optional category and repo' }, 400);
+				const problem = sub.kind === 'entry' ? pastedEntryProblem(sub.cat, sub.entry) : entryProblem(sub.cat, sub.draft);
 				if (problem) return json({ error: 'invalid', message: problem }, 400);
 				if (!(await verifyTurnstile(cfg.turnstileSecret, sub.token, ip))) return json({ error: 'captcha' }, 403);
-				const entry = buildEntry(sub.cat, sub, sub.mode, { name: '', desc: '' });
+				const [entry, name] = sub.kind === 'entry' ? [sub.entry, pastedName(sub.entry)] : [buildEntry(sub.cat, sub.draft, sub.mode, { name: '', desc: '' }), sub.draft.name.trim()];
 				try {
-					return json(await openSubmission(cfg, sub.cat, sub.name.trim(), entry));
+					return json(await openSubmission(cfg, sub.cat, name, entry));
 				} catch (err) {
 					if (err instanceof CatalogError) return json({ error: 'invalid', message: err.message }, 409);
 					if (err instanceof SubmissionsBusy) return json({ error: 'busy' }, 503);
