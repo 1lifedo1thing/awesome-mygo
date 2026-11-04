@@ -11,7 +11,7 @@ import stateSchema from '../data/schema/state.schema.json';
 import uiSchema from '../data/schema/ui.schema.json';
 import state from '../data/state.json';
 import ui from '../data/ui.json';
-import { AILOGO_CDN, APP_CATEGORIES, APPS, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, authorProfile, hostOf, readApps } from './catalog';
+import { AILOGO_CDN, APP_CATEGORIES, APPS, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, authorProfile, hostOf, readApps, readPlugins } from './catalog';
 import { SUBMIT_CATS, SUBMIT_FILES, appendEntry, buildEntry, codeFence, descMax, editUrl, entryProblem, isBadUrl, isEntryComplete, issueUrl, jsonEntry, slugify } from './entry';
 import { LANGS, type LangCode, type Text, fill, langRedirectScript, negotiateLang, pick, validateRootSearch } from './lang';
 import { buildSearchIndex, searchCatalog } from './search';
@@ -50,6 +50,20 @@ describe('catalog data', () => {
 			expect(text.en.trim()).not.toBe('');
 			for (const lang of Object.keys(text)) expect(LANGS.map((l) => l.code)).toContain(lang);
 		}
+	});
+
+	it('gives every official plugin its Go package, and a frontend package only to plugins that serve pages', () => {
+		for (const p of PLUGINS) {
+			expect(p.goImport).toBe(`github.com/egoist/mygo/plugins/${p.slug}`);
+			if (p.npm) expect(p.surface).not.toBe('native');
+		}
+	});
+
+	it('rejects a malformed Go import path or npm package name', () => {
+		const plugin = { slug: 'kit', name: 'Kit', mark: 'Kt', official: false, surface: 'web', tags: [], docs: 'https://x.dev', summary: { en: 'A kit.' } };
+		expect(() => readPlugins({ plugins: [{ ...plugin, import: 'github.com/you/kit', npm: '@you/kit' }] })).not.toThrow();
+		expect(() => readPlugins({ plugins: [{ ...plugin, import: 'go get github.com/you/kit' }] })).toThrow(/import must be a Go import path/);
+		expect(() => readPlugins({ plugins: [{ ...plugin, npm: 'bun add @you/kit' }] })).toThrow(/npm must be an npm package name/);
 	});
 
 	it('falls back to English for a missing language', () => {

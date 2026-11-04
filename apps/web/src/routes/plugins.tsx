@@ -3,9 +3,18 @@ import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 import { WinBar } from '../components/bits';
 import { useLang, useT } from '../lib/lang';
-import { tilt } from '../lib/motion';
 import { pageHead } from '../lib/seo';
 import { useSite } from '../lib/site';
+
+// The letter tile's colour cycles by position, as the showcase's tiles do.
+const TONES = ['tone-0', 'tone-1', 'tone-2'] as const;
+
+// `import "github.com/egoist/mygo/plugins/fetch"`, split before its last two segments.
+function goLine(path: string): { head: string; tail: string } {
+	const parts = path.split('/');
+	const cut = Math.max(parts.length - 2, 1);
+	return { head: `import "${parts.slice(0, cut).join('/')}/`, tail: `${parts.slice(cut).join('/')}"` };
+}
 
 export const Route = createFileRoute('/plugins')({
 	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/plugins', title: 'title_plugins', desc: 'desc_plugins', name: 'nav_plugins' }),
@@ -40,30 +49,59 @@ function PluginsPage() {
 				))}
 			</div>
 			<div className='plug-grid'>
-				{PLUGINS.filter((p) => fits(p.surface)).map((p, k) => (
-					<div key={p.slug} className={`rv d${k % 6} flex`}>
-						<a className='tile plug' href={p.url} target='_blank' rel='noopener' {...tilt}>
-							<span className='glare' aria-hidden='true' />
-							<span className='plug-top'>
-								<span className='mono-12 c-muted'>plugins/{p.slug}</span>
-								<span className='official' lang='en'>OFFICIAL</span>
-							</span>
-							<span className='plug-mark'>{p.mark}</span>
-							<h2 className='plug-name'>
-								{p.name} <span className={`surf surf-${p.surface}`}>{surfLabel[p.surface]}</span>
-							</h2>
-							<span className='plug-desc'>{pick(p.desc, lang)}</span>
-							<span className='plug-tags'>
-								{p.tags.map((tg) => (
-									<span key={tg} className='plug-tag'>
-										{tg}
+				{PLUGINS.filter((p) => fits(p.surface)).map((p, k) => {
+					// What the docs say to do first: import the Go package, and add the frontend package when there is one. `tail` is the part that tells the lines apart (the package's last two segments), which stays whole while `head` gives way to an ellipsis on a narrow card.
+					const setup = [...(p.goImport ? [{ key: `plug:${p.slug}:go` as const, ...goLine(p.goImport) }] : []), ...(p.npm ? [{ key: `plug:${p.slug}:npm` as const, head: 'bun add ', tail: p.npm }] : [])];
+					return (
+						<div key={p.slug} className={`rv d${k % 6} flex`}>
+							<article className='win card plug-card'>
+								<WinBar label={`plugins/${p.slug}`} size='md' className='card-bar'>
+									<a className='plug-bar-docs' href={p.url} target='_blank' rel='noopener'>
+										{t.docs_link}
+									</a>
+								</WinBar>
+								<div className='plug-body'>
+									<div className='show-id'>
+										<span className={`mono-tile mono-44 ${TONES[k % 3]}`} aria-hidden='true'>
+											{p.mark}
+										</span>
+										<div className='show-id-text'>
+											<h2 className='show-name'>
+												<a className='plug-link' href={p.url} target='_blank' rel='noopener'>
+													{p.name}
+												</a>
+											</h2>
+											<span className={`surf surf-${p.surface}`}>{surfLabel[p.surface]}</span>
+										</div>
+									</div>
+									<p className='show-desc'>{pick(p.desc, lang)}</p>
+									{setup.length > 0 && (
+										<div className='plug-setup'>
+											{setup.map((line) => (
+												<div key={line.key} className='cmd-row plug-cmd'>
+													<code className='plug-cmd-text' lang='en'>
+														<span className='plug-cmd-head'>{line.head}</span>
+														<span className='plug-cmd-tail'>{line.tail}</span>
+													</code>
+													<button type='button' className='cmd-copy' onClick={() => copy(line.head + line.tail, line.key)} aria-label={`${t.copy}: ${line.head}${line.tail}`}>
+														{copied === line.key ? t.copied : t.copy}
+													</button>
+												</div>
+											))}
+										</div>
+									)}
+									<span className='plug-tags'>
+										{p.tags.map((tg) => (
+											<span key={tg} className='plug-tag' lang='en'>
+												{tg}
+											</span>
+										))}
 									</span>
-								))}
-								<span className='arrow plug-docs'>{t.docs_link}</span>
-							</span>
-						</a>
-					</div>
-				))}
+								</div>
+							</article>
+						</div>
+					);
+				})}
 			</div>
 			<div className='rv cli'>
 				<WinBar label='mygo-cli' size='md' className='panel-bar' />
@@ -92,7 +130,7 @@ function PluginsPage() {
 			</div>
 			<div className='rv cta-dashed'>
 				<div className='stack-6'>
-					<h2 className='cta-h'>{fill(t.comm_h, { n: COMMUNITY_PLUGINS.length })}</h2>
+					<h2 className='cta-h'>{COMMUNITY_PLUGINS.length > 0 ? fill(t.comm_h, { n: COMMUNITY_PLUGINS.length }) : t.comm_none}</h2>
 					<p className='cta-p cta-p-15'>{t.comm_p}</p>
 				</div>
 				<div className='cta-acts'>

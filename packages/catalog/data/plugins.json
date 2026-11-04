@@ -7,6 +7,8 @@
 			"mark": "Fx",
 			"official": true,
 			"surface": "web",
+			"import": "github.com/egoist/mygo/plugins/fetch",
+			"npm": "@mygo-plugins/fetch",
 			"tags": [
 				"http",
 				"no-cors",
@@ -27,6 +29,8 @@
 			"mark": "Ws",
 			"official": true,
 			"surface": "web",
+			"import": "github.com/egoist/mygo/plugins/websocket",
+			"npm": "@mygo-plugins/websocket",
 			"tags": [
 				"websocket",
 				"headers"
@@ -46,6 +50,8 @@
 			"mark": "Sq",
 			"official": true,
 			"surface": "web",
+			"import": "github.com/egoist/mygo/plugins/sqlite",
+			"npm": "@mygo-plugins/sqlite",
 			"tags": [
 				"database",
 				"no-cgo"
@@ -65,6 +71,8 @@
 			"mark": "Wa",
 			"official": true,
 			"surface": "web",
+			"import": "github.com/egoist/mygo/plugins/watch",
+			"npm": "@mygo-plugins/watch",
 			"tags": [
 				"files",
 				"events"
@@ -84,6 +92,7 @@
 			"mark": "Up",
 			"official": true,
 			"surface": "both",
+			"import": "github.com/egoist/mygo/plugins/updater",
 			"tags": [
 				"auto-update",
 				"sparkle"
@@ -103,6 +112,7 @@
 			"mark": "Tm",
 			"official": true,
 			"surface": "native",
+			"import": "github.com/egoist/mygo/plugins/terminal",
 			"tags": [
 				"ghostty",
 				"pty"
@@ -122,6 +132,7 @@
 			"mark": "Gl",
 			"official": true,
 			"surface": "native",
+			"import": "github.com/egoist/mygo/plugins/glass",
 			"tags": [
 				"liquid-glass",
 				"shaders"
@@ -141,6 +152,7 @@
 			"mark": "Gm",
 			"official": true,
 			"surface": "native",
+			"import": "github.com/egoist/mygo/plugins/game",
 			"tags": [
 				"game-loop",
 				"gamepad"
@@ -160,6 +172,7 @@
 			"mark": "Ld",
 			"official": true,
 			"surface": "native",
+			"import": "github.com/egoist/mygo/plugins/loading",
 			"tags": [
 				"spinners",
 				"animation"
@@ -174,11 +187,32 @@
 			}
 		},
 		{
+			"slug": "sfsymbols",
+			"name": "SF Symbols",
+			"mark": "Sf",
+			"official": true,
+			"surface": "native",
+			"import": "github.com/egoist/mygo/plugins/sfsymbols",
+			"tags": [
+				"icons",
+				"macos"
+			],
+			"docs": "https://github.com/egoist/mygo/blob/main/docs/plugins/sfsymbols.md",
+			"summary": {
+				"en": "Apple's SF Symbols for native UI on macOS, drawn by the system at the display's scale; none of Apple's artwork ships in the app.",
+				"zh-CN": "在 macOS 原生 UI 中显示 Apple 的 SF Symbols：由系统按屏幕缩放绘制，应用里不打包任何 Apple 的图形。",
+				"zh-TW": "在 macOS 原生 UI 中顯示 Apple 的 SF Symbols：由系統依螢幕縮放繪製，應用程式不內含任何 Apple 的圖形。",
+				"ja": "macOS のネイティブ UI で Apple の SF Symbols を表示。システムがディスプレイの倍率で描画し、Apple のアートワークはアプリに含まれません。",
+				"ko": "macOS 네이티브 UI에서 Apple의 SF Symbols를 표시합니다. 시스템이 화면 배율로 그리며, 앱에는 Apple의 아트워크가 포함되지 않습니다."
+			}
+		},
+		{
 			"slug": "automation",
 			"name": "Automation",
 			"mark": "Au",
 			"official": true,
 			"surface": "both",
+			"import": "github.com/egoist/mygo/plugins/automation",
 			"tags": [
 				"e2e",
 				"agents"
@@ -198,6 +232,7 @@
 			"mark": "Pf",
 			"official": true,
 			"surface": "both",
+			"import": "github.com/egoist/mygo/plugins/permissionflow",
 			"tags": [
 				"permissions",
 				"macos"

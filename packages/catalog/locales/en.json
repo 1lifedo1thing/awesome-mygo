@@ -72,6 +72,7 @@
 	"tool_p": "Create, develop and build MyGo apps; mygo doctor checks your machine.",
 	"a_copy_cmd": "Copy command",
 	"comm_h": "Community plugins · {n}",
+	"comm_none": "No community plugins yet",
 	"comm_p": "Write one with the official Plugins guide, then submit it here.",
 	"guide": "Plugin guide ↗",
 	"sub_plugin": "Submit a plugin",
