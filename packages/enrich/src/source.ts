@@ -94,6 +94,14 @@ export function isPortrait(width: number, height: number): boolean {
 	return width > 0 && height > width;
 }
 
+// Images in the repository's screenshot folders (screenshots/, screenshot/, screens/ or shots/, at any depth), for an app whose README shows none that fits: a project often keeps them for its website instead (popMind's are in website/public/shots/en/). Folders for English come first where there are folders per language, then the rest in path order.
+export function repoScreenshots(paths: readonly string[]): string[] {
+	const inFolder = /(^|\/)(screenshots?|screens|shots)\//i;
+	const image = /\.(png|jpe?g|webp)$/i;
+	const english = (p: string) => (/\/en(-[a-z]+)?\//i.test(p) ? 0 : 1);
+	return paths.filter((p) => inFolder.test(p) && image.test(p) && !p.includes('node_modules/')).sort((a, b) => english(a) - english(b) || a.localeCompare(b));
+}
+
 // The app categories the catalog's schema allows (app.schema.json, properties.category.enum).
 export function appCategories(schema: unknown): string[] {
 	const values = (schema as { properties?: { category?: { enum?: unknown } } })?.properties?.category?.enum;

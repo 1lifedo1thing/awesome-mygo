@@ -4,9 +4,9 @@ import { join } from 'node:path';
 import { promisify } from 'node:util';
 import { DEFAULT_MODEL, README_LIMIT, type LlmConfig, writeCopy } from './copy.ts';
 import { downloadImage, isDefaultIcon, writeIcon, writeShot } from './image.ts';
-import { APP_DIR, DATA_FILES, type DataFile, type Entry, type EntryKind, addedAppFiles, addedEntries, appCategories, appNameFrom, hasAllLanguages, iconOf, pickMygoJson, readmeImages, repoOfEntry, resolveImage, setCategory } from './source.ts';
+import { APP_DIR, DATA_FILES, type DataFile, type Entry, type EntryKind, addedAppFiles, addedEntries, appCategories, appNameFrom, hasAllLanguages, iconOf, pickMygoJson, readmeImages, repoOfEntry, repoScreenshots, resolveImage, setCategory } from './source.ts';
 
-// Run by .github/workflows/enrich-submission.yml on a pull request the submission bot opened. It finds the entries the branch adds, then for each fills in what the form cannot ask for: an app's icon (from its mygo.json) and screenshot (the first landscape one in its README), its category when the submission names none, and the copy in every site language. It changes files in the working tree and writes a Markdown report for the pull request; the workflow runs the catalog checks and commits.
+// Run by .github/workflows/enrich-submission.yml on a pull request the submission bot opened. It finds the entries the branch adds, then for each fills in what the form cannot ask for: an app's icon (from its mygo.json) and screenshot (the first landscape one in its README, or else in a screenshot folder of the repository), its category when the submission names none, and the copy in every site language. It changes files in the working tree and writes a Markdown report for the pull request; the workflow runs the catalog checks and commits.
 //
 // Environment: BASE_REF (the branch the entries are compared with, default origin/main), REPORT_FILE (where the report goes), GITHUB_TOKEN (for the GitHub API), and LLM_API_KEY with optional LLM_BASE_URL and LLM_MODEL for the copy; without LLM_API_KEY the copy is left as submitted.
 
@@ -95,30 +95,38 @@ async function addIcon(entry: Entry, slug: string, facts: RepoFacts): Promise<st
 	return url;
 }
 
+// The README's images first, as the project picked them to show itself; then the images in the repository's screenshot folders, which a project with none in its README often keeps for its website. Each source gets its own number of tries, so a README full of badges does not use up the folders' turn.
 async function addScreenshot(entry: Entry, slug: string, facts: RepoFacts, iconUrl: string | undefined): Promise<void> {
 	if (entry.screenshot !== undefined) return say('- Screenshot: kept the one submitted.');
-	if (!facts.readme) return say('- Screenshot: none added, as the repository has no README.');
+	const readme = facts.readme;
+	const sources: { from: string; urls: string[]; tries: number }[] = [
+		{ from: 'the README', urls: readme ? readmeImages(readme.text).map((src) => resolveImage(src, facts.repo, facts.branch, readme.path)).filter((u): u is string => !!u) : [], tries: 8 },
+		{ from: 'a screenshot folder in the repository', urls: repoScreenshots(facts.paths).map((p) => rawUrl(facts, p)), tries: 6 },
+	];
 	const tried: string[] = [];
 	const skipped: string[] = [];
-	for (const src of readmeImages(facts.readme.text)) {
-		const url = resolveImage(src, facts.repo, facts.branch, facts.readme.path);
-		if (!url || tried.includes(url)) continue;
-		tried.push(url);
-		if (url === iconUrl) {
-			skipped.push(`${url} (the app icon)`);
-			continue;
+	for (const source of sources) {
+		let n = 0;
+		for (const url of source.urls) {
+			if (tried.includes(url)) continue;
+			tried.push(url);
+			if (url === iconUrl) {
+				skipped.push(`${url} (the app icon)`);
+				continue;
+			}
+			const img = await downloadImage(url);
+			const result = img ? await writeShot(img, join(ROOT, PUBLIC, 'shots', `${slug}.webp`)) : 'unreadable';
+			if (result === 'ok') {
+				entry.screenshot = `${slug}.webp`;
+				const passed = skipped.length ? ` It passed over ${skipped.join(', ')}.` : '';
+				return say(`- Screenshot: ${url} from ${source.from}, saved as \`${PUBLIC}/shots/${slug}.webp\`. Check that it shows the app.${passed}`);
+			}
+			skipped.push(`${url} (${result === 'square' ? 'square, likely a logo' : result === 'narrow' ? 'under 600 px wide' : result === 'portrait' ? 'taller than wide' : 'not a PNG, JPEG or WebP under 10 MB'})`);
+			if (++n >= source.tries) break;
 		}
-		const img = await downloadImage(url);
-		const result = img ? await writeShot(img, join(ROOT, PUBLIC, 'shots', `${slug}.webp`)) : 'unreadable';
-		if (result === 'ok') {
-			entry.screenshot = `${slug}.webp`;
-			const passed = skipped.length ? ` It passed over ${skipped.join(', ')}.` : '';
-			return say(`- Screenshot: ${url} from the README, saved as \`${PUBLIC}/shots/${slug}.webp\`. Check that it shows the app.${passed}`);
-		}
-		skipped.push(`${url} (${result === 'square' ? 'square, likely a logo' : result === 'narrow' ? 'under 600 px wide' : result === 'portrait' ? 'taller than wide' : 'not a PNG, JPEG or WebP under 10 MB'})`);
-		if (tried.length >= 8) break;
 	}
-	say(skipped.length ? `- Screenshot: none added. The README's images: ${skipped.join(', ')}.` : '- Screenshot: the README has no image.');
+	if (skipped.length) return say(`- Screenshot: none added. The images tried: ${skipped.join(', ')}.`);
+	say(readme ? '- Screenshot: none added, as neither the README nor a screenshot folder in the repository has an image.' : '- Screenshot: none added, as the repository has neither a README nor a screenshot folder.');
 }
 
 // An app needs a category: without one it is the only app in the showcase's other group, which the catalog checks reject. The form leaves it optional, so the model picks one along with the copy.

@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { addedAppFiles, addedEntries, appCategories, appNameFrom, hasAllLanguages, iconCut, iconOf, isPortrait, isSquarish, lengthCaps, overCaps, joinRepoPath, pickMygoJson, readmeImages, repoOfEntry, resolveImage, setCategory, sniffImage } from './source.ts';
+import { addedAppFiles, addedEntries, appCategories, appNameFrom, hasAllLanguages, iconCut, iconOf, isPortrait, isSquarish, lengthCaps, overCaps, joinRepoPath, pickMygoJson, readmeImages, repoOfEntry, repoScreenshots, resolveImage, setCategory, sniffImage } from './source.ts';
 
 describe('app names', () => {
 	it('takes mygo.json’s spelling of the same name only', () => {
@@ -97,6 +97,15 @@ describe('the repository', () => {
 		expect(isPortrait(1600, 886)).toBe(false);
 		expect(isPortrait(1000, 1000)).toBe(false);
 		expect(isPortrait(0, 0)).toBe(false);
+	});
+});
+
+describe('repository screenshots', () => {
+	it("lists the images in a repository's screenshot folders, English ones first", () => {
+		// popMind's README has no image; its website's screenshots are in the repository.
+		const paths = ['README.md', 'internal/assets/tray.png', 'website/public/og.png', 'website/public/shots/zh/clipboard.png', 'website/public/shots/en/translate.png', 'website/public/shots/en/clipboard.png', 'website/public/shots/en/notes.txt', 'docs/screenshots/main.webp', 'node_modules/x/screenshots/a.png', 'Screens/Main.JPG'];
+		expect(repoScreenshots(paths)).toEqual(['website/public/shots/en/clipboard.png', 'website/public/shots/en/translate.png', 'docs/screenshots/main.webp', 'Screens/Main.JPG', 'website/public/shots/zh/clipboard.png']);
+		expect(repoScreenshots(['README.md', 'assets/logo.png', 'myshots/a.png'])).toEqual([]);
 	});
 });
 
