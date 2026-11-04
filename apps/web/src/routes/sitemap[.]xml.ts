@@ -4,10 +4,10 @@ import { SITE_PATHS, type SitePath, pageUrl } from '../lib/seo';
 
 const esc = (s: string) => s.replace(/&/g, '&amp;');
 
-// One <url> per page and language, each listing its language alternates, so search engines pair the translations.
+// One <url> per page and language, each listing its language alternates, so search engines pair the translations. Every element sits on its own indented line so the file stays readable when opened directly.
 function entry(path: SitePath, app?: string): string {
-	const alternates = [...LANGS.map((l) => `<xhtml:link rel="alternate" hreflang="${l.code}" href="${esc(pageUrl(path, l.code, app))}"/>`), `<xhtml:link rel="alternate" hreflang="x-default" href="${esc(pageUrl(path, DEFAULT_LANG, app))}"/>`].join('');
-	return LANGS.map((l) => `<url><loc>${esc(pageUrl(path, l.code, app))}</loc>${alternates}</url>`).join('\n');
+	const alternates = [...LANGS.map((l) => `\t\t<xhtml:link rel="alternate" hreflang="${l.code}" href="${esc(pageUrl(path, l.code, app))}"/>`), `\t\t<xhtml:link rel="alternate" hreflang="x-default" href="${esc(pageUrl(path, DEFAULT_LANG, app))}"/>`].join('\n');
+	return LANGS.map((l) => `\t<url>\n\t\t<loc>${esc(pageUrl(path, l.code, app))}</loc>\n${alternates}\n\t</url>`).join('\n');
 }
 
 export function sitemapXml(): string {
