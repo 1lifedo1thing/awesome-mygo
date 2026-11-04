@@ -1,0 +1,28 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "cleanzo",
+	"name": "Cleanzo",
+	"author": "echoVic",
+	"kind": "web",
+	"category": "UtilitiesApplication",
+	"url": "https://cleanzo.echovic.com",
+	"summary": {
+		"en": "An open-source disk cleaner for macOS.",
+		"zh-CN": "开源 macOS 磁盘清理工具。",
+		"zh-TW": "開源 macOS 磁碟清理工具。",
+		"ja": "macOS 用のオープンソースのディスククリーナー。",
+		"ko": "macOS용 오픈소스 디스크 정리 도구."
+	},
+	"description": {
+		"en": "An open-source disk cleaner for macOS. It clears junk, shows what fills the disk, finds large files and similar photos, uninstalls apps with their leftovers, and manages the skills used by AI tools like Claude Code and Codex.",
+		"zh-CN": "开源的 macOS 磁盘清理工具。清理垃圾文件，显示磁盘被什么占满，找出大文件和相似照片，连同残留一起卸载应用，还能管理 Claude Code、Codex 等 AI 工具使用的 skills。",
+		"zh-TW": "開源的 macOS 磁碟清理工具。清除垃圾檔案，顯示磁碟被什麼佔滿，找出大型檔案與相似照片，連同殘留一起解除安裝應用，還能管理 Claude Code、Codex 等 AI 工具使用的 skills。",
+		"ja": "macOS 用のオープンソースのディスククリーナー。不要ファイルを消し、ディスクを何が占めているかを示し、大きなファイルや似た写真を探し、アプリを残りファイルごと削除し、Claude Code や Codex などの AI ツールが使う skills も管理します。",
+		"ko": "macOS용 오픈소스 디스크 정리 도구. 불필요한 파일을 지우고, 디스크를 무엇이 차지하는지 보여주며, 큰 파일과 비슷한 사진을 찾고, 앱을 잔여 파일까지 삭제하고, Claude Code·Codex 같은 AI 도구가 쓰는 skills도 관리합니다."
+	},
+	"screenshot": "cleanzo.webp",
+	"icon": {
+		"ailogo": "cleanzo"
+	},
+	"added": "2026-11-04T02:24:49Z"
+}

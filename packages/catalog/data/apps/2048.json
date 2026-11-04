@@ -1,0 +1,25 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "2048",
+	"name": "2048",
+	"author": "egoist",
+	"kind": "native",
+	"category": "GameApplication",
+	"url": "https://github.com/egoist/2048",
+	"summary": {
+		"en": "The 2048 puzzle; its WebAssembly build also runs in the browser.",
+		"zh-CN": "2048 益智游戏，WebAssembly 版本也能在浏览器运行。",
+		"zh-TW": "2048 益智遊戲，WebAssembly 版本也能在瀏覽器執行。",
+		"ja": "2048 パズル。WebAssembly 版はブラウザでも動きます。",
+		"ko": "2048 퍼즐. WebAssembly 빌드는 브라우저에서도 실행됩니다."
+	},
+	"description": {
+		"en": "The classic 2048 puzzle, played with the arrow keys, a drag or a touchpad swipe. Its WebAssembly build runs in the browser too.",
+		"zh-CN": "经典的 2048 益智游戏，可以用方向键、拖拽或触控板滑动来玩。它的 WebAssembly 版本也能在浏览器中运行。",
+		"zh-TW": "經典的 2048 益智遊戲，可以用方向鍵、拖曳或觸控板滑動來玩。它的 WebAssembly 版本也能在瀏覽器中執行。",
+		"ja": "定番の 2048 パズル。矢印キー、ドラッグ、トラックパッドのスワイプで遊べます。WebAssembly 版はブラウザでも動きます。",
+		"ko": "고전 2048 퍼즐. 화살표 키, 드래그, 트랙패드 스와이프로 플레이합니다. WebAssembly 빌드는 브라우저에서도 실행됩니다."
+	},
+	"screenshot": "2048.webp",
+	"added": "2026-11-04T02:24:49Z"
+}

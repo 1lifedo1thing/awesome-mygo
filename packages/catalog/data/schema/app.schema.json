@@ -1,0 +1,114 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "app.schema.json",
+	"title": "A MyGo app in the showcase, one file per app named after its slug",
+	"type": "object",
+	"additionalProperties": false,
+	"required": [
+		"slug",
+		"name",
+		"author",
+		"kind",
+		"url",
+		"summary",
+		"description",
+		"added"
+	],
+	"properties": {
+		"$schema": {
+			"type": "string"
+		},
+		"slug": {
+			"$ref": "common.schema.json#/$defs/slug"
+		},
+		"name": {
+			"type": "string",
+			"minLength": 1
+		},
+		"author": {
+			"type": "string",
+			"minLength": 1
+		},
+		"kind": {
+			"enum": [
+				"native",
+				"web"
+			],
+			"description": "native: its windows draw MyGo native UI; web: they show a web frontend."
+		},
+		"category": {
+			"enum": [
+				"BusinessApplication",
+				"CommunicationApplication",
+				"DesignApplication",
+				"DeveloperApplication",
+				"EducationalApplication",
+				"EntertainmentApplication",
+				"FinanceApplication",
+				"GameApplication",
+				"HealthApplication",
+				"LifestyleApplication",
+				"MultimediaApplication",
+				"ReferenceApplication",
+				"SecurityApplication",
+				"UtilitiesApplication"
+			],
+			"description": "What kind of app it is, as a schema.org applicationCategory that Google accepts. The app page's structured data names it; leave out when none fits."
+		},
+		"url": {
+			"$ref": "common.schema.json#/$defs/url",
+			"description": "The app's homepage: its website, or its repository when it has none."
+		},
+		"repo": {
+			"$ref": "common.schema.json#/$defs/repo",
+			"description": "Its GitHub repository as owner/name, for an open-source app. Leave out for a closed-source one."
+		},
+		"summary": {
+			"$ref": "common.schema.json#/$defs/text",
+			"description": "One line, for cards and search."
+		},
+		"description": {
+			"$ref": "common.schema.json#/$defs/text",
+			"description": "A sentence or two, for the detail drawer."
+		},
+		"screenshot": {
+			"$ref": "common.schema.json#/$defs/screenshot"
+		},
+		"icon": {
+			"description": "The app icon: its yldm-tech/ai-logo id, or a file in apps/web/public/icons/. Leave out for the letter tile.",
+			"oneOf": [
+				{
+					"type": "object",
+					"required": [
+						"ailogo"
+					],
+					"additionalProperties": false,
+					"properties": {
+						"ailogo": {
+							"type": "string",
+							"pattern": "^[a-z0-9]+$"
+						}
+					}
+				},
+				{
+					"type": "object",
+					"required": [
+						"file"
+					],
+					"additionalProperties": false,
+					"properties": {
+						"file": {
+							"type": "string",
+							"pattern": "^[a-z0-9-]+\\.webp$"
+						}
+					}
+				}
+			]
+		},
+		"added": {
+			"type": "string",
+			"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+			"description": "When the app joined the showcase, in UTC (e.g. 2026-11-04T12:00:00Z). The showcase lists apps in this order."
+		}
+	}
+}

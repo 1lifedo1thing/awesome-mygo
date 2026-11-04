@@ -1,0 +1,28 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "liubai",
+	"name": "留白 Liubai",
+	"author": "echoVic",
+	"kind": "web",
+	"category": "UtilitiesApplication",
+	"url": "https://liubai.echovic.com",
+	"summary": {
+		"en": "An open-source Markdown editor and reader for macOS, with a Windows beta.",
+		"zh-CN": "开源 Markdown 编辑与阅读器，macOS 版，Windows 测试中。",
+		"zh-TW": "開源 Markdown 編輯與閱讀器，macOS 版，Windows 測試中。",
+		"ja": "オープンソースの Markdown エディタ兼リーダー。macOS 版、Windows はベータ。",
+		"ko": "오픈소스 Markdown 편집기 겸 리더. macOS용이며 Windows는 베타."
+	},
+	"description": {
+		"en": "An open-source Markdown editor and reader for macOS, with a Windows beta. The page formats as you type, the finished document reads beside it or on its own, files stay plain .md, and eleven themes follow the hours of the day or the seasons.",
+		"zh-CN": "开源的 Markdown 编辑与阅读器，支持 macOS，Windows 版在测试中。边写边排版，写好的文档可以并排或单独阅读，文件始终是纯 .md，十一套主题会随一天的时辰或季节变化。",
+		"zh-TW": "開源的 Markdown 編輯與閱讀器，支援 macOS，Windows 版測試中。邊寫邊排版，寫好的文件可以並排或單獨閱讀，檔案始終是純 .md，十一套主題會隨一天的時辰或季節變化。",
+		"ja": "オープンソースの Markdown エディタ兼リーダー。macOS 版、Windows はベータ。入力しながら整形され、仕上がった文書は横に並べても単独でも読め、ファイルはプレーンな .md のまま。11 のテーマが時間帯や季節に合わせて変わります。",
+		"ko": "오픈소스 Markdown 편집기 겸 리더. macOS용이며 Windows는 베타입니다. 입력하는 대로 서식이 적용되고, 완성된 문서는 옆에 두거나 따로 읽을 수 있으며, 파일은 순수 .md로 유지되고, 11가지 테마가 하루의 시간이나 계절을 따라 바뀝니다."
+	},
+	"screenshot": "liubai.webp",
+	"icon": {
+		"ailogo": "liubai"
+	},
+	"added": "2026-11-04T02:24:49Z"
+}

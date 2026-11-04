@@ -1,0 +1,24 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "uma",
+	"name": "Uma",
+	"author": "egoist",
+	"kind": "native",
+	"category": "BusinessApplication",
+	"url": "https://github.com/egoist/uma",
+	"summary": {
+		"en": "A menu bar app showing your Umami websites and visitors.",
+		"zh-CN": "菜单栏应用，展示 Umami 账号下的网站与访客。",
+		"zh-TW": "選單列應用，顯示 Umami 帳號下的網站與訪客。",
+		"ja": "Umami アカウントのサイトと訪問者を表示するメニューバーアプリ。",
+		"ko": "Umami 계정의 사이트와 방문자를 보여주는 메뉴 막대 앱."
+	},
+	"description": {
+		"en": "A menu bar app that shows the websites of an Umami account and their visitors.",
+		"zh-CN": "一个菜单栏应用，显示 Umami 账号下的网站及其访客。",
+		"zh-TW": "一個選單列應用，顯示 Umami 帳號下的網站及其訪客。",
+		"ja": "Umami アカウントのサイトと訪問者を表示するメニューバーアプリ。",
+		"ko": "Umami 계정의 웹사이트와 방문자를 보여주는 메뉴 막대 앱."
+	},
+	"added": "2026-11-04T02:24:49Z"
+}

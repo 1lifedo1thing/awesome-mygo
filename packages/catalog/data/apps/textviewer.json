@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "textviewer",
+	"name": "TextViewer",
+	"author": "Oranjekop",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/Oranjekop/TextViewer",
+	"repo": "Oranjekop/TextViewer",
+	"summary": {
+		"en": "A native Windows text editor with tabs, regex search, syntax highlighting and Markdown preview.",
+		"zh-CN": "原生 Windows 文本编辑器：标签页、正则查找、语法着色、Markdown 预览。",
+		"zh-TW": "原生 Windows 文字編輯器：分頁、正規表達式、語法上色、Markdown 預覽。",
+		"ja": "Windows のネイティブなテキストエディター。正規表現検索、構文色分け、Markdown プレビュー。",
+		"ko": "네이티브 Windows 텍스트 편집기. 탭, 정규식 찾기, 구문 강조, Markdown 미리보기."
+	},
+	"description": {
+		"en": "A text viewer and editor for Windows 10 and 11 (x64 and ARM64), drawn with MyGo's native UI and shipped as a single EXE or an installer. It opens files in tabs, finds and replaces with regular expressions, highlights JSON, Go, Python, SQL and other code, previews Markdown side by side, and reads and writes UTF-8, UTF-16 and GB18030. It can add an Explorer context menu and file associations.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的文本查看编辑器，支持 Windows 10 和 11（x64 / ARM64），提供安装包，也可作为单个 EXE 便携使用。多标签打开文件，支持正则查找替换、JSON、Go、Python、SQL 等代码的语法着色、Markdown 右侧预览，以及 UTF-8、UTF-16 和 GB18030 编码。可选添加资源管理器右键菜单和文件关联。",
+		"zh-TW": "以 MyGo 原生 UI 繪製的文字檢視編輯器，支援 Windows 10 和 11（x64 / ARM64），提供安裝程式，也可作為單一 EXE 免安裝使用。以分頁開啟檔案，支援正規表達式取代、JSON、Go、Python、SQL 等程式碼的語法上色、Markdown 右側預覽，以及 UTF-8、UTF-16 和 GB18030 編碼。可選擇加入檔案總管右鍵選單和檔案關聯。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows 10・11（x64・ARM64）向けのテキストビューアー兼エディター。インストーラーのほか、単一の EXE としても使えます。ファイルをタブで開き、正規表現での検索・置換、JSON・Go・Python・SQL などの構文ハイライト、Markdown の横並びプレビューに対応し、UTF-8・UTF-16・GB18030 を読み書きできます。エクスプローラーの右クリックメニューとファイル関連付けも追加できます。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows 10·11(x64·ARM64)용 텍스트 뷰어 겸 편집기로, 설치 프로그램과 단일 EXE로 제공됩니다. 파일을 탭으로 열고 정규식 찾기·바꾸기, JSON·Go·Python·SQL 등 코드 구문 강조, Markdown 나란히 미리보기를 지원하며 UTF-8, UTF-16, GB18030을 읽고 씁니다. 탐색기 오른쪽 클릭 메뉴와 파일 연결도 추가할 수 있습니다."
+	},
+	"icon": {
+		"file": "textviewer.webp"
+	},
+	"screenshot": "textviewer.webp",
+	"added": "2026-11-04T12:05:58Z"
+}
