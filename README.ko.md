@@ -47,6 +47,8 @@ pnpm preview      # 프로덕션 빌드를 Workers 런타임에서 실행
 
 `pnpm deploy`는 Wrangler로 빌드하고 배포합니다. `apps/web/wrangler.jsonc`에 있는 도메인의 영역(zone)을 가진 Cloudflare 계정이 필요합니다.
 
+양식의 바로 제출은 이 저장소에 설치한 GitHub App이 처리하며, 그 앞에 Cloudflare Turnstile과 IP별 요청 제한이 있습니다. App에 *Contents*와 *Pull requests* 읽기·쓰기 권한을 주고, 개인 키를 PKCS#8로 변환한 뒤(`openssl pkcs8 -topk8 -nocrypt -in key.pem -out key-pkcs8.pem`), `apps/web`에서 `wrangler secret put`으로 시크릿 4개를 설정합니다: `GITHUB_APP_ID`, `GITHUB_APP_PRIVATE_KEY`(PKCS#8 파일), `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`. 4개가 모두 설정되기 전까지 양식은 GitHub 링크만 보여 줍니다. 로컬에서 시험할 때는 Turnstile의 [테스트 키](https://developers.cloudflare.com/turnstile/troubleshooting/testing/)를 `apps/web/.dev.vars`에 적습니다.
+
 ## 프로젝트 추가
 
 모든 항목은 [`packages/catalog/data`](packages/catalog/data)의 JSON 파일에 있으며, 카테고리마다 파일 하나입니다:
@@ -62,7 +64,7 @@ pnpm preview      # 프로덕션 빌드를 Workers 런타임에서 실행
 
 추가하는 방법은 두 가지입니다:
 
-- **사이트에서:** "제출"을 눌러 양식을 채우면 JSON 항목을 만들어 줍니다. 한 번에 이슈로 보내거나, GitHub 편집기에서 해당 JSON 파일을 열어 목록 끝에 붙여 넣고 풀 리퀘스트로 제안할 수 있습니다.
+- **사이트에서:** "제출"을 눌러 양식을 채운 뒤 바로 제출합니다. GitHub 계정이 필요 없으며, 사이트의 bot이 풀 리퀘스트를 만들어 줍니다. GitHub 계정이 있다면 생성된 항목을 이슈로 보내거나, GitHub 편집기에서 JSON 파일을 열어 직접 추가할 수도 있습니다.
 - **저장소에서:** 파일의 목록에 객체를 추가하고 풀 리퀘스트를 보냅니다.
 
 `apps.json`의 항목은 다음과 같습니다:

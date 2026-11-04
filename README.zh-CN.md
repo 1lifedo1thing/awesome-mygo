@@ -47,6 +47,8 @@ pnpm preview      # 在 Workers 运行时中运行生产构建
 
 `pnpm deploy` 会用 Wrangler 构建并部署，需要一个包含 `apps/web/wrangler.jsonc` 中域名 zone 的 Cloudflare 账户。
 
+表单的直接提交通过安装在本仓库上的 GitHub App 完成，前面有 Cloudflare Turnstile 人机验证和按 IP 的限流。给这个 App 开 *Contents* 和 *Pull requests* 的读写权限，把它的私钥转成 PKCS#8（`openssl pkcs8 -topk8 -nocrypt -in key.pem -out key-pkcs8.pem`），然后在 `apps/web` 下用 `wrangler secret put` 设置四个 secret：`GITHUB_APP_ID`、`GITHUB_APP_PRIVATE_KEY`（PKCS#8 文件）、`TURNSTILE_SITE_KEY` 和 `TURNSTILE_SECRET_KEY`。四个都设好之前，表单只提供 GitHub 链接。本地测试时，把 Turnstile 的[测试密钥](https://developers.cloudflare.com/turnstile/troubleshooting/testing/)写进 `apps/web/.dev.vars`。
+
 ## 收录项目
 
 所有条目都在 [`packages/catalog/data`](packages/catalog/data) 下的 JSON 文件里，每个类别一个文件：
@@ -62,7 +64,7 @@ pnpm preview      # 在 Workers 运行时中运行生产构建
 
 添加方式有两种：
 
-- **在站点上：** 点「提交」填表，表单会替你生成 JSON 条目。可以一键提交为 Issue，也可以在 GitHub 编辑器里打开对应的 JSON 文件，把条目粘贴到列表末尾，作为 PR 提交。
+- **在站点上：** 点「提交」填表，然后直接提交：不需要 GitHub 账号，站点的 bot 会替你开 PR。有 GitHub 账号的话，也可以把生成的条目提交为 Issue，或在 GitHub 编辑器里打开对应的 JSON 文件自己加上。
 - **在仓库里：** 在文件的列表里加一个对象，然后提 PR。
 
 `apps.json` 中的一个条目长这样：
