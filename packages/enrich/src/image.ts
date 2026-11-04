@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
-import { isSquarish, sniffImage } from './source.ts';
+import { iconCut, isSquarish, sniffImage } from './source.ts';
 
 // Icons and screenshots as the site keeps them: a 256 px WebP icon filling its square, and a WebP screenshot at most 1200 px wide. ImageMagick does the work; the runner has it, so the bot needs no image library.
 
@@ -91,11 +91,9 @@ export async function writeIcon(img: Downloaded, out: string): Promise<boolean> 
 	return withInput(img, async (input) => {
 		const [w, h] = (await size(input)).split(' ').map(Number);
 		if (Math.min(w, h) < ICON_MIN) return false;
-		const box = await magick([input, '-alpha', 'extract', '-threshold', '50%', '-format', '%@', 'info:']);
-		const m = /^(\d+)x(\d+)\+(\d+)\+(\d+)$/.exec(box);
-		const side = m ? Math.max(Number(m[1]), Number(m[2])) : Math.max(w, h);
+		const { crop, side } = iconCut(await magick([input, '-alpha', 'extract', '-threshold', '50%', '-format', '%@', 'info:']), w, h);
 		if (side < ICON_MIN) return false;
-		await magick([input, ...(m ? ['-crop', box, '+repage'] : []), '-background', 'none', '-gravity', 'center', '-extent', `${side}x${side}`, '-resize', '256x256', '-strip', '-quality', '90', '-define', 'webp:method=6', `webp:${out}`]);
+		await magick([input, ...(crop ? ['-crop', crop, '+repage'] : []), '-background', 'none', '-gravity', 'center', '-extent', `${side}x${side}`, '-resize', '256x256', '-strip', '-quality', '90', '-define', 'webp:method=6', `webp:${out}`]);
 		return true;
 	});
 }
