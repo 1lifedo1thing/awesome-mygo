@@ -55,7 +55,7 @@ function Dialog() {
 	return (
 		<div className='fixed inset-0 z-[60] overflow-y-auto bg-ink/35 backdrop-blur-[2px] px-3 pt-3 pb-6 desk:pt-[6vh]'>
 			<div ref={ref} role='dialog' aria-modal='true' aria-labelledby='dlg-submit-t' className='mx-auto w-full max-w-[640px]'>
-				<Win id='dlg-submit' title={t.m_title} onClose={closeSubmit} closeLabel={t.close}>
+				<Win id='dlg-submit' title={t.m_title} onClose={closeSubmit}>
 					<div className={`${well} grid gap-4 px-4 pt-4 pb-5 desk:px-5`}>
 						<div className='grid grid-cols-[36px_1fr] items-center gap-3 border-b border-line pb-3 desk:grid-cols-[48px_1fr]'>
 							<PixelIcon name='inbox' scale={3} className='size-9 desk:size-12' />

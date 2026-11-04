@@ -43,7 +43,7 @@ export function Showcase() {
 
 	return (
 		<div className='relative mx-auto max-w-[1440px] px-3.5 pt-3.5 desk:px-10 desk:pt-[30px] min-[1261px]:grid min-[1261px]:grid-cols-[minmax(0,1fr)_260px] min-[1261px]:items-start min-[1261px]:gap-x-10 min-[1261px]:pr-6'>
-			<Win title={t.cat_show_name} level={1} fill>
+			<Win title={t.cat_show_name} level={1} fill closeTo='/'>
 				<div className='flex flex-wrap items-center gap-x-3 gap-y-2 px-1.5 pt-[5px] pb-[7px]'>
 					<nav aria-label={t.a_crumbs} className='hidden whitespace-nowrap desk:block'>
 						<Link to='/' className={lnk}>

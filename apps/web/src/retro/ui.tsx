@@ -1,5 +1,7 @@
 import type { App } from '@awesome-mygo/catalog';
-import type { ReactNode } from 'react';
+import { Link } from '@tanstack/react-router';
+import { type ReactNode, useState } from 'react';
+import { useT } from '../lib/lang';
 import { BITMAPS, type BitmapName, EMBLEMS, type EmblemName, FOLDER, FOLDER_PAL, type FolderColor, PAL } from './bitmaps';
 
 // ---- class names shared by every retro page ----
@@ -69,14 +71,19 @@ export function Folder({ emblem, color, scale = 3 }: { emblem: EmblemName; color
 const LIGHT = 'size-3 shrink-0 rounded-full border border-black/10';
 
 // A window: a title bar with the three window lights and a centred title, a light frame, rounded corners and a soft shadow. `idle` greys the lights like a window in the background. The title is a heading of the given level so each window labels its section.
+// The red light closes the window: `onClose` for a dialog, `closeTo` for a page's main window (it leaves for that page, as closing the window leaves the section), and otherwise the window just goes away until the page is opened again.
 // `fill` keeps the window within one screen on the desktop: the body becomes a flex column, and the page gives one of its children `relative min-h-0 flex-1 overflow-y-auto` to scroll inside the window. The scroller must be `relative`, or absolutely positioned descendants (sr-only text) escape it and stretch the page again.
-export function Win({ title, idle = false, level = 2, id, fill = false, className = '', bodyClassName = '', children, onClose, closeLabel }: { title: ReactNode; idle?: boolean; level?: 1 | 2 | 3; id?: string; fill?: boolean; className?: string; bodyClassName?: string; children: ReactNode; onClose?: () => void; closeLabel?: string }) {
+export function Win({ title, idle = false, level = 2, id, fill = false, className = '', bodyClassName = '', children, onClose, closeTo }: { title: ReactNode; idle?: boolean; level?: 1 | 2 | 3; id?: string; fill?: boolean; className?: string; bodyClassName?: string; children: ReactNode; onClose?: () => void; closeTo?: '/' | '/showcase' }) {
+	const t = useT();
+	const [closed, setClosed] = useState(false);
 	const H = `h${level}` as 'h1' | 'h2' | 'h3';
+	if (closed) return null;
+	const close = `${LIGHT} cursor-pointer bg-[#ff5f57] p-0 hover:brightness-90`;
 	return (
 		<section id={id} aria-labelledby={id ? `${id}-t` : undefined} className={`rounded-xl border border-line bg-face px-1 pb-1 shadow-win ${fill ? 'desk:flex desk:max-h-(--win-max) desk:flex-col' : ''} ${className}`}>
 			<div className='relative flex h-[28px] items-center gap-2 px-2'>
 				<span className='flex gap-1.5'>
-					{onClose ? <button type='button' onClick={onClose} aria-label={closeLabel} className={`${LIGHT} cursor-pointer bg-[#ff5f57] p-0 hover:brightness-90`} /> : <span aria-hidden='true' className={`${LIGHT} ${idle ? 'bg-lo/60' : 'bg-[#ff5f57]'}`} />}
+					{closeTo ? <Link to={closeTo} aria-label={t.close} title={t.close} className={`${close} block`} /> : <button type='button' onClick={onClose ?? (() => setClosed(true))} aria-label={t.close} title={t.close} className={close} />}
 					<span aria-hidden='true' className={`${LIGHT} ${idle ? 'bg-lo/60' : 'bg-[#febc2e]'}`} />
 					<span aria-hidden='true' className={`${LIGHT} ${idle ? 'bg-lo/60' : 'bg-[#28c840]'}`} />
 				</span>

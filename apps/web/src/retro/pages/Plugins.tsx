@@ -31,7 +31,7 @@ function Explorer() {
 		{ key: 'native' as const, label: `${t.surf_native} · ${PLUGINS.filter((p) => p.surface !== 'web').length}` },
 	];
 	return (
-		<Win level={1} title={t.nav_plugins} fill className='desk:col-span-8 desk:col-start-1 desk:row-span-2 desk:row-start-1'>
+		<Win level={1} title={t.nav_plugins} fill closeTo='/' className='desk:col-span-8 desk:col-start-1 desk:row-span-2 desk:row-start-1'>
 			<div className='flex flex-wrap items-center gap-2.5 px-1.5 pt-[3px] pb-1.5'>
 				<div role='group' aria-label={t.a_filter} className='flex flex-wrap'>
 					{chips.map((c) => (

@@ -16,7 +16,7 @@ export function Ui() {
 	return (
 		<div className='relative mx-auto flex max-w-[1440px] flex-col gap-[26px] px-3.5 pt-3.5 desk:block desk:pt-[26px] desk:pr-10 desk:pl-[136px] min-[1261px]:grid min-[1261px]:grid-cols-[minmax(0,1fr)_260px] min-[1261px]:items-start min-[1261px]:gap-x-10 min-[1261px]:pr-6'>
 			<DesktopIcons className='hidden desk:absolute desk:top-[26px] desk:left-[18px] desk:grid desk:grid-cols-1 desk:gap-4' />
-			<Win level={1} title={t.cat_ui_name} fill>
+			<Win level={1} title={t.cat_ui_name} fill closeTo='/'>
 				<div className='flex flex-wrap items-center gap-2.5 px-1.5 pt-[3px] pb-1.5'>
 					<div role='group' aria-label={t.a_filter} className='flex flex-wrap'>
 						{chips.map((c) => (
