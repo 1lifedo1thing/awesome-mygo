@@ -3,7 +3,7 @@
 	"version": "0.0.0",
 	"private": true,
 	"type": "module",
-	"description": "MyGo Dock site, server-rendered by TanStack Start on Cloudflare Workers",
+	"description": "Awesome MyGo site, server-rendered by TanStack Start on Cloudflare Workers",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",

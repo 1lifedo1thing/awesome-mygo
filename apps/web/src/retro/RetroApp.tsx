@@ -141,7 +141,7 @@ function MenuBar() {
 		<header className='px-text sticky top-0 text-xs z-40 flex h-[30px] flex-none items-stretch gap-0.5 border-b border-ink bg-paper px-2.5 shadow-[inset_0_1px_0_var(--color-hi)]'>
 			<Link to='/' aria-label={t.a_home} className='flex items-center gap-2 pr-2.5 pl-1 no-underline hover:bg-ink hover:text-paper'>
 				<img src='/icon-32.png' srcSet='/icon-32.png 1x, /icon-192.png 2x' width={20} height={20} alt='' className='size-5 border border-ink' />
-				<span className='hidden whitespace-nowrap min-[480px]:inline'>MyGo Dock</span>
+				<span className='hidden whitespace-nowrap min-[480px]:inline'>Awesome MyGo</span>
 			</Link>
 			<nav aria-label={t.a_cats} className='hidden desk:flex'>
 				{NAV.map((n) => (

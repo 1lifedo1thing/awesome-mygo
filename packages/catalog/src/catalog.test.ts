@@ -316,8 +316,8 @@ describe('search snippets', () => {
 		for (const [title] of PAGES) {
 			for (const L of LANGS) {
 				const topic = LOCALES[L.code][title];
-				const full = title === 'title_home' ? topic : `${topic} · MyGo Dock`;
-				if (title === 'title_home') expect(full.startsWith('MyGo Dock · '), `${title} ${L.code}`).toBe(true);
+				const full = title === 'title_home' ? topic : `${topic} · Awesome MyGo`;
+				if (title === 'title_home') expect(full.startsWith('Awesome MyGo · '), `${title} ${L.code}`).toBe(true);
 				expect(width(full), `${title} ${L.code}: ${full}`).toBeLessThanOrEqual(64);
 			}
 		}

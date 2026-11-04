@@ -11,7 +11,7 @@ export function Footer() {
 		<footer className='ftr'>
 			<div className='ftr-in'>
 				<span aria-hidden='true' className='ftr-mark'>
-					MyGo Dock
+					Awesome MyGo
 				</span>
 				<nav aria-label={t.a_site_nav} className='ftr-nav'>
 					{NAV.map((n) => (

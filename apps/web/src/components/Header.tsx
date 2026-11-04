@@ -53,7 +53,7 @@ export function Header({ scrolled }: { scrolled: boolean }) {
 				<Link to='/' aria-label={t.a_home} className='brand'>
 					<Logo />
 					<span className='brand-name'>
-						MyGo <span className='c-cyan'>Dock</span>
+						Awesome <span className='c-cyan'>MyGo</span>
 					</span>
 				</Link>
 				<nav id='sitenav' className='navwrap' data-open={menu} aria-label={t.a_cats}>
@@ -102,13 +102,12 @@ export function Header({ scrolled }: { scrolled: boolean }) {
 							))}
 						</div>
 					</div>
-					{/* Shares the search button's look, including hiding its label on narrow screens, without the search button's minimum width. */}
-					<button type='button' className='btn-g sbtn' style={{ minWidth: 0 }} onClick={() => switchTheme('retro')} aria-label={`${t.a_theme}: ${t.theme_retro}`}>
+					{/* Icon only, in the GitHub button's square frame: with a label the header ran onto a second row in Japanese at 1440px. The name is in aria-label and the tooltip. */}
+					<button type='button' className='btn-g gh-btn' onClick={() => switchTheme('retro')} aria-label={`${t.a_theme}: ${t.theme_retro}`} title={t.theme_retro}>
 						<svg aria-hidden='true' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='square'>
 							<rect x='3' y='4' width='18' height='13' />
 							<path d='M8 21h8M12 17v4M7 8h4' />
 						</svg>
-						<span className='lbl'>{t.theme_retro}</span>
 					</button>
 					{/* The site's own repository; "GitHub" reads the same in every language, so it needs no translation. */}
 					<a className='btn-g gh-btn' href={SITE_REPO} target='_blank' rel='noopener' aria-label='GitHub' title='GitHub'>
