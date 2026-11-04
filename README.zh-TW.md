@@ -50,7 +50,7 @@ pnpm preview      # 在 Workers 執行環境中執行正式建置
 
 表單的直接提交透過安裝在本倉庫上的 GitHub App 完成，前面有 Cloudflare Turnstile 人機驗證和依 IP 的限流。給這個 App 開 *Contents* 和 *Pull requests* 的讀寫權限，把它的私鑰轉成 PKCS#8（`openssl pkcs8 -topk8 -nocrypt -in key.pem -out key-pkcs8.pem`），然後在 `apps/web` 下用 `wrangler secret put` 設定四個 secret：`GITHUB_APP_ID`、`GITHUB_APP_PRIVATE_KEY`（PKCS#8 檔案）、`TURNSTILE_SITE_KEY` 和 `TURNSTILE_SECRET_KEY`。四個都設好之前，表單只提供 GitHub 連結。本機測試時，把 Turnstile 的[測試金鑰](https://developers.cloudflare.com/turnstile/troubleshooting/testing/)寫進 `apps/web/.dev.vars`。
 
-bot 開出 PR 後，*Complete submission* workflow 會補上表單問不到的內容：應用 `mygo.json` 裡指定的圖示（沒有指定時不加，即 `mygo init` 的預設狀態）、README 裡的第一張截圖、五種語言的簡介和介紹，以及 README 裡的應用數量。它會跑 catalog 檢查，以 bot 身分推到同一分支，並在 PR 裡留言說明做了什麼；合併前仍需維護者審核。需要在倉庫 secret 裡設定 App 的憑證 `SUBMIT_APP_ID` 和 `SUBMIT_APP_PRIVATE_KEY`、Anthropic Messages API 的金鑰 `LLM_API_KEY`，走閘道時再設定 base URL `LLM_BASE_URL`。倉庫變數 `LLM_MODEL` 可以換模型（預設 `claude-opus-5-5`）。沒有 `LLM_API_KEY` 時文案維持提交時的樣子。
+bot 開出 PR 後，*Complete submission* workflow 會補上表單問不到的內容：應用 `mygo.json` 裡指定的圖示（沒有指定時不加，即 `mygo init` 的預設狀態）、README 裡的第一張截圖、五種語言的簡介和介紹，以及 README 裡的應用數量。它會跑 catalog 檢查，以 bot 身分推到同一分支，並在 PR 裡留言說明做了什麼；合併前仍需維護者審核。需要在倉庫的 Actions 設定裡配置 secret：`SUBMIT_APP_PRIVATE_KEY`（App 的 PKCS#8 私鑰，與 Worker 用的相同）、`LLM_API_KEY`（Anthropic Messages API 的金鑰），走閘道時再加 `LLM_BASE_URL`；以及變數 `SUBMIT_APP_CLIENT_ID`（App 的 Client ID）。變數 `LLM_MODEL` 可以換模型（預設 `claude-opus-5-5`）。沒有 `LLM_API_KEY` 時文案維持提交時的樣子。
 
 ## 收錄專案
 
