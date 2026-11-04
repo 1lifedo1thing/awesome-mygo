@@ -7,7 +7,7 @@ import { pageHead } from '../lib/seo';
 import { useSite } from '../lib/site';
 
 export const Route = createFileRoute('/state')({
-	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/state', title: 'cat_state_name', desc: 'state_p' }),
+	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/state', title: 'title_state', desc: 'desc_state', name: 'cat_state_name' }),
 	component: StatePage,
 });
 
@@ -47,14 +47,16 @@ function StatePage() {
 									<WinBar label={`github.com/${s.repo}`} size='md' className='lib-bar' />
 									{s.image && (
 										<div className='lib-shot lib-shot-img'>
-											<img src={s.image} alt={`${s.name} ${t.shot}`} width={1200} height={630} loading='lazy' decoding='async' />
+											<img src={s.image} alt={`${s.name} ${t.preview_img}`} width={1200} height={630} loading={k === 0 ? 'eager' : 'lazy'} fetchPriority={k === 0 ? 'high' : undefined} decoding='async' />
 										</div>
 									)}
 									<div className='lib-body'>
 										<div className='lib-head'>
 											<div className='stack-4'>
 												<h3 className='lib-name'>{s.name}</h3>
-												<span className='lib-by'>by {s.author}</span>
+												<span className='lib-by'>
+													<span lang='en'>by</span> {s.author}
+												</span>
 											</div>
 											<span className='lib-tag lib-tag-amber'>{s.tags[0]}</span>
 										</div>
@@ -103,7 +105,7 @@ function StatePage() {
 				<div className='code-panel' role='tabpanel'>
 					<WinBar label='app.ts' size='md' className='panel-bar' />
 					<div className='code code-block'>{current.code}</div>
-					<a href={BINDINGS_DOC} target='_blank' rel='noopener' className='panel-link'>
+					<a href={BINDINGS_DOC} target='_blank' rel='noopener' className='panel-link' lang='en'>
 						Calling Go from the frontend ↗
 					</a>
 				</div>

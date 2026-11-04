@@ -1,14 +1,14 @@
 import { APPS, INSTALL_CMDS, INSTALL_TABS, type InstallTab, MYGO_SITE, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, fill, langDef, pad2, pick } from '@awesome-mygo/catalog';
 import { Link, createFileRoute } from '@tanstack/react-router';
 import { type CSSProperties, type PointerEvent, useRef, useState } from 'react';
-import { KindTag, MonoTile, WinBar, appView } from '../components/bits';
+import { AppLink, KindTag, MonoTile, WinBar, appView } from '../components/bits';
 import { useLang, useT } from '../lib/lang';
 import { prefersReducedMotion, tilt, useCountUp } from '../lib/motion';
 import { pageHead } from '../lib/seo';
 import { useSite } from '../lib/site';
 
 export const Route = createFileRoute('/')({
-	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/', title: null, desc: 'hero_p', app: match.search.app }),
+	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/', title: null, desc: 'desc_home', name: 'nav_home' }),
 	component: HomePage,
 });
 
@@ -36,24 +36,24 @@ function tokens(str: string, byWord: boolean, start: number, step: number) {
 function HomePage() {
 	const t = useT();
 	const lang = useLang();
-	const { openApp } = useSite();
 	const nApps = APPS.length;
 	return (
 		<div className='enter'>
 			<Hero />
+			{/* fetchPriority='low' keeps React from preloading the icons ahead of the stylesheets. They are not lazy: the strip clips them with overflow:hidden and slides them in with a transform, so a lazy icon could start loading only as it enters and show as a blank square at the edge. */}
 			<section aria-label={t.a_marquee} className='marq-wrap'>
 				<div className='marq'>
 					{[...APPS, ...APPS].map((a, i) => (
-						<button key={`${a.slug}-${i}`} type='button' className='marq-item' onClick={() => openApp(a.slug)} tabIndex={i >= nApps ? -1 : undefined} aria-hidden={i >= nApps || undefined}>
+						<AppLink key={`${a.slug}-${i}`} slug={a.slug} className='marq-item' tabIndex={i >= nApps ? -1 : undefined} hidden={i >= nApps}>
 							{a.icon ? (
-								<img className='marq-icon app-icon' src={a.icon} alt='' width={36} height={36} decoding='async' />
+								<img className='marq-icon app-icon' src={a.icon} alt='' width={36} height={36} fetchPriority='low' decoding='async' />
 							) : (
 								<span aria-hidden='true' className={`marq-icon marq-letter tone-${APPS.indexOf(a) % 3}`}>
 									{a.name.charAt(0).toUpperCase()}
 								</span>
 							)}
 							{a.name}
-						</button>
+						</AppLink>
 					))}
 				</div>
 			</section>
@@ -61,7 +61,7 @@ function HomePage() {
 			<section aria-labelledby='fresh' className='sec sec-feat'>
 				<div className='rv sec-head'>
 					<div className='stack-10'>
-						<span className='kicker'>02 / FEATURED</span>
+						<span className='kicker' lang='en'>02 / FEATURED</span>
 						<h2 id='fresh' className='sec-h2'>
 							{t.feat_h}
 						</h2>
@@ -75,14 +75,14 @@ function HomePage() {
 						const v = appView(mustApp(slug));
 						return (
 							<div key={slug} className={`rv d${k} flex`}>
-								<button type='button' className='win card' onClick={() => openApp(slug)} aria-haspopup='dialog'>
+								<AppLink slug={slug} className='win card' dialog>
 									<WinBar label={v.host} size='sm' className='card-bar' />
-									<span className='card-body'>
+									<div className='card-body'>
 										<MonoTile view={v} size={52} />
-										<span className='card-name'>{v.app.name}</span>
+										<h3 className='card-name'>{v.app.name}</h3>
 										<span className='card-desc'>{pick(v.app.desc, lang)}</span>
-									</span>
-								</button>
+									</div>
+								</AppLink>
 							</div>
 						);
 					})}
@@ -95,7 +95,7 @@ function HomePage() {
 function Hero() {
 	const t = useT();
 	const lang = useLang();
-	const { openApp, copy, copied } = useSite();
+	const { copy, copied } = useSite();
 	const [tab, setTab] = useState<InstallTab>('bun');
 	const heroRef = useRef<HTMLElement>(null);
 	const e = useCountUp();
@@ -127,7 +127,7 @@ function Hero() {
 		<section ref={heroRef} onPointerMove={onMove} onPointerLeave={onLeave} className='hero'>
 			<div className='hero-in'>
 				<Link to='/showcase' className='pill wi wi1'>
-					<span className='live'>
+					<span className='live' lang='en'>
 						<span className='pulse live-dot' />
 						LIVE
 					</span>
@@ -143,6 +143,8 @@ function Hero() {
 							</span>
 						))}
 					</span>
+					{/* Invisible between the two block lines, but keeps the text of word-spaced languages from reading "Go,all". */}
+					{words && ' '}
 					<span aria-hidden='true' className='block hero-h1-2'>
 						{l2.map((ch, i) => (
 							<span key={i} className='ch' style={{ animationDelay: `${ch.d}ms` }}>
@@ -198,15 +200,15 @@ function Hero() {
 						return (
 							<div key={h.slug} className={`side ${h.pos}`} style={style}>
 								<div className={`bob ${h.bob}`}>
-									<button type='button' className={`win hero-win wi ${h.wi}`} onClick={() => openApp(h.slug)}>
+									<AppLink slug={h.slug} className={`win hero-win wi ${h.wi}`} dialog>
 										<WinBar label={v.host} size='sm' className='card-bar' />
 										<span className='hero-win-body'>
 											<MonoTile view={v} size={52} />
 											<span className='card-name'>{v.app.name}</span>
 											<span className='hero-win-desc'>{pick(v.app.desc, lang)}</span>
-											<KindTag app={v.app} label={v.app.kind === 'native' ? 'Native UI' : t.web_fe} />
+											<KindTag app={v.app} label={v.app.kind === 'native' ? t.surf_native : t.web_fe} />
 										</span>
-									</button>
+									</AppLink>
 								</div>
 							</div>
 						);
@@ -264,7 +266,7 @@ function Categories() {
 		<section aria-labelledby='cats' className='sec sec-cats'>
 			<div className='rv sec-head'>
 				<div className='stack-10'>
-					<span className='kicker'>01 / CATEGORIES</span>
+					<span className='kicker' lang='en'>01 / CATEGORIES</span>
 					<h2 id='cats' className='sec-h2'>
 						{t.cats_h}
 					</h2>

@@ -1,5 +1,7 @@
 import { APPS, type App, hostOf, pad2 } from '@awesome-mygo/catalog';
+import { Link } from '@tanstack/react-router';
 import type { ReactNode } from 'react';
+import { useSite } from '../lib/site';
 
 // macOS-style title bar: three traffic lights followed by a label (a host, a file name…).
 export function WinBar({ label, size = 'md', className = '', children }: { label?: ReactNode; size?: 'sm' | 'md' | 'lg'; className?: string; children?: ReactNode }) {
@@ -39,12 +41,43 @@ export function MonoTile({ view, size }: { view: AppView; size: 44 | 52 | 56 | 1
 	);
 }
 
-export function KindTag({ app, label }: { app: App; label: string }) {
-	return <span className={`kind-tag ${app.kind === 'web' ? 'kind-web' : 'kind-native'}`}>{label}</span>;
+// A link to the app's own page, so crawlers and new tabs reach it. With `quick` (the default) a plain left click opens the quick-view drawer instead; a click with a modifier key, a middle click, or a click before the page hydrates follows the link.
+export function AppLink({ slug, className, quick = true, tabIndex, hidden, dialog, children }: { slug: string; className: string; quick?: boolean; tabIndex?: number; hidden?: boolean; dialog?: boolean; children: ReactNode }) {
+	const { openApp } = useSite();
+	return (
+		<Link
+			to='/apps/$slug'
+			params={{ slug }}
+			className={className}
+			tabIndex={tabIndex}
+			aria-hidden={hidden || undefined}
+			aria-haspopup={dialog ? 'dialog' : undefined}
+			onClick={
+				quick
+					? (e) => {
+							if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+							e.preventDefault();
+							openApp(slug);
+						}
+					: undefined
+			}
+		>
+			{children}
+		</Link>
+	);
 }
 
+export function KindTag({ app, label }: { app: App; label: string }) {
+	return (
+		<span className={`kind-tag ${app.kind === 'web' ? 'kind-web' : 'kind-native'}`}>
+			{label}
+		</span>
+	);
+}
+
+// The 32 px icon on standard screens; high-density screens fall back to the 192 px icon, as there is no 64 px one. fetchPriority='low' keeps React from preloading the image ahead of the stylesheets on every page: the mark is small and never the LCP element.
 export function Logo() {
-	return <img className='brand-mark' src='/icon-192.png' width={32} height={32} alt='' />;
+	return <img className='brand-mark' src='/icon-32.png' srcSet='/icon-32.png 1x, /icon-192.png 2x' width={32} height={32} alt='' fetchPriority='low' decoding='async' />;
 }
 
 const EAR_STROKE = { stroke: '#B8C1C9', strokeWidth: 1.2 };

@@ -17,6 +17,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as StateRouteImport } from './routes/state'
 import { Route as UiRouteImport } from './routes/ui'
 import { Route as ApiSubmitRouteImport } from './routes/api/submit'
+import { Route as AppsSlugRouteImport } from './routes/apps/$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -58,6 +59,11 @@ const ApiSubmitRoute = ApiSubmitRouteImport.update({
   path: '/api/submit',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppsSlugRoute = AppsSlugRouteImport.update({
+  id: '/apps/$slug',
+  path: '/apps/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -68,6 +74,7 @@ export interface FileRoutesByFullPath {
   '/state': typeof StateRoute
   '/ui': typeof UiRoute
   '/api/submit': typeof ApiSubmitRoute
+  '/apps/$slug': typeof AppsSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByTo {
   '/state': typeof StateRoute
   '/ui': typeof UiRoute
   '/api/submit': typeof ApiSubmitRoute
+  '/apps/$slug': typeof AppsSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -89,6 +97,7 @@ export interface FileRoutesById {
   '/state': typeof StateRoute
   '/ui': typeof UiRoute
   '/api/submit': typeof ApiSubmitRoute
+  '/apps/$slug': typeof AppsSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +110,7 @@ export interface FileRouteTypes {
     | '/state'
     | '/ui'
     | '/api/submit'
+    | '/apps/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
     | '/state'
     | '/ui'
     | '/api/submit'
+    | '/apps/$slug'
   id:
     | '__root__'
     | '/'
@@ -121,6 +132,7 @@ export interface FileRouteTypes {
     | '/state'
     | '/ui'
     | '/api/submit'
+    | '/apps/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -132,6 +144,7 @@ export interface RootRouteChildren {
   StateRoute: typeof StateRoute
   UiRoute: typeof UiRoute
   ApiSubmitRoute: typeof ApiSubmitRoute
+  AppsSlugRoute: typeof AppsSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -192,6 +205,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiSubmitRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apps/$slug': {
+      id: '/apps/$slug'
+      path: '/apps/$slug'
+      fullPath: '/apps/$slug'
+      preLoaderRoute: typeof AppsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -204,6 +224,7 @@ const rootRouteChildren: RootRouteChildren = {
   StateRoute: StateRoute,
   UiRoute: UiRoute,
   ApiSubmitRoute: ApiSubmitRoute,
+  AppsSlugRoute: AppsSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

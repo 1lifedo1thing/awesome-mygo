@@ -670,6 +670,11 @@ html:lang(ko) .site {
 	font-size: 14px;
 	font-weight: 600;
 	text-align: left;
+	text-decoration: none;
+	box-sizing: border-box;
+}
+.lang-item:hover {
+	color: var(--fg);
 }
 .lang-item[aria-checked='true'] {
 	background: rgba(63, 211, 245, 0.1);
@@ -857,6 +862,7 @@ html:lang(ko) .site {
 	flex: 1 1 auto;
 }
 .card-name {
+	margin: 0;
 	font-size: 19px;
 	font-weight: 900;
 	letter-spacing: -0.01em;
@@ -1660,6 +1666,7 @@ html:lang(ko) .site {
 	color: var(--cyan);
 }
 .plug-name {
+	margin: 0;
 	font-size: 26px;
 	font-weight: 900;
 	letter-spacing: -0.02em;
@@ -1825,6 +1832,7 @@ html:lang(ko) .site {
 	min-width: 0;
 }
 .show-name {
+	margin: 0;
 	font-size: 17px;
 	font-weight: 900;
 	letter-spacing: -0.01em;
@@ -1956,6 +1964,20 @@ html:lang(ko) .site {
 	letter-spacing: -0.06em;
 	color: var(--bar);
 	white-space: nowrap;
+}
+.ftr-nav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px 24px;
+	font-size: 14px;
+	font-weight: 600;
+}
+.ftr-nav a {
+	color: var(--fg-2);
+	text-decoration: none;
+}
+.ftr-nav a:hover {
+	color: var(--cyan);
 }
 .ftr-row {
 	display: flex;
@@ -2747,4 +2769,108 @@ button.btn-pr:disabled {
 .other-tile.app-icon {
 	border-radius: 22.5%;
 	background: none;
+}
+
+/* ---- app cards as links, app pages ---- */
+/* App cards, marquee items, "more by" rows and pagers are links to the app's page (a plain click still opens the drawer); they keep the look they had as buttons instead of the link colour and underline. */
+a.card,
+a.card:hover,
+a.hero-win,
+a.hero-win:hover,
+a.other,
+a.other:hover {
+	color: var(--fg);
+	text-decoration: none;
+}
+a.marq-item,
+a.marq-item:hover {
+	color: var(--fg-3);
+	text-decoration: none;
+}
+a.hero-win {
+	box-sizing: border-box;
+}
+a.pager {
+	display: block;
+	box-sizing: border-box;
+	padding: 0 12px;
+	line-height: 44px;
+	text-align: center;
+}
+.crumbs ol {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-family: var(--f-mono);
+	font-size: 13px;
+	color: var(--fg-3);
+}
+.crumbs li + li::before {
+	content: '/';
+	margin-right: 8px;
+}
+.crumbs a {
+	color: var(--fg-2);
+	text-decoration: none;
+}
+.crumbs a:hover {
+	color: var(--cyan);
+}
+.app-head {
+	display: flex;
+	align-items: center;
+	gap: 24px;
+}
+.app-h1 {
+	overflow-wrap: anywhere;
+}
+.app-grid {
+	display: grid;
+	grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+	gap: 32px;
+	align-items: start;
+}
+.app-main,
+.app-side {
+	display: flex;
+	flex-direction: column;
+	gap: 22px;
+}
+.app-shot {
+	border: 1px solid var(--line-2);
+	border-radius: 14px;
+	background: var(--panel);
+	overflow: hidden;
+}
+.app-shot .drawer-shot {
+	border-bottom: 0;
+}
+.app-shot.drawer-hero {
+	height: auto;
+	aspect-ratio: 16 / 10;
+	border-bottom: 1px solid var(--line-2);
+}
+.app-sub-h {
+	margin: 0;
+	font-weight: 400;
+}
+.app-pager {
+	display: flex;
+	gap: 10px;
+}
+@media (max-width: 860px) {
+	.app-grid {
+		grid-template-columns: minmax(0, 1fr);
+	}
+	.app-head {
+		align-items: flex-start;
+		flex-direction: column;
+		gap: 16px;
+	}
+}
+.app-side .others {
+	background: var(--panel);
 }

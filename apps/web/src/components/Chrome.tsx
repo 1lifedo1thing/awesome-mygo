@@ -1,7 +1,9 @@
 import { SITE_REPO, SPONSOR_URL } from '@awesome-mygo/catalog';
+import { Link } from '@tanstack/react-router';
 import { useT } from '../lib/lang';
 import { useSite } from '../lib/site';
 import { Docky } from './bits';
+import { NAV } from './Header';
 
 export function Footer() {
 	const t = useT();
@@ -11,6 +13,13 @@ export function Footer() {
 				<span aria-hidden='true' className='ftr-mark'>
 					MyGo Dock
 				</span>
+				<nav aria-label={t.a_site_nav} className='ftr-nav'>
+					{NAV.map((n) => (
+						<Link key={n.to} to={n.to}>
+							{t[n.key]}
+						</Link>
+					))}
+				</nav>
 				<div className='ftr-row'>
 					<span>{t.footer_l}</span>
 					<span className='ftr-links'>

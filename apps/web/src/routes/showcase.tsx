@@ -1,13 +1,12 @@
 import { APPS, type AppKind, MYGO_SHOWCASE, pad2, pick } from '@awesome-mygo/catalog';
 import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
-import { KindTag, MonoTile, WinBar, appView } from '../components/bits';
+import { AppLink, KindTag, MonoTile, WinBar, appView } from '../components/bits';
 import { useLang, useT } from '../lib/lang';
 import { pageHead } from '../lib/seo';
-import { useSite } from '../lib/site';
 
 export const Route = createFileRoute('/showcase')({
-	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/showcase', title: 'cat_show_name', desc: 'cat_show_desc', app: match.search.app }),
+	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/showcase', title: 'title_showcase', desc: 'desc_showcase', name: 'cat_show_name' }),
 	component: ShowcasePage,
 });
 
@@ -16,14 +15,13 @@ type Sort = 'default' | 'az' | 'author';
 function ShowcasePage() {
 	const t = useT();
 	const lang = useLang();
-	const { openApp } = useSite();
 	const [kind, setKind] = useState<'all' | AppKind>('all');
 	const [sort, setSort] = useState<Sort>('default');
 
 	const nNative = APPS.filter((a) => a.kind === 'native').length;
 	const chips = [
 		{ key: 'all', label: `${t.all} · ${APPS.length}` },
-		{ key: 'native', label: `Native UI · ${nNative}` },
+		{ key: 'native', label: `${t.surf_native} · ${nNative}` },
 		{ key: 'web', label: `${t.web_fe} · ${APPS.length - nNative}` },
 	] as const;
 
@@ -70,24 +68,26 @@ function ShowcasePage() {
 					const v = appView(a);
 					return (
 						<div key={a.slug} className={`rv d${k % 6} flex`}>
-							<button type='button' className='win card show-card' onClick={() => openApp(a.slug)} aria-haspopup='dialog'>
+							<AppLink slug={a.slug} className='win card show-card' dialog>
 								<WinBar label={v.host} size='md' className='card-bar'>
 									<span className='mono-11 c-muted'>{v.num}</span>
 								</WinBar>
-								<span className='show-body'>
-									<span className='show-id'>
+								<div className='show-body'>
+									<div className='show-id'>
 										<MonoTile view={v} size={44} />
-										<span className='show-id-text'>
-											<span className='show-name'>{a.name}</span>
+										<div className='show-id-text'>
+											<h2 className='show-name'>{a.name}</h2>
 											<span className='show-meta'>
-												<span className='show-by' title={a.author}>by {a.author}</span>
-												<KindTag app={a} label={a.kind === 'native' ? 'Native UI' : t.web_fe} />
+												<span className='show-by' title={a.author}>
+													<span lang='en'>by</span> {a.author}
+												</span>
+												<KindTag app={a} label={a.kind === 'native' ? t.surf_native : t.web_fe} />
 											</span>
-										</span>
-									</span>
+										</div>
+									</div>
 									<span className='show-desc'>{pick(a.desc, lang)}</span>
-								</span>
-							</button>
+								</div>
+							</AppLink>
 						</div>
 					);
 				})}

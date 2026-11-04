@@ -11,12 +11,12 @@ import stateSchema from '../data/schema/state.schema.json';
 import uiSchema from '../data/schema/ui.schema.json';
 import state from '../data/state.json';
 import ui from '../data/ui.json';
-import { AILOGO_CDN, APPS, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, hostOf } from './catalog';
+import { AILOGO_CDN, APP_CATEGORIES, APPS, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, authorProfile, hostOf, readApps } from './catalog';
 import { SUBMIT_CATS, SUBMIT_FILES, appendEntry, buildEntry, codeFence, descMax, editUrl, entryProblem, isBadUrl, isEntryComplete, issueUrl, jsonEntry, slugify } from './entry';
-import { LANGS, type Text, fill, langRedirectScript, negotiateLang, pick } from './lang';
+import { LANGS, type LangCode, type Text, fill, langRedirectScript, negotiateLang, pick, validateRootSearch } from './lang';
 import { buildSearchIndex, searchCatalog } from './search';
 import { STRINGS } from './strings';
-import { t } from './translate';
+import { appDescription, t } from './translate';
 import { CatalogError, readList, unique } from './validate';
 
 // The tests run on Node 24; this package has no Node type definitions, so the one function needed is declared here.
@@ -88,6 +88,25 @@ describe('catalog data', () => {
 		expect(appBySlug('nope')).toBeUndefined();
 	});
 
+	// The category is optional (the submission form and bot write entries without one), so only its value is checked.
+	it('takes an app category only from the values its schema allows', () => {
+		const schemaEnum = (appsSchema as unknown as { properties: { apps: { items: { properties: { category: { enum: string[] } } } } } }).properties.apps.items.properties.category.enum;
+		expect(schemaEnum).toEqual([...APP_CATEGORIES]);
+		for (const a of APPS) if (a.category !== undefined) expect(APP_CATEGORIES, a.slug).toContain(a.category);
+		const entry = { slug: 'kit', name: 'Kit', author: 'someone', kind: 'native', url: 'https://x.dev', summary: { en: 'A kit.' }, description: { en: 'A kit.' } };
+		expect(readApps({ apps: [entry] })[0].category).toBeUndefined();
+		expect(() => readApps({ apps: [{ ...entry, category: 'DesktopApplication' }] })).toThrow(/category must be one of/);
+	});
+
+	it('links an author to a GitHub profile only when one of their apps is in a repository they own', () => {
+		expect(authorProfile('fzn0x')).toBe('https://github.com/fzn0x');
+		// Pulse lives on its own domain, but egoist's other apps are in github.com/egoist.
+		expect(authorProfile('egoist')).toBe('https://github.com/egoist');
+		// video-downloader is in github.com/fazi-gondal: 'Faizan' is a name, not that login.
+		expect(authorProfile('Faizan')).toBeUndefined();
+		expect(authorProfile('echoVic')).toBeUndefined();
+	});
+
 	it('strips the scheme and trailing slash for display', () => {
 		expect(hostOf('https://kero.sh/')).toBe('kero.sh');
 		expect(hostOf('https://github.com/egoist/gorex')).toBe('github.com/egoist/gorex');
@@ -121,6 +140,9 @@ describe('validation of contributed entries', () => {
 });
 
 describe('negotiateLang', () => {
+	const CHROME = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36';
+	const SITE = 'https://mygodock.dev';
+
 	it('prefers a saved choice', () => {
 		expect(negotiateLang('ja', 'en-US')).toBe('ja');
 	});
@@ -140,36 +162,72 @@ describe('negotiateLang', () => {
 		expect(negotiateLang(null, 'de-DE')).toBe('zh-CN');
 		expect(negotiateLang(null, undefined)).toBe('zh-CN');
 	});
+
+	it('keeps crawlers on the language the URL declares', () => {
+		const crawlers = [
+			'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+			'Mozilla/5.0 (compatible; Google-InspectionTool/1.0)',
+			'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm) Chrome/116.0.1938.76 Safari/537.36',
+			'Mozilla/5.0 (compatible; Baiduspider-render/2.0; +http://www.baidu.com/search/spider.html)',
+			'Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)',
+			'Mozilla/5.0 (Linux; Android 7.0;) AppleWebKit/537.36 (KHTML, like Gecko) Mobile Safari/537.36 (compatible; PetalBot;+https://webmaster.petalsearch.com/site/petalbot)',
+			'Mozilla/5.0 (compatible; Yeti/1.1; +https://naver.me/spd)',
+			'Mozilla/5.0 (Linux; Android 5.0) AppleWebKit/537.36 (KHTML, like Gecko) Mobile Safari/537.36 (compatible; Bytespider; spider-feedback@bytedance.com)',
+			'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)',
+			'WhatsApp/2.23.20.0',
+			'Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36 Chrome-Lighthouse',
+		];
+		for (const userAgent of crawlers) expect(negotiateLang(null, 'en-US', { userAgent, referrer: '', origin: SITE }), userAgent).toBe('zh-CN');
+		expect(negotiateLang(null, 'en-US', { userAgent: CHROME, referrer: '', origin: SITE })).toBe('en');
+	});
+
+	it('treats browsers that carry a search brand in their UA as browsers', () => {
+		const browsers: [string, string][] = [
+			['Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/140.0.0.0 Mobile Safari/537.36 DuckDuckGo/5', 'en-US'],
+			['Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 DuckDuckGo/7 Safari/605.1.15', 'en-US'],
+			['Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 NAVER(inapp; search; 2000; 12.10.0; 15PRO)', 'ko-KR'],
+			['Mozilla/5.0 (Linux; Android 14; SM-S921N Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/140.0.0.0 Mobile Safari/537.36 NAVER(inapp; search; 2000; 12.10.0)', 'ko-KR'],
+		];
+		for (const [userAgent, browser] of browsers) expect(negotiateLang(null, browser, { userAgent, referrer: '', origin: SITE }), userAgent).toBe(browser.slice(0, 2));
+	});
+
+	it('keeps visitors from another site on the language the URL declares, unless they saved a choice', () => {
+		expect(negotiateLang(null, 'en-US', { userAgent: CHROME, referrer: 'https://www.google.com/', origin: SITE })).toBe('zh-CN');
+		expect(negotiateLang(null, 'en-US', { userAgent: CHROME, referrer: 'https://mygodock.dev.example.com/', origin: SITE })).toBe('zh-CN');
+		expect(negotiateLang('ja', 'en-US', { userAgent: CHROME, referrer: 'https://www.google.com/', origin: SITE })).toBe('ja');
+		expect(negotiateLang(null, 'en-US', { userAgent: CHROME, referrer: 'https://mygodock.dev/ui', origin: SITE })).toBe('en');
+	});
 });
 
 describe('langRedirectScript', () => {
+	const CHROME = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36';
+	const GOOGLEBOT = 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)';
 	// Runs the inline script against a fake page and returns where it redirected, or null.
-	const run = (href: string, saved: string | null, browser: string) => {
+	const run = (href: string, saved: string | null, browser: string, userAgent = CHROME, referrer = '') => {
 		let to: string | null = null;
-		const location = { href, replace: (u: string) => (to = u) };
+		const location = { href, origin: new URL(href).origin, replace: (u: string) => (to = u) };
 		const localStorage = { getItem: () => saved };
-		new Function('location', 'localStorage', 'navigator', langRedirectScript())(location, localStorage, { language: browser });
+		new Function('location', 'localStorage', 'navigator', 'document', langRedirectScript())(location, localStorage, { language: browser, userAgent }, { referrer });
 		return to;
 	};
-	const cases: [string | null, string][] = [
-		[null, 'en-US'],
-		[null, 'zh-TW'],
-		[null, 'zh-HK'],
-		[null, 'zh-Hant-MO'],
-		[null, 'zh-CN'],
-		[null, 'ja-JP'],
-		[null, 'ko-KR'],
-		[null, 'de-DE'],
-		['ja', 'en-US'],
-		['fr', 'ko-KR'],
-		['zh-CN', 'en-US'],
+	const browsers = ['en-US', 'zh-TW', 'zh-HK', 'zh-Hant-MO', 'zh-CN', 'ja-JP', 'ko-KR', 'de-DE'];
+	const saves = [null, 'ja', 'fr', 'zh-CN'];
+	const visits: [string, string][] = [
+		[CHROME, ''],
+		[CHROME, 'https://mygodock.dev/ui'],
+		[CHROME, 'https://www.google.com/'],
+		[GOOGLEBOT, ''],
 	];
 
 	it('picks the same language as negotiateLang', () => {
-		for (const [saved, browser] of cases) {
-			const want = negotiateLang(saved, browser);
-			const to = run('https://mygodock.dev/showcase?app=kero', saved, browser);
-			expect(to ? new URL(to).searchParams.get('lang') : 'zh-CN').toBe(want);
+		for (const browser of browsers) {
+			for (const saved of saves) {
+				for (const [userAgent, referrer] of visits) {
+					const want = negotiateLang(saved, browser, { userAgent, referrer, origin: 'https://mygodock.dev' });
+					const to = run('https://mygodock.dev/showcase?app=kero', saved, browser, userAgent, referrer);
+					expect(to ? new URL(to).searchParams.get('lang') : 'zh-CN', `${browser} ${saved} ${userAgent} ${referrer}`).toBe(want);
+				}
+			}
 		}
 	});
 
@@ -181,8 +239,100 @@ describe('langRedirectScript', () => {
 		expect(run('https://mygodock.dev/?lang=ja', null, 'en-US')).toBeNull();
 	});
 
-	it('treats ?lang= of the default language as unset, like the router does', () => {
-		expect(run('https://mygodock.dev/?lang=zh-CN', null, 'en-US')).toBe('https://mygodock.dev/?lang=en');
+	it('leaves an explicit ?lang= of the default language', () => {
+		expect(run('https://mygodock.dev/?lang=zh-CN', null, 'en-US')).toBeNull();
+		expect(run('https://mygodock.dev/?lang=zh-CN', 'ja', 'en-US')).toBeNull();
+	});
+
+	it('does not redirect crawlers or visitors from another site', () => {
+		expect(run('https://mygodock.dev/', null, 'en-US', GOOGLEBOT)).toBeNull();
+		expect(run('https://mygodock.dev/', null, 'en-US', CHROME, 'https://www.google.com/')).toBeNull();
+		expect(run('https://mygodock.dev/', 'ja', 'en-US', CHROME, 'https://www.google.com/')).toBe('https://mygodock.dev/?lang=ja');
+	});
+});
+
+describe('validateRootSearch', () => {
+	it('drops a lang that is not a site language, so it never reaches the render', () => {
+		for (const lang of ['fr', 'EN', 'zh-cn', '', 123, ['en', 'ja'], null]) {
+			const v = validateRootSearch({ lang });
+			// The key must be present (as undefined) to override the raw value TanStack merges the result over.
+			expect('lang' in v, JSON.stringify(lang)).toBe(true);
+			expect(v.lang, JSON.stringify(lang)).toBeUndefined();
+		}
+		for (const L of LANGS) expect(validateRootSearch({ lang: L.code }).lang).toBe(L.code);
+	});
+
+	it('keeps app slugs, numeric ones included, and drops anything else', () => {
+		expect(validateRootSearch({ app: 2048 }).app).toBe('2048');
+		expect(validateRootSearch({ app: 'kero' }).app).toBe('kero');
+		for (const app of ['Bad Slug', '', 'a'.repeat(65), ['kero', 'pulse'], { x: 1 }]) {
+			const v = validateRootSearch({ app });
+			expect('app' in v, JSON.stringify(app)).toBe(true);
+			expect(v.app, JSON.stringify(app)).toBeUndefined();
+		}
+	});
+
+	it('round-trips every app slug through the URL as the router writes and reads it', () => {
+		// The router writes strings as plain text (stringifySearchWith(JSON.stringify)) and its default reader JSON-parses each value that can begin JSON, which turns ?app=2048 into a number.
+		const parse = (v: string): unknown => {
+			try {
+				return JSON.parse(v);
+			} catch {
+				return v;
+			}
+		};
+		const read = (query: string) => Object.fromEntries([...new URLSearchParams(query)].map(([k, v]) => [k, parse(v)]));
+		for (const a of APPS) expect(validateRootSearch(read(new URLSearchParams({ app: a.slug, lang: 'ja' }).toString())), a.slug).toEqual({ app: a.slug, lang: 'ja' });
+	});
+});
+
+describe('t', () => {
+	it('falls back to the default language for a value that is not a site language', () => {
+		expect(t('fr' as LangCode)).toBe(t('zh-CN'));
+		expect(t('' as LangCode).nf_h).toBe(STRINGS.nf_h[0]);
+	});
+});
+
+describe('search snippets', () => {
+	// Display width as search results measure it: CJK, kana, Hangul and full-width forms take two columns.
+	const width = (s: string) => Array.from(s).reduce((w, c) => w + (/[\u1100-\u115F\u2E80-\uA4CF\uAC00-\uD7A3\uF900-\uFAFF\uFE30-\uFE4F\uFF00-\uFF60\uFFE0-\uFFE6]/.test(c) ? 2 : 1), 0);
+	const PAGES = [
+		['title_home', 'desc_home'],
+		['title_ui', 'desc_ui'],
+		['title_state', 'desc_state'],
+		['title_plugins', 'desc_plugins'],
+		['title_showcase', 'desc_showcase'],
+		['title_learn', 'desc_learn'],
+	] as const;
+
+	it('puts the site name first in the home title and keeps every title short enough to show whole', () => {
+		for (const [title] of PAGES) {
+			STRINGS[title].forEach((topic, i) => {
+				const full = title === 'title_home' ? topic : `${topic} · MyGo Dock`;
+				if (title === 'title_home') expect(full.startsWith('MyGo Dock · '), `${title} ${LANGS[i].code}`).toBe(true);
+				expect(width(full), `${title} ${LANGS[i].code}: ${full}`).toBeLessThanOrEqual(64);
+			});
+		}
+	});
+
+	it('gives every page its own description that fits the snippet', () => {
+		LANGS.forEach((L, i) => {
+			const descs = PAGES.map(([, desc]) => STRINGS[desc][i]);
+			expect(new Set(descs).size, L.code).toBe(PAGES.length);
+			for (const d of descs) expect(width(d), `${L.code}: ${d}`).toBeLessThanOrEqual(160);
+		});
+	});
+
+	it('gives every app page its own description that fits the snippet', () => {
+		for (const L of LANGS) {
+			const descs = APPS.map((a) => appDescription(a, L.code));
+			expect(new Set(descs).size, L.code).toBe(APPS.length);
+			for (const d of descs) expect(width(d), `${L.code}: ${d}`).toBeLessThanOrEqual(160);
+		}
+		const kero = appBySlug('kero');
+		if (!kero) throw new Error('kero is missing');
+		expect(appDescription(kero, 'en')).toBe(`${kero.desc.en} A desktop app by ${kero.author}, built with Go and MyGo.`);
+		expect(appDescription(kero, 'zh-CN')).toBe(`${pick(kero.desc, 'zh-CN')}由 ${kero.author} 用 Go 与 MyGo 开发的桌面应用。`);
 	});
 });
 

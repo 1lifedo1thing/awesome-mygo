@@ -7,7 +7,7 @@ import { pageHead } from '../lib/seo';
 import { useSite } from '../lib/site';
 
 export const Route = createFileRoute('/ui')({
-	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/ui', title: 'cat_ui_name', desc: 'ui_p' }),
+	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/ui', title: 'title_ui', desc: 'desc_ui', name: 'cat_ui_name' }),
 	component: UiPage,
 });
 
@@ -24,7 +24,7 @@ function UiPage() {
 	return (
 		<section className='page enter gap-36'>
 			<div className='stack-14'>
-				<span className='kicker'>~/UI · {UI_LIBS.length} LIBRARIES</span>
+				<span className='kicker' lang='en'>~/UI · {UI_LIBS.length} LIBRARIES</span>
 				<h1 className='page-h1'>{t.cat_ui_name}</h1>
 				<p className='page-p mw-700'>{t.ui_p}</p>
 				<a className='inline-link' href={NATIVE_UI_DOCS} target='_blank' rel='noopener'>
@@ -45,7 +45,7 @@ function UiPage() {
 							<WinBar label={`github.com/${l.repo}`} size='md' className='lib-bar' />
 							{l.image ? (
 								<div className='lib-shot lib-shot-img'>
-									<img src={l.image} alt={`${l.name} ${t.shot}`} width={1200} height={750} loading='lazy' decoding='async' />
+									<img src={l.image} alt={`${l.name} ${t.shot}`} width={1200} height={750} loading={k === 0 ? 'eager' : 'lazy'} fetchPriority={k === 0 ? 'high' : undefined} decoding='async' />
 								</div>
 							) : (
 								<div className='dots lib-shot'>
@@ -56,7 +56,9 @@ function UiPage() {
 								<div className='lib-head'>
 									<div className='stack-4'>
 										<h2 className='lib-name'>{l.name}</h2>
-										<span className='lib-by'>by {l.author}</span>
+										<span className='lib-by'>
+											<span lang='en'>by</span> {l.author}
+										</span>
 									</div>
 									<span className='lib-tag'>{t[TAG[l.key]]}</span>
 								</div>

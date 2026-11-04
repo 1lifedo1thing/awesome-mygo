@@ -1,4 +1,4 @@
-import { LANGS, langDef } from '@awesome-mygo/catalog';
+import { DEFAULT_LANG, LANGS, type RootSearch, langDef } from '@awesome-mygo/catalog';
 import { Link, useLocation } from '@tanstack/react-router';
 import { useEffect, useRef, useState } from 'react';
 import { useLang, useSetLang, useT } from '../lib/lang';
@@ -75,27 +75,31 @@ export function Header({ scrolled }: { scrolled: boolean }) {
 							</svg>
 							<span>{langDef(lang).short}</span>
 						</button>
-						{langMenu && (
-							<div role='menu' aria-label={t.lang} className='lang-menu enter'>
-								{LANGS.map((L) => (
-									<button
-										key={L.code}
-										type='button'
-										role='menuitemradio'
-										aria-checked={L.code === lang}
-										className='row lang-item'
-										lang={L.code}
-										onClick={() => {
-											setLangMenu(false);
-											setLang(L.code);
-										}}
-									>
-										<span>{L.native}</span>
-										<span className='lang-code'>{L.code}</span>
-									</button>
-								))}
-							</div>
-						)}
+						{/* Always rendered, and hidden while closed, so every page links to its other language versions for crawlers. Active means the exact URL: by default a link is active when its search is a subset of the current one, which made 简体中文 (no lang) active on every page. A plain click switches in place and saves the choice; a click with a modifier key or a middle click opens the link. */}
+						<div role='menu' aria-label={t.lang} className='lang-menu enter' hidden={!langMenu}>
+							{LANGS.map((L) => (
+								<Link
+									key={L.code}
+									to='.'
+									search={(prev: RootSearch): RootSearch => ({ ...prev, lang: L.code === DEFAULT_LANG ? undefined : L.code })}
+									activeOptions={{ exact: true }}
+									role='menuitemradio'
+									aria-checked={L.code === lang}
+									className='row lang-item'
+									lang={L.code}
+									hrefLang={L.code}
+									onClick={(e) => {
+										if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+										e.preventDefault();
+										setLangMenu(false);
+										setLang(L.code);
+									}}
+								>
+									<span>{L.native}</span>
+									<span className='lang-code'>{L.code}</span>
+								</Link>
+							))}
+						</div>
 					</div>
 					<button type='button' className='btn-c submit-btn' onClick={() => openSubmit()}>
 						{t.submit_short}
