@@ -12,12 +12,12 @@ export const Route = createFileRoute('/')({
 	component: HomePage,
 });
 
-// Placement of the four floating app windows around the code window in the hero.
+// Placement of the four floating app windows on the 1200px wall below the hero: the near pair in the middle, the far pair at the edges.
 const HERO_APPS = [
-	{ slug: 'kero', left: 10, top: 130, w: 230, z: -180, ry: 14, pos: 'far', bob: 'bobd1', wi: 'wi3' },
-	{ slug: 'pulse', left: 190, top: 50, w: 250, z: -60, ry: 8, pos: 'near', bob: 'bobd2', wi: 'wi2' },
-	{ slug: 'mixmusic', left: 760, top: 50, w: 250, z: -60, ry: -8, pos: 'near', bob: 'bobd3', wi: 'wi2' },
-	{ slug: 'godwit', left: 960, top: 130, w: 230, z: -180, ry: -14, pos: 'far', bob: 'bobd4', wi: 'wi3' },
+	{ slug: 'kero', left: 0, top: 110, w: 230, z: -180, ry: 14, pos: 'far', bob: 'bobd1', wi: 'wi3' },
+	{ slug: 'pulse', left: 300, top: 40, w: 250, z: -60, ry: 6, pos: 'near', bob: 'bobd2', wi: 'wi2' },
+	{ slug: 'mixmusic', left: 650, top: 40, w: 250, z: -60, ry: -6, pos: 'near', bob: 'bobd3', wi: 'wi2' },
+	{ slug: 'godwit', left: 970, top: 110, w: 230, z: -180, ry: -14, pos: 'far', bob: 'bobd4', wi: 'wi3' },
 ] as const;
 
 const FEATURED = ['mixmusic', 'kero', 'liubai', 'godwit'] as const;
@@ -28,10 +28,14 @@ function mustApp(slug: string) {
 	return app;
 }
 
+// The headline as groups of animated characters. A group never wraps inside: a word in word-spaced languages, the text between two \u200b marks in CJK ones.
 function tokens(str: string, byWord: boolean, start: number, step: number) {
-	const parts = byWord ? str.split(' ').map((w, i, arr) => w + (i < arr.length - 1 ? ' ' : '')) : Array.from(str);
-	return parts.map((c, i) => ({ c, d: start + i * step }));
+	const groups = byWord ? str.split(' ').map((w, i, arr) => [w + (i < arr.length - 1 ? ' ' : '')]) : str.split('\u200b').map((g) => Array.from(g));
+	let n = 0;
+	return groups.map((g) => g.map((c) => ({ c, d: start + n++ * step })));
 }
+
+const plain = (s: string) => s.replaceAll('\u200b', '');
 
 function HomePage() {
 	const t = useT();
@@ -102,7 +106,7 @@ function Hero() {
 	const words = langDef(lang).words;
 	const step1 = words ? 110 : 55;
 	const l1 = tokens(t.h1_1, words, 100, step1);
-	const l2 = tokens(t.h1_2, words, 100 + l1.length * step1 + 150, words ? 130 : 70);
+	const l2 = tokens(t.h1_2, words, 100 + l1.flat().length * step1 + 150, words ? 130 : 70);
 
 	const onMove = (ev: PointerEvent<HTMLElement>) => {
 		const el = heroRef.current;
@@ -126,6 +130,7 @@ function Hero() {
 	return (
 		<section ref={heroRef} onPointerMove={onMove} onPointerLeave={onLeave} className='hero'>
 			<div className='hero-in'>
+				<div className='hero-copy'>
 				<Link to='/showcase' className='pill wi wi1'>
 					<span className='live' lang='en'>
 						<span className='pulse live-dot' />
@@ -135,26 +140,39 @@ function Hero() {
 					<span className='arrow c-fg'>→</span>
 				</Link>
 
-				<h1 aria-label={`${t.h1_1} ${t.h1_2}`} className='hero-h1' data-words={words}>
+				<h1 aria-label={plain(`${t.h1_1} ${t.h1_2}`)} className='hero-h1' data-words={words}>
 					<span aria-hidden='true' className='block'>
-						{l1.map((ch, i) => (
-							<span key={i} className='ch' style={{ animationDelay: `${ch.d}ms` }}>
-								{ch.c}
+						{l1.map((g, i) => (
+							<span key={i} className='ch-group'>
+								{g.map((ch) => (
+									<span key={ch.d} className='ch' style={{ animationDelay: `${ch.d}ms` }}>
+										{ch.c}
+									</span>
+								))}
 							</span>
 						))}
 					</span>
 					{/* Invisible between the two block lines, but keeps the text of word-spaced languages from reading "Go,all". */}
 					{words && ' '}
 					<span aria-hidden='true' className='block hero-h1-2'>
-						{l2.map((ch, i) => (
-							<span key={i} className='ch' style={{ animationDelay: `${ch.d}ms` }}>
-								{ch.c}
+						{l2.map((g, i) => (
+							<span key={i} className='ch-group'>
+								{g.map((ch) => (
+									<span key={ch.d} className='ch' style={{ animationDelay: `${ch.d}ms` }}>
+										{ch.c}
+									</span>
+								))}
 							</span>
 						))}
 					</span>
 				</h1>
 
-				<p className='hero-p wi wi2'>{t.hero_p}</p>
+				<p className='hero-p wi wi2'>
+					<span>{t.hero_p}</span>
+					{/* Where the two sentences run together on a phone, word-spaced languages need a space between them. */}
+					{words && ' '}
+					<span>{t.hero_p2}</span>
+				</p>
 
 				<div className='install wi wi2'>
 					<div role='tablist' aria-label={t.a_install} className='install-tabs'>
@@ -189,6 +207,18 @@ function Hero() {
 						</span>
 					))}
 				</div>
+				</div>
+
+				<div className='hero-code'>
+					<div className='bob rel'>
+						<div className='code-win wi wi2'>
+							<WinBar size='lg' className='code-bar'>
+								<span className='code-title'>my-app — main.go</span>
+							</WinBar>
+							<HeroCode />
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<div className='stage'>
@@ -213,16 +243,6 @@ function Hero() {
 							</div>
 						);
 					})}
-					<div className='center-win'>
-						<div className='bob rel'>
-							<div className='code-win wi wi2'>
-								<WinBar size='lg' className='code-bar'>
-									<span className='code-title'>my-app — main.go</span>
-								</WinBar>
-								<HeroCode />
-							</div>
-						</div>
-					</div>
 				</div>
 				<div aria-hidden='true' className='stage-fade' />
 			</div>

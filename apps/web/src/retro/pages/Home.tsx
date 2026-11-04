@@ -1,4 +1,4 @@
-import { APPS, ARTICLES, DOCS, INSTALL_CMDS, INSTALL_TABS, type InstallTab, type LangCode, MYGO_SITE, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, fill, pad2, pick } from '@awesome-mygo/catalog';
+import { APPS, ARTICLES, DOCS, INSTALL_CMDS, INSTALL_TABS, type InstallTab, type LangCode, MYGO_SITE, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, fill, langDef, pad2, pick } from '@awesome-mygo/catalog';
 import { Link } from '@tanstack/react-router';
 import { useState } from 'react';
 import { AppLink } from '../../components/bits';
@@ -66,7 +66,11 @@ function Welcome() {
 						</span>
 					))}
 				</h1>
-				<p className='m-0 max-w-[35em] leading-[22px]'>{t.hero_p}</p>
+				<p className='m-0 max-w-[35em] leading-[22px]'>
+					{t.hero_p}
+					{langDef(lang).words && ' '}
+					{t.hero_p2}
+				</p>
 			</div>
 			<StatusBar>
 				<span>
