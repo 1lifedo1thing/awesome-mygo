@@ -31,7 +31,7 @@ function Explorer() {
 		{ key: 'native' as const, label: `${t.surf_native} · ${PLUGINS.filter((p) => p.surface !== 'web').length}` },
 	];
 	return (
-		<Win level={1} title={t.nav_plugins} className='desk:col-span-8 desk:col-start-1 desk:row-span-2 desk:row-start-1'>
+		<Win level={1} title={t.nav_plugins} fill className='desk:col-span-8 desk:col-start-1 desk:row-span-2 desk:row-start-1'>
 			<div className='flex flex-wrap items-center gap-2.5 px-1.5 pt-[3px] pb-1.5'>
 				<div role='group' aria-label={t.a_filter} className='flex flex-wrap'>
 					{chips.map((c) => (
@@ -46,7 +46,7 @@ function Explorer() {
 				</span>
 			</div>
 			<p className='m-0 px-1.5 pb-1.5'>{t.plug_p}</p>
-			<ul className={`${well} m-0 list-none p-1.5`}>
+			<ul className={`${well} relative m-0 list-none p-1.5 desk:min-h-0 desk:flex-1 desk:overflow-y-auto`}>
 				{shown.map((p) => (
 					<li key={p.slug} className='border-b border-dotted border-[#d6cfbb] last:border-b-0'>
 						<a href={p.url} target='_blank' rel='noopener' className='group grid grid-cols-[32px_1fr_auto] items-start gap-x-3 gap-y-1 px-2 py-2.5 no-underline hover:bg-ink hover:text-paper desk:grid-cols-[32px_190px_1fr_auto] desk:gap-x-4'>
