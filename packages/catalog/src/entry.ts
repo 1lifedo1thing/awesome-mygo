@@ -56,6 +56,33 @@ export function repoOf(url: string): string | undefined {
 	return m ? `${m[1]}/${m[2].replace(/\.git$/, '')}` : undefined;
 }
 
+// A link typed or pasted without its scheme (github.com/you/app) is meant as https; anything else is left for isBadUrl to judge.
+export function withScheme(url: string): string {
+	const u = url.trim();
+	if (!u || /^[a-z][a-z0-9+.-]*:/i.test(u)) return u;
+	return /^[^\s/]+\.[^\s/]+/.test(u) ? `https://${u}` : u;
+}
+
+// For a GitHub repository link, the repository's name and its owner, which the form offers as the entry's name and author.
+export function guessFromLink(url: string): { name: string; author: string } | undefined {
+	const repo = repoOf(url);
+	if (!repo) return undefined;
+	const [author, name] = repo.split('/');
+	return { name, author };
+}
+
+export type DraftField = 'url' | 'name' | 'author' | 'desc';
+
+// What the draft still lacks before it can be submitted, in the form's order. Empty exactly when isEntryComplete holds (the description's length is capped by the field itself).
+export function missingFields(cat: SubmitCat, d: EntryDraft): DraftField[] {
+	const out: DraftField[] = [];
+	if (!d.url.trim() || isBadUrl(d.url)) out.push('url');
+	if (!d.name.trim()) out.push('name');
+	if (needsAuthor(cat) && !d.author.trim()) out.push('author');
+	if (cat !== 'article' && !d.desc.trim()) out.push('desc');
+	return out;
+}
+
 // The entry as it goes into its data file. Missing fields show as placeholders, so the preview always has the final shape.
 export function buildEntry(cat: SubmitCat, d: EntryDraft, mode: 'native' | 'web', placeholders: { name: string; desc: string }): Record<string, unknown> {
 	const name = d.name.trim() || placeholders.name;
