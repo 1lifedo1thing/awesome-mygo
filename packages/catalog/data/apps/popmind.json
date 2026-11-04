@@ -8,10 +8,21 @@
 	"url": "https://pm.luckysnail.cn/",
 	"repo": "coderPerseus/popMind",
 	"summary": {
-		"en": "raycast + bob + paste = popMind  ，聚合快捷搜索窗口 + 划词翻译，解释 + 剪切板 ，自己每天在使用"
+		"en": "macOS text-selection translation and AI explanation, plus a launcher with clipboard history.",
+		"zh-CN": "macOS 划词翻译与 AI 解释工具，附带启动器和剪贴板历史。",
+		"zh-TW": "macOS 選字翻譯與 AI 解釋工具，附帶啟動器和剪貼簿紀錄。",
+		"ja": "macOS 向けの選択テキスト翻訳と AI 解説に、ランチャーとクリップボード履歴を備えたアプリ。",
+		"ko": "macOS용 선택 텍스트 번역·AI 설명 도구. 런처와 클립보드 기록도 갖췄습니다."
 	},
 	"description": {
-		"en": "raycast + bob + paste = popMind  ，聚合快捷搜索窗口 + 划词翻译，解释 + 剪切板 ，自己每天在使用"
+		"en": "A macOS app drawn with MyGo's native UI. Select text anywhere and a floating bubble translates it with Google, DeepL, Bing, Youdao or AI, explains it with follow-up chat, or opens Ask AI with the selection as context. A launcher window adds slash commands, a calculator, app search, clipboard history and handoff to ChatGPT, Perplexity, Grok and Google.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 应用。在任意位置选中文字，浮动气泡即可用 Google、DeepL、Bing、Youdao 或 AI 翻译，生成可继续追问的 AI 解释，或以选中内容为上下文打开 Ask AI。启动器窗口还提供斜杠命令、计算器、应用搜索和剪贴板历史，并可快速跳转到 ChatGPT、Perplexity、Grok 和 Google。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS 應用程式。在任何地方選取文字，浮動泡泡就能用 Google、DeepL、Bing、Youdao 或 AI 翻譯，產生可繼續追問的 AI 解釋，或以選取內容為脈絡開啟 Ask AI。啟動器視窗另有斜線指令、計算機、應用程式搜尋和剪貼簿紀錄，並可快速跳轉到 ChatGPT、Perplexity、Grok 和 Google。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS アプリ。どこでもテキストを選択すると浮かぶバブルから、Google・DeepL・Bing・Youdao・AI による翻訳、続けて質問できる AI の解説、選択範囲を文脈にした Ask AI を呼び出せます。ランチャーウィンドウにはスラッシュコマンド、電卓、アプリ検索、クリップボード履歴があり、ChatGPT・Perplexity・Grok・Google へすぐに移れます。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS 앱입니다. 어디서든 텍스트를 선택하면 떠오르는 버블에서 Google, DeepL, Bing, Youdao, AI로 번역하거나, 이어서 질문할 수 있는 AI 설명을 받거나, 선택한 내용을 맥락으로 Ask AI를 열 수 있습니다. 런처 창에서는 슬래시 명령, 계산기, 앱 검색, 클립보드 기록을 쓰고 ChatGPT, Perplexity, Grok, Google로 바로 넘어갈 수 있습니다."
 	},
-	"added": "2026-11-04T15:22:09Z"
+	"added": "2026-11-04T15:22:09Z",
+	"icon": {
+		"file": "popmind.webp"
+	}
 }
