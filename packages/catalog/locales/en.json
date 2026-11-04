@@ -169,5 +169,14 @@
 	"desc_learn": "Official MyGo guides and community articles: getting started, windows, native UI, calling Go from the frontend, packaging and auto-updates.",
 	"og_alt": "The Go gopher with a laptop, next to “awesome-mygo: a curated list of resources for MyGo”",
 	"preview_img": "preview",
-	"a_site_nav": "Sections"
+	"a_site_nav": "Sections",
+	"a_theme": "Look",
+	"theme_retro": "Retro desktop",
+	"theme_original": "Standard view",
+	"r_h1": "Desktop apps\nbuilt with Go,\nall in one place.",
+	"r_terminal": "Terminal",
+	"r_panel": "Control panel",
+	"r_note": "Note",
+	"r_items": "Items: {n}",
+	"r_desktop": "Desktop"
 }

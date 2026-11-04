@@ -169,5 +169,14 @@
 	"desc_learn": "MyGo 공식 가이드와 커뮤니티 글: 시작하기, 창, 네이티브 UI, 프런트엔드에서 Go 호출, 패키징과 배포, 자동 업데이트, GitHub Actions.",
 	"og_alt": "노트북을 든 Go 고퍼와 “awesome-mygo: MyGo 자료 모음” 문구",
 	"preview_img": "미리보기 이미지",
-	"a_site_nav": "섹션"
+	"a_site_nav": "섹션",
+	"a_theme": "화면 스타일",
+	"theme_retro": "레트로 데스크톱",
+	"theme_original": "기본 보기",
+	"r_h1": "Go로 만든\n데스크톱 앱,\n모두 여기에.",
+	"r_terminal": "터미널",
+	"r_panel": "제어판",
+	"r_note": "메모",
+	"r_items": "항목 {n}개",
+	"r_desktop": "데스크톱"
 }

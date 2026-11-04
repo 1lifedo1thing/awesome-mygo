@@ -1,0 +1,146 @@
+import { CLI_CMDS, COMMUNITY_PLUGINS, PLUGINS, PLUGINS_DOC, type PluginSurface, fill, pick } from '@awesome-mygo/catalog';
+import { useState } from 'react';
+import { useLang, useT } from '../../lib/lang';
+import { useSite } from '../../lib/site';
+import { DesktopIcons } from '../DesktopIcons';
+import { PLUGIN_ICON } from '../plugin-icons';
+import { Note, PixelIcon, StatusBar, Win, btn, btnGo, btnSm, field, well } from '../ui';
+
+// The plugins page: a file manager window listing the official plugins in a details view, a terminal with the mygo-cli commands leaning on its right edge, and a sticky note about community plugins.
+export function Plugins() {
+	return (
+		<div className='relative mx-auto flex max-w-[1440px] flex-col gap-[26px] px-3.5 pt-3.5 desk:grid desk:grid-cols-12 desk:items-start desk:gap-x-7 desk:gap-y-0 desk:pt-[26px] desk:pr-10 desk:pl-[136px]'>
+			<DesktopIcons className='hidden desk:absolute desk:top-[26px] desk:left-[18px] desk:grid desk:grid-cols-1 desk:gap-4' />
+			<Explorer />
+			<Cli />
+			<Community />
+		</div>
+	);
+}
+
+function Explorer() {
+	const t = useT();
+	const lang = useLang();
+	const [surface, setSurface] = useState<'all' | 'web' | 'native'>('all');
+	const surfLabel: Record<PluginSurface, string> = { web: t.surf_web, native: t.surf_native, both: t.surf_both };
+	// A plugin for both kinds of window shows under either filter.
+	const shown = PLUGINS.filter((p) => surface === 'all' || p.surface === surface || p.surface === 'both');
+	const chips = [
+		{ key: 'all' as const, label: `${t.all} · ${PLUGINS.length}` },
+		{ key: 'web' as const, label: `${t.surf_web} · ${PLUGINS.filter((p) => p.surface !== 'native').length}` },
+		{ key: 'native' as const, label: `${t.surf_native} · ${PLUGINS.filter((p) => p.surface !== 'web').length}` },
+	];
+	return (
+		<Win level={1} title={t.nav_plugins} className='desk:col-span-8 desk:col-start-1 desk:row-span-2 desk:row-start-1'>
+			<div className='flex flex-wrap items-center gap-2.5 px-1.5 pt-[3px] pb-1.5'>
+				<div role='group' aria-label={t.a_filter} className='flex flex-wrap'>
+					{chips.map((c) => (
+						<button key={c.key} type='button' aria-pressed={surface === c.key} onClick={() => setSurface(c.key)} className={`${btnSm} -ml-px first:ml-0`}>
+							{c.label}
+						</button>
+					))}
+				</div>
+				<span className='flex-1' />
+				<span className={`${field} font-mono`} lang='en'>
+					~/plugins/
+				</span>
+			</div>
+			<p className='m-0 px-1.5 pb-1.5'>{t.plug_p}</p>
+			<ul className={`${well} m-0 list-none p-1.5`}>
+				{shown.map((p) => (
+					<li key={p.slug} className='border-b border-dotted border-[#d6cfbb] last:border-b-0'>
+						<a href={p.url} target='_blank' rel='noopener' className='group grid grid-cols-[32px_1fr_auto] items-start gap-x-3 gap-y-1 px-2 py-2.5 no-underline hover:bg-ink hover:text-paper desk:grid-cols-[32px_190px_1fr_auto] desk:gap-x-4'>
+							{PLUGIN_ICON[p.slug] ? (
+								<PixelIcon name={PLUGIN_ICON[p.slug]} className='row-span-2 mt-0.5 desk:row-span-1' />
+							) : (
+								<span aria-hidden='true' className='row-span-2 mt-0.5 grid size-8 place-items-center border border-ink bg-yel font-mono text-ink desk:row-span-1'>
+									{p.mark}
+								</span>
+							)}
+							<div className='min-w-0'>
+								<h2 className='m-0 text-2xl leading-7 font-normal'>{p.name}</h2>
+								<span lang='en' className='block font-mono text-faint group-hover:text-slate'>
+									plugins/{p.slug}
+								</span>
+							</div>
+							<div className='col-start-2 col-end-[-1] row-start-2 min-w-0 desk:col-start-3 desk:col-end-4 desk:row-start-1'>
+								<p className='m-0'>{pick(p.desc, lang)}</p>
+								<span className='mt-1.5 flex flex-wrap gap-1.5'>
+									<span className={`inline-block border border-ink px-1.5 leading-4 ${p.surface === 'native' ? 'bg-ink text-paper group-hover:border-paper' : p.surface === 'both' ? 'bg-sky text-ink' : 'bg-yel text-ink'}`}>{surfLabel[p.surface]}</span>
+									{p.tags.map((tg) => (
+										<code key={tg} lang='en' className='border border-lo bg-face px-1.5 font-mono text-ink'>
+											{tg}
+										</code>
+									))}
+								</span>
+							</div>
+							<span className='col-start-3 row-start-1 flex flex-col items-end gap-1 text-right desk:col-start-4'>
+								<span lang='en' className='border border-ink bg-paper px-1 font-mono leading-4 text-ink'>
+									OFFICIAL
+								</span>
+								<span className='whitespace-nowrap underline decoration-dotted underline-offset-[3px] group-hover:text-yel'>{t.docs_link}</span>
+							</span>
+						</a>
+					</li>
+				))}
+			</ul>
+			<StatusBar>
+				<span>
+					<b className='bg-yel px-[3px] font-normal text-ink'>{shown.length}</b> / {fill(t.r_items, { n: PLUGINS.length })}
+				</span>
+				<span>{fill(t.cat_plug_desc, { n: PLUGINS.length })}</span>
+			</StatusBar>
+		</Win>
+	);
+}
+
+// The toolchain as a terminal: each mygo-cli command on its own prompt line with a copy button.
+function Cli() {
+	const t = useT();
+	const { copy, copied } = useSite();
+	return (
+		<Win title={t.tool_h} idle className='desk:col-span-4 desk:col-start-9 desk:row-start-1 desk:mt-20 desk:-ml-3'>
+			<p className='m-0 px-1.5 pt-[3px] pb-1.5'>{t.tool_p}</p>
+			<div className='grid gap-2 border border-ink bg-ink px-3 pt-3 pb-3.5 font-mono text-paper'>
+				{CLI_CMDS.map((cmd, i) => {
+					const key = i === 0 ? 'cmd0' : 'cmd1';
+					return (
+						<div key={cmd} className='flex items-center justify-between gap-2'>
+							<code lang='en' className='min-w-0 break-all'>
+								<span className='text-sky'>~/code $ </span>
+								<span className='text-yel'>{cmd}</span>
+							</code>
+							<button type='button' className={`${btnSm} text-ink`} onClick={() => copy(cmd, key)} aria-label={t.a_copy_cmd}>
+								{copied === key ? t.copied : t.copy}
+							</button>
+						</div>
+					);
+				})}
+				<p className='m-0'>
+					<span className='text-sky'>~/code $ </span>
+					<span aria-hidden='true' className='inline-block h-[13px] w-[7px] animate-blink bg-paper align-[-2px]' />
+				</p>
+			</div>
+		</Win>
+	);
+}
+
+// Community plugins: how many are listed, the guide to writing one, and the submit button.
+function Community() {
+	const t = useT();
+	const { openSubmit } = useSite();
+	return (
+		<Note title={t.r_note} className='mx-1 desk:col-span-4 desk:col-start-9 desk:row-start-2 desk:m-0 desk:mt-12 desk:ml-8 desk:-mr-2'>
+			<h2 className='m-0 mb-2.5 text-2xl leading-8 font-normal text-balance [&:lang(ko)]:break-keep'>{fill(t.comm_h, { n: COMMUNITY_PLUGINS.length })}</h2>
+			<p className='m-0 mb-3'>{t.comm_p}</p>
+			<div className='flex flex-wrap items-center gap-2.5'>
+				<a className={btn} href={PLUGINS_DOC} target='_blank' rel='noopener'>
+					{t.guide}
+				</a>
+				<button type='button' className={btnGo} onClick={() => openSubmit('plugin')}>
+					{t.sub_plugin}
+				</button>
+			</div>
+		</Note>
+	);
+}
