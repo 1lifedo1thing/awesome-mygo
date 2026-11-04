@@ -6,7 +6,7 @@ import stateJson from '../data/state.json';
 import uiJson from '../data/ui.json';
 import type { Text } from './lang';
 import type { StringKey } from './strings';
-import { readList, unique } from './validate';
+import { type Reader, readList, unique } from './validate';
 
 // The entries live in packages/catalog/data/*.json, one file per category, so adding one is a JSON edit; data/schema/ describes their fields. Data sources: egoist/mygo (website/src/showcase.ts, docs/) and each project's own README.
 
@@ -37,6 +37,8 @@ const SHOT = /^[a-z0-9-]+\.(webp|svg)$/;
 const REPO = /^[^/\s]+\/[^/\s]+$/;
 const shot = (file: string | undefined) => (file ? `/shots/${file}` : undefined);
 
+// Each read* function checks a whole data file, the bundled one at load or a contributor's version of it, and throws a CatalogError naming the entry and field of the first mistake.
+
 // ---- apps (data/apps.json) ----
 
 export type AppKind = 'native' | 'web';
@@ -60,7 +62,7 @@ export interface App {
 // Icons come from yldm-tech/ai-logo (its avatar renders), served by its CDN.
 export const AILOGO_CDN = 'https://ailogo.yldm.ai/avatar/';
 
-export const APPS: readonly App[] = readList('apps.json', appsJson, 'apps', (r) => {
+const readApp = (r: Reader): App => {
 	r.only(['slug', 'name', 'author', 'kind', 'url', 'summary', 'description', 'screenshot', 'icon']);
 	const icon = r.raw.icon as { ailogo?: unknown; file?: unknown } | undefined;
 	let iconUrl: string | undefined;
@@ -80,8 +82,15 @@ export const APPS: readonly App[] = readList('apps.json', appsJson, 'apps', (r) 
 		image: shot(r.raw.screenshot === undefined ? undefined : r.match('screenshot', SHOT, 'a .webp or .svg file name')),
 		icon: iconUrl,
 	};
-});
-unique('apps.json', APPS, 'slug', (a) => a.slug);
+};
+
+export function readApps(json: unknown): App[] {
+	const apps = readList('apps.json', json, 'apps', readApp);
+	unique('apps.json', apps, 'slug', (a) => a.slug);
+	return apps;
+}
+
+export const APPS: readonly App[] = readApps(appsJson);
 
 export function appBySlug(slug: string): App | undefined {
 	return APPS.find((a) => a.slug === slug);
@@ -103,7 +112,7 @@ export interface UiLib {
 	image?: string;
 }
 
-export const UI_LIBS: readonly UiLib[] = readList('ui.json', uiJson, 'libraries', (r) => {
+const readUiLib = (r: Reader): UiLib => {
 	r.only(['name', 'author', 'tag', 'summary', 'repo', 'url', 'homepage', 'screenshot']);
 	return {
 		name: r.str('name'),
@@ -115,8 +124,15 @@ export const UI_LIBS: readonly UiLib[] = readList('ui.json', uiJson, 'libraries'
 		homepage: r.optUrl('homepage'),
 		image: shot(r.raw.screenshot === undefined ? undefined : r.match('screenshot', SHOT, 'a .webp or .svg file name')),
 	};
-});
-unique('ui.json', UI_LIBS, 'repo', (l) => l.repo);
+};
+
+export function readUiLibs(json: unknown): UiLib[] {
+	const libs = readList('ui.json', json, 'libraries', readUiLib);
+	unique('ui.json', libs, 'repo', (l) => l.repo);
+	return libs;
+}
+
+export const UI_LIBS: readonly UiLib[] = readUiLibs(uiJson);
 
 // ---- state management (data/state.json) ----
 
@@ -132,7 +148,7 @@ export interface StateSolution {
 	image?: string;
 }
 
-export const STATE_SOLUTIONS: readonly StateSolution[] = readList('state.json', stateJson, 'solutions', (r) => {
+const readStateSolution = (r: Reader): StateSolution => {
 	r.only(['name', 'author', 'summary', 'repo', 'url', 'homepage', 'install', 'tags', 'screenshot']);
 	return {
 		name: r.str('name'),
@@ -145,8 +161,15 @@ export const STATE_SOLUTIONS: readonly StateSolution[] = readList('state.json', 
 		tags: r.strings('tags', 1),
 		image: shot(r.raw.screenshot === undefined ? undefined : r.match('screenshot', SHOT, 'a .webp or .svg file name')),
 	};
-});
-unique('state.json', STATE_SOLUTIONS, 'repo', (s) => s.repo);
+};
+
+export function readStateSolutions(json: unknown): StateSolution[] {
+	const solutions = readList('state.json', json, 'solutions', readStateSolution);
+	unique('state.json', solutions, 'repo', (x) => x.repo);
+	return solutions;
+}
+
+export const STATE_SOLUTIONS: readonly StateSolution[] = readStateSolutions(stateJson);
 
 // ---- plugins (data/plugins.json) ----
 
@@ -164,7 +187,7 @@ export interface Plugin {
 	url: string;
 }
 
-const ALL_PLUGINS: readonly Plugin[] = readList('plugins.json', pluginsJson, 'plugins', (r) => {
+const readPlugin = (r: Reader): Plugin => {
 	r.only(['slug', 'name', 'mark', 'official', 'surface', 'tags', 'docs', 'summary']);
 	return {
 		slug: r.match('slug', SLUG, 'lowercase letters, digits and hyphens'),
@@ -176,8 +199,15 @@ const ALL_PLUGINS: readonly Plugin[] = readList('plugins.json', pluginsJson, 'pl
 		url: r.url('docs'),
 		desc: r.text('summary'),
 	};
-});
-unique('plugins.json', ALL_PLUGINS, 'slug', (p) => p.slug);
+};
+
+export function readPlugins(json: unknown): Plugin[] {
+	const plugins = readList('plugins.json', json, 'plugins', readPlugin);
+	unique('plugins.json', plugins, 'slug', (p) => p.slug);
+	return plugins;
+}
+
+const ALL_PLUGINS: readonly Plugin[] = readPlugins(pluginsJson);
 
 // Official plugins, in the order of docs/plugins.md.
 export const PLUGINS: readonly Plugin[] = ALL_PLUGINS.filter((p) => p.official);
@@ -203,11 +233,18 @@ export interface Article {
 	url: string;
 }
 
-export const ARTICLES: readonly Article[] = readList('articles.json', articlesJson, 'articles', (r) => {
+const readArticle = (r: Reader): Article => {
 	r.only(['title', 'site', 'url']);
 	return { title: r.str('title'), site: r.str('site'), url: r.url('url') };
-});
-unique('articles.json', ARTICLES, 'url', (a) => a.url);
+};
+
+export function readArticles(json: unknown): Article[] {
+	const articles = readList('articles.json', json, 'articles', readArticle);
+	unique('articles.json', articles, 'url', (a) => a.url);
+	return articles;
+}
+
+export const ARTICLES: readonly Article[] = readArticles(articlesJson);
 
 // ---- install commands ----
 

@@ -16,6 +16,7 @@ import { Route as ShowcaseRouteImport } from './routes/showcase'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as StateRouteImport } from './routes/state'
 import { Route as UiRouteImport } from './routes/ui'
+import { Route as ApiSubmitRouteImport } from './routes/api/submit'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -52,6 +53,11 @@ const UiRoute = UiRouteImport.update({
   path: '/ui',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiSubmitRoute = ApiSubmitRouteImport.update({
+  id: '/api/submit',
+  path: '/api/submit',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -61,6 +67,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/state': typeof StateRoute
   '/ui': typeof UiRoute
+  '/api/submit': typeof ApiSubmitRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,6 +77,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/state': typeof StateRoute
   '/ui': typeof UiRoute
+  '/api/submit': typeof ApiSubmitRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,6 +88,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/state': typeof StateRoute
   '/ui': typeof UiRoute
+  '/api/submit': typeof ApiSubmitRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +100,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/state'
     | '/ui'
+    | '/api/submit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +110,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/state'
     | '/ui'
+    | '/api/submit'
   id:
     | '__root__'
     | '/'
@@ -109,6 +120,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/state'
     | '/ui'
+    | '/api/submit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -119,6 +131,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StateRoute: typeof StateRoute
   UiRoute: typeof UiRoute
+  ApiSubmitRoute: typeof ApiSubmitRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -172,6 +185,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UiRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/submit': {
+      id: '/api/submit'
+      path: '/api/submit'
+      fullPath: '/api/submit'
+      preLoaderRoute: typeof ApiSubmitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -183,6 +203,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   StateRoute: StateRoute,
   UiRoute: UiRoute,
+  ApiSubmitRoute: ApiSubmitRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

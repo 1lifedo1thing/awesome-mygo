@@ -12,7 +12,7 @@ import uiSchema from '../data/schema/ui.schema.json';
 import state from '../data/state.json';
 import ui from '../data/ui.json';
 import { AILOGO_CDN, APPS, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, hostOf } from './catalog';
-import { SUBMIT_CATS, SUBMIT_FILES, descMax, editUrl, isBadUrl, isEntryComplete, issueUrl, jsonEntry, slugify } from './entry';
+import { SUBMIT_CATS, SUBMIT_FILES, appendEntry, buildEntry, codeFence, descMax, editUrl, entryProblem, isBadUrl, isEntryComplete, issueUrl, jsonEntry, slugify } from './entry';
 import { LANGS, type Text, fill, langRedirectScript, negotiateLang, pick } from './lang';
 import { buildSearchIndex, searchCatalog } from './search';
 import { STRINGS } from './strings';
@@ -20,8 +20,9 @@ import { t } from './translate';
 import { CatalogError, readList, unique } from './validate';
 
 // The tests run on Node 24; this package has no Node type definitions, so the one function needed is declared here.
-declare const process: { getBuiltinModule(id: 'node:fs'): { existsSync(path: URL): boolean } };
-const { existsSync } = process.getBuiltinModule('node:fs');
+declare const process: { getBuiltinModule(id: 'node:fs'): { existsSync(path: URL): boolean; readFileSync(path: URL, encoding: 'utf8'): string } };
+const { existsSync, readFileSync } = process.getBuiltinModule('node:fs');
+const dataText = (file: string) => readFileSync(new URL(`../data/${file}`, import.meta.url), 'utf8');
 
 const PUBLIC = new URL('../../../apps/web/public/', import.meta.url);
 type Schema = { $id: string; properties: Record<string, { items: { required: string[]; properties: Record<string, unknown> } }> };
@@ -265,5 +266,51 @@ describe('submission entry', () => {
 
 	it('allows a longer description for apps', () => {
 		expect(descMax('showcase')).toBeGreaterThan(descMax('ui'));
+	});
+
+	it('fences text that itself contains backticks', () => {
+		expect(codeFence('a', 'json')).toBe('```json\na\n```');
+		expect(codeFence('x ``` y')).toBe('````\nx ``` y\n````');
+	});
+
+	it('derives the install command of a state solution from its repo', () => {
+		expect(buildEntry('state', draft, 'native', ph).install).toBe('go get github.com/someone/my-kit');
+	});
+});
+
+describe('bot submission', () => {
+	const ph = { name: 'Name', desc: 'One-line description.' };
+	const draft = { name: 'Brand New Kit', author: 'someone', url: 'https://github.com/someone/brand-new-kit', desc: 'Widgets for MyGo.' };
+
+	it('accepts a complete draft and says what is wrong with the rest', () => {
+		expect(entryProblem('ui', draft)).toBeUndefined();
+		expect(entryProblem('article', { name: 'Post', author: '', url: 'https://x.dev/post', desc: '' })).toBeUndefined();
+		expect(entryProblem('ui', { ...draft, author: '' })).toMatch(/required/);
+		expect(entryProblem('ui', { ...draft, url: 'https://example.com/kit' })).toMatch(/GitHub repository/);
+		expect(entryProblem('ui', { ...draft, desc: 'x'.repeat(descMax('ui') + 1) })).toMatch(/longer than/);
+		expect(entryProblem('ui', { ...draft, name: 'a\nb' })).toMatch(/single line/);
+		expect(entryProblem('showcase', { ...draft, url: 'https://x.dev/a b' })).toMatch(/spaces/);
+	});
+
+	it('appends the entry to every data file, keeping the rest of the file byte for byte', () => {
+		for (const cat of SUBMIT_CATS) {
+			const { file, list } = SUBMIT_FILES[cat];
+			const before = dataText(file);
+			const entry = buildEntry(cat, draft, 'native', ph);
+			const after = appendEntry(cat, before, entry);
+			expect(JSON.parse(after)[list].at(-1), cat).toEqual(entry);
+			const [b, a] = [before.split('\n'), after.split('\n')];
+			// Only the old last entry's closing brace gains a comma; everything above it is untouched.
+			expect(a.slice(0, b.length - 4), cat).toEqual(b.slice(0, b.length - 4));
+			expect(a.length - b.length, cat).toBe(JSON.stringify(entry, null, '\t').split('\n').length);
+		}
+	});
+
+	it('rejects an entry the file already has, or one that breaks its check, naming the field', () => {
+		const text = dataText('apps.json');
+		const first = JSON.parse(text).apps[0];
+		expect(() => appendEntry('showcase', text, first)).toThrow(/slug/);
+		expect(() => appendEntry('showcase', text, { ...first, slug: 'fresh-slug', summary: { ja: 'x' } })).toThrow(CatalogError);
+		expect(() => appendEntry('showcase', text, { ...first, slug: 'fresh-slug', summary: { ja: 'x' } })).toThrow(/summary\.en/);
 	});
 });
