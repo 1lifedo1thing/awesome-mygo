@@ -12,14 +12,14 @@
 
 ## 사이트 내용
 
-- **쇼케이스**: MyGo로 만든 데스크톱 앱. 앱마다 자세한 설명, 스크린샷(프로젝트가 제공한 경우), 인터페이스 종류(네이티브 UI 또는 웹 프런트엔드), 같은 작성자의 다른 앱을 보여줍니다.
+- **쇼케이스**: MyGo로 만든 데스크톱 앱. 이름순, 최신순, 인기순으로 정렬할 수 있습니다. 앱마다 전용 페이지가 있어 자세한 설명, 스크린샷(프로젝트가 제공한 경우), 인터페이스 종류(네이티브 UI 또는 웹 프런트엔드), 카테고리, 등록일, 같은 작성자의 다른 앱을 보여줍니다.
 - **플러그인**: 공식 플러그인. 웹 페이지, 네이티브 UI, 또는 둘 다 중 어디에 쓰는지 표시하며, `mygo-cli` 툴체인도 소개합니다.
 - **UI 컴포넌트**: MyGo 앱을 위한 컴포넌트 라이브러리, 테마, 아이콘.
 - **상태 관리**: MyGo 앱의 상태 관리 솔루션과 MyGo에 내장된 바인딩 서비스, 채널, 타입 이벤트.
 - **문서**: 공식 가이드, 커뮤니티 글, 공식 자료.
 - <kbd>⌘K</kbd> / <kbd>Ctrl+K</kbd>로 모든 내용을 **검색**할 수 있고, 수록하고 싶은 프로젝트가 있으면 제출 양식이 항목을 대신 작성해 줍니다.
 
-사이트는 중국어 간체, 중국어 번체, 영어, 일본어, 한국어를 지원합니다. 모든 페이지는 언어마다 고유한 주소(`?lang=en`)를 가지며, 서버에서 렌더링되고 hreflang 링크와 sitemap을 갖추고 있습니다.
+사이트는 중국어 간체, 중국어 번체, 영어, 일본어, 한국어를 지원합니다. 모든 페이지는 언어마다 고유한 주소(`?lang=en`)를 가지며, 서버에서 렌더링되고 hreflang 링크와 sitemap을 갖추고 있습니다. 필터, 정렬, 탭도 주소에 남아(`/showcase?cat=dev&sort=newest`) 공유한 링크가 같은 화면으로 열립니다.
 
 ## 구성
 
@@ -82,7 +82,7 @@ bot이 풀 리퀘스트를 열면 *Complete submission* 워크플로가 양식�
   "url": "https://my-app.dev",
   "repo": "you/my-app",
   "summary": { "en": "One line about the app.", "ja": "アプリの一行説明。" },
-  "description": { "en": "A few sentences for the detail drawer." },
+  "description": { "en": "A few sentences for the app's page." },
   "added": "2026-11-04T12:00:00Z"
 }
 ```
@@ -91,7 +91,7 @@ bot이 풀 리퀘스트를 열면 *Complete submission* 워크플로가 양식�
 - `url`은 앱의 홈페이지입니다. 공식 웹사이트, 없으면 저장소 주소이며 GitHub가 아니어도 됩니다. 오픈 소스 앱은 `repo`에 GitHub 저장소(`owner/name`)를 적고, 비공개 소스 앱은 생략합니다.
 - 텍스트 필드는 언어별로 하나씩 씁니다. `en`은 필수이고 `zh-CN`, `zh-TW`, `ja`, `ko`는 선택이며, 빠진 언어에서는 영어가 표시됩니다.
 - 각 파일은 `$schema`로 자신의 JSON Schema(`data/schema/`)를 가리키므로 VS Code 등의 편집기가 입력하는 동안 필드를 자동 완성하고 검사합니다.
-- 링크는 https여야 합니다. 스크린샷은 너비 약 1200px의 WebP를 `apps/web/public/shots/`에 두고 `"screenshot": "my-app.webp"`로 씁니다. 앱 아이콘은 [ai-logo](https://github.com/yldm-tech/ai-logo) id로 `"icon": { "ailogo": "<id>" }`를 쓰거나, 생략하면 글자 타일이 표시됩니다.
+- 링크는 https여야 합니다. 스크린샷은 너비 약 1200px의 WebP를 `apps/web/public/shots/`에 두고 `"screenshot": "my-app.webp"`로 씁니다. 앱 아이콘은 [ai-logo](https://github.com/yldm-tech/ai-logo) id로 `"icon": { "ailogo": "<id>" }`를 씁니다. 앱 자체 아이콘을 쓰려면 256px WebP를 `apps/web/public/icons/`에 두고 `"icon": { "file": "my-app.webp" }`로 씁니다. 생략하면 글자 타일이 표시됩니다.
 - `pnpm test`는 모든 항목을 검증하고 오류가 있는 파일, 항목, 필드를 알려 줍니다. CI가 모든 풀 리퀘스트에서 실행합니다.
 
 UI 문구는 `packages/catalog/locales/`에 있으며, 언어마다 키가 같은 JSON 파일이 하나씩 있습니다. 기준은 `zh-CN.json`입니다. 키를 추가할 때는 나머지 네 파일에도 넣어야 하며, 빠진 키나 `{x}`/`{n}` 자리표시자 불일치는 `pnpm typecheck`와 `pnpm test`가 잡아냅니다.

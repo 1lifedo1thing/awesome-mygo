@@ -12,14 +12,14 @@
 
 ## 網站內容
 
-- **作品**：用 MyGo 打造的桌面應用，每款都有完整介紹、截圖（專案有提供時）、介面類型（原生 UI 或 Web 前端），以及同一作者的其他作品。
+- **作品**：用 MyGo 打造的桌面應用，可依名稱、最新或最熱門排序。每款都有自己的頁面，包含完整介紹、截圖（專案有提供時）、介面類型（原生 UI 或 Web 前端）、分類、收錄時間，以及同一作者的其他作品。
 - **外掛**：官方外掛，標明適用於網頁、原生 UI 還是兩者，另有 `mygo-cli` 工具鏈。
 - **UI 元件**：為 MyGo 應用打造的元件庫、主題與圖示。
 - **狀態管理**：MyGo 應用的狀態方案，以及 MyGo 內建的綁定服務、通道和型別化事件。
 - **文件**：官方指南、社群文章和官方資源。
 - 用 <kbd>⌘K</kbd> / <kbd>Ctrl+K</kbd> **搜尋**全部內容；想收錄某個專案時，提交表單會替你寫好條目。
 
-網站支援簡體中文、繁體中文、英語、日語和韓語。每個頁面在每種語言下都有獨立網址（`?lang=en`），由伺服器端渲染，並帶有 hreflang 連結和 sitemap。
+網站支援簡體中文、繁體中文、英語、日語和韓語。每個頁面在每種語言下都有獨立網址（`?lang=en`），由伺服器端渲染，並帶有 hreflang 連結和 sitemap。篩選、排序和分頁也都記在網址裡（`/showcase?cat=dev&sort=newest`），分享出去的連結開啟的就是同一個畫面。
 
 ## 技術實作
 
@@ -82,7 +82,7 @@ bot 開出 PR 後，*Complete submission* workflow 會補上表單問不到的�
   "url": "https://my-app.dev",
   "repo": "you/my-app",
   "summary": { "en": "One line about the app.", "ja": "アプリの一行説明。" },
-  "description": { "en": "A few sentences for the detail drawer." },
+  "description": { "en": "A few sentences for the app's page." },
   "added": "2026-11-04T12:00:00Z"
 }
 ```
@@ -91,7 +91,7 @@ bot 開出 PR 後，*Complete submission* workflow 會補上表單問不到的�
 - `url` 是應用首頁：官網，沒有官網就填倉庫網址，不要求在 GitHub 上。開源應用再用 `repo` 填 GitHub 倉庫（`owner/name`），閉源應用不填。
 - 文字欄位依語言各寫一份。`en` 必填；`zh-CN`、`zh-TW`、`ja`、`ko` 可選，缺少的語言顯示英文。
 - 每個檔案都在 `$schema` 裡指向自己的 JSON Schema（在 `data/schema/`），VS Code 等編輯器會在你輸入時補全並檢查欄位。
-- 連結必須是 https。截圖請把寬約 1200px 的 WebP 放進 `apps/web/public/shots/`，並寫 `"screenshot": "my-app.webp"`。應用圖示寫 `"icon": { "ailogo": "<id>" }`，id 來自 [ai-logo](https://github.com/yldm-tech/ai-logo)；不寫則顯示字母圖示。
+- 連結必須是 https。截圖請把寬約 1200px 的 WebP 放進 `apps/web/public/shots/`，並寫 `"screenshot": "my-app.webp"`。應用圖示寫 `"icon": { "ailogo": "<id>" }`，id 來自 [ai-logo](https://github.com/yldm-tech/ai-logo)；用應用自己的圖示時，把 256px 的 WebP 放進 `apps/web/public/icons/`，並寫 `"icon": { "file": "my-app.webp" }`。不寫則顯示字母圖示。
 - `pnpm test` 會驗證每個條目，出錯時指出檔案、條目和欄位。CI 會在每個 PR 上執行它。
 
 介面文案在 `packages/catalog/locales/`，每種語言一個 JSON 檔案，鍵完全相同。`zh-CN.json` 是基準：新增的鍵要同時加進其餘四個檔案；缺鍵或 `{x}`/`{n}` 佔位符不一致時，`pnpm typecheck` 和 `pnpm test` 會報錯。
