@@ -66,18 +66,19 @@ function TitleBox({ kind }: { kind: 'close' | 'zoom' | 'shade' }) {
 	return <span aria-hidden='true' className={`size-[13px] shrink-0 border border-ink bg-face shadow-[inset_1px_1px_0_var(--color-hi)] ${mark}`} />;
 }
 
-// A window: dithered title bar with its close/zoom/shade boxes, a face-coloured frame and a dithered drop shadow. `idle` greys the title bar like a window in the background. The title is a heading of the given level so each window labels its section.
-export function Win({ title, idle = false, level = 2, id, className = '', bodyClassName = '', children, onClose, closeLabel }: { title: ReactNode; idle?: boolean; level?: 1 | 2 | 3; id?: string; className?: string; bodyClassName?: string; children: ReactNode; onClose?: () => void; closeLabel?: string }) {
+// A window: pinstriped title bar with its close/zoom/shade boxes, a face-coloured frame and a soft drop shadow. `idle` drops the stripes like a window in the background. The title is a heading of the given level so each window labels its section.
+// `fill` keeps the window within one screen on the desktop: the body becomes a flex column, and the page gives one of its children `relative min-h-0 flex-1 overflow-y-auto` to scroll inside the window. The scroller must be `relative`, or absolutely positioned descendants (sr-only text) escape it and stretch the page again.
+export function Win({ title, idle = false, level = 2, id, fill = false, className = '', bodyClassName = '', children, onClose, closeLabel }: { title: ReactNode; idle?: boolean; level?: 1 | 2 | 3; id?: string; fill?: boolean; className?: string; bodyClassName?: string; children: ReactNode; onClose?: () => void; closeLabel?: string }) {
 	const H = `h${level}` as 'h1' | 'h2' | 'h3';
 	return (
-		<section id={id} aria-labelledby={id ? `${id}-t` : undefined} className={`dither-shadow border border-ink bg-face px-[3px] pb-[3px] bevel ${className}`}>
-			<div className={`relative -mx-[3px] mb-[3px] flex h-[23px] items-center gap-2 border-b border-ink px-1.5 ${idle ? 'titlebar-idle text-muted' : 'titlebar text-hi'}`}>
+		<section id={id} aria-labelledby={id ? `${id}-t` : undefined} className={`dither-shadow border border-ink bg-face px-[3px] pb-[3px] bevel ${fill ? 'desk:flex desk:max-h-(--win-max) desk:flex-col' : ''} ${className}`}>
+			<div className={`relative -mx-[3px] mb-[3px] flex h-[23px] items-center gap-2 border-b border-ink px-1.5 ${idle ? 'titlebar-idle text-muted' : 'titlebar text-ink'}`}>
 				{onClose ? (
 					<button type='button' onClick={onClose} aria-label={closeLabel} className='size-[13px] shrink-0 cursor-pointer border border-ink bg-face p-0 shadow-[inset_1px_1px_0_var(--color-hi)] hover:bg-ink' />
 				) : (
 					<TitleBox kind='close' />
 				)}
-				<H id={id ? `${id}-t` : undefined} className={`mx-auto min-w-0 truncate px-2.5 text-xs leading-[23px] font-normal ${idle ? 'bg-face' : 'bg-pur'}`}>
+				<H id={id ? `${id}-t` : undefined} className='px-text mx-auto min-w-0 truncate bg-face px-2.5 text-xs leading-[23px] font-normal'>
 					{title}
 				</H>
 				<span className='flex gap-1'>
@@ -85,7 +86,7 @@ export function Win({ title, idle = false, level = 2, id, className = '', bodyCl
 					<TitleBox kind='shade' />
 				</span>
 			</div>
-			<div className={bodyClassName}>{children}</div>
+			<div className={`${fill ? 'desk:flex desk:min-h-0 desk:flex-1 desk:flex-col' : ''} ${bodyClassName}`}>{children}</div>
 		</section>
 	);
 }
@@ -116,7 +117,7 @@ export function AppIcon({ app, size }: { app: App; size: number }) {
 	);
 }
 
-// A sticky-note: yellow paper with a darker strip and a dithered shadow.
+// A sticky-note: yellow paper with a darker strip and a soft shadow.
 export function Note({ title, className = '', children }: { title: ReactNode; className?: string; children: ReactNode }) {
 	return (
 		<aside className={`dither-shadow border border-ink bg-note px-4 pb-4 ${className}`}>

@@ -38,9 +38,22 @@ function usePage(): ComponentType {
 	});
 }
 
+// On the desktop the page scrolls inside <main>, not the window, so the router's scroll reset does not reach it.
+function scrollMainToTop(): boolean {
+	const main = document.getElementById('main');
+	if (!main || main.scrollTop === 0) return false;
+	main.scrollTo({ top: 0 });
+	return true;
+}
+
 export default function RetroApp() {
 	const site = useSite();
 	const Page = usePage();
+	const pathname = useLocation({ select: (l) => l.pathname });
+
+	useEffect(() => {
+		scrollMainToTop();
+	}, [pathname]);
 
 	// Escape closes the topmost overlay; ⌘K / Ctrl+K opens search.
 	useEffect(() => {
@@ -60,9 +73,10 @@ export default function RetroApp() {
 	}, [site]);
 
 	return (
-		<div id='top' className='flex min-h-screen flex-col'>
+		// On the desktop the whole look is one screen: the menu bar and the footer stay put, and a page taller than the space between them scrolls inside it.
+		<div id='top' className='flex min-h-screen flex-col desk:h-dvh desk:min-h-0 desk:overflow-hidden'>
 			<MenuBar />
-			<main id='main' className='flex-1'>
+			<main id='main' className='flex-1 desk:min-h-0 desk:overflow-y-auto'>
 				<Page />
 			</main>
 			<Foot />
@@ -124,7 +138,7 @@ function MenuBar() {
 	const navMenu = useMenu();
 
 	return (
-		<header className='sticky top-0 z-40 flex h-[30px] items-stretch gap-0.5 border-b border-ink bg-paper px-2.5 shadow-[inset_0_1px_0_var(--color-hi)]'>
+		<header className='px-text sticky top-0 text-xs z-40 flex h-[30px] flex-none items-stretch gap-0.5 border-b border-ink bg-paper px-2.5 shadow-[inset_0_1px_0_var(--color-hi)]'>
 			<Link to='/' aria-label={t.a_home} className='flex items-center gap-2 pr-2.5 pl-1 no-underline hover:bg-ink hover:text-paper'>
 				<img src='/icon-32.png' srcSet='/icon-32.png 1x, /icon-192.png 2x' width={20} height={20} alt='' className='size-5 border border-ink' />
 				<span className='hidden whitespace-nowrap min-[480px]:inline'>MyGo Dock</span>
@@ -203,7 +217,7 @@ function MenuBar() {
 function Foot() {
 	const t = useT();
 	return (
-		<footer className='mt-14 flex min-h-[30px] flex-wrap items-center gap-x-[18px] gap-y-1.5 border-t border-ink bg-paper px-4 py-1'>
+		<footer className='mt-14 flex min-h-[30px] flex-none flex-wrap items-center gap-x-[18px] gap-y-1.5 border-t border-ink bg-paper px-4 py-1 desk:mt-0 desk:flex-nowrap desk:overflow-hidden desk:whitespace-nowrap'>
 			<span>{t.footer_l}</span>
 			<nav aria-label={t.a_site_nav} className='flex flex-wrap gap-x-3'>
 				{NAV.map((n) => (
@@ -219,7 +233,13 @@ function Foot() {
 			<a className={lnk} href='https://github.com/sponsors/egoist' target='_blank' rel='noopener'>
 				{t.sponsor}
 			</a>
-			<a className={lnk} href='#top'>
+			<a
+				className={lnk}
+				href='#top'
+				onClick={(e) => {
+					if (scrollMainToTop()) e.preventDefault();
+				}}
+			>
 				{t.to_top} ↑
 			</a>
 		</footer>

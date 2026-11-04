@@ -10,13 +10,14 @@ import { AppIcon, KindTag, StatusBar, Win, btn, btnGo, iconLabel, lnk, well } fr
 export const noShot = 'bg-[repeating-conic-gradient(#cfe7ef_0_25%,var(--color-paper)_0_50%)] bg-[length:4px_4px]';
 
 // The app's screenshot in an ink frame, or its icon and catalog number on the checkerboard when it has none.
-export function AppShot({ view, priority = false }: { view: AppView; priority?: boolean }) {
+// `fit` caps the screenshot's height on the desktop to what the app page's window has left, so a screenshot taller than 16:10 does not push the description out of view; the frame then shrinks to the image's width.
+export function AppShot({ view, priority = false, fit = false }: { view: AppView; priority?: boolean; fit?: boolean }) {
 	const t = useT();
 	const { app } = view;
 	if (app.image) {
 		return (
-			<div className='bg-ink p-[3px]'>
-				<img key={app.slug} src={app.image} alt={`${app.name} ${t.app_shot}`} width={1200} height={750} fetchPriority={priority ? 'high' : undefined} decoding='async' className='block h-auto w-full bg-paper' />
+			<div className={`bg-ink p-[3px] ${fit ? 'desk:w-fit desk:max-w-full' : ''}`}>
+				<img key={app.slug} src={app.image} alt={`${app.name} ${t.app_shot}`} width={1200} height={750} fetchPriority={priority ? 'high' : undefined} decoding='async' className={`block h-auto w-full bg-paper ${fit ? 'desk:max-h-[calc(100dvh_-_400px)] desk:w-auto desk:max-w-full' : ''}`} />
 			</div>
 		);
 	}
@@ -130,7 +131,7 @@ function Page({ app }: { app: App }) {
 
 	return (
 		<div className='mx-auto max-w-[1180px] px-3.5 pt-3.5 desk:px-10 desk:pt-[30px]'>
-			<Win title={app.name} level={1}>
+			<Win title={app.name} level={1} fill>
 				<nav aria-label={t.a_crumbs} className='px-1.5 pt-[3px] pb-1.5'>
 					<ol className='m-0 flex list-none flex-wrap items-center gap-x-2 p-0'>
 						<li>
@@ -151,16 +152,19 @@ function Page({ app }: { app: App }) {
 					</ol>
 				</nav>
 				{/* On a phone the name comes first, then the screenshot, then the facts; on the desktop the screenshot takes the left column and the name and facts stack on the right. */}
-				<article className={`${well} grid gap-4 p-3.5 desk:grid-cols-[minmax(0,1fr)_300px] desk:grid-rows-[auto_1fr] desk:gap-x-7 desk:gap-y-3.5 desk:p-5`}>
+				{/* On the desktop the panel takes the height the window has left. The screenshot column is no wider than 1.6 times that height (less the padding and room for the description), so on a short screen the screenshot shrinks and the description under it stays in view. The author's other apps scroll on their own under the facts, and the left column scrolls too if a long description still does not fit. */}
+				<article className={`${well} grid gap-4 p-3.5 desk:min-h-0 desk:flex-1 desk:grid-cols-[minmax(0,calc((100dvh_-_400px)_*_1.6))_300px] desk:grid-rows-[auto_minmax(0,1fr)] desk:justify-center desk:gap-x-7 desk:gap-y-3.5 desk:p-5`}>
 					<AppHead app={app} kindLabel={kindLabel} className='desk:col-start-2 desk:row-start-1' />
-					<div className='grid content-start gap-4 desk:col-start-1 desk:row-span-2 desk:row-start-1'>
-						<AppShot view={v} priority />
+					<div className='relative grid content-start gap-4 desk:col-start-1 desk:row-span-2 desk:row-start-1 desk:min-h-0 desk:overflow-y-auto'>
+						<AppShot view={v} priority fit />
 						<p className='m-0 max-w-[48em] leading-[22px] [&:lang(ko)]:break-keep'>{pick(app.about, lang)}</p>
 					</div>
-					<div className='grid content-start gap-3.5 desk:col-start-2 desk:row-start-2'>
+					<div className='grid content-start gap-3.5 desk:col-start-2 desk:row-start-2 desk:flex desk:min-h-0 desk:flex-col'>
 						<AppFacts view={v} />
 						<AppActions app={app} />
-						<MoreBy app={app} quick={false} />
+						<div className='relative empty:hidden desk:min-h-0 desk:overflow-y-auto'>
+							<MoreBy app={app} quick={false} />
+						</div>
 					</div>
 				</article>
 				<nav aria-label={t.a_pager} className='flex flex-wrap justify-between gap-2.5 px-1.5 pt-2 pb-1.5'>

@@ -8,11 +8,12 @@ import { PixelIcon, StatusBar, Win, btn, btnGo, btnSm, field, well } from '../ui
 type BlockId = 'bind' | 'chan' | 'evt';
 
 // The state page: a header window, the listed solutions in a tall window on the right, MyGo's built-in primitives as a property sheet with a code pane, and a dialog asking for more solutions. Below the desktop breakpoint the windows stack in that order.
+// On the desktop the grid is exactly one window tall, so the page fits one screen. The primitives row takes its content height or what the header and the dialog leave, whichever is less, and the last row soaks up the rest; the primitives and solutions windows scroll inside themselves when they are cut short.
 export function State() {
 	const t = useT();
 	const listed = STATE_SOLUTIONS.length > 0;
 	return (
-		<div className='relative mx-auto flex max-w-[1440px] flex-col gap-[26px] px-3.5 pt-3.5 desk:grid desk:grid-cols-12 desk:grid-rows-[auto_auto_1fr] desk:items-start desk:gap-x-7 desk:gap-y-0 desk:pt-[26px] desk:pr-10 desk:pl-[136px]'>
+		<div className='relative mx-auto flex max-w-[1440px] flex-col gap-[26px] px-3.5 pt-3.5 desk:grid desk:h-[calc(var(--win-max)+26px)] desk:grid-cols-12 desk:grid-rows-[auto_minmax(0,auto)_auto_1fr] desk:items-start desk:gap-x-7 desk:gap-y-0 desk:pt-[26px] desk:pr-10 desk:pl-[136px]'>
 			<DesktopIcons className='hidden desk:absolute desk:top-[26px] desk:left-[18px] desk:grid desk:grid-cols-1 desk:gap-4' />
 			<Win level={1} title={t.cat_state_name} className='desk:col-span-6 desk:col-start-1 desk:row-start-1'>
 				<div className='flex flex-wrap items-center gap-2.5 px-1.5 pt-[3px] pb-1.5'>
@@ -44,9 +45,10 @@ function Solutions() {
 	const t = useT();
 	const lang = useLang();
 	const { copy, copied } = useSite();
+	// Not `fill`: its cap is the grid area less the stagger offset, not the whole screen, so the window keeps its content height until the screen runs out.
 	return (
-		<Win title={t.state_listed_h} className='desk:col-span-6 desk:col-start-7 desk:row-span-3 desk:row-start-1 desk:mt-16 desk:-ml-3'>
-			<div className={`${well} divide-y divide-dotted divide-lo px-3.5`}>
+		<Win title={t.state_listed_h} className='desk:col-span-6 desk:col-start-7 desk:row-span-4 desk:row-start-1 desk:mt-10 desk:-ml-3 desk:flex desk:max-h-[calc(100%-2.5rem)] desk:min-h-0 desk:flex-col' bodyClassName='desk:flex desk:min-h-0 desk:flex-1 desk:flex-col'>
+			<div className={`${well} relative divide-y divide-dotted divide-lo px-3.5 desk:min-h-0 desk:flex-1 desk:overflow-y-auto`}>
 				{STATE_SOLUTIONS.map((s, k) => (
 					<article key={s.repo} className='py-3.5'>
 						<p className='m-0 mb-2.5 flex items-center gap-2'>
@@ -118,9 +120,9 @@ function Primitives() {
 	] as const;
 	const current = blocks.find((b) => b.id === block) ?? blocks[0];
 	return (
-		<Win title={t.a_builtin} idle className='desk:col-span-6 desk:col-start-1 desk:row-start-2 desk:mt-8 desk:ml-8'>
-			<div className={`${well} grid gap-3 p-3 desk:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]`}>
-				<div role='tablist' aria-label={t.a_builtin} aria-orientation='vertical' className='grid content-start gap-1'>
+		<Win title={t.a_builtin} idle fill className='desk:col-span-6 desk:col-start-1 desk:row-start-2 desk:mt-5 desk:ml-8 desk:min-h-0 desk:self-stretch'>
+			<div className={`${well} grid gap-3 p-3 desk:min-h-0 desk:flex-1 desk:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] desk:grid-rows-[minmax(0,1fr)]`}>
+				<div role='tablist' aria-label={t.a_builtin} aria-orientation='vertical' className='relative grid content-start gap-1 desk:min-h-0 desk:overflow-y-auto'>
 					{blocks.map((b, i) => (
 						<button key={b.id} type='button' role='tab' id={`blk-${b.id}`} aria-controls='blk-panel' aria-selected={b.id === block} onClick={() => setBlock(b.id)} className='group grid cursor-pointer grid-cols-[22px_1fr] gap-x-2 border border-transparent bg-transparent px-2 py-1.5 text-left hover:border-dotted hover:border-ink aria-selected:border-ink aria-selected:bg-ink aria-selected:text-paper'>
 							<span className='font-mono text-lo group-aria-selected:text-yel'>{pad2(i + 1)}</span>
@@ -136,14 +138,14 @@ function Primitives() {
 						</button>
 					))}
 				</div>
-				<div role='tabpanel' id='blk-panel' aria-labelledby={`blk-${current.id}`} className='flex flex-col border border-ink bg-ink text-paper'>
+				<div role='tabpanel' id='blk-panel' aria-labelledby={`blk-${current.id}`} className='flex flex-col border border-ink bg-ink text-paper desk:min-h-0'>
 					<div className='flex h-[22px] items-center gap-2 border-b border-[#2c4058] px-2 text-slate'>
 						<PixelIcon name='page' scale={1} />
 						<span lang='en' className='font-mono'>
 							app.ts
 						</span>
 					</div>
-					<pre lang='en' className='m-0 min-h-[96px] flex-1 overflow-x-auto px-3 py-2.5 font-mono whitespace-pre-wrap'>
+					<pre lang='en' className='relative m-0 min-h-[96px] flex-1 overflow-x-auto desk:min-h-0 px-3 py-2.5 font-mono whitespace-pre-wrap'>
 						{current.code}
 					</pre>
 					<a href={BINDINGS_DOC} target='_blank' rel='noopener' lang='en' className='border-t border-[#2c4058] px-3 py-1.5 text-yel hover:bg-yel hover:text-ink'>
@@ -159,8 +161,9 @@ function Primitives() {
 function Ask({ listed }: { listed: boolean }) {
 	const t = useT();
 	const { openSubmit } = useSite();
+	// Below 1261px the desktop columns are too narrow for the header, the primitives and this dialog to share one screen (in English the primitives window collapsed to its title bar at 1100x700), so the dialog is hidden there; Submit stays in the menu bar and on the desktop icons.
 	return (
-		<section aria-labelledby='state-ask' className='mx-1 grid grid-cols-[40px_1fr] gap-x-4 gap-y-2.5 border border-ink bg-face p-3.5 outline-1 outline-offset-[3px] outline-ink shadow-[inset_1px_1px_0_var(--color-hi),inset_-1px_-1px_0_var(--color-lo),0_0_0_3px_var(--color-face),9px_9px_0_3px_rgba(16,35,58,.5)] desk:col-span-5 desk:col-start-2 desk:row-start-3 desk:m-0 desk:mt-12 desk:ml-4 desk:px-[18px] desk:pt-4 desk:pb-3.5'>
+		<section aria-labelledby='state-ask' className='mx-1 grid grid-cols-[40px_1fr] gap-x-4 gap-y-2.5 border border-ink bg-face p-3.5 outline-1 outline-offset-[3px] outline-ink shadow-[inset_1px_1px_0_var(--color-hi),inset_-1px_-1px_0_var(--color-lo),0_0_0_3px_var(--color-face),9px_9px_0_3px_rgba(16,35,58,.5)] desk:col-span-5 desk:col-start-2 desk:row-start-3 desk:hidden desk:m-0 desk:mt-6 desk:ml-4 desk:px-[18px] desk:pt-4 desk:pb-3.5 min-[1261px]:grid'>
 			<PixelIcon name='inbox' scale={2} className='mt-1' />
 			<div>
 				<h2 id='state-ask' className='m-0 mb-1 text-2xl leading-8 font-normal text-balance [&:lang(ko)]:break-keep'>
