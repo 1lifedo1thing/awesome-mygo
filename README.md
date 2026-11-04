@@ -12,14 +12,14 @@ English · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) ·
 
 ## What is on the site
 
-- **Showcase**: desktop apps built with MyGo. Each has its full description, a screenshot where the project has one, its interface (native UI or web frontend) and its other apps by the same author.
+- **Showcase**: desktop apps built with MyGo, sorted by name, newest or most liked. Each has its own page with the full description, a screenshot where the project has one, its interface (native UI or web frontend), its category, when it was added and its other apps by the same author.
 - **Plugins**: the official plugins, marked by the kind of window they serve (web pages, native UI or both), plus the `mygo-cli` toolchain.
 - **UI components**: component libraries, themes and icons made for MyGo apps.
 - **State**: state management for MyGo apps, beside MyGo's own bound services, channels and typed events.
 - **Learn**: the official guides, community articles and the official resources.
 - **Search** across everything with <kbd>⌘K</kbd> / <kbd>Ctrl+K</kbd>, and a form that writes the entry for a project you want listed.
 
-The site speaks Simplified Chinese, Traditional Chinese, English, Japanese and Korean. Every page has its own address per language (`?lang=en`), is rendered on the server, and has hreflang links and a sitemap.
+The site speaks Simplified Chinese, Traditional Chinese, English, Japanese and Korean. Every page has its own address per language (`?lang=en`), is rendered on the server, and has hreflang links and a sitemap. Filters, sort orders and tabs are kept in the address too (`/showcase?cat=dev&sort=newest`), so a shared link opens the same view.
 
 ## How it is built
 
@@ -82,7 +82,7 @@ An app's file, `apps/my-app.json`, looks like this:
   "url": "https://my-app.dev",
   "repo": "you/my-app",
   "summary": { "en": "One line about the app.", "ja": "アプリの一行説明。" },
-  "description": { "en": "A few sentences for the detail drawer." },
+  "description": { "en": "A few sentences for the app's page." },
   "added": "2026-11-04T12:00:00Z"
 }
 ```
@@ -91,7 +91,7 @@ An app's file, `apps/my-app.json`, looks like this:
 - `url` is the app's homepage: its website, or its repository if it has none; it need not be on GitHub. An open-source app adds its GitHub repository as `repo` (`owner/name`); a closed-source one leaves it out.
 - Text fields hold one string per language. `en` is required; `zh-CN`, `zh-TW`, `ja` and `ko` are optional, and a missing language shows the English text.
 - Each file names its JSON Schema (in `data/schema/`) in `$schema`, so VS Code and other editors complete and check the fields as you type.
-- Links must be https. For a screenshot, add a WebP about 1200px wide to `apps/web/public/shots/` and set `"screenshot": "my-app.webp"`. For an app icon, set `"icon": { "ailogo": "<id>" }` with an [ai-logo](https://github.com/yldm-tech/ai-logo) id, or leave it out for a letter tile.
+- Links must be https. For a screenshot, add a WebP about 1200px wide to `apps/web/public/shots/` and set `"screenshot": "my-app.webp"`. For an app icon, set `"icon": { "ailogo": "<id>" }` with an [ai-logo](https://github.com/yldm-tech/ai-logo) id; for the app's own icon, add a 256px WebP to `apps/web/public/icons/` and set `"icon": { "file": "my-app.webp" }`. Leave it out for a letter tile.
 - `pnpm test` checks every entry and names the file, entry and field of each mistake. CI runs it on every pull request.
 
 The UI copy is in `packages/catalog/locales/`, one JSON file per language with the same keys. `zh-CN.json` is the reference: add a new key there and to the other four files; `pnpm typecheck` and `pnpm test` report a missing key or a mismatched `{x}`/`{n}` placeholder.

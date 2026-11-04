@@ -12,14 +12,14 @@
 
 ## 站点内容
 
-- **作品**：用 MyGo 做的桌面应用，每款都有完整介绍、截图（项目提供时）、界面类型（原生 UI 或 Web 前端），以及同一作者的其他作品。
+- **作品**：用 MyGo 做的桌面应用，可按名称、最新或最热排序。每款都有自己的页面，包含完整介绍、截图（项目提供时）、界面类型（原生 UI 或 Web 前端）、分类、收录时间，以及同一作者的其他作品。
 - **插件**：官方插件，标明适用于网页、原生 UI 还是两者，另有 `mygo-cli` 工具链。
 - **UI 组件**：为 MyGo 应用做的组件库、主题与图标。
 - **状态管理**：MyGo 应用的状态方案，以及 MyGo 自带的绑定服务、通道和类型化事件。
 - **文档**：官方指南、社区文章和官方资源。
 - 用 <kbd>⌘K</kbd> / <kbd>Ctrl+K</kbd> **搜索**全部内容；想收录某个项目时，提交表单会替你写好条目。
 
-站点支持简体中文、繁体中文、英语、日语和韩语。每个页面在每种语言下都有独立地址（`?lang=en`），由服务端渲染，并带有 hreflang 链接和 sitemap。
+站点支持简体中文、繁体中文、英语、日语和韩语。每个页面在每种语言下都有独立地址（`?lang=en`），由服务端渲染，并带有 hreflang 链接和 sitemap。筛选、排序和标签页也都记在地址里（`/showcase?cat=dev&sort=newest`），分享出去的链接打开的就是同一个视图。
 
 ## 技术实现
 
@@ -82,7 +82,7 @@ bot 开出 PR 后，*Complete submission* workflow 会补上表单问不到的�
   "url": "https://my-app.dev",
   "repo": "you/my-app",
   "summary": { "en": "One line about the app.", "ja": "アプリの一行説明。" },
-  "description": { "en": "A few sentences for the detail drawer." },
+  "description": { "en": "A few sentences for the app's page." },
   "added": "2026-11-04T12:00:00Z"
 }
 ```
@@ -91,7 +91,7 @@ bot 开出 PR 后，*Complete submission* workflow 会补上表单问不到的�
 - `url` 是应用主页：官网，没有官网就填仓库地址，不要求在 GitHub 上。开源应用再用 `repo` 填 GitHub 仓库（`owner/name`），闭源应用不填。
 - 文本字段按语言各写一份。`en` 必填；`zh-CN`、`zh-TW`、`ja`、`ko` 可选，缺少的语言显示英文。
 - 每个文件都在 `$schema` 里指向自己的 JSON Schema（在 `data/schema/`），VS Code 等编辑器会在你输入时补全并检查字段。
-- 链接必须是 https。截图请把宽约 1200px 的 WebP 放进 `apps/web/public/shots/`，并写 `"screenshot": "my-app.webp"`。应用图标写 `"icon": { "ailogo": "<id>" }`，id 来自 [ai-logo](https://github.com/yldm-tech/ai-logo)；不写则显示字母图标。
+- 链接必须是 https。截图请把宽约 1200px 的 WebP 放进 `apps/web/public/shots/`，并写 `"screenshot": "my-app.webp"`。应用图标写 `"icon": { "ailogo": "<id>" }`，id 来自 [ai-logo](https://github.com/yldm-tech/ai-logo)；用应用自己的图标时，把 256px 的 WebP 放进 `apps/web/public/icons/`，并写 `"icon": { "file": "my-app.webp" }`。不写则显示字母图标。
 - `pnpm test` 会校验每个条目，出错时指出文件、条目和字段。CI 会在每个 PR 上运行它。
 
 界面文案在 `packages/catalog/locales/`，每种语言一个 JSON 文件，键完全相同。`zh-CN.json` 是基准：新增的键要同时加进其余四个文件；缺键或 `{x}`/`{n}` 占位符不一致时，`pnpm typecheck` 和 `pnpm test` 会报错。
