@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "catview",
+	"name": "CatView",
+	"author": "sogud",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/sogud/catview",
+	"repo": "sogud/catview",
+	"summary": {
+		"en": "A local-first file reader for macOS, currently in alpha.",
+		"zh-CN": "本地优先的 macOS 文件阅读器，目前处于 Alpha 阶段。",
+		"zh-TW": "本機優先的 macOS 檔案閱讀器，目前處於 Alpha 階段。",
+		"ja": "ローカルファーストな macOS 向けファイルリーダー。現在はアルファ版です。",
+		"ko": "로컬 우선 macOS 파일 리더로, 현재 알파 단계입니다."
+	},
+	"description": {
+		"en": "Browse folders and read Markdown, code, PDFs, EPUBs and images in tabs, with basic Office previews. Built with MyGo's native UI; preview downloads currently support Apple Silicon Macs only.",
+		"zh-CN": "浏览文件夹，在标签页中阅读 Markdown、代码、PDF、EPUB 和图片，并提供基础 Office 预览。基于 MyGo 原生 UI 构建，目前预览版下载仅支持 Apple Silicon Mac。",
+		"zh-TW": "瀏覽資料夾，在分頁中閱讀 Markdown、程式碼、PDF、EPUB 和圖片，並提供基本的 Office 預覽。以 MyGo 原生 UI 打造，目前預覽版下載僅支援 Apple Silicon Mac。",
+		"ja": "フォルダーを見て回り、Markdown、コード、PDF、EPUB、画像をタブで読めます。Office ファイルも簡単にプレビューできます。MyGo のネイティブ UI で作られており、プレビュー版のダウンロードは現在 Apple Silicon の Mac のみに対応しています。",
+		"ko": "폴더를 둘러보며 Markdown, 코드, PDF, EPUB, 이미지를 탭에서 읽고, Office 파일은 기본 미리보기를 제공합니다. MyGo의 네이티브 UI로 만들었으며, 미리보기 버전 다운로드는 현재 Apple Silicon Mac만 지원합니다."
+	},
+	"screenshot": "catview.webp",
+	"icon": {
+		"file": "catview.webp"
+	},
+	"added": "2026-11-04T12:19:23Z"
+}
