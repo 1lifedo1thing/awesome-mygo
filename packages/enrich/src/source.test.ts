@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { addedAppFiles, addedEntries, appNameFrom, hasAllLanguages, iconOf, isSquarish, lengthCaps, overCaps, joinRepoPath, pickMygoJson, readmeImages, repoOfEntry, resolveImage, sniffImage } from './source.ts';
+import { addedAppFiles, addedEntries, appNameFrom, hasAllLanguages, iconCut, iconOf, isSquarish, lengthCaps, overCaps, joinRepoPath, pickMygoJson, readmeImages, repoOfEntry, resolveImage, sniffImage } from './source.ts';
 
 describe('app names', () => {
 	it('takes mygo.json’s spelling of the same name only', () => {
@@ -72,6 +72,14 @@ describe('the repository', () => {
 		expect(iconOf('mygo.json', { macos: { icon: 'assets/AudioSmith.icon' } }, ['mygo.json'])).toEqual({ macOnly: 'assets/AudioSmith.icon' });
 		expect(iconOf('mygo.json', { name: 'x' }, ['mygo.json'])).toBeUndefined();
 		expect(iconOf('mygo.json', null, [])).toBeUndefined();
+	});
+
+	it('cuts an icon to its plate, and keeps one with no transparent margin whole', () => {
+		expect(iconCut('824x824+100+100', 1024, 1024)).toEqual({ crop: '824x824+100+100', side: 824 });
+		expect(iconCut('600x640+212+192\n', 1024, 1024)).toEqual({ crop: '600x640+212+192', side: 640 });
+		// CatView: fully opaque, so ImageMagick finds no box.
+		expect(iconCut('0x0+1024+1024', 1024, 1024)).toEqual({ side: 1024 });
+		expect(iconCut('', 512, 512)).toEqual({ side: 512 });
 	});
 
 	it('takes a square image for a logo, not a screenshot', () => {

@@ -77,6 +77,13 @@ export function iconOf(mygoJsonPath: string, mygo: unknown, paths: readonly stri
 	return undefined;
 }
 
+// Where to cut an icon, from ImageMagick's box (%@, "WxH+X+Y") around its mostly opaque pixels: a macOS icon's plate inside its transparent margins. An icon with no transparency at all gives an empty box (0x0), and is kept whole, as is one whose box cannot be read. side is the square the icon is centred on.
+export function iconCut(box: string, width: number, height: number): { crop?: string; side: number } {
+	const m = /^(\d+)x(\d+)\+(\d+)\+(\d+)$/.exec(box.trim());
+	const [w, h] = m ? [Number(m[1]), Number(m[2])] : [0, 0];
+	return w > 0 && h > 0 ? { crop: box.trim(), side: Math.max(w, h) } : { side: Math.max(width, height) };
+}
+
 // Whether an image's width and height are close enough to make it square: an app icon or a logo, not a screenshot of a desktop window.
 export function isSquarish(width: number, height: number): boolean {
 	return width > 0 && height > 0 && Math.max(width, height) / Math.min(width, height) < 1.15;
