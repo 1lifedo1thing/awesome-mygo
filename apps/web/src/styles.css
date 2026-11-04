@@ -862,6 +862,7 @@ html:lang(ko) .site {
 	flex: 1 1 auto;
 }
 .card-name {
+	margin: 0;
 	font-size: 19px;
 	font-weight: 900;
 	letter-spacing: -0.01em;
@@ -1665,6 +1666,7 @@ html:lang(ko) .site {
 	color: var(--cyan);
 }
 .plug-name {
+	margin: 0;
 	font-size: 26px;
 	font-weight: 900;
 	letter-spacing: -0.02em;
@@ -1830,6 +1832,7 @@ html:lang(ko) .site {
 	min-width: 0;
 }
 .show-name {
+	margin: 0;
 	font-size: 17px;
 	font-weight: 900;
 	letter-spacing: -0.01em;

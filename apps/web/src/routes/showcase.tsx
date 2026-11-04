@@ -21,7 +21,14 @@ function ShowcasePage() {
 	const nNative = APPS.filter((a) => a.kind === 'native').length;
 	const chips = [
 		{ key: 'all', label: `${t.all} · ${APPS.length}` },
-		{ key: 'native', label: `Native UI · ${nNative}` },
+		{
+			key: 'native',
+			label: (
+				<>
+					<span lang='en'>Native UI</span> · {nNative}
+				</>
+			),
+		},
 		{ key: 'web', label: `${t.web_fe} · ${APPS.length - nNative}` },
 	] as const;
 
@@ -72,19 +79,21 @@ function ShowcasePage() {
 								<WinBar label={v.host} size='md' className='card-bar'>
 									<span className='mono-11 c-muted'>{v.num}</span>
 								</WinBar>
-								<span className='show-body'>
-									<span className='show-id'>
+								<div className='show-body'>
+									<div className='show-id'>
 										<MonoTile view={v} size={44} />
-										<span className='show-id-text'>
-											<span className='show-name'>{a.name}</span>
+										<div className='show-id-text'>
+											<h2 className='show-name'>{a.name}</h2>
 											<span className='show-meta'>
-												<span className='show-by' title={a.author}>by {a.author}</span>
+												<span className='show-by' title={a.author}>
+													<span lang='en'>by</span> {a.author}
+												</span>
 												<KindTag app={a} label={a.kind === 'native' ? 'Native UI' : t.web_fe} />
 											</span>
-										</span>
-									</span>
+										</div>
+									</div>
 									<span className='show-desc'>{pick(a.desc, lang)}</span>
-								</span>
+								</div>
 							</AppLink>
 						</div>
 					);

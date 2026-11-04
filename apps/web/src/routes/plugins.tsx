@@ -28,7 +28,7 @@ function PluginsPage() {
 	return (
 		<section className='page enter gap-40'>
 			<div className='stack-14'>
-				<span className='kicker'>~/PLUGINS · {PLUGINS.length} OFFICIAL</span>
+				<span className='kicker' lang='en'>~/PLUGINS · {PLUGINS.length} OFFICIAL</span>
 				<h1 className='page-h1'>{t.nav_plugins}</h1>
 				<p className='page-p mw-720'>{t.plug_p}</p>
 			</div>
@@ -46,12 +46,12 @@ function PluginsPage() {
 							<span className='glare' aria-hidden='true' />
 							<span className='plug-top'>
 								<span className='mono-12 c-muted'>plugins/{p.slug}</span>
-								<span className='official'>OFFICIAL</span>
+								<span className='official' lang='en'>OFFICIAL</span>
 							</span>
 							<span className='plug-mark'>{p.mark}</span>
-							<span className='plug-name'>
+							<h2 className='plug-name'>
 								{p.name} <span className={`surf surf-${p.surface}`}>{surfLabel[p.surface]}</span>
-							</span>
+							</h2>
 							<span className='plug-desc'>{pick(p.desc, lang)}</span>
 							<span className='plug-tags'>
 								{p.tags.map((tg) => (
@@ -92,7 +92,7 @@ function PluginsPage() {
 			</div>
 			<div className='rv cta-dashed'>
 				<div className='stack-6'>
-					<h3 className='cta-h'>{fill(t.comm_h, { n: COMMUNITY_PLUGINS.length })}</h3>
+					<h2 className='cta-h'>{fill(t.comm_h, { n: COMMUNITY_PLUGINS.length })}</h2>
 					<p className='cta-p cta-p-15'>{t.comm_p}</p>
 				</div>
 				<div className='cta-acts'>

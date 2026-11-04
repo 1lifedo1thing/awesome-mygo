@@ -60,7 +60,7 @@ function HomePage() {
 			<section aria-labelledby='fresh' className='sec sec-feat'>
 				<div className='rv sec-head'>
 					<div className='stack-10'>
-						<span className='kicker'>02 / FEATURED</span>
+						<span className='kicker' lang='en'>02 / FEATURED</span>
 						<h2 id='fresh' className='sec-h2'>
 							{t.feat_h}
 						</h2>
@@ -76,11 +76,11 @@ function HomePage() {
 							<div key={slug} className={`rv d${k} flex`}>
 								<AppLink slug={slug} className='win card' dialog>
 									<WinBar label={v.host} size='sm' className='card-bar' />
-									<span className='card-body'>
+									<div className='card-body'>
 										<MonoTile view={v} size={52} />
-										<span className='card-name'>{v.app.name}</span>
+										<h3 className='card-name'>{v.app.name}</h3>
 										<span className='card-desc'>{pick(v.app.desc, lang)}</span>
-									</span>
+									</div>
 								</AppLink>
 							</div>
 						);
@@ -126,7 +126,7 @@ function Hero() {
 		<section ref={heroRef} onPointerMove={onMove} onPointerLeave={onLeave} className='hero'>
 			<div className='hero-in'>
 				<Link to='/showcase' className='pill wi wi1'>
-					<span className='live'>
+					<span className='live' lang='en'>
 						<span className='pulse live-dot' />
 						LIVE
 					</span>
@@ -142,6 +142,8 @@ function Hero() {
 							</span>
 						))}
 					</span>
+					{/* Invisible between the two block lines, but keeps the text of word-spaced languages from reading "Go,all". */}
+					{words && ' '}
 					<span aria-hidden='true' className='block hero-h1-2'>
 						{l2.map((ch, i) => (
 							<span key={i} className='ch' style={{ animationDelay: `${ch.d}ms` }}>
@@ -263,7 +265,7 @@ function Categories() {
 		<section aria-labelledby='cats' className='sec sec-cats'>
 			<div className='rv sec-head'>
 				<div className='stack-10'>
-					<span className='kicker'>01 / CATEGORIES</span>
+					<span className='kicker' lang='en'>01 / CATEGORIES</span>
 					<h2 id='cats' className='sec-h2'>
 						{t.cats_h}
 					</h2>

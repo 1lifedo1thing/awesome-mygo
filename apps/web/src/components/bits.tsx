@@ -67,8 +67,13 @@ export function AppLink({ slug, className, quick = true, tabIndex, hidden, dialo
 	);
 }
 
+// The native label is MyGo's English name 'Native UI' in every language, so it is marked as English for the CJK pages.
 export function KindTag({ app, label }: { app: App; label: string }) {
-	return <span className={`kind-tag ${app.kind === 'web' ? 'kind-web' : 'kind-native'}`}>{label}</span>;
+	return (
+		<span className={`kind-tag ${app.kind === 'web' ? 'kind-web' : 'kind-native'}`} lang={app.kind === 'native' ? 'en' : undefined}>
+			{label}
+		</span>
+	);
 }
 
 // The 32 px icon on standard screens; high-density screens fall back to the 192 px icon, as there is no 64 px one. fetchPriority='low' keeps React from preloading the image ahead of the stylesheets on every page: the mark is small and never the LCP element.

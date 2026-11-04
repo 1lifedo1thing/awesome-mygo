@@ -12,7 +12,7 @@ export function AppFacts({ view, kindLabel }: { view: AppView; kindLabel: string
 			<dt>{t.f_author}</dt>
 			<dd>{view.app.author}</dd>
 			<dt>{t.f_ui}</dt>
-			<dd>{kindLabel}</dd>
+			<dd lang={view.app.kind === 'native' ? 'en' : undefined}>{kindLabel}</dd>
 			<dt>{t.f_site}</dt>
 			<dd className='mono-13 break'>{view.host}</dd>
 			<dt>{t.f_no}</dt>

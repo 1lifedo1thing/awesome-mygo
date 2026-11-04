@@ -24,7 +24,7 @@ function UiPage() {
 	return (
 		<section className='page enter gap-36'>
 			<div className='stack-14'>
-				<span className='kicker'>~/UI · {UI_LIBS.length} LIBRARIES</span>
+				<span className='kicker' lang='en'>~/UI · {UI_LIBS.length} LIBRARIES</span>
 				<h1 className='page-h1'>{t.cat_ui_name}</h1>
 				<p className='page-p mw-700'>{t.ui_p}</p>
 				<a className='inline-link' href={NATIVE_UI_DOCS} target='_blank' rel='noopener'>
@@ -56,7 +56,9 @@ function UiPage() {
 								<div className='lib-head'>
 									<div className='stack-4'>
 										<h2 className='lib-name'>{l.name}</h2>
-										<span className='lib-by'>by {l.author}</span>
+										<span className='lib-by'>
+											<span lang='en'>by</span> {l.author}
+										</span>
 									</div>
 									<span className='lib-tag'>{t[TAG[l.key]]}</span>
 								</div>
