@@ -3,8 +3,8 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { promisify } from 'node:util';
 import { DEFAULT_MODEL, README_LIMIT, type LlmConfig, writeCopy } from './copy.ts';
-import { downloadImage, writeIcon, writeShot } from './image.ts';
-import { DATA_FILES, type DataFile, type Entry, addedEntries, appNameFrom, hasAllLanguages, iconPathOf, pickMygoJson, readmeImages, repoOfEntry, resolveImage, setShowcaseCount } from './source.ts';
+import { downloadImage, isDefaultIcon, writeIcon, writeShot } from './image.ts';
+import { DATA_FILES, type DataFile, type Entry, addedEntries, appNameFrom, hasAllLanguages, iconOf, pickMygoJson, readmeImages, repoOfEntry, resolveImage, setShowcaseCount } from './source.ts';
 
 // Run by .github/workflows/enrich-submission.yml on a pull request the submission bot opened. It finds the entries the branch adds, then for each fills in what the form cannot ask for: an app's icon (from its mygo.json) and screenshot (the first one in its README), the copy in every site language, and the README app counts. It changes files in the working tree and writes a Markdown report for the pull request; the workflow runs the catalog checks and commits.
 //
@@ -71,35 +71,55 @@ async function repoFacts(repo: string): Promise<RepoFacts | undefined> {
 	return facts;
 }
 
-async function addIcon(entry: Entry, slug: string, facts: RepoFacts): Promise<void> {
-	if (entry.icon !== undefined) return say('- Icon: kept the one submitted.');
-	if (!facts.mygo) return say('- Icon: none added, as the repository has no mygo.json; the app shows a letter tile.');
-	const path = iconPathOf(facts.mygo.path, facts.mygo.json);
-	if (!path) return say(`- Icon: none added. \`${facts.mygo.path}\` names no PNG, JPEG or WebP icon, so the app uses MyGo's default icon (as \`mygo init\` leaves it) and shows a letter tile here.`);
-	const url = `https://raw.githubusercontent.com/${facts.repo}/${facts.branch}/${path.split('/').map(encodeURIComponent).join('/')}`;
+const rawUrl = (facts: RepoFacts, path: string) => `https://raw.githubusercontent.com/${facts.repo}/${facts.branch}/${path.split('/').map(encodeURIComponent).join('/')}`;
+
+// Adds the app's icon and returns where it was taken from, so the screenshot search can pass over the same image.
+async function addIcon(entry: Entry, slug: string, facts: RepoFacts): Promise<string | undefined> {
+	if (entry.icon !== undefined) return void say('- Icon: kept the one submitted.');
+	if (!facts.mygo) return void say('- Icon: none added, as the repository has no mygo.json; the app shows a letter tile.');
+	const src = iconOf(facts.mygo.path, facts.mygo.json, facts.paths);
+	if (!src) return void say(`- Icon: none added, as neither \`${facts.mygo.path}\` nor resources/ beside it has one; the app shows a letter tile.`);
+	if ('macOnly' in src) return void say(`- Icon: the app's only icon is \`${src.macOnly}\` (macos.icon), which cannot be converted here. Add a 256 px WebP to \`${PUBLIC}/icons/${slug}.webp\` by hand and set \`"icon": { "file": "${slug}.webp" }\`.`);
+	const url = rawUrl(facts, src.path);
 	const img = await downloadImage(url);
-	if (!img) return say(`- Icon: \`${path}\` from mygo.json could not be downloaded as a PNG, JPEG or WebP under 10 MB.`);
-	if (!(await writeIcon(img, join(ROOT, PUBLIC, 'icons', `${slug}.webp`)))) return say(`- Icon: \`${path}\` is smaller than 128 px, so none was added.`);
+	if (!img) return void say(`- Icon: \`${src.path}\` could not be downloaded as a PNG, JPEG or WebP under 10 MB.`);
+	if (await isDefaultIcon(img)) {
+		say(`- Icon: none added, as \`${src.path}\` is MyGo's default icon (as \`mygo init\` leaves it); the app shows a letter tile.`);
+		return url;
+	}
+	if (!(await writeIcon(img, join(ROOT, PUBLIC, 'icons', `${slug}.webp`)))) {
+		say(`- Icon: \`${src.path}\` is smaller than 128 px, so none was added.`);
+		return url;
+	}
 	entry.icon = { file: `${slug}.webp` };
-	say(`- Icon: \`${path}\` (named in \`${facts.mygo.path}\`), cut to its plate and saved as \`${PUBLIC}/icons/${slug}.webp\`. Check that it looks right.`);
+	say(`- Icon: \`${src.path}\`, cut to its plate and saved as \`${PUBLIC}/icons/${slug}.webp\`. Check that it looks right.`);
+	return url;
 }
 
-async function addScreenshot(entry: Entry, slug: string, facts: RepoFacts): Promise<void> {
+async function addScreenshot(entry: Entry, slug: string, facts: RepoFacts, iconUrl: string | undefined): Promise<void> {
 	if (entry.screenshot !== undefined) return say('- Screenshot: kept the one submitted.');
 	if (!facts.readme) return say('- Screenshot: none added, as the repository has no README.');
 	const tried: string[] = [];
+	const skipped: string[] = [];
 	for (const src of readmeImages(facts.readme.text)) {
 		const url = resolveImage(src, facts.repo, facts.branch, facts.readme.path);
 		if (!url || tried.includes(url)) continue;
 		tried.push(url);
-		const img = await downloadImage(url);
-		if (img && (await writeShot(img, join(ROOT, PUBLIC, 'shots', `${slug}.webp`)))) {
-			entry.screenshot = `${slug}.webp`;
-			return say(`- Screenshot: the first one in the README (${url}), saved as \`${PUBLIC}/shots/${slug}.webp\`. Check that it shows the app.`);
+		if (url === iconUrl) {
+			skipped.push(`${url} (the app icon)`);
+			continue;
 		}
+		const img = await downloadImage(url);
+		const result = img ? await writeShot(img, join(ROOT, PUBLIC, 'shots', `${slug}.webp`)) : 'unreadable';
+		if (result === 'ok') {
+			entry.screenshot = `${slug}.webp`;
+			const passed = skipped.length ? ` It passed over ${skipped.join(', ')}.` : '';
+			return say(`- Screenshot: ${url} from the README, saved as \`${PUBLIC}/shots/${slug}.webp\`. Check that it shows the app.${passed}`);
+		}
+		skipped.push(`${url} (${result === 'square' ? 'square, likely a logo' : result === 'narrow' ? 'under 600 px wide' : 'not a PNG, JPEG or WebP under 10 MB'})`);
 		if (tried.length >= 8) break;
 	}
-	say(tried.length ? `- Screenshot: none of the README's first ${tried.length} images is a PNG, JPEG or WebP at least 600 px wide.` : '- Screenshot: the README has no image.');
+	say(skipped.length ? `- Screenshot: none added. The README's images: ${skipped.join(', ')}.` : '- Screenshot: the README has no image.');
 }
 
 async function addCopy(cfg: LlmConfig | undefined, file: DataFile, entry: Entry, facts: RepoFacts | undefined, examples: Entry[]): Promise<void> {
@@ -150,8 +170,8 @@ async function main(): Promise<void> {
 					entry.name = better;
 				}
 				if (facts) {
-					await addIcon(entry, slug, facts);
-					await addScreenshot(entry, slug, facts);
+					const iconUrl = await addIcon(entry, slug, facts);
+					await addScreenshot(entry, slug, facts, iconUrl);
 				}
 			}
 			await addCopy(cfg, file, entry, facts, examples);

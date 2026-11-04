@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { addedEntries, appNameFrom, hasAllLanguages, iconPathOf, joinRepoPath, pickMygoJson, readmeImages, repoOfEntry, resolveImage, setShowcaseCount, sniffImage } from './source.ts';
+import { addedEntries, appNameFrom, hasAllLanguages, iconOf, isSquarish, joinRepoPath, pickMygoJson, readmeImages, repoOfEntry, resolveImage, setShowcaseCount, sniffImage } from './source.ts';
 
 describe('app names', () => {
 	it('takes mygo.json’s spelling of the same name only', () => {
@@ -49,11 +49,22 @@ describe('the repository', () => {
 		expect(joinRepoPath('mygo.json', '../../etc/passwd')).toBeUndefined();
 	});
 
-	it('reads the icon from mygo.json, and none when mygo init left it out', () => {
-		expect(iconPathOf('app/mygo.json', { name: 'MySkills', icon: 'icon/icon.png' })).toBe('app/icon/icon.png');
-		expect(iconPathOf('mygo.json', { name: '2048', identifier: 'com.example.2048' })).toBeUndefined();
-		expect(iconPathOf('mygo.json', { icon: 'AppIcon.icns' })).toBeUndefined();
-		expect(iconPathOf('mygo.json', null)).toBeUndefined();
+	it('finds the icon where MyGo does: icon, else resources/icon.png beside mygo.json', () => {
+		expect(iconOf('app/mygo.json', { name: 'MySkills', icon: 'icon/icon.png', macos: { icon: 'icon/AppIcon.icon' } }, [])).toEqual({ path: 'app/icon/icon.png' });
+		// 2048 and Uma: mygo init's default icon in resources/, which the caller recognises by its pixels.
+		expect(iconOf('mygo.json', { name: '2048' }, ['mygo.json', 'resources/icon.png'])).toEqual({ path: 'resources/icon.png' });
+		expect(iconOf('desktop/mygo.json', {}, ['desktop/resources/icon.png'])).toEqual({ path: 'desktop/resources/icon.png' });
+		// AudioSmith: its own icon, but only as an Icon Composer bundle for macOS.
+		expect(iconOf('mygo.json', { macos: { icon: 'assets/AudioSmith.icon' } }, ['mygo.json'])).toEqual({ macOnly: 'assets/AudioSmith.icon' });
+		expect(iconOf('mygo.json', { name: 'x' }, ['mygo.json'])).toBeUndefined();
+		expect(iconOf('mygo.json', null, [])).toBeUndefined();
+	});
+
+	it('takes a square image for a logo, not a screenshot', () => {
+		expect(isSquarish(1024, 1024)).toBe(true);
+		expect(isSquarish(1000, 900)).toBe(true);
+		expect(isSquarish(1200, 810)).toBe(false);
+		expect(isSquarish(800, 1200)).toBe(false);
 	});
 });
 
