@@ -3,10 +3,14 @@
 	"name": "awesome-mygo",
 	"compatibility_date": "2026-06-20",
 	"compatibility_flags": ["nodejs_compat"],
-	// TanStack Start's Worker entry: server-renders every route; the client bundle and public/ are served as static assets.
-	"main": "@tanstack/react-start/server-entry",
+	// The Worker entry (src/server.ts): TanStack Start's handler, which server-renders every route, behind the www and trailing-slash redirects. The client bundle and public/ are served as static assets.
+	"main": "src/server.ts",
 	// The zone mygodock.dev must be on the Cloudflare account that deploys; the custom domain creates its DNS record and certificate.
-	"routes": [{ "pattern": "mygodock.dev", "custom_domain": true }],
+	"routes": [
+		{ "pattern": "mygodock.dev", "custom_domain": true },
+		// www has no site of its own: src/server.ts moves every request to the bare domain.
+		{ "pattern": "www.mygodock.dev", "custom_domain": true }
+	],
 	"observability": { "enabled": true },
 	// Keep Preview URLs on (wrangler disables them when this is missing) so each pull request gets its own preview link.
 	"preview_urls": true,
