@@ -2,7 +2,6 @@ import { DEFAULT_LANG, type LangCode, appBySlug, langRedirectScript, t, validate
 import { HeadContent, Link, Outlet, Scripts, createRootRoute, redirect } from '@tanstack/react-router';
 import { type ReactNode, Suspense, lazy, useEffect } from 'react';
 import { preconnect } from 'react-dom';
-import { AppDrawer } from '../components/AppDrawer';
 import { Background } from '../components/Background';
 import { BackToTop, Footer, Toast } from '../components/Chrome';
 import { CommandPalette } from '../components/CommandPalette';
@@ -39,7 +38,7 @@ function fontsHref(lang: LangCode): string {
 export const Route = createRootRoute({
 	validateSearch: validateRootSearch,
 	search: { middlewares: [retainLang] },
-	// ?app=<slug> on any page is the quick-view drawer, which only client-side navigation opens. A request for such a URL (an old shared link or the former sitemap entry) gets a permanent redirect to the app's own page, keeping the language, so the old URLs consolidate there. import.meta.env.SSR is a build-time constant, so the client bundle drops the check and the drawer keeps working.
+	// ?app=<slug> on any page is the retro look's quick-view window, which only client-side navigation opens; the original look opens apps on their own page. A request for such a URL (an old shared link or the former sitemap entry) gets a permanent redirect to the app's own page, keeping the language, so the old URLs consolidate there. import.meta.env.SSR is a build-time constant, so the client bundle drops the check and the quick view keeps working.
 	beforeLoad: ({ search }): { theme: Theme } => {
 		if (import.meta.env.SSR && search.app && appBySlug(search.app)) throw redirect({ to: '/apps/$slug', params: { slug: search.app }, search: { lang: search.lang === DEFAULT_LANG ? undefined : search.lang }, statusCode: 301 });
 		return { theme: readTheme() };
@@ -76,7 +75,7 @@ function RootComponent() {
 	const { theme } = Route.useRouteContext();
 	return (
 		<RootDocument theme={theme}>
-			<SiteProvider>
+			<SiteProvider quickView={theme === 'retro'}>
 				{theme === 'retro' ? (
 					<Suspense>
 						<RetroApp />
@@ -129,7 +128,6 @@ function Shell() {
 			if (e.key !== 'Escape') return;
 			if (site.palette) site.closePalette();
 			else if (site.modal) site.closeSubmit();
-			else if (site.app) site.closeApp();
 		};
 		document.addEventListener('keydown', onKey);
 		return () => document.removeEventListener('keydown', onKey);
@@ -144,7 +142,6 @@ function Shell() {
 			</main>
 			<Footer />
 			<BackToTop show={scrolled} />
-			<AppDrawer />
 			<CommandPalette />
 			<SubmitModal />
 			<Toast />

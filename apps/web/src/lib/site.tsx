@@ -25,8 +25,11 @@ interface Site {
 	setFormField: <K extends keyof SubmitForm>(key: K, value: SubmitForm[K]) => void;
 	copied: CopyKey | null;
 	copy: (text: string, key: CopyKey) => void;
-	// Slug of the app whose detail drawer is open, from `?app=`; null when closed or unknown.
+	// Whether an app opens in a quick-view window over the page (the retro look) rather than on its own page (the original look).
+	quickView: boolean;
+	// Slug of the app whose quick-view window is open, from `?app=`; null when closed or unknown.
 	app: string | null;
+	// Shows the app: its quick-view window in the retro look, its own page in the original one.
 	openApp: (slug: string) => void;
 	closeApp: () => void;
 }
@@ -39,7 +42,7 @@ export function useSite(): Site {
 	return ctx;
 }
 
-export function SiteProvider({ children }: { children: ReactNode }) {
+export function SiteProvider({ quickView, children }: { quickView: boolean; children: ReactNode }) {
 	const navigate = useNavigate();
 	const router = useRouter();
 	const search = useSearch({ strict: false }) as RootSearch;
@@ -50,7 +53,7 @@ export function SiteProvider({ children }: { children: ReactNode }) {
 	const [form, setForm] = useState<SubmitForm>({ cat: 'showcase', mode: 'native', name: '', author: '', url: '', repo: '', desc: '', via: 'form', json: '' });
 	const [copied, setCopied] = useState<CopyKey | null>(null);
 	const copyTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
-	// True when the open drawer pushed its own history entry, so closing it can step back instead of stacking another entry.
+	// True when the open quick view pushed its own history entry, so closing it can step back instead of stacking another entry.
 	const pushedApp = useRef(false);
 
 	useEffect(() => () => clearTimeout(copyTimer.current), []);
@@ -68,11 +71,15 @@ export function SiteProvider({ children }: { children: ReactNode }) {
 		(slug: string) => {
 			setPalette(false);
 			setModal(false);
+			if (!quickView) {
+				void navigate({ to: '/apps/$slug', params: { slug } });
+				return;
+			}
 			const switching = app !== null;
 			if (!switching) pushedApp.current = true;
 			void navigate({ to: '.', search: (prev: RootSearch): RootSearch => ({ ...prev, app: slug }), replace: switching, resetScroll: false });
 		},
-		[app, navigate],
+		[app, navigate, quickView],
 	);
 
 	const closeApp = useCallback(() => {
@@ -108,11 +115,12 @@ export function SiteProvider({ children }: { children: ReactNode }) {
 			setFormField: (key, val) => setForm((f) => ({ ...f, [key]: val })),
 			copied,
 			copy,
+			quickView,
 			app,
 			openApp,
 			closeApp,
 		}),
-		[palette, openPalette, modal, form, copied, copy, app, openApp, closeApp],
+		[palette, openPalette, modal, form, copied, copy, quickView, app, openApp, closeApp],
 	);
 
 	return <SiteContext.Provider value={value}>{children}</SiteContext.Provider>;

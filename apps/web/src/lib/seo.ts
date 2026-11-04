@@ -15,7 +15,7 @@ export const SITE_PATHS: readonly SitePath[] = ['/', '/ui', '/state', '/plugins'
 export type AppPath = `/apps/${string}`;
 export const appPath = (slug: string): AppPath => `/apps/${slug}`;
 
-// Simplified Chinese lives at the bare path, other languages at ?lang=…. Any other query (?app= for the drawer, utm tags…) is left out of canonical URLs: an app's canonical page is its /apps/<slug> page.
+// Simplified Chinese lives at the bare path, other languages at ?lang=…. Any other query (?app= for the retro look's quick-view window, utm tags…) is left out of canonical URLs: an app's canonical page is its /apps/<slug> page.
 export function pageUrl(path: SitePath | AppPath, lang: LangCode): string {
 	return `${SITE_URL}${path}${lang !== DEFAULT_LANG ? `?lang=${lang}` : ''}`;
 }
