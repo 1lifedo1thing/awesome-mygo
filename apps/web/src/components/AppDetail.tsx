@@ -1,22 +1,50 @@
-import { type App, APPS, appSource, fill, hostOf, likeKey, pick } from '@awesome-mygo/catalog';
+import { type App, APPS, type LangCode, appGroup, appSource, authorProfile, fill, hostOf, likeKey, pick } from '@awesome-mygo/catalog';
+import { Link } from '@tanstack/react-router';
 import { useLang, useT } from '../lib/lang';
 import { useSite } from '../lib/site';
-import { AppLink, type AppView } from './bits';
+import { AppLink, type AppView, MonoTile, appView } from './bits';
 import { LikeButton } from './Like';
 
 // The parts of an app's own page in the original look.
 
+// The day the app joined the showcase, in the page's language. Formatted in UTC so the server's render and the visitor's browser agree on the day.
+function addedOn(added: string, lang: LangCode): string {
+	return new Intl.DateTimeFormat(lang, { dateStyle: 'medium', timeZone: 'UTC' }).format(new Date(added));
+}
+
 export function AppFacts({ view, kindLabel }: { view: AppView; kindLabel: string }) {
 	const t = useT();
-	const src = appSource(view.app);
+	const lang = useLang();
+	const { app } = view;
+	const src = appSource(app);
+	const profile = authorProfile(app.author);
+	const group = appGroup(app);
 	return (
 		<dl className='facts'>
 			<dt>{t.f_author}</dt>
-			<dd>{view.app.author}</dd>
+			<dd>
+				{profile ? (
+					<a href={profile} target='_blank' rel='noopener'>
+						{app.author}
+					</a>
+				) : (
+					app.author
+				)}
+			</dd>
 			<dt>{t.f_ui}</dt>
 			<dd>{kindLabel}</dd>
+			<dt>{t.f_cat}</dt>
+			<dd>
+				<Link to='/showcase' search={{ cat: group }}>
+					{t[`grp_${group}`]}
+				</Link>
+			</dd>
 			<dt>{t.f_site}</dt>
-			<dd className='mono-13 break'>{view.host}</dd>
+			<dd className='mono-13 break'>
+				<a href={app.url} target='_blank' rel='noopener'>
+					{view.host}
+				</a>
+			</dd>
 			{src && (
 				<>
 					<dt>{t.f_src}</dt>
@@ -27,10 +55,14 @@ export function AppFacts({ view, kindLabel }: { view: AppView; kindLabel: string
 					</dd>
 				</>
 			)}
-			<dt>{t.f_no}</dt>
-			<dd className='mono-13'>
-				#{view.num} / {APPS.length}
-			</dd>
+			{app.added && (
+				<>
+					<dt>{t.f_added}</dt>
+					<dd>
+						<time dateTime={app.added}>{addedOn(app.added, lang)}</time>
+					</dd>
+				</>
+			)}
 		</dl>
 	);
 }
@@ -39,7 +71,7 @@ export function AppActions({ app }: { app: App }) {
 	const t = useT();
 	const { copy, copied } = useSite();
 	return (
-		<div className='drawer-acts'>
+		<div className='app-acts'>
 			<a className='btn-c btn-open' href={app.url} target='_blank' rel='noopener'>
 				{fill(t.open_x, { x: app.name })}
 			</a>
@@ -51,7 +83,7 @@ export function AppActions({ app }: { app: App }) {
 	);
 }
 
-// Other apps by the same author, under a heading: links to their pages.
+// Other apps by the same author, under a heading: a grid of links to their pages, across the page below its body.
 export function MoreBy({ app }: { app: App }) {
 	const t = useT();
 	const lang = useLang();
@@ -59,8 +91,8 @@ export function MoreBy({ app }: { app: App }) {
 	if (others.length === 0) return null;
 	const label = fill(t.more_by, { x: app.author });
 	return (
-		<div className='stack-10'>
-			<h2 className='kicker-muted app-sub-h'>{label}</h2>
+		<section className='app-more'>
+			<h2 className='app-sec-h'>{label}</h2>
 			<div className='others'>
 				{others.map((o) => (
 					<AppLink key={o.slug} slug={o.slug} quick={false} className='row other'>
@@ -81,7 +113,7 @@ export function MoreBy({ app }: { app: App }) {
 					</AppLink>
 				))}
 			</div>
-		</div>
+		</section>
 	);
 }
 
@@ -89,4 +121,25 @@ export function MoreBy({ app }: { app: App }) {
 export function neighbours(view: AppView): [App, App] {
 	const n = APPS.length;
 	return [APPS[(view.index - 1 + n) % n], APPS[(view.index + 1) % n]];
+}
+
+// The previous and next app as two cards: which way each goes, then the app's tile and name.
+export function AppPager({ view }: { view: AppView }) {
+	const t = useT();
+	const [prev, next] = neighbours(view);
+	const card = (app: App, dir: 'prev' | 'next') => (
+		<AppLink slug={app.slug} quick={false} className={`app-pg app-pg-${dir}`}>
+			<span className='app-pg-dir'>{dir === 'prev' ? `← ${t.pg_prev}` : `${t.pg_next} →`}</span>
+			<span className='app-pg-app'>
+				<MonoTile view={appView(app)} size={44} />
+				<span className='app-pg-name'>{app.name}</span>
+			</span>
+		</AppLink>
+	);
+	return (
+		<nav aria-label={t.a_pager} className='app-pager'>
+			{card(prev, 'prev')}
+			{card(next, 'next')}
+		</nav>
+	);
 }

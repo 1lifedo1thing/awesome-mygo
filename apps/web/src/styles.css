@@ -825,14 +825,6 @@ html:lang(ko) .site {
 	border-radius: 15px;
 	font-size: 26px;
 }
-.mono-112 {
-	position: relative;
-	width: 112px;
-	height: 112px;
-	border-radius: 30px;
-	font-size: 52px;
-	box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
-}
 .tone-0 {
 	background: var(--cyan);
 	color: var(--bg);
@@ -2139,111 +2131,7 @@ html:lang(ko) .site {
 	justify-content: center;
 }
 
-/* ---- detail drawer ---- */
-.drawer-wrap {
-	position: fixed;
-	inset: 0;
-	z-index: 45;
-}
-.scrim {
-	position: absolute;
-	inset: 0;
-	width: 100%;
-	border: 0;
-	background: rgba(5, 7, 9, 0.6);
-	backdrop-filter: blur(4px);
-	cursor: default;
-}
-.drawer {
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	width: 100%;
-	max-width: 500px;
-	background: var(--panel);
-	border-left: 1px solid var(--line-3);
-	overflow-y: auto;
-	display: flex;
-	flex-direction: column;
-	box-shadow: -40px 0 120px rgba(0, 0, 0, 0.5);
-	animation: slide 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-}
-@keyframes slide {
-	from {
-		opacity: 0;
-		transform: translateX(48px);
-	}
-	to {
-		opacity: 1;
-		transform: none;
-	}
-}
-.drawer-bar {
-	position: sticky;
-	top: 0;
-	z-index: 2;
-	flex: none;
-	height: 52px;
-	display: flex;
-	align-items: center;
-	gap: 8px;
-	padding: 0 8px 0 16px;
-	background: var(--bar);
-	border-bottom: 1px solid var(--line-2);
-}
-.drawer-winbar {
-	flex: 1 1 auto;
-	min-width: 0;
-	gap: 8px;
-	background: none;
-	border: 0;
-}
-.drawer-winbar .winbar-label {
-	font-size: 12px;
-}
-.drawer-hero {
-	position: relative;
-	flex: none;
-	height: 220px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border-bottom: 1px solid var(--line-2);
-	background-color: var(--well-2);
-	overflow: hidden;
-}
-.drawer-num {
-	position: absolute;
-	right: -10px;
-	bottom: -40px;
-	font-family: var(--f-display);
-	font-size: 200px;
-	font-weight: 800;
-	line-height: 1;
-	color: var(--bar);
-	letter-spacing: -0.06em;
-}
-.drawer-body {
-	padding: 28px;
-	display: flex;
-	flex-direction: column;
-	gap: 22px;
-	flex: 1 1 auto;
-}
-.drawer-title {
-	margin: 0;
-	font-size: 40px;
-	font-weight: 900;
-	letter-spacing: -0.03em;
-	line-height: 1.1;
-}
-.drawer-desc {
-	margin: 0;
-	font-size: 16px;
-	line-height: 1.75;
-	color: var(--fg-2);
-}
+/* ---- app details: facts, actions, the author's other apps ---- */
 .facts {
 	margin: 0;
 	display: grid;
@@ -2260,11 +2148,6 @@ html:lang(ko) .site {
 }
 .facts dd {
 	margin: 0;
-}
-.drawer-acts {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 10px;
 }
 .btn-open {
 	flex: 1 1 200px;
@@ -2285,12 +2168,6 @@ html:lang(ko) .site {
 	color: var(--fg);
 	font-size: 14px;
 	font-weight: 600;
-}
-.kicker-muted {
-	font-family: var(--f-mono);
-	font-size: 11px;
-	color: var(--fg-3);
-	letter-spacing: 0.1em;
 }
 .others {
 	display: flex;
@@ -2337,29 +2214,6 @@ html:lang(ko) .site {
 .other-desc {
 	font-size: 12px;
 	color: var(--fg-3);
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-.drawer-foot {
-	position: sticky;
-	bottom: 0;
-	display: flex;
-	gap: 10px;
-	padding: 14px 20px;
-	border-top: 1px solid var(--line-2);
-	background: var(--panel);
-}
-.pager {
-	flex: 1 1 0;
-	min-width: 0;
-	min-height: 46px;
-	border: 1px solid var(--line-3);
-	border-radius: 10px;
-	background: transparent;
-	color: var(--fg);
-	font-size: 14px;
-	font-weight: 600;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -2850,7 +2704,6 @@ button.btn-pr:disabled {
 	.pulse,
 	.caret,
 	.wi,
-	.drawer,
 	.fade {
 		animation: none;
 	}
@@ -2870,14 +2723,6 @@ button.btn-pr:disabled {
 .hero-win.wi {
 	animation-fill-mode: backwards;
 }
-.drawer-shot {
-	flex: none;
-	aspect-ratio: 16 / 10;
-	border-bottom: 1px solid var(--line-2);
-	background: var(--well-2);
-	overflow: hidden;
-}
-.drawer-shot img,
 .lib-shot-img img {
 	display: block;
 	width: 100%;
@@ -2998,7 +2843,7 @@ button.btn-pr:disabled {
 }
 
 /* ---- app cards as links, app pages ---- */
-/* App cards, marquee items, "more by" rows and pagers are links to the app's page (a plain click still opens the drawer); they keep the look they had as buttons instead of the link colour and underline. */
+/* App cards, marquee items, "more by" rows and pager cards are links to the app's page; they keep the look they had as buttons instead of the link colour and underline. */
 a.card,
 a.card:hover,
 a.hero-win,
@@ -3015,13 +2860,6 @@ a.marq-item:hover {
 }
 a.hero-win {
 	box-sizing: border-box;
-}
-a.pager {
-	display: block;
-	box-sizing: border-box;
-	padding: 0 12px;
-	line-height: 44px;
-	text-align: center;
 }
 .crumbs ol {
 	display: flex;
@@ -3045,58 +2883,283 @@ a.pager {
 .crumbs a:hover {
 	color: var(--cyan);
 }
-.app-head {
-	display: flex;
-	align-items: center;
-	gap: 24px;
+/* ---- an app's own page ---- */
+/* The hero: the icon with its glow beside what the app is, then the actions. The body: the screenshot and the description, with the facts and the author's other apps beside them, then the previous and next apps. */
+.app-page {
+	gap: 44px;
 }
-.app-h1 {
-	overflow-wrap: anywhere;
-}
-.app-grid {
+.app-hero {
 	display: grid;
-	grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+	grid-template-columns: 96px minmax(0, 1fr);
 	gap: 32px;
 	align-items: start;
 }
-.app-main,
-.app-side {
+.app-hero-icon {
+	position: relative;
+	width: 96px;
+	height: 96px;
+}
+.app-hero-glow {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 26px;
+	filter: blur(30px) saturate(1.4);
+	opacity: 0.5;
+	transform: scale(1.2);
+	pointer-events: none;
+}
+.app-hero-icon .mono-tile {
+	position: relative;
+}
+.mono-96 {
+	width: 96px;
+	height: 96px;
+	border-radius: 26px;
+	font-size: 44px;
+	box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
+}
+.app-hero-text {
 	display: flex;
 	flex-direction: column;
-	gap: 22px;
+	gap: 14px;
+	min-width: 0;
+}
+.app-hero-meta {
+	margin: 0;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px 14px;
+	font-family: var(--f-mono);
+	font-size: 12px;
+	color: var(--fg-3);
+}
+.app-hero-meta .kind-tag {
+	align-self: center;
+}
+.app-hero-cat {
+	color: var(--cyan);
+	text-decoration: none;
+	letter-spacing: 0.04em;
+}
+.app-hero-cat:hover {
+	color: var(--cyan-2);
+	text-decoration: underline;
+}
+.app-hero-h1 {
+	margin: 0;
+	font-family: var(--f-display);
+	font-size: clamp(40px, 5.4vw, 72px);
+	font-weight: 900;
+	letter-spacing: -0.04em;
+	line-height: 1.02;
+	overflow-wrap: anywhere;
+}
+.app-hero-sum {
+	margin: 0;
+	max-width: 60ch;
+	font-size: 19px;
+	line-height: 1.6;
+	color: var(--fg-2);
+}
+.app-acts {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+	margin-top: 8px;
+}
+.app-acts .btn-open {
+	flex: 0 1 auto;
+	padding: 0 28px;
+}
+.app-body {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 340px;
+	gap: 40px;
+	align-items: start;
+}
+.app-main {
+	display: flex;
+	flex-direction: column;
+	gap: 36px;
+	min-width: 0;
+}
+.app-side {
+	position: sticky;
+	top: 96px;
+	display: flex;
+	flex-direction: column;
+	gap: 28px;
 }
 .app-shot {
+	margin: 0;
 	border: 1px solid var(--line-2);
 	border-radius: 14px;
 	background: var(--panel);
 	overflow: hidden;
+	box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
 }
-.app-shot .drawer-shot {
-	border-bottom: 0;
-}
-.app-shot.drawer-hero {
+.app-shot img {
+	display: block;
+	width: 100%;
 	height: auto;
-	aspect-ratio: 16 / 10;
-	border-bottom: 1px solid var(--line-2);
 }
-.app-sub-h {
+.app-about {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+.app-sec-h {
 	margin: 0;
+	font-family: var(--f-mono);
+	font-size: 12px;
 	font-weight: 400;
+	color: var(--fg-3);
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+}
+.app-about-p {
+	margin: 0;
+	max-width: 68ch;
+	font-size: 17px;
+	line-height: 1.8;
+	color: var(--fg-2);
+}
+.app-side .facts {
+	background: var(--panel);
+}
+.app-more {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+.app-more .others {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	gap: 12px;
+	border: 0;
+	border-radius: 0;
+	overflow: visible;
+}
+.app-more .other {
+	border: 1px solid var(--line-2);
+	border-radius: 12px;
+	background: var(--panel);
+	transition: border-color 0.15s;
+}
+.app-more .other:hover {
+	border-color: var(--cyan);
+}
+.facts a {
+	color: var(--fg);
+	text-decoration: none;
+	border-bottom: 1px solid var(--line-3);
+}
+.facts a:hover {
+	color: var(--cyan);
+	border-color: currentColor;
 }
 .app-pager {
-	display: flex;
-	gap: 10px;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	gap: 16px;
 }
-@media (max-width: 860px) {
-	.app-grid {
+a.app-pg,
+a.app-pg:hover {
+	color: var(--fg);
+	text-decoration: none;
+}
+.app-pg {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	min-width: 0;
+	padding: 18px 22px;
+	border: 1px solid var(--line-2);
+	border-radius: 14px;
+	background: var(--panel);
+	transition: border-color 0.15s, transform 0.15s;
+}
+.app-pg:hover {
+	border-color: var(--cyan);
+	transform: translateY(-2px);
+}
+.app-pg-next {
+	align-items: flex-end;
+	text-align: right;
+}
+.app-pg-dir {
+	font-family: var(--f-mono);
+	font-size: 12px;
+	color: var(--fg-3);
+	letter-spacing: 0.08em;
+}
+.app-pg:hover .app-pg-dir {
+	color: var(--cyan);
+}
+.app-pg-app {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	min-width: 0;
+	max-width: 100%;
+}
+.app-pg-next .app-pg-app {
+	flex-direction: row-reverse;
+}
+.app-pg-name {
+	min-width: 0;
+	font-family: var(--f-display);
+	font-size: 22px;
+	font-weight: 800;
+	letter-spacing: -0.02em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+@media (max-width: 960px) {
+	.app-body {
 		grid-template-columns: minmax(0, 1fr);
 	}
-	.app-head {
-		align-items: flex-start;
-		flex-direction: column;
-		gap: 16px;
+	.app-side {
+		position: static;
 	}
 }
-.app-side .others {
-	background: var(--panel);
+@media (max-width: 640px) {
+	.app-page {
+		gap: 32px;
+	}
+	.app-hero {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 20px;
+	}
+	.app-hero-icon,
+	.app-hero-icon .mono-96 {
+		width: 72px;
+		height: 72px;
+	}
+	.app-hero-icon .mono-96 {
+		border-radius: 20px;
+		font-size: 32px;
+	}
+	.app-hero-sum {
+		font-size: 17px;
+	}
+	.app-acts .btn-open {
+		flex: 1 1 100%;
+	}
+	.app-pager {
+		grid-template-columns: minmax(0, 1fr);
+	}
+	.app-pg-name {
+		font-size: 18px;
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.app-pg:hover {
+		transform: none;
+	}
 }
