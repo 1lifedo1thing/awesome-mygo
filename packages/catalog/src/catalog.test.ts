@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { ABOUT } from './about';
-import { APPS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, hostOf } from './catalog';
+import { AILOGO_CDN, APPS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, hostOf } from './catalog';
 import { descMax, isBadUrl, isEntryComplete, readmeEntry, showcaseEntry } from './entry';
 import { LANGS, fill, negotiateLang } from './lang';
 import { buildSearchIndex, searchCatalog } from './search';
@@ -31,8 +31,10 @@ describe('catalog data', () => {
 		expect(Object.keys(ABOUT).sort()).toEqual(APPS.map((a) => a.slug).sort());
 	});
 
-	it('has an icon for every app', () => {
-		for (const a of APPS) expect(a.icon).toBe(`/icons/${a.slug}.webp`);
+	it('takes icons from ai-logo, and the official icon only for the apps it does not list', () => {
+		const local = APPS.filter((a) => !a.icon.startsWith(AILOGO_CDN)).map((a) => a.slug);
+		expect(local.sort()).toEqual(['2048', 'repo-hopper', 'tomoru', 'uma']);
+		for (const a of APPS) expect(a.icon).toMatch(a.icon.startsWith(AILOGO_CDN) ? /^https:\/\/ailogo\.yldm\.ai\/avatar\/[a-z0-9]+\.webp$/ : new RegExp(`^/icons/${a.slug}\\.webp$`));
 	});
 
 	it('serves screenshots from /shots/', () => {

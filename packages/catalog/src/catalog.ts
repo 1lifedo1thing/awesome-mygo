@@ -46,7 +46,7 @@ export interface App {
 	about: Localized;
 	// Screenshot under /shots/, when the project provides one.
 	image?: string;
-	// The app's official icon, normalised to one size and corner radius, under /icons/.
+	// The app's icon: its ai-logo avatar on the ai-logo CDN, or its official icon under /icons/ when ai-logo does not list it.
 	icon: string;
 }
 
@@ -106,10 +106,36 @@ const IMAGES: Record<string, string> = {
 
 const shot = (file: string | undefined) => (file ? `/shots/${file}` : undefined);
 
+// Icons come from yldm-tech/ai-logo (its avatar renders), served by its CDN. Apps it does not list keep their official icon, normalised to the same size and corner, under apps/web/public/icons/.
+export const AILOGO_CDN = 'https://ailogo.yldm.ai/avatar/';
+const AILOGO_IDS: Record<string, string> = {
+	mixmusic: 'mixmusic',
+	pulse: 'pulse',
+	kero: 'kero',
+	lorca: 'lorca',
+	'mygo-cloudmusic': 'mygocloudmusic',
+	gorex: 'gorex',
+	godiff: 'godiff',
+	liubai: 'liubai',
+	clipnest: 'clipnest',
+	cleanzo: 'cleanzo',
+	'little-reef': 'littlereef',
+	mytwig: 'mytwig',
+	godwit: 'godwit',
+	'video-downloader': 'videodownloadermygo',
+	lumilo: 'lumilo',
+	'quaver-astra': 'quaverastra',
+	meiro: 'meiro',
+	'universal-s3-ui': 'universals3ui',
+	apigo: 'apigo',
+};
+
+const iconOf = (slug: string) => (AILOGO_IDS[slug] ? `${AILOGO_CDN}${AILOGO_IDS[slug]}.webp` : `/icons/${slug}.webp`);
+
 export const APPS: readonly App[] = APP_ROWS.map(([slug, name, author, kind, url, desc]) => {
 	const about = ABOUT[slug];
 	if (!about) throw new Error(`Missing ABOUT entry for app ${slug}`);
-	return { slug, name, author, kind, url, desc, about, image: shot(IMAGES[slug]), icon: `/icons/${slug}.webp` };
+	return { slug, name, author, kind, url, desc, about, image: shot(IMAGES[slug]), icon: iconOf(slug) };
 });
 
 export function appBySlug(slug: string): App | undefined {
