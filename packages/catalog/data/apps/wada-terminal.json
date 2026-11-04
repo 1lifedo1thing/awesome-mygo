@@ -1,0 +1,17 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "wada-terminal",
+	"name": "wada-terminal",
+	"author": "xleotranx",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/xleotranx/wada-terminal",
+	"repo": "xleotranx/wada-terminal",
+	"summary": {
+		"en": "A native terminal for coding agents, built with Go, MyGo and wada-kit. The programs run in a small core that outlives the window, so closing it leaves your agents working."
+	},
+	"description": {
+		"en": "A native terminal for coding agents, built with Go, MyGo and wada-kit. The programs run in a small core that outlives the window, so closing it leaves your agents working."
+	},
+	"added": "2026-11-04T16:31:52Z"
+}
