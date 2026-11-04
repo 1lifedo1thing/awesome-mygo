@@ -86,9 +86,9 @@ describe('catalog data', () => {
 		}
 	});
 
-	it('takes icons from ai-logo, a local official icon for a few, and none for the apps on the mygo init default', () => {
+	it('takes icons from ai-logo, a local official icon for a few, and letter tiles for apps without one', () => {
 		const slugs = (pred: (icon: string | undefined) => boolean) => APPS.filter((a) => pred(a.icon)).map((a) => a.slug).sort();
-		expect(slugs((i) => i === undefined)).toEqual(['2048', 'uma']);
+		expect(slugs((i) => i === undefined)).toEqual(['2048', 'catview', 'uma']);
 		expect(slugs((i) => i !== undefined && !i.startsWith(AILOGO_CDN))).toEqual(['joplin-lite', 'nova', 'repo-hopper', 'tomoru']);
 		for (const a of APPS) {
 			if (!a.icon) continue;
