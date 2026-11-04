@@ -64,7 +64,7 @@ pnpm preview      # 프로덕션 빌드를 Workers 런타임에서 실행
 
 추가하는 방법은 두 가지입니다:
 
-- **사이트에서:** "제출"을 눌러 양식을 채운 뒤 바로 제출합니다. GitHub 계정이 필요 없으며, 사이트의 bot이 풀 리퀘스트를 만들어 줍니다. GitHub 계정이 있다면 생성된 항목을 이슈로 보내거나, GitHub 편집기에서 JSON 파일을 열어 직접 추가할 수도 있습니다.
+- **사이트에서:** "제출"을 눌러 양식을 채우거나 항목을 JSON 그대로 붙여넣은 뒤 바로 제출합니다. GitHub 계정이 필요 없으며, 사이트의 bot이 풀 리퀘스트를 만들어 줍니다. GitHub 계정이 있다면 생성된 항목을 이슈로 보내거나, GitHub 편집기에서 JSON 파일을 열어 직접 추가할 수도 있습니다.
 - **저장소에서:** 파일의 목록에 객체를 추가하고 풀 리퀘스트를 보냅니다.
 
 `apps.json`의 항목은 다음과 같습니다:
@@ -75,12 +75,14 @@ pnpm preview      # 프로덕션 빌드를 Workers 런타임에서 실행
   "name": "My App",
   "author": "your-github-login",
   "kind": "native",
-  "url": "https://github.com/you/my-app",
+  "url": "https://my-app.dev",
+  "repo": "you/my-app",
   "summary": { "en": "One line about the app.", "ja": "アプリの一行説明。" },
   "description": { "en": "A few sentences for the detail drawer." }
 }
 ```
 
+- `url`은 앱의 홈페이지입니다. 공식 웹사이트, 없으면 저장소 주소이며 GitHub가 아니어도 됩니다. 오픈 소스 앱은 `repo`에 GitHub 저장소(`owner/name`)를 적고, 비공개 소스 앱은 생략합니다.
 - 텍스트 필드는 언어별로 하나씩 씁니다. `en`은 필수이고 `zh-CN`, `zh-TW`, `ja`, `ko`는 선택이며, 빠진 언어에서는 영어가 표시됩니다.
 - 각 파일은 `$schema`로 자신의 JSON Schema(`data/schema/`)를 가리키므로 VS Code 등의 편집기가 입력하는 동안 필드를 자동 완성하고 검사합니다.
 - 링크는 https여야 합니다. 스크린샷은 너비 약 1200px의 WebP를 `apps/web/public/shots/`에 두고 `"screenshot": "my-app.webp"`로 씁니다. 앱 아이콘은 [ai-logo](https://github.com/yldm-tech/ai-logo) id로 `"icon": { "ailogo": "<id>" }`를 쓰거나, 생략하면 글자 타일이 표시됩니다.

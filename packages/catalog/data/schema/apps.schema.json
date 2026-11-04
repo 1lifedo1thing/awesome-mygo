@@ -65,7 +65,11 @@
 					},
 					"url": {
 						"$ref": "common.schema.json#/$defs/url",
-						"description": "Where to get it or read about it."
+						"description": "The app's homepage: its website, or its repository when it has none."
+					},
+					"repo": {
+						"$ref": "common.schema.json#/$defs/repo",
+						"description": "Its GitHub repository as owner/name, for an open-source app. Leave out for a closed-source one."
 					},
 					"summary": {
 						"$ref": "common.schema.json#/$defs/text",

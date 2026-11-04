@@ -93,7 +93,10 @@ export interface App {
 	kind: AppKind;
 	// For structured data only; an entry without one names no category.
 	category?: AppCategory;
+	// The app's homepage: its website, or its repository when it has none.
 	url: string;
+	// Its GitHub repository as owner/name, for an open-source app; closed-source apps leave it out.
+	repo?: string;
 	// One line, for cards and search results.
 	desc: Text;
 	// The full description, for the detail drawer.
@@ -108,7 +111,7 @@ export interface App {
 export const AILOGO_CDN = 'https://ailogo.yldm.ai/avatar/';
 
 const readApp = (r: Reader): App => {
-	r.only(['slug', 'name', 'author', 'kind', 'category', 'url', 'summary', 'description', 'screenshot', 'icon']);
+	r.only(['slug', 'name', 'author', 'kind', 'category', 'url', 'repo', 'summary', 'description', 'screenshot', 'icon']);
 	const icon = r.raw.icon as { ailogo?: unknown; file?: unknown } | undefined;
 	let iconUrl: string | undefined;
 	if (icon !== undefined) {
@@ -123,6 +126,7 @@ const readApp = (r: Reader): App => {
 		kind: r.oneOf('kind', ['native', 'web'] as const),
 		category: r.raw.category === undefined ? undefined : r.oneOf('category', APP_CATEGORIES),
 		url: r.url('url'),
+		repo: r.raw.repo === undefined ? undefined : r.match('repo', REPO, 'owner/name'),
 		desc: r.text('summary'),
 		about: r.text('description'),
 		image: shot(r.raw.screenshot === undefined ? undefined : r.match('screenshot', SHOT, 'a .webp or .svg file name')),
@@ -137,6 +141,13 @@ export function readApps(json: unknown): App[] {
 }
 
 export const APPS: readonly App[] = readApps(appsJson);
+
+// The app's GitHub repository link, unless its homepage is that repository already.
+export function appSource(app: { url: string; repo?: string }): string | undefined {
+	if (!app.repo) return undefined;
+	const src = `https://github.com/${app.repo}`;
+	return app.url.replace(/\/+$/, '').toLowerCase() === src.toLowerCase() ? undefined : src;
+}
 
 export function appBySlug(slug: string): App | undefined {
 	return APPS.find((a) => a.slug === slug);

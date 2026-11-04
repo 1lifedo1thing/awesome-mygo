@@ -64,7 +64,7 @@ pnpm preview      # 在 Workers 运行时中运行生产构建
 
 添加方式有两种：
 
-- **在站点上：** 点「提交」填表，然后直接提交：不需要 GitHub 账号，站点的 bot 会替你开 PR。有 GitHub 账号的话，也可以把生成的条目提交为 Issue，或在 GitHub 编辑器里打开对应的 JSON 文件自己加上。
+- **在站点上：** 点「提交」填表，或者直接粘贴整条 JSON 条目，然后提交：不需要 GitHub 账号，站点的 bot 会替你开 PR。有 GitHub 账号的话，也可以把生成的条目提交为 Issue，或在 GitHub 编辑器里打开对应的 JSON 文件自己加上。
 - **在仓库里：** 在文件的列表里加一个对象，然后提 PR。
 
 `apps.json` 中的一个条目长这样：
@@ -75,12 +75,14 @@ pnpm preview      # 在 Workers 运行时中运行生产构建
   "name": "My App",
   "author": "your-github-login",
   "kind": "native",
-  "url": "https://github.com/you/my-app",
+  "url": "https://my-app.dev",
+  "repo": "you/my-app",
   "summary": { "en": "One line about the app.", "ja": "アプリの一行説明。" },
   "description": { "en": "A few sentences for the detail drawer." }
 }
 ```
 
+- `url` 是应用主页：官网，没有官网就填仓库地址，不要求在 GitHub 上。开源应用再用 `repo` 填 GitHub 仓库（`owner/name`），闭源应用不填。
 - 文本字段按语言各写一份。`en` 必填；`zh-CN`、`zh-TW`、`ja`、`ko` 可选，缺少的语言显示英文。
 - 每个文件都在 `$schema` 里指向自己的 JSON Schema（在 `data/schema/`），VS Code 等编辑器会在你输入时补全并检查字段。
 - 链接必须是 https。截图请把宽约 1200px 的 WebP 放进 `apps/web/public/shots/`，并写 `"screenshot": "my-app.webp"`。应用图标写 `"icon": { "ailogo": "<id>" }`，id 来自 [ai-logo](https://github.com/yldm-tech/ai-logo)；不写则显示字母图标。

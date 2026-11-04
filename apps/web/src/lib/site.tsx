@@ -9,6 +9,9 @@ export interface SubmitForm extends EntryDraft {
 	cat: SubmitCat;
 	// Only used for showcase entries: whether the app draws native UI or shows a web frontend.
 	mode: 'native' | 'web';
+	// Whether the entry comes from the fields above or is pasted whole as JSON, and the pasted text.
+	via: 'form' | 'json';
+	json: string;
 }
 
 interface Site {
@@ -44,7 +47,7 @@ export function SiteProvider({ children }: { children: ReactNode }) {
 
 	const [palette, setPalette] = useState(false);
 	const [modal, setModal] = useState(false);
-	const [form, setForm] = useState<SubmitForm>({ cat: 'showcase', mode: 'native', name: '', author: '', url: '', desc: '' });
+	const [form, setForm] = useState<SubmitForm>({ cat: 'showcase', mode: 'native', name: '', author: '', url: '', repo: '', desc: '', via: 'form', json: '' });
 	const [copied, setCopied] = useState<CopyKey | null>(null);
 	const copyTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 	// True when the open drawer pushed its own history entry, so closing it can step back instead of stacking another entry.

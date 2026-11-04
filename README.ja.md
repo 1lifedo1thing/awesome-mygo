@@ -64,7 +64,7 @@ pnpm preview      # 本番ビルドを Workers ランタイムで実行
 
 追加の方法は 2 つあります：
 
-- **サイトから：** 「投稿」を押してフォームに入力し、そのまま投稿します。GitHub アカウントは不要で、サイトの bot がプルリクエストを作ります。GitHub アカウントがあれば、作られた項目を Issue として送ったり、GitHub のエディタで JSON ファイルを開いて自分で追加したりもできます。
+- **サイトから：** 「投稿」を押してフォームに入力するか、項目を JSON のまま貼り付けて、そのまま投稿します。GitHub アカウントは不要で、サイトの bot がプルリクエストを作ります。GitHub アカウントがあれば、作られた項目を Issue として送ったり、GitHub のエディタで JSON ファイルを開いて自分で追加したりもできます。
 - **リポジトリで：** ファイルのリストにオブジェクトを追加し、プルリクエストを送ります。
 
 `apps.json` の項目は次のとおりです：
@@ -75,12 +75,14 @@ pnpm preview      # 本番ビルドを Workers ランタイムで実行
   "name": "My App",
   "author": "your-github-login",
   "kind": "native",
-  "url": "https://github.com/you/my-app",
+  "url": "https://my-app.dev",
+  "repo": "you/my-app",
   "summary": { "en": "One line about the app.", "ja": "アプリの一行説明。" },
   "description": { "en": "A few sentences for the detail drawer." }
 }
 ```
 
+- `url` はアプリのホームページです。公式サイト、なければリポジトリの URL で、GitHub でなくてもかまいません。オープンソースのアプリは `repo` に GitHub リポジトリ（`owner/name`）を書き、クローズドソースなら省きます。
 - テキストの欄は言語ごとに 1 つずつ書きます。`en` は必須で、`zh-CN`、`zh-TW`、`ja`、`ko` は任意です。欠けている言語では英語が表示されます。
 - 各ファイルは `$schema` で自分の JSON Schema（`data/schema/`）を指しているので、VS Code などのエディタが入力中に補完とチェックをします。
 - リンクは https のみです。スクリーンショットは幅 1200px 程度の WebP を `apps/web/public/shots/` に置き、`"screenshot": "my-app.webp"` と書きます。アプリのアイコンは [ai-logo](https://github.com/yldm-tech/ai-logo) の id で `"icon": { "ailogo": "<id>" }` と書くか、省略して文字のタイルにします。

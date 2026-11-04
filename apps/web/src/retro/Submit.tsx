@@ -47,7 +47,7 @@ function Dialog() {
 	const { closeSubmit, form, setFormField, copy, copied } = useSite();
 	const t = useT();
 	const ref = useDialog<HTMLDivElement>();
-	const { bot, lang, round, setToken, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint } = useSubmit();
+	const { bot, lang, round, setToken, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint, viaJson, jsonError, onJsonChange, example, repoBad, onRepoBlur, urlLabel } = useSubmit();
 
 	const copyBtn = (
 		<button type='button' className={`${btn} ${off}`} onClick={() => ok && copy(entry, 'line')} disabled={!ok}>
@@ -76,7 +76,45 @@ function Dialog() {
 							</div>
 						</div>
 
-						{isShow && (
+						<div>
+							<span className='mb-1 block text-muted'>{t.m_via}</span>
+							<div role='radiogroup' aria-label={t.m_via} className='flex flex-wrap gap-x-2 gap-y-1'>
+								{(['form', 'json'] as const).map((v) => (
+									<Radio key={v} checked={form.via === v} onSelect={() => setFormField('via', v)}>
+										{v === 'form' ? t.m_via_form : t.m_via_json}
+									</Radio>
+								))}
+							</div>
+						</div>
+
+						{viaJson && (
+							<div className='grid gap-2'>
+								<label htmlFor='f-json' className='block text-muted'>
+									{t.m_json} · <span lang='en'>{`${DATA_DIR}/${file}`}</span>
+								</label>
+								<textarea
+									id='f-json'
+									rows={12}
+									spellCheck={false}
+									lang='en'
+									value={form.json}
+									onChange={(e) => onJsonChange(e.target.value)}
+									placeholder={example}
+									className='block w-full min-w-0 resize-y rounded-md border border-line bg-hi px-2 py-1 font-mono outline-offset-0 placeholder:text-faint aria-invalid:border-red aria-invalid:bg-[#fff1ec]'
+									aria-invalid={Boolean(jsonError)}
+									aria-describedby={jsonError ? 'f-json-err' : 'f-json-tip'}
+								/>
+								{jsonError ? (
+									<Err id='f-json-err'>{jsonError}</Err>
+								) : (
+									<p id='f-json-tip' className='m-0 text-muted'>
+										{t.m_json_tip}
+									</p>
+								)}
+							</div>
+						)}
+
+						{!viaJson && isShow && (
 							<div>
 								<span className='mb-1 block text-muted'>{t.a_kind}</span>
 								<div role='radiogroup' aria-label={t.a_kind} className='flex flex-wrap gap-x-2 gap-y-1'>
@@ -88,7 +126,7 @@ function Dialog() {
 								</div>
 							</div>
 						)}
-						{isShow && (
+						{!viaJson && isShow && (
 							<div>
 								<span className='mb-1 block text-muted'>{t.m_group}</span>
 								<div role='radiogroup' aria-label={t.m_group} className='flex flex-wrap gap-x-2 gap-y-1'>
@@ -101,51 +139,69 @@ function Dialog() {
 							</div>
 						)}
 
-						<div className='grid gap-4 desk:grid-cols-2'>
-							<div>
-								<label htmlFor='f-name' className='mb-1 block text-muted'>
-									{t.m_name}
-								</label>
-								<input id='f-name' type='text' value={form.name} onChange={(e) => setFormField('name', e.target.value)} placeholder={t.m_name_ph} className={input} />
-							</div>
-							<div>
-								<label htmlFor='f-url' className='mb-1 block text-muted'>
-									{t.m_link}
-								</label>
-								<input id='f-url' type='url' value={form.url} onChange={(e) => setFormField('url', e.target.value)} onBlur={onUrlBlur} placeholder='https://github.com/…' className={input} aria-invalid={urlBad} aria-describedby={urlBad ? 'f-url-err' : undefined} />
-							</div>
-						</div>
+						{!viaJson && (
+							<>
+								<div className='grid gap-4 desk:grid-cols-2'>
+									<div>
+										<label htmlFor='f-name' className='mb-1 block text-muted'>
+											{t.m_name}
+										</label>
+										<input id='f-name' type='text' value={form.name} onChange={(e) => setFormField('name', e.target.value)} placeholder={t.m_name_ph} className={input} />
+									</div>
+									<div>
+										<label htmlFor='f-url' className='mb-1 block text-muted'>
+											{urlLabel}
+										</label>
+										<input id='f-url' type='url' value={form.url} onChange={(e) => setFormField('url', e.target.value)} onBlur={onUrlBlur} placeholder={isShow ? 'https://…' : 'https://github.com/…'} className={input} aria-invalid={urlBad} aria-describedby={urlBad ? 'f-url-err' : undefined} />
+									</div>
+								</div>
 
-						{withAuthor && (
-							<div>
-								<label htmlFor='f-author' className='mb-1 block text-muted'>
-									{t.m_author}
-								</label>
-								<input id='f-author' type='text' value={form.author} onChange={(e) => setFormField('author', e.target.value)} placeholder={t.m_author_ph} className={input} autoComplete='username' />
-							</div>
+								{(withAuthor || isShow) && (
+									<div className='grid gap-4 desk:grid-cols-2'>
+										{withAuthor && (
+											<div>
+												<label htmlFor='f-author' className='mb-1 block text-muted'>
+													{t.m_author}
+												</label>
+												<input id='f-author' type='text' value={form.author} onChange={(e) => setFormField('author', e.target.value)} placeholder={t.m_author_ph} className={input} autoComplete='username' />
+											</div>
+										)}
+										{isShow && (
+											<div>
+												<label htmlFor='f-repo' className='mb-1 block text-muted'>
+													{t.m_gh} <span className='text-faint'>({t.m_opt})</span>
+												</label>
+												<input id='f-repo' type='url' value={form.repo ?? ''} onChange={(e) => setFormField('repo', e.target.value)} onBlur={onRepoBlur} placeholder='https://github.com/owner/name' className={input} aria-invalid={repoBad} aria-describedby={repoBad ? 'f-repo-err' : undefined} />
+											</div>
+										)}
+									</div>
+								)}
+								{isShow && <p className='m-0 text-muted'>{t.m_home_tip}</p>}
+
+								{urlBad && <Err id='f-url-err'>{t.m_bad}</Err>}
+								{repoBad && <Err id='f-repo-err'>{t.m_repo_bad}</Err>}
+								{repoMissing && <Err>{t.m_repo}</Err>}
+
+								<div>
+									<label htmlFor='f-desc' className='mb-1 flex justify-between gap-3 text-muted'>
+										<span>{t.m_desc_l}</span>
+										<span className='font-mono'>
+											{form.desc.length}/{max}
+										</span>
+									</label>
+									<textarea id='f-desc' rows={isShow ? 3 : 2} maxLength={max} value={form.desc} onChange={(e) => setFormField('desc', e.target.value.slice(0, max))} placeholder={t.m_desc_ph} className='block w-full min-w-0 resize-y rounded-md border border-line bg-hi px-2 py-1 outline-offset-0 placeholder:text-faint' />
+								</div>
+
+								<details className='min-w-0'>
+									<summary className='mb-1 w-fit cursor-pointer text-muted'>
+										{t.m_preview} · <span lang='en'>{`${DATA_DIR}/${file}`}</span>
+									</summary>
+									<pre lang='en' className='m-0 max-h-[200px] overflow-auto rounded-lg bg-ink px-3 py-2.5 font-mono break-all whitespace-pre-wrap text-paper'>
+										{entry}
+									</pre>
+								</details>
+							</>
 						)}
-
-						{urlBad && <Err id='f-url-err'>{t.m_bad}</Err>}
-						{repoMissing && <Err>{t.m_repo}</Err>}
-
-						<div>
-							<label htmlFor='f-desc' className='mb-1 flex justify-between gap-3 text-muted'>
-								<span>{t.m_desc_l}</span>
-								<span className='font-mono'>
-									{form.desc.length}/{max}
-								</span>
-							</label>
-							<textarea id='f-desc' rows={isShow ? 3 : 2} maxLength={max} value={form.desc} onChange={(e) => setFormField('desc', e.target.value.slice(0, max))} placeholder={t.m_desc_ph} className='block w-full min-w-0 resize-y rounded-md border border-line bg-hi px-2 py-1 outline-offset-0 placeholder:text-faint' />
-						</div>
-
-						<details className='min-w-0'>
-							<summary className='mb-1 w-fit cursor-pointer text-muted'>
-								{t.m_preview} · <span lang='en'>{`${DATA_DIR}/${file}`}</span>
-							</summary>
-							<pre lang='en' className='m-0 max-h-[200px] overflow-auto rounded-lg bg-ink px-3 py-2.5 font-mono break-all whitespace-pre-wrap text-paper'>
-								{entry}
-							</pre>
-						</details>
 
 						{bot.enabled ? (
 							status.kind === 'done' ? (

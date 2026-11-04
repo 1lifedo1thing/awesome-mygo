@@ -11,8 +11,8 @@ import stateSchema from '../data/schema/state.schema.json';
 import uiSchema from '../data/schema/ui.schema.json';
 import state from '../data/state.json';
 import ui from '../data/ui.json';
-import { AILOGO_CDN, APP_CATEGORIES, APP_GROUPS, APPS, GROUP_CATEGORY, appGroup, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, authorProfile, hostOf, readApps, readPlugins } from './catalog';
-import { SUBMIT_CATS, SUBMIT_FILES, appendEntry, buildEntry, codeFence, descMax, editUrl, entryProblem, guessFromLink, isBadUrl, isEntryComplete, issueUrl, jsonEntry, missingFields, slugify, withScheme } from './entry';
+import { AILOGO_CDN, APP_CATEGORIES, APP_GROUPS, APPS, GROUP_CATEGORY, appGroup, appSource, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, authorProfile, hostOf, readApps, readPlugins } from './catalog';
+import { SUBMIT_CATS, SUBMIT_FILES, appendEntry, buildEntry, codeFence, descMax, editUrl, entryCats, entryProblem, guessFromLink, isBadUrl, isEntryComplete, issueUrl, jsonEntry, missingFields, parseEntryJson, pastedEntryProblem, pastedName, slugify, withScheme } from './entry';
 import { LANGS, type LangCode, type Text, fill, langRedirectScript, negotiateLang, pick, validateRootSearch } from './lang';
 import { buildSearchIndex, searchCatalog } from './search';
 import { LIKE_KEYS, likeKey } from './likes';
@@ -525,6 +525,57 @@ describe('bot submission', () => {
 			expect(a.slice(0, b.length - 4), cat).toEqual(b.slice(0, b.length - 4));
 			expect(a.length - b.length, cat).toBe(JSON.stringify(entry, null, '\t').split('\n').length);
 		}
+	});
+
+	it('keeps the homepage of an app and its optional GitHub repository apart', () => {
+		const home = { ...draft, url: 'https://my-kit.dev' };
+		const withRepo = buildEntry('showcase', { ...home, repo: 'https://github.com/someone/my-kit' }, 'native', ph);
+		expect(withRepo).toMatchObject({ url: 'https://my-kit.dev', repo: 'someone/my-kit' });
+		expect('repo' in buildEntry('showcase', home, 'native', ph)).toBe(false);
+		expect(readApps({ apps: [withRepo] })[0].repo).toBe('someone/my-kit');
+		expect(() => readApps({ apps: [{ ...withRepo, repo: 'https://github.com/someone/my-kit' }] })).toThrow(/repo must be owner\/name/);
+		expect(entryProblem('showcase', { ...home, repo: '' })).toBeUndefined();
+		expect(entryProblem('showcase', { ...home, repo: 'https://gitlab.com/someone/my-kit' })).toMatch(/GitHub repository/);
+	});
+
+	it('links the source of an app only when its homepage is not that repository already', () => {
+		expect(appSource({ url: 'https://my-kit.dev', repo: 'someone/my-kit' })).toBe('https://github.com/someone/my-kit');
+		expect(appSource({ url: 'https://github.com/Someone/My-Kit/', repo: 'someone/my-kit' })).toBeUndefined();
+		expect(appSource({ url: 'https://my-kit.dev' })).toBeUndefined();
+	});
+
+	it('reads a pasted entry, and says when the text is not one', () => {
+		expect(parseEntryJson('{"name":"x"}')).toEqual({ entry: { name: 'x' } });
+		expect(parseEntryJson('{"name":')).toEqual({ error: 'json' });
+		expect(parseEntryJson('[{"name":"x"}]')).toEqual({ error: 'object' });
+		expect(parseEntryJson('null')).toEqual({ error: 'object' });
+	});
+
+	it('finds the one category whose file takes a pasted entry, for every category', () => {
+		for (const cat of SUBMIT_CATS) {
+			const entry = buildEntry(cat, draft, 'native', ph);
+			expect(entryCats(entry), cat).toEqual([cat]);
+			expect(pastedEntryProblem(cat, entry), cat).toBeUndefined();
+		}
+		expect(entryCats({ name: 'x' })).toEqual([]);
+	});
+
+	it('keeps what the form cannot write, such as translations, and names the field of a mistake', () => {
+		const pail = { slug: 'pail', name: 'Pail', author: 'DejavuMoe', kind: 'native', url: 'https://github.com/DejavuMoe/Pail', summary: { en: 'S3 manager.', 'zh-CN': 'S3 管理器。' }, description: { en: 'A desktop S3 manager.' } };
+		expect(pastedEntryProblem('showcase', pail)).toBeUndefined();
+		expect(pastedEntryProblem('showcase', { ...pail, kind: 'tui' })).toMatch(/kind/);
+		expect(pastedEntryProblem('showcase', { ...pail, extra: 1 })).toMatch(/extra/);
+		expect(pastedEntryProblem('ui', pail)).toBeDefined();
+	});
+
+	it('refuses images a visitor cannot add, and names that are not one short line', () => {
+		const pail = { slug: 'pail', name: 'Pail', author: 'DejavuMoe', kind: 'native', url: 'https://github.com/DejavuMoe/Pail', summary: { en: 'S3 manager.' }, description: { en: 'S3 manager.' } };
+		expect(pastedEntryProblem('showcase', { ...pail, screenshot: 'pail.webp' })).toMatch(/screenshot/);
+		expect(pastedEntryProblem('showcase', { ...pail, icon: { file: 'pail.webp' } })).toMatch(/icon/);
+		expect(pastedEntryProblem('showcase', { ...pail, icon: { ailogo: 'abc' } })).toBeUndefined();
+		expect(pastedEntryProblem('showcase', { ...pail, name: 'a\nb' })).toMatch(/single line/);
+		expect(pastedEntryProblem('showcase', { ...pail, name: 'x'.repeat(81) })).toMatch(/80/);
+		expect(pastedName({ title: ' An article ' })).toBe('An article');
 	});
 
 	it('rejects an entry the file already has, or one that breaks its check, naming the field', () => {
