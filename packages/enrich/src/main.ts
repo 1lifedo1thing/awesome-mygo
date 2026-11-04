@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import { promisify } from 'node:util';
 import { DEFAULT_MODEL, README_LIMIT, type LlmConfig, writeCopy } from './copy.ts';
 import { downloadImage, isDefaultIcon, writeIcon, writeShot } from './image.ts';
-import { APP_DIR, DATA_FILES, type DataFile, type Entry, type EntryKind, addedAppFiles, addedEntries, appCategories, appNameFrom, hasAllLanguages, iconOf, pickMygoJson, readmeImages, repoOfEntry, repoScreenshots, resolveImage, setCategory } from './source.ts';
+import { APP_DIR, DATA_FILES, type DataFile, type Entry, type EntryKind, addedAppFiles, addedEntries, appCategories, appNameFrom, hasAllLanguages, iconOf, pickMygoJson, readmeImages, repoOfEntry, repoScreenshots, resolveImage, setCategory, submittedScreenshot } from './source.ts';
 
 // Run by .github/workflows/enrich-submission.yml on a pull request the submission bot opened. It finds the entries the branch adds, then for each fills in what the form cannot ask for: an app's icon (from its mygo.json) and screenshot (the first landscape one in its README, or else in a screenshot folder of the repository), its category when the submission names none, and the copy in every site language. It changes files in the working tree and writes a Markdown report for the pull request; the workflow runs the catalog checks and commits.
 //
@@ -95,13 +95,15 @@ async function addIcon(entry: Entry, slug: string, facts: RepoFacts): Promise<st
 	return url;
 }
 
-// The README's images first, as the project picked them to show itself; then the images in the repository's screenshot folders, which a project with none in its README often keeps for its website. Each source gets its own number of tries, so a README full of badges does not use up the folders' turn.
-async function addScreenshot(entry: Entry, slug: string, facts: RepoFacts, iconUrl: string | undefined): Promise<void> {
+// The link the visitor gave in the form first, as they picked it; then the README's images, as the project picked them to show itself; then the images in the repository's screenshot folders, which a project with none in its README often keeps for its website. Each source gets its own number of tries, so a README full of badges does not use up the folders' turn. An app without a repository can still get the form's screenshot.
+async function addScreenshot(entry: Entry, slug: string, facts: RepoFacts | undefined, iconUrl: string | undefined, submitted: string | undefined): Promise<void> {
 	if (entry.screenshot !== undefined) return say('- Screenshot: kept the one submitted.');
-	const readme = facts.readme;
+	if (!facts && !submitted) return;
+	const readme = facts?.readme;
 	const sources: { from: string; urls: string[]; tries: number }[] = [
-		{ from: 'the README', urls: readme ? readmeImages(readme.text).map((src) => resolveImage(src, facts.repo, facts.branch, readme.path)).filter((u): u is string => !!u) : [], tries: 8 },
-		{ from: 'a screenshot folder in the repository', urls: repoScreenshots(facts.paths).map((p) => rawUrl(facts, p)), tries: 6 },
+		{ from: 'the link given in the form', urls: submitted ? [submitted] : [], tries: 1 },
+		{ from: 'the README', urls: facts && readme ? readmeImages(readme.text).map((src) => resolveImage(src, facts.repo, facts.branch, readme.path)).filter((u): u is string => !!u) : [], tries: 8 },
+		{ from: 'a screenshot folder in the repository', urls: facts ? repoScreenshots(facts.paths).map((p) => rawUrl(facts, p)) : [], tries: 6 },
 	];
 	const tried: string[] = [];
 	const skipped: string[] = [];
@@ -126,7 +128,7 @@ async function addScreenshot(entry: Entry, slug: string, facts: RepoFacts, iconU
 		}
 	}
 	if (skipped.length) return say(`- Screenshot: none added. The images tried: ${skipped.join(', ')}.`);
-	say(readme ? '- Screenshot: none added, as neither the README nor a screenshot folder in the repository has an image.' : '- Screenshot: none added, as the repository has neither a README nor a screenshot folder.');
+	say(!facts ? '- Screenshot: none added.' : readme ? '- Screenshot: none added, as neither the README nor a screenshot folder in the repository has an image.' : '- Screenshot: none added, as the repository has neither a README nor a screenshot folder.');
 }
 
 // An app needs a category: without one it is the only app in the showcase's other group, which the catalog checks reject. The form leaves it optional, so the model picks one along with the copy.
@@ -157,7 +159,8 @@ async function addCopy(cfg: LlmConfig | undefined, kind: EntryKind, entry: Entry
 }
 
 // Fills in one added entry, in place: for an app its name, icon and screenshot from its repository, and for every kind the copy.
-async function complete(cfg: LlmConfig | undefined, kind: EntryKind, where: string, entry: Entry, examples: Entry[]): Promise<void> {
+// submitted is the screenshot link from the site's form, for an app.
+async function complete(cfg: LlmConfig | undefined, kind: EntryKind, where: string, entry: Entry, examples: Entry[], submitted?: string): Promise<void> {
 	say(`### ${String(entry.name ?? entry.slug ?? '?')} (\`${where}\`)`);
 	const repo = repoOfEntry(entry);
 	const facts = repo ? await repoFacts(repo) : undefined;
@@ -170,10 +173,8 @@ async function complete(cfg: LlmConfig | undefined, kind: EntryKind, where: stri
 			say(`- Name: ${better}, as \`${facts?.mygo?.path}\` spells it (submitted as ${String(entry.name)}).`);
 			entry.name = better;
 		}
-		if (facts) {
-			const iconUrl = await addIcon(entry, slug, facts);
-			await addScreenshot(entry, slug, facts, iconUrl);
-		}
+		const iconUrl = facts ? await addIcon(entry, slug, facts) : undefined;
+		await addScreenshot(entry, slug, facts, iconUrl, submitted);
 	}
 	await addCopy(cfg, kind, entry, facts, examples);
 }
@@ -187,12 +188,15 @@ async function main(): Promise<void> {
 	const appDir = `${DATA_DIR}/${APP_DIR}`;
 	const { stdout: listed } = await run('git', ['ls-tree', '--name-only', `${BASE_REF}:${appDir}`], { cwd: ROOT, maxBuffer: 4 * 1024 * 1024 });
 	const newApps = addedAppFiles(listed.split('\n'), await readdir(join(ROOT, appDir)));
+	// The bot's pull request adds one app, and its body may carry the screenshot link from the form; with several apps it would be unclear whose it is, so it is left out.
+	const pr = env.PR && env.GITHUB_REPOSITORY ? await github<{ body: string | null }>(`/repos/${env.GITHUB_REPOSITORY}/pulls/${env.PR}`) : undefined;
+	const submitted = newApps.length === 1 ? submittedScreenshot(pr?.body) : undefined;
 	if (newApps.length) {
 		const examples = await Promise.all(EXAMPLE_APPS.map(async (slug) => JSON.parse(await readFile(join(ROOT, appDir, `${slug}.json`), 'utf8')) as Entry));
 		for (const name of newApps) {
 			const path = join(ROOT, appDir, name);
 			const entry = JSON.parse(await readFile(path, 'utf8')) as Entry;
-			await complete(cfg, 'app', `${appDir}/${name}`, entry, examples);
+			await complete(cfg, 'app', `${appDir}/${name}`, entry, examples, submitted);
 			await writeFile(path, json(entry));
 		}
 	}

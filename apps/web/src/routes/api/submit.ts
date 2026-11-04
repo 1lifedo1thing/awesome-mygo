@@ -47,14 +47,16 @@ async function readSubmission(request: Request): Promise<Submission | undefined>
 	if (!cat || !token || token.length > 2048) return undefined;
 	if (r.entry !== undefined) return r.entry && typeof r.entry === 'object' && !Array.isArray(r.entry) ? { cat, token, kind: 'entry', entry: r.entry as Record<string, unknown> } : undefined;
 	const mode = r.mode === 'web' ? 'web' : r.mode === 'native' || r.mode === undefined ? 'native' : undefined;
-	const [name, author, url, desc, repo] = [str('name'), str('author') ?? '', str('url'), str('desc') ?? '', str('repo')];
+	const [name, author, url, desc, repo, screenshot] = [str('name'), str('author') ?? '', str('url'), str('desc') ?? '', str('repo'), str('screenshot')];
 	// A showcase entry may name its category; anything not in the schema's list is refused rather than dropped.
 	const category = r.category === undefined ? undefined : APP_CATEGORIES.find((c) => c === r.category);
 	if (r.category !== undefined && (!category || cat !== 'showcase')) return undefined;
 	// Only a showcase app has a repository besides its link.
 	if (r.repo !== undefined && (repo === undefined || cat !== 'showcase')) return undefined;
+	// So is a screenshot link; entryProblem judges the link itself.
+	if (r.screenshot !== undefined && (screenshot === undefined || cat !== 'showcase')) return undefined;
 	if (!mode || name === undefined || url === undefined) return undefined;
-	return { cat, token, kind: 'form', mode, draft: { name, author, url, desc, category, repo } };
+	return { cat, token, kind: 'form', mode, draft: { name, author, url, desc, category, repo, screenshot } };
 }
 
 export const Route = createFileRoute('/api/submit')({
@@ -70,13 +72,14 @@ export const Route = createFileRoute('/api/submit')({
 				const ip = request.headers.get('cf-connecting-ip') ?? '';
 				if (!(await env.SUBMIT_LIMIT.limit({ key: ip || 'unknown' })).success) return json({ error: 'limited' }, 429);
 				const sub = await readSubmission(request);
-				if (!sub) return json({ error: 'invalid', message: 'expected a JSON object with cat, token and either entry (a whole entry) or name, url, desc, author and, for the showcase, an optional category and repo' }, 400);
+				if (!sub) return json({ error: 'invalid', message: 'expected a JSON object with cat, token and either entry (a whole entry) or name, url, desc, author and, for the showcase, an optional category, repo and screenshot' }, 400);
 				const problem = sub.kind === 'entry' ? pastedEntryProblem(sub.cat, sub.entry) : entryProblem(sub.cat, sub.draft);
 				if (problem) return json({ error: 'invalid', message: problem }, 400);
 				if (!(await verifyTurnstile(cfg.turnstileSecret, sub.token, ip))) return json({ error: 'captcha' }, 403);
 				const [entry, name] = sub.kind === 'entry' ? [sub.entry, pastedName(sub.entry)] : [buildEntry(sub.cat, sub.draft, sub.mode, { name: '', desc: '' }), sub.draft.name.trim()];
 				try {
-					return json(await openSubmission(cfg, sub.cat, name, entry));
+					const screenshot = sub.kind === 'form' ? sub.draft.screenshot?.trim() || undefined : undefined;
+					return json(await openSubmission(cfg, sub.cat, name, entry, screenshot));
 				} catch (err) {
 					if (err instanceof CatalogError) return json({ error: 'invalid', message: err.message }, 409);
 					if (err instanceof SubmissionsBusy) return json({ error: 'busy' }, 503);

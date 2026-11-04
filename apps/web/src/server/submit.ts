@@ -66,8 +66,11 @@ export async function verifyTurnstile(secret: string, token: string, ip: string)
 	return data.success === true;
 }
 
-// Opens the pull request and returns it. Throws a CatalogError when the entry does not fit the file on main (e.g. it is already listed), and SubmissionsBusy when too many are open.
-export async function openSubmission(cfg: BotConfig, cat: SubmitCat, name: string, entry: Record<string, unknown>): Promise<{ url: string; number: number }> {
+// The marker the submission workflow reads an app's screenshot link from (packages/enrich, submittedScreenshot). The link has passed isBadShot, so it holds no space, quote, backtick or angle bracket and cannot end the comment.
+const shotMarker = (url: string) => `<!-- submitted-screenshot: ${url} -->`;
+
+// Opens the pull request and returns it. Throws a CatalogError when the entry does not fit the file on main (e.g. it is already listed), and SubmissionsBusy when too many are open. screenshot is an app's screenshot link from the form, which is not part of the entry: the pull request carries it for the submission workflow.
+export async function openSubmission(cfg: BotConfig, cat: SubmitCat, name: string, entry: Record<string, unknown>, screenshot?: string): Promise<{ url: string; number: number }> {
 	const gh = await installation(cfg);
 	const repo = { owner: OWNER, repo: REPO };
 
@@ -101,7 +104,9 @@ export async function openSubmission(cfg: BotConfig, cat: SubmitCat, name: strin
 			`Submitted through the form on ${SITE_URL} by a visitor without a GitHub account, so the site's bot opened this pull request.`,
 			`Category: ${label} (\`${path}\`)`,
 			codeFence(JSON.stringify(entry, null, 2), 'json'),
-			'The entry passed the catalog checks before it was submitted, and CI runs them again. The *Complete submission* workflow then adds what the form cannot ask for (an app\'s icon and screenshot, and the copy in every site language) and comments what it did. Before merging, check that the project exists and is built with MyGo, read the generated copy, and fill in what the form leaves at a default (such as `tag`, `tags` or `surface`).',
+			// In a code span, so the visitor's link does not become a link here; the workflow downloads it and the report says whether it was used.
+			...(screenshot ? [`Screenshot from the form: \`${screenshot}\`\n${shotMarker(screenshot)}`] : []),
+			'The entry passed the catalog checks before it was submitted, and CI runs them again. The *Complete submission* workflow then adds what the form cannot ask for (an app\'s icon, its screenshot from the form\'s link or the project\'s repository, and the copy in every site language) and comments what it did. Before merging, check that the project exists and is built with MyGo, read the generated copy, and fill in what the form leaves at a default (such as `tag`, `tags` or `surface`).',
 		].join('\n\n');
 		const { data: pr } = await gh.request('POST /repos/{owner}/{repo}/pulls', { ...repo, title: `Add ${plainName} (${label})`, head: branch, base: BASE, body });
 		return { url: pr.html_url, number: pr.number };

@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { addedAppFiles, addedEntries, appCategories, appNameFrom, hasAllLanguages, iconCut, iconOf, isPortrait, isSquarish, lengthCaps, overCaps, joinRepoPath, pickMygoJson, readmeImages, repoOfEntry, repoScreenshots, resolveImage, setCategory, sniffImage } from './source.ts';
+import { addedAppFiles, addedEntries, appCategories, appNameFrom, hasAllLanguages, iconCut, iconOf, isPortrait, isSquarish, lengthCaps, overCaps, joinRepoPath, pickMygoJson, readmeImages, repoOfEntry, repoScreenshots, resolveImage, setCategory, sniffImage, submittedScreenshot } from './source.ts';
 
 describe('app names', () => {
 	it('takes mygo.json’s spelling of the same name only', () => {
@@ -97,6 +97,17 @@ describe('the repository', () => {
 		expect(isPortrait(1600, 886)).toBe(false);
 		expect(isPortrait(1000, 1000)).toBe(false);
 		expect(isPortrait(0, 0)).toBe(false);
+	});
+});
+
+describe('submitted screenshot', () => {
+	it("reads the form's screenshot link from the bot's pull request", () => {
+		const url = 'https://my-kit.dev/img/window.png';
+		expect(submittedScreenshot(`Category: app\n\nScreenshot from the form: \`${url}\`\n<!-- submitted-screenshot: ${url} -->\n\nThe entry passed`)).toBe(url);
+		expect(submittedScreenshot('Submitted through the form, no screenshot')).toBeUndefined();
+		expect(submittedScreenshot(null)).toBeUndefined();
+		// The form's rule again, as the body can be edited after the bot wrote it.
+		for (const bad of ['http://my-kit.dev/a.png', 'https://x.dev/"a".png', 'https://x.dev/`a`.png', `https://x.dev/${'a'.repeat(300)}.png`]) expect(submittedScreenshot(`<!-- submitted-screenshot: ${bad} -->`), bad).toBeUndefined();
 	});
 });
 

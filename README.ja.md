@@ -29,7 +29,7 @@ pnpm のモノレポで、[TanStack Start](https://tanstack.com/start) が [Clou
 |---|---|
 | `apps/web` | サイト本体：React 19、TanStack Start（サーバーレンダリング）、`@cloudflare/vite-plugin` 付きの Vite。`wrangler.jsonc` で `mygodock.dev` にデプロイします。 |
 | `packages/catalog` | データ：`data/*.json`（アプリ、UI コンポーネント、状態管理、プラグイン、記事、ガイド）とその JSON Schema、5 言語の UI 文言、検索、投稿フォームの項目。テストで全項目を検証します。 |
-| `packages/enrich` | 投稿 bot が開いたプルリクエストを補完します：プロジェクトのリポジトリからアプリのアイコンとスクリーンショットを取り込み、5 言語の文言を Claude で書きます。`.github/workflows/enrich-submission.yml` が実行します。 |
+| `packages/enrich` | 投稿 bot が開いたプルリクエストを補完します：プロジェクトのリポジトリからアプリのアイコンを、フォームで指定されたリンク（なければリポジトリ）からスクリーンショットを取り込み、5 言語の文言を Claude で書きます。`.github/workflows/enrich-submission.yml` が実行します。 |
 
 アプリのアイコンは [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo) の CDN から配信しています。ai-logo に収録されていない一部のアプリは、`apps/web/public/icons/` にある公式アイコンを使います。
 

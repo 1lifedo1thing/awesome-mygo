@@ -47,7 +47,7 @@ function Dialog() {
 	const { closeSubmit, form, setFormField, copy, copied } = useSite();
 	const t = useT();
 	const ref = useDialog<HTMLDivElement>();
-	const { bot, lang, round, setToken, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint, viaJson, jsonError, onJsonChange, example, repoBad, onRepoBlur, urlLabel } = useSubmit();
+	const { bot, lang, round, setToken, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint, viaJson, jsonError, onJsonChange, example, repoBad, onRepoBlur, shotBad, onShotBlur, urlLabel } = useSubmit();
 
 	const copyBtn = (
 		<button type='button' className={`${btn} ${off}`} onClick={() => ok && copy(entry, 'line')} disabled={!ok}>
@@ -177,9 +177,21 @@ function Dialog() {
 									</div>
 								)}
 								{isShow && <p className='m-0 text-muted'>{t.m_home_tip}</p>}
+								{isShow && (
+									<div>
+										<label htmlFor='f-shot' className='mb-1 block text-muted'>
+											{t.m_shot} <span className='text-faint'>({t.m_opt})</span>
+										</label>
+										<input id='f-shot' type='url' value={form.screenshot ?? ''} onChange={(e) => setFormField('screenshot', e.target.value)} onBlur={onShotBlur} placeholder='https://…/screenshot.png' className={input} aria-invalid={shotBad} aria-describedby={shotBad ? 'f-shot-err' : 'f-shot-tip'} />
+										<p id='f-shot-tip' className='m-0 mt-1 text-muted'>
+											{t.m_shot_tip}
+										</p>
+									</div>
+								)}
 
 								{urlBad && <Err id='f-url-err'>{t.m_bad}</Err>}
 								{repoBad && <Err id='f-repo-err'>{t.m_repo_bad}</Err>}
+								{shotBad && <Err id='f-shot-err'>{t.m_shot_bad}</Err>}
 								{repoMissing && <Err>{t.m_repo}</Err>}
 
 								<div>

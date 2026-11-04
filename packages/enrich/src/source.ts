@@ -94,6 +94,13 @@ export function isPortrait(width: number, height: number): boolean {
 	return width > 0 && height > width;
 }
 
+// The screenshot link a visitor gave in the site's form, from the pull request the bot opened: apps/web/src/server/submit.ts writes it as <!-- submitted-screenshot: URL -->. The link is checked again with the form's rule (https, no space, quote, backtick or angle bracket), as the body could have been edited since.
+export function submittedScreenshot(body: string | null | undefined): string | undefined {
+	const m = /<!-- submitted-screenshot: (\S+) -->/.exec(body ?? '');
+	const url = m?.[1];
+	return url && url.length <= 300 && /^https:\/\/[^\s<>"'`]+$/.test(url) ? url : undefined;
+}
+
 // Images in the repository's screenshot folders (screenshots/, screenshot/, screens/ or shots/, at any depth), for an app whose README shows none that fits: a project often keeps them for its website instead (popMind's are in website/public/shots/en/). Folders for English come first where there are folders per language, then the rest in path order.
 export function repoScreenshots(paths: readonly string[]): string[] {
 	const inFolder = /(^|\/)(screenshots?|screens|shots)\//i;

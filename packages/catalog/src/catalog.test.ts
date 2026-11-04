@@ -11,7 +11,7 @@ import uiSchema from '../data/schema/ui.schema.json';
 import state from '../data/state.json';
 import ui from '../data/ui.json';
 import { AILOGO_CDN, APP_CATEGORIES, APP_GROUPS, APPS, GROUP_CATEGORY, appGroup, appSource, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, authorProfile, byName, byNewest, hostOf, readAppEntry, readAppFile, readApps, readPlugins } from './catalog';
-import { LIST_FILES, type ListCat, SUBMIT_CATS, appFileText, appendEntry, buildEntry, codeFence, descMax, editUrl, entryCats, entryPath, entryProblem, guessFromLink, isBadUrl, isEntryComplete, issueUrl, jsonEntry, missingFields, parseEntryJson, pastedEntryProblem, pastedName, slugify, withScheme } from './entry';
+import { LIST_FILES, type ListCat, SUBMIT_CATS, appFileText, appendEntry, buildEntry, codeFence, descMax, editUrl, entryCats, entryPath, entryProblem, guessFromLink, isBadShot, isBadUrl, isEntryComplete, issueUrl, jsonEntry, missingFields, parseEntryJson, pastedEntryProblem, pastedName, slugify, withScheme } from './entry';
 import { LANGS, type LangCode, type Text, fill, langRedirectScript, negotiateLang, pick, validateRootSearch } from './lang';
 import { buildSearchIndex, searchCatalog } from './search';
 import { LIKE_KEYS, likeKey } from './likes';
@@ -556,6 +556,25 @@ describe('bot submission', () => {
 		expect(() => readAppEntry({ ...withRepo, repo: 'https://github.com/someone/my-kit' })).toThrow(/repo must be owner\/name/);
 		expect(entryProblem('showcase', { ...home, repo: '' })).toBeUndefined();
 		expect(entryProblem('showcase', { ...home, repo: 'https://gitlab.com/someone/my-kit' })).toMatch(/GitHub repository/);
+	});
+
+	it("takes an app's optional screenshot link, which stays out of the entry", () => {
+		const home = { ...draft, url: 'https://my-kit.dev' };
+		const shot = 'https://my-kit.dev/img/window.png';
+		expect(entryProblem('showcase', { ...home, screenshot: shot })).toBeUndefined();
+		expect(entryProblem('showcase', { ...home, screenshot: '' })).toBeUndefined();
+		expect('screenshot' in buildEntry('showcase', { ...home, screenshot: shot }, 'native', ph)).toBe(false);
+		// Only an app has a screenshot, and only an https link without characters that could break out of the pull request's quoting.
+		expect(entryProblem('ui', { ...draft, screenshot: shot })).toMatch(/screenshot/);
+		for (const bad of ['http://my-kit.dev/a.png', 'https://my-kit.dev/a b.png', 'https://my-kit.dev/a.png-->x', 'https://x.dev/`a`.png', 'https://x.dev/"a".png', `https://x.dev/${'a'.repeat(300)}.png`]) {
+			expect(isBadShot(bad), bad).toBe(true);
+			expect(entryProblem('showcase', { ...home, screenshot: bad }), bad).toMatch(/screenshot/);
+		}
+		expect(isBadShot('')).toBe(false);
+		const app = JSON.stringify(buildEntry('showcase', home, 'native', ph));
+		const body = new URL(issueUrl('https://github.com/yldm-tech/awesome-mygo', 'showcase', 'App', { ...home, screenshot: shot }, app, ph)).searchParams.get('body') ?? '';
+		expect(body).toContain(`Screenshot: ${shot}`);
+		expect(new URL(issueUrl('https://github.com/yldm-tech/awesome-mygo', 'showcase', 'App', home, app, ph)).searchParams.get('body')).not.toContain('Screenshot:');
 	});
 
 	it('links the source of an app only when its homepage is not that repository already', () => {
