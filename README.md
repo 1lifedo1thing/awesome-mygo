@@ -47,6 +47,8 @@ pnpm preview      # the production build in the Workers runtime
 
 `pnpm deploy` builds and deploys with Wrangler. It needs a Cloudflare account that holds the zone of the domain in `apps/web/wrangler.jsonc`.
 
+Direct submissions from the form go through a GitHub App installed on this repository, with Cloudflare Turnstile and a per-IP rate limit in front of it. Give the app *Contents* and *Pull requests* read and write access, convert its private key to PKCS#8 (`openssl pkcs8 -topk8 -nocrypt -in key.pem -out key-pkcs8.pem`), and set four secrets with `wrangler secret put` in `apps/web`: `GITHUB_APP_ID`, `GITHUB_APP_PRIVATE_KEY` (the PKCS#8 file), `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY`. Until all four are set, the form offers only the GitHub links. For local testing, put Turnstile's [test keys](https://developers.cloudflare.com/turnstile/troubleshooting/testing/) in `apps/web/.dev.vars`.
+
 ## Adding a project
 
 Every entry lives in a JSON file under [`packages/catalog/data`](packages/catalog/data), one file per category:
@@ -62,7 +64,7 @@ Every entry lives in a JSON file under [`packages/catalog/data`](packages/catalo
 
 There are two ways to add one:
 
-- **On the site:** click "Submit" and fill in the form; it writes the JSON entry for you. Send it as an issue in one click, or open the JSON file in GitHub's editor, paste the entry at the end of the list and propose the change as a pull request.
+- **On the site:** click "Submit" and fill in the form, then submit it directly: no GitHub account needed, the site's bot opens the pull request for you. With a GitHub account you can also send the generated entry as an issue, or open the JSON file in GitHub's editor and add it yourself.
 - **In the repository:** add an object to the list in the file and open a pull request.
 
 An entry in `apps.json` looks like this:

@@ -141,6 +141,18 @@ export const STRINGS = {
 	go_edit: ['编辑 {x} ↗', '編輯 {x} ↗', 'Edit {x} ↗', '{x} を編集 ↗', '{x} 편집 ↗'],
 	m_author: ['作者', '作者', 'Author', '作者', '작성자'],
 	m_author_ph: ['GitHub 用户名或名字', 'GitHub 使用者名稱或名字', 'GitHub login or name', 'GitHub のユーザー名か名前', 'GitHub 아이디 또는 이름'],
+	m_desc_bot: ['填写后直接提交，不需要 GitHub 账号；审核通过后上线。', '填寫後直接提交，不需要 GitHub 帳號；審核通過後上線。', 'Submit straight from here, no GitHub account needed. It goes live once reviewed.', 'ここから直接投稿できます。GitHub アカウントは不要で、レビュー後に公開されます。', '여기서 바로 제출할 수 있습니다. GitHub 계정은 필요 없으며, 검토 후 공개됩니다.'],
+	m_repo: ['UI 组件和状态管理请填 GitHub 仓库链接', 'UI 元件和狀態管理請填 GitHub 倉庫連結', 'UI components and state management need a GitHub repository link', 'UI コンポーネントと状態管理は GitHub リポジトリのリンクを入力してください', 'UI 컴포넌트와 상태 관리는 GitHub 저장소 링크가 필요합니다'],
+	sub_send: ['直接提交', '直接提交', 'Submit', '投稿する', '제출하기'],
+	sub_sending: ['提交中…', '提交中…', 'Submitting…', '送信中…', '제출 중…'],
+	sub_done: ['已提交，审核通过后上线。', '已提交，審核通過後上線。', 'Submitted. It goes live once reviewed.', '投稿しました。レビュー後に公開されます。', '제출했습니다. 검토 후 공개됩니다.'],
+	sub_view: ['查看 PR #{n} ↗', '查看 PR #{n} ↗', 'View PR #{n} ↗', 'PR #{n} を見る ↗', 'PR #{n} 보기 ↗'],
+	sub_err: ['提交失败：{x}', '提交失敗：{x}', 'Could not submit: {x}', '投稿できませんでした：{x}', '제출하지 못했습니다: {x}'],
+	sub_limited: ['提交太频繁了，请一分钟后再试。', '提交太頻繁了，請一分鐘後再試。', 'Too many submissions. Try again in a minute.', '投稿が多すぎます。1 分後にもう一度お試しください。', '제출이 너무 잦습니다. 1분 후에 다시 시도하세요.'],
+	sub_busy: ['待审核的提交太多，请稍后再试，或用下面的 GitHub 方式。', '待審核的提交太多，請稍後再試，或用下方的 GitHub 方式。', 'Too many submissions are waiting for review. Try again later, or use GitHub below.', 'レビュー待ちの投稿が多すぎます。後でもう一度試すか、下の GitHub から投稿してください。', '검토 대기 중인 제출이 너무 많습니다. 나중에 다시 시도하거나 아래 GitHub 방법을 이용하세요.'],
+	sub_captcha: ['人机验证没有通过，请重试。', '人機驗證沒有通過，請重試。', 'The bot check did not pass. Please try again.', 'ボット確認を通過できませんでした。もう一度お試しください。', '봇 확인을 통과하지 못했습니다. 다시 시도하세요.'],
+	sub_failed: ['提交失败，请稍后再试，或用下面的 GitHub 方式。', '提交失敗，請稍後再試，或用下方的 GitHub 方式。', 'Something went wrong. Try again later, or use GitHub below.', '投稿に失敗しました。後でもう一度試すか、下の GitHub から投稿してください。', '제출에 실패했습니다. 나중에 다시 시도하거나 아래 GitHub 방법을 이용하세요.'],
+	sub_gh: ['有 GitHub 账号也可以：', '有 GitHub 帳號也可以：', 'With a GitHub account:', 'GitHub アカウントがあれば：', 'GitHub 계정이 있다면:'],
 } as const satisfies Record<string, Localized>;
 
 export type StringKey = keyof typeof STRINGS;

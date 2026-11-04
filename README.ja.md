@@ -47,6 +47,8 @@ pnpm preview      # 本番ビルドを Workers ランタイムで実行
 
 `pnpm deploy` は Wrangler でビルドとデプロイを行います。`apps/web/wrangler.jsonc` のドメインのゾーンを持つ Cloudflare アカウントが必要です。
 
+フォームからの直接投稿は、このリポジトリにインストールした GitHub App が行い、その前段に Cloudflare Turnstile と IP ごとのレート制限があります。App には *Contents* と *Pull requests* の読み書き権限を与え、秘密鍵を PKCS#8 に変換し（`openssl pkcs8 -topk8 -nocrypt -in key.pem -out key-pkcs8.pem`）、`apps/web` で `wrangler secret put` を使って 4 つのシークレットを設定します：`GITHUB_APP_ID`、`GITHUB_APP_PRIVATE_KEY`（PKCS#8 のファイル）、`TURNSTILE_SITE_KEY`、`TURNSTILE_SECRET_KEY`。4 つすべてがそろうまで、フォームは GitHub へのリンクだけを表示します。ローカルで試すときは、Turnstile の[テスト用キー](https://developers.cloudflare.com/turnstile/troubleshooting/testing/)を `apps/web/.dev.vars` に書きます。
+
 ## プロジェクトを追加する
 
 すべての項目は [`packages/catalog/data`](packages/catalog/data) の JSON ファイルにあり、カテゴリごとに 1 ファイルです：
@@ -62,7 +64,7 @@ pnpm preview      # 本番ビルドを Workers ランタイムで実行
 
 追加の方法は 2 つあります：
 
-- **サイトから：** 「投稿」を押してフォームに入力すると、JSON の項目を作ってくれます。ワンクリックで Issue として送るか、GitHub のエディタで該当の JSON ファイルを開き、リストの末尾に貼り付けてプルリクエストとして提案できます。
+- **サイトから：** 「投稿」を押してフォームに入力し、そのまま投稿します。GitHub アカウントは不要で、サイトの bot がプルリクエストを作ります。GitHub アカウントがあれば、作られた項目を Issue として送ったり、GitHub のエディタで JSON ファイルを開いて自分で追加したりもできます。
 - **リポジトリで：** ファイルのリストにオブジェクトを追加し、プルリクエストを送ります。
 
 `apps.json` の項目は次のとおりです：
