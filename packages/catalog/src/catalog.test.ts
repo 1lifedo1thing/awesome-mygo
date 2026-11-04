@@ -86,10 +86,8 @@ describe('catalog data', () => {
 		}
 	});
 
-	it('takes icons from ai-logo, a local official icon for a few, and none for the apps on the mygo init default', () => {
-		const slugs = (pred: (icon: string | undefined) => boolean) => APPS.filter((a) => pred(a.icon)).map((a) => a.slug).sort();
-		expect(slugs((i) => i === undefined)).toEqual(['2048', 'uma']);
-		expect(slugs((i) => i !== undefined && !i.startsWith(AILOGO_CDN))).toEqual(['joplin-lite', 'nova', 'repo-hopper', 'tomoru']);
+	// Which apps have which kind of icon is the data's business: the submission bot takes an app's official icon from its mygo.json and leaves it out when mygo init's default is in use, and it reports which in the pull request.
+	it('takes icons from ai-logo or a local official icon named after the app', () => {
 		for (const a of APPS) {
 			if (!a.icon) continue;
 			expect(a.icon).toMatch(a.icon.startsWith(AILOGO_CDN) ? /^https:\/\/ailogo\.yldm\.ai\/avatar\/[a-z0-9]+\.webp$/ : new RegExp(`^/icons/${a.slug}\\.webp$`));
@@ -99,6 +97,15 @@ describe('catalog data', () => {
 	it('has every screenshot and local icon it names in apps/web/public', () => {
 		const files = [...APPS.flatMap((a) => [a.image, a.icon?.startsWith('/') ? a.icon : undefined]), ...UI_LIBS.map((l) => l.image), ...STATE_SOLUTIONS.map((s) => s.image)];
 		for (const f of files) if (f) expect(existsSync(new URL(f.slice(1), PUBLIC)), f).toBe(true);
+	});
+
+	// The same line the submission bot updates (packages/enrich/src/source.ts, SHOWCASE_COUNT).
+	it('counts the showcase apps right in every README', () => {
+		const line = /^- \*\*(?:Showcase|ショーケース|쇼케이스|作品)\*\*[:：][^\d\n]*(\d+)/m;
+		for (const name of ['README.md', 'README.zh-CN.md', 'README.zh-TW.md', 'README.ja.md', 'README.ko.md']) {
+			const m = line.exec(readFileSync(new URL(`../../../${name}`, import.meta.url), 'utf8'));
+			expect(m?.[1], name).toBe(String(APPS.length));
+		}
 	});
 
 	it('points every data file at its schema', () => {

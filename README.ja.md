@@ -29,6 +29,7 @@ pnpm のモノレポで、[TanStack Start](https://tanstack.com/start) が [Clou
 |---|---|
 | `apps/web` | サイト本体：React 19、TanStack Start（サーバーレンダリング）、`@cloudflare/vite-plugin` 付きの Vite。`wrangler.jsonc` で `mygodock.dev` にデプロイします。 |
 | `packages/catalog` | データ：`data/*.json`（アプリ、UI コンポーネント、状態管理、プラグイン、記事、ガイド）とその JSON Schema、5 言語の UI 文言、検索、投稿フォームの項目。テストで全項目を検証します。 |
+| `packages/enrich` | 投稿 bot が開いたプルリクエストを補完します：プロジェクトのリポジトリからアプリのアイコンとスクリーンショットを取り込み、5 言語の文言を Claude で書き、README のアプリ数を更新します。`.github/workflows/enrich-submission.yml` が実行します。 |
 
 アプリのアイコンは [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo) の CDN から配信しています。ai-logo に収録されていない一部のアプリは、`apps/web/public/icons/` にある公式アイコンを使います。
 
@@ -48,6 +49,8 @@ pnpm preview      # 本番ビルドを Workers ランタイムで実行
 `pnpm deploy` は Wrangler でビルドとデプロイを行います。`apps/web/wrangler.jsonc` のドメインのゾーンを持つ Cloudflare アカウントが必要です。
 
 フォームからの直接投稿は、このリポジトリにインストールした GitHub App が行い、その前段に Cloudflare Turnstile と IP ごとのレート制限があります。App には *Contents* と *Pull requests* の読み書き権限を与え、秘密鍵を PKCS#8 に変換し（`openssl pkcs8 -topk8 -nocrypt -in key.pem -out key-pkcs8.pem`）、`apps/web` で `wrangler secret put` を使って 4 つのシークレットを設定します：`GITHUB_APP_ID`、`GITHUB_APP_PRIVATE_KEY`（PKCS#8 のファイル）、`TURNSTILE_SITE_KEY`、`TURNSTILE_SECRET_KEY`。4 つすべてがそろうまで、フォームは GitHub へのリンクだけを表示します。ローカルで試すときは、Turnstile の[テスト用キー](https://developers.cloudflare.com/turnstile/troubleshooting/testing/)を `apps/web/.dev.vars` に書きます。
+
+bot がプルリクエストを開くと、*Complete submission* ワークフローがフォームでは聞けない部分を補います：アプリの `mygo.json` が指定するアイコン（指定がなければ追加しません。`mygo init` のままの状態です）、README の最初のスクリーンショット、5 言語の概要と説明、README のアプリ数です。catalog のチェックを実行し、bot として同じブランチにプッシュし、何をしたかをコメントします。マージ前のレビューは引き続きメンテナーが行います。リポジトリのシークレットに App の認証情報 `SUBMIT_APP_ID` と `SUBMIT_APP_PRIVATE_KEY`、Anthropic Messages API のキー `LLM_API_KEY` を設定し、ゲートウェイを使う場合はそのベース URL を `LLM_BASE_URL` に設定します。リポジトリ変数 `LLM_MODEL` でモデルを変えられます（既定は `claude-opus-5-5`）。`LLM_API_KEY` がなければ文言は投稿されたままです。
 
 ## プロジェクトを追加する
 

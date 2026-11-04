@@ -1,0 +1,21 @@
+{
+	"name": "@awesome-mygo/enrich",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"description": "Completes an entry the submission bot added: the app's icon and screenshot from its repository, its copy in every site language, and the README app counts",
+	"scripts": {
+		"enrich": "node src/main.ts",
+		"typecheck": "tsc --noEmit",
+		"test": "vitest run"
+	},
+	"dependencies": {
+		"@anthropic-ai/sdk": "^1.4.0",
+		"zod": "^4.6.7"
+	},
+	"devDependencies": {
+		"@types/node": "^24.19.2",
+		"typescript": "^7.0.2",
+		"vitest": "^4.1.10"
+	}
+}

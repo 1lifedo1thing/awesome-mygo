@@ -29,6 +29,7 @@ pnpm 모노레포이며, [TanStack Start](https://tanstack.com/start)가 [Cloudf
 |---|---|
 | `apps/web` | 사이트: React 19, TanStack Start(서버 렌더링), `@cloudflare/vite-plugin`을 쓰는 Vite. `wrangler.jsonc`로 `mygodock.dev`에 배포합니다. |
 | `packages/catalog` | 데이터: `data/*.json`(앱, UI 컴포넌트, 상태 관리 솔루션, 플러그인, 글, 가이드)과 그 JSON Schema, 5개 언어의 UI 문구, 검색, 제출 양식의 항목. 테스트로 모든 항목을 검증합니다. |
+| `packages/enrich` | 제출 bot이 연 풀 리퀘스트를 완성합니다: 프로젝트 저장소에서 앱 아이콘과 스크린샷을 가져오고, 5개 언어 문구를 Claude로 쓰고, README의 앱 수를 갱신합니다. `.github/workflows/enrich-submission.yml`이 실행합니다. |
 
 앱 아이콘은 [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo)의 CDN에서 가져옵니다. ai-logo에 없는 일부 앱은 `apps/web/public/icons/`의 공식 아이콘을 씁니다.
 
@@ -48,6 +49,8 @@ pnpm preview      # 프로덕션 빌드를 Workers 런타임에서 실행
 `pnpm deploy`는 Wrangler로 빌드하고 배포합니다. `apps/web/wrangler.jsonc`에 있는 도메인의 영역(zone)을 가진 Cloudflare 계정이 필요합니다.
 
 양식의 바로 제출은 이 저장소에 설치한 GitHub App이 처리하며, 그 앞에 Cloudflare Turnstile과 IP별 요청 제한이 있습니다. App에 *Contents*와 *Pull requests* 읽기·쓰기 권한을 주고, 개인 키를 PKCS#8로 변환한 뒤(`openssl pkcs8 -topk8 -nocrypt -in key.pem -out key-pkcs8.pem`), `apps/web`에서 `wrangler secret put`으로 시크릿 4개를 설정합니다: `GITHUB_APP_ID`, `GITHUB_APP_PRIVATE_KEY`(PKCS#8 파일), `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`. 4개가 모두 설정되기 전까지 양식은 GitHub 링크만 보여 줍니다. 로컬에서 시험할 때는 Turnstile의 [테스트 키](https://developers.cloudflare.com/turnstile/troubleshooting/testing/)를 `apps/web/.dev.vars`에 적습니다.
+
+bot이 풀 리퀘스트를 열면 *Complete submission* 워크플로가 양식으로는 물을 수 없는 부분을 채웁니다: 앱의 `mygo.json`이 지정한 아이콘(지정이 없으면 넣지 않습니다. `mygo init` 그대로인 상태입니다), README의 첫 스크린샷, 5개 언어의 요약과 설명, README의 앱 수입니다. catalog 검사를 실행하고, bot으로 같은 브랜치에 푸시하고, 무엇을 했는지 댓글로 남깁니다. 병합 전 검토는 여전히 관리자가 합니다. 저장소 시크릿에 App 자격 증명 `SUBMIT_APP_ID`와 `SUBMIT_APP_PRIVATE_KEY`, Anthropic Messages API 키 `LLM_API_KEY`를 설정하고, 게이트웨이를 쓴다면 그 기본 URL을 `LLM_BASE_URL`에 설정합니다. 저장소 변수 `LLM_MODEL`로 모델을 바꿀 수 있습니다(기본값 `claude-opus-5-5`). `LLM_API_KEY`가 없으면 문구는 제출된 그대로입니다.
 
 ## 프로젝트 추가
 
