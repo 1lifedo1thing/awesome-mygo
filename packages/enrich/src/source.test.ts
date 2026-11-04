@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { addedEntries, appNameFrom, hasAllLanguages, iconOf, isSquarish, joinRepoPath, pickMygoJson, readmeImages, repoOfEntry, resolveImage, setShowcaseCount, sniffImage } from './source.ts';
+import { addedEntries, appNameFrom, hasAllLanguages, iconOf, isSquarish, lengthCaps, overCaps, joinRepoPath, pickMygoJson, readmeImages, repoOfEntry, resolveImage, setShowcaseCount, sniffImage } from './source.ts';
 
 describe('app names', () => {
 	it('takes mygo.json’s spelling of the same name only', () => {
@@ -7,6 +7,15 @@ describe('app names', () => {
 		expect(appNameFrom('MySkills', { name: 'MySkills' })).toBeUndefined();
 		expect(appNameFrom('Skill Shelf', { name: 'MySkills' })).toBeUndefined();
 		expect(appNameFrom('myskills', {})).toBeUndefined();
+	});
+
+	it('limits copy to the longest example in each language', () => {
+		const examples = [{ description: { en: 'x'.repeat(371), ja: 'あ'.repeat(248) } }, { description: { en: 'x'.repeat(405), ja: 'あ'.repeat(236) } }, { summary: { en: 'short' } }];
+		const caps = lengthCaps(examples, 'description');
+		expect(caps).toEqual({ en: 405, ja: 248 });
+		expect(overCaps({ en: 'x'.repeat(445), ja: 'あ'.repeat(300) }, caps)).toEqual(['ja 300/248']);
+		expect(overCaps({ en: 'x'.repeat(446) }, caps)).toEqual(['en 446/405']);
+		expect(overCaps({ en: 'x', 'zh-CN': '很长'.repeat(500) }, caps)).toEqual([]);
 	});
 
 	it('keeps copy already in every site language', () => {

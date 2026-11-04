@@ -132,6 +132,7 @@ async function addCopy(cfg: LlmConfig | undefined, file: DataFile, entry: Entry,
 		if (DATA_FILES[file].description && copy.description) entry.description = copy.description;
 		say(`- Copy: written by ${cfg.model} in all five languages from the submission${facts?.readme ? ' and the README' : ''}. Read it before merging.`);
 		if (copy.notes) say(`- Model's notes: ${copy.notes.replace(/\s+/g, ' ')}`);
+		if (copy.tooLong.length) say(`- Still longer than the hand-written examples after one rewrite (length/limit): ${copy.tooLong.join(', ')}. Shorten before merging.`);
 	} catch (err) {
 		say(`- Copy: left as submitted, as writing it failed: ${err instanceof Error ? err.message : String(err)}`);
 	}
