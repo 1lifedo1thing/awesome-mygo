@@ -33,6 +33,8 @@ pnpm のモノレポで、[TanStack Start](https://tanstack.com/start) が [Clou
 
 アプリのアイコンは [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo) の CDN から配信しています。ai-logo に収録されていない一部のアプリは、`apps/web/public/icons/` にある公式アイコンを使います。
 
+各アプリのページには共有カードがあります。アプリのアイコン、名前、作者、スクリーンショットを載せた 1200×630 の PNG で、リンクプレビューに表示されます。`vite build` がカードを `/og/` に生成する（コードは `apps/web/og`）ので、bot が追加したアプリにもデプロイ時にカードが付きます。カードの生成にはネットワークが必要です：ビルド時に ai-logo のアイコンを取得し、名前にラテン文字以外が含まれるときは Google Fonts からグリフも取得します。
+
 ## 開発
 
 Node.js 24 以降と pnpm が必要です。

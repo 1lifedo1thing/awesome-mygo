@@ -15,6 +15,9 @@ export const SITE_PATHS: readonly SitePath[] = ['/', '/ui', '/state', '/plugins'
 export type AppPath = `/apps/${string}`;
 export const appPath = (slug: string): AppPath => `/apps/${slug}`;
 
+// An app's share card, a 1200×630 PNG built with the site (apps/web/og).
+export const appCardPath = (slug: string) => `/og/${slug}.png`;
+
 // Simplified Chinese lives at the bare path, other languages at ?lang=…. Any other query (?app= for the retro look's quick-view window, utm tags…) is left out of canonical URLs: an app's canonical page is its /apps/<slug> page.
 export function pageUrl(path: SitePath | AppPath, lang: LangCode): string {
 	return `${SITE_URL}${path}${lang !== DEFAULT_LANG ? `?lang=${lang}` : ''}`;
@@ -99,7 +102,7 @@ export function appHead(app: App, langParam: LangCode | undefined) {
 		]),
 	];
 
-	return headTags({ lang, path, title, desc, image: shot, imageAlt: shot ? `${app.name} ${tr.app_shot}` : tr.og_alt, jsonLd });
+	return headTags({ lang, path, title, desc, image: `${SITE_URL}${appCardPath(app.slug)}`, imageAlt: `${app.name} — ${tr.app_kind}`, jsonLd });
 }
 
 interface HeadTags {
@@ -107,7 +110,7 @@ interface HeadTags {
 	path: SitePath | AppPath;
 	title: string;
 	desc: string;
-	// Absolute URL; the site's share image when undefined.
+	// Absolute URL of a 1200×630 PNG; the site's share image when undefined.
 	image?: string;
 	// Localized, for og:image:alt and twitter:image:alt.
 	imageAlt: string;
@@ -129,7 +132,9 @@ function headTags(h: HeadTags) {
 			{ property: 'og:url', content: url },
 			{ property: 'og:locale', content: OG_LOCALE[h.lang] },
 			{ property: 'og:image', content: image },
-			...(image === OG_IMAGE ? [{ property: 'og:image:type', content: 'image/png' }, { property: 'og:image:width', content: '1200' }, { property: 'og:image:height', content: '630' }] : []),
+			{ property: 'og:image:type', content: 'image/png' },
+			{ property: 'og:image:width', content: '1200' },
+			{ property: 'og:image:height', content: '630' },
 			{ property: 'og:image:alt', content: h.imageAlt },
 			{ name: 'twitter:card', content: 'summary_large_image' },
 			{ name: 'twitter:title', content: h.title },

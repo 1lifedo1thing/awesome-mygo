@@ -33,6 +33,8 @@ A pnpm monorepo, served by [TanStack Start](https://tanstack.com/start) on [Clou
 
 App icons come from [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo), served by its CDN; the few apps it does not list use their official icon from `apps/web/public/icons/`.
 
+Each app's page has a share card, a 1200×630 PNG with the app's icon, name, author and screenshot, which link previews show. `vite build` draws the cards into `/og/` (`apps/web/og`), so an app the bot adds gets its card on the deploy that adds it. The build needs the network for them: it fetches the ai-logo icons and, for names outside the Latin script, glyphs from Google Fonts.
+
 ## Development
 
 Requires Node.js 24 or later and pnpm.
