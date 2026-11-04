@@ -28,7 +28,7 @@ pnpm monorepo，由 [TanStack Start](https://tanstack.com/start) 运行在 [Clou
 | 路径 | 内容 |
 |---|---|
 | `apps/web` | 站点：React 19、TanStack Start（服务端渲染），以及带 `@cloudflare/vite-plugin` 的 Vite。`wrangler.jsonc` 把它部署到 `mygodock.dev`。 |
-| `packages/catalog` | 数据：应用、插件、组件、状态方案、指南，五种语言的界面文案，搜索与提交条目。测试会检查每个条目在每种语言下都已填写完整。 |
+| `packages/catalog` | 数据：`data/*.json`（应用、UI 组件、状态方案、插件、文章、指南）及其 JSON Schema，五种语言的界面文案，搜索与提交表单的条目。测试会校验每个条目。 |
 
 应用图标来自 [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo)，由它的 CDN 提供；它未收录的少数应用使用 `apps/web/public/icons/` 里的官方图标。
 
@@ -49,16 +49,42 @@ pnpm preview      # 在 Workers 运行时中运行生产构建
 
 ## 收录项目
 
-应用来自 MyGo 官方的作品展示。要收录应用，请向 [`egoist/mygo` 的 `website/src/showcase.ts`](https://github.com/egoist/mygo/blob/main/website/src/showcase.ts) 提交 PR。组件、插件、状态方案和文章，请在本仓库[提交 Issue](https://github.com/yldm-tech/awesome-mygo/issues/new)。站点上的「提交」表单两种都能替你写好：作品生成 showcase.ts 条目，其他类别生成填好内容的 Issue。
+所有条目都在 [`packages/catalog/data`](packages/catalog/data) 下的 JSON 文件里，每个类别一个文件：
 
-要直接为本站添加内容，编辑 `packages/catalog/src`：
+| 文件 | 内容 |
+|---|---|
+| `apps.json` | 用 MyGo 做的应用 |
+| `ui.json` | UI 组件库 |
+| `state.json` | 状态管理 |
+| `plugins.json` | 插件 |
+| `articles.json` | 文章 |
+| `docs.json` | MyGo 官方指南 |
 
-- `catalog.ts`：应用（`APP_ROWS`，附五种语言的一句话描述）、UI 组件、状态方案、插件和指南。
-- `about.ts`：应用的完整介绍，五种语言。
-- `strings.ts`：界面文案，每个键是一个包含五种语言的数组。
-- 截图放在 `apps/web/public/shots/`，WebP 格式，宽约 1200px。
+添加方式有两种：
 
-提交 PR 前请运行 `pnpm test`：缺少翻译、缺少描述或链接不是 https 时，测试会失败。
+- **在站点上：** 点「提交」填表，表单会替你生成 JSON 条目。可以一键提交为 Issue，也可以在 GitHub 编辑器里打开对应的 JSON 文件，把条目粘贴到列表末尾，作为 PR 提交。
+- **在仓库里：** 在文件的列表里加一个对象，然后提 PR。
+
+`apps.json` 中的一个条目长这样：
+
+```json
+{
+  "slug": "my-app",
+  "name": "My App",
+  "author": "your-github-login",
+  "kind": "native",
+  "url": "https://github.com/you/my-app",
+  "summary": { "en": "One line about the app.", "ja": "アプリの一行説明。" },
+  "description": { "en": "A few sentences for the detail drawer." }
+}
+```
+
+- 文本字段按语言各写一份。`en` 必填；`zh-CN`、`zh-TW`、`ja`、`ko` 可选，缺少的语言显示英文。
+- 每个文件都在 `$schema` 里指向自己的 JSON Schema（在 `data/schema/`），VS Code 等编辑器会在你输入时补全并检查字段。
+- 链接必须是 https。截图请把宽约 1200px 的 WebP 放进 `apps/web/public/shots/`，并写 `"screenshot": "my-app.webp"`。应用图标写 `"icon": { "ailogo": "<id>" }`，id 来自 [ai-logo](https://github.com/yldm-tech/ai-logo)；不写则显示字母图标。
+- `pnpm test` 会校验每个条目，出错时指出文件、条目和字段。CI 会在每个 PR 上运行它。
+
+界面文案在 `packages/catalog/src/strings.ts`，每个键是一个包含五种语言的数组。
 
 ## 致谢
 

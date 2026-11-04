@@ -28,7 +28,7 @@ A pnpm monorepo, served by [TanStack Start](https://tanstack.com/start) on [Clou
 | Path | What it holds |
 |---|---|
 | `apps/web` | The site: React 19, TanStack Start (server rendering) and Vite with `@cloudflare/vite-plugin`. `wrangler.jsonc` deploys it to `mygodock.dev`. |
-| `packages/catalog` | The data: apps, plugins, components, state solutions, guides, the UI copy in five languages, search and the submission entries. Its tests check that every entry is complete in every language. |
+| `packages/catalog` | The data: `data/*.json` (apps, UI components, state solutions, plugins, articles, guides) and their JSON Schemas, the UI copy in five languages, search and the submit form's entries. Its tests validate every entry. |
 
 App icons come from [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo), served by its CDN; the few apps it does not list use their official icon from `apps/web/public/icons/`.
 
@@ -49,16 +49,42 @@ pnpm preview      # the production build in the Workers runtime
 
 ## Adding a project
 
-Apps come from MyGo's own showcase. To list an app, open a pull request on [`egoist/mygo` `website/src/showcase.ts`](https://github.com/egoist/mygo/blob/main/website/src/showcase.ts). For components, plugins, state solutions and articles, [open an issue](https://github.com/yldm-tech/awesome-mygo/issues/new) here. The site's "Submit" form writes either one for you: the showcase entry, or an issue with the entry filled in.
+Every entry lives in a JSON file under [`packages/catalog/data`](packages/catalog/data), one file per category:
 
-To add something to this site directly, edit `packages/catalog/src`:
+| File | Lists |
+|---|---|
+| `apps.json` | Apps built with MyGo |
+| `ui.json` | UI component libraries |
+| `state.json` | State management |
+| `plugins.json` | Plugins |
+| `articles.json` | Articles |
+| `docs.json` | MyGo's guides |
 
-- `catalog.ts`: apps (`APP_ROWS`, with a one-line description in five languages), UI components, state solutions, plugins and guides.
-- `about.ts`: an app's full description in five languages.
-- `strings.ts`: the UI copy, an array of the five languages per key.
-- Screenshots go in `apps/web/public/shots/`, as WebP about 1200px wide.
+There are two ways to add one:
 
-Run `pnpm test` before opening a pull request: it fails on a missing translation, a missing description or a non-https link.
+- **On the site:** click "Submit" and fill in the form; it writes the JSON entry for you. Send it as an issue in one click, or open the JSON file in GitHub's editor, paste the entry at the end of the list and propose the change as a pull request.
+- **In the repository:** add an object to the list in the file and open a pull request.
+
+An entry in `apps.json` looks like this:
+
+```json
+{
+  "slug": "my-app",
+  "name": "My App",
+  "author": "your-github-login",
+  "kind": "native",
+  "url": "https://github.com/you/my-app",
+  "summary": { "en": "One line about the app.", "ja": "アプリの一行説明。" },
+  "description": { "en": "A few sentences for the detail drawer." }
+}
+```
+
+- Text fields hold one string per language. `en` is required; `zh-CN`, `zh-TW`, `ja` and `ko` are optional, and a missing language shows the English text.
+- Each file names its JSON Schema (in `data/schema/`) in `$schema`, so VS Code and other editors complete and check the fields as you type.
+- Links must be https. For a screenshot, add a WebP about 1200px wide to `apps/web/public/shots/` and set `"screenshot": "my-app.webp"`. For an app icon, set `"icon": { "ailogo": "<id>" }` with an [ai-logo](https://github.com/yldm-tech/ai-logo) id, or leave it out for a letter tile.
+- `pnpm test` checks every entry and names the file, entry and field of each mistake. CI runs it on every pull request.
+
+The UI copy is in `packages/catalog/src/strings.ts`, an array of the five languages per key.
 
 ## Credits
 
