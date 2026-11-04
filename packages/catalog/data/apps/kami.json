@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "kami",
+	"name": "Kami",
+	"author": "Umupa",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://umupa.github.io/Kami/",
+	"repo": "Umupa/Kami",
+	"summary": {
+		"en": "A macOS menu bar assistant that hands the text at hand to your own model with a shortcut.",
+		"zh-CN": "macOS 菜单栏助手：一个快捷键，把手头的文字交给你自己的大模型。",
+		"zh-TW": "macOS 選單列助手：一個快捷鍵，把手邊的文字交給你自己的大型模型。",
+		"ja": "ショートカット一つで手元のテキストを自分のモデルに渡す、macOS のメニューバーアシスタント。",
+		"ko": "단축키 하나로 지금 보는 텍스트를 내 모델에 넘기는 macOS 메뉴 막대 도우미."
+	},
+	"description": {
+		"en": "A menu bar assistant for macOS 15.2 and later, written entirely in Go and drawn on the GPU with MyGo's native UI, in a 9 MB installer. Double-tap ⌥ to translate the selected text, ⌥Space to open the panel to polish text or ask a question, and ⌥S to capture part of the screen and translate what it recognizes. It keeps notes as Markdown, comes with 18 themes, takes custom modes, and runs on your own model: Claude, OpenAI, DeepSeek, a local Ollama and others.",
+		"zh-CN": "macOS 15.2 及以上的菜单栏助手，100% Go 编写，用 MyGo 原生 UI 在 GPU 上实时绘制，安装包 9 MB。双击 ⌥ 翻译选中的文字，⌥Space 打开面板润色或提问，⌥S 框选屏幕识别并翻译。还能随手记 Markdown 笔记，内置 18 套主题，支持自定义模式，由你自己的模型驱动：Claude、OpenAI、DeepSeek、本地 Ollama 等。",
+		"zh-TW": "macOS 15.2 以上的選單列助手，100% Go 撰寫，以 MyGo 原生 UI 在 GPU 上即時繪製，安裝檔 9 MB。連按兩下 ⌥ 翻譯選取的文字，⌥Space 開啟面板潤飾或提問，⌥S 框選螢幕辨識並翻譯。還能隨手記 Markdown 筆記，內建 18 套主題，支援自訂模式，由你自己的模型驅動：Claude、OpenAI、DeepSeek、本機 Ollama 等。",
+		"ja": "macOS 15.2 以降向けのメニューバーアシスタント。すべて Go で書かれ、MyGo のネイティブ UI で GPU 描画され、インストーラーは 9 MB です。⌥ の二度押しで選択中のテキストを翻訳し、⌥Space でパネルを開いて文章を整えたり質問したりでき、⌥S で画面の一部を範囲選択して認識・翻訳します。Markdown のメモ、18 種類のテーマ、カスタムモードにも対応し、Claude、OpenAI、DeepSeek、ローカルの Ollama など自分のモデルで動きます。",
+		"ko": "macOS 15.2 이상용 메뉴 막대 도우미로, 전부 Go로 작성되어 MyGo의 네이티브 UI로 GPU에서 그려지며 설치 파일은 9 MB입니다. ⌥를 두 번 눌러 선택한 텍스트를 번역하고, ⌥Space로 패널을 열어 글을 다듬거나 질문하며, ⌥S로 화면 일부를 선택해 인식하고 번역합니다. Markdown 메모, 18가지 테마, 사용자 지정 모드를 지원하며 Claude, OpenAI, DeepSeek, 로컬 Ollama 등 내 모델로 동작합니다."
+	},
+	"icon": {
+		"file": "kami.webp"
+	},
+	"screenshot": "kami.webp",
+	"added": "2026-11-04T12:27:12Z"
+}
