@@ -14,6 +14,10 @@ export const btn = `${BTN} ${PLAIN} h-[28px] px-3.5`;
 export const btnGo = `${BTN} ${GO} h-[28px] px-3.5`;
 export const btnSm = `${BTN} ${PLAIN} h-[24px] px-2.5`;
 export const btnGoSm = `${BTN} ${GO} h-[24px] px-2.5`;
+// The like button (components/Like.tsx): a pill with a heart and the count, pink once liked. `likeBtnLg` matches the 28 px push buttons it sits beside.
+const LIKE = 'inline-flex cursor-pointer items-center gap-1 rounded-full border border-line bg-hi tabular-nums shadow-[0_1px_1px_rgb(16_35_58/.06)] transition-colors hover:text-[#e5486b] aria-pressed:border-[#f3a7b8] aria-pressed:bg-[#fff0f3] aria-pressed:text-[#e5486b] disabled:cursor-default';
+export const likeBtn = `${LIKE} h-[24px] px-2 text-xs`;
+export const likeBtnLg = `${LIKE} h-[28px] px-3`;
 export const seg = '-ml-px first:ml-0 not-first:rounded-l-none not-last:rounded-r-none';
 // A text field.
 export const field = 'flex h-[24px] items-center gap-1.5 rounded-md border border-line bg-hi px-2';

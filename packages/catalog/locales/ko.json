@@ -83,6 +83,8 @@
 	"sort_def": "수록 순",
 	"sort_az": "이름 A–Z",
 	"sort_author": "작성자순",
+	"like_a": "{x} 좋아요",
+	"sort_likes": "인기순",
 	"learn_h": "글과 문서",
 	"article_k": "커뮤니티 글 · {x}",
 	"read_full": "전체 읽기 ↗",

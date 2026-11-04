@@ -8,5 +8,9 @@ declare module 'cloudflare:workers' {
 		TURNSTILE_SITE_KEY?: string;
 		TURNSTILE_SECRET_KEY?: string;
 		SUBMIT_LIMIT: { limit(options: { key: string }): Promise<{ success: boolean }> };
+		// Likes (/api/likes): the D1 database and the salt that turns an IP into an anonymous voter id. Both are missing in pull request previews, which turns likes off there.
+		DB?: import('./server/likes').D1Like;
+		LIKE_SALT?: string;
+		LIKE_LIMIT?: { limit(options: { key: string }): Promise<{ success: boolean }> };
 	};
 }

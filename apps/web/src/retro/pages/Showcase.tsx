@@ -1,13 +1,15 @@
-import { APPS, type AppKind, MYGO_SHOWCASE, fill, pick } from '@awesome-mygo/catalog';
+import { APPS, type AppKind, MYGO_SHOWCASE, fill, likeKey, pick } from '@awesome-mygo/catalog';
 import { Link } from '@tanstack/react-router';
 import { useState } from 'react';
 import { AppLink } from '../../components/bits';
+import { LikeButton } from '../../components/Like';
 import { useLang, useT } from '../../lib/lang';
+import { useLikes } from '../../lib/likes';
 import { useSite } from '../../lib/site';
-import { AppIcon, Note, StatusBar, Win, btnGo, btnSm, seg, iconLabel, lnk, well } from '../ui';
+import { AppIcon, Note, StatusBar, Win, btnGo, btnSm, seg, iconLabel, likeBtn, lnk, well } from '../ui';
 import { noShot } from './AppPage';
 
-type Sort = 'default' | 'az' | 'author';
+type Sort = 'default' | 'likes' | 'az' | 'author';
 
 const N_NATIVE = APPS.filter((a) => a.kind === 'native').length;
 const N_WEB = APPS.length - N_NATIVE;
@@ -29,6 +31,7 @@ export function Showcase() {
 	const { openSubmit } = useSite();
 	const [kind, setKind] = useState<'all' | AppKind>('all');
 	const [author, setAuthor] = useState<string | null>(null);
+	const { status: likes, counts } = useLikes();
 	const [sort, setSort] = useState<Sort>('default');
 
 	const kinds = [
@@ -40,6 +43,7 @@ export function Showcase() {
 	const list = APPS.filter((a) => (kind === 'all' || a.kind === kind) && (author === null || a.author === author));
 	if (sort === 'az') list.sort((a, b) => a.name.localeCompare(b.name));
 	if (sort === 'author') list.sort((a, b) => a.author.localeCompare(b.author));
+	if (sort === 'likes') list.sort((a, b) => (counts[likeKey.app(b)] ?? 0) - (counts[likeKey.app(a)] ?? 0));
 
 	return (
 		<div className='relative mx-auto max-w-[1440px] px-3.5 pt-3.5 desk:px-10 desk:pt-[30px] min-[1261px]:grid min-[1261px]:grid-cols-[minmax(0,1fr)_260px] min-[1261px]:items-start min-[1261px]:gap-x-10 min-[1261px]:pr-6'>
@@ -63,6 +67,7 @@ export function Showcase() {
 						{t.sort}
 						<select value={sort} onChange={(e) => setSort(e.target.value as Sort)} className='h-[24px] cursor-pointer rounded-md border border-line bg-hi px-1.5'>
 							<option value='default'>{t.sort_def}</option>
+							{likes !== 'off' && <option value='likes'>{t.sort_likes}</option>}
 							<option value='az'>{t.sort_az}</option>
 							<option value='author'>{t.sort_author}</option>
 						</select>
@@ -96,23 +101,27 @@ export function Showcase() {
 					</aside>
 					<div className={`${well} relative grid min-h-[300px] grid-cols-2 content-start gap-x-3 gap-y-4 p-3 desk:min-h-0 desk:overflow-y-auto desk:grid-cols-3 desk:gap-x-[18px] desk:gap-y-[22px] desk:p-[18px] min-[1261px]:grid-cols-4`}>
 						{list.map((a) => (
-							<AppLink key={a.slug} slug={a.slug} dialog className='group grid min-w-0 content-start gap-1 no-underline'>
-								<span className='block aspect-[16/10] overflow-hidden rounded-lg border border-line bg-face shadow-sm transition-shadow group-hover:shadow-pop'>
-									{a.image ? (
-										<img src={a.image} alt='' width={1200} height={750} loading='lazy' decoding='async' className='block size-full bg-paper object-cover object-top-left' />
-									) : (
-										<span className={`grid size-full place-items-center ${noShot}`}>
-											<AppIcon app={a} size={56} />
-										</span>
-									)}
-								</span>
-								<span className='mt-1 flex min-w-0 items-center gap-1.5'>
-									<AppIcon app={a} size={24} />
-									<span className={`truncate ${iconLabel}`}>{a.name}</span>
-								</span>
-								<span className='truncate pl-[30px] leading-[14px] text-muted'>{a.author}</span>
-								<span className='sr-only'>{pick(a.desc, lang)}</span>
-							</AppLink>
+							// The like pill sits over the screenshot's corner, beside the card's link rather than inside it.
+							<div key={a.slug} className='relative min-w-0'>
+								<AppLink slug={a.slug} dialog className='group grid min-w-0 content-start gap-1 no-underline'>
+									<span className='block aspect-[16/10] overflow-hidden rounded-lg border border-line bg-face shadow-sm transition-shadow group-hover:shadow-pop'>
+										{a.image ? (
+											<img src={a.image} alt='' width={1200} height={750} loading='lazy' decoding='async' className='block size-full bg-paper object-cover object-top-left' />
+										) : (
+											<span className={`grid size-full place-items-center ${noShot}`}>
+												<AppIcon app={a} size={56} />
+											</span>
+										)}
+									</span>
+									<span className='mt-1 flex min-w-0 items-center gap-1.5'>
+										<AppIcon app={a} size={24} />
+										<span className={`truncate ${iconLabel}`}>{a.name}</span>
+									</span>
+									<span className='truncate pl-[30px] leading-[14px] text-muted'>{a.author}</span>
+									<span className='sr-only'>{pick(a.desc, lang)}</span>
+								</AppLink>
+								<LikeButton item={likeKey.app(a)} name={a.name} className={`${likeBtn} absolute top-1.5 right-1.5`} size={12} />
+							</div>
 						))}
 						{list.length === 0 && (
 							<p className='col-span-full m-0'>

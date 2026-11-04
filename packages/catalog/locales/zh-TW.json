@@ -83,6 +83,8 @@
 	"sort_def": "收錄順序",
 	"sort_az": "名稱 A–Z",
 	"sort_author": "依作者",
+	"like_a": "為 {x} 按讚",
+	"sort_likes": "最熱門",
 	"learn_h": "文章與文件",
 	"article_k": "社群文章 · {x}",
 	"read_full": "閱讀全文 ↗",

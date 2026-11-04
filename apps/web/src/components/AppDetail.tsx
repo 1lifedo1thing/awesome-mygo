@@ -1,7 +1,8 @@
-import { type App, APPS, fill, pick } from '@awesome-mygo/catalog';
+import { type App, APPS, fill, likeKey, pick } from '@awesome-mygo/catalog';
 import { useLang, useT } from '../lib/lang';
 import { useSite } from '../lib/site';
 import { AppLink, type AppView } from './bits';
+import { LikeButton } from './Like';
 
 // The parts of an app's details shared by the quick-view drawer and the app's own page.
 
@@ -34,6 +35,7 @@ export function AppActions({ app }: { app: App }) {
 			<button type='button' className='btn-g btn-copy-link' onClick={() => copy(app.url, 'det')}>
 				{copied === 'det' ? t.copied : t.copy_link}
 			</button>
+			<LikeButton item={likeKey.app(app)} name={app.name} className='like-btn like-lg' size={18} />
 		</div>
 	);
 }

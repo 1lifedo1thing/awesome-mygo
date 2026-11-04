@@ -83,6 +83,8 @@
 	"sort_def": "掲載順",
 	"sort_az": "名前 A–Z",
 	"sort_author": "作者順",
+	"like_a": "{x} にいいね",
+	"sort_likes": "人気順",
 	"learn_h": "記事とドキュメント",
 	"article_k": "コミュニティ記事 · {x}",
 	"read_full": "記事を読む ↗",

@@ -1,8 +1,10 @@
-import { APPS, type AppKind, MYGO_SHOWCASE, pad2, pick } from '@awesome-mygo/catalog';
+import { APPS, type AppKind, MYGO_SHOWCASE, likeKey, pad2, pick } from '@awesome-mygo/catalog';
 import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 import { AppLink, KindTag, MonoTile, WinBar, appView } from '../components/bits';
+import { LikeButton } from '../components/Like';
 import { useLang, useT } from '../lib/lang';
+import { useLikes } from '../lib/likes';
 import { pageHead } from '../lib/seo';
 
 export const Route = createFileRoute('/showcase')({
@@ -10,12 +12,13 @@ export const Route = createFileRoute('/showcase')({
 	component: ShowcasePage,
 });
 
-type Sort = 'default' | 'az' | 'author';
+type Sort = 'default' | 'likes' | 'az' | 'author';
 
 function ShowcasePage() {
 	const t = useT();
 	const lang = useLang();
 	const [kind, setKind] = useState<'all' | AppKind>('all');
+	const { status: likes, counts } = useLikes();
 	const [sort, setSort] = useState<Sort>('default');
 
 	const nNative = APPS.filter((a) => a.kind === 'native').length;
@@ -28,6 +31,8 @@ function ShowcasePage() {
 	const list = APPS.filter((a) => kind === 'all' || a.kind === kind);
 	if (sort === 'az') list.sort((a, b) => a.name.localeCompare(b.name));
 	if (sort === 'author') list.sort((a, b) => a.author.localeCompare(b.author));
+	// Most liked first; ties keep the listing order.
+	if (sort === 'likes') list.sort((a, b) => (counts[likeKey.app(b)] ?? 0) - (counts[likeKey.app(a)] ?? 0));
 
 	return (
 		<section className='page enter gap-32'>
@@ -58,6 +63,7 @@ function ShowcasePage() {
 					</label>
 					<select id='sort' value={sort} onChange={(e) => setSort(e.target.value as Sort)} className='sort-select'>
 						<option value='default'>{t.sort_def}</option>
+						{likes !== 'off' && <option value='likes'>{t.sort_likes}</option>}
 						<option value='az'>{t.sort_az}</option>
 						<option value='author'>{t.sort_author}</option>
 					</select>
@@ -67,7 +73,7 @@ function ShowcasePage() {
 				{list.map((a, k) => {
 					const v = appView(a);
 					return (
-						<div key={a.slug} className={`rv d${k % 6} flex`}>
+						<div key={a.slug} className={`rv d${k % 6} flex show-cell`}>
 							<AppLink slug={a.slug} className='win card show-card' dialog>
 								<WinBar label={v.host} size='md' className='card-bar'>
 									<span className='mono-11 c-muted'>{v.num}</span>
@@ -88,6 +94,7 @@ function ShowcasePage() {
 									<span className='show-desc'>{pick(a.desc, lang)}</span>
 								</div>
 							</AppLink>
+							<LikeButton item={likeKey.app(a)} name={a.name} className='like-btn like-on-card' />
 						</div>
 					);
 				})}

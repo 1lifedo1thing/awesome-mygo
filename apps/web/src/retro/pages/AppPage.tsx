@@ -1,10 +1,11 @@
-import { type App, APPS, appBySlug, fill, pick } from '@awesome-mygo/catalog';
+import { type App, APPS, appBySlug, fill, likeKey, pick } from '@awesome-mygo/catalog';
 import { Link, useParams } from '@tanstack/react-router';
 import { neighbours } from '../../components/AppDetail';
 import { AppLink, type AppView, appView } from '../../components/bits';
+import { LikeButton } from '../../components/Like';
 import { useLang, useT } from '../../lib/lang';
 import { useSite } from '../../lib/site';
-import { AppIcon, KindTag, StatusBar, Win, btn, btnGo, iconLabel, lnk, well } from '../ui';
+import { AppIcon, KindTag, StatusBar, Win, btn, btnGo, iconLabel, likeBtnLg, lnk, well } from '../ui';
 
 // The plain tint behind an app that has no screenshot, as in the showcase grid.
 export const noShot = 'bg-[linear-gradient(160deg,#eef2f6,#dde4ec)]';
@@ -84,6 +85,7 @@ export function AppActions({ app }: { app: App }) {
 			<button type='button' className={btn} onClick={() => copy(app.url, 'det')}>
 				{copied === 'det' ? t.copied : t.copy_link}
 			</button>
+			<LikeButton item={likeKey.app(app)} name={app.name} className={likeBtnLg} />
 		</div>
 	);
 }

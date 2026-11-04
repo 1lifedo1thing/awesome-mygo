@@ -1,7 +1,8 @@
-import { NATIVE_UI_DOCS, UI_KEYS, UI_LIBS, type UiLibKey, pick } from '@awesome-mygo/catalog';
+import { NATIVE_UI_DOCS, UI_KEYS, UI_LIBS, type UiLibKey, likeKey, pick } from '@awesome-mygo/catalog';
 import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 import { WinBar } from '../components/bits';
+import { LikeButton } from '../components/Like';
 import { useLang, useT } from '../lib/lang';
 import { pageHead } from '../lib/seo';
 import { useSite } from '../lib/site';
@@ -72,6 +73,7 @@ function UiPage() {
 											{t.visit}
 										</a>
 									)}
+									<LikeButton item={likeKey.ui(l)} name={l.name} className='like-btn like-lg like-end' size={18} />
 								</div>
 							</div>
 						</article>

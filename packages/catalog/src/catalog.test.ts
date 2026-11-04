@@ -15,6 +15,7 @@ import { AILOGO_CDN, APP_CATEGORIES, APPS, ARTICLES, COMMUNITY_PLUGINS, DOCS, PL
 import { SUBMIT_CATS, SUBMIT_FILES, appendEntry, buildEntry, codeFence, descMax, editUrl, entryProblem, guessFromLink, isBadUrl, isEntryComplete, issueUrl, jsonEntry, missingFields, slugify, withScheme } from './entry';
 import { LANGS, type LangCode, type Text, fill, langRedirectScript, negotiateLang, pick, validateRootSearch } from './lang';
 import { buildSearchIndex, searchCatalog } from './search';
+import { LIKE_KEYS, likeKey } from './likes';
 import { LOCALES } from './strings';
 import { appDescription, t } from './translate';
 import { CatalogError, readList, unique } from './validate';
@@ -131,6 +132,14 @@ describe('catalog data', () => {
 	it('strips the scheme and trailing slash for display', () => {
 		expect(hostOf('https://kero.sh/')).toBe('kero.sh');
 		expect(hostOf('https://github.com/egoist/gorex')).toBe('github.com/egoist/gorex');
+	});
+});
+
+describe('like keys', () => {
+	it('gives every likeable entry its own key', () => {
+		expect(LIKE_KEYS.size).toBe(APPS.length + UI_LIBS.length + STATE_SOLUTIONS.length + PLUGINS.length);
+		expect(LIKE_KEYS.has(likeKey.app(APPS[0]))).toBe(true);
+		expect(LIKE_KEYS.has('app:not-an-app')).toBe(false);
 	});
 });
 
