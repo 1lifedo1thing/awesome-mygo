@@ -675,18 +675,18 @@
 			"url": "https://github.com/ShellMonster/PudMusic",
 			"repo": "ShellMonster/PudMusic",
 			"summary": {
-				"en": "A native desktop music player for macOS and Windows that plays Bilibili music and local audio files.",
-				"zh-CN": "播放 B 站音乐与本地音频文件的原生 macOS、Windows 音乐播放器。",
-				"zh-TW": "播放 B 站音樂與本機音訊檔的原生 macOS、Windows 音樂播放器。",
-				"ja": "bilibili の音楽とローカルの音声ファイルを再生する、macOS・Windows 向けのネイティブな音楽プレーヤー。",
-				"ko": "빌리빌리 음악과 로컬 오디오 파일을 재생하는 macOS·Windows용 네이티브 음악 플레이어."
+				"en": "A desktop music player for macOS and Windows that plays Bilibili music and local audio files.",
+				"zh-CN": "macOS 与 Windows 桌面音乐播放器，播放 B 站音乐内容和本地音频文件。",
+				"zh-TW": "macOS 與 Windows 桌面音樂播放器，播放 B 站音樂內容與本機音訊檔案。",
+				"ja": "Bilibili の音楽とローカルの音声ファイルを再生する macOS・Windows 用音楽プレーヤー。",
+				"ko": "Bilibili 음악과 로컬 오디오 파일을 재생하는 macOS·Windows 음악 플레이어."
 			},
 			"description": {
-				"en": "A music player for macOS and Windows, written in Go and drawn with MyGo's native UI, with no WebView. It plays music from Bilibili, offering online quality options such as Hi-Res lossless after you sign in by QR code, and local FLAC, MP3, WAV, AIFF, AAC, M4A and OGG Vorbis files. You can browse charts, uploaders' channels and your favorites, reorder the play queue, and switch to a full-screen or mini player with lyrics. It is a Go rewrite and extension of the Biu player.",
-				"zh-CN": "用 Go 编写、由 MyGo 原生 UI 绘制的 macOS 与 Windows 音乐播放器，不依赖 WebView。它可以播放 B 站音乐内容，扫码登录后可选 Hi-Res 无损等在线音质，也能播放本地 FLAC、MP3、WAV、AIFF、AAC、M4A 和 OGG Vorbis 文件。可以浏览榜单、UP 主空间和收藏夹，拖动调整播放队列，并切换到带歌词显示的全屏播放器或迷你播放器。它是在 Biu 基础上用 Go 重新实现并扩展的版本。",
-				"zh-TW": "用 Go 撰寫、由 MyGo 原生 UI 繪製的 macOS 與 Windows 音樂播放器，不依賴 WebView。它能播放 B 站的音樂內容，掃碼登入後可選 Hi-Res 無損等線上音質，也能播放本機的 FLAC、MP3、WAV、AIFF、AAC、M4A 和 OGG Vorbis 檔案。可以瀏覽排行榜、UP 主頻道和收藏夾，拖曳調整播放佇列，並切換到附歌詞顯示的全螢幕播放器或迷你播放器。它是以 Biu 為基礎、用 Go 重新實作並擴充的版本。",
-				"ja": "Go で書かれ、MyGo のネイティブ UI で描かれた macOS・Windows 向けの音楽プレーヤーで、WebView は使っていません。bilibili の音楽を再生でき、QR コードでログインすると Hi-Res ロスレスなどのオンライン音質を選べます。ローカルの FLAC、MP3、WAV、AIFF、AAC、M4A、OGG Vorbis ファイルも再生できます。ランキングや UP 主のチャンネル、お気に入りを見て回り、再生キューを並べ替え、歌詞付きのフルスクリーンプレーヤーやミニプレーヤーに切り替えられます。Biu を Go で作り直し、拡張したアプリです。",
-				"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 macOS·Windows용 음악 플레이어로, WebView를 쓰지 않습니다. 빌리빌리의 음악을 재생하며, QR 코드로 로그인하면 Hi-Res 무손실 등 온라인 음질을 고를 수 있습니다. 로컬 FLAC, MP3, WAV, AIFF, AAC, M4A, OGG Vorbis 파일도 재생합니다. 차트, 업로더 채널, 즐겨찾기를 둘러보고 재생 대기열 순서를 바꾸며, 가사가 나오는 전체 화면 플레이어나 미니 플레이어로 전환할 수 있습니다. Biu를 Go로 다시 만들고 확장한 앱입니다."
+				"en": "A music player for macOS and Windows, rebuilt from Biu in Go and drawn with MyGo's native UI, with no WebView. It plays Bilibili music, with Hi-Res lossless and other online quality levels after a QR-code login, and local FLAC, MP3, WAV, AIFF, AAC, M4A and OGG Vorbis files. It has a play queue, lyrics, a mini player and system media controls.",
+				"zh-CN": "基于 Biu 用 Go 重新实现、由 MyGo 原生 UI 绘制的 macOS 与 Windows 音乐播放器，不依赖 WebView。可播放 B 站音乐内容，扫码登录后可选择 Hi-Res 无损等在线音质，也能播放本地 FLAC、MP3、WAV、AIFF、AAC、M4A 和 OGG Vorbis 文件；提供播放队列、歌词、迷你播放器和系统媒体控制。",
+				"zh-TW": "以 Biu 為基礎用 Go 重新實作、由 MyGo 原生 UI 繪製的 macOS 與 Windows 音樂播放器，不依賴 WebView。可播放 B 站音樂內容，掃碼登入後可選擇 Hi-Res 無損等線上音質，也能播放本機 FLAC、MP3、WAV、AIFF、AAC、M4A 與 OGG Vorbis 檔案；提供播放佇列、歌詞、迷你播放器與系統媒體控制。",
+				"ja": "Biu をもとに Go で作り直し、MyGo のネイティブ UI で描いた macOS・Windows 向けの音楽プレーヤー。WebView は使いません。Bilibili の音楽を再生でき、QR コードでログインすると Hi-Res ロスレスなどのオンライン音質を選べます。ローカルの FLAC、MP3、WAV、AIFF、AAC、M4A、OGG Vorbis ファイルも再生でき、再生キュー、歌詞表示、ミニプレーヤー、システムのメディアコントロールに対応します。",
+				"ko": "Biu를 바탕으로 Go로 다시 만들고 MyGo의 네이티브 UI로 그린 macOS·Windows용 음악 플레이어로, WebView를 쓰지 않습니다. Bilibili 음악을 재생하며 QR 코드로 로그인하면 Hi-Res 무손실 등 온라인 음질을 고를 수 있고, 로컬 FLAC, MP3, WAV, AIFF, AAC, M4A, OGG Vorbis 파일도 재생합니다. 재생 대기열, 가사, 미니 플레이어, 시스템 미디어 컨트롤을 지원합니다."
 			},
 			"icon": {
 				"file": "pudmusic.webp"
