@@ -1,8 +1,8 @@
-import { NATIVE_UI_DOCS, UI_LIBS, type UiLibKey } from '@awesome-mygo/catalog';
+import { NATIVE_UI_DOCS, UI_KEYS, UI_LIBS, type UiLibKey, pick } from '@awesome-mygo/catalog';
 import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 import { WinBar } from '../components/bits';
-import { useT } from '../lib/lang';
+import { useLang, useT } from '../lib/lang';
 import { pageHead } from '../lib/seo';
 import { useSite } from '../lib/site';
 
@@ -11,14 +11,14 @@ export const Route = createFileRoute('/ui')({
 	component: UiPage,
 });
 
-const KEYS: readonly UiLibKey[] = ['theme', 'retro', 'icons'];
 const TAG: Record<UiLibKey, 'tag_theme' | 'tag_retro' | 'tag_icons'> = { theme: 'tag_theme', retro: 'tag_retro', icons: 'tag_icons' };
 
 function UiPage() {
 	const t = useT();
+	const lang = useLang();
 	const { openSubmit } = useSite();
 	const [filter, setFilter] = useState<'all' | UiLibKey>('all');
-	const chips = [{ key: 'all' as const, label: `${t.all} · ${UI_LIBS.length}` }, ...KEYS.map((k) => ({ key: k, label: `${t[TAG[k]]} · ${UI_LIBS.filter((l) => l.key === k).length}` }))];
+	const chips = [{ key: 'all' as const, label: `${t.all} · ${UI_LIBS.length}` }, ...UI_KEYS.map((k) => ({ key: k, label: `${t[TAG[k]]} · ${UI_LIBS.filter((l) => l.key === k).length}` }))];
 	const libs = UI_LIBS.filter((l) => filter === 'all' || l.key === filter);
 
 	return (
@@ -58,9 +58,9 @@ function UiPage() {
 										<h2 className='lib-name'>{l.name}</h2>
 										<span className='lib-by'>by {l.author}</span>
 									</div>
-									<span className='lib-tag'>{t[l.tagKey]}</span>
+									<span className='lib-tag'>{t[TAG[l.key]]}</span>
 								</div>
-								<p className='lib-desc'>{t[l.descKey]}</p>
+								<p className='lib-desc'>{pick(l.desc, lang)}</p>
 								<div className='cta-acts'>
 									<a className='btn-c btn-44' href={l.url} target='_blank' rel='noopener'>
 										{t.on_github}

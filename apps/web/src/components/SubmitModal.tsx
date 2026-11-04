@@ -1,4 +1,4 @@
-import { SHOWCASE_SOURCE, SITE_REPO, SUBMIT_CATS, type SubmitCat, descMax, isBadUrl, isEntryComplete, issueUrl, listEntry, showcaseEntry } from '@awesome-mygo/catalog';
+import { DATA_DIR, SITE_REPO, SUBMIT_CATS, SUBMIT_FILES, type SubmitCat, descMax, editUrl, fill, isBadUrl, isEntryComplete, issueUrl, jsonEntry, needsAuthor } from '@awesome-mygo/catalog';
 import { useDialog } from '../lib/dialog';
 import { useT } from '../lib/lang';
 import { useSite } from '../lib/site';
@@ -18,11 +18,14 @@ function Modal() {
 	const isShow = form.cat === 'showcase';
 	const max = descMax(form.cat);
 	const urlBad = isBadUrl(form.url);
-	const ok = isEntryComplete(form) && form.desc.length <= max;
+	const ok = isEntryComplete(form.cat, form) && form.desc.length <= max;
 	const ph = { name: t.m_name, desc: t.md_desc };
-	const entry = isShow ? showcaseEntry(form, form.mode, ph) : listEntry(form, ph);
-	// Apps go to MyGo's own showcase.ts as a pull request; everything else opens an issue here, prefilled with the entry.
-	const target = isShow ? SHOWCASE_SOURCE : issueUrl(SITE_REPO, catLabel[form.cat], form, ph);
+	const withAuthor = needsAuthor(form.cat);
+	const file = SUBMIT_FILES[form.cat].file;
+	const entry = jsonEntry(form.cat, form, form.mode, ph);
+	// Every category ends up as an entry in its JSON file here: either an issue prefilled with the entry, or GitHub's editor on that file for a pull request.
+	const issue = issueUrl(SITE_REPO, form.cat, catLabel[form.cat], form, entry, ph);
+	const edit = editUrl(SITE_REPO, form.cat);
 
 	return (
 		<div className='overlay overlay-center fade'>
@@ -32,7 +35,7 @@ function Modal() {
 						<h2 id='dlg' className='modal-title'>
 							{t.m_title}
 						</h2>
-						<p className='modal-sub'>{isShow ? t.m_desc_show : t.m_desc}</p>
+						<p className='modal-sub'>{t.m_desc}</p>
 					</div>
 					<button type='button' className='btn-g icon-btn icon-44' onClick={closeSubmit} aria-label={t.close}>
 						<CloseIcon size={18} />
@@ -84,6 +87,14 @@ function Modal() {
 						/>
 					</div>
 				</div>
+				{withAuthor && (
+					<div className='stack-8'>
+						<label htmlFor='f-author' className='field-label'>
+							{t.m_author}
+						</label>
+						<input id='f-author' type='text' value={form.author} onChange={(e) => setFormField('author', e.target.value)} placeholder={t.m_author_ph} className='field' autoComplete='username' />
+					</div>
+				)}
 				{urlBad && (
 					<p id='f-url-err' role='alert' className='field-err'>
 						{t.m_bad}
@@ -100,19 +111,21 @@ function Modal() {
 				</div>
 				<div className='stack-8'>
 					<span className='field-label'>
-						{t.m_preview} · {isShow ? 'website/src/showcase.ts' : `Issue › ${catLabel[form.cat]}`}
+						{t.m_preview} · <span lang='en'>{`${DATA_DIR}/${file}`}</span>
 					</span>
-					<div className='md-preview'>
-						{!isShow && <span className='c-cyan'>+ </span>}
+					<pre className='md-preview' lang='en'>
 						{entry}
-					</div>
+					</pre>
 				</div>
 				<div className='modal-acts'>
 					<button type='button' className='btn-g btn-copy-line' onClick={() => ok && copy(entry, 'line')} disabled={!ok}>
 						{copied === 'line' ? t.copied : t.copy_entry}
 					</button>
-					<a className='btn-c btn-pr' href={target} target='_blank' rel='noopener'>
-						{isShow ? t.go_pr_show : t.go_pr}
+					<a className='btn-copy-line btn-pr' href={edit} target='_blank' rel='noopener'>
+						{fill(t.go_edit, { x: file })}
+					</a>
+					<a className='btn-c btn-pr' href={issue} target='_blank' rel='noopener'>
+						{t.go_pr}
 					</a>
 				</div>
 			</div>

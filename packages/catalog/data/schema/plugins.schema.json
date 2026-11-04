@@ -1,0 +1,71 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "plugins.schema.json",
+	"title": "MyGo plugins",
+	"type": "object",
+	"required": [
+		"plugins"
+	],
+	"additionalProperties": false,
+	"properties": {
+		"$schema": {
+			"type": "string"
+		},
+		"plugins": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"additionalProperties": false,
+				"required": [
+					"slug",
+					"name",
+					"mark",
+					"official",
+					"surface",
+					"tags",
+					"docs",
+					"summary"
+				],
+				"properties": {
+					"slug": {
+						"$ref": "common.schema.json#/$defs/slug"
+					},
+					"name": {
+						"type": "string",
+						"minLength": 1
+					},
+					"mark": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 2,
+						"description": "One or two letters for the card."
+					},
+					"official": {
+						"type": "boolean",
+						"description": "true for egoist/mygo plugins; community plugins are false."
+					},
+					"surface": {
+						"enum": [
+							"web",
+							"native",
+							"both"
+						],
+						"description": "The kind of window it serves."
+					},
+					"tags": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"docs": {
+						"$ref": "common.schema.json#/$defs/url"
+					},
+					"summary": {
+						"$ref": "common.schema.json#/$defs/text"
+					}
+				}
+			}
+		}
+	}
+}

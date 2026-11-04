@@ -2456,6 +2456,9 @@ html:lang(ko) .site {
 	color: var(--fg);
 	white-space: pre-wrap;
 	word-break: break-all;
+	margin: 0;
+	max-height: 260px;
+	overflow: auto;
 }
 .modal-acts {
 	display: flex;
@@ -2484,6 +2487,7 @@ html:lang(ko) .site {
 	padding: 0 20px;
 	border-radius: 10px;
 	font-size: 14px;
+	text-decoration: none;
 }
 
 /* `translate` rather than `transform`, so the entrance animation (which animates transform) cannot undo the centring. */

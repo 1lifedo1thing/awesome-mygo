@@ -1,0 +1,40 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "articles.schema.json",
+	"title": "Articles about MyGo",
+	"type": "object",
+	"required": [
+		"articles"
+	],
+	"additionalProperties": false,
+	"properties": {
+		"$schema": {
+			"type": "string"
+		},
+		"articles": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"additionalProperties": false,
+				"required": [
+					"title",
+					"site",
+					"url"
+				],
+				"properties": {
+					"title": {
+						"type": "string",
+						"minLength": 1
+					},
+					"site": {
+						"type": "string",
+						"minLength": 1
+					},
+					"url": {
+						"$ref": "common.schema.json#/$defs/url"
+					}
+				}
+			}
+		}
+	}
+}
