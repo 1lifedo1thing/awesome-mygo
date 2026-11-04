@@ -1,4 +1,4 @@
-import { APPS, type AppKind, MYGO_SHOWCASE, likeKey, pad2, pick } from '@awesome-mygo/catalog';
+import { APPS, type AppKind, likeKey, pad2, pick } from '@awesome-mygo/catalog';
 import { type AppSort, groupChips, sortApps, validateShowcaseSearch } from '../lib/showcase';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { AppLink, KindTag, MonoTile, WinBar, appView } from '../components/bits';
@@ -40,12 +40,6 @@ function ShowcasePage() {
 				<div className='stack-14'>
 					<span className='kicker'>~/SHOWCASE</span>
 					<h1 className='page-h1'>{t.cat_show_name}</h1>
-					<p className='page-p mw-640'>
-						{t.show_p}{' '}
-						<a href={MYGO_SHOWCASE} target='_blank' rel='noopener'>
-							mygo.egoist.dev/showcase
-						</a>
-					</p>
 				</div>
 				<span className='show-count'>{pad2(list.length)}</span>
 			</div>
