@@ -633,6 +633,20 @@ html:lang(ko) .site {
 .lang {
 	position: relative;
 }
+/* Square, in the language button's frame. */
+.gh-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex: none;
+	width: 44px;
+	height: 44px;
+	box-sizing: border-box;
+	border: 1px solid var(--line-2);
+	border-radius: 10px;
+	background: var(--well);
+	color: var(--fg);
+}
 .lang-btn {
 	display: flex;
 	align-items: center;
@@ -2568,6 +2582,15 @@ button.btn-pr:disabled {
 }
 
 /* ---- responsive (from the design) ---- */
+/* Between the burger breakpoint and 1200px the nav and the header actions share one row; the search button drops its label there, so the GitHub button fits without wrapping English or Japanese onto a second row. */
+@media (max-width: 1200px) {
+	.sbtn {
+		min-width: 0;
+	}
+	.sbtn .lbl {
+		display: none;
+	}
+}
 @media (max-width: 1000px) {
 	.wall .far {
 		display: none;
