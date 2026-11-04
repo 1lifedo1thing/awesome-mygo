@@ -1,5 +1,5 @@
 import { CLI_CMDS, COMMUNITY_PLUGINS, PLUGINS, PLUGINS_DOC, type PluginSurface, fill, likeKey, pick } from '@awesome-mygo/catalog';
-import { useState } from 'react';
+import { useNavigate, useSearch } from '@tanstack/react-router';
 import { LikeButton } from '../../components/Like';
 import { useLang, useT } from '../../lib/lang';
 import { useSite } from '../../lib/site';
@@ -22,7 +22,11 @@ export function Plugins() {
 function Explorer() {
 	const t = useT();
 	const lang = useLang();
-	const [surface, setSurface] = useState<'all' | 'web' | 'native'>('all');
+	// ?surface= keeps the filter in the address, as in the original look.
+	const { surface: surfaceParam } = useSearch({ from: '/plugins' });
+	const navigate = useNavigate({ from: '/plugins' });
+	const surface = surfaceParam ?? 'all';
+	const setSurface = (s: 'all' | 'web' | 'native') => void navigate({ search: (prev) => ({ ...prev, surface: s === 'all' ? undefined : s }), replace: true, resetScroll: false });
 	const surfLabel: Record<PluginSurface, string> = { web: t.surf_web, native: t.surf_native, both: t.surf_both };
 	// A plugin for both kinds of window shows under either filter.
 	const shown = PLUGINS.filter((p) => surface === 'all' || p.surface === surface || p.surface === 'both');

@@ -1,6 +1,5 @@
 import { APPS, INSTALL_CMDS, INSTALL_TABS, type InstallTab, type LangCode, MYGO_SITE, PLUGINS, UI_LIBS, fill, langDef } from '@awesome-mygo/catalog';
-import { Link } from '@tanstack/react-router';
-import { useState } from 'react';
+import { Link, useNavigate, useSearch } from '@tanstack/react-router';
 import { useLang, useT } from '../../lib/lang';
 import { useSite } from '../../lib/site';
 import { DesktopIcons } from '../DesktopIcons';
@@ -87,7 +86,11 @@ function Welcome() {
 function Terminal() {
 	const t = useT();
 	const { copy, copied } = useSite();
-	const [tab, setTab] = useState<InstallTab>('bun');
+	// ?install= keeps the tab in the address, as in the original look.
+	const { install } = useSearch({ from: '/' });
+	const navigate = useNavigate({ from: '/' });
+	const tab: InstallTab = install ?? 'bun';
+	const setTab = (k: InstallTab) => void navigate({ search: (prev) => ({ ...prev, install: k === 'bun' ? undefined : k }), replace: true, resetScroll: false });
 	const cmd = INSTALL_CMDS[tab];
 	return (
 		<Win title={`${t.r_terminal} — my-app`} idle className='order-3'>

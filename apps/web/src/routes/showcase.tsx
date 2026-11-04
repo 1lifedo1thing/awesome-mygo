@@ -1,7 +1,6 @@
 import { APPS, type AppKind, MYGO_SHOWCASE, likeKey, pad2, pick } from '@awesome-mygo/catalog';
 import { type AppSort, groupChips, sortApps, validateShowcaseSearch } from '../lib/showcase';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
-import { useState } from 'react';
 import { AppLink, KindTag, MonoTile, WinBar, appView } from '../components/bits';
 import { LikeButton } from '../components/Like';
 import { useLang, useT } from '../lib/lang';
@@ -18,11 +17,12 @@ export const Route = createFileRoute('/showcase')({
 function ShowcasePage() {
 	const t = useT();
 	const lang = useLang();
-	const { cat: group, ui: kind } = Route.useSearch();
+	const { cat: group, ui: kind, sort: sortParam } = Route.useSearch();
 	const navigate = useNavigate({ from: '/showcase' });
-	const setFilter = (next: { cat?: typeof group; ui?: AppKind }) => void navigate({ search: (prev) => ({ ...prev, ...next }), replace: true, resetScroll: false });
+	const setFilter = (next: { cat?: typeof group; ui?: AppKind; sort?: typeof sortParam }) => void navigate({ search: (prev) => ({ ...prev, ...next }), replace: true, resetScroll: false });
 	const { status: likes, counts } = useLikes();
-	const [sort, setSort] = useState<AppSort>('natural');
+	// With likes off there is no most-liked order to show, whatever the link says.
+	const sort: AppSort = sortParam === 'likes' && likes === 'off' ? 'natural' : (sortParam ?? 'natural');
 
 	const nNative = APPS.filter((a) => a.kind === 'native').length;
 	// The groups count the apps of the chosen interface, so a chip never leads to an empty list.
@@ -75,7 +75,7 @@ function ShowcasePage() {
 						<label htmlFor='sort' className='sort-label'>
 							{t.sort}
 						</label>
-						<select id='sort' value={sort} onChange={(e) => setSort(e.target.value as AppSort)} className='sort-select'>
+						<select id='sort' value={sort} onChange={(e) => setFilter({ sort: e.target.value === 'natural' ? undefined : (e.target.value as typeof sortParam) })} className='sort-select'>
 							<option value='natural'>{t.sort_natural}</option>
 							<option value='newest'>{t.sort_new}</option>
 							{likes !== 'off' && <option value='likes'>{t.sort_likes}</option>}

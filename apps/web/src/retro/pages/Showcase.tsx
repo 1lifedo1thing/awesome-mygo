@@ -1,6 +1,5 @@
 import { APPS, type AppKind, MYGO_SHOWCASE, fill, likeKey, pick } from '@awesome-mygo/catalog';
 import { Link, useNavigate, useSearch } from '@tanstack/react-router';
-import { useState } from 'react';
 import { AppLink } from '../../components/bits';
 import { LikeButton } from '../../components/Like';
 import { useLang, useT } from '../../lib/lang';
@@ -29,14 +28,16 @@ export function Showcase() {
 	const t = useT();
 	const lang = useLang();
 	const { openSubmit } = useSite();
-	// The group and the interface are kept in the address (?cat=, ?ui=), as in the original look; the author and the sort stay on this page.
-	const { cat: group, ui } = useSearch({ from: '/showcase' });
+	// The whole view is kept in the address (?cat=, ?ui=, ?sort=, ?author=), so a link reproduces it.
+	const { cat: group, ui, sort: sortParam, author: authorParam } = useSearch({ from: '/showcase' });
 	const kind = ui ?? 'all';
 	const navigate = useNavigate({ from: '/showcase' });
-	const setFilter = (next: { cat?: typeof group; ui?: AppKind }) => void navigate({ search: (prev) => ({ ...prev, ...next }), replace: true, resetScroll: false });
-	const [author, setAuthor] = useState<string | null>(null);
+	const setFilter = (next: { cat?: typeof group; ui?: AppKind; sort?: typeof sortParam; author?: string }) => void navigate({ search: (prev) => ({ ...prev, ...next }), replace: true, resetScroll: false });
+	const author = authorParam ?? null;
+	const setAuthor = (name: string | null) => setFilter({ author: name ?? undefined });
 	const { status: likes, counts } = useLikes();
-	const [sort, setSort] = useState<AppSort>('natural');
+	// With likes off there is no most-liked order to show, whatever the link says.
+	const sort: AppSort = sortParam === 'likes' && likes === 'off' ? 'natural' : (sortParam ?? 'natural');
 
 	const kinds = [
 		{ key: 'all', label: t.all, n: APPS.length },
@@ -83,7 +84,7 @@ export function Showcase() {
 					<span className='flex-1' />
 					<label className='flex items-center gap-1.5 whitespace-nowrap'>
 						{t.sort}
-						<select value={sort} onChange={(e) => setSort(e.target.value as AppSort)} className={select}>
+						<select value={sort} onChange={(e) => setFilter({ sort: e.target.value === 'natural' ? undefined : (e.target.value as typeof sortParam) })} className={select}>
 							<option value='natural'>{t.sort_natural}</option>
 							<option value='newest'>{t.sort_new}</option>
 							{likes !== 'off' && <option value='likes'>{t.sort_likes}</option>}
@@ -164,10 +165,7 @@ export function Showcase() {
 									<button
 										type='button'
 										className={`${lnk} cursor-pointer border-0 bg-transparent p-0`}
-										onClick={() => {
-											setAuthor(null);
-											setFilter({ cat: undefined, ui: undefined });
-										}}
+										onClick={() => setFilter({ cat: undefined, ui: undefined, author: undefined })}
 									>
 										{t.f_clear}
 									</button>
