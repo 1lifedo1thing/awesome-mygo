@@ -10,7 +10,7 @@ import { StatusBar, Win, btn, btnGo, btnSm, well } from '../ui';
 const H1_SIZE: Record<LangCode, string> = {
 	'zh-CN': 'text-[40px] leading-[48px] desk:text-[64px] desk:leading-[72px]',
 	'zh-TW': 'text-[40px] leading-[48px] desk:text-[64px] desk:leading-[72px]',
-	ja: 'text-[32px] leading-[40px] desk:text-[52px] desk:leading-[60px]',
+	ja: 'text-[26px] leading-[34px] desk:text-[44px] desk:leading-[52px]',
 	ko: 'text-[32px] leading-[40px] desk:text-[52px] desk:leading-[60px]',
 	en: 'text-[26px] leading-[32px] desk:text-[44px] desk:leading-[52px]',
 };
@@ -35,9 +35,9 @@ function Welcome() {
 	const lines = t.r_h1.split('\n');
 	return (
 		<Win title='README.txt' level={2} className='order-1'>
-			<div className={`${well} relative px-5 pt-[22px] pb-[18px] desk:px-9 desk:pt-[30px] desk:pb-6`}>
+			<div className={`${well} relative px-5 pt-[22px] pb-[18px] desk:px-9 desk:pt-6 desk:pb-6`}>
 				<span aria-hidden='true' className='absolute inset-x-0 top-0 h-3 border-b border-lo ruler' />
-				<h1 className={`px-text my-3 font-normal desk:mt-3.5 desk:mb-4 ${H1_SIZE[lang]}`}>
+				<h1 className={`px-text my-3 font-normal desk:mt-2.5 desk:mb-4 ${H1_SIZE[lang]}`}>
 					{lines.map((line, i) => (
 						<span key={line} className='block whitespace-nowrap'>
 							{line.split(/(\bGo\b)/).map((part, j) =>
