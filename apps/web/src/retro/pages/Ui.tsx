@@ -1,5 +1,5 @@
 import { NATIVE_UI_DOCS, UI_KEYS, UI_LIBS, type UiLib, type UiLibKey, fill, likeKey, pick } from '@awesome-mygo/catalog';
-import { useState } from 'react';
+import { useNavigate, useSearch } from '@tanstack/react-router';
 import { LikeButton } from '../../components/Like';
 import { useLang, useT } from '../../lib/lang';
 import { useSite } from '../../lib/site';
@@ -11,7 +11,11 @@ const TAG: Record<UiLibKey, 'tag_theme' | 'tag_retro' | 'tag_icons'> = { theme: 
 // The UI components page: one window with the filter in its toolbar, the introduction in a side panel and the libraries in a list that scrolls inside the window, so the page stays on one screen on the desktop. A sticky note beside it asks for more.
 export function Ui() {
 	const t = useT();
-	const [filter, setFilter] = useState<'all' | UiLibKey>('all');
+	// ?tag= keeps the filter in the address, as in the original look.
+	const { tag } = useSearch({ from: '/ui' });
+	const navigate = useNavigate({ from: '/ui' });
+	const filter = tag ?? 'all';
+	const setFilter = (k: 'all' | UiLibKey) => void navigate({ search: (prev) => ({ ...prev, tag: k === 'all' ? undefined : k }), replace: true, resetScroll: false });
 	const chips = [{ key: 'all' as const, label: `${t.all} · ${UI_LIBS.length}` }, ...UI_KEYS.map((k) => ({ key: k, label: `${t[TAG[k]]} · ${UI_LIBS.filter((l) => l.key === k).length}` }))];
 	const libs = UI_LIBS.filter((l) => filter === 'all' || l.key === filter);
 	return (

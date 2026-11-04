@@ -1,9 +1,9 @@
 import { CLI_CMDS, COMMUNITY_PLUGINS, PLUGINS, PLUGINS_DOC, type PluginSurface, fill, likeKey, pick } from '@awesome-mygo/catalog';
-import { createFileRoute } from '@tanstack/react-router';
-import { useState } from 'react';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { WinBar } from '../components/bits';
 import { LikeButton } from '../components/Like';
 import { useLikes } from '../lib/likes';
+import { validatePluginsSearch } from '../lib/page-search';
 import { useLang, useT } from '../lib/lang';
 import { pageHead } from '../lib/seo';
 import { useSite } from '../lib/site';
@@ -19,6 +19,8 @@ function goLine(path: string): { head: string; tail: string } {
 }
 
 export const Route = createFileRoute('/plugins')({
+	// ?surface= and ?sort= keep the filter and the order in the address, so a link reproduces the view.
+	validateSearch: validatePluginsSearch,
 	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/plugins', title: 'title_plugins', desc: 'desc_plugins', name: 'nav_plugins' }),
 	component: PluginsPage,
 });
@@ -27,12 +29,18 @@ function PluginsPage() {
 	const t = useT();
 	const lang = useLang();
 	const { openSubmit, copy, copied } = useSite();
-	const [surface, setSurface] = useState<'all' | 'web' | 'native'>('all');
+	const search = Route.useSearch();
+	const navigate = useNavigate({ from: '/plugins' });
+	const setSearch = (next: typeof search) => void navigate({ search: (prev) => ({ ...prev, ...next }), replace: true, resetScroll: false });
+	const surface = search.surface ?? 'all';
+	const setSurface = (s: 'all' | 'web' | 'native') => setSearch({ surface: s === 'all' ? undefined : s });
 	const surfLabel: Record<PluginSurface, string> = { web: t.surf_web, native: t.surf_native, both: t.surf_both };
 	// A plugin for both kinds of window shows under either filter.
 	const fits = (s: PluginSurface) => surface === 'all' || s === surface || s === 'both';
 	const { status: likes, counts } = useLikes();
-	const [byLikes, setByLikes] = useState(false);
+	// With likes off there is no most-liked order to show, whatever the link says.
+	const byLikes = search.sort === 'likes' && likes !== 'off';
+	const setByLikes = (on: boolean) => setSearch({ sort: on ? 'likes' : undefined });
 	const shown = PLUGINS.filter((p) => fits(p.surface));
 	// Most liked first; ties keep the docs' order.
 	if (byLikes) shown.sort((a, b) => (counts[likeKey.plugin(b)] ?? 0) - (counts[likeKey.plugin(a)] ?? 0));

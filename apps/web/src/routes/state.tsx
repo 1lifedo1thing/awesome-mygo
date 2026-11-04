@@ -1,24 +1,29 @@
 import { BINDINGS_DOC, STATE_SOLUTIONS, likeKey, pad2, pick } from '@awesome-mygo/catalog';
-import { createFileRoute } from '@tanstack/react-router';
-import { useState } from 'react';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { Docky, WinBar } from '../components/bits';
 import { LikeButton } from '../components/Like';
 import { useLang, useT } from '../lib/lang';
+import { type StateBlock, validateStateSearch } from '../lib/page-search';
 import { pageHead } from '../lib/seo';
 import { useSite } from '../lib/site';
 
 export const Route = createFileRoute('/state')({
+	// ?block= keeps the open example in the address, so a link reproduces the view.
+	validateSearch: validateStateSearch,
 	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/state', title: 'title_state', desc: 'desc_state', name: 'cat_state_name' }),
 	component: StatePage,
 });
 
-type BlockId = 'bind' | 'chan' | 'evt';
+type BlockId = StateBlock;
 
 function StatePage() {
 	const t = useT();
 	const lang = useLang();
 	const { openSubmit, copy, copied } = useSite();
-	const [block, setBlock] = useState<BlockId>('bind');
+	const search = Route.useSearch();
+	const navigate = useNavigate({ from: '/state' });
+	const block: BlockId = search.block ?? 'bind';
+	const setBlock = (b: BlockId) => void navigate({ search: (prev) => ({ ...prev, block: b === 'bind' ? undefined : b }), replace: true, resetScroll: false });
 	const blocks = [
 		{ id: 'bind', kicker: 'mygo.Bind', name: t.blk_bind_n, desc: t.blk_bind_d, code: 'import { Greeter } from "./mygo" // generated\n\nawait Greeter.greet("Ada")' },
 		{ id: 'chan', kicker: 'channels', name: t.blk_chan_n, desc: t.blk_chan_d, code: `// ${t.see}\n// docs/bindings.md › channels` },

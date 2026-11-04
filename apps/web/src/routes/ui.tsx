@@ -1,13 +1,15 @@
 import { NATIVE_UI_DOCS, UI_KEYS, UI_LIBS, type UiLibKey, likeKey, pick } from '@awesome-mygo/catalog';
-import { createFileRoute } from '@tanstack/react-router';
-import { useState } from 'react';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { WinBar } from '../components/bits';
 import { LikeButton } from '../components/Like';
 import { useLang, useT } from '../lib/lang';
+import { validateUiSearch } from '../lib/page-search';
 import { pageHead } from '../lib/seo';
 import { useSite } from '../lib/site';
 
 export const Route = createFileRoute('/ui')({
+	// ?tag= keeps the filter in the address, so a link reproduces the view.
+	validateSearch: validateUiSearch,
 	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/ui', title: 'title_ui', desc: 'desc_ui', name: 'cat_ui_name' }),
 	component: UiPage,
 });
@@ -18,7 +20,10 @@ function UiPage() {
 	const t = useT();
 	const lang = useLang();
 	const { openSubmit } = useSite();
-	const [filter, setFilter] = useState<'all' | UiLibKey>('all');
+	const { tag } = Route.useSearch();
+	const navigate = useNavigate({ from: '/ui' });
+	const filter = tag ?? 'all';
+	const setFilter = (k: 'all' | UiLibKey) => void navigate({ search: (prev) => ({ ...prev, tag: k === 'all' ? undefined : k }), replace: true, resetScroll: false });
 	const chips = [{ key: 'all' as const, label: `${t.all} · ${UI_LIBS.length}` }, ...UI_KEYS.map((k) => ({ key: k, label: `${t[TAG[k]]} · ${UI_LIBS.filter((l) => l.key === k).length}` }))];
 	const libs = UI_LIBS.filter((l) => filter === 'all' || l.key === filter);
 

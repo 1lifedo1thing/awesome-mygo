@@ -1,13 +1,24 @@
-import { APP_GROUPS, type App, type AppGroup, type AppKind, appGroup, byNewest, isAppGroup, likeKey } from '@awesome-mygo/catalog';
+import { APPS, APP_GROUPS, type App, type AppGroup, type AppKind, appGroup, byNewest, isAppGroup, likeKey } from '@awesome-mygo/catalog';
+import { oneOf, text } from './page-search';
 
-// The showcase's filters in the address: ?cat= a group, ?ui= native or web. Both keys are always returned, undefined when absent or invalid, for the same reason as validateRootSearch: TanStack merges the validated object over the raw search.
+// The showcase's view in the address: ?cat= a group, ?ui= native or web, ?sort= newest or likes (natural order when absent), and in the retro look ?author= the author picked in its side panel. Every key is always returned, undefined when absent or invalid, for the same reason as validateRootSearch: TanStack merges the validated object over the raw search.
 export interface ShowcaseSearch {
 	cat?: AppGroup;
 	ui?: AppKind;
+	sort?: Exclude<AppSort, 'natural'>;
+	author?: string;
 }
 
+const AUTHORS = new Set(APPS.map((a) => a.author));
+
 export function validateShowcaseSearch(search: Record<string, unknown>): ShowcaseSearch {
-	return { cat: isAppGroup(search.cat) ? search.cat : undefined, ui: search.ui === 'native' || search.ui === 'web' ? search.ui : undefined };
+	const author = text(search.author);
+	return {
+		cat: isAppGroup(search.cat) ? search.cat : undefined,
+		ui: search.ui === 'native' || search.ui === 'web' ? search.ui : undefined,
+		sort: oneOf(search.sort, ['newest', 'likes'] as const),
+		author: author !== undefined && AUTHORS.has(author) ? author : undefined,
+	};
 }
 
 // The showcase's orders: by name in natural order (the default, and APPS' own order), newest first, or most liked first.

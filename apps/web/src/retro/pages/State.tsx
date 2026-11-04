@@ -1,12 +1,13 @@
 import { BINDINGS_DOC, STATE_SOLUTIONS, fill, likeKey, pad2, pick } from '@awesome-mygo/catalog';
-import { useState } from 'react';
+import { useNavigate, useSearch } from '@tanstack/react-router';
+import type { StateBlock } from '../../lib/page-search';
 import { LikeButton } from '../../components/Like';
 import { useLang, useT } from '../../lib/lang';
 import { useSite } from '../../lib/site';
 import { DesktopIcons } from '../DesktopIcons';
 import { PixelIcon, StatusBar, Win, btnGo, btnSm, field, likeBtn, well } from '../ui';
 
-type BlockId = 'bind' | 'chan' | 'evt';
+type BlockId = StateBlock;
 
 // The state page: a header window, the listed solutions in a tall window on the right, MyGo's built-in primitives as a property sheet with a code pane, and a dialog asking for more solutions. Below the desktop breakpoint the windows stack in that order.
 // On the desktop the grid is exactly one window tall, so the page fits one screen. The primitives row takes its content height or what the header and the dialog leave, whichever is less, and the last row soaks up the rest; the primitives and solutions windows scroll inside themselves when they are cut short.
@@ -109,7 +110,11 @@ function Solutions() {
 // The built-in primitives as a property sheet: numbered tabs down the left, the selected one's snippet in a code pane on the right.
 function Primitives() {
 	const t = useT();
-	const [block, setBlock] = useState<BlockId>('bind');
+	// ?block= keeps the open example in the address, as in the original look.
+	const search = useSearch({ from: '/state' });
+	const navigate = useNavigate({ from: '/state' });
+	const block: BlockId = search.block ?? 'bind';
+	const setBlock = (b: BlockId) => void navigate({ search: (prev) => ({ ...prev, block: b === 'bind' ? undefined : b }), replace: true, resetScroll: false });
 	const blocks = [
 		{ id: 'bind', kicker: 'mygo.Bind', name: t.blk_bind_n, desc: t.blk_bind_d, code: 'import { Greeter } from "./mygo" // generated\n\nawait Greeter.greet("Ada")' },
 		{ id: 'chan', kicker: 'channels', name: t.blk_chan_n, desc: t.blk_chan_d, code: `// ${t.see}\n// docs/bindings.md › channels` },

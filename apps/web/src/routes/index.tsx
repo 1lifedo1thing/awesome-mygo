@@ -1,13 +1,16 @@
 import { APPS, INSTALL_CMDS, INSTALL_TABS, type InstallTab, MYGO_SITE, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, fill, langDef, pad2, pick } from '@awesome-mygo/catalog';
-import { Link, createFileRoute } from '@tanstack/react-router';
-import { type CSSProperties, type PointerEvent, useRef, useState } from 'react';
+import { Link, createFileRoute, useNavigate } from '@tanstack/react-router';
+import { type CSSProperties, type PointerEvent, useRef } from 'react';
 import { AppLink, KindTag, MonoTile, WinBar, appView } from '../components/bits';
 import { useLang, useT } from '../lib/lang';
 import { prefersReducedMotion, tilt, useCountUp } from '../lib/motion';
+import { validateHomeSearch } from '../lib/page-search';
 import { pageHead } from '../lib/seo';
 import { useSite } from '../lib/site';
 
 export const Route = createFileRoute('/')({
+	// ?install= keeps the install command's tab in the address, so a link reproduces the view.
+	validateSearch: validateHomeSearch,
 	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/', title: null, desc: 'desc_home', name: 'nav_home' }),
 	component: HomePage,
 });
@@ -100,7 +103,10 @@ function Hero() {
 	const t = useT();
 	const lang = useLang();
 	const { copy, copied } = useSite();
-	const [tab, setTab] = useState<InstallTab>('bun');
+	const { install } = Route.useSearch();
+	const navigate = useNavigate({ from: '/' });
+	const tab: InstallTab = install ?? 'bun';
+	const setTab = (k: InstallTab) => void navigate({ search: (prev) => ({ ...prev, install: k === 'bun' ? undefined : k }), replace: true, resetScroll: false });
 	const heroRef = useRef<HTMLElement>(null);
 	const e = useCountUp();
 	const words = langDef(lang).words;
