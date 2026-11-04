@@ -46,7 +46,7 @@ export interface App {
 	about: Localized;
 	// Screenshot under /shots/, when the project provides one.
 	image?: string;
-	// The app's icon: its ai-logo avatar on the ai-logo CDN, its official icon under /icons/ when ai-logo has none that serves (MyGo Cloud Music's mark there is cut by its old tile), or none, for the letter tile.
+	// The app's icon: its ai-logo avatar on the ai-logo CDN, its official icon under /icons/ when ai-logo has none or none that serves (MyGo Cloud Music's mark there had two stray edges from a crop bug in its tracing, fixed in ai-logo after v1.18.0), or none, for the letter tile.
 	icon?: string;
 }
 
