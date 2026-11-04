@@ -1,4 +1,5 @@
-/* Retro desktop theme. Loaded only when the theme cookie picks it; the original look keeps styles.css. Tailwind scans only this folder, so the original components' class names never reach this stylesheet. */
+/* Desktop theme. Loaded only when the theme cookie picks it; the original look keeps styles.css. Tailwind scans only this folder, so the original components' class names never reach this stylesheet. */
+/* The desktop metaphor (menu bar, folder icons, windows) is the only period touch; the windows themselves are drawn like a current desktop: system type, rounded corners, hairline borders and soft shadows. */
 @import 'tailwindcss' source(none);
 @source './';
 
@@ -6,27 +7,30 @@
 	--color-ink: #10233a;
 	--color-desk: #6f8f9a;
 	--color-desk-lo: #5f7f8a;
-	--color-face: #e6dfcc;
-	--color-face-lo: #d6cebb;
-	--color-hi: #fffdf5;
-	--color-lo: #a39a82;
-	--color-paper: #fbf8ef;
+	--color-face: #f4f5f7;
+	--color-face-lo: #e8ebef;
+	--color-hi: #ffffff;
+	--color-lo: #b4bcc6;
+	--color-line: rgb(16 35 58 / 0.14);
+	--color-paper: #ffffff;
 	--color-pur: #5b4bd8;
 	--color-pur-hi: #7465ef;
 	--color-yel: #ffd23f;
 	--color-yel-hi: #ffe07a;
-	--color-note: #ffe680;
-	--color-note-bar: #f5d24a;
+	--color-note: #fff6c7;
+	--color-note-bar: #fde68a;
 	--color-red: #e24b3b;
-	--color-muted: #5d5747;
-	--color-faint: #6d6758;
+	--color-muted: #556070;
+	--color-faint: #687384;
 	--color-sky: #7fd6f0;
 	--color-slate: #8f9bab;
 
-	--font-px: 'Fusion Pixel SC', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;
-	/* Body text: the reader's own sans; the pixel faces are kept for the chrome (menu bar, window titles, icon labels) and the headline. */
 	--font-ui: system-ui, -apple-system, 'PingFang SC', 'Hiragino Sans', 'Apple SD Gothic Neo', 'Noto Sans CJK SC', sans-serif;
-	--font-mono: 'Fusion Pixel Mono', 'Fusion Pixel SC', ui-monospace, monospace;
+	--font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+	/* A window's shadow: a wide soft one for depth and a tight one for the edge. */
+	--shadow-win: 0 18px 40px -12px rgb(16 35 58 / 0.35), 0 2px 6px rgb(16 35 58 / 0.12);
+	--shadow-pop: 0 12px 28px -8px rgb(16 35 58 / 0.3), 0 1px 3px rgb(16 35 58 / 0.12);
 
 	/* The desktop layout (absolutely placed windows) needs this width; below it the windows stack. */
 	--breakpoint-desk: 1100px;
@@ -37,42 +41,6 @@
 			opacity: 0;
 		}
 	}
-}
-
-/* ---- pixel fonts: Fusion Pixel 12px, subset by scripts/subset-pixel-font.py; only the page language's face is preloaded ---- */
-@font-face {
-	font-family: 'Fusion Pixel SC';
-	src: url('/fonts/fusion-pixel-12px-zh_hans.woff2') format('woff2');
-	font-display: swap;
-}
-@font-face {
-	font-family: 'Fusion Pixel TC';
-	src: url('/fonts/fusion-pixel-12px-zh_tw.woff2') format('woff2');
-	font-display: swap;
-}
-@font-face {
-	font-family: 'Fusion Pixel JP';
-	src: url('/fonts/fusion-pixel-12px-ja.woff2') format('woff2');
-	font-display: swap;
-}
-@font-face {
-	font-family: 'Fusion Pixel KR';
-	src: url('/fonts/fusion-pixel-12px-ko.woff2') format('woff2');
-	font-display: swap;
-}
-@font-face {
-	font-family: 'Fusion Pixel Mono';
-	src: url('/fonts/fusion-pixel-12px-mono-latin.woff2') format('woff2');
-	font-display: swap;
-}
-:root:lang(zh-TW) {
-	--font-px: 'Fusion Pixel TC', 'PingFang TC', 'Noto Sans CJK TC', sans-serif;
-}
-:root:lang(ja) {
-	--font-px: 'Fusion Pixel JP', 'Hiragino Sans', 'Noto Sans CJK JP', sans-serif;
-}
-:root:lang(ko) {
-	--font-px: 'Fusion Pixel KR', 'Apple SD Gothic Neo', 'Noto Sans CJK KR', sans-serif;
 }
 
 @layer base {
@@ -88,20 +56,19 @@
 		overflow-x: hidden;
 		font: 13px/21px var(--font-ui);
 		color: var(--color-ink);
-		background: var(--color-desk);
+		background: linear-gradient(160deg, #7f9ea9 0%, var(--color-desk) 45%, var(--color-desk-lo) 100%) fixed;
+		-webkit-font-smoothing: antialiased;
 	}
 	p,
 	dd {
 		text-wrap: pretty;
 	}
 	::selection {
-		background: var(--color-ink);
-		color: var(--color-yel);
+		background: rgb(91 75 216 / 0.22);
 	}
 	:focus-visible {
-		outline: 2px solid var(--color-ink);
+		outline: 2px solid var(--color-pur);
 		outline-offset: 2px;
-		box-shadow: 0 0 0 4px var(--color-yel);
 	}
 	@media (prefers-reduced-motion: reduce) {
 		*,
@@ -113,59 +80,6 @@
 	}
 }
 
-/* ---- the few effects utilities cannot express in one class ---- */
-
-/* Pixel type: the bitmap face at its native sizes, without smoothing. */
-@utility px-text {
-	font-family: var(--font-px);
-	font-synthesis: none;
-	-webkit-font-smoothing: none;
-	text-rendering: optimizeSpeed;
-}
-/* Raised 3D edge of a control or window frame. */
-@utility bevel {
-	box-shadow:
-		inset 1px 1px 0 var(--color-hi),
-		inset -1px -1px 0 var(--color-lo);
-}
-/* Sunken edge of a field or content well. */
-@utility sunken {
-	box-shadow: inset 1px 1px 0 var(--color-lo);
-}
-/* A 50% ink checkerboard, the period's stand-in for a translucent shadow. */
-@utility dither {
-	background: repeating-conic-gradient(var(--color-ink) 0 25%, transparent 0 50%) 0 0 / 2px 2px;
-}
-/* Window drop shadow: a soft ink block offset down and right, behind the element. The element must not form its own stacking context (no z-index, no isolation), or the shadow paints over its own background instead of behind it. */
-@utility dither-shadow {
-	position: relative;
-	&::before {
-		content: '';
-		position: absolute;
-		z-index: -1;
-		inset: 4px -4px -4px 4px;
-		background: rgba(16, 35, 58, 0.22);
-	}
-}
-/* Active window title bar: the classic fine horizontal pinstripes. */
-@utility titlebar {
-	background: repeating-linear-gradient(var(--color-face) 0 1px, var(--color-lo) 1px 2px) 0 5px / 100% 13px no-repeat, var(--color-face);
-}
-/* Inactive window title bar: plain. */
-@utility titlebar-idle {
-	background: var(--color-face);
-}
-/* Resize grip in a window's bottom-right corner. */
-@utility grip {
-	background: repeating-linear-gradient(135deg, transparent 0 2px, var(--color-lo) 2px 3px, var(--color-hi) 3px 4px);
-}
-/* Document ruler above the welcome text. */
-@utility ruler {
-	background:
-		repeating-linear-gradient(90deg, var(--color-ink) 0 1px, transparent 1px 48px) 40px 0 / auto 7px no-repeat,
-		repeating-linear-gradient(90deg, var(--color-lo) 0 1px, transparent 1px 12px) 40px 0 / auto 4px no-repeat,
-		var(--color-face);
-}
 /* Bitmap images keep hard pixel edges when scaled. */
 @utility pixelated {
 	image-rendering: pixelated;

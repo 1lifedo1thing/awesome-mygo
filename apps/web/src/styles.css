@@ -2011,6 +2011,11 @@ html:lang(ko) .site {
 	gap: 20px;
 	flex-wrap: wrap;
 }
+.ftr-gh {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+}
 .to-top {
 	position: fixed;
 	right: 20px;

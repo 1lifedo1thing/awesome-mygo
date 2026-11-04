@@ -4,18 +4,19 @@ import { BITMAPS, type BitmapName, EMBLEMS, type EmblemName, FOLDER, FOLDER_PAL,
 
 // ---- class names shared by every retro page ----
 
-// A raised push button; `go` is the default (yellow, ringed) button of a dialog, `sm` the compact one used in strips. The bevel is a box-shadow, so focus restates the global yellow focus ring that it would otherwise replace.
-export const btn = 'inline-flex h-[26px] cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap border border-ink bg-face px-3.5 no-underline bevel hover:bg-hi active:bg-ink active:text-paper active:shadow-none aria-pressed:bg-ink aria-pressed:text-paper aria-pressed:shadow-none focus-visible:shadow-[0_0_0_4px_var(--color-yel)] disabled:cursor-not-allowed disabled:bg-face disabled:text-lo disabled:hover:bg-face';
-export const btnGo = `${btn} bg-yel outline-2 outline-offset-2 outline-ink hover:bg-yel-hi`;
-export const btnSm = `${btn} h-[22px] px-2.5`;
-// A sunken text field.
-export const field = 'flex h-[22px] items-center gap-1.5 border border-ink bg-hi px-1.5 sunken';
-// An inline link: dotted underline, inverted on hover.
-export const lnk = 'underline decoration-dotted underline-offset-[3px] hover:bg-ink hover:text-yel hover:no-underline';
-// A selectable label under an icon.
-export const iconLabel = 'px-1 leading-4 group-hover:bg-ink group-hover:text-yel';
-// The paper well inside a window.
-export const well = 'border border-ink bg-paper sunken';
+// A push button; `go` is the default (yellow) button of a dialog, `sm` the compact one used in toolbars. Inside a button group, `seg` squares the inner corners so the buttons read as one segmented control.
+export const btn = 'inline-flex h-[28px] cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-md border border-line bg-hi px-3.5 no-underline shadow-[0_1px_1px_rgb(16_35_58/.06)] transition-colors hover:bg-face active:bg-face-lo aria-pressed:border-ink aria-pressed:bg-ink aria-pressed:text-paper disabled:cursor-not-allowed disabled:bg-face disabled:text-lo disabled:shadow-none disabled:hover:bg-face';
+export const btnGo = `${btn} border-[#e0b100] bg-yel font-medium hover:bg-yel-hi active:bg-yel`;
+export const btnSm = `${btn} h-[24px] px-2.5`;
+export const seg = '-ml-px first:ml-0 not-first:rounded-l-none not-last:rounded-r-none';
+// A text field.
+export const field = 'flex h-[24px] items-center gap-1.5 rounded-md border border-line bg-hi px-2';
+// An inline link.
+export const lnk = 'underline decoration-ink/30 underline-offset-[3px] hover:decoration-ink';
+// A label under or beside an icon that highlights with its link.
+export const iconLabel = 'rounded-sm px-1 leading-5 group-hover:bg-ink/8';
+// The white content area inside a window.
+export const well = 'rounded-lg border border-line bg-paper';
 
 // ---- pixel art ----
 
@@ -61,70 +62,55 @@ export function Folder({ emblem, color, scale = 3 }: { emblem: EmblemName; color
 
 // ---- windows ----
 
-function TitleBox({ kind }: { kind: 'close' | 'zoom' | 'shade' }) {
-	const mark = kind === 'zoom' ? 'bg-[linear-gradient(var(--color-ink),var(--color-ink))] bg-[length:6px_5px] bg-[position:2px_2px] bg-no-repeat' : kind === 'shade' ? 'bg-[linear-gradient(var(--color-ink),var(--color-ink))] bg-[length:7px_1px] bg-[position:2px_5px] bg-no-repeat' : '';
-	return <span aria-hidden='true' className={`size-[13px] shrink-0 border border-ink bg-face shadow-[inset_1px_1px_0_var(--color-hi)] ${mark}`} />;
-}
+const LIGHT = 'size-3 shrink-0 rounded-full border border-black/10';
 
-// A window: pinstriped title bar with its close/zoom/shade boxes, a face-coloured frame and a soft drop shadow. `idle` drops the stripes like a window in the background. The title is a heading of the given level so each window labels its section.
+// A window: a title bar with the three window lights and a centred title, a light frame, rounded corners and a soft shadow. `idle` greys the lights like a window in the background. The title is a heading of the given level so each window labels its section.
 // `fill` keeps the window within one screen on the desktop: the body becomes a flex column, and the page gives one of its children `relative min-h-0 flex-1 overflow-y-auto` to scroll inside the window. The scroller must be `relative`, or absolutely positioned descendants (sr-only text) escape it and stretch the page again.
 export function Win({ title, idle = false, level = 2, id, fill = false, className = '', bodyClassName = '', children, onClose, closeLabel }: { title: ReactNode; idle?: boolean; level?: 1 | 2 | 3; id?: string; fill?: boolean; className?: string; bodyClassName?: string; children: ReactNode; onClose?: () => void; closeLabel?: string }) {
 	const H = `h${level}` as 'h1' | 'h2' | 'h3';
 	return (
-		<section id={id} aria-labelledby={id ? `${id}-t` : undefined} className={`dither-shadow border border-ink bg-face px-[3px] pb-[3px] bevel ${fill ? 'desk:flex desk:max-h-(--win-max) desk:flex-col' : ''} ${className}`}>
-			<div className={`relative -mx-[3px] mb-[3px] flex h-[23px] items-center gap-2 border-b border-ink px-1.5 ${idle ? 'titlebar-idle text-muted' : 'titlebar text-ink'}`}>
-				{onClose ? (
-					<button type='button' onClick={onClose} aria-label={closeLabel} className='size-[13px] shrink-0 cursor-pointer border border-ink bg-face p-0 shadow-[inset_1px_1px_0_var(--color-hi)] hover:bg-ink' />
-				) : (
-					<TitleBox kind='close' />
-				)}
-				<H id={id ? `${id}-t` : undefined} className='px-text mx-auto min-w-0 truncate bg-face px-2.5 text-xs leading-[23px] font-normal'>
+		<section id={id} aria-labelledby={id ? `${id}-t` : undefined} className={`rounded-xl border border-line bg-face px-1 pb-1 shadow-win ${fill ? 'desk:flex desk:max-h-(--win-max) desk:flex-col' : ''} ${className}`}>
+			<div className='relative flex h-[28px] items-center gap-2 px-2'>
+				<span className='flex gap-1.5'>
+					{onClose ? <button type='button' onClick={onClose} aria-label={closeLabel} className={`${LIGHT} cursor-pointer bg-[#ff5f57] p-0 hover:brightness-90`} /> : <span aria-hidden='true' className={`${LIGHT} ${idle ? 'bg-lo/60' : 'bg-[#ff5f57]'}`} />}
+					<span aria-hidden='true' className={`${LIGHT} ${idle ? 'bg-lo/60' : 'bg-[#febc2e]'}`} />
+					<span aria-hidden='true' className={`${LIGHT} ${idle ? 'bg-lo/60' : 'bg-[#28c840]'}`} />
+				</span>
+				<H id={id ? `${id}-t` : undefined} className={`absolute inset-x-20 truncate text-center text-xs leading-[28px] font-semibold ${idle ? 'text-faint' : 'text-muted'}`}>
 					{title}
 				</H>
-				<span className='flex gap-1'>
-					<TitleBox kind='zoom' />
-					<TitleBox kind='shade' />
-				</span>
 			</div>
 			<div className={`${fill ? 'desk:flex desk:min-h-0 desk:flex-1 desk:flex-col' : ''} ${bodyClassName}`}>{children}</div>
 		</section>
 	);
 }
 
-// The status line along a window's bottom edge, with the resize grip.
+// The status line along a window's bottom edge.
 export function StatusBar({ children }: { children: ReactNode }) {
-	return (
-		<div className='flex flex-wrap items-center gap-x-3.5 gap-y-1 border-t border-lo px-2 pt-1 pb-px text-muted shadow-[inset_0_1px_0_var(--color-hi)]'>
-			{children}
-			<span aria-hidden='true' className='ml-auto size-3 grip' />
-		</div>
-	);
+	return <div className='flex flex-wrap items-center gap-x-3.5 gap-y-1 px-2 pt-1 pb-px text-xs leading-5 text-muted'>{children}</div>;
 }
 
 // ---- small pieces ----
 
 export function KindTag({ kind, label }: { kind: App['kind']; label: string }) {
-	return <span className={`inline-block border border-ink px-1.5 leading-4 ${kind === 'native' ? 'bg-ink text-paper' : 'bg-yel'}`}>{label}</span>;
+	return <span className={`inline-block rounded-full px-2 text-xs leading-5 ${kind === 'native' ? 'bg-ink text-paper' : 'bg-yel text-ink'}`}>{label}</span>;
 }
 
 // The app's official icon, or a letter tile when it has none.
 export function AppIcon({ app, size }: { app: App; size: number }) {
-	if (app.icon) return <img src={app.icon} alt='' width={size} height={size} loading='lazy' decoding='async' className='block shrink-0 border border-ink bg-paper object-cover' style={{ width: size, height: size }} />;
+	if (app.icon) return <img src={app.icon} alt='' width={size} height={size} loading='lazy' decoding='async' className='block shrink-0 rounded-[22%] bg-paper object-cover' style={{ width: size, height: size }} />;
 	return (
-		<span aria-hidden='true' className='grid shrink-0 place-items-center border border-ink bg-yel leading-none' style={{ width: size, height: size, fontSize: Math.round(size / 2) }}>
+		<span aria-hidden='true' className='grid shrink-0 place-items-center rounded-[22%] bg-yel leading-none font-semibold' style={{ width: size, height: size, fontSize: Math.round(size / 2) }}>
 			{app.name.charAt(0).toUpperCase()}
 		</span>
 	);
 }
 
-// A sticky-note: yellow paper with a darker strip and a soft shadow.
+// A sticky note: pale yellow paper with a soft shadow.
 export function Note({ title, className = '', children }: { title: ReactNode; className?: string; children: ReactNode }) {
 	return (
-		<aside className={`dither-shadow border border-ink bg-note px-4 pb-4 ${className}`}>
-			<div className='-mx-4 mb-3 flex h-4 items-center gap-1.5 border-b border-ink bg-note-bar px-1.5'>
-				<span aria-hidden='true' className='size-[9px] border border-ink bg-note' />
-				<span className='sr-only'>{title}</span>
-			</div>
+		<aside className={`rounded-xl border border-[#ecd98a] bg-note px-4 pt-4 pb-4 shadow-win ${className}`}>
+			<span className='sr-only'>{title}</span>
 			{children}
 		</aside>
 	);

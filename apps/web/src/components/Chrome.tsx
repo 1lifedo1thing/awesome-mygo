@@ -2,7 +2,7 @@ import { SITE_REPO, SPONSOR_URL } from '@awesome-mygo/catalog';
 import { Link } from '@tanstack/react-router';
 import { useT } from '../lib/lang';
 import { useSite } from '../lib/site';
-import { Docky } from './bits';
+import { Docky, GitHubMark } from './bits';
 import { NAV } from './Header';
 
 export function Footer() {
@@ -23,7 +23,8 @@ export function Footer() {
 				<div className='ftr-row'>
 					<span>{t.footer_l}</span>
 					<span className='ftr-links'>
-						<a href={SITE_REPO} target='_blank' rel='noopener'>
+						<a href={SITE_REPO} target='_blank' rel='noopener' className='ftr-gh'>
+							<GitHubMark size={14} />
 							GitHub
 						</a>
 						<a href={SPONSOR_URL} target='_blank' rel='noopener'>

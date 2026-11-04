@@ -4,7 +4,7 @@ import { useLang, useT } from '../../lib/lang';
 import { useSite } from '../../lib/site';
 import { DesktopIcons } from '../DesktopIcons';
 import { PLUGIN_ICON } from '../plugin-icons';
-import { Note, PixelIcon, StatusBar, Win, btn, btnGo, btnSm, field, well } from '../ui';
+import { Note, PixelIcon, StatusBar, Win, btn, btnGo, btnSm, seg, field, well } from '../ui';
 
 // The plugins page: a file manager window listing the official plugins in a details view, a terminal with the mygo-cli commands leaning on its right edge, and a sticky note about community plugins.
 export function Plugins() {
@@ -35,7 +35,7 @@ function Explorer() {
 			<div className='flex flex-wrap items-center gap-2.5 px-1.5 pt-[3px] pb-1.5'>
 				<div role='group' aria-label={t.a_filter} className='flex flex-wrap'>
 					{chips.map((c) => (
-						<button key={c.key} type='button' aria-pressed={surface === c.key} onClick={() => setSurface(c.key)} className={`${btnSm} -ml-px first:ml-0`}>
+						<button key={c.key} type='button' aria-pressed={surface === c.key} onClick={() => setSurface(c.key)} className={`${btnSm} ${seg}`}>
 							{c.label}
 						</button>
 					))}
@@ -45,40 +45,40 @@ function Explorer() {
 					~/plugins/
 				</span>
 			</div>
-			<p className='m-0 px-1.5 pb-1.5'>{t.plug_p}</p>
+			<p className='m-0 px-1.5 pb-1.5 text-muted'>{t.plug_p}</p>
 			<ul className={`${well} relative m-0 list-none p-1.5 desk:min-h-0 desk:flex-1 desk:overflow-y-auto`}>
 				{shown.map((p) => (
-					<li key={p.slug} className='border-b border-dotted border-[#d6cfbb] last:border-b-0'>
-						<a href={p.url} target='_blank' rel='noopener' className='group grid grid-cols-[32px_1fr_auto] items-start gap-x-3 gap-y-1 px-2 py-2.5 no-underline hover:bg-ink hover:text-paper desk:grid-cols-[32px_190px_1fr_auto] desk:gap-x-4'>
+					<li key={p.slug} className='border-b border-line last:border-b-0'>
+						<a href={p.url} target='_blank' rel='noopener' className='group grid grid-cols-[32px_1fr_auto] items-start gap-x-3 gap-y-1 rounded-md px-2 py-2.5 no-underline hover:bg-ink/5 desk:grid-cols-[32px_190px_1fr_auto] desk:gap-x-4'>
 							{PLUGIN_ICON[p.slug] ? (
 								<PixelIcon name={PLUGIN_ICON[p.slug]} className='row-span-2 mt-0.5 desk:row-span-1' />
 							) : (
-								<span aria-hidden='true' className='row-span-2 mt-0.5 grid size-8 place-items-center border border-ink bg-yel font-mono text-ink desk:row-span-1'>
+								<span aria-hidden='true' className='row-span-2 mt-0.5 grid size-8 place-items-center rounded-lg bg-yel font-semibold text-ink desk:row-span-1'>
 									{p.mark}
 								</span>
 							)}
 							<div className='min-w-0'>
-								<h2 className='m-0 text-2xl leading-7 font-normal'>{p.name}</h2>
-								<span lang='en' className='block font-mono text-faint group-hover:text-slate'>
+								<h2 className='m-0 text-lg leading-6 font-semibold'>{p.name}</h2>
+								<span lang='en' className='block font-mono text-faint'>
 									plugins/{p.slug}
 								</span>
 							</div>
 							<div className='col-start-2 col-end-[-1] row-start-2 min-w-0 desk:col-start-3 desk:col-end-4 desk:row-start-1'>
 								<p className='m-0'>{pick(p.desc, lang)}</p>
 								<span className='mt-1.5 flex flex-wrap gap-1.5'>
-									<span className={`inline-block border border-ink px-1.5 leading-4 ${p.surface === 'native' ? 'bg-ink text-paper group-hover:border-paper' : p.surface === 'both' ? 'bg-sky text-ink' : 'bg-yel text-ink'}`}>{surfLabel[p.surface]}</span>
+									<span className={`inline-block border border-line px-1.5 leading-4 ${p.surface === 'native' ? 'bg-ink text-paper' : p.surface === 'both' ? 'bg-sky/60 text-ink' : 'bg-yel text-ink'}`}>{surfLabel[p.surface]}</span>
 									{p.tags.map((tg) => (
-										<code key={tg} lang='en' className='border border-lo bg-face px-1.5 font-mono text-ink'>
+										<code key={tg} lang='en' className='rounded border border-line bg-face px-1.5 font-mono text-ink'>
 											{tg}
 										</code>
 									))}
 								</span>
 							</div>
 							<span className='col-start-3 row-start-1 flex flex-col items-end gap-1 text-right desk:col-start-4'>
-								<span lang='en' className='border border-ink bg-paper px-1 font-mono leading-4 text-ink'>
+								<span lang='en' className='rounded-full bg-face-lo px-2 text-[11px] leading-5 font-medium tracking-wide text-muted'>
 									OFFICIAL
 								</span>
-								<span className='whitespace-nowrap underline decoration-dotted underline-offset-[3px] group-hover:text-yel'>{t.docs_link}</span>
+								<span className='whitespace-nowrap underline decoration-ink/30 underline-offset-[3px] group-hover:decoration-ink'>{t.docs_link}</span>
 							</span>
 						</a>
 					</li>
@@ -86,7 +86,7 @@ function Explorer() {
 			</ul>
 			<StatusBar>
 				<span>
-					<b className='bg-yel px-[3px] font-normal text-ink'>{shown.length}</b> / {fill(t.r_items, { n: PLUGINS.length })}
+					<b className='font-semibold text-ink'>{shown.length}</b> / {fill(t.r_items, { n: PLUGINS.length })}
 				</span>
 				<span>{fill(t.cat_plug_desc, { n: PLUGINS.length })}</span>
 			</StatusBar>
@@ -101,7 +101,7 @@ function Cli() {
 	return (
 		<Win title={t.tool_h} idle className='desk:col-span-4 desk:col-start-9 desk:row-start-1 desk:mt-20 desk:-ml-3'>
 			<p className='m-0 px-1.5 pt-[3px] pb-1.5'>{t.tool_p}</p>
-			<div className='grid gap-2 border border-ink bg-ink px-3 pt-3 pb-3.5 font-mono text-paper'>
+			<div className='grid gap-2 rounded-lg bg-ink px-3 pt-3 pb-3.5 font-mono text-paper'>
 				{CLI_CMDS.map((cmd, i) => {
 					const key = i === 0 ? 'cmd0' : 'cmd1';
 					return (
@@ -131,7 +131,7 @@ function Community() {
 	const { openSubmit } = useSite();
 	return (
 		<Note title={t.r_note} className='mx-1 desk:col-span-4 desk:col-start-9 desk:row-start-2 desk:m-0 desk:mt-12 desk:ml-8 desk:-mr-2'>
-			<h2 className='m-0 mb-2.5 text-2xl leading-8 font-normal text-balance [&:lang(ko)]:break-keep'>{fill(t.comm_h, { n: COMMUNITY_PLUGINS.length })}</h2>
+			<h2 className='m-0 mb-2.5 text-xl leading-7 font-semibold text-balance [&:lang(ko)]:break-keep'>{fill(t.comm_h, { n: COMMUNITY_PLUGINS.length })}</h2>
 			<p className='m-0 mb-3'>{t.comm_p}</p>
 			<div className='flex flex-wrap items-center gap-2.5'>
 				<a className={btn} href={PLUGINS_DOC} target='_blank' rel='noopener'>

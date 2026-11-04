@@ -30,14 +30,6 @@ const CJK: Record<LangCode, string> = {
 	ko: 'Noto+Sans+KR',
 };
 
-const PIXEL_FONT: Record<LangCode, string> = {
-	'zh-CN': '/fonts/fusion-pixel-12px-zh_hans.woff2',
-	'zh-TW': '/fonts/fusion-pixel-12px-zh_tw.woff2',
-	en: '/fonts/fusion-pixel-12px-zh_hans.woff2',
-	ja: '/fonts/fusion-pixel-12px-ja.woff2',
-	ko: '/fonts/fusion-pixel-12px-ko.woff2',
-};
-
 function fontsHref(lang: LangCode): string {
 	const families = ['Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800', 'JetBrains+Mono:wght@400;700', `${CJK[lang]}:wght@400;600;700`];
 	if (lang === 'en') families.unshift('Inter:wght@400;500;600;700;800;900');
@@ -69,9 +61,9 @@ export const Route = createRootRoute({
 			{ rel: 'icon', type: 'image/png', sizes: '32x32', href: '/icon-32.png' },
 			{ rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
 			{ rel: 'manifest', href: '/site.webmanifest' },
-			// Each look loads only its own stylesheet and fonts: the original its Google Fonts, the retro look the subset pixel face of the page language.
+			// Each look loads only its own stylesheet: the original with its Google Fonts, the desktop look with the reader's system fonts.
 			...(retro
-				? [{ rel: 'preload', as: 'font', type: 'font/woff2', href: PIXEL_FONT[lang], crossOrigin: 'anonymous' as const }, { rel: 'stylesheet', href: retroStyles }]
+				? [{ rel: 'stylesheet', href: retroStyles }]
 				: [{ rel: 'stylesheet', href: fontsHref(lang) }, { rel: 'stylesheet', href: styles }]),
 		],
 		};
