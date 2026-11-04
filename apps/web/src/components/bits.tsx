@@ -67,10 +67,9 @@ export function AppLink({ slug, className, quick = true, tabIndex, hidden, dialo
 	);
 }
 
-// The native label is MyGo's English name 'Native UI' in every language, so it is marked as English for the CJK pages.
 export function KindTag({ app, label }: { app: App; label: string }) {
 	return (
-		<span className={`kind-tag ${app.kind === 'web' ? 'kind-web' : 'kind-native'}`} lang={app.kind === 'native' ? 'en' : undefined}>
+		<span className={`kind-tag ${app.kind === 'web' ? 'kind-web' : 'kind-native'}`}>
 			{label}
 		</span>
 	);

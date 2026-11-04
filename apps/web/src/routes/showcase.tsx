@@ -21,14 +21,7 @@ function ShowcasePage() {
 	const nNative = APPS.filter((a) => a.kind === 'native').length;
 	const chips = [
 		{ key: 'all', label: `${t.all} · ${APPS.length}` },
-		{
-			key: 'native',
-			label: (
-				<>
-					<span lang='en'>Native UI</span> · {nNative}
-				</>
-			),
-		},
+		{ key: 'native', label: `${t.surf_native} · ${nNative}` },
 		{ key: 'web', label: `${t.web_fe} · ${APPS.length - nNative}` },
 	] as const;
 
@@ -88,7 +81,7 @@ function ShowcasePage() {
 												<span className='show-by' title={a.author}>
 													<span lang='en'>by</span> {a.author}
 												</span>
-												<KindTag app={a} label={a.kind === 'native' ? 'Native UI' : t.web_fe} />
+												<KindTag app={a} label={a.kind === 'native' ? t.surf_native : t.web_fe} />
 											</span>
 										</div>
 									</div>

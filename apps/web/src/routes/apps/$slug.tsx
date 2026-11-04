@@ -26,7 +26,7 @@ function AppPage() {
 	if (!app) throw notFound();
 
 	const v = appView(app);
-	const kindLabel = app.kind === 'native' ? 'Native UI' : t.web_fe;
+	const kindLabel = app.kind === 'native' ? t.surf_native : t.web_fe;
 	const [prev, next] = neighbours(v);
 
 	return (

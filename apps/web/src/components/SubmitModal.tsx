@@ -161,7 +161,7 @@ function Modal() {
 						<div className='cat-opts' role='radiogroup' aria-label={t.a_kind}>
 							{(['native', 'web'] as const).map((m) => (
 								<button key={m} type='button' role='radio' aria-checked={form.mode === m} className='cat-opt' onClick={() => setFormField('mode', m)}>
-									{m === 'native' ? 'Native UI' : t.web_fe}
+									{m === 'native' ? t.surf_native : t.web_fe}
 								</button>
 							))}
 						</div>

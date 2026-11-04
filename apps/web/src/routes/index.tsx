@@ -205,7 +205,7 @@ function Hero() {
 											<MonoTile view={v} size={52} />
 											<span className='card-name'>{v.app.name}</span>
 											<span className='hero-win-desc'>{pick(v.app.desc, lang)}</span>
-											<KindTag app={v.app} label={v.app.kind === 'native' ? 'Native UI' : t.web_fe} />
+											<KindTag app={v.app} label={v.app.kind === 'native' ? t.surf_native : t.web_fe} />
 										</span>
 									</AppLink>
 								</div>
