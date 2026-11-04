@@ -3,7 +3,7 @@
 	"version": "0.0.0",
 	"private": true,
 	"type": "module",
-	"description": "Completes an entry the submission bot added: the app's icon and screenshot from its repository, its copy in every site language, and the README app counts",
+	"description": "Completes an entry the submission bot added: the app's icon and screenshot from its repository, and its copy in every site language",
 	"scripts": {
 		"enrich": "node src/main.ts",
 		"typecheck": "tsc --noEmit",

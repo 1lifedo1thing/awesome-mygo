@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { addedEntries, appNameFrom, hasAllLanguages, iconOf, isSquarish, lengthCaps, overCaps, joinRepoPath, pickMygoJson, readmeImages, repoOfEntry, resolveImage, setShowcaseCount, sniffImage } from './source.ts';
+import { addedEntries, appNameFrom, hasAllLanguages, iconOf, isSquarish, lengthCaps, overCaps, joinRepoPath, pickMygoJson, readmeImages, repoOfEntry, resolveImage, sniffImage } from './source.ts';
 
 describe('app names', () => {
 	it('takes mygo.json’s spelling of the same name only', () => {
@@ -101,15 +101,5 @@ describe('README images', () => {
 		expect(sniffImage(new Uint8Array([0xff, 0xd8, 0xff, 0xe0]))).toBe('jpeg');
 		expect(sniffImage(new Uint8Array([0x52, 0x49, 0x46, 0x46, 0, 0, 0, 0, 0x57, 0x45, 0x42, 0x50]))).toBe('webp');
 		expect(sniffImage(new TextEncoder().encode('<svg xmlns="http://www.w3.org/2000/svg"/>'))).toBeUndefined();
-	});
-});
-
-describe('README counts', () => {
-	it('sets the showcase count in every language', () => {
-		expect(setShowcaseCount('# A\n\n- **Showcase**: 25 desktop apps built with MyGo. 3 more\n', 26)).toBe('# A\n\n- **Showcase**: 26 desktop apps built with MyGo. 3 more\n');
-		expect(setShowcaseCount('- **作品**：25 款用 MyGo 做的桌面应用', 26)).toBe('- **作品**：26 款用 MyGo 做的桌面应用');
-		expect(setShowcaseCount('- **ショーケース**：MyGo で作られた 25 のデスクトップアプリ', 26)).toBe('- **ショーケース**：MyGo で作られた 26 のデスクトップアプリ');
-		expect(setShowcaseCount('- **쇼케이스**: MyGo로 만든 데스크톱 앱 25개', 26)).toBe('- **쇼케이스**: MyGo로 만든 데스크톱 앱 26개');
-		expect(setShowcaseCount('- **UI components**: 4 libraries', 26)).toBeUndefined();
 	});
 });

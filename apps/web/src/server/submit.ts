@@ -80,7 +80,7 @@ export async function openSubmission(cfg: BotConfig, cat: SubmitCat, name: strin
 			`Submitted through the form on ${SITE_URL} by a visitor without a GitHub account, so the site's bot opened this pull request.`,
 			`Category: ${label} (\`${path}\`)`,
 			codeFence(JSON.stringify(entry, null, 2), 'json'),
-			'The entry passed the catalog checks before it was submitted, and CI runs them again. The *Complete submission* workflow then adds what the form cannot ask for (an app\'s icon and screenshot, the copy in every site language, the README app counts) and comments what it did. Before merging, check that the project exists and is built with MyGo, read the generated copy, and fill in what the form leaves at a default (such as `tag`, `tags` or `surface`).',
+			'The entry passed the catalog checks before it was submitted, and CI runs them again. The *Complete submission* workflow then adds what the form cannot ask for (an app\'s icon and screenshot, and the copy in every site language) and comments what it did. Before merging, check that the project exists and is built with MyGo, read the generated copy, and fill in what the form leaves at a default (such as `tag`, `tags` or `surface`).',
 		].join('\n\n');
 		const { data: pr } = await gh.request('POST /repos/{owner}/{repo}/pulls', { ...repo, title: `Add ${plainName} (${label})`, head: branch, base: BASE, body });
 		return { url: pr.html_url, number: pr.number };
