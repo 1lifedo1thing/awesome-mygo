@@ -695,18 +695,30 @@
 		},
 		{
 			"slug": "saundo",
-			"name": "Saundo",
+			"name": "saundo",
 			"author": "4202217",
 			"kind": "native",
 			"category": "UtilitiesApplication",
 			"url": "https://github.com/4202217/saundo",
 			"repo": "4202217/saundo",
 			"summary": {
-				"en": "适用于 Windows 的 Airplay 2 音频推送器。"
+				"en": "Streams all Windows audio to AirPlay 2 receivers such as HomePod, from the tray.",
+				"zh-CN": "在托盘里把 Windows 的全部声音推送到 HomePod 等 AirPlay 2 接收端。",
+				"zh-TW": "在系統匣把 Windows 的所有聲音推送到 HomePod 等 AirPlay 2 接收端。",
+				"ja": "Windows の音をまるごと、トレイから HomePod などの AirPlay 2 レシーバーへ送るアプリ。",
+				"ko": "Windows의 모든 소리를 트레이에서 HomePod 같은 AirPlay 2 수신기로 보냅니다."
 			},
 			"description": {
-				"en": "适用于 Windows 的 Airplay 2 音频推送器。"
-			}
+				"en": "A Windows tray app drawn with MyGo's native UI, with no WebView. It captures everything Windows plays through WASAPI loopback, with no per-app setup, and streams it as uncompressed ALAC over AirPlay 2 to HomePod, HomePod mini, HomePod stereo pairs and Mac receivers; Apple TV support is implemented but not yet verified on hardware. The stream stays timed to the receiver's clock, the volume slider drives the receiver's own volume, and the title, artist and album of what is playing are passed along. It is audio only, and receivers that require Apple FairPlay are not supported.",
+				"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 托盘应用，不使用 WebView。它通过 WASAPI 回环捕获 Windows 正在播放的所有声音，无需逐个应用设置，并以无损 ALAC 经 AirPlay 2 推送到 HomePod、HomePod mini、HomePod 立体声对和 Mac 接收端；Apple TV 支持已实现，但尚未在真机上验证。音频流与接收端的时钟同步，音量滑块直接调节接收端自身的音量，正在播放的标题、艺人和专辑也会一并传过去。仅支持音频，不支持需要 Apple FairPlay 的接收端。",
+				"zh-TW": "用 MyGo 原生 UI 繪製的 Windows 系統匣應用程式，不使用 WebView。它透過 WASAPI 回送擷取 Windows 正在播放的所有聲音，不必逐一設定應用程式，並以無損 ALAC 經 AirPlay 2 推送到 HomePod、HomePod mini、HomePod 立體聲配對和 Mac 接收端；Apple TV 支援已實作，但尚未在實機上驗證。音訊串流與接收端的時鐘同步，音量滑桿直接調整接收端本身的音量，正在播放的標題、演出者和專輯也會一併傳過去。僅支援音訊，不支援需要 Apple FairPlay 的接收端。",
+				"ja": "MyGo のネイティブ UI で描かれた Windows のトレイアプリで、WebView は使いません。Windows で再生中の音をアプリごとの設定なしに WASAPI ループバックで取り込み、非圧縮の ALAC として AirPlay 2 で HomePod、HomePod mini、HomePod のステレオペア、Mac のレシーバーへ送ります。Apple TV への対応は実装済みですが、実機ではまだ検証されていません。ストリームはレシーバーの時計に同期し、音量スライダーでレシーバー側の音量を操作でき、再生中の曲名・アーティスト・アルバムも送られます。音声のみに対応し、Apple FairPlay が必要なレシーバーには対応していません。",
+				"ko": "MyGo의 네이티브 UI로 그린 Windows 트레이 앱으로, WebView를 쓰지 않습니다. 앱별 설정 없이 WASAPI 루프백으로 Windows에서 재생되는 모든 소리를 캡처해, 무압축 ALAC로 AirPlay 2를 통해 HomePod, HomePod mini, HomePod 스테레오 페어, Mac 수신기로 보냅니다. Apple TV 지원은 구현되어 있지만 아직 실제 기기에서 검증되지 않았습니다. 스트림은 수신기의 시계에 맞춰 동기화되고, 볼륨 슬라이더로 수신기 자체 볼륨을 조절하며, 재생 중인 곡의 제목, 아티스트, 앨범 정보도 함께 전달합니다. 오디오 전용이며 Apple FairPlay가 필요한 수신기는 지원하지 않습니다."
+			},
+			"icon": {
+				"file": "saundo.webp"
+			},
+			"screenshot": "saundo.webp"
 		}
 	]
 }
