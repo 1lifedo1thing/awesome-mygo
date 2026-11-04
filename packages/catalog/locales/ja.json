@@ -169,5 +169,14 @@
 	"desc_learn": "MyGo の公式ガイドとコミュニティ記事。入門、ウィンドウ、ネイティブ UI、フロントエンドからの Go 呼び出し、配布、自動アップデートまで。",
 	"og_alt": "ノートパソコンを抱えた Go のゴーファーと「awesome-mygo：MyGo のリソース集」の文字",
 	"preview_img": "プレビュー画像",
-	"a_site_nav": "セクション"
+	"a_site_nav": "セクション",
+	"a_theme": "表示スタイル",
+	"theme_retro": "レトロデスクトップ",
+	"theme_original": "通常表示",
+	"r_h1": "Go で作った\nデスクトップ\nアプリ、ぜんぶ\nここに。",
+	"r_terminal": "ターミナル",
+	"r_panel": "コントロールパネル",
+	"r_note": "メモ",
+	"r_items": "{n} 項目",
+	"r_desktop": "デスクトップ"
 }

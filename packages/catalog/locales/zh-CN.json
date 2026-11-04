@@ -169,5 +169,14 @@
 	"desc_learn": "MyGo 官方指南与社区文章：入门、窗口、原生 UI、从前端调用 Go、打包发布、自动更新与 GitHub Actions。",
 	"og_alt": "抱着笔记本电脑的 Go 地鼠，旁边写着 awesome-mygo：MyGo 资源精选列表",
 	"preview_img": "预览图",
-	"a_site_nav": "网站导航"
+	"a_site_nav": "网站导航",
+	"a_theme": "界面风格",
+	"theme_retro": "复古桌面",
+	"theme_original": "普通视图",
+	"r_h1": "用 Go 写的\n桌面应用\n都在这里。",
+	"r_terminal": "终端",
+	"r_panel": "控制面板",
+	"r_note": "便签",
+	"r_items": "{n} 个项目",
+	"r_desktop": "桌面"
 }
