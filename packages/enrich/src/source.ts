@@ -141,14 +141,6 @@ export function resolveImage(src: string, repo: string, branch: string, readmePa
 	return path ? `https://raw.githubusercontent.com/${repo}/${branch}/${path.split('/').map(encodeURIComponent).join('/')}` : undefined;
 }
 
-// The line of each README that counts the showcase's apps, in all five languages: "- **Showcase**: 26 desktop apps", "- **作品**：26 款", "- **ショーケース**：MyGo で作られた 26 の", "- **쇼케이스**: MyGo로 만든 데스크톱 앱 26개". The catalog tests read it with the same pattern.
-export const SHOWCASE_COUNT = /^(- \*\*(?:Showcase|ショーケース|쇼케이스|作品)\*\*[:：][^\d\n]*)(\d+)/m;
-
-// The README with its showcase count set to n, or undefined when it has no such line.
-export function setShowcaseCount(readme: string, n: number): string | undefined {
-	return SHOWCASE_COUNT.test(readme) ? readme.replace(SHOWCASE_COUNT, `$1${n}`) : undefined;
-}
-
 // The image format from a file's first bytes. Only these three are handed to ImageMagick, whatever the server or the file name claims.
 export function sniffImage(bytes: Uint8Array): 'png' | 'jpeg' | 'webp' | undefined {
 	const at = (i: number, ...b: number[]) => b.every((x, j) => bytes[i + j] === x);

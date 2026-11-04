@@ -99,15 +99,6 @@ describe('catalog data', () => {
 		for (const f of files) if (f) expect(existsSync(new URL(f.slice(1), PUBLIC)), f).toBe(true);
 	});
 
-	// The same line the submission bot updates (packages/enrich/src/source.ts, SHOWCASE_COUNT).
-	it('counts the showcase apps right in every README', () => {
-		const line = /^- \*\*(?:Showcase|ショーケース|쇼케이스|作品)\*\*[:：][^\d\n]*(\d+)/m;
-		for (const name of ['README.md', 'README.zh-CN.md', 'README.zh-TW.md', 'README.ja.md', 'README.ko.md']) {
-			const m = line.exec(readFileSync(new URL(`../../../${name}`, import.meta.url), 'utf8'));
-			expect(m?.[1], name).toBe(String(APPS.length));
-		}
-	});
-
 	it('points every data file at its schema', () => {
 		for (const [file, json] of Object.entries(FILES)) expect(json.$schema, file).toBe(`./schema/${SCHEMAS[file].$id}`);
 	});

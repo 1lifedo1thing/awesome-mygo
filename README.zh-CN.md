@@ -12,11 +12,11 @@
 
 ## 站点内容
 
-- **作品**：28 款用 MyGo 做的桌面应用，每款都有完整介绍、截图（项目提供时）、界面类型（原生 UI 或 Web 前端），以及同一作者的其他作品。
-- **插件**：11 个官方插件，标明适用于网页、原生 UI 还是两者，另有 `mygo-cli` 工具链。
+- **作品**：用 MyGo 做的桌面应用，每款都有完整介绍、截图（项目提供时）、界面类型（原生 UI 或 Web 前端），以及同一作者的其他作品。
+- **插件**：官方插件，标明适用于网页、原生 UI 还是两者，另有 `mygo-cli` 工具链。
 - **UI 组件**：为 MyGo 应用做的组件库、主题与图标。
 - **状态管理**：MyGo 应用的状态方案，以及 MyGo 自带的绑定服务、通道和类型化事件。
-- **文档**：20 篇官方指南、一篇社区文章和官方资源。
+- **文档**：官方指南、社区文章和官方资源。
 - 用 <kbd>⌘K</kbd> / <kbd>Ctrl+K</kbd> **搜索**全部内容；想收录某个项目时，提交表单会替你写好条目。
 
 站点支持简体中文、繁体中文、英语、日语和韩语。每个页面在每种语言下都有独立地址（`?lang=en`），由服务端渲染，并带有 hreflang 链接和 sitemap。
@@ -29,7 +29,7 @@ pnpm monorepo，由 [TanStack Start](https://tanstack.com/start) 运行在 [Clou
 |---|---|
 | `apps/web` | 站点：React 19、TanStack Start（服务端渲染），以及带 `@cloudflare/vite-plugin` 的 Vite。`wrangler.jsonc` 把它部署到 `mygodock.dev`。 |
 | `packages/catalog` | 数据：`data/*.json`（应用、UI 组件、状态方案、插件、文章、指南）及其 JSON Schema，五种语言的界面文案，搜索与提交表单的条目。测试会校验每个条目。 |
-| `packages/enrich` | 补全提交 bot 开的 PR：从项目仓库取应用图标和截图，用 Claude 写五种语言的文案，并更新 README 里的应用数量。由 `.github/workflows/enrich-submission.yml` 运行。 |
+| `packages/enrich` | 补全提交 bot 开的 PR：从项目仓库取应用图标和截图，并用 Claude 写五种语言的文案。由 `.github/workflows/enrich-submission.yml` 运行。 |
 
 应用图标来自 [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo)，由它的 CDN 提供；它未收录的少数应用使用 `apps/web/public/icons/` 里的官方图标。
 
@@ -50,7 +50,7 @@ pnpm preview      # 在 Workers 运行时中运行生产构建
 
 表单的直接提交通过安装在本仓库上的 GitHub App 完成，前面有 Cloudflare Turnstile 人机验证和按 IP 的限流。给这个 App 开 *Contents* 和 *Pull requests* 的读写权限，把它的私钥转成 PKCS#8（`openssl pkcs8 -topk8 -nocrypt -in key.pem -out key-pkcs8.pem`），然后在 `apps/web` 下用 `wrangler secret put` 设置四个 secret：`GITHUB_APP_ID`、`GITHUB_APP_PRIVATE_KEY`（PKCS#8 文件）、`TURNSTILE_SITE_KEY` 和 `TURNSTILE_SECRET_KEY`。四个都设好之前，表单只提供 GitHub 链接。本地测试时，把 Turnstile 的[测试密钥](https://developers.cloudflare.com/turnstile/troubleshooting/testing/)写进 `apps/web/.dev.vars`。
 
-bot 开出 PR 后，*Complete submission* workflow 会补上表单问不到的内容：应用图标，按 MyGo 的查找方式取（`mygo.json` 的 `icon`，没有则用 `resources/icon.png`；如果是 `mygo init` 生成的 MyGo 默认图标就不加）、README 里第一张不是图标或其他方形 logo 的截图、五种语言的简介和介绍，以及 README 里的应用数量。它会跑 catalog 检查，以 bot 身份推到同一分支，并在 PR 里留言说明做了什么；合并前仍需维护者审核。需要在仓库的 Actions 设置里配置 secret：`SUBMIT_APP_PRIVATE_KEY`（App 的 PKCS#8 私钥，与 Worker 用的相同）、`LLM_API_KEY`（Anthropic Messages API 的密钥），走网关时再加 `LLM_BASE_URL`；以及变量 `SUBMIT_APP_CLIENT_ID`（App 的 Client ID）。变量 `LLM_MODEL` 可以换模型（默认 `claude-opus-5-5`）。没有 `LLM_API_KEY` 时文案保持提交时的样子。
+bot 开出 PR 后，*Complete submission* workflow 会补上表单问不到的内容：应用图标，按 MyGo 的查找方式取（`mygo.json` 的 `icon`，没有则用 `resources/icon.png`；如果是 `mygo init` 生成的 MyGo 默认图标就不加）、README 里第一张不是图标或其他方形 logo 的截图，以及五种语言的简介和介绍。它会跑 catalog 检查，以 bot 身份推到同一分支，并在 PR 里留言说明做了什么；合并前仍需维护者审核。需要在仓库的 Actions 设置里配置 secret：`SUBMIT_APP_PRIVATE_KEY`（App 的 PKCS#8 私钥，与 Worker 用的相同）、`LLM_API_KEY`（Anthropic Messages API 的密钥），走网关时再加 `LLM_BASE_URL`；以及变量 `SUBMIT_APP_CLIENT_ID`（App 的 Client ID）。变量 `LLM_MODEL` 可以换模型（默认 `claude-opus-5-5`）。没有 `LLM_API_KEY` 时文案保持提交时的样子。
 
 ## 收录项目
 
