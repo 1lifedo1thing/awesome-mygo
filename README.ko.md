@@ -8,7 +8,7 @@
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · [日本語](README.ja.md) · 한국어
 
-[![MyGo Dock](apps/web/public/og-image-1200x630.png)](https://mygodock.dev)
+[![MyGo Dock](.github/assets/banner.png)](https://mygodock.dev)
 
 ## 사이트 내용
 
@@ -49,7 +49,7 @@ pnpm preview      # 프로덕션 빌드를 Workers 런타임에서 실행
 
 ## 프로젝트 추가
 
-앱은 MyGo 공식 쇼케이스에서 가져옵니다. 앱을 수록하려면 [`egoist/mygo`의 `website/src/showcase.ts`](https://github.com/egoist/mygo/blob/main/website/src/showcase.ts)에 풀 리퀘스트를 보내세요. 사이트의 "제출" 양식이 항목을 대신 작성해 줍니다. 다른 종류의 프로젝트는 [fksune/awesome-mygo](https://github.com/fksune/awesome-mygo)에 보낼 수도 있습니다.
+앱은 MyGo 공식 쇼케이스에서 가져옵니다. 앱을 수록하려면 [`egoist/mygo`의 `website/src/showcase.ts`](https://github.com/egoist/mygo/blob/main/website/src/showcase.ts)에 풀 리퀘스트를 보내세요. 컴포넌트, 플러그인, 상태 관리 솔루션, 글은 이 저장소에 [이슈를 열어](https://github.com/yldm-tech/awesome-mygo/issues/new) 주세요. 사이트의 "제출" 양식은 두 경우 모두 대신 작성해 줍니다. 앱은 showcase.ts 항목을, 그 밖에는 내용이 채워진 이슈를 만듭니다.
 
 이 사이트에 직접 추가하려면 `packages/catalog/src`를 수정합니다:
 
@@ -63,7 +63,6 @@ pnpm preview      # 프로덕션 빌드를 Workers 런타임에서 실행
 ## 크레딧
 
 - [MyGo](https://github.com/egoist/mygo)는 [egoist](https://github.com/egoist)가 만들었습니다(MIT). 쇼케이스, 플러그인, 가이드 데이터는 그 저장소와 사이트를 따릅니다.
-- [fksune/awesome-mygo](https://github.com/fksune/awesome-mygo)(CC0-1.0)는 컴포넌트, 글, 앱을 수록합니다.
 - 앱 아이콘은 [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo)(MIT) 또는 앱 자체의 아이콘이며, 스크린샷은 egoist/mygo 쇼케이스와 각 프로젝트의 README에서 가져왔습니다. 모두 각 앱의 작성자에게 속하며, 이름과 로고는 해당 상표로 식별 목적으로만 표시합니다.
 
 ## 라이선스

@@ -8,7 +8,7 @@
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · 日本語 · [한국어](README.ko.md)
 
-[![MyGo Dock](apps/web/public/og-image-1200x630.png)](https://mygodock.dev)
+[![MyGo Dock](.github/assets/banner.png)](https://mygodock.dev)
 
 ## サイトの内容
 
@@ -49,7 +49,7 @@ pnpm preview      # 本番ビルドを Workers ランタイムで実行
 
 ## プロジェクトを追加する
 
-アプリは MyGo 公式のショーケースから取り込んでいます。アプリを掲載するには、[`egoist/mygo` の `website/src/showcase.ts`](https://github.com/egoist/mygo/blob/main/website/src/showcase.ts) にプルリクエストを送ってください。サイトの「投稿」フォームが項目を書いてくれます。ほかの種類のプロジェクトは [fksune/awesome-mygo](https://github.com/fksune/awesome-mygo) にも送れます。
+アプリは MyGo 公式のショーケースから取り込んでいます。アプリを掲載するには、[`egoist/mygo` の `website/src/showcase.ts`](https://github.com/egoist/mygo/blob/main/website/src/showcase.ts) にプルリクエストを送ってください。コンポーネント、プラグイン、状態管理、記事は、このリポジトリに [Issue を作成](https://github.com/yldm-tech/awesome-mygo/issues/new)してください。サイトの「投稿」フォームはどちらも用意してくれます。アプリなら showcase.ts の項目を、それ以外なら内容入りの Issue を作ります。
 
 このサイトに直接追加するときは `packages/catalog/src` を編集します：
 
@@ -63,7 +63,6 @@ pnpm preview      # 本番ビルドを Workers ランタイムで実行
 ## クレジット
 
 - [MyGo](https://github.com/egoist/mygo) は [egoist](https://github.com/egoist) が作っています（MIT）。ショーケース、プラグイン、ガイドのデータはそのリポジトリとサイトに沿っています。
-- [fksune/awesome-mygo](https://github.com/fksune/awesome-mygo)（CC0-1.0）はコンポーネント、記事、アプリを掲載しています。
 - アプリのアイコンは [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo)（MIT）またはアプリ自身のアイコン、スクリーンショットは egoist/mygo のショーケースと各プロジェクトの README からのものです。いずれも各アプリの作者に帰属し、名称とロゴは各社の商標で、識別のためにのみ表示しています。
 
 ## ライセンス

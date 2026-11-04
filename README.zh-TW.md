@@ -8,7 +8,7 @@
 
 [English](README.md) · [简体中文](README.zh-CN.md) · 繁體中文 · [日本語](README.ja.md) · [한국어](README.ko.md)
 
-[![MyGo Dock](apps/web/public/og-image-1200x630.png)](https://mygodock.dev)
+[![MyGo Dock](.github/assets/banner.png)](https://mygodock.dev)
 
 ## 網站內容
 
@@ -49,7 +49,7 @@ pnpm preview      # 在 Workers 執行環境中執行正式建置
 
 ## 收錄專案
 
-應用來自 MyGo 官方的作品展示。要收錄應用，請向 [`egoist/mygo` 的 `website/src/showcase.ts`](https://github.com/egoist/mygo/blob/main/website/src/showcase.ts) 提交 PR；網站上的「提交」表單會替你寫好條目。其他類型的專案也可以提交到 [fksune/awesome-mygo](https://github.com/fksune/awesome-mygo)。
+應用來自 MyGo 官方的作品展示。要收錄應用，請向 [`egoist/mygo` 的 `website/src/showcase.ts`](https://github.com/egoist/mygo/blob/main/website/src/showcase.ts) 提交 PR。元件、外掛、狀態方案和文章，請在本倉庫[提交 Issue](https://github.com/yldm-tech/awesome-mygo/issues/new)。網站上的「提交」表單兩種都能替你寫好：作品產生 showcase.ts 條目，其他類別產生填好內容的 Issue。
 
 要直接為本站新增內容，編輯 `packages/catalog/src`：
 
@@ -63,7 +63,6 @@ pnpm preview      # 在 Workers 執行環境中執行正式建置
 ## 致謝
 
 - [MyGo](https://github.com/egoist/mygo) 由 [egoist](https://github.com/egoist) 建立（MIT）。作品、外掛和指南的資料以它的倉庫和官網為準。
-- [fksune/awesome-mygo](https://github.com/fksune/awesome-mygo)（CC0-1.0）收錄元件、文章和應用。
 - 應用圖示來自 [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo)（MIT）或應用自己的圖示；截圖來自 egoist/mygo 的作品展示和各專案的 README。兩者都歸各應用作者所有，名稱和標誌是其商標，僅用於識別。
 
 ## 授權
