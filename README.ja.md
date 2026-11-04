@@ -86,7 +86,7 @@ pnpm preview      # 本番ビルドを Workers ランタイムで実行
 - リンクは https のみです。スクリーンショットは幅 1200px 程度の WebP を `apps/web/public/shots/` に置き、`"screenshot": "my-app.webp"` と書きます。アプリのアイコンは [ai-logo](https://github.com/yldm-tech/ai-logo) の id で `"icon": { "ailogo": "<id>" }` と書くか、省略して文字のタイルにします。
 - `pnpm test` は全項目を検証し、誤りのあるファイル、項目、欄を示します。CI はすべてのプルリクエストで実行します。
 
-UI の文言は `packages/catalog/src/strings.ts` にあり、キーごとに 5 言語の配列です。
+UI の文言は `packages/catalog/locales/` にあり、言語ごとに同じキーを持つ JSON ファイルが 1 つずつあります。基準は `zh-CN.json` です。キーを追加するときは残り 4 ファイルにも加えてください。キーの抜けや `{x}`/`{n}` プレースホルダーの不一致は `pnpm typecheck` と `pnpm test` が検出します。
 
 ## クレジット
 
