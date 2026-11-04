@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "quosparr",
+	"name": "Quosparr",
+	"author": "Licoy",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://quosparr.com",
+	"repo": "Licoy/Quosparr",
+	"summary": {
+		"en": "A menu bar and tray app that tracks Codex, Claude Code and Grok quota, costs and accounts.",
+		"zh-CN": "菜单栏与托盘应用，查看 Codex、Claude Code、Grok 的额度和成本。",
+		"zh-TW": "選單列與系統匣工具，查看 Codex、Claude Code、Grok 的額度和成本。",
+		"ja": "Codex・Claude Code・Grok の利用枠とコストをメニューバーやトレイで確認するアプリ。",
+		"ko": "Codex, Claude Code, Grok의 한도와 비용을 메뉴 막대·트레이에서 확인하는 앱."
+	},
+	"description": {
+		"en": "A menu bar and system tray app for macOS, Windows and Linux, written in Go with MyGo's native UI. It shows Codex, Claude Code and Grok subscription quota, reset credits and an API-equivalent cost computed from local session logs, and keeps separate accounts per provider to switch between. Global skills, MCP servers and local sessions for all three can also be managed in one place.",
+		"zh-CN": "用 Go 编写、由 MyGo 原生 UI 绘制的菜单栏与系统托盘应用，支持 macOS、Windows 与 Linux。它显示 Codex、Claude Code 和 Grok 的订阅额度、reset credits，以及根据本机会话日志估算的 API 等价成本，并为三家供应商分别管理和切换账号。三者的全局 Skill、MCP 服务与本机会话也能集中管理。",
+		"zh-TW": "用 Go 撰寫、由 MyGo 原生 UI 繪製的選單列與系統匣應用程式，支援 macOS、Windows 與 Linux。它顯示 Codex、Claude Code 和 Grok 的訂閱額度、reset credits，以及依本機工作階段紀錄估算的 API 等價成本，並為三家供應商分別管理與切換帳號。三者的全域 Skill、MCP 伺服器與本機工作階段也能集中管理。",
+		"ja": "Go で書かれ、MyGo のネイティブ UI で描かれた macOS・Windows・Linux 向けのメニューバー／システムトレイアプリ。Codex・Claude Code・Grok のサブスクリプション利用枠、reset credits、ローカルのセッションログから算出した API 換算コストを表示し、プロバイダーごとにアカウントを分けて管理・切り替えできます。3 社分のグローバルスキル、MCP サーバー、ローカルセッションもまとめて管理できます。",
+		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 macOS, Windows, Linux용 메뉴 막대·시스템 트레이 앱입니다. Codex, Claude Code, Grok의 구독 한도, reset credits, 로컬 세션 로그로 계산한 API 환산 비용을 보여 주고, 공급자마다 계정을 따로 관리하고 전환할 수 있습니다. 세 공급자의 전역 스킬, MCP 서버, 로컬 세션도 한곳에서 관리합니다."
+	},
+	"added": "2026-11-04T14:36:05Z",
+	"icon": {
+		"file": "quosparr.webp"
+	},
+	"screenshot": "quosparr.webp"
+}
