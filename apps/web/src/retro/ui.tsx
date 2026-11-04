@@ -4,10 +4,14 @@ import { BITMAPS, type BitmapName, EMBLEMS, type EmblemName, FOLDER, FOLDER_PAL,
 
 // ---- class names shared by every retro page ----
 
-// A push button; `go` is the default (yellow) button of a dialog, `sm` the compact one used in toolbars. Inside a button group, `seg` squares the inner corners so the buttons read as one segmented control.
-export const btn = 'inline-flex h-[28px] cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-md border border-line bg-hi px-3.5 no-underline shadow-[0_1px_1px_rgb(16_35_58/.06)] transition-colors hover:bg-face active:bg-face-lo aria-pressed:border-ink aria-pressed:bg-ink aria-pressed:text-paper disabled:cursor-not-allowed disabled:bg-face disabled:text-lo disabled:shadow-none disabled:hover:bg-face';
-export const btnGo = `${btn} border-[#e0b100] bg-yel font-medium hover:bg-yel-hi active:bg-yel`;
-export const btnSm = `${btn} h-[24px] px-2.5`;
+// A push button; `go` is the default (yellow) button of a dialog, `sm` the compact one used in toolbars and the menu bar. Each variant sets its height, padding and colours once: two Tailwind classes for the same property on one element resolve by stylesheet order, not by their order in the class list, so a variant must not be built by appending an override.
+const BTN = 'inline-flex cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-md border no-underline shadow-[0_1px_1px_rgb(16_35_58/.06)] transition-colors aria-pressed:border-ink aria-pressed:bg-ink aria-pressed:text-paper disabled:cursor-not-allowed disabled:border-line disabled:bg-face disabled:text-lo disabled:shadow-none';
+const PLAIN = 'border-line bg-hi hover:bg-face active:bg-face-lo';
+const GO = 'border-[#e0b100] bg-yel font-medium hover:bg-yel-hi active:bg-yel';
+export const btn = `${BTN} ${PLAIN} h-[28px] px-3.5`;
+export const btnGo = `${BTN} ${GO} h-[28px] px-3.5`;
+export const btnSm = `${BTN} ${PLAIN} h-[24px] px-2.5`;
+export const btnGoSm = `${BTN} ${GO} h-[24px] px-2.5`;
 export const seg = '-ml-px first:ml-0 not-first:rounded-l-none not-last:rounded-r-none';
 // A text field.
 export const field = 'flex h-[24px] items-center gap-1.5 rounded-md border border-line bg-hi px-2';
