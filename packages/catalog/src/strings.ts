@@ -84,7 +84,6 @@ export const STRINGS = {
 	sort_def: ['收录顺序', '收錄順序', 'Listing order', '掲載順', '수록 순'],
 	sort_az: ['名称 A–Z', '名稱 A–Z', 'Name A–Z', '名前 A–Z', '이름 A–Z'],
 	sort_author: ['按作者', '依作者', 'By author', '作者順', '작성자순'],
-	details: ['详情 →', '詳情 →', 'Details →', '詳細 →', '자세히 →'],
 	learn_h: ['文章与文档', '文章與文件', 'Articles & docs', '記事とドキュメント', '글과 문서'],
 	article_k: ['社区文章 · {x}', '社群文章 · {x}', 'Community article · {x}', 'コミュニティ記事 · {x}', '커뮤니티 글 · {x}'],
 	read_full: ['阅读全文 ↗', '閱讀全文 ↗', 'Read the article ↗', '記事を読む ↗', '전체 읽기 ↗'],

@@ -76,17 +76,16 @@ function ShowcasePage() {
 								</WinBar>
 								<span className='show-body'>
 									<span className='show-id'>
-										<MonoTile view={v} size={56} />
+										<MonoTile view={v} size={44} />
 										<span className='show-id-text'>
 											<span className='show-name'>{a.name}</span>
-											<span className='show-by'>by {a.author}</span>
+											<span className='show-meta'>
+												<span className='show-by' title={a.author}>by {a.author}</span>
+												<KindTag app={a} label={a.kind === 'native' ? 'Native UI' : t.web_fe} />
+											</span>
 										</span>
 									</span>
 									<span className='show-desc'>{pick(a.desc, lang)}</span>
-									<span className='show-foot'>
-										<KindTag app={a} label={a.kind === 'native' ? 'Native UI' : t.web_fe} />
-										<span className='arrow show-details'>{t.details}</span>
-									</span>
 								</span>
 							</button>
 						</div>
