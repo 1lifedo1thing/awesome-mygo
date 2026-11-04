@@ -4,9 +4,9 @@ import { join } from 'node:path';
 import { promisify } from 'node:util';
 import { DEFAULT_MODEL, README_LIMIT, type LlmConfig, writeCopy } from './copy.ts';
 import { downloadImage, isDefaultIcon, writeIcon, writeShot } from './image.ts';
-import { APP_DIR, DATA_FILES, type DataFile, type Entry, type EntryKind, addedAppFiles, addedEntries, appNameFrom, hasAllLanguages, iconOf, pickMygoJson, readmeImages, repoOfEntry, resolveImage } from './source.ts';
+import { APP_DIR, DATA_FILES, type DataFile, type Entry, type EntryKind, addedAppFiles, addedEntries, appCategories, appNameFrom, hasAllLanguages, iconOf, pickMygoJson, readmeImages, repoOfEntry, resolveImage, setCategory } from './source.ts';
 
-// Run by .github/workflows/enrich-submission.yml on a pull request the submission bot opened. It finds the entries the branch adds, then for each fills in what the form cannot ask for: an app's icon (from its mygo.json) and screenshot (the first one in its README), and the copy in every site language. It changes files in the working tree and writes a Markdown report for the pull request; the workflow runs the catalog checks and commits.
+// Run by .github/workflows/enrich-submission.yml on a pull request the submission bot opened. It finds the entries the branch adds, then for each fills in what the form cannot ask for: an app's icon (from its mygo.json) and screenshot (the first landscape one in its README), its category when the submission names none, and the copy in every site language. It changes files in the working tree and writes a Markdown report for the pull request; the workflow runs the catalog checks and commits.
 //
 // Environment: BASE_REF (the branch the entries are compared with, default origin/main), REPORT_FILE (where the report goes), GITHUB_TOKEN (for the GitHub API), and LLM_API_KEY with optional LLM_BASE_URL and LLM_MODEL for the copy; without LLM_API_KEY the copy is left as submitted.
 
@@ -115,25 +115,36 @@ async function addScreenshot(entry: Entry, slug: string, facts: RepoFacts, iconU
 			const passed = skipped.length ? ` It passed over ${skipped.join(', ')}.` : '';
 			return say(`- Screenshot: ${url} from the README, saved as \`${PUBLIC}/shots/${slug}.webp\`. Check that it shows the app.${passed}`);
 		}
-		skipped.push(`${url} (${result === 'square' ? 'square, likely a logo' : result === 'narrow' ? 'under 600 px wide' : 'not a PNG, JPEG or WebP under 10 MB'})`);
+		skipped.push(`${url} (${result === 'square' ? 'square, likely a logo' : result === 'narrow' ? 'under 600 px wide' : result === 'portrait' ? 'taller than wide' : 'not a PNG, JPEG or WebP under 10 MB'})`);
 		if (tried.length >= 8) break;
 	}
 	say(skipped.length ? `- Screenshot: none added. The README's images: ${skipped.join(', ')}.` : '- Screenshot: the README has no image.');
 }
 
+// An app needs a category: without one it is the only app in the showcase's other group, which the catalog checks reject. The form leaves it optional, so the model picks one along with the copy.
 async function addCopy(cfg: LlmConfig | undefined, kind: EntryKind, entry: Entry, facts: RepoFacts | undefined, examples: Entry[]): Promise<void> {
-	if (hasAllLanguages(entry.summary) && (kind !== 'app' || hasAllLanguages(entry.description))) return say('- Copy: kept, as it is already in every site language.');
-	if (!cfg) return say('- Copy: left as submitted, as LLM_API_KEY is not set for this workflow.');
+	const needsCategory = kind === 'app' && entry.category === undefined;
+	if (hasAllLanguages(entry.summary) && (kind !== 'app' || hasAllLanguages(entry.description))) {
+		say('- Copy: kept, as it is already in every site language.');
+		if (needsCategory) say('- Category: none submitted, and none picked as the copy was kept. Add one before merging.');
+		return;
+	}
+	if (!cfg) return say(`- Copy: left as submitted, as LLM_API_KEY is not set for this workflow.${needsCategory ? ' No category was picked either; add one before merging.' : ''}`);
 	if (facts?.readme && facts.readme.text.length > README_LIMIT) say(`- The README is ${facts.readme.text.length} characters long; the copy was written from its first ${README_LIMIT}.`);
 	try {
-		const copy = await writeCopy(cfg, { kind, entry, readme: facts?.readme?.text, mygoJson: facts?.mygo?.text, examples });
+		const categories = needsCategory ? appCategories(JSON.parse(await readFile(join(ROOT, DATA_DIR, 'schema/app.schema.json'), 'utf8'))) : undefined;
+		const copy = await writeCopy(cfg, { kind, entry, readme: facts?.readme?.text, mygoJson: facts?.mygo?.text, examples, categories });
 		entry.summary = copy.summary;
 		if (kind === 'app' && copy.description) entry.description = copy.description;
 		say(`- Copy: written by ${cfg.model} in all five languages from the submission${facts?.readme ? ' and the README' : ''}. Read it before merging.`);
+		if (copy.category) {
+			setCategory(entry, copy.category);
+			say(`- Category: ${copy.category}, picked by the model as the submission named none. Check it.`);
+		} else if (needsCategory) say(`- Category: none submitted, and the model's pick${copy.badCategory ? ` (${copy.badCategory})` : ''} is not one the schema allows. Add one before merging.`);
 		if (copy.notes) say(`- Model's notes: ${copy.notes.replace(/\s+/g, ' ')}`);
 		if (copy.tooLong.length) say(`- Still longer than the hand-written examples after one rewrite (length/limit): ${copy.tooLong.join(', ')}. Shorten before merging.`);
 	} catch (err) {
-		say(`- Copy: left as submitted, as writing it failed: ${err instanceof Error ? err.message : String(err)}`);
+		say(`- Copy: left as submitted, as writing it failed: ${err instanceof Error ? err.message : String(err)}${needsCategory ? '. No category was picked either; add one before merging.' : ''}`);
 	}
 }
 

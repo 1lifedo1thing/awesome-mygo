@@ -1,5 +1,7 @@
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { addedAppFiles, addedEntries, appNameFrom, hasAllLanguages, iconCut, iconOf, isSquarish, lengthCaps, overCaps, joinRepoPath, pickMygoJson, readmeImages, repoOfEntry, resolveImage, sniffImage } from './source.ts';
+import { addedAppFiles, addedEntries, appCategories, appNameFrom, hasAllLanguages, iconCut, iconOf, isPortrait, isSquarish, lengthCaps, overCaps, joinRepoPath, pickMygoJson, readmeImages, repoOfEntry, resolveImage, setCategory, sniffImage } from './source.ts';
 
 describe('app names', () => {
 	it('takes mygo.json’s spelling of the same name only', () => {
@@ -87,6 +89,37 @@ describe('the repository', () => {
 		expect(isSquarish(1000, 900)).toBe(true);
 		expect(isSquarish(1200, 810)).toBe(false);
 		expect(isSquarish(800, 1200)).toBe(false);
+	});
+
+	it('takes an image taller than wide for a panel, not a window', () => {
+		// Quosparr's README opens with its tray panel.
+		expect(isPortrait(762, 1786)).toBe(true);
+		expect(isPortrait(1600, 886)).toBe(false);
+		expect(isPortrait(1000, 1000)).toBe(false);
+		expect(isPortrait(0, 0)).toBe(false);
+	});
+});
+
+describe('categories', () => {
+	it("reads the categories the catalog's schema allows", async () => {
+		const schema = JSON.parse(await readFile(join(import.meta.dirname, '../../catalog/data/schema/app.schema.json'), 'utf8'));
+		const values = appCategories(schema);
+		expect(values).toContain('DeveloperApplication');
+		expect(values).toContain('UtilitiesApplication');
+		expect(appCategories({})).toEqual([]);
+		expect(appCategories(null)).toEqual([]);
+	});
+
+	it('sets the category right after kind, in place', () => {
+		const entry = { slug: 'cpa-bar', name: 'CPA-Bar', kind: 'native', url: 'https://x', added: 't' };
+		setCategory(entry, 'DeveloperApplication');
+		expect(Object.keys(entry)).toEqual(['slug', 'name', 'kind', 'category', 'url', 'added']);
+		expect(entry).toMatchObject({ category: 'DeveloperApplication' });
+		setCategory(entry, 'UtilitiesApplication');
+		expect(Object.keys(entry)).toEqual(['slug', 'name', 'kind', 'category', 'url', 'added']);
+		const kindless: Record<string, unknown> = { slug: 'x' };
+		setCategory(kindless, 'GameApplication');
+		expect(kindless).toEqual({ slug: 'x', category: 'GameApplication' });
 	});
 });
 
