@@ -1,0 +1,28 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "apigo",
+	"name": "APIGo",
+	"author": "younland",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/younland/apigo",
+	"summary": {
+		"en": "A cross-platform API client drawn with native UI, in the vein of Hoppscotch, fully offline.",
+		"zh-CN": "原生 UI 绘制的跨平台接口调试工具，对标 Hoppscotch，完全离线。",
+		"zh-TW": "原生 UI 繪製的跨平台介面除錯工具，對標 Hoppscotch，完全離線。",
+		"ja": "ネイティブ UI で描く Hoppscotch 風のクロスプラットフォーム API クライアント。完全オフライン。",
+		"ko": "네이티브 UI로 그린 Hoppscotch 스타일의 크로스플랫폼 API 클라이언트, 완전 오프라인."
+	},
+	"description": {
+		"en": "An API client written in Go and drawn with MyGo’s native UI, in the vein of Hoppscotch. Collections hold requests (REST, GraphQL, WebSocket, SSE, Socket.IO, MQTT) with local, staging and production environments, and OpenAPI 3 / Swagger 2 documents import as collections. No frontend toolchain or webview: one file, fully offline. REST and WebSocket work today.",
+		"zh-CN": "用 Go 编写、由 MyGo 原生 UI 直接绘制的接口调试工具，形态对标 Hoppscotch。先建集合再建接口（REST、GraphQL、WebSocket、SSE、Socket.IO、MQTT），集合自带本地、测试、生产三个环境，可导入 OpenAPI 3 / Swagger 2 文档。没有前端构建链和 WebView，单文件分发、完全离线；目前 REST 与 WebSocket 已可用。",
+		"zh-TW": "用 Go 撰寫、由 MyGo 原生 UI 直接繪製的介面除錯工具，形態對標 Hoppscotch。先建集合再建介面（REST、GraphQL、WebSocket、SSE、Socket.IO、MQTT），集合自帶本機、測試、正式三個環境，可匯入 OpenAPI 3 / Swagger 2 文件。沒有前端建置鏈與 WebView，單一檔案分發、完全離線；目前 REST 與 WebSocket 已可用。",
+		"ja": "Go で書かれ MyGo のネイティブ UI で描かれる、Hoppscotch 風の API クライアント。コレクションの中にリクエスト（REST・GraphQL・WebSocket・SSE・Socket.IO・MQTT）を作り、ローカル・テスト・本番の環境を切り替え、OpenAPI 3 / Swagger 2 をインポートできます。フロントエンドのビルドも WebView もなく、単一ファイルで完全オフライン。現在は REST と WebSocket が使えます。",
+		"ko": "Go로 작성하고 MyGo 네이티브 UI로 그린 Hoppscotch 스타일의 API 클라이언트. 컬렉션 안에 요청(REST, GraphQL, WebSocket, SSE, Socket.IO, MQTT)을 만들고 로컬·테스트·운영 환경을 전환하며, OpenAPI 3 / Swagger 2 문서를 가져올 수 있습니다. 프런트엔드 빌드 도구도 WebView도 없이 단일 파일로 완전 오프라인 동작하며, 현재 REST와 WebSocket을 지원합니다."
+	},
+	"screenshot": "apigo.webp",
+	"icon": {
+		"ailogo": "apigo"
+	},
+	"added": "2026-11-04T02:24:49Z"
+}

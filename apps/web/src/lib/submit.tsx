@@ -1,4 +1,4 @@
-import { type DraftField, type LangCode, SITE_REPO, SUBMIT_FILES, type SubmitCat, descMax, editUrl, entryCats, entryProblem, fill, guessFromLink, isBadRepo, isBadUrl, isEntryComplete, issueUrl, jsonEntry, missingFields, needsAuthor, needsRepo, parseEntryJson, pastedEntryProblem, pastedName, repoOf, withScheme } from '@awesome-mygo/catalog';
+import { type DraftField, type LangCode, SITE_REPO, type SubmitCat, buildEntry, descMax, editUrl, entryCats, entryPath, entryProblem, fill, guessFromLink, isBadRepo, isBadUrl, isEntryComplete, issueUrl, jsonEntry, missingFields, needsAuthor, needsRepo, parseEntryJson, pastedEntryProblem, pastedName, repoOf, withScheme } from '@awesome-mygo/catalog';
 import { useEffect, useRef, useState } from 'react';
 import { useLang, useT } from './lang';
 import { useSite } from './site';
@@ -97,14 +97,16 @@ export function useSubmit() {
 	const ok = viaJson ? Boolean(pastedEntry) && !jsonError : isEntryComplete(form.cat, form) && form.desc.length <= max;
 	const ph = { name: t.m_name, desc: t.md_desc };
 	const withAuthor = needsAuthor(form.cat);
-	const file = SUBMIT_FILES[form.cat].file;
 	const draft = isShow ? form : { ...form, category: undefined, repo: undefined };
+	// The entry as it will be filed: the pasted one, or the one the form builds. An app's file is named after its slug.
+	const entryObj = pastedEntry ?? buildEntry(form.cat, draft, form.mode, ph);
+	const file = entryPath(form.cat, entryObj);
 	// The shape of the category's entry, shown in the empty JSON field.
 	const example = jsonEntry(form.cat, { name: '', author: '', url: '', desc: '' }, form.mode, ph);
 	const entry = pastedEntry ? JSON.stringify(pastedEntry, null, 2) : jsonEntry(form.cat, draft, form.mode, ph);
-	// Every category ends up as an entry in its JSON file here: either an issue prefilled with the entry, or GitHub's editor on that file for a pull request.
+	// Every category ends up as an entry in a JSON file here: either an issue prefilled with the entry, or GitHub's editor (a new file for an app, the category's file otherwise) for a pull request.
 	const issue = issueUrl(SITE_REPO, form.cat, catLabel[form.cat], pastedEntry ? { ...draft, name: pastedName(pastedEntry) } : draft, entry, ph);
-	const edit = editUrl(SITE_REPO, form.cat);
+	const edit = editUrl(SITE_REPO, form.cat, entryObj);
 	const repoMissing = urlTouched && needsRepo(form.cat) && form.url.length > 0 && !isBadUrl(form.url) && !repoOf(form.url);
 	const canSend = bot.enabled && (viaJson ? ok : !entryProblem(form.cat, form)) && token !== '' && status.kind !== 'sending';
 

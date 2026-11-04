@@ -1,0 +1,28 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "video-downloader",
+	"name": "Video-Downloader",
+	"author": "Faizan",
+	"kind": "native",
+	"category": "MultimediaApplication",
+	"url": "https://github.com/fazi-gondal/video-downloader-mygo",
+	"summary": {
+		"en": "A desktop video downloader built with Go, MyGo, yt-dlp and FFmpeg.",
+		"zh-CN": "基于 Go、MyGo、yt-dlp 与 FFmpeg 的视频下载器。",
+		"zh-TW": "基於 Go、MyGo、yt-dlp 與 FFmpeg 的影片下載器。",
+		"ja": "Go・MyGo・yt-dlp・FFmpeg で作られた動画ダウンローダー。",
+		"ko": "Go, MyGo, yt-dlp, FFmpeg로 만든 동영상 다운로더."
+	},
+	"description": {
+		"en": "Native desktop video downloader built with Go, MyGo, yt-dlp, and FFmpeg. The application analyzes videos and playlists, lets users choose quality, audio, subtitles, and containers, manages downloads in a queue, converts local media, and stores download history.",
+		"zh-CN": "用 Go、MyGo、yt-dlp 和 FFmpeg 打造的原生桌面视频下载器。可解析视频与播放列表，选择画质、音轨、字幕和封装格式，用队列管理下载，转换本地媒体，并保存下载历史。",
+		"zh-TW": "用 Go、MyGo、yt-dlp 與 FFmpeg 打造的原生桌面影片下載器。可解析影片與播放清單，選擇畫質、音軌、字幕與封裝格式，以佇列管理下載，轉換本機媒體，並保存下載紀錄。",
+		"ja": "Go・MyGo・yt-dlp・FFmpeg で作られたネイティブのデスクトップ動画ダウンローダー。動画やプレイリストを解析し、画質・音声・字幕・コンテナを選べ、キューでダウンロードを管理し、ローカルのメディアを変換し、履歴を保存します。",
+		"ko": "Go, MyGo, yt-dlp, FFmpeg로 만든 네이티브 데스크톱 동영상 다운로더. 동영상과 재생목록을 분석하고, 화질·오디오·자막·컨테이너를 고르고, 대기열로 다운로드를 관리하며, 로컬 미디어를 변환하고 다운로드 기록을 저장합니다."
+	},
+	"screenshot": "video-downloader.webp",
+	"icon": {
+		"ailogo": "videodownloadermygo"
+	},
+	"added": "2026-11-04T02:24:49Z"
+}

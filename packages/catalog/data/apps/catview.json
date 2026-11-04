@@ -1,0 +1,19 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "catview",
+	"name": "CatView",
+	"author": "sogud",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/sogud/catview",
+	"repo": "sogud/catview",
+	"summary": {
+		"en": "A local-first file reader for macOS, currently in alpha.",
+		"zh-CN": "本地优先的 macOS 文件阅读器，目前处于 Alpha 阶段。"
+	},
+	"description": {
+		"en": "Browse folders and read Markdown, code, PDFs, EPUBs and images in tabs, with basic Office previews. Built with MyGo's native UI; preview downloads currently support Apple Silicon Macs only.",
+		"zh-CN": "浏览文件夹，在标签页中阅读 Markdown、代码、PDF、EPUB 和图片，并提供基础 Office 预览。基于 MyGo 原生 UI 构建，目前预览版下载仅支持 Apple Silicon Mac。"
+	},
+	"added": "2026-11-04T12:19:23Z"
+}

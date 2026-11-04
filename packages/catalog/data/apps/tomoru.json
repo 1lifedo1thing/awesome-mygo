@@ -1,0 +1,28 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "tomoru",
+	"name": "Tomoru",
+	"author": "ACAne0320",
+	"kind": "native",
+	"category": "MultimediaApplication",
+	"url": "https://tomoru.acane.dev",
+	"summary": {
+		"en": "Live bilingual subtitles for anything you watch on macOS and Windows.",
+		"zh-CN": "在 macOS 和 Windows 上为正在播放的任何内容实时显示双语字幕。",
+		"zh-TW": "在 macOS 與 Windows 上為正在播放的任何內容即時顯示雙語字幕。",
+		"ja": "macOS と Windows で、再生中のあらゆるものにリアルタイムの二か国語字幕を。",
+		"ko": "macOS와 Windows에서 재생 중인 모든 콘텐츠에 실시간 이중 언어 자막."
+	},
+	"description": {
+		"en": "Live bilingual subtitles for anything you watch on macOS and Windows. It listens to what your computer plays, from raw anime and VTuber streams to games and meetings, and shows each line with its translation over any app.",
+		"zh-CN": "在 macOS 和 Windows 上为你观看的任何内容提供实时双语字幕。它聆听电脑正在播放的声音，从生肉动画、VTuber 直播到游戏和会议，并在任何应用上方显示每一句及其译文。",
+		"zh-TW": "在 macOS 與 Windows 上為你觀看的任何內容提供即時雙語字幕。它聆聽電腦正在播放的聲音，從生肉動畫、VTuber 直播到遊戲與會議，並在任何應用上方顯示每一句及其譯文。",
+		"ja": "macOS と Windows で、観ているものすべてにリアルタイムの二か国語字幕を。字幕なしのアニメや VTuber の配信からゲーム、会議まで、PC が再生する音声を聞き取り、どのアプリの上にも各行と訳文を表示します。",
+		"ko": "macOS와 Windows에서 보는 모든 것에 실시간 이중 언어 자막을. 자막 없는 애니메이션, VTuber 방송부터 게임과 회의까지 컴퓨터가 재생하는 소리를 듣고, 어떤 앱 위에든 각 문장과 번역을 보여줍니다."
+	},
+	"screenshot": "tomoru.webp",
+	"icon": {
+		"file": "tomoru.webp"
+	},
+	"added": "2026-11-04T02:24:49Z"
+}

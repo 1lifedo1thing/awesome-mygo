@@ -1,0 +1,28 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "godwit",
+	"name": "Godwit",
+	"author": "baranwang",
+	"kind": "native",
+	"category": "CommunicationApplication",
+	"url": "https://godwit.email",
+	"summary": {
+		"en": "An open-source, AI-native email client for macOS, Windows and Linux.",
+		"zh-CN": "开源、AI 原生的跨平台邮件客户端。",
+		"zh-TW": "開源、AI 原生的跨平台郵件用戶端。",
+		"ja": "オープンソースで AI ネイティブなクロスプラットフォームのメールクライアント。",
+		"ko": "오픈소스 AI 네이티브 크로스플랫폼 이메일 클라이언트."
+	},
+	"description": {
+		"en": "An open-source, AI-native email client for macOS, Windows and Linux. It works with any IMAP/SMTP account, and its assistant reads, summarizes, translates and drafts mail with the model you choose; skills, plugins and MCP servers extend it.",
+		"zh-CN": "开源、AI 原生的邮件客户端，支持 macOS、Windows 和 Linux。适用于任何 IMAP/SMTP 账号，内置助手可用你选择的模型阅读、总结、翻译和起草邮件，并可通过 skills、插件和 MCP 服务器扩展。",
+		"zh-TW": "開源、AI 原生的郵件用戶端，支援 macOS、Windows 與 Linux。適用於任何 IMAP/SMTP 帳號，內建助理可用你選擇的模型閱讀、摘要、翻譯與起草郵件，並可透過 skills、外掛與 MCP 伺服器擴充。",
+		"ja": "macOS・Windows・Linux 向けのオープンソースで AI ネイティブなメールクライアント。どの IMAP/SMTP アカウントでも使え、アシスタントが選んだモデルでメールを読み、要約し、翻訳し、下書きします。skills、プラグイン、MCP サーバーで拡張できます。",
+		"ko": "macOS, Windows, Linux용 오픈소스 AI 네이티브 이메일 클라이언트. 모든 IMAP/SMTP 계정에서 동작하며, 어시스턴트가 선택한 모델로 메일을 읽고 요약하고 번역하고 초안을 씁니다. skills, 플러그인, MCP 서버로 확장할 수 있습니다."
+	},
+	"screenshot": "godwit.webp",
+	"icon": {
+		"ailogo": "godwit"
+	},
+	"added": "2026-11-04T02:24:49Z"
+}

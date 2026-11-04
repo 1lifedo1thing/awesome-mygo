@@ -1,0 +1,28 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "repo-hopper",
+	"name": "Repo Hopper",
+	"author": "pteich",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/pteich/repo-hopper",
+	"summary": {
+		"en": "Spotlight for your Git repositories: one shortcut to find and open any local repo.",
+		"zh-CN": "Git 仓库版 Spotlight：一个快捷键搜索并打开本地仓库。",
+		"zh-TW": "Git 倉庫版 Spotlight：一個快捷鍵搜尋並開啟本機倉庫。",
+		"ja": "Git リポジトリ版 Spotlight。ショートカット一つでローカルのリポジトリを検索して開く。",
+		"ko": "Git 저장소용 Spotlight: 단축키 하나로 로컬 저장소를 찾아 엽니다."
+	},
+	"description": {
+		"en": "Spotlight for your Git repositories. A global shortcut opens a search over every local repo, most recently changed first, and opens the chosen one in your editor, terminal or Finder.",
+		"zh-CN": "Git 仓库版 Spotlight。一个全局快捷键打开对所有本地仓库的搜索，最近改动的排在最前，选中后在编辑器、终端或 Finder 中打开。",
+		"zh-TW": "Git 倉庫版 Spotlight。一個全域快捷鍵開啟對所有本機倉庫的搜尋，最近變更的排在最前，選定後在編輯器、終端機或 Finder 中開啟。",
+		"ja": "Git リポジトリのための Spotlight。グローバルショートカットで全ローカルリポジトリの検索を開き、最近変更したものから並べ、選んだものをエディタ、ターミナル、Finder で開きます。",
+		"ko": "Git 저장소를 위한 Spotlight. 전역 단축키로 모든 로컬 저장소 검색을 열고 최근에 바뀐 것부터 보여주며, 고른 저장소를 편집기, 터미널, Finder에서 엽니다."
+	},
+	"screenshot": "repo-hopper.webp",
+	"icon": {
+		"file": "repo-hopper.webp"
+	},
+	"added": "2026-11-04T02:24:49Z"
+}

@@ -1,19 +1,44 @@
 import { CatalogError } from './validate';
-import { type AppCategory, DATA_DIR, hostOf, readApps, readArticles, readPlugins, readStateSolutions, readUiLibs } from './catalog';
+import { APP_DIR, APP_SCHEMA, type AppCategory, DATA_DIR, hostOf, readAppEntry, readAppFile, readArticles, readPlugins, readStateSolutions, readUiLibs } from './catalog';
 
-// Submission form: it writes the JSON entry for the category's data file. The site's bot opens a pull request with it, or a contributor with a GitHub account sends it as an issue or adds it to the file themselves.
+// Submission form: it writes the JSON entry for the category's data file. The site's bot opens a pull request with it, or a contributor with a GitHub account sends it as an issue or adds it to the file themselves. An app gets a file of its own, data/apps/<slug>.json, so apps submitted together never conflict; the other categories add to their list file.
 
 export const SUBMIT_CATS = ['ui', 'state', 'plugin', 'showcase', 'article'] as const;
 export type SubmitCat = (typeof SUBMIT_CATS)[number];
 
-// The data file and its list for each category, the check that file must pass, and the category's name in a pull request title.
-export const SUBMIT_FILES: Record<SubmitCat, { file: string; list: string; check: (json: unknown) => unknown; label: string }> = {
-	showcase: { file: 'apps.json', list: 'apps', check: readApps, label: 'app' },
-	ui: { file: 'ui.json', list: 'libraries', check: readUiLibs, label: 'UI components' },
-	state: { file: 'state.json', list: 'solutions', check: readStateSolutions, label: 'state management' },
-	plugin: { file: 'plugins.json', list: 'plugins', check: readPlugins, label: 'plugin' },
-	article: { file: 'articles.json', list: 'articles', check: readArticles, label: 'article' },
+export type ListCat = Exclude<SubmitCat, 'showcase'>;
+
+// The data file and its list for each category but the showcase, and the check that file must pass.
+export const LIST_FILES: Record<ListCat, { file: string; list: string; check: (json: unknown) => unknown }> = {
+	ui: { file: 'ui.json', list: 'libraries', check: readUiLibs },
+	state: { file: 'state.json', list: 'solutions', check: readStateSolutions },
+	plugin: { file: 'plugins.json', list: 'plugins', check: readPlugins },
+	article: { file: 'articles.json', list: 'articles', check: readArticles },
 };
+
+// Each category's name in a pull request title.
+export const SUBMIT_LABELS: Record<SubmitCat, string> = { showcase: 'app', ui: 'UI components', state: 'state management', plugin: 'plugin', article: 'article' };
+
+// Where an entry goes, under DATA_DIR: an app's own file, named after its slug, or the category's list file.
+export function entryPath(cat: SubmitCat, entry: Record<string, unknown>): string {
+	if (cat !== 'showcase') return LIST_FILES[cat].file;
+	const slug = typeof entry.slug === 'string' && entry.slug ? entry.slug : 'my-app';
+	return `${APP_DIR}/${slug}.json`;
+}
+
+// Throws a CatalogError, naming the field, when entry would not pass its file's check.
+export function checkEntry(cat: SubmitCat, entry: Record<string, unknown>): void {
+	if (cat === 'showcase') readAppEntry(entry);
+	else LIST_FILES[cat].check({ [LIST_FILES[cat].list]: [entry] });
+}
+
+// An app's file as the repository keeps it: its schema first, the entry, and when it was added (now, to the second, unless given). Throws a CatalogError, naming the field, when it would not pass the file's check.
+export function appFileText(entry: Record<string, unknown>, added = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z')): string {
+	const { $schema: _schema, added: _added, ...rest } = entry;
+	const file = { $schema: APP_SCHEMA, ...rest, added };
+	readAppFile(entryPath('showcase', file).slice(APP_DIR.length + 1), file);
+	return `${JSON.stringify(file, null, '\t')}\n`;
+}
 
 // A card's line stays short; an app's description may run to a sentence or two.
 export function descMax(cat: SubmitCat): number {
@@ -152,9 +177,8 @@ export function parseEntryJson(text: string): { entry: Record<string, unknown> }
 
 // Why entry cannot be submitted as a cat entry, or undefined when it can. The file's own check names the field; the rest are the limits the form's fields have.
 export function pastedEntryProblem(cat: SubmitCat, entry: Record<string, unknown>): string | undefined {
-	const { list, check } = SUBMIT_FILES[cat];
 	try {
-		check({ [list]: [entry] });
+		checkEntry(cat, entry);
 	} catch (err) {
 		if (err instanceof CatalogError) return err.message;
 		throw err;
@@ -180,8 +204,8 @@ export function pastedName(entry: Record<string, unknown>): string {
 }
 
 // The data file with entry added at the end of its list, formatted as the repository keeps it. Throws a CatalogError, naming the field, when the result would not pass the file's check, e.g. a duplicate.
-export function appendEntry(cat: SubmitCat, fileText: string, entry: Record<string, unknown>): string {
-	const { file, list, check } = SUBMIT_FILES[cat];
+export function appendEntry(cat: ListCat, fileText: string, entry: Record<string, unknown>): string {
+	const { file, list, check } = LIST_FILES[cat];
 	const data = JSON.parse(fileText) as Record<string, unknown[]>;
 	if (!Array.isArray(data[list])) throw new CatalogError(`${file}: "${list}" must be a list`);
 	data[list] = [...data[list], entry];
@@ -198,13 +222,18 @@ export function codeFence(text: string, lang = ''): string {
 
 // A new-issue link on repo, prefilled with the entry.
 export function issueUrl(repo: string, cat: SubmitCat, catLabel: string, d: EntryDraft, entry: string, placeholders: { name: string }): string {
-	const { file } = SUBMIT_FILES[cat];
-	const q = new URLSearchParams({ title: `Add ${d.name.trim() || placeholders.name} (${catLabel})`, body: `${catLabel}: \`${DATA_DIR}/${file}\`\n\n${codeFence(entry, 'json')}\n` });
+	const parsed = parseEntryJson(entry);
+	const path = entryPath(cat, 'entry' in parsed ? parsed.entry : {});
+	const q = new URLSearchParams({ title: `Add ${d.name.trim() || placeholders.name} (${catLabel})`, body: `${catLabel}: \`${DATA_DIR}/${path}\`\n\n${codeFence(entry, 'json')}\n` });
 	return `${repo}/issues/new?${q}`;
 }
 
-// GitHub's editor for the category's data file; for a visitor without write access it forks the repository and opens a pull request.
-export function editUrl(repo: string, cat: SubmitCat): string {
-	return `${repo}/edit/main/${DATA_DIR}/${SUBMIT_FILES[cat].file}`;
+// GitHub's editor for the entry: for an app, a new file named after its slug with the entry filled in; for the other categories, their data file. For a visitor without write access it forks the repository and opens a pull request.
+export function editUrl(repo: string, cat: SubmitCat, entry: Record<string, unknown>): string {
+	if (cat !== 'showcase') return `${repo}/edit/main/${DATA_DIR}/${LIST_FILES[cat].file}`;
+	const { $schema: _schema, added: _added, ...rest } = entry;
+	const value = `${JSON.stringify({ $schema: APP_SCHEMA, ...rest, added: new Date().toISOString().replace(/\.\d{3}Z$/, 'Z') }, null, '\t')}\n`;
+	const q = new URLSearchParams({ filename: entryPath(cat, entry).slice(APP_DIR.length + 1), value });
+	return `${repo}/new/main/${DATA_DIR}/${APP_DIR}?${q}`;
 }
 

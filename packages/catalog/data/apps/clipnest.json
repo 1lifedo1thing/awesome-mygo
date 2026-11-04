@@ -1,0 +1,28 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "clipnest",
+	"name": "Clipnest",
+	"author": "echoVic",
+	"kind": "web",
+	"category": "UtilitiesApplication",
+	"url": "https://clipnest.echovic.com",
+	"summary": {
+		"en": "An open-source clipboard history for Mac.",
+		"zh-CN": "开源 Mac 剪贴板历史工具。",
+		"zh-TW": "開源 Mac 剪貼簿歷史工具。",
+		"ja": "Mac 用のオープンソースのクリップボード履歴。",
+		"ko": "Mac용 오픈소스 클립보드 기록."
+	},
+	"description": {
+		"en": "An open-source clipboard history for Mac. It keeps the text, links, code and images you copy and the snippets you reuse; press ⌘⇧V to pick one and paste it back where you were.",
+		"zh-CN": "开源的 Mac 剪贴板历史工具。保存你复制过的文字、链接、代码和图片，以及常用片段；按 ⌘⇧V 选一条，就能粘贴回原来的位置。",
+		"zh-TW": "開源的 Mac 剪貼簿歷史工具。保存你複製過的文字、連結、程式碼與圖片，以及常用片段；按 ⌘⇧V 選一條，就能貼回原來的位置。",
+		"ja": "Mac 用のオープンソースのクリップボード履歴。コピーしたテキスト、リンク、コード、画像と、よく使うスニペットを保存します。⌘⇧V で選べば、元の場所に貼り付けられます。",
+		"ko": "Mac용 오픈소스 클립보드 기록. 복사한 텍스트, 링크, 코드, 이미지와 자주 쓰는 스니펫을 보관하고, ⌘⇧V로 하나를 골라 원래 자리에 붙여 넣습니다."
+	},
+	"screenshot": "clipnest.webp",
+	"icon": {
+		"ailogo": "clipnest"
+	},
+	"added": "2026-11-04T02:24:49Z"
+}

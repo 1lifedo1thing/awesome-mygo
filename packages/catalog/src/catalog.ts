@@ -1,4 +1,3 @@
-import appsJson from '../data/apps.json';
 import articlesJson from '../data/articles.json';
 import docsJson from '../data/docs.json';
 import pluginsJson from '../data/plugins.json';
@@ -6,9 +5,9 @@ import stateJson from '../data/state.json';
 import uiJson from '../data/ui.json';
 import type { Text } from './lang';
 import type { StringKey } from './strings';
-import { type Reader, readList, unique } from './validate';
+import { CatalogError, Reader, readList, unique } from './validate';
 
-// The entries live in packages/catalog/data/*.json, one file per category, so adding one is a JSON edit; data/schema/ describes their fields. Data sources: egoist/mygo (website/src/showcase.ts, docs/) and each project's own README.
+// The entries live in packages/catalog/data: apps one file each under apps/, named after the slug, so submissions that arrive together never touch the same file; every other category one *.json file of its own. data/schema/ describes their fields. Data sources: egoist/mygo (website/src/showcase.ts, docs/) and each project's own README.
 
 export const SITE_URL = 'https://mygodock.dev';
 export const MYGO_SITE = 'https://mygo.egoist.dev';
@@ -39,7 +38,7 @@ const shot = (file: string | undefined) => (file ? `/shots/${file}` : undefined)
 
 // Each read* function checks a whole data file, the bundled one at load or a contributor's version of it, and throws a CatalogError naming the entry and field of the first mistake.
 
-// ---- apps (data/apps.json) ----
+// ---- apps (data/apps/<slug>.json) ----
 
 export type AppKind = 'native' | 'web';
 
@@ -105,13 +104,15 @@ export interface App {
 	image?: string;
 	// The app's icon: its ai-logo avatar on the ai-logo CDN, its official icon under /icons/, or none, for the letter tile.
 	icon?: string;
+	// When it joined the showcase (UTC, e.g. 2026-11-04T12:00:00Z); the showcase lists apps in this order. Set by the submission bot, so an entry checked before it is submitted has none yet.
+	added?: string;
 }
 
 // Icons come from yldm-tech/ai-logo (its avatar renders), served by its CDN.
 export const AILOGO_CDN = 'https://ailogo.yldm.ai/avatar/';
 
 const readApp = (r: Reader): App => {
-	r.only(['slug', 'name', 'author', 'kind', 'category', 'url', 'repo', 'summary', 'description', 'screenshot', 'icon']);
+	r.only(['$schema', 'slug', 'name', 'author', 'kind', 'category', 'url', 'repo', 'summary', 'description', 'screenshot', 'icon', 'added']);
 	const icon = r.raw.icon as { ailogo?: unknown; file?: unknown } | undefined;
 	let iconUrl: string | undefined;
 	if (icon !== undefined) {
@@ -131,16 +132,41 @@ const readApp = (r: Reader): App => {
 		about: r.text('description'),
 		image: shot(r.raw.screenshot === undefined ? undefined : r.match('screenshot', SHOT, 'a .webp or .svg file name')),
 		icon: iconUrl,
+		added: r.raw.added === undefined ? undefined : r.match('added', ADDED, 'a UTC time like 2026-11-04T12:00:00Z'),
 	};
 };
 
-export function readApps(json: unknown): App[] {
-	const apps = readList('apps.json', json, 'apps', readApp);
-	unique('apps.json', apps, 'slug', (a) => a.slug);
-	return apps;
+const ADDED = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/;
+export const APP_DIR = 'apps';
+export const APP_SCHEMA = '../schema/app.schema.json';
+
+// One app as entered in the form or pasted, before it has a file: the same checks as its file, less the file's own fields.
+export function readAppEntry(json: unknown): App {
+	if (!json || typeof json !== 'object' || Array.isArray(json)) throw new CatalogError('the app must be an object');
+	return readApp(new Reader('app', undefined, json as Record<string, unknown>));
 }
 
-export const APPS: readonly App[] = readApps(appsJson);
+// One app's file, data/apps/<name>: its entry, named after its slug, pointing at its schema and saying when it was added.
+export function readAppFile(name: string, json: unknown): App {
+	const file = `${APP_DIR}/${name}`;
+	if (!json || typeof json !== 'object' || Array.isArray(json)) throw new CatalogError(`${file}: must be an object`);
+	const r = new Reader(file, undefined, json as Record<string, unknown>);
+	const app = readApp(r);
+	if (name !== `${app.slug}.json`) r.fail('slug', `must match the file name, ${name}`);
+	if (r.raw.$schema !== APP_SCHEMA) r.fail('$schema', `must be "${APP_SCHEMA}"`);
+	if (!app.added) r.fail('added', 'is required: the showcase lists apps in the order they were added');
+	return app;
+}
+
+// The apps of data/apps/, keyed by file name, in the order they were added; apps added at the same second go by slug.
+export function readApps(files: Record<string, unknown>): App[] {
+	const apps = Object.entries(files).map(([name, json]) => readAppFile(name, json));
+	return apps.sort((a, b) => (a.added ?? '').localeCompare(b.added ?? '') || a.slug.localeCompare(b.slug));
+}
+
+// Every file in data/apps/, through Vite (the site's build and the tests both run on it), keyed by its file name.
+const appFiles = import.meta.glob<unknown>('../data/apps/*.json', { eager: true, import: 'default' });
+export const APPS: readonly App[] = readApps(Object.fromEntries(Object.entries(appFiles).map(([path, json]) => [path.slice(path.lastIndexOf('/') + 1), json])));
 
 // The app's GitHub repository link, unless its homepage is that repository already.
 export function appSource(app: { url: string; repo?: string }): string | undefined {

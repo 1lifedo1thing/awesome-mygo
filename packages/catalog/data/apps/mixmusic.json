@@ -1,0 +1,28 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mixmusic",
+	"name": "MixMusic",
+	"author": "fzn0x",
+	"kind": "native",
+	"category": "MultimediaApplication",
+	"url": "https://github.com/fzn0x/mixmusic",
+	"summary": {
+		"en": "An open-source music player that searches YouTube Music and Spotify.",
+		"zh-CN": "开源音乐播放器，可搜索 YouTube Music 与 Spotify。",
+		"zh-TW": "開源音樂播放器，可搜尋 YouTube Music 與 Spotify。",
+		"ja": "YouTube Music と Spotify を検索できるオープンソースの音楽プレーヤー。",
+		"ko": "YouTube Music과 Spotify를 검색하는 오픈소스 음악 플레이어."
+	},
+	"description": {
+		"en": "An open-source music player for macOS, Windows and Linux. One search looks through YouTube Music and Spotify, and one queue and library mix tracks from both.",
+		"zh-CN": "适用于 macOS、Windows 和 Linux 的开源音乐播放器。一次搜索同时覆盖 YouTube Music 与 Spotify，同一个播放队列和曲库可以混排两边的歌曲。",
+		"zh-TW": "適用於 macOS、Windows 與 Linux 的開源音樂播放器。一次搜尋同時涵蓋 YouTube Music 與 Spotify，同一個播放佇列與曲庫可以混排兩邊的歌曲。",
+		"ja": "macOS・Windows・Linux 向けのオープンソース音楽プレーヤー。一度の検索で YouTube Music と Spotify の両方を探し、ひとつのキューとライブラリに両方の曲を混ぜられます。",
+		"ko": "macOS, Windows, Linux용 오픈소스 음악 플레이어. 한 번의 검색으로 YouTube Music과 Spotify를 함께 찾고, 하나의 대기열과 라이브러리에 두 서비스의 곡을 섞을 수 있습니다."
+	},
+	"screenshot": "mixmusic.webp",
+	"icon": {
+		"ailogo": "mixmusic"
+	},
+	"added": "2026-11-04T02:24:49Z"
+}
