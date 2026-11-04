@@ -19,7 +19,7 @@ const SHOT_W = 576;
 const SHOT_H = 360;
 const ICON = 112;
 
-interface Paths {
+export interface Paths {
 	// The site's public/ directory, which holds /shots/, /icons/ and the site icon.
 	publicDir: string;
 	// apps/web/og/fonts.
@@ -32,7 +32,7 @@ const img = (src: string, width: number, height: number, style: CSSProperties = 
 const dataUri = (png: Buffer) => `data:image/png;base64,${png.toString('base64')}`;
 
 // Satori only reads PNG, JPEG and GIF, while the screenshots and icons are WebP (and one screenshot SVG), so every image goes through sharp first, at twice its displayed size for sharpness.
-async function asPng(input: Buffer, width: number, height: number): Promise<string> {
+export async function asPng(input: Buffer, width: number, height: number): Promise<string> {
 	return dataUri(await sharp(input, { density: 144 }).resize(width * 2, height * 2, { fit: 'cover', position: 'top' }).png().toBuffer());
 }
 
@@ -47,7 +47,7 @@ async function imageBytes(src: string, publicDir: string, slug: string): Promise
 // ---- fonts ----
 
 let latin: Promise<Font[]> | undefined;
-function latinFonts(fontDir: string): Promise<Font[]> {
+export function latinFonts(fontDir: string): Promise<Font[]> {
 	latin ??= Promise.all([
 		readFile(join(fontDir, 'bricolage-grotesque-800.ttf')).then((data): Font => ({ name: 'Bricolage Grotesque', data, weight: 800 })),
 		readFile(join(fontDir, 'bricolage-grotesque-500.ttf')).then((data): Font => ({ name: 'Bricolage Grotesque', data, weight: 500 })),

@@ -11,6 +11,8 @@
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 /icons/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+/badge.svg
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 /og-image-1200x630.png
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 /favicon.ico
