@@ -1,0 +1,16 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "cpa-bar",
+	"name": "CPA-Bar",
+	"author": "Licoy",
+	"kind": "native",
+	"url": "https://github.com/Licoy/CPA-Bar",
+	"repo": "Licoy/CPA-Bar",
+	"summary": {
+		"en": "在菜单栏里随时掌握你的 CLIProxyAPI 服务"
+	},
+	"description": {
+		"en": "在菜单栏里随时掌握你的 CLIProxyAPI 服务"
+	},
+	"added": "2026-11-04T14:37:08Z"
+}
