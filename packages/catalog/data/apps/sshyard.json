@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "sshyard",
+	"name": "SSHYard",
+	"author": "Licoy",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://sshyard.com",
+	"repo": "Licoy/sshyard",
+	"summary": {
+		"en": "A native SSH and SFTP client for macOS, Windows and Linux, with an AI assistant built in.",
+		"zh-CN": "原生 SSH 与 SFTP 桌面客户端，集终端、文件管理和 AI 助手于一体。",
+		"zh-TW": "原生 SSH 與 SFTP 桌面用戶端，集終端機、檔案管理和 AI 助理於一身。",
+		"ja": "ターミナル、ファイル管理、AI アシスタントをまとめたネイティブな SSH・SFTP クライアント。",
+		"ko": "터미널, 파일 관리, AI 어시스턴트를 한데 모은 네이티브 SSH·SFTP 클라이언트."
+	},
+	"description": {
+		"en": "An SSH and SFTP client for macOS, Windows and Linux, drawn with MyGo's native UI. Terminals with tabs and split panes sit beside an SFTP file manager, and a per-host AI assistant can run commands and edit files in Ask, Review or Full access mode. It also handles jump hosts, proxies and port forwarding, and makes encrypted backups to WebDAV, S3-compatible storage or GitHub Gists.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 SSH 与 SFTP 客户端，支持 macOS、Windows 和 Linux。支持标签页和分屏的终端旁边就是 SFTP 文件管理器；每台主机都有专属的 AI 助手，可在 Ask、Review 或 Full access 模式下执行命令、编辑文件。它还支持跳板机、代理和端口转发，并能把加密备份存到 WebDAV、S3 兼容存储或 GitHub Gist。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 SSH 與 SFTP 用戶端，支援 macOS、Windows 和 Linux。支援分頁和分割窗格的終端機旁邊就是 SFTP 檔案管理器；每台主機都有專屬的 AI 助理，可在 Ask、Review 或 Full access 模式下執行指令、編輯檔案。它也支援跳板主機、代理和連接埠轉送，並能把加密備份存到 WebDAV、S3 相容儲存空間或 GitHub Gist。",
+		"ja": "MyGo のネイティブ UI で描かれた、macOS・Windows・Linux 向けの SSH・SFTP クライアントです。タブと分割ペインに対応したターミナルの横に SFTP ファイルマネージャーが並び、ホストごとの AI アシスタントが Ask、Review、Full access のモードでコマンド実行やファイル編集を行います。踏み台ホスト、プロキシ、ポートフォワーディングにも対応し、暗号化したバックアップを WebDAV、S3 互換ストレージ、GitHub Gist に保存できます。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS·Windows·Linux용 SSH·SFTP 클라이언트입니다. 탭과 분할 창을 지원하는 터미널 옆에 SFTP 파일 관리자가 있고, 호스트마다 있는 AI 어시스턴트가 Ask, Review, Full access 모드로 명령을 실행하고 파일을 편집합니다. 점프 호스트, 프록시, 포트 포워딩도 지원하며, 암호화한 백업을 WebDAV, S3 호환 스토리지, GitHub Gist에 저장할 수 있습니다."
+	},
+	"added": "2026-11-04T14:38:05Z",
+	"icon": {
+		"file": "sshyard.webp"
+	},
+	"screenshot": "sshyard.webp"
+}
