@@ -13,7 +13,7 @@ import state from '../data/state.json';
 import ui from '../data/ui.json';
 import { AILOGO_CDN, APPS, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, hostOf } from './catalog';
 import { SUBMIT_CATS, SUBMIT_FILES, appendEntry, buildEntry, codeFence, descMax, editUrl, entryProblem, isBadUrl, isEntryComplete, issueUrl, jsonEntry, slugify } from './entry';
-import { LANGS, type Text, fill, langRedirectScript, negotiateLang, pick } from './lang';
+import { LANGS, type LangCode, type Text, fill, langRedirectScript, negotiateLang, pick } from './lang';
 import { buildSearchIndex, searchCatalog } from './search';
 import { STRINGS } from './strings';
 import { t } from './translate';
@@ -121,6 +121,9 @@ describe('validation of contributed entries', () => {
 });
 
 describe('negotiateLang', () => {
+	const CHROME = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36';
+	const SITE = 'https://mygodock.dev';
+
 	it('prefers a saved choice', () => {
 		expect(negotiateLang('ja', 'en-US')).toBe('ja');
 	});
@@ -140,36 +143,62 @@ describe('negotiateLang', () => {
 		expect(negotiateLang(null, 'de-DE')).toBe('zh-CN');
 		expect(negotiateLang(null, undefined)).toBe('zh-CN');
 	});
+
+	it('keeps crawlers on the language the URL declares', () => {
+		const crawlers = [
+			'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+			'Mozilla/5.0 (compatible; Google-InspectionTool/1.0)',
+			'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm) Chrome/116.0.1938.76 Safari/537.36',
+			'Mozilla/5.0 (compatible; Baiduspider-render/2.0; +http://www.baidu.com/search/spider.html)',
+			'Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)',
+			'Mozilla/5.0 (Linux; Android 7.0;) AppleWebKit/537.36 (KHTML, like Gecko) Mobile Safari/537.36 (compatible; PetalBot;+https://webmaster.petalsearch.com/site/petalbot)',
+			'Mozilla/5.0 (compatible; Yeti/1.1; +https://naver.me/spd)',
+			'Mozilla/5.0 (Linux; Android 5.0) AppleWebKit/537.36 (KHTML, like Gecko) Mobile Safari/537.36 (compatible; Bytespider; spider-feedback@bytedance.com)',
+			'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)',
+			'WhatsApp/2.23.20.0',
+			'Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36 Chrome-Lighthouse',
+		];
+		for (const userAgent of crawlers) expect(negotiateLang(null, 'en-US', { userAgent, referrer: '', origin: SITE }), userAgent).toBe('zh-CN');
+		expect(negotiateLang(null, 'en-US', { userAgent: CHROME, referrer: '', origin: SITE })).toBe('en');
+	});
+
+	it('keeps visitors from another site on the language the URL declares, unless they saved a choice', () => {
+		expect(negotiateLang(null, 'en-US', { userAgent: CHROME, referrer: 'https://www.google.com/', origin: SITE })).toBe('zh-CN');
+		expect(negotiateLang(null, 'en-US', { userAgent: CHROME, referrer: 'https://mygodock.dev.example.com/', origin: SITE })).toBe('zh-CN');
+		expect(negotiateLang('ja', 'en-US', { userAgent: CHROME, referrer: 'https://www.google.com/', origin: SITE })).toBe('ja');
+		expect(negotiateLang(null, 'en-US', { userAgent: CHROME, referrer: 'https://mygodock.dev/ui', origin: SITE })).toBe('en');
+	});
 });
 
 describe('langRedirectScript', () => {
+	const CHROME = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36';
+	const GOOGLEBOT = 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)';
 	// Runs the inline script against a fake page and returns where it redirected, or null.
-	const run = (href: string, saved: string | null, browser: string) => {
+	const run = (href: string, saved: string | null, browser: string, userAgent = CHROME, referrer = '') => {
 		let to: string | null = null;
-		const location = { href, replace: (u: string) => (to = u) };
+		const location = { href, origin: new URL(href).origin, replace: (u: string) => (to = u) };
 		const localStorage = { getItem: () => saved };
-		new Function('location', 'localStorage', 'navigator', langRedirectScript())(location, localStorage, { language: browser });
+		new Function('location', 'localStorage', 'navigator', 'document', langRedirectScript())(location, localStorage, { language: browser, userAgent }, { referrer });
 		return to;
 	};
-	const cases: [string | null, string][] = [
-		[null, 'en-US'],
-		[null, 'zh-TW'],
-		[null, 'zh-HK'],
-		[null, 'zh-Hant-MO'],
-		[null, 'zh-CN'],
-		[null, 'ja-JP'],
-		[null, 'ko-KR'],
-		[null, 'de-DE'],
-		['ja', 'en-US'],
-		['fr', 'ko-KR'],
-		['zh-CN', 'en-US'],
+	const browsers = ['en-US', 'zh-TW', 'zh-HK', 'zh-Hant-MO', 'zh-CN', 'ja-JP', 'ko-KR', 'de-DE'];
+	const saves = [null, 'ja', 'fr', 'zh-CN'];
+	const visits: [string, string][] = [
+		[CHROME, ''],
+		[CHROME, 'https://mygodock.dev/ui'],
+		[CHROME, 'https://www.google.com/'],
+		[GOOGLEBOT, ''],
 	];
 
 	it('picks the same language as negotiateLang', () => {
-		for (const [saved, browser] of cases) {
-			const want = negotiateLang(saved, browser);
-			const to = run('https://mygodock.dev/showcase?app=kero', saved, browser);
-			expect(to ? new URL(to).searchParams.get('lang') : 'zh-CN').toBe(want);
+		for (const browser of browsers) {
+			for (const saved of saves) {
+				for (const [userAgent, referrer] of visits) {
+					const want = negotiateLang(saved, browser, { userAgent, referrer, origin: 'https://mygodock.dev' });
+					const to = run('https://mygodock.dev/showcase?app=kero', saved, browser, userAgent, referrer);
+					expect(to ? new URL(to).searchParams.get('lang') : 'zh-CN', `${browser} ${saved} ${userAgent} ${referrer}`).toBe(want);
+				}
+			}
 		}
 	});
 
@@ -181,8 +210,22 @@ describe('langRedirectScript', () => {
 		expect(run('https://mygodock.dev/?lang=ja', null, 'en-US')).toBeNull();
 	});
 
-	it('treats ?lang= of the default language as unset, like the router does', () => {
-		expect(run('https://mygodock.dev/?lang=zh-CN', null, 'en-US')).toBe('https://mygodock.dev/?lang=en');
+	it('leaves an explicit ?lang= of the default language', () => {
+		expect(run('https://mygodock.dev/?lang=zh-CN', null, 'en-US')).toBeNull();
+		expect(run('https://mygodock.dev/?lang=zh-CN', 'ja', 'en-US')).toBeNull();
+	});
+
+	it('does not redirect crawlers or visitors from another site', () => {
+		expect(run('https://mygodock.dev/', null, 'en-US', GOOGLEBOT)).toBeNull();
+		expect(run('https://mygodock.dev/', null, 'en-US', CHROME, 'https://www.google.com/')).toBeNull();
+		expect(run('https://mygodock.dev/', 'ja', 'en-US', CHROME, 'https://www.google.com/')).toBe('https://mygodock.dev/?lang=ja');
+	});
+});
+
+describe('t', () => {
+	it('falls back to the default language for a value that is not a site language', () => {
+		expect(t('fr' as LangCode)).toBe(t('zh-CN'));
+		expect(t('' as LangCode).nf_h).toBe(STRINGS.nf_h[0]);
 	});
 });
 
