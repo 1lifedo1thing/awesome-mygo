@@ -5,7 +5,7 @@ import { tilt } from '../lib/motion';
 import { pageHead } from '../lib/seo';
 
 export const Route = createFileRoute('/learn')({
-	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/learn', title: 'learn_h', desc: 'hero_p' }),
+	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/learn', title: 'title_learn', desc: 'desc_learn', name: 'learn_h' }),
 	component: LearnPage,
 });
 

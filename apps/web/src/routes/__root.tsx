@@ -10,7 +10,7 @@ import { Header } from '../components/Header';
 import { SubmitModal } from '../components/SubmitModal';
 import { type RootSearch, useLang, useT, validateRootSearch } from '../lib/lang';
 import { useReveal, useScrolledPast } from '../lib/motion';
-import { SITE_NAME } from '../lib/seo';
+import { SITE_NAME, ogLocaleAlternates } from '../lib/seo';
 import { SiteProvider, useSite } from '../lib/site';
 import styles from '../styles.css?url';
 
@@ -82,6 +82,9 @@ function RootDocument({ children }: { children: ReactNode }) {
 				{/* A bare URL is Simplified Chinese. A first visit with a saved choice or another browser language goes to its ?lang= page before anything renders, so the server serves that language and React never switches it mid-hydration. */}
 				<script dangerouslySetInnerHTML={{ __html: LANG_REDIRECT }} />
 				<HeadContent />
+				{ogLocaleAlternates(lang).map((locale) => (
+					<meta key={locale} property='og:locale:alternate' content={locale} />
+				))}
 				<noscript>
 					<style>{'.rv{opacity:1;transform:none}'}</style>
 				</noscript>

@@ -7,7 +7,7 @@ import { pageHead } from '../lib/seo';
 import { useSite } from '../lib/site';
 
 export const Route = createFileRoute('/state')({
-	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/state', title: 'cat_state_name', desc: 'state_p' }),
+	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/state', title: 'title_state', desc: 'desc_state', name: 'cat_state_name' }),
 	component: StatePage,
 });
 

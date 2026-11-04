@@ -7,7 +7,7 @@ import { pageHead } from '../lib/seo';
 import { useSite } from '../lib/site';
 
 export const Route = createFileRoute('/ui')({
-	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/ui', title: 'cat_ui_name', desc: 'ui_p' }),
+	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/ui', title: 'title_ui', desc: 'desc_ui', name: 'cat_ui_name' }),
 	component: UiPage,
 });
 

@@ -247,6 +247,37 @@ describe('t', () => {
 	});
 });
 
+describe('search snippets', () => {
+	// Display width as search results measure it: CJK, kana, Hangul and full-width forms take two columns.
+	const width = (s: string) => Array.from(s).reduce((w, c) => w + (/[\u1100-\u115F\u2E80-\uA4CF\uAC00-\uD7A3\uF900-\uFAFF\uFE30-\uFE4F\uFF00-\uFF60\uFFE0-\uFFE6]/.test(c) ? 2 : 1), 0);
+	const PAGES = [
+		['title_home', 'desc_home'],
+		['title_ui', 'desc_ui'],
+		['title_state', 'desc_state'],
+		['title_plugins', 'desc_plugins'],
+		['title_showcase', 'desc_showcase'],
+		['title_learn', 'desc_learn'],
+	] as const;
+
+	it('puts the site name first in the home title and keeps every title short enough to show whole', () => {
+		for (const [title] of PAGES) {
+			STRINGS[title].forEach((topic, i) => {
+				const full = title === 'title_home' ? topic : `${topic} · MyGo Dock`;
+				if (title === 'title_home') expect(full.startsWith('MyGo Dock · '), `${title} ${LANGS[i].code}`).toBe(true);
+				expect(width(full), `${title} ${LANGS[i].code}: ${full}`).toBeLessThanOrEqual(64);
+			});
+		}
+	});
+
+	it('gives every page its own description that fits the snippet', () => {
+		LANGS.forEach((L, i) => {
+			const descs = PAGES.map(([, desc]) => STRINGS[desc][i]);
+			expect(new Set(descs).size, L.code).toBe(PAGES.length);
+			for (const d of descs) expect(width(d), `${L.code}: ${d}`).toBeLessThanOrEqual(160);
+		});
+	});
+});
+
 describe('fill', () => {
 	it('replaces both placeholders', () => {
 		expect(fill(t('en').live_badge, { n: 17 })).toBe('17 community apps listed');

@@ -6,7 +6,7 @@ import { useLang, useT } from '../lib/lang';
 import { pageHead } from '../lib/seo';
 
 export const Route = createFileRoute('/showcase')({
-	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/showcase', title: 'cat_show_name', desc: 'cat_show_desc' }),
+	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/showcase', title: 'title_showcase', desc: 'desc_showcase', name: 'cat_show_name' }),
 	component: ShowcasePage,
 });
 
