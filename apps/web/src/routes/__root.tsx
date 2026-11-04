@@ -1,5 +1,5 @@
-import { DEFAULT_LANG, type LangCode, appBySlug, langRedirectScript, t } from '@awesome-mygo/catalog';
-import { HeadContent, Link, Outlet, Scripts, createRootRoute, redirect, retainSearchParams } from '@tanstack/react-router';
+import { DEFAULT_LANG, type LangCode, appBySlug, langRedirectScript, t, validateRootSearch } from '@awesome-mygo/catalog';
+import { HeadContent, Link, Outlet, Scripts, createRootRoute, redirect } from '@tanstack/react-router';
 import { type ReactNode, useEffect } from 'react';
 import { preconnect } from 'react-dom';
 import { AppDrawer } from '../components/AppDrawer';
@@ -8,7 +8,7 @@ import { BackToTop, Footer, Toast } from '../components/Chrome';
 import { CommandPalette } from '../components/CommandPalette';
 import { Header } from '../components/Header';
 import { SubmitModal } from '../components/SubmitModal';
-import { type RootSearch, useLang, useT, validateRootSearch } from '../lib/lang';
+import { retainLang, useLang, useT } from '../lib/lang';
 import { useReveal, useScrolledPast } from '../lib/motion';
 import { SITE_NAME, ogLocaleAlternates } from '../lib/seo';
 import { SiteProvider, useSite } from '../lib/site';
@@ -33,10 +33,10 @@ function fontsHref(lang: LangCode): string {
 
 export const Route = createRootRoute({
 	validateSearch: validateRootSearch,
-	search: { middlewares: [retainSearchParams<RootSearch>(['lang'])] },
+	search: { middlewares: [retainLang] },
 	// ?app=<slug> on any page is the quick-view drawer, which only client-side navigation opens. A request for such a URL (an old shared link or the former sitemap entry) gets a permanent redirect to the app's own page, keeping the language, so the old URLs consolidate there. import.meta.env.SSR is a build-time constant, so the client bundle drops the check and the drawer keeps working.
 	beforeLoad: ({ search }) => {
-		if (import.meta.env.SSR && search.app && appBySlug(search.app)) throw redirect({ to: '/apps/$slug', params: { slug: search.app }, search: { lang: search.lang }, statusCode: 301 });
+		if (import.meta.env.SSR && search.app && appBySlug(search.app)) throw redirect({ to: '/apps/$slug', params: { slug: search.app }, search: { lang: search.lang === DEFAULT_LANG ? undefined : search.lang }, statusCode: 301 });
 	},
 	head: ({ match }) => ({
 		meta: [

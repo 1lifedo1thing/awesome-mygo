@@ -31,6 +31,21 @@ export function isLangCode(value: unknown): value is LangCode {
 	return typeof value === 'string' && LANGS.some((l) => l.code === value);
 }
 
+// Search params owned by the site's root route. `lang` is carried across navigation (apps/web/src/lib/lang.ts retainLang); `app` (the open detail drawer) is not, so moving to another page closes it.
+export interface RootSearch {
+	lang?: LangCode;
+	app?: string;
+}
+
+// Both keys are always returned, undefined when invalid: TanStack merges the validated object over the raw parsed search (router-core matchRoutes: `{ ...parentSearch, ...strictSearch }`), so a key left out kept its raw value (?lang=fr) and reached useLang and every head, which crashed the render with a 500. With the key overridden, the server's canonical-URL check redirects ?lang=fr, ?lang=EN or a repeated lang to the same URL without it. An explicit ?lang=zh-CN is valid and kept, so that URL is neither redirected nor sent away by the inline language script. The query decoder turns all-digit values into numbers, so a slug such as ?app=2048 arrives as 2048.
+export function validateRootSearch(search: Record<string, unknown>): RootSearch {
+	const app = typeof search.app === 'number' ? String(search.app) : search.app;
+	return {
+		lang: isLangCode(search.lang) ? search.lang : undefined,
+		app: typeof app === 'string' && /^[a-z0-9-]{1,64}$/.test(app) ? app : undefined,
+	};
+}
+
 export function langIndex(code: LangCode): number {
 	return LANGS.findIndex((l) => l.code === code);
 }
@@ -43,8 +58,8 @@ export function pick(text: Text, code: LangCode): string {
 	return text[code] || text.en;
 }
 
-// User agents that never get the browser-language redirect: search and AI crawlers, link-preview fetchers and audit tools. A crawler is shown exactly the language the URL declares, so the zh-CN bare URLs (also the hreflang x-default) are not seen as redirects to their ?lang= twins. Several Google fetchers (Google-InspectionTool, GoogleOther) have no "bot" in the UA, hence the explicit names.
-export const CRAWLER_UA = /bot|crawl|spider|slurp|google|bing|baidu|yandex|duckduck|sogou|petal|yeti|naver|bytespider|applebot|facebookexternalhit|twitterbot|slackbot|discordbot|linkedinbot|telegrambot|whatsapp|preview|lighthouse/i;
+// User agents that never get the browser-language redirect: search and AI crawlers, link-preview fetchers and audit tools. A crawler is shown exactly the language the URL declares, so the zh-CN bare URLs (also the hreflang x-default) are not seen as redirects to their ?lang= twins. Several Google fetchers (Google-InspectionTool, GoogleOther) have no "bot" in the UA, hence the explicit names. Brand names that also appear in browser UAs are left out: DuckDuckGo's mobile browsers and the NAVER app's in-app browser carry "DuckDuckGo/7" and "NAVER(inapp; …)", while their crawlers, DuckDuckBot and Yeti, are already matched.
+export const CRAWLER_UA = /bot|crawl|spider|slurp|google|bing|baidu|yandex|sogou|petal|yeti|bytespider|applebot|facebookexternalhit|twitterbot|slackbot|discordbot|linkedinbot|telegrambot|whatsapp|preview|lighthouse/i;
 
 // How a page was reached, for the bare-URL language choice. referrer is document.referrer ('' for a typed or bookmarked visit); origin is the site's own origin.
 export interface LangVisit {

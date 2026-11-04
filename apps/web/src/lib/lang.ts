@@ -1,21 +1,13 @@
-import { DEFAULT_LANG, LANG_STORAGE_KEY, type LangCode, type Translations, isLangCode, t } from '@awesome-mygo/catalog';
-import { useNavigate, useSearch } from '@tanstack/react-router';
+import { DEFAULT_LANG, LANG_STORAGE_KEY, type LangCode, type RootSearch, type Translations, t } from '@awesome-mygo/catalog';
+import { type SearchMiddleware, useNavigate, useSearch } from '@tanstack/react-router';
 import { useCallback } from 'react';
 
-// Search params owned by the root route. `lang` is retained across navigation; `app` (the open detail drawer) is not, so moving to another page closes it. The site itself never writes ?lang=zh-CN (Simplified Chinese is the bare URL), but an explicit one is kept so it is not redirected away.
-export interface RootSearch {
-	lang?: LangCode;
-	app?: string;
-}
-
-// Both keys are always returned, undefined when invalid: TanStack merges the validated object over the raw parsed search (router-core matchRoutes: `{ ...parentSearch, ...strictSearch }`), so a key left out kept its raw value (?lang=fr) and reached useLang and every head, which crashed the render with a 500. With the key overridden, the server's canonical-URL check redirects ?lang=fr, ?lang=EN or a repeated lang to the same URL without it. The query decoder turns all-digit values into numbers, so a slug such as ?app=2048 arrives as 2048.
-export function validateRootSearch(search: Record<string, unknown>): RootSearch {
-	const app = typeof search.app === 'number' ? String(search.app) : search.app;
-	return {
-		lang: isLangCode(search.lang) ? search.lang : undefined,
-		app: typeof app === 'string' && /^[a-z0-9-]{1,64}$/.test(app) ? app : undefined,
-	};
-}
+// The root route's search middleware: a destination that does not set `lang` keeps the current one, except the default language. The site never writes ?lang=zh-CN (Simplified Chinese is the bare URL), so a page reached through an explicit one links to the bare canonical URLs instead of spreading the duplicate to every href. A destination that names lang itself is left as it is: `search: true`, which the server and client canonical-URL checks use and which passes the current search through with its lang set, so ?lang=zh-CN itself is not redirected; and the language menu and useSetLang, which set it, to undefined for Simplified Chinese. That last case only shows in the metadata (router-core applySearchMiddleware), whose `explicit` is the destination's own search, so like retainSearchParams this asks next for it: the plain result cannot tell, as the validator always returns both keys.
+export const retainLang: SearchMiddleware<RootSearch> = ({ search, next }) => {
+	const { search: result, meta } = (next as unknown as (s: RootSearch, collectMeta: true) => { search: RootSearch; meta: { explicit?: object } })(search, true);
+	if (result.lang !== undefined || (meta.explicit && 'lang' in meta.explicit)) return result;
+	return { ...result, lang: search.lang === DEFAULT_LANG ? undefined : search.lang };
+};
 
 export function useLang(): LangCode {
 	const search = useSearch({ strict: false }) as RootSearch;

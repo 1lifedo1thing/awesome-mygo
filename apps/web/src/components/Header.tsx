@@ -1,7 +1,7 @@
-import { DEFAULT_LANG, LANGS, langDef } from '@awesome-mygo/catalog';
+import { DEFAULT_LANG, LANGS, type RootSearch, langDef } from '@awesome-mygo/catalog';
 import { Link, useLocation } from '@tanstack/react-router';
 import { useEffect, useRef, useState } from 'react';
-import { type RootSearch, useLang, useSetLang, useT } from '../lib/lang';
+import { useLang, useSetLang, useT } from '../lib/lang';
 import { useSite } from '../lib/site';
 import { Logo, SearchIcon } from './bits';
 
@@ -75,13 +75,14 @@ export function Header({ scrolled }: { scrolled: boolean }) {
 							</svg>
 							<span>{langDef(lang).short}</span>
 						</button>
-						{/* Always rendered, and hidden while closed, so every page links to its other language versions for crawlers. A plain click switches in place and saves the choice; a click with a modifier key or a middle click opens the link. */}
+						{/* Always rendered, and hidden while closed, so every page links to its other language versions for crawlers. Active means the exact URL: by default a link is active when its search is a subset of the current one, which made 简体中文 (no lang) active on every page. A plain click switches in place and saves the choice; a click with a modifier key or a middle click opens the link. */}
 						<div role='menu' aria-label={t.lang} className='lang-menu enter' hidden={!langMenu}>
 							{LANGS.map((L) => (
 								<Link
 									key={L.code}
 									to='.'
 									search={(prev: RootSearch): RootSearch => ({ ...prev, lang: L.code === DEFAULT_LANG ? undefined : L.code })}
+									activeOptions={{ exact: true }}
 									role='menuitemradio'
 									aria-checked={L.code === lang}
 									className='row lang-item'

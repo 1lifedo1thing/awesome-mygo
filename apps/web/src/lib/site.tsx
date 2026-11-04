@@ -1,7 +1,6 @@
-import { type EntryDraft, type SubmitCat, appBySlug } from '@awesome-mygo/catalog';
+import { type EntryDraft, type RootSearch, type SubmitCat, appBySlug } from '@awesome-mygo/catalog';
 import { useNavigate, useRouter, useSearch } from '@tanstack/react-router';
 import { type ReactNode, createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import type { RootSearch } from './lang';
 
 export type CopyKey = 'cmd' | 'cmd0' | 'cmd1' | 'det' | 'line';
 
