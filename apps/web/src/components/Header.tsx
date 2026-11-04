@@ -3,6 +3,7 @@ import { Link, useLocation } from '@tanstack/react-router';
 import { useEffect, useRef, useState } from 'react';
 import { useLang, useSetLang, useT } from '../lib/lang';
 import { useSite } from '../lib/site';
+import { switchTheme } from '../lib/theme';
 import { Logo, SearchIcon } from './bits';
 
 export const NAV = [
@@ -101,6 +102,14 @@ export function Header({ scrolled }: { scrolled: boolean }) {
 							))}
 						</div>
 					</div>
+					{/* Shares the search button's look, including hiding its label on narrow screens, without the search button's minimum width. */}
+					<button type='button' className='btn-g sbtn' style={{ minWidth: 0 }} onClick={() => switchTheme('retro')} aria-label={`${t.a_theme}: ${t.theme_retro}`}>
+						<svg aria-hidden='true' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='square'>
+							<rect x='3' y='4' width='18' height='13' />
+							<path d='M8 21h8M12 17v4M7 8h4' />
+						</svg>
+						<span className='lbl'>{t.theme_retro}</span>
+					</button>
 					{/* The site's own repository; "GitHub" reads the same in every language, so it needs no translation. */}
 					<a className='btn-g gh-btn' href={SITE_REPO} target='_blank' rel='noopener' aria-label='GitHub' title='GitHub'>
 						<svg aria-hidden='true' width='18' height='18' viewBox='0 0 16 16' fill='currentColor'>

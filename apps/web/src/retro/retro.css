@@ -1,0 +1,162 @@
+/* Retro desktop theme. Loaded only when the theme cookie picks it; the original look keeps styles.css. Tailwind scans only this folder, so the original components' class names never reach this stylesheet. */
+@import 'tailwindcss' source(none);
+@source './';
+
+@theme {
+	--color-ink: #10233a;
+	--color-desk: #00a6d4;
+	--color-desk-lo: #0a8fbb;
+	--color-face: #e6dfcc;
+	--color-face-lo: #d6cebb;
+	--color-hi: #fffdf5;
+	--color-lo: #a39a82;
+	--color-paper: #fbf8ef;
+	--color-pur: #5b4bd8;
+	--color-pur-hi: #7465ef;
+	--color-yel: #ffd23f;
+	--color-yel-hi: #ffe07a;
+	--color-note: #ffe680;
+	--color-note-bar: #f5d24a;
+	--color-red: #e24b3b;
+	--color-muted: #5d5747;
+	--color-faint: #6d6758;
+	--color-sky: #7fd6f0;
+	--color-slate: #8f9bab;
+
+	--font-px: 'Fusion Pixel SC', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;
+	--font-mono: 'Fusion Pixel Mono', 'Fusion Pixel SC', ui-monospace, monospace;
+
+	/* The desktop layout (absolutely placed windows) needs this width; below it the windows stack. */
+	--breakpoint-desk: 1100px;
+
+	--animate-blink: blink 1.06s steps(1) infinite;
+	@keyframes blink {
+		50% {
+			opacity: 0;
+		}
+	}
+}
+
+/* ---- pixel fonts: Fusion Pixel 12px, subset by scripts/subset-pixel-font.py; only the page language's face is preloaded ---- */
+@font-face {
+	font-family: 'Fusion Pixel SC';
+	src: url('/fonts/fusion-pixel-12px-zh_hans.woff2') format('woff2');
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Fusion Pixel TC';
+	src: url('/fonts/fusion-pixel-12px-zh_tw.woff2') format('woff2');
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Fusion Pixel JP';
+	src: url('/fonts/fusion-pixel-12px-ja.woff2') format('woff2');
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Fusion Pixel KR';
+	src: url('/fonts/fusion-pixel-12px-ko.woff2') format('woff2');
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Fusion Pixel Mono';
+	src: url('/fonts/fusion-pixel-12px-mono-latin.woff2') format('woff2');
+	font-display: swap;
+}
+:root:lang(zh-TW) {
+	--font-px: 'Fusion Pixel TC', 'PingFang TC', 'Noto Sans CJK TC', sans-serif;
+}
+:root:lang(ja) {
+	--font-px: 'Fusion Pixel JP', 'Hiragino Sans', 'Noto Sans CJK JP', sans-serif;
+}
+:root:lang(ko) {
+	--font-px: 'Fusion Pixel KR', 'Apple SD Gothic Neo', 'Noto Sans CJK KR', sans-serif;
+}
+
+@layer base {
+	html {
+		background: var(--color-desk);
+	}
+	body {
+		min-height: 100vh;
+		overflow-x: hidden;
+		font: 12px/20px var(--font-px);
+		color: var(--color-ink);
+		background: var(--color-desk);
+		font-synthesis: none;
+		-webkit-font-smoothing: none;
+		text-rendering: optimizeSpeed;
+	}
+	p,
+	dd {
+		text-wrap: pretty;
+	}
+	::selection {
+		background: var(--color-ink);
+		color: var(--color-yel);
+	}
+	:focus-visible {
+		outline: 2px solid var(--color-ink);
+		outline-offset: 2px;
+		box-shadow: 0 0 0 4px var(--color-yel);
+	}
+	@media (prefers-reduced-motion: reduce) {
+		*,
+		*::before,
+		*::after {
+			animation: none !important;
+			transition: none !important;
+		}
+	}
+}
+
+/* ---- the few effects utilities cannot express in one class ---- */
+
+/* Raised 3D edge of a control or window frame. */
+@utility bevel {
+	box-shadow:
+		inset 1px 1px 0 var(--color-hi),
+		inset -1px -1px 0 var(--color-lo);
+}
+/* Sunken edge of a field or content well. */
+@utility sunken {
+	box-shadow: inset 1px 1px 0 var(--color-lo);
+}
+/* A 50% ink checkerboard, the period's stand-in for a translucent shadow. */
+@utility dither {
+	background: repeating-conic-gradient(var(--color-ink) 0 25%, transparent 0 50%) 0 0 / 2px 2px;
+}
+/* Window drop shadow: the checkerboard offset down and right, behind the element. The element must not form its own stacking context (no z-index, no isolation), or the shadow paints over its own background instead of behind it. */
+@utility dither-shadow {
+	position: relative;
+	&::before {
+		content: '';
+		position: absolute;
+		z-index: -1;
+		inset: 7px -7px -7px 7px;
+		background: repeating-conic-gradient(var(--color-ink) 0 25%, transparent 0 50%) 0 0 / 2px 2px;
+	}
+}
+/* Active window title bar: a fine purple dither. */
+@utility titlebar {
+	background: repeating-conic-gradient(var(--color-pur-hi) 0 25%, var(--color-pur) 0 50%) 0 0 / 2px 2px;
+}
+/* Inactive window title bar. */
+@utility titlebar-idle {
+	background: repeating-conic-gradient(#cfc7b1 0 25%, var(--color-face) 0 50%) 0 0 / 2px 2px;
+}
+/* Resize grip in a window's bottom-right corner. */
+@utility grip {
+	background: repeating-linear-gradient(135deg, transparent 0 2px, var(--color-lo) 2px 3px, var(--color-hi) 3px 4px);
+}
+/* Document ruler above the welcome text. */
+@utility ruler {
+	background:
+		repeating-linear-gradient(90deg, var(--color-ink) 0 1px, transparent 1px 48px) 40px 0 / auto 7px no-repeat,
+		repeating-linear-gradient(90deg, var(--color-lo) 0 1px, transparent 1px 12px) 40px 0 / auto 4px no-repeat,
+		var(--color-face);
+}
+/* Bitmap images keep hard pixel edges when scaled. */
+@utility pixelated {
+	image-rendering: pixelated;
+}

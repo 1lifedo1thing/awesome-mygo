@@ -86,7 +86,7 @@ An entry in `apps.json` looks like this:
 - Links must be https. For a screenshot, add a WebP about 1200px wide to `apps/web/public/shots/` and set `"screenshot": "my-app.webp"`. For an app icon, set `"icon": { "ailogo": "<id>" }` with an [ai-logo](https://github.com/yldm-tech/ai-logo) id, or leave it out for a letter tile.
 - `pnpm test` checks every entry and names the file, entry and field of each mistake. CI runs it on every pull request.
 
-The UI copy is in `packages/catalog/src/strings.ts`, an array of the five languages per key.
+The UI copy is in `packages/catalog/locales/`, one JSON file per language with the same keys. `zh-CN.json` is the reference: add a new key there and to the other four files; `pnpm typecheck` and `pnpm test` report a missing key or a mismatched `{x}`/`{n}` placeholder.
 
 ## Credits
 

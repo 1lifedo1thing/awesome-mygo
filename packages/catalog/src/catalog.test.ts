@@ -15,7 +15,7 @@ import { AILOGO_CDN, APP_CATEGORIES, APPS, ARTICLES, COMMUNITY_PLUGINS, DOCS, PL
 import { SUBMIT_CATS, SUBMIT_FILES, appendEntry, buildEntry, codeFence, descMax, editUrl, entryProblem, isBadUrl, isEntryComplete, issueUrl, jsonEntry, slugify } from './entry';
 import { LANGS, type LangCode, type Text, fill, langRedirectScript, negotiateLang, pick, validateRootSearch } from './lang';
 import { buildSearchIndex, searchCatalog } from './search';
-import { STRINGS } from './strings';
+import { LOCALES } from './strings';
 import { appDescription, t } from './translate';
 import { CatalogError, readList, unique } from './validate';
 
@@ -57,10 +57,17 @@ describe('catalog data', () => {
 		expect(pick({ en: 'Hello', ja: 'こんにちは' }, 'ja')).toBe('こんにちは');
 	});
 
-	it('has the UI copy in every language', () => {
-		for (const v of Object.values(STRINGS)) {
-			expect(v).toHaveLength(LANGS.length);
-			for (const s of v) expect(s.trim()).not.toBe('');
+	it('has every UI string in every language, with the same placeholders', () => {
+		const ref = LOCALES['zh-CN'];
+		const keys = Object.keys(ref).sort();
+		const holes = (s: string) => (s.match(/\{[xn]\}/g) ?? []).sort().join();
+		for (const L of LANGS) {
+			const dict = LOCALES[L.code];
+			expect(Object.keys(dict).sort(), L.code).toEqual(keys);
+			for (const k of keys as (keyof typeof ref)[]) {
+				expect(typeof dict[k] === 'string' && dict[k].trim() !== '', `${L.code} ${k}`).toBe(true);
+				expect(holes(dict[k]), `${L.code} ${k}`).toBe(holes(ref[k]));
+			}
 		}
 	});
 
@@ -289,7 +296,7 @@ describe('validateRootSearch', () => {
 describe('t', () => {
 	it('falls back to the default language for a value that is not a site language', () => {
 		expect(t('fr' as LangCode)).toBe(t('zh-CN'));
-		expect(t('' as LangCode).nf_h).toBe(STRINGS.nf_h[0]);
+		expect(t('' as LangCode).nf_h).toBe(LOCALES['zh-CN'].nf_h);
 	});
 });
 
@@ -307,17 +314,18 @@ describe('search snippets', () => {
 
 	it('puts the site name first in the home title and keeps every title short enough to show whole', () => {
 		for (const [title] of PAGES) {
-			STRINGS[title].forEach((topic, i) => {
+			for (const L of LANGS) {
+				const topic = LOCALES[L.code][title];
 				const full = title === 'title_home' ? topic : `${topic} · MyGo Dock`;
-				if (title === 'title_home') expect(full.startsWith('MyGo Dock · '), `${title} ${LANGS[i].code}`).toBe(true);
-				expect(width(full), `${title} ${LANGS[i].code}: ${full}`).toBeLessThanOrEqual(64);
-			});
+				if (title === 'title_home') expect(full.startsWith('MyGo Dock · '), `${title} ${L.code}`).toBe(true);
+				expect(width(full), `${title} ${L.code}: ${full}`).toBeLessThanOrEqual(64);
+			}
 		}
 	});
 
 	it('gives every page its own description that fits the snippet', () => {
-		LANGS.forEach((L, i) => {
-			const descs = PAGES.map(([, desc]) => STRINGS[desc][i]);
+		LANGS.forEach((L) => {
+			const descs = PAGES.map(([, desc]) => LOCALES[L.code][desc]);
 			expect(new Set(descs).size, L.code).toBe(PAGES.length);
 			for (const d of descs) expect(width(d), `${L.code}: ${d}`).toBeLessThanOrEqual(160);
 		});

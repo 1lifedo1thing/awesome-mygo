@@ -86,7 +86,7 @@ pnpm preview      # 在 Workers 執行環境中執行正式建置
 - 連結必須是 https。截圖請把寬約 1200px 的 WebP 放進 `apps/web/public/shots/`，並寫 `"screenshot": "my-app.webp"`。應用圖示寫 `"icon": { "ailogo": "<id>" }`，id 來自 [ai-logo](https://github.com/yldm-tech/ai-logo)；不寫則顯示字母圖示。
 - `pnpm test` 會驗證每個條目，出錯時指出檔案、條目和欄位。CI 會在每個 PR 上執行它。
 
-介面文案在 `packages/catalog/src/strings.ts`，每個鍵是一個包含五種語言的陣列。
+介面文案在 `packages/catalog/locales/`，每種語言一個 JSON 檔案，鍵完全相同。`zh-CN.json` 是基準：新增的鍵要同時加進其餘四個檔案；缺鍵或 `{x}`/`{n}` 佔位符不一致時，`pnpm typecheck` 和 `pnpm test` 會報錯。
 
 ## 致謝
 

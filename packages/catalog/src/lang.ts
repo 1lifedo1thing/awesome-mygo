@@ -16,9 +16,6 @@ export const LANGS = [
 
 export type LangCode = (typeof LANGS)[number]['code'];
 
-// One value per entry of LANGS, in the same order. Used for the UI copy in strings.ts.
-export type Localized = readonly [string, string, string, string, string];
-
 // Text of a catalog entry, keyed by language. English is required; a missing language falls back to it.
 export type Text = { en: string } & Partial<Record<LangCode, string>>;
 

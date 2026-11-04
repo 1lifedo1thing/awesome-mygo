@@ -86,7 +86,7 @@ pnpm preview      # 프로덕션 빌드를 Workers 런타임에서 실행
 - 링크는 https여야 합니다. 스크린샷은 너비 약 1200px의 WebP를 `apps/web/public/shots/`에 두고 `"screenshot": "my-app.webp"`로 씁니다. 앱 아이콘은 [ai-logo](https://github.com/yldm-tech/ai-logo) id로 `"icon": { "ailogo": "<id>" }`를 쓰거나, 생략하면 글자 타일이 표시됩니다.
 - `pnpm test`는 모든 항목을 검증하고 오류가 있는 파일, 항목, 필드를 알려 줍니다. CI가 모든 풀 리퀘스트에서 실행합니다.
 
-UI 문구는 `packages/catalog/src/strings.ts`에 있으며, 키마다 5개 언어의 배열입니다.
+UI 문구는 `packages/catalog/locales/`에 있으며, 언어마다 키가 같은 JSON 파일이 하나씩 있습니다. 기준은 `zh-CN.json`입니다. 키를 추가할 때는 나머지 네 파일에도 넣어야 하며, 빠진 키나 `{x}`/`{n}` 자리표시자 불일치는 `pnpm typecheck`와 `pnpm test`가 잡아냅니다.
 
 ## 크레딧
 
