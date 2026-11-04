@@ -45,7 +45,7 @@ function UiPage() {
 							<WinBar label={`github.com/${l.repo}`} size='md' className='lib-bar' />
 							{l.image ? (
 								<div className='lib-shot lib-shot-img'>
-									<img src={l.image} alt={`${l.name} ${t.shot}`} width={1200} height={750} loading='lazy' decoding='async' />
+									<img src={l.image} alt={`${l.name} ${t.shot}`} width={1200} height={750} loading={k === 0 ? 'eager' : 'lazy'} fetchPriority={k === 0 ? 'high' : undefined} decoding='async' />
 								</div>
 							) : (
 								<div className='dots lib-shot'>

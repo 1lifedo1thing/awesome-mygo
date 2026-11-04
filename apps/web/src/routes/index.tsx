@@ -40,12 +40,13 @@ function HomePage() {
 	return (
 		<div className='enter'>
 			<Hero />
+			{/* fetchPriority='low' keeps React from preloading the icons ahead of the stylesheets. They are not lazy: the strip clips them with overflow:hidden and slides them in with a transform, so a lazy icon could start loading only as it enters and show as a blank square at the edge. */}
 			<section aria-label={t.a_marquee} className='marq-wrap'>
 				<div className='marq'>
 					{[...APPS, ...APPS].map((a, i) => (
 						<AppLink key={`${a.slug}-${i}`} slug={a.slug} className='marq-item' tabIndex={i >= nApps ? -1 : undefined} hidden={i >= nApps}>
 							{a.icon ? (
-								<img className='marq-icon app-icon' src={a.icon} alt='' width={36} height={36} loading='lazy' decoding='async' />
+								<img className='marq-icon app-icon' src={a.icon} alt='' width={36} height={36} fetchPriority='low' decoding='async' />
 							) : (
 								<span aria-hidden='true' className={`marq-icon marq-letter tone-${APPS.indexOf(a) % 3}`}>
 									{a.name.charAt(0).toUpperCase()}

@@ -47,7 +47,7 @@ function StatePage() {
 									<WinBar label={`github.com/${s.repo}`} size='md' className='lib-bar' />
 									{s.image && (
 										<div className='lib-shot lib-shot-img'>
-											<img src={s.image} alt={`${s.name} ${t.preview_img}`} width={1200} height={630} loading='lazy' decoding='async' />
+											<img src={s.image} alt={`${s.name} ${t.preview_img}`} width={1200} height={630} loading={k === 0 ? 'eager' : 'lazy'} fetchPriority={k === 0 ? 'high' : undefined} decoding='async' />
 										</div>
 									)}
 									<div className='lib-body'>
