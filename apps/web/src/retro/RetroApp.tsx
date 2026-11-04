@@ -1,4 +1,4 @@
-import { DEFAULT_LANG, LANGS, type RootSearch, SITE_REPO, langDef } from '@awesome-mygo/catalog';
+import { DEFAULT_LANG, LANGS, MYGO_REPO, type RootSearch, SITE_REPO, langDef } from '@awesome-mygo/catalog';
 import { Link, useLocation, useMatches } from '@tanstack/react-router';
 import { type ComponentType, useEffect, useRef, useState } from 'react';
 import { GitHubMark } from '../components/bits';
@@ -231,7 +231,7 @@ function Foot() {
 				))}
 			</nav>
 			<span className='flex-1' />
-			<a className={`${lnk} inline-flex items-center gap-1.5`} href={SITE_REPO} target='_blank' rel='noopener'>
+			<a className={`${lnk} inline-flex items-center gap-1.5`} href={MYGO_REPO} target='_blank' rel='noopener'>
 				<GitHubMark size={13} />
 				GitHub
 			</a>
