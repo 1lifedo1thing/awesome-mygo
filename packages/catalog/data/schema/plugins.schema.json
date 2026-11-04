@@ -52,6 +52,16 @@
 						],
 						"description": "The kind of window it serves."
 					},
+					"import": {
+						"type": "string",
+						"pattern": "^[a-z0-9.-]+(/[A-Za-z0-9._~-]+)+$",
+						"description": "The Go package the app imports, such as github.com/egoist/mygo/plugins/fetch."
+					},
+					"npm": {
+						"type": "string",
+						"pattern": "^(@[a-z0-9-]+/)?[a-z0-9][a-z0-9._-]*$",
+						"description": "The frontend package, for a plugin with a JavaScript half."
+					},
 					"tags": {
 						"type": "array",
 						"items": {

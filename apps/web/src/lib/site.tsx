@@ -2,7 +2,8 @@ import { type EntryDraft, type RootSearch, type SubmitCat, appBySlug } from '@aw
 import { useNavigate, useRouter, useSearch } from '@tanstack/react-router';
 import { type ReactNode, createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 
-export type CopyKey = 'cmd' | 'cmd0' | 'cmd1' | 'det' | 'line';
+// `plug:<slug>:go` and `plug:<slug>:npm` are a plugin card's setup lines.
+export type CopyKey = 'cmd' | 'cmd0' | 'cmd1' | 'det' | 'line' | `plug:${string}`;
 
 export interface SubmitForm extends EntryDraft {
 	cat: SubmitCat;

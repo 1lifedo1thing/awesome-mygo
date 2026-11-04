@@ -197,18 +197,26 @@ export interface Plugin {
 	official: boolean;
 	// Which kind of window the plugin serves: web pages (a Go package plus an npm package), native UI (all Go), or both.
 	surface: PluginSurface;
+	// The Go package the app imports, and the npm package of the JavaScript half when the plugin has one.
+	goImport?: string;
+	npm?: string;
 	tags: readonly string[];
 	url: string;
 }
 
+const GO_IMPORT = /^[a-z0-9.-]+(\/[A-Za-z0-9._~-]+)+$/;
+const NPM_NAME = /^(@[a-z0-9-]+\/)?[a-z0-9][a-z0-9._-]*$/;
+
 const readPlugin = (r: Reader): Plugin => {
-	r.only(['slug', 'name', 'mark', 'official', 'surface', 'tags', 'docs', 'summary']);
+	r.only(['slug', 'name', 'mark', 'official', 'surface', 'import', 'npm', 'tags', 'docs', 'summary']);
 	return {
 		slug: r.match('slug', SLUG, 'lowercase letters, digits and hyphens'),
 		name: r.str('name'),
 		mark: r.match('mark', /^\S{1,2}$/, 'one or two characters'),
 		official: r.bool('official'),
 		surface: r.oneOf('surface', ['web', 'native', 'both'] as const),
+		goImport: r.raw.import === undefined ? undefined : r.match('import', GO_IMPORT, 'a Go import path'),
+		npm: r.raw.npm === undefined ? undefined : r.match('npm', NPM_NAME, 'an npm package name'),
 		tags: r.strings('tags'),
 		url: r.url('docs'),
 		desc: r.text('summary'),
