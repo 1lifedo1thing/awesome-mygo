@@ -21,6 +21,7 @@
 		"ja": "フォルダーを見て回り、Markdown、コード、PDF、EPUB、画像をタブで読めます。Office ファイルも簡単にプレビューできます。MyGo のネイティブ UI で作られており、プレビュー版のダウンロードは現在 Apple Silicon の Mac のみに対応しています。",
 		"ko": "폴더를 둘러보며 Markdown, 코드, PDF, EPUB, 이미지를 탭에서 읽고, Office 파일은 기본 미리보기를 제공합니다. MyGo의 네이티브 UI로 만들었으며, 미리보기 버전 다운로드는 현재 Apple Silicon Mac만 지원합니다."
 	},
+	"screenshot": "catview.webp",
 	"icon": {
 		"file": "catview.webp"
 	},
