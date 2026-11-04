@@ -1,0 +1,17 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "bamboo",
+	"name": "Bamboo",
+	"author": "OldPanda",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://getbamboo.app/",
+	"repo": "OldPanda/bamboo",
+	"summary": {
+		"en": "一款 Parquet 数据浏览器"
+	},
+	"description": {
+		"en": "一款 Parquet 数据浏览器"
+	},
+	"added": "2026-11-04T20:03:45Z"
+}
