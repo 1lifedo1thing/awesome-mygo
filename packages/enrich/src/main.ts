@@ -4,9 +4,9 @@ import { join } from 'node:path';
 import { promisify } from 'node:util';
 import { DEFAULT_MODEL, README_LIMIT, type LlmConfig, writeCopy } from './copy.ts';
 import { downloadImage, isDefaultIcon, writeIcon, writeShot } from './image.ts';
-import { DATA_FILES, type DataFile, type Entry, addedEntries, appNameFrom, hasAllLanguages, iconOf, pickMygoJson, readmeImages, repoOfEntry, resolveImage, setShowcaseCount } from './source.ts';
+import { DATA_FILES, type DataFile, type Entry, addedEntries, appNameFrom, hasAllLanguages, iconOf, pickMygoJson, readmeImages, repoOfEntry, resolveImage } from './source.ts';
 
-// Run by .github/workflows/enrich-submission.yml on a pull request the submission bot opened. It finds the entries the branch adds, then for each fills in what the form cannot ask for: an app's icon (from its mygo.json) and screenshot (the first one in its README), the copy in every site language, and the README app counts. It changes files in the working tree and writes a Markdown report for the pull request; the workflow runs the catalog checks and commits.
+// Run by .github/workflows/enrich-submission.yml on a pull request the submission bot opened. It finds the entries the branch adds, then for each fills in what the form cannot ask for: an app's icon (from its mygo.json) and screenshot (the first one in its README), and the copy in every site language. It changes files in the working tree and writes a Markdown report for the pull request; the workflow runs the catalog checks and commits.
 //
 // Environment: BASE_REF (the branch the entries are compared with, default origin/main), REPORT_FILE (where the report goes), GITHUB_TOKEN (for the GitHub API), and LLM_API_KEY with optional LLM_BASE_URL and LLM_MODEL for the copy; without LLM_API_KEY the copy is left as submitted.
 
@@ -14,7 +14,6 @@ const run = promisify(execFile);
 const ROOT = join(import.meta.dirname, '../../..');
 const DATA_DIR = 'packages/catalog/data';
 const PUBLIC = 'apps/web/public';
-const READMES = ['README.md', 'README.zh-CN.md', 'README.zh-TW.md', 'README.ja.md', 'README.ko.md'];
 // Apps on the site whose copy, written by hand, sets the voice the generated copy should match.
 const EXAMPLE_APPS = ['joplin-lite', 'nova'];
 
@@ -140,8 +139,6 @@ async function addCopy(cfg: LlmConfig | undefined, file: DataFile, entry: Entry,
 
 async function main(): Promise<void> {
 	const cfg: LlmConfig | undefined = env.LLM_API_KEY ? { apiKey: env.LLM_API_KEY, baseURL: env.LLM_BASE_URL || undefined, model: env.LLM_MODEL || DEFAULT_MODEL } : undefined;
-	let appsAdded = false;
-	let appCount = 0;
 
 	for (const file of Object.keys(DATA_FILES) as DataFile[]) {
 		const { list } = DATA_FILES[file];
@@ -150,7 +147,6 @@ async function main(): Promise<void> {
 		const { stdout } = await run('git', ['show', `${BASE_REF}:${DATA_DIR}/${file}`], { cwd: ROOT, maxBuffer: 32 * 1024 * 1024 });
 		const base = JSON.parse(stdout) as Record<string, Entry[]>;
 		const added = addedEntries(base[list] ?? [], head[list]);
-		if (file === 'apps.json') appCount = head[list].length;
 		if (!added.length) continue;
 		const examples = file === 'apps.json' ? head[list].filter((e) => EXAMPLE_APPS.includes(String(e.slug))) : (base[list] ?? []).slice(-2);
 
@@ -163,7 +159,6 @@ async function main(): Promise<void> {
 			if (!repo) say('- No GitHub repository in the entry, so nothing was taken from one.');
 			else if (!facts) say(`- The repository ${repo} could not be found.`);
 			if (file === 'apps.json') {
-				appsAdded = true;
 				const slug = String(entry.slug);
 				const better = facts?.mygo ? appNameFrom(String(entry.name), facts.mygo.json) : undefined;
 				if (better) {
@@ -178,16 +173,6 @@ async function main(): Promise<void> {
 			await addCopy(cfg, file, entry, facts, examples);
 		}
 		await writeFile(path, `${JSON.stringify(head, null, '\t')}\n`);
-	}
-
-	if (appsAdded) {
-		for (const name of READMES) {
-			const p = join(ROOT, name);
-			const next = setShowcaseCount(await readFile(p, 'utf8'), appCount);
-			if (next === undefined) say(`- \`${name}\` has no showcase count line to update.`);
-			else await writeFile(p, next);
-		}
-		say(`- README app counts set to ${appCount}.`);
 	}
 
 	const text = report.length ? report.join('\n') : 'The branch adds no entry this workflow completes.';
