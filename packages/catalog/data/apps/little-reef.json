@@ -1,0 +1,28 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "little-reef",
+	"name": "小海底 Little Reef",
+	"author": "echoVic",
+	"kind": "web",
+	"category": "UtilitiesApplication",
+	"url": "https://reef.echovic.com",
+	"summary": {
+		"en": "An open-source focus timer for Mac.",
+		"zh-CN": "开源 Mac 专注计时器。",
+		"zh-TW": "開源 Mac 專注計時器。",
+		"ja": "Mac 用のオープンソースの集中タイマー。",
+		"ko": "Mac용 오픈소스 집중 타이머."
+	},
+	"description": {
+		"en": "A quiet, open-source focus timer for Mac. Every session you finish grows the seagrass a little and now and then a fish drops by; it also has a visitor log, 20 ambient sounds and a desktop widget.",
+		"zh-CN": "安静的开源 Mac 专注计时器。每完成一次专注，海草就长高一点，时不时还会有鱼游过来；另有访客日志、20 种环境音和桌面小组件。",
+		"zh-TW": "安靜的開源 Mac 專注計時器。每完成一次專注，海草就長高一點，不時還會有魚游過來；另有訪客日誌、20 種環境音與桌面小工具。",
+		"ja": "静かなオープンソースの Mac 用集中タイマー。セッションを終えるたびに海草が少し伸び、ときどき魚が立ち寄ります。訪問者ログ、20 種類の環境音、デスクトップウィジェットもあります。",
+		"ko": "조용한 오픈소스 Mac 집중 타이머. 세션을 마칠 때마다 해초가 조금씩 자라고 가끔 물고기가 들르며, 방문 기록, 20가지 환경음, 데스크톱 위젯도 있습니다."
+	},
+	"screenshot": "little-reef.webp",
+	"icon": {
+		"ailogo": "littlereef"
+	},
+	"added": "2026-11-04T02:24:49Z"
+}

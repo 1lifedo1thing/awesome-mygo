@@ -54,11 +54,11 @@ bot 開出 PR 後，*Complete submission* workflow 會補上表單問不到的�
 
 ## 收錄專案
 
-所有條目都在 [`packages/catalog/data`](packages/catalog/data) 下的 JSON 檔案裡，每個類別一個檔案：
+所有條目都在 [`packages/catalog/data`](packages/catalog/data) 下的 JSON 檔案裡，每個類別一個檔案，應用除外，每個應用一個檔案：
 
 | 檔案 | 內容 |
 |---|---|
-| `apps.json` | 用 MyGo 做的應用 |
+| `apps/<slug>.json` | 用 MyGo 做的應用，每個應用一個檔案，以 slug 命名 |
 | `ui.json` | UI 元件庫 |
 | `state.json` | 狀態管理 |
 | `plugins.json` | 外掛 |
@@ -68,12 +68,13 @@ bot 開出 PR 後，*Complete submission* workflow 會補上表單問不到的�
 新增方式有兩種：
 
 - **在網站上：** 點「提交」填表，或者直接貼上整條 JSON 條目，然後提交：不需要 GitHub 帳號，網站的 bot 會替你開 PR。有 GitHub 帳號的話，也可以把產生的條目提交為 Issue，或在 GitHub 編輯器裡開啟對應的 JSON 檔案自己加上。
-- **在倉庫裡：** 在檔案的清單裡加一個物件，然後提 PR。
+- **在倉庫裡：** 應用就在 `apps/` 下加一個檔案，其他類別在對應檔案的清單裡加一個物件，然後提 PR。
 
-`apps.json` 中的一個條目長這樣：
+一個應用的檔案 `apps/my-app.json` 長這樣：
 
 ```json
 {
+  "$schema": "../schema/app.schema.json",
   "slug": "my-app",
   "name": "My App",
   "author": "your-github-login",
@@ -81,10 +82,12 @@ bot 開出 PR 後，*Complete submission* workflow 會補上表單問不到的�
   "url": "https://my-app.dev",
   "repo": "you/my-app",
   "summary": { "en": "One line about the app.", "ja": "アプリの一行説明。" },
-  "description": { "en": "A few sentences for the detail drawer." }
+  "description": { "en": "A few sentences for the detail drawer." },
+  "added": "2026-11-04T12:00:00Z"
 }
 ```
 
+- 檔名與 `slug` 相同。`added` 是應用加入作品集的時間（UTC），網站 bot 會自動填寫，手動新增時寫目前時間。每個應用一個檔案，所以同時新增應用的多個 PR 不會互相衝突。
 - `url` 是應用首頁：官網，沒有官網就填倉庫網址，不要求在 GitHub 上。開源應用再用 `repo` 填 GitHub 倉庫（`owner/name`），閉源應用不填。
 - 文字欄位依語言各寫一份。`en` 必填；`zh-CN`、`zh-TW`、`ja`、`ko` 可選，缺少的語言顯示英文。
 - 每個檔案都在 `$schema` 裡指向自己的 JSON Schema（在 `data/schema/`），VS Code 等編輯器會在你輸入時補全並檢查欄位。

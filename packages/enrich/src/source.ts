@@ -1,13 +1,24 @@
 // What can be learned about a submitted entry from the catalog files and the project's repository, without touching the network: pure functions, so they are tested on their own.
 
-// The data files the submission bot appends to, with the list each keeps its entries in and whether its entries carry a description besides the one-line summary. Articles have neither.
+// The list files the submission bot appends to, with the list each keeps its entries in. Articles have no copy to complete. Apps are not here: each is a file of its own under APP_DIR.
 export const DATA_FILES = {
-	'apps.json': { list: 'apps', description: true },
-	'ui.json': { list: 'libraries', description: false },
-	'state.json': { list: 'solutions', description: false },
-	'plugins.json': { list: 'plugins', description: false },
+	'ui.json': { list: 'libraries' },
+	'state.json': { list: 'solutions' },
+	'plugins.json': { list: 'plugins' },
 } as const;
 export type DataFile = keyof typeof DATA_FILES;
+
+// What an entry is, for its copy: an app, which also has a description besides the one-line summary, or an entry of a list file.
+export type EntryKind = 'app' | DataFile;
+
+// The directory under the catalog's data that holds one file per app, named after its slug.
+export const APP_DIR = 'apps';
+
+// The app files in head that base does not have: the apps a branch adds.
+export function addedAppFiles(base: readonly string[], head: readonly string[]): string[] {
+	const known = new Set(base);
+	return head.filter((name) => name.endsWith('.json') && !known.has(name)).sort();
+}
 
 export type Entry = Record<string, unknown>;
 

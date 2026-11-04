@@ -1,0 +1,28 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "gorex",
+	"name": "GoRex",
+	"author": "egoist",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/egoist/gorex",
+	"summary": {
+		"en": "A replica of Superlogical’s Rex terminal.",
+		"zh-CN": "Superlogical Rex 终端的复刻。",
+		"zh-TW": "Superlogical Rex 終端機的復刻。",
+		"ja": "Superlogical の Rex ターミナルの再現。",
+		"ko": "Superlogical Rex 터미널의 복제판."
+	},
+	"description": {
+		"en": "A replica of Superlogical’s Rex terminal. Tabs and split panes as cards, sessions that keep running after you quit, and each pane’s program and activity in its header.",
+		"zh-CN": "Superlogical Rex 终端的复刻。标签页与分屏以卡片呈现，退出后会话继续运行，每个窗格的标题栏显示其中的程序与活动。",
+		"zh-TW": "Superlogical Rex 終端機的復刻。分頁與分割窗格以卡片呈現，退出後工作階段繼續執行，每個窗格的標題列顯示其中的程式與活動。",
+		"ja": "Superlogical の Rex ターミナルの再現。タブと分割ペインをカードとして扱い、終了後もセッションが続き、各ペインのヘッダーに実行中のプログラムと動きが表示されます。",
+		"ko": "Superlogical Rex 터미널의 복제판. 탭과 분할 창을 카드로 다루고, 종료 후에도 세션이 계속되며, 각 창의 헤더에 실행 중인 프로그램과 활동이 표시됩니다."
+	},
+	"screenshot": "gorex.webp",
+	"icon": {
+		"ailogo": "gorex"
+	},
+	"added": "2026-11-04T02:24:49Z"
+}

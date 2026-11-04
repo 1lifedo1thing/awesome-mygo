@@ -54,11 +54,11 @@ bot がプルリクエストを開くと、*Complete submission* ワークフロ
 
 ## プロジェクトを追加する
 
-すべての項目は [`packages/catalog/data`](packages/catalog/data) の JSON ファイルにあり、カテゴリごとに 1 ファイルです：
+すべての項目は [`packages/catalog/data`](packages/catalog/data) の JSON ファイルにあり、カテゴリごとに 1 ファイルです。アプリだけは 1 アプリ 1 ファイルです：
 
 | ファイル | 内容 |
 |---|---|
-| `apps.json` | MyGo で作られたアプリ |
+| `apps/<slug>.json` | MyGo で作られたアプリ。1 アプリ 1 ファイルで、slug をファイル名にします |
 | `ui.json` | UI コンポーネントライブラリ |
 | `state.json` | 状態管理 |
 | `plugins.json` | プラグイン |
@@ -68,12 +68,13 @@ bot がプルリクエストを開くと、*Complete submission* ワークフロ
 追加の方法は 2 つあります：
 
 - **サイトから：** 「投稿」を押してフォームに入力するか、項目を JSON のまま貼り付けて、そのまま投稿します。GitHub アカウントは不要で、サイトの bot がプルリクエストを作ります。GitHub アカウントがあれば、作られた項目を Issue として送ったり、GitHub のエディタで JSON ファイルを開いて自分で追加したりもできます。
-- **リポジトリで：** ファイルのリストにオブジェクトを追加し、プルリクエストを送ります。
+- **リポジトリで：** アプリなら `apps/` にファイルを 1 つ、ほかのカテゴリならそのファイルのリストにオブジェクトを追加し、プルリクエストを送ります。
 
-`apps.json` の項目は次のとおりです：
+アプリのファイル `apps/my-app.json` は次のとおりです：
 
 ```json
 {
+  "$schema": "../schema/app.schema.json",
   "slug": "my-app",
   "name": "My App",
   "author": "your-github-login",
@@ -81,10 +82,12 @@ bot がプルリクエストを開くと、*Complete submission* ワークフロ
   "url": "https://my-app.dev",
   "repo": "you/my-app",
   "summary": { "en": "One line about the app.", "ja": "アプリの一行説明。" },
-  "description": { "en": "A few sentences for the detail drawer." }
+  "description": { "en": "A few sentences for the detail drawer." },
+  "added": "2026-11-04T12:00:00Z"
 }
 ```
 
+- ファイル名は `slug` と同じです。`added` はアプリがショーケースに加わった日時（UTC）で、サイトの bot が書き入れます。手で追加するときは現在時刻を書きます。アプリごとにファイルが分かれているので、同時にアプリを追加するプルリクエストどうしが衝突しません。
 - `url` はアプリのホームページです。公式サイト、なければリポジトリの URL で、GitHub でなくてもかまいません。オープンソースのアプリは `repo` に GitHub リポジトリ（`owner/name`）を書き、クローズドソースなら省きます。
 - テキストの欄は言語ごとに 1 つずつ書きます。`en` は必須で、`zh-CN`、`zh-TW`、`ja`、`ko` は任意です。欠けている言語では英語が表示されます。
 - 各ファイルは `$schema` で自分の JSON Schema（`data/schema/`）を指しているので、VS Code などのエディタが入力中に補完とチェックをします。

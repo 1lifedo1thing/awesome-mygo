@@ -1,0 +1,27 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "kero",
+	"name": "Kero",
+	"author": "egoist",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://kero.sh",
+	"summary": {
+		"en": "A terminal for coding agents, with sessions that keep running after you quit.",
+		"zh-CN": "为编程 Agent 打造的终端，退出后会话仍保持运行。",
+		"zh-TW": "為程式設計 Agent 打造的終端機，退出後工作階段仍持續執行。",
+		"ja": "コーディングエージェント向けのターミナル。終了してもセッションが動き続けます。",
+		"ko": "코딩 에이전트를 위한 터미널. 종료해도 세션이 계속 실행됩니다."
+	},
+	"description": {
+		"en": "A terminal for coding agents. Sessions keep running when you quit, a sidebar shows which agents are working, which need you and which are done, and a CLI lets agents drive it, on your machine or a remote host.",
+		"zh-CN": "为编程 Agent 打造的终端。退出后会话仍在运行；侧边栏显示哪些 Agent 正在工作、哪些在等你、哪些已经完成；Agent 还能通过 CLI 操控它，本机或远程主机都可以。",
+		"zh-TW": "為程式設計 Agent 打造的終端機。退出後工作階段仍在執行；側邊欄顯示哪些 Agent 正在工作、哪些在等你、哪些已經完成；Agent 還能透過 CLI 操控它，本機或遠端主機皆可。",
+		"ja": "コーディングエージェントのためのターミナル。終了してもセッションは動き続け、サイドバーでどのエージェントが作業中か、あなたを待っているか、完了したかが分かります。CLI でエージェント自身が操作でき、ローカルでもリモートホストでも使えます。",
+		"ko": "코딩 에이전트를 위한 터미널. 종료해도 세션이 계속 실행되고, 사이드바에서 어떤 에이전트가 작업 중인지, 응답을 기다리는지, 끝났는지 보여줍니다. 에이전트가 CLI로 직접 조작할 수 있으며 로컬과 원격 호스트 모두 지원합니다."
+	},
+	"icon": {
+		"ailogo": "kero"
+	},
+	"added": "2026-11-04T02:24:49Z"
+}

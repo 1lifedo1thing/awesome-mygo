@@ -54,11 +54,11 @@ When the bot opens a pull request, the *Complete submission* workflow fills in w
 
 ## Adding a project
 
-Every entry lives in a JSON file under [`packages/catalog/data`](packages/catalog/data), one file per category:
+Every entry lives in a JSON file under [`packages/catalog/data`](packages/catalog/data), one file per category, except apps, which have one file each:
 
 | File | Lists |
 |---|---|
-| `apps.json` | Apps built with MyGo |
+| `apps/<slug>.json` | Apps built with MyGo, one file per app named after its slug |
 | `ui.json` | UI component libraries |
 | `state.json` | State management |
 | `plugins.json` | Plugins |
@@ -68,12 +68,13 @@ Every entry lives in a JSON file under [`packages/catalog/data`](packages/catalo
 There are two ways to add one:
 
 - **On the site:** click "Submit" and fill in the form, or paste a whole entry as JSON, then submit it directly: no GitHub account needed, the site's bot opens the pull request for you. With a GitHub account you can also send the generated entry as an issue, or open the JSON file in GitHub's editor and add it yourself.
-- **In the repository:** add an object to the list in the file and open a pull request.
+- **In the repository:** add a file to `apps/` for an app, or an object to the list in the category's file, and open a pull request.
 
-An entry in `apps.json` looks like this:
+An app's file, `apps/my-app.json`, looks like this:
 
 ```json
 {
+  "$schema": "../schema/app.schema.json",
   "slug": "my-app",
   "name": "My App",
   "author": "your-github-login",
@@ -81,10 +82,12 @@ An entry in `apps.json` looks like this:
   "url": "https://my-app.dev",
   "repo": "you/my-app",
   "summary": { "en": "One line about the app.", "ja": "アプリの一行説明。" },
-  "description": { "en": "A few sentences for the detail drawer." }
+  "description": { "en": "A few sentences for the detail drawer." },
+  "added": "2026-11-04T12:00:00Z"
 }
 ```
 
+- The file is named after `slug`. `added` is when the app joined the showcase, in UTC; the site bot sets it, and by hand you write the current time. Keeping each app in its own file means pull requests that add apps at the same time never conflict.
 - `url` is the app's homepage: its website, or its repository if it has none; it need not be on GitHub. An open-source app adds its GitHub repository as `repo` (`owner/name`); a closed-source one leaves it out.
 - Text fields hold one string per language. `en` is required; `zh-CN`, `zh-TW`, `ja` and `ko` are optional, and a missing language shows the English text.
 - Each file names its JSON Schema (in `data/schema/`) in `$schema`, so VS Code and other editors complete and check the fields as you type.

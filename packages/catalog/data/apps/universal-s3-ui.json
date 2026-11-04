@@ -1,0 +1,28 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "universal-s3-ui",
+	"name": "Universal S3 UI",
+	"author": "pteich",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/pteich/us3ui",
+	"summary": {
+		"en": "A lightweight storage browser for S3-compatible services, SFTP and FTP/FTPS.",
+		"zh-CN": "轻量存储浏览器，支持 S3 兼容服务、SFTP 与 FTP/FTPS。",
+		"zh-TW": "輕量儲存瀏覽器，支援 S3 相容服務、SFTP 與 FTP/FTPS。",
+		"ja": "S3 互換サービス・SFTP・FTP/FTPS 向けの軽量ストレージブラウザ。",
+		"ko": "S3 호환 서비스, SFTP, FTP/FTPS용 가벼운 스토리지 브라우저."
+	},
+	"description": {
+		"en": "A lightweight storage browser for S3-compatible services, SFTP and FTP/FTPS. One connection manager with credentials in the system keychain, drag-and-drop uploads, temporary share links, and sync between any two connections.",
+		"zh-CN": "面向 S3 兼容服务、SFTP 与 FTP/FTPS 的轻量存储浏览器。统一的连接管理器，凭据存在系统钥匙串中，支持拖放上传、临时分享链接，以及任意两个连接之间的同步。",
+		"zh-TW": "面向 S3 相容服務、SFTP 與 FTP/FTPS 的輕量儲存瀏覽器。統一的連線管理器，憑證存放在系統鑰匙圈中，支援拖放上傳、臨時分享連結，以及任意兩個連線之間的同步。",
+		"ja": "S3 互換サービス・SFTP・FTP/FTPS 向けの軽量ストレージブラウザ。認証情報をシステムのキーチェーンに置くひとつの接続マネージャ、ドラッグ＆ドロップでのアップロード、一時共有リンク、任意の 2 つの接続間の同期。",
+		"ko": "S3 호환 서비스, SFTP, FTP/FTPS용 가벼운 스토리지 브라우저. 자격 증명을 시스템 키체인에 두는 하나의 연결 관리자, 드래그 앤 드롭 업로드, 임시 공유 링크, 임의의 두 연결 간 동기화를 제공합니다."
+	},
+	"screenshot": "universal-s3-ui.webp",
+	"icon": {
+		"ailogo": "universals3ui"
+	},
+	"added": "2026-11-04T02:24:49Z"
+}

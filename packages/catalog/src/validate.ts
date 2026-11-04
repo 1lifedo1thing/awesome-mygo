@@ -7,15 +7,17 @@ export class CatalogError extends Error {}
 type Raw = Record<string, unknown>;
 
 export class Reader {
+	// index is the entry's place in its file's list, or undefined for a file that holds a single entry (an app).
 	constructor(
 		readonly file: string,
-		readonly index: number,
+		readonly index: number | undefined,
 		readonly raw: Raw,
 	) {}
 
 	fail(field: string, why: string): never {
 		const name = typeof this.raw.name === 'string' ? ` (${this.raw.name})` : typeof this.raw.title === 'string' ? ` (${this.raw.title})` : '';
-		throw new CatalogError(`${this.file} entry ${this.index + 1}${name}: ${field} ${why}`);
+		const where = this.index === undefined ? this.file : `${this.file} entry ${this.index + 1}`;
+		throw new CatalogError(`${where}${name}: ${field} ${why}`);
 	}
 
 	str(field: string): string {

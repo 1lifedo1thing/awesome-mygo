@@ -1,0 +1,28 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mytwig",
+	"name": "MyTwig",
+	"author": "HeroSizy",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://mytwig.herosizy.dev",
+	"summary": {
+		"en": "A Git client for macOS, Windows and Linux.",
+		"zh-CN": "适用于 macOS、Windows、Linux 的 Git 客户端。",
+		"zh-TW": "適用於 macOS、Windows、Linux 的 Git 用戶端。",
+		"ja": "macOS・Windows・Linux 向けの Git クライアント。",
+		"ko": "macOS, Windows, Linux용 Git 클라이언트."
+	},
+	"description": {
+		"en": "A Git client for macOS, Windows and Linux. A commit graph of every branch, diffs and a conflict editor, with GitHub pull requests, Jenkins pipelines and Jira issues built in, plus optional AI with your own provider or CLI: explain a commit or a change, search history in plain words, plan Git steps to run and undo, and write commit messages and pull request descriptions.",
+		"zh-CN": "适用于 macOS、Windows 和 Linux 的 Git 客户端。所有分支的提交图、diff 与冲突编辑器，内置 GitHub PR、Jenkins 流水线和 Jira 工单，并可选用自己的模型服务或 CLI 接入 AI：解释提交或改动、用自然语言搜索历史、规划可执行也可撤销的 Git 步骤，以及撰写提交信息和 PR 描述。",
+		"zh-TW": "適用於 macOS、Windows 與 Linux 的 Git 用戶端。所有分支的提交圖、diff 與衝突編輯器，內建 GitHub PR、Jenkins 流水線與 Jira 議題，並可選用自己的模型服務或 CLI 接入 AI：解釋提交或變更、用自然語言搜尋歷史、規劃可執行也可復原的 Git 步驟，以及撰寫提交訊息與 PR 描述。",
+		"ja": "macOS・Windows・Linux 向けの Git クライアント。全ブランチのコミットグラフ、差分とコンフリクトエディタ、GitHub のプルリクエスト・Jenkins パイプライン・Jira 課題を内蔵。任意で自分のプロバイダや CLI による AI も使え、コミットや変更の説明、自然な言葉での履歴検索、実行と取り消しができる Git 手順の計画、コミットメッセージとプルリクエスト説明の作成ができます。",
+		"ko": "macOS, Windows, Linux용 Git 클라이언트. 모든 브랜치의 커밋 그래프, diff와 충돌 편집기, GitHub 풀 리퀘스트·Jenkins 파이프라인·Jira 이슈를 내장했고, 원하는 제공자나 CLI로 AI를 붙일 수 있습니다. 커밋과 변경 설명, 일상 언어로 히스토리 검색, 실행·되돌리기 가능한 Git 단계 계획, 커밋 메시지와 PR 설명 작성을 지원합니다."
+	},
+	"screenshot": "mytwig.svg",
+	"icon": {
+		"ailogo": "mytwig"
+	},
+	"added": "2026-11-04T02:24:49Z"
+}

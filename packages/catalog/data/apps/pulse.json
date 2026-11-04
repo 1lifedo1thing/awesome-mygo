@@ -1,0 +1,28 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "pulse",
+	"name": "Pulse",
+	"author": "egoist",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://pulse.egoist.dev",
+	"summary": {
+		"en": "An activity monitor for Mac, Windows and Linux.",
+		"zh-CN": "适用于 Mac、Windows、Linux 的活动监视器。",
+		"zh-TW": "適用於 Mac、Windows、Linux 的活動監視器。",
+		"ja": "Mac・Windows・Linux 向けのアクティビティモニタ。",
+		"ko": "Mac, Windows, Linux용 활동 모니터."
+	},
+	"description": {
+		"en": "An activity monitor for Mac, Windows and Linux. Every process with its app’s icon, each CPU core, memory pressure, the GPU, disks, network connections, energy and temperatures, with live readings in the menu bar.",
+		"zh-CN": "适用于 Mac、Windows 和 Linux 的活动监视器。每个进程都带应用图标，还能看到每个 CPU 核心、内存压力、GPU、磁盘、网络连接、能耗与温度，菜单栏里显示实时读数。",
+		"zh-TW": "適用於 Mac、Windows 與 Linux 的活動監視器。每個行程都帶應用圖示，還能看到每個 CPU 核心、記憶體壓力、GPU、磁碟、網路連線、能耗與溫度，選單列中顯示即時讀數。",
+		"ja": "Mac・Windows・Linux 向けのアクティビティモニタ。アプリのアイコン付きの全プロセス、各 CPU コア、メモリプレッシャー、GPU、ディスク、ネットワーク接続、エネルギー、温度を表示し、メニューバーにリアルタイムの値を出します。",
+		"ko": "Mac, Windows, Linux용 활동 모니터. 앱 아이콘이 붙은 모든 프로세스, CPU 코어별 사용량, 메모리 압력, GPU, 디스크, 네트워크 연결, 에너지와 온도를 보여주고 메뉴 막대에 실시간 수치를 표시합니다."
+	},
+	"screenshot": "pulse.webp",
+	"icon": {
+		"ailogo": "pulse"
+	},
+	"added": "2026-11-04T02:24:49Z"
+}
