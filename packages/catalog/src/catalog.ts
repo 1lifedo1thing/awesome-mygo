@@ -8,7 +8,10 @@ export const SITE_URL = 'https://mygodock.dev';
 export const MYGO_SITE = 'https://mygo.egoist.dev';
 export const MYGO_SHOWCASE = 'https://mygo.egoist.dev/showcase';
 export const MYGO_REPO = 'https://github.com/egoist/mygo';
+// The upstream list, where README entries are submitted.
 export const LIST_REPO = 'https://github.com/fksune/awesome-mygo';
+// This site's own repository.
+export const SITE_REPO = 'https://github.com/yldm-tech/awesome-mygo';
 // Apps are listed upstream in this file; showcase submissions go there as a pull request.
 export const SHOWCASE_SOURCE = 'https://github.com/egoist/mygo/blob/main/website/src/showcase.ts';
 export const SPONSOR_URL = 'https://github.com/sponsors/egoist';
