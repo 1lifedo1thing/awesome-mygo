@@ -45,7 +45,8 @@ function AppPage() {
 			<header className='app-hero'>
 				<div className='app-hero-icon'>
 					{/* A blurred copy of the icon lights the space behind it. */}
-					{app.icon && <img className='app-hero-glow' src={app.icon} alt='' aria-hidden='true' width={96} height={96} decoding='async' />}
+					{/* The glow is the page's largest paint on a phone, and the icon below loads from the same URL, so it is fetched ahead of the fonts. */}
+					{app.icon && <img className='app-hero-glow' src={app.icon} alt='' aria-hidden='true' width={96} height={96} decoding='async' fetchPriority='high' />}
 					<MonoTile view={v} size={96} />
 				</div>
 				<div className='app-hero-text'>
