@@ -47,12 +47,14 @@ async function readSubmission(request: Request): Promise<Submission | undefined>
 	if (!cat || !token || token.length > 2048) return undefined;
 	if (r.entry !== undefined) return r.entry && typeof r.entry === 'object' && !Array.isArray(r.entry) ? { cat, token, kind: 'entry', entry: r.entry as Record<string, unknown> } : undefined;
 	const mode = r.mode === 'web' ? 'web' : r.mode === 'native' || r.mode === undefined ? 'native' : undefined;
-	const [name, author, url, desc] = [str('name'), str('author') ?? '', str('url'), str('desc') ?? ''];
+	const [name, author, url, desc, repo] = [str('name'), str('author') ?? '', str('url'), str('desc') ?? '', str('repo')];
 	// A showcase entry may name its category; anything not in the schema's list is refused rather than dropped.
 	const category = r.category === undefined ? undefined : APP_CATEGORIES.find((c) => c === r.category);
 	if (r.category !== undefined && (!category || cat !== 'showcase')) return undefined;
+	// Only a showcase app has a repository besides its link.
+	if (r.repo !== undefined && (repo === undefined || cat !== 'showcase')) return undefined;
 	if (!mode || name === undefined || url === undefined) return undefined;
-	return { cat, token, kind: 'form', mode, draft: { name, author, url, desc, category } };
+	return { cat, token, kind: 'form', mode, draft: { name, author, url, desc, category, repo } };
 }
 
 export const Route = createFileRoute('/api/submit')({
@@ -68,7 +70,7 @@ export const Route = createFileRoute('/api/submit')({
 				const ip = request.headers.get('cf-connecting-ip') ?? '';
 				if (!(await env.SUBMIT_LIMIT.limit({ key: ip || 'unknown' })).success) return json({ error: 'limited' }, 429);
 				const sub = await readSubmission(request);
-				if (!sub) return json({ error: 'invalid', message: 'expected a JSON object with cat, token and either entry (a whole entry) or name, url, desc, author and, for the showcase, an optional category' }, 400);
+				if (!sub) return json({ error: 'invalid', message: 'expected a JSON object with cat, token and either entry (a whole entry) or name, url, desc, author and, for the showcase, an optional category and repo' }, 400);
 				const problem = sub.kind === 'entry' ? pastedEntryProblem(sub.cat, sub.entry) : entryProblem(sub.cat, sub.draft);
 				if (problem) return json({ error: 'invalid', message: problem }, 400);
 				if (!(await verifyTurnstile(cfg.turnstileSecret, sub.token, ip))) return json({ error: 'captcha' }, 403);

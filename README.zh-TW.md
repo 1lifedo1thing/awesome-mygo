@@ -64,7 +64,7 @@ pnpm preview      # 在 Workers 執行環境中執行正式建置
 
 新增方式有兩種：
 
-- **在網站上：** 點「提交」填表，然後直接提交：不需要 GitHub 帳號，網站的 bot 會替你開 PR。有 GitHub 帳號的話，也可以把產生的條目提交為 Issue，或在 GitHub 編輯器裡開啟對應的 JSON 檔案自己加上。
+- **在網站上：** 點「提交」填表，或者直接貼上整條 JSON 條目，然後提交：不需要 GitHub 帳號，網站的 bot 會替你開 PR。有 GitHub 帳號的話，也可以把產生的條目提交為 Issue，或在 GitHub 編輯器裡開啟對應的 JSON 檔案自己加上。
 - **在倉庫裡：** 在檔案的清單裡加一個物件，然後提 PR。
 
 `apps.json` 中的一個條目長這樣：
@@ -75,12 +75,14 @@ pnpm preview      # 在 Workers 執行環境中執行正式建置
   "name": "My App",
   "author": "your-github-login",
   "kind": "native",
-  "url": "https://github.com/you/my-app",
+  "url": "https://my-app.dev",
+  "repo": "you/my-app",
   "summary": { "en": "One line about the app.", "ja": "アプリの一行説明。" },
   "description": { "en": "A few sentences for the detail drawer." }
 }
 ```
 
+- `url` 是應用首頁：官網，沒有官網就填倉庫網址，不要求在 GitHub 上。開源應用再用 `repo` 填 GitHub 倉庫（`owner/name`），閉源應用不填。
 - 文字欄位依語言各寫一份。`en` 必填；`zh-CN`、`zh-TW`、`ja`、`ko` 可選，缺少的語言顯示英文。
 - 每個檔案都在 `$schema` 裡指向自己的 JSON Schema（在 `data/schema/`），VS Code 等編輯器會在你輸入時補全並檢查欄位。
 - 連結必須是 https。截圖請把寬約 1200px 的 WebP 放進 `apps/web/public/shots/`，並寫 `"screenshot": "my-app.webp"`。應用圖示寫 `"icon": { "ailogo": "<id>" }`，id 來自 [ai-logo](https://github.com/yldm-tech/ai-logo)；不寫則顯示字母圖示。

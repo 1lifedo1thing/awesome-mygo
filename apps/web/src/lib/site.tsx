@@ -47,7 +47,7 @@ export function SiteProvider({ children }: { children: ReactNode }) {
 
 	const [palette, setPalette] = useState(false);
 	const [modal, setModal] = useState(false);
-	const [form, setForm] = useState<SubmitForm>({ cat: 'showcase', mode: 'native', name: '', author: '', url: '', desc: '', via: 'form', json: '' });
+	const [form, setForm] = useState<SubmitForm>({ cat: 'showcase', mode: 'native', name: '', author: '', url: '', repo: '', desc: '', via: 'form', json: '' });
 	const [copied, setCopied] = useState<CopyKey | null>(null);
 	const copyTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 	// True when the open drawer pushed its own history entry, so closing it can step back instead of stacking another entry.

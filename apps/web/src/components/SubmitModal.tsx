@@ -16,8 +16,8 @@ function Modal() {
 	const { closeSubmit, form, setFormField, copy, copied } = useSite();
 	const t = useT();
 	const ref = useDialog<HTMLDivElement>();
-	const { bot, lang, round, setToken, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint, viaJson, jsonError, onJsonChange, example } = useSubmit();
-	const urlNote = urlBad ? 'f-url-err' : repoMissing ? 'f-url-repo' : withAuthor ? 'f-url-tip' : undefined;
+	const { bot, lang, round, setToken, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint, viaJson, jsonError, onJsonChange, example, repoBad, onRepoBlur, urlLabel } = useSubmit();
+	const urlNote = urlBad ? 'f-url-err' : repoMissing ? 'f-url-repo' : isShow || withAuthor ? 'f-url-tip' : undefined;
 
 	// The form scrolls; the footer with the submit button stays in view, saying what is still missing.
 	return (
@@ -130,7 +130,7 @@ function Modal() {
 						<>
 							<div className='stack-8'>
 								<label htmlFor='f-url' className='field-label'>
-									{t.m_link}
+									{urlLabel}
 								</label>
 								<input
 									id='f-url'
@@ -139,7 +139,7 @@ function Modal() {
 									value={form.url}
 									onChange={(e) => setFormField('url', e.target.value)}
 									onBlur={onUrlBlur}
-									placeholder='https://github.com/…'
+									placeholder={isShow ? 'https://…' : 'https://github.com/…'}
 									className='field'
 									data-bad={urlBad || repoMissing}
 									aria-invalid={urlBad || repoMissing}
@@ -154,13 +154,42 @@ function Modal() {
 										{t.m_repo}
 									</p>
 								) : (
-									withAuthor && (
+									(isShow || withAuthor) && (
 										<p id='f-url-tip' className='field-tip'>
-											{t.m_link_tip}
+											{isShow ? t.m_home_tip : t.m_link_tip}
 										</p>
 									)
 								)}
 							</div>
+							{isShow && (
+								<div className='stack-8'>
+									<label htmlFor='f-repo' className='field-label'>
+										{t.m_gh} <span className='field-count'>{t.m_opt}</span>
+									</label>
+									<input
+										id='f-repo'
+										type='url'
+										inputMode='url'
+										value={form.repo ?? ''}
+										onChange={(e) => setFormField('repo', e.target.value)}
+										onBlur={onRepoBlur}
+										placeholder='https://github.com/owner/name'
+										className='field'
+										data-bad={repoBad}
+										aria-invalid={repoBad}
+										aria-describedby={repoBad ? 'f-repo-err' : 'f-repo-tip'}
+									/>
+									{repoBad ? (
+										<p id='f-repo-err' role='alert' className='field-err'>
+											{t.m_repo_bad}
+										</p>
+									) : (
+										<p id='f-repo-tip' className='field-tip'>
+											{t.m_link_tip}
+										</p>
+									)}
+								</div>
+							)}
 							<div className='field-grid'>
 								<div className='stack-8'>
 									<label htmlFor='f-name' className='field-label'>

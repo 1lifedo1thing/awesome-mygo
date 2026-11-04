@@ -1,4 +1,4 @@
-import { type App, APPS, appBySlug, fill, likeKey, pick } from '@awesome-mygo/catalog';
+import { type App, APPS, appBySlug, appSource, fill, hostOf, likeKey, pick } from '@awesome-mygo/catalog';
 import { Link, useParams } from '@tanstack/react-router';
 import { neighbours } from '../../components/AppDetail';
 import { AppLink, type AppView, appView } from '../../components/bits';
@@ -55,6 +55,7 @@ export function AppHead({ app, kindLabel, className = '' }: { app: App; kindLabe
 export function AppFacts({ view }: { view: AppView }) {
 	const t = useT();
 	const { app } = view;
+	const src = appSource(app);
 	return (
 		<dl className='m-0 grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 gap-y-0.5 border-y border-line py-2'>
 			<dt className='text-faint'>{t.f_author}</dt>
@@ -65,6 +66,16 @@ export function AppFacts({ view }: { view: AppView }) {
 			<dd lang='en' className='m-0 font-mono break-all'>
 				{view.host}
 			</dd>
+			{src && (
+				<>
+					<dt className='text-faint'>{t.f_src}</dt>
+					<dd lang='en' className='m-0 font-mono break-all'>
+						<a className={lnk} href={src} target='_blank' rel='noopener'>
+							{hostOf(src)}
+						</a>
+					</dd>
+				</>
+			)}
 			<dt className='text-faint'>{t.f_no}</dt>
 			<dd className='m-0 font-mono'>
 				#{view.num} / {APPS.length}

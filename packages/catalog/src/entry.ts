@@ -23,8 +23,11 @@ export function descMax(cat: SubmitCat): number {
 export interface EntryDraft {
 	name: string;
 	author: string;
+	// The showcase's homepage, a plugin's docs, an article; for UI components and state management, the GitHub repository.
 	url: string;
 	desc: string;
+	// Showcase only: the app's GitHub repository link, for an open-source app. Optional, since an app need not be open source.
+	repo?: string;
 	// Showcase only: the app's schema.org category, from the group its author picked. Left out when none was picked.
 	category?: AppCategory;
 }
@@ -94,7 +97,7 @@ export function buildEntry(cat: SubmitCat, d: EntryDraft, mode: 'native' | 'web'
 	const repo = repoOf(url);
 	switch (cat) {
 		case 'showcase':
-			return { slug: slugify(name), name, author, kind: mode, ...(d.category ? { category: d.category } : {}), url, summary, description: summary };
+			return { slug: slugify(name), name, author, kind: mode, ...(d.category ? { category: d.category } : {}), url, ...(repoOf(d.repo ?? '') ? { repo: repoOf(d.repo ?? '') } : {}), summary, description: summary };
 		case 'ui':
 			return { name, author, tag: 'theme', summary, repo: repo ?? 'owner/name', url };
 		case 'state':
@@ -110,6 +113,11 @@ export function jsonEntry(cat: SubmitCat, d: EntryDraft, mode: 'native' | 'web',
 	return JSON.stringify(buildEntry(cat, d, mode, placeholders), null, 2);
 }
 
+// A showcase app's optional GitHub link that is filled in but is not a repository link.
+export function isBadRepo(link: string): boolean {
+	return link.trim().length > 0 && !repoOf(link);
+}
+
 // UI components and state management are listed by their GitHub repository.
 export function needsRepo(cat: SubmitCat): boolean {
 	return cat === 'ui' || cat === 'state';
@@ -123,6 +131,7 @@ export function entryProblem(cat: SubmitCat, d: EntryDraft): string | undefined 
 	if ([d.name, d.author, d.url, d.desc].some((v) => /[\u0000-\u001f\u007f]/.test(v))) return 'fields must be a single line of text';
 	if (/\s/.test(d.url.trim())) return 'the link must not contain spaces';
 	if (needsRepo(cat) && !repoOf(d.url)) return 'UI components and state management need a GitHub repository link';
+	if (cat === 'showcase' && d.repo?.trim() && (isBadRepo(d.repo) || d.repo.length > 300)) return 'the GitHub repository must be a link like https://github.com/owner/name';
 	return undefined;
 }
 

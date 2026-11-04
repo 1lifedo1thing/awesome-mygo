@@ -1,4 +1,4 @@
-import { type DraftField, type LangCode, SITE_REPO, SUBMIT_FILES, type SubmitCat, descMax, editUrl, entryCats, entryProblem, fill, guessFromLink, isBadUrl, isEntryComplete, issueUrl, jsonEntry, missingFields, needsAuthor, needsRepo, parseEntryJson, pastedEntryProblem, pastedName, repoOf, withScheme } from '@awesome-mygo/catalog';
+import { type DraftField, type LangCode, SITE_REPO, SUBMIT_FILES, type SubmitCat, descMax, editUrl, entryCats, entryProblem, fill, guessFromLink, isBadRepo, isBadUrl, isEntryComplete, issueUrl, jsonEntry, missingFields, needsAuthor, needsRepo, parseEntryJson, pastedEntryProblem, pastedName, repoOf, withScheme } from '@awesome-mygo/catalog';
 import { useEffect, useRef, useState } from 'react';
 import { useLang, useT } from './lang';
 import { useSite } from './site';
@@ -77,14 +77,18 @@ export function useSubmit() {
 	const [status, setStatus] = useState<Status>({ kind: 'idle' });
 	// The link is judged once the visitor leaves the field, not while they are still typing it.
 	const [urlTouched, setUrlTouched] = useState(false);
+	const [repoTouched, setRepoTouched] = useState(false);
 
 	// A result or an error belongs to what was submitted; editing the form clears it.
-	useEffect(() => setStatus({ kind: 'idle' }), [form.cat, form.mode, form.name, form.author, form.url, form.desc, form.category, form.via, form.json]);
+	useEffect(() => setStatus({ kind: 'idle' }), [form.cat, form.mode, form.name, form.author, form.url, form.repo, form.desc, form.category, form.via, form.json]);
 
 	const catLabel: Record<SubmitCat, string> = { ui: t.cat_ui_name, state: t.cat_state_name, plugin: t.nav_plugins, showcase: t.cat_show_name, article: t.article };
 	const isShow = form.cat === 'showcase';
 	const max = descMax(form.cat);
 	const urlBad = urlTouched && isBadUrl(form.url);
+	const repoBad = isShow && repoTouched && isBadRepo(form.repo ?? '');
+	// What the main link is: a showcase app's homepage, the repository of a UI library or state solution, or just a link.
+	const urlLabel = isShow ? t.m_home : needsRepo(form.cat) ? t.m_gh : t.m_link;
 	// A pasted entry: what it is, and what keeps it from being submitted as an entry of the picked category.
 	const viaJson = form.via === 'json';
 	const pasted = viaJson && form.json.trim() ? parseEntryJson(form.json) : undefined;
@@ -94,7 +98,7 @@ export function useSubmit() {
 	const ph = { name: t.m_name, desc: t.md_desc };
 	const withAuthor = needsAuthor(form.cat);
 	const file = SUBMIT_FILES[form.cat].file;
-	const draft = isShow ? form : { ...form, category: undefined };
+	const draft = isShow ? form : { ...form, category: undefined, repo: undefined };
 	// The shape of the category's entry, shown in the empty JSON field.
 	const example = jsonEntry(form.cat, { name: '', author: '', url: '', desc: '' }, form.mode, ph);
 	const entry = pastedEntry ? JSON.stringify(pastedEntry, null, 2) : jsonEntry(form.cat, draft, form.mode, ph);
@@ -113,19 +117,28 @@ export function useSubmit() {
 		if (cats.length === 1 && cats[0] !== form.cat) setFormField('cat', cats[0]);
 	};
 
-	// Leaving the link field: add the missing https://, and from a GitHub repository link fill in the name and author the visitor has not typed.
-	const onUrlBlur = () => {
-		setUrlTouched(true);
-		const url = withScheme(form.url);
-		if (url !== form.url) setFormField('url', url);
+	// Leaving a link field: add the missing https://, and from a GitHub repository link fill in the name and author the visitor has not typed.
+	const fillFrom = (url: string) => {
 		const guess = guessFromLink(url);
 		if (!guess) return;
 		if (!form.name.trim()) setFormField('name', guess.name);
 		if (withAuthor && !form.author.trim()) setFormField('author', guess.author);
 	};
+	const onUrlBlur = () => {
+		setUrlTouched(true);
+		const url = withScheme(form.url);
+		if (url !== form.url) setFormField('url', url);
+		fillFrom(url);
+	};
+	const onRepoBlur = () => {
+		setRepoTouched(true);
+		const repo = withScheme(form.repo ?? '');
+		if (repo !== form.repo) setFormField('repo', repo);
+		fillFrom(repo);
+	};
 
 	// Why the submit button is not ready yet, in words.
-	const fieldLabel: Record<DraftField, string> = { url: t.m_link, name: t.m_name, author: t.m_author, desc: t.m_desc_l };
+	const fieldLabel: Record<DraftField, string> = { url: urlLabel, name: t.m_name, author: t.m_author, desc: t.m_desc_l };
 	const missing = viaJson ? [] : missingFields(form.cat, form);
 	const need = viaJson ? (pasted ? '' : fill(t.sub_need, { x: t.m_json })) : missing.length > 0 ? fill(t.sub_need, { x: new Intl.ListFormat(lang, { type: 'conjunction' }).format(missing.map((f) => fieldLabel[f])) }) : '';
 	const hint = status.kind === 'sending' || status.kind === 'done' ? '' : need || (viaJson && jsonError ? t.m_json_fix : bot.enabled && !token ? t.sub_wait : '');
@@ -151,7 +164,7 @@ export function useSubmit() {
 			const res = await fetch('/api/submit', {
 				method: 'POST',
 				headers: { 'content-type': 'application/json' },
-				body: JSON.stringify(pastedEntry ? { cat: form.cat, entry: pastedEntry, token } : { cat: form.cat, mode: form.mode, name: form.name, author: withAuthor ? form.author : '', url: form.url, desc: form.desc, category: isShow ? form.category : undefined, token }),
+				body: JSON.stringify(pastedEntry ? { cat: form.cat, entry: pastedEntry, token } : { cat: form.cat, mode: form.mode, name: form.name, author: withAuthor ? form.author : '', url: form.url, repo: isShow ? form.repo : undefined, desc: form.desc, category: isShow ? form.category : undefined, token }),
 			});
 			const body = (await res.json().catch(() => ({}))) as { url?: string; number?: number; error?: string; message?: string };
 			setStatus(res.ok && body.url && body.number ? { kind: 'done', url: body.url, number: body.number } : { kind: 'error', message: errorText(body) });
@@ -162,5 +175,5 @@ export function useSubmit() {
 		setRound((n) => n + 1);
 	};
 
-	return { bot, lang, token, setToken, round, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint, viaJson, jsonError, onJsonChange, example };
+	return { bot, lang, token, setToken, round, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint, viaJson, jsonError, onJsonChange, example, repoBad, onRepoBlur, urlLabel };
 }
