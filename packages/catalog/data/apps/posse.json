@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "posse",
+	"name": "Posse",
+	"author": "syanbo",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/syanbo/posse",
+	"repo": "syanbo/posse",
+	"summary": {
+		"en": "A native macOS terminal manager for AI coding agents, with a phone app to keep managing them.",
+		"zh-CN": "给 AI 编码 agent 用的 macOS 原生终端管理器，离开电脑也能在手机上接着管。",
+		"zh-TW": "給 AI 程式設計 agent 用的 macOS 原生終端機管理器，離開電腦也能在手機上繼續管理。",
+		"ja": "AI コーディングエージェント向けの macOS ネイティブなターミナルマネージャー。離席中もスマホで管理できます。",
+		"ko": "AI 코딩 에이전트를 위한 macOS 네이티브 터미널 관리자로, 자리를 비워도 휴대폰에서 계속 관리할 수 있습니다."
+	},
+	"description": {
+		"en": "Run Claude Code, Codex, Cursor CLI and Grok Build side by side and see every agent's status in the sidebar. A single Go daemon hosts all terminals, so agents keep running when the window is closed, and the window only attaches to the terminals you can see. It also has a WebStorm-style Git UI, a file tree, session history, a phone app for terminals and remote control of the Mac desktop. The window is drawn with MyGo's native UI.",
+		"zh-CN": "让 Claude Code、Codex、Cursor CLI 和 Grok Build 并排干活，侧栏一处看清每个 agent 的状态。一个 Go 常驻进程托管所有终端，关掉窗口 agent 照样运行，窗口只接入看得见的终端。还带照 WebStorm 做的 Git 界面、文件树、会话历史，以及能操作终端、远程控制 Mac 桌面的手机 App。窗口由 MyGo 原生 UI 绘制。",
+		"zh-TW": "讓 Claude Code、Codex、Cursor CLI 和 Grok Build 並排工作，側欄一處看清每個 agent 的狀態。一個 Go 常駐程序託管所有終端機，關掉視窗 agent 照樣執行，視窗只連接看得見的終端機。另有仿 WebStorm 的 Git 介面、檔案樹、對話紀錄，以及能操作終端機、遠端控制 Mac 桌面的手機 App。視窗由 MyGo 原生 UI 繪製。",
+		"ja": "Claude Code、Codex、Cursor CLI、Grok Build を並べて動かし、各エージェントの状態をサイドバーで一目で確認できます。1 つの Go デーモンがすべてのターミナルを保持するため、ウィンドウを閉じてもエージェントは動き続け、ウィンドウは表示中のターミナルにだけ接続します。WebStorm 風の Git 画面、ファイルツリー、セッション履歴、ターミナル操作と Mac デスクトップのリモート操作ができるスマホアプリも備えています。ウィンドウは MyGo のネイティブ UI で描かれています。",
+		"ko": "Claude Code, Codex, Cursor CLI, Grok Build를 나란히 실행하고 각 에이전트의 상태를 사이드바에서 한눈에 확인합니다. Go 데몬 하나가 모든 터미널을 맡아 창을 닫아도 에이전트는 계속 실행되고, 창은 보이는 터미널에만 연결합니다. WebStorm 스타일의 Git 화면, 파일 트리, 세션 기록, 그리고 터미널을 다루고 Mac 데스크톱을 원격 제어하는 휴대폰 앱도 갖추었습니다. 창은 MyGo의 네이티브 UI로 그렸습니다."
+	},
+	"screenshot": "posse.webp",
+	"icon": {
+		"file": "posse.webp"
+	},
+	"added": "2026-11-04T14:58:46Z"
+}
