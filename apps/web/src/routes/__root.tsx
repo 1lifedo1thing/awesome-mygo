@@ -1,5 +1,5 @@
-import { DEFAULT_LANG, LANG_STORAGE_KEY, type LangCode, negotiateLang } from '@awesome-mygo/catalog';
-import { HeadContent, Link, Outlet, Scripts, createRootRoute, retainSearchParams, useNavigate } from '@tanstack/react-router';
+import { DEFAULT_LANG, type LangCode, langRedirectScript } from '@awesome-mygo/catalog';
+import { HeadContent, Link, Outlet, Scripts, createRootRoute, retainSearchParams } from '@tanstack/react-router';
 import { type ReactNode, useEffect } from 'react';
 import { AppDrawer } from '../components/AppDrawer';
 import { Background } from '../components/Background';
@@ -13,6 +13,8 @@ import { SiteProvider, useSite } from '../lib/site';
 import styles from '../styles.css?url';
 
 // Only the CJK face of the page's language is requested (the others' stylesheets alone are large), and only the weights the styles use. English keeps Simplified Chinese as the fallback for app names such as 留白.
+const LANG_REDIRECT = langRedirectScript();
+
 const CJK: Record<LangCode, string> = {
 	'zh-CN': 'Noto+Sans+SC',
 	'zh-TW': 'Noto+Sans+TC',
@@ -64,25 +66,12 @@ function RootComponent() {
 
 function RootDocument({ children }: { children: ReactNode }) {
 	const lang = useLang();
-	const navigate = useNavigate();
-
-	// A bare URL is Simplified Chinese. On the first visit, switch to a saved choice or the browser language, as the design does.
-	useEffect(() => {
-		if (lang !== DEFAULT_LANG) return;
-		let saved: string | null = null;
-		try {
-			saved = localStorage.getItem(LANG_STORAGE_KEY);
-		} catch {
-			// Storage can be blocked; fall through to the browser language.
-		}
-		const want = negotiateLang(saved, navigator.language);
-		if (want !== DEFAULT_LANG) void navigate({ to: '.', search: (prev: RootSearch): RootSearch => ({ ...prev, lang: want }), replace: true, resetScroll: false });
-		// Only on first load; later switches go through the language menu.
-	}, []);
 
 	return (
 		<html lang={lang}>
 			<head>
+				{/* A bare URL is Simplified Chinese. A first visit with a saved choice or another browser language goes to its ?lang= page before anything renders, so the server serves that language and React never switches it mid-hydration. */}
+				<script dangerouslySetInnerHTML={{ __html: LANG_REDIRECT }} />
 				<HeadContent />
 				<noscript>
 					<style>{'.rv{opacity:1;transform:none}'}</style>

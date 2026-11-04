@@ -1,4 +1,4 @@
-import { LIST_REPO, SPONSOR_URL } from '@awesome-mygo/catalog';
+import { SITE_REPO, SPONSOR_URL } from '@awesome-mygo/catalog';
 import { useT } from '../lib/lang';
 import { useSite } from '../lib/site';
 import { Docky } from './bits';
@@ -14,7 +14,7 @@ export function Footer() {
 				<div className='ftr-row'>
 					<span>{t.footer_l}</span>
 					<span className='ftr-links'>
-						<a href={LIST_REPO} target='_blank' rel='noopener'>
+						<a href={SITE_REPO} target='_blank' rel='noopener'>
 							GitHub
 						</a>
 						<a href={SPONSOR_URL} target='_blank' rel='noopener'>

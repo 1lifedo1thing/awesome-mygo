@@ -8,7 +8,10 @@ export const SITE_URL = 'https://mygodock.dev';
 export const MYGO_SITE = 'https://mygo.egoist.dev';
 export const MYGO_SHOWCASE = 'https://mygo.egoist.dev/showcase';
 export const MYGO_REPO = 'https://github.com/egoist/mygo';
+// The upstream list, where README entries are submitted.
 export const LIST_REPO = 'https://github.com/fksune/awesome-mygo';
+// This site's own repository.
+export const SITE_REPO = 'https://github.com/yldm-tech/awesome-mygo';
 // Apps are listed upstream in this file; showcase submissions go there as a pull request.
 export const SHOWCASE_SOURCE = 'https://github.com/egoist/mygo/blob/main/website/src/showcase.ts';
 export const SPONSOR_URL = 'https://github.com/sponsors/egoist';
@@ -46,8 +49,8 @@ export interface App {
 	about: Localized;
 	// Screenshot under /shots/, when the project provides one.
 	image?: string;
-	// The app's icon: its ai-logo avatar on the ai-logo CDN, or its official icon under /icons/ when ai-logo does not list it.
-	icon: string;
+	// The app's icon: its ai-logo avatar on the ai-logo CDN, its official icon under /icons/ when ai-logo has none, or none, for the letter tile.
+	icon?: string;
 }
 
 const N: AppKind = 'native';
@@ -130,7 +133,13 @@ const AILOGO_IDS: Record<string, string> = {
 	apigo: 'apigo',
 };
 
-const iconOf = (slug: string) => (AILOGO_IDS[slug] ? `${AILOGO_CDN}${AILOGO_IDS[slug]}.webp` : `/icons/${slug}.webp`);
+// 2048 and Uma still ship the icon that `mygo init` draws for every new project (a ring on a blue-violet gradient), so the two would look identical and say nothing about either app: they keep the letter tile.
+const NO_ICON = new Set(['2048', 'uma']);
+
+const iconOf = (slug: string) => {
+	if (NO_ICON.has(slug)) return undefined;
+	return AILOGO_IDS[slug] ? `${AILOGO_CDN}${AILOGO_IDS[slug]}.webp` : `/icons/${slug}.webp`;
+};
 
 export const APPS: readonly App[] = APP_ROWS.map(([slug, name, author, kind, url, desc]) => {
 	const about = ABOUT[slug];
