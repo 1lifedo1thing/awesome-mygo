@@ -1,11 +1,11 @@
 import { APPS, APP_GROUPS, type App, type AppGroup, type AppKind, appGroup, byNewest, isAppGroup, likeKey } from '@awesome-mygo/catalog';
 import { oneOf, text } from './page-search';
 
-// The showcase's view in the address: ?cat= a group, ?ui= native or web, ?sort= newest or likes (natural order when absent), and in the retro look ?author= the author picked in its side panel. Every key is always returned, undefined when absent or invalid, for the same reason as validateRootSearch: TanStack merges the validated object over the raw search.
+// The showcase's view in the address: ?cat= a group, ?ui= native or web, ?sort= natural or likes (newest first when absent), and in the retro look ?author= the author picked in its side panel. Every key is always returned, undefined when absent or invalid, for the same reason as validateRootSearch: TanStack merges the validated object over the raw search. An old link's ?sort=newest is dropped as invalid, which still shows newest first.
 export interface ShowcaseSearch {
 	cat?: AppGroup;
 	ui?: AppKind;
-	sort?: Exclude<AppSort, 'natural'>;
+	sort?: Exclude<AppSort, typeof DEFAULT_SORT>;
 	author?: string;
 }
 
@@ -16,13 +16,16 @@ export function validateShowcaseSearch(search: Record<string, unknown>): Showcas
 	return {
 		cat: isAppGroup(search.cat) ? search.cat : undefined,
 		ui: search.ui === 'native' || search.ui === 'web' ? search.ui : undefined,
-		sort: oneOf(search.sort, ['newest', 'likes'] as const),
+		sort: oneOf(search.sort, ['natural', 'likes'] as const),
 		author: author !== undefined && AUTHORS.has(author) ? author : undefined,
 	};
 }
 
-// The showcase's orders: by name in natural order (the default, and APPS' own order), newest first, or most liked first.
+// The showcase's orders: by name in natural order (APPS' own order), newest first, or most liked first.
 export type AppSort = 'natural' | 'newest' | 'likes';
+
+// The order the showcase opens in, and falls back to when likes are off; the address leaves it out.
+export const DEFAULT_SORT = 'newest' satisfies AppSort;
 
 // The apps in the chosen order; apps that tie (the same likes) keep their natural order. Shared by both looks.
 export function sortApps(apps: readonly App[], sort: AppSort, likes: Readonly<Record<string, number>>): App[] {

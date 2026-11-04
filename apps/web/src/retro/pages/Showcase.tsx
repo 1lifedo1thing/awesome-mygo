@@ -4,7 +4,7 @@ import { AppLink } from '../../components/bits';
 import { LikeButton } from '../../components/Like';
 import { useLang, useT } from '../../lib/lang';
 import { useLikes } from '../../lib/likes';
-import { type AppSort, groupChips, sortApps } from '../../lib/showcase';
+import { type AppSort, DEFAULT_SORT, groupChips, sortApps } from '../../lib/showcase';
 import { useSite } from '../../lib/site';
 import { AppIcon, Note, StatusBar, Win, btnGo, btnSm, iconLabel, likeBtn, lnk, seg, select, well } from '../ui';
 import { noShot } from './AppPage';
@@ -37,7 +37,7 @@ export function Showcase() {
 	const setAuthor = (name: string | null) => setFilter({ author: name ?? undefined });
 	const { status: likes, counts } = useLikes();
 	// With likes off there is no most-liked order to show, whatever the link says.
-	const sort: AppSort = sortParam === 'likes' && likes === 'off' ? 'natural' : (sortParam ?? 'natural');
+	const sort: AppSort = sortParam === 'likes' && likes === 'off' ? DEFAULT_SORT : (sortParam ?? DEFAULT_SORT);
 
 	const kinds = [
 		{ key: 'all', label: t.all, n: APPS.length },
@@ -84,7 +84,7 @@ export function Showcase() {
 					<span className='flex-1' />
 					<label className='flex items-center gap-1.5 whitespace-nowrap'>
 						{t.sort}
-						<select value={sort} onChange={(e) => setFilter({ sort: e.target.value === 'natural' ? undefined : (e.target.value as typeof sortParam) })} className={select}>
+						<select value={sort} onChange={(e) => setFilter({ sort: e.target.value === DEFAULT_SORT ? undefined : (e.target.value as typeof sortParam) })} className={select}>
 							<option value='natural'>{t.sort_natural}</option>
 							<option value='newest'>{t.sort_new}</option>
 							{likes !== 'off' && <option value='likes'>{t.sort_likes}</option>}
