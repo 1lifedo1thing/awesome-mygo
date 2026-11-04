@@ -57,3 +57,9 @@ export function fill(template: string, values: { x?: string; n?: number | string
 	if (values.n !== undefined) out = out.replace('{n}', String(values.n));
 	return out;
 }
+
+// The same choice as negotiateLang, as an inline <head> script: it runs before React hydrates, so a first visit on a bare URL is sent to its ?lang= page by the server instead of switching language mid-hydration (which made React report hydration mismatches and flashed the Chinese page first). Kept in sync with negotiateLang by the tests.
+export function langRedirectScript(): string {
+	const codes = JSON.stringify(LANGS.map((l) => l.code));
+	return `(function(){var C=${codes},D=${JSON.stringify(DEFAULT_LANG)},u=new URL(location.href),q=u.searchParams.get('lang');if(q&&q!==D&&C.indexOf(q)>=0)return;var s=null;try{s=localStorage.getItem(${JSON.stringify(LANG_STORAGE_KEY)})}catch(e){}var w;if(s&&C.indexOf(s)>=0)w=s;else{var n=(navigator.language||'').toLowerCase();w=n.indexOf('zh')===0?(n.indexOf('tw')>=0||n.indexOf('hk')>=0||n.indexOf('hant')>=0?'zh-TW':'zh-CN'):n.indexOf('ja')===0?'ja':n.indexOf('ko')===0?'ko':n.indexOf('en')===0?'en':D}if(w===D)return;u.searchParams.set('lang',w);location.replace(u.toString())})()`;
+}

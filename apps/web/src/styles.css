@@ -1193,10 +1193,10 @@ html:lang(ko) .site {
 	white-space: nowrap;
 	letter-spacing: -0.02em;
 }
-.marq-dot {
-	width: 8px;
-	height: 8px;
-	border-radius: 2px;
+.marq-icon {
+	width: 36px;
+	height: 36px;
+	flex: none;
 }
 
 /* ---- home sections ---- */

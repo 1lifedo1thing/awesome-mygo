@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { ABOUT } from './about';
 import { AILOGO_CDN, APPS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, hostOf } from './catalog';
 import { descMax, isBadUrl, isEntryComplete, readmeEntry, showcaseEntry } from './entry';
-import { LANGS, fill, negotiateLang } from './lang';
+import { LANGS, fill, langRedirectScript, negotiateLang } from './lang';
 import { buildSearchIndex, searchCatalog } from './search';
 import { STRINGS } from './strings';
 import { t } from './translate';
@@ -73,6 +73,50 @@ describe('negotiateLang', () => {
 	it('falls back to simplified Chinese', () => {
 		expect(negotiateLang(null, 'de-DE')).toBe('zh-CN');
 		expect(negotiateLang(null, undefined)).toBe('zh-CN');
+	});
+});
+
+describe('langRedirectScript', () => {
+	// Runs the inline script against a fake page and returns where it redirected, or null.
+	const run = (href: string, saved: string | null, browser: string) => {
+		let to: string | null = null;
+		const location = { href, replace: (u: string) => (to = u) };
+		const localStorage = { getItem: () => saved };
+		new Function('location', 'localStorage', 'navigator', langRedirectScript())(location, localStorage, { language: browser });
+		return to;
+	};
+	const cases: [string | null, string][] = [
+		[null, 'en-US'],
+		[null, 'zh-TW'],
+		[null, 'zh-HK'],
+		[null, 'zh-Hant-MO'],
+		[null, 'zh-CN'],
+		[null, 'ja-JP'],
+		[null, 'ko-KR'],
+		[null, 'de-DE'],
+		['ja', 'en-US'],
+		['fr', 'ko-KR'],
+		['zh-CN', 'en-US'],
+	];
+
+	it('picks the same language as negotiateLang', () => {
+		for (const [saved, browser] of cases) {
+			const want = negotiateLang(saved, browser);
+			const to = run('https://mygodock.dev/showcase?app=kero', saved, browser);
+			expect(to ? new URL(to).searchParams.get('lang') : 'zh-CN').toBe(want);
+		}
+	});
+
+	it('keeps the path and other parameters', () => {
+		expect(run('https://mygodock.dev/showcase?app=kero', null, 'en-US')).toBe('https://mygodock.dev/showcase?app=kero&lang=en');
+	});
+
+	it('leaves a page that already names a language', () => {
+		expect(run('https://mygodock.dev/?lang=ja', null, 'en-US')).toBeNull();
+	});
+
+	it('treats ?lang= of the default language as unset, like the router does', () => {
+		expect(run('https://mygodock.dev/?lang=zh-CN', null, 'en-US')).toBe('https://mygodock.dev/?lang=en');
 	});
 });
 
