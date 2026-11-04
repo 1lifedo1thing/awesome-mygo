@@ -28,7 +28,7 @@ pnpm のモノレポで、[TanStack Start](https://tanstack.com/start) が [Clou
 | パス | 内容 |
 |---|---|
 | `apps/web` | サイト本体：React 19、TanStack Start（サーバーレンダリング）、`@cloudflare/vite-plugin` 付きの Vite。`wrangler.jsonc` で `mygodock.dev` にデプロイします。 |
-| `packages/catalog` | データ：アプリ、プラグイン、コンポーネント、状態管理、ガイド、5 言語の UI 文言、検索、投稿用の項目。テストで各項目が全言語でそろっていることを確認します。 |
+| `packages/catalog` | データ：`data/*.json`（アプリ、UI コンポーネント、状態管理、プラグイン、記事、ガイド）とその JSON Schema、5 言語の UI 文言、検索、投稿フォームの項目。テストで全項目を検証します。 |
 
 アプリのアイコンは [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo) の CDN から配信しています。ai-logo に収録されていない一部のアプリは、`apps/web/public/icons/` にある公式アイコンを使います。
 
@@ -47,18 +47,46 @@ pnpm preview      # 本番ビルドを Workers ランタイムで実行
 
 `pnpm deploy` は Wrangler でビルドとデプロイを行います。`apps/web/wrangler.jsonc` のドメインのゾーンを持つ Cloudflare アカウントが必要です。
 
+フォームからの直接投稿は、このリポジトリにインストールした GitHub App が行い、その前段に Cloudflare Turnstile と IP ごとのレート制限があります。App には *Contents* と *Pull requests* の読み書き権限を与え、秘密鍵を PKCS#8 に変換し（`openssl pkcs8 -topk8 -nocrypt -in key.pem -out key-pkcs8.pem`）、`apps/web` で `wrangler secret put` を使って 4 つのシークレットを設定します：`GITHUB_APP_ID`、`GITHUB_APP_PRIVATE_KEY`（PKCS#8 のファイル）、`TURNSTILE_SITE_KEY`、`TURNSTILE_SECRET_KEY`。4 つすべてがそろうまで、フォームは GitHub へのリンクだけを表示します。ローカルで試すときは、Turnstile の[テスト用キー](https://developers.cloudflare.com/turnstile/troubleshooting/testing/)を `apps/web/.dev.vars` に書きます。
+
 ## プロジェクトを追加する
 
-アプリは MyGo 公式のショーケースから取り込んでいます。アプリを掲載するには、[`egoist/mygo` の `website/src/showcase.ts`](https://github.com/egoist/mygo/blob/main/website/src/showcase.ts) にプルリクエストを送ってください。コンポーネント、プラグイン、状態管理、記事は、このリポジトリに [Issue を作成](https://github.com/yldm-tech/awesome-mygo/issues/new)してください。サイトの「投稿」フォームはどちらも用意してくれます。アプリなら showcase.ts の項目を、それ以外なら内容入りの Issue を作ります。
+すべての項目は [`packages/catalog/data`](packages/catalog/data) の JSON ファイルにあり、カテゴリごとに 1 ファイルです：
 
-このサイトに直接追加するときは `packages/catalog/src` を編集します：
+| ファイル | 内容 |
+|---|---|
+| `apps.json` | MyGo で作られたアプリ |
+| `ui.json` | UI コンポーネントライブラリ |
+| `state.json` | 状態管理 |
+| `plugins.json` | プラグイン |
+| `articles.json` | 記事 |
+| `docs.json` | MyGo 公式ガイド |
 
-- `catalog.ts`：アプリ（`APP_ROWS`、5 言語の一行説明つき）、UI コンポーネント、状態管理、プラグイン、ガイド。
-- `about.ts`：アプリの詳しい説明（5 言語）。
-- `strings.ts`：UI の文言。キーごとに 5 言語の配列です。
-- スクリーンショットは `apps/web/public/shots/` に、幅 1200px 程度の WebP で置きます。
+追加の方法は 2 つあります：
 
-プルリクエストの前に `pnpm test` を実行してください。翻訳や説明が欠けている、またはリンクが https でない場合に失敗します。
+- **サイトから：** 「投稿」を押してフォームに入力し、そのまま投稿します。GitHub アカウントは不要で、サイトの bot がプルリクエストを作ります。GitHub アカウントがあれば、作られた項目を Issue として送ったり、GitHub のエディタで JSON ファイルを開いて自分で追加したりもできます。
+- **リポジトリで：** ファイルのリストにオブジェクトを追加し、プルリクエストを送ります。
+
+`apps.json` の項目は次のとおりです：
+
+```json
+{
+  "slug": "my-app",
+  "name": "My App",
+  "author": "your-github-login",
+  "kind": "native",
+  "url": "https://github.com/you/my-app",
+  "summary": { "en": "One line about the app.", "ja": "アプリの一行説明。" },
+  "description": { "en": "A few sentences for the detail drawer." }
+}
+```
+
+- テキストの欄は言語ごとに 1 つずつ書きます。`en` は必須で、`zh-CN`、`zh-TW`、`ja`、`ko` は任意です。欠けている言語では英語が表示されます。
+- 各ファイルは `$schema` で自分の JSON Schema（`data/schema/`）を指しているので、VS Code などのエディタが入力中に補完とチェックをします。
+- リンクは https のみです。スクリーンショットは幅 1200px 程度の WebP を `apps/web/public/shots/` に置き、`"screenshot": "my-app.webp"` と書きます。アプリのアイコンは [ai-logo](https://github.com/yldm-tech/ai-logo) の id で `"icon": { "ailogo": "<id>" }` と書くか、省略して文字のタイルにします。
+- `pnpm test` は全項目を検証し、誤りのあるファイル、項目、欄を示します。CI はすべてのプルリクエストで実行します。
+
+UI の文言は `packages/catalog/src/strings.ts` にあり、キーごとに 5 言語の配列です。
 
 ## クレジット
 

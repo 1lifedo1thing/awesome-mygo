@@ -1,0 +1,92 @@
+import { DATA_DIR, SITE_REPO, SITE_URL, SUBMIT_FILES, type SubmitCat, appendEntry, codeFence, slugify } from '@awesome-mygo/catalog';
+import { createAppAuth } from '@octokit/auth-app';
+import { Octokit } from '@octokit/core';
+
+// Submissions from visitors without a GitHub account: the site's GitHub App adds the entry to its data file on a new branch and opens a pull request, which CI checks and a maintainer merges.
+
+const [OWNER, REPO] = SITE_REPO.replace('https://github.com/', '').split('/');
+const BASE = 'main';
+const BRANCH_PREFIX = 'submit/';
+// Past this many open submissions the bot stops opening more, so a flood cannot bury the repository.
+const MAX_OPEN = 20;
+
+export interface BotConfig {
+	appId: string;
+	privateKey: string;
+	siteKey: string;
+	turnstileSecret: string;
+}
+
+// Raised when too many submissions are waiting for review.
+export class SubmissionsBusy extends Error {}
+
+let cached: { appId: string; octokit: Octokit } | undefined;
+
+// An Octokit acting as the app's installation on this repository; the app token is looked up once per isolate and refreshed by auth-app.
+async function installation(cfg: BotConfig): Promise<Octokit> {
+	if (cached?.appId === cfg.appId) return cached.octokit;
+	const auth = { appId: cfg.appId, privateKey: cfg.privateKey };
+	const app = new Octokit({ authStrategy: createAppAuth, auth });
+	const { data } = await app.request('GET /repos/{owner}/{repo}/installation', { owner: OWNER, repo: REPO });
+	const octokit = new Octokit({ authStrategy: createAppAuth, auth: { ...auth, installationId: data.id } });
+	cached = { appId: cfg.appId, octokit };
+	return octokit;
+}
+
+function fromBase64(b64: string): string {
+	const bin = atob(b64.replace(/\s/g, ''));
+	const bytes = new Uint8Array(bin.length);
+	for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+	return new TextDecoder().decode(bytes);
+}
+
+function toBase64(text: string): string {
+	let bin = '';
+	for (const b of new TextEncoder().encode(text)) bin += String.fromCharCode(b);
+	return btoa(bin);
+}
+
+export async function verifyTurnstile(secret: string, token: string, ip: string): Promise<boolean> {
+	const body = new URLSearchParams({ secret, response: token });
+	if (ip) body.set('remoteip', ip);
+	const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', { method: 'POST', body });
+	if (!res.ok) return false;
+	const data = (await res.json()) as { success?: boolean };
+	return data.success === true;
+}
+
+// Opens the pull request and returns it. Throws a CatalogError when the entry does not fit the file on main (e.g. it is already listed), and SubmissionsBusy when too many are open.
+export async function openSubmission(cfg: BotConfig, cat: SubmitCat, name: string, entry: Record<string, unknown>): Promise<{ url: string; number: number }> {
+	const gh = await installation(cfg);
+	const repo = { owner: OWNER, repo: REPO };
+
+	const { data: open } = await gh.request('GET /repos/{owner}/{repo}/pulls', { ...repo, state: 'open', per_page: 100 });
+	if (open.filter((p) => p.head.ref.startsWith(BRANCH_PREFIX)).length >= MAX_OPEN) throw new SubmissionsBusy();
+
+	const { file, label } = SUBMIT_FILES[cat];
+	const path = `${DATA_DIR}/${file}`;
+	const { data: ref } = await gh.request('GET /repos/{owner}/{repo}/git/ref/{ref}', { ...repo, ref: `heads/${BASE}` });
+	const { data: current } = await gh.request('GET /repos/{owner}/{repo}/contents/{path}', { ...repo, path, ref: ref.object.sha });
+	if (Array.isArray(current) || current.type !== 'file' || !('content' in current) || !current.content) throw new Error(`${path} on ${BASE} is not a readable file`);
+	const next = appendEntry(cat, fromBase64(current.content), entry);
+
+	// '@' is dropped from the title so a name cannot mention anyone.
+	const plainName = name.replace(/@/g, '');
+	const branch = `${BRANCH_PREFIX}${cat}-${slugify(plainName)}-${crypto.randomUUID().slice(0, 8)}`;
+	await gh.request('POST /repos/{owner}/{repo}/git/refs', { ...repo, ref: `refs/heads/${branch}`, sha: ref.object.sha });
+	try {
+		await gh.request('PUT /repos/{owner}/{repo}/contents/{path}', { ...repo, path, branch, sha: current.sha, message: `feat(catalog): add ${plainName}`, content: toBase64(next) });
+		const body = [
+			`Submitted through the form on ${SITE_URL} by a visitor without a GitHub account, so the site's bot opened this pull request.`,
+			`Category: ${label} (\`${path}\`)`,
+			codeFence(JSON.stringify(entry, null, 2), 'json'),
+			'The entry passed the catalog checks before it was submitted, and CI runs them again. Before merging, check that the project exists and is built with MyGo, and fill in what the form leaves at a default (such as `tag`, `tags` or `surface`) and any translations.',
+		].join('\n\n');
+		const { data: pr } = await gh.request('POST /repos/{owner}/{repo}/pulls', { ...repo, title: `Add ${plainName} (${label})`, head: branch, base: BASE, body });
+		return { url: pr.html_url, number: pr.number };
+	} catch (err) {
+		// Leave no branch behind when the pull request could not be opened; the original error is the one worth reporting.
+		await gh.request('DELETE /repos/{owner}/{repo}/git/refs/{ref}', { ...repo, ref: `heads/${branch}` }).catch(() => undefined);
+		throw err;
+	}
+}

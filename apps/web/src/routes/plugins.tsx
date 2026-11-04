@@ -1,8 +1,8 @@
-import { CLI_CMDS, COMMUNITY_PLUGINS, PLUGINS, PLUGINS_DOC, type PluginSurface, fill } from '@awesome-mygo/catalog';
+import { CLI_CMDS, COMMUNITY_PLUGINS, PLUGINS, PLUGINS_DOC, type PluginSurface, fill, pick } from '@awesome-mygo/catalog';
 import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 import { WinBar } from '../components/bits';
-import { useT } from '../lib/lang';
+import { useLang, useT } from '../lib/lang';
 import { tilt } from '../lib/motion';
 import { pageHead } from '../lib/seo';
 import { useSite } from '../lib/site';
@@ -14,6 +14,7 @@ export const Route = createFileRoute('/plugins')({
 
 function PluginsPage() {
 	const t = useT();
+	const lang = useLang();
 	const { openSubmit, copy, copied } = useSite();
 	const [surface, setSurface] = useState<'all' | 'web' | 'native'>('all');
 	const surfLabel: Record<PluginSurface, string> = { web: t.surf_web, native: t.surf_native, both: t.surf_both };
@@ -51,7 +52,7 @@ function PluginsPage() {
 							<span className='plug-name'>
 								{p.name} <span className={`surf surf-${p.surface}`}>{surfLabel[p.surface]}</span>
 							</span>
-							<span className='plug-desc'>{t[p.descKey]}</span>
+							<span className='plug-desc'>{pick(p.desc, lang)}</span>
 							<span className='plug-tags'>
 								{p.tags.map((tg) => (
 									<span key={tg} className='plug-tag'>

@@ -1,4 +1,4 @@
-import { ARTICLE, DOCS, RESOURCES, hostOf, pad2, pick } from '@awesome-mygo/catalog';
+import { ARTICLES, DOCS, RESOURCES, fill, hostOf, pad2, pick } from '@awesome-mygo/catalog';
 import { createFileRoute } from '@tanstack/react-router';
 import { useLang, useT } from '../lib/lang';
 import { tilt } from '../lib/motion';
@@ -18,14 +18,16 @@ function LearnPage() {
 				<span className='kicker'>~/LEARN</span>
 				<h1 className='page-h1'>{t.learn_h}</h1>
 			</div>
-			<a className='tile dots rv article' href={ARTICLE.url} target='_blank' rel='noopener' {...tilt}>
-				<span className='glare' aria-hidden='true' />
-				<span className='mono-12 c-cyan'>{t.article_k}</span>
-				<span lang='en' className='article-title'>
-					{ARTICLE.title}
-				</span>
-				<span className='arrow article-more'>{t.read_full}</span>
-			</a>
+			{ARTICLES.map((ar) => (
+				<a key={ar.url} className='tile dots rv article' href={ar.url} target='_blank' rel='noopener' {...tilt}>
+					<span className='glare' aria-hidden='true' />
+					<span className='mono-12 c-cyan'>{fill(t.article_k, { x: ar.site })}</span>
+					<span lang='en' className='article-title'>
+						{ar.title}
+					</span>
+					<span className='arrow article-more'>{t.read_full}</span>
+				</a>
+			))}
 			<div className='stack-16'>
 				<h2 className='guides-h'>{t.res_h}</h2>
 				<div className='res-grid'>

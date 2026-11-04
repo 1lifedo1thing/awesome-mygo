@@ -1,34 +1,67 @@
 import { describe, expect, it } from 'vitest';
-import { ABOUT } from './about';
-import { AILOGO_CDN, APPS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, hostOf } from './catalog';
-import { descMax, isBadUrl, isEntryComplete, issueUrl, listEntry, showcaseEntry } from './entry';
-import { LANGS, fill, langRedirectScript, negotiateLang } from './lang';
+import apps from '../data/apps.json';
+import articles from '../data/articles.json';
+import docs from '../data/docs.json';
+import plugins from '../data/plugins.json';
+import appsSchema from '../data/schema/apps.schema.json';
+import articlesSchema from '../data/schema/articles.schema.json';
+import docsSchema from '../data/schema/docs.schema.json';
+import pluginsSchema from '../data/schema/plugins.schema.json';
+import stateSchema from '../data/schema/state.schema.json';
+import uiSchema from '../data/schema/ui.schema.json';
+import state from '../data/state.json';
+import ui from '../data/ui.json';
+import { AILOGO_CDN, APPS, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, hostOf } from './catalog';
+import { SUBMIT_CATS, SUBMIT_FILES, appendEntry, buildEntry, codeFence, descMax, editUrl, entryProblem, isBadUrl, isEntryComplete, issueUrl, jsonEntry, slugify } from './entry';
+import { LANGS, type Text, fill, langRedirectScript, negotiateLang, pick } from './lang';
 import { buildSearchIndex, searchCatalog } from './search';
 import { STRINGS } from './strings';
 import { t } from './translate';
+import { CatalogError, readList, unique } from './validate';
+
+// The tests run on Node 24; this package has no Node type definitions, so the one function needed is declared here.
+declare const process: { getBuiltinModule(id: 'node:fs'): { existsSync(path: URL): boolean; readFileSync(path: URL, encoding: 'utf8'): string } };
+const { existsSync, readFileSync } = process.getBuiltinModule('node:fs');
+const dataText = (file: string) => readFileSync(new URL(`../data/${file}`, import.meta.url), 'utf8');
+
+const PUBLIC = new URL('../../../apps/web/public/', import.meta.url);
+type Schema = { $id: string; properties: Record<string, { items: { required: string[]; properties: Record<string, unknown> } }> };
+const SCHEMAS: Record<string, Schema> = { 'apps.json': appsSchema, 'ui.json': uiSchema, 'state.json': stateSchema, 'plugins.json': pluginsSchema, 'docs.json': docsSchema, 'articles.json': articlesSchema } as unknown as Record<string, Schema>;
+const FILES: Record<string, { $schema: string }> = { 'apps.json': apps, 'ui.json': ui, 'state.json': state, 'plugins.json': plugins, 'docs.json': docs, 'articles.json': articles };
+const texts = (): Text[] => [...APPS.flatMap((a) => [a.desc, a.about]), ...UI_LIBS.map((l) => l.desc), ...STATE_SOLUTIONS.map((s) => s.desc), ...PLUGINS.map((p) => p.desc), ...COMMUNITY_PLUGINS.map((p) => p.desc), ...DOCS.map((d) => d.desc)];
 
 describe('catalog data', () => {
-	it('has unique, URL-safe app slugs', () => {
-		const slugs = APPS.map((a) => a.slug);
-		expect(new Set(slugs).size).toBe(slugs.length);
-		for (const s of slugs) expect(s).toMatch(/^[a-z0-9-]+$/);
+	it('loads every data file', () => {
+		expect(APPS.length).toBeGreaterThan(0);
+		expect(UI_LIBS.length).toBeGreaterThan(0);
+		expect(PLUGINS.length).toBeGreaterThan(0);
+		expect(DOCS.length).toBeGreaterThan(0);
+		expect(ARTICLES.length).toBeGreaterThan(0);
 	});
 
 	it('links only to https URLs', () => {
-		for (const u of [...APPS.map((a) => a.url), ...UI_LIBS.map((l) => l.url), ...PLUGINS.map((p) => p.url), ...DOCS.map((d) => d.url), ...STATE_SOLUTIONS.map((s) => s.url)]) {
+		for (const u of [...APPS.map((a) => a.url), ...UI_LIBS.map((l) => l.url), ...PLUGINS.map((p) => p.url), ...DOCS.map((d) => d.url), ...STATE_SOLUTIONS.map((s) => s.url), ...ARTICLES.map((a) => a.url)]) {
 			expect(u.startsWith('https://')).toBe(true);
 		}
 	});
 
-	it('translates every app, doc and string into every language', () => {
-		for (const v of [...APPS.map((a) => a.desc), ...APPS.map((a) => a.about), ...STATE_SOLUTIONS.map((s) => s.desc), ...DOCS.map((d) => d.desc), ...Object.values(STRINGS)]) {
-			expect(v).toHaveLength(LANGS.length);
-			for (const s of v) expect(s.trim()).not.toBe('');
+	it('has English for every entry, and only site languages', () => {
+		for (const text of texts()) {
+			expect(text.en.trim()).not.toBe('');
+			for (const lang of Object.keys(text)) expect(LANGS.map((l) => l.code)).toContain(lang);
 		}
 	});
 
-	it('has a long description for every app and none for unknown slugs', () => {
-		expect(Object.keys(ABOUT).sort()).toEqual(APPS.map((a) => a.slug).sort());
+	it('falls back to English for a missing language', () => {
+		expect(pick({ en: 'Hello' }, 'ja')).toBe('Hello');
+		expect(pick({ en: 'Hello', ja: 'こんにちは' }, 'ja')).toBe('こんにちは');
+	});
+
+	it('has the UI copy in every language', () => {
+		for (const v of Object.values(STRINGS)) {
+			expect(v).toHaveLength(LANGS.length);
+			for (const s of v) expect(s.trim()).not.toBe('');
+		}
 	});
 
 	it('takes icons from ai-logo, a local official icon for a few, and none for the apps on the mygo init default', () => {
@@ -41,10 +74,13 @@ describe('catalog data', () => {
 		}
 	});
 
-	it('serves screenshots from /shots/', () => {
-		for (const img of [...APPS.map((a) => a.image), ...UI_LIBS.map((l) => l.image), ...STATE_SOLUTIONS.map((s) => s.image)]) {
-			if (img) expect(img).toMatch(/^\/shots\/[a-z0-9-]+\.(webp|svg)$/);
-		}
+	it('has every screenshot and local icon it names in apps/web/public', () => {
+		const files = [...APPS.flatMap((a) => [a.image, a.icon?.startsWith('/') ? a.icon : undefined]), ...UI_LIBS.map((l) => l.image), ...STATE_SOLUTIONS.map((s) => s.image)];
+		for (const f of files) if (f) expect(existsSync(new URL(f.slice(1), PUBLIC)), f).toBe(true);
+	});
+
+	it('points every data file at its schema', () => {
+		for (const [file, json] of Object.entries(FILES)) expect(json.$schema, file).toBe(`./schema/${SCHEMAS[file].$id}`);
 	});
 
 	it('resolves apps by slug', () => {
@@ -55,6 +91,32 @@ describe('catalog data', () => {
 	it('strips the scheme and trailing slash for display', () => {
 		expect(hostOf('https://kero.sh/')).toBe('kero.sh');
 		expect(hostOf('https://github.com/egoist/gorex')).toBe('github.com/egoist/gorex');
+	});
+});
+
+describe('validation of contributed entries', () => {
+	const read = (entry: Record<string, unknown>) => () =>
+		readList('apps.json', { apps: [entry] }, 'apps', (r) => {
+			r.only(['name', 'url', 'kind', 'summary']);
+			return [r.str('name'), r.url('url'), r.oneOf('kind', ['native', 'web']), r.text('summary')];
+		});
+	const ok = { name: 'Kit', url: 'https://x.dev', kind: 'native', summary: { en: 'A kit.' } };
+
+	it('accepts a well-formed entry', () => {
+		expect(read(ok)).not.toThrow();
+	});
+
+	it('names the file, entry and field of each mistake', () => {
+		expect(read({ ...ok, summary: { 'zh-CN': '工具' } })).toThrow(/apps.json entry 1 \(Kit\): summary.en is required/);
+		expect(read({ ...ok, summary: { en: 'A kit.', fr: 'Un kit.' } })).toThrow(/summary.fr is not a site language/);
+		expect(read({ ...ok, url: 'http://x.dev' })).toThrow(/url must be an https link/);
+		expect(read({ ...ok, kind: 'electron' })).toThrow(/kind must be one of native, web/);
+		expect(read({ ...ok, descripton: 'typo' })).toThrow(/descripton is not a known field/);
+		expect(read({ ...ok, name: ' ' })).toThrow(CatalogError);
+	});
+
+	it('rejects duplicates', () => {
+		expect(() => unique('apps.json', [{ slug: 'a' }, { slug: 'a' }], 'slug', (x) => x.slug)).toThrow(/two entries have slug "a"/);
 	});
 });
 
@@ -158,22 +220,34 @@ describe('search', () => {
 	});
 });
 
-describe('list entry', () => {
+describe('submission entry', () => {
 	const ph = { name: 'Name', desc: 'One-line description.' };
+	const draft = { name: 'My "Kit"', author: 'someone', url: 'https://github.com/someone/my-kit', desc: 'Widgets for MyGo.' };
 
-	it('renders placeholders for empty fields', () => {
-		expect(listEntry({ name: '', url: '', desc: '' }, ph)).toBe('- [Name](https://…) - One-line description.');
+	it('writes, for every category, an entry with the fields its schema requires and no others', () => {
+		for (const cat of SUBMIT_CATS) {
+			const { file, list } = SUBMIT_FILES[cat];
+			const item = SCHEMAS[file].properties[list].items;
+			const entry = JSON.parse(jsonEntry(cat, draft, 'native', ph));
+			for (const field of item.required) expect(entry, `${cat} ${field}`).toHaveProperty(field);
+			for (const field of Object.keys(entry)) expect(Object.keys(item.properties), `${cat} ${field}`).toContain(field);
+		}
 	});
 
-	it('trims the fields', () => {
-		expect(listEntry({ name: ' kit ', url: ' https://x.dev ', desc: ' Does a thing ' }, ph)).toBe('- [kit](https://x.dev) - Does a thing');
+	it('derives the slug and the GitHub repo, and escapes quotes', () => {
+		const app = JSON.parse(jsonEntry('showcase', draft, 'web', ph));
+		expect(app).toMatchObject({ slug: 'my-kit', name: 'My "Kit"', kind: 'web', summary: { en: 'Widgets for MyGo.' } });
+		expect(JSON.parse(jsonEntry('ui', draft, 'native', ph)).repo).toBe('someone/my-kit');
+		expect(slugify('留白 Liubai')).toBe('liubai');
 	});
 
-	it('opens a prefilled issue on the given repository', () => {
-		const u = new URL(issueUrl('https://github.com/yldm-tech/awesome-mygo', 'UI', { name: 'kit', url: 'https://x.dev', desc: 'Does a thing' }, ph));
+	it('opens a prefilled issue, or the data file in GitHub\'s editor', () => {
+		const entry = jsonEntry('ui', draft, 'native', ph);
+		const u = new URL(issueUrl('https://github.com/yldm-tech/awesome-mygo', 'ui', 'UI', draft, entry, ph));
 		expect(u.origin + u.pathname).toBe('https://github.com/yldm-tech/awesome-mygo/issues/new');
-		expect(u.searchParams.get('title')).toBe('Add kit (UI)');
-		expect(u.searchParams.get('body')).toBe('UI\n\n- [kit](https://x.dev) - Does a thing\n');
+		expect(u.searchParams.get('title')).toBe('Add My "Kit" (UI)');
+		expect(u.searchParams.get('body')).toBe(`UI: \`packages/catalog/data/ui.json\`\n\n\`\`\`json\n${entry}\n\`\`\`\n`);
+		expect(editUrl('https://github.com/yldm-tech/awesome-mygo', 'showcase')).toBe('https://github.com/yldm-tech/awesome-mygo/edit/main/packages/catalog/data/apps.json');
 	});
 
 	it('flags non-https links only once something is typed', () => {
@@ -182,21 +256,61 @@ describe('list entry', () => {
 		expect(isBadUrl('https://x.dev')).toBe(false);
 	});
 
-	it('is complete only with every field and a valid link', () => {
-		expect(isEntryComplete({ name: 'a', url: 'https://x', desc: 'd' })).toBe(true);
-		expect(isEntryComplete({ name: 'a', url: 'http://x', desc: 'd' })).toBe(false);
-		expect(isEntryComplete({ name: 'a', url: 'https://x', desc: ' ' })).toBe(false);
-	});
-});
-
-describe('showcase entry', () => {
-	it('matches the shape of showcase.ts and escapes quotes', () => {
-		expect(showcaseEntry({ name: 'My "App"', url: 'https://x.dev', desc: 'Does a thing.' }, 'native', { name: 'Name', desc: 'Desc' })).toBe(
-			['{', '  name: "My \\"App\\"",', '  description: "Does a thing.",', '  url: "https://x.dev",', '  mode: "native",', '},'].join('\n'),
-		);
+	it('is complete only with every field it needs and a valid link', () => {
+		expect(isEntryComplete('ui', draft)).toBe(true);
+		expect(isEntryComplete('ui', { ...draft, author: '' })).toBe(false);
+		expect(isEntryComplete('ui', { ...draft, url: 'http://x' })).toBe(false);
+		expect(isEntryComplete('ui', { ...draft, desc: ' ' })).toBe(false);
+		expect(isEntryComplete('article', { name: 'Post', author: '', url: 'https://x.dev/post', desc: '' })).toBe(true);
 	});
 
 	it('allows a longer description for apps', () => {
 		expect(descMax('showcase')).toBeGreaterThan(descMax('ui'));
+	});
+
+	it('fences text that itself contains backticks', () => {
+		expect(codeFence('a', 'json')).toBe('```json\na\n```');
+		expect(codeFence('x ``` y')).toBe('````\nx ``` y\n````');
+	});
+
+	it('derives the install command of a state solution from its repo', () => {
+		expect(buildEntry('state', draft, 'native', ph).install).toBe('go get github.com/someone/my-kit');
+	});
+});
+
+describe('bot submission', () => {
+	const ph = { name: 'Name', desc: 'One-line description.' };
+	const draft = { name: 'Brand New Kit', author: 'someone', url: 'https://github.com/someone/brand-new-kit', desc: 'Widgets for MyGo.' };
+
+	it('accepts a complete draft and says what is wrong with the rest', () => {
+		expect(entryProblem('ui', draft)).toBeUndefined();
+		expect(entryProblem('article', { name: 'Post', author: '', url: 'https://x.dev/post', desc: '' })).toBeUndefined();
+		expect(entryProblem('ui', { ...draft, author: '' })).toMatch(/required/);
+		expect(entryProblem('ui', { ...draft, url: 'https://example.com/kit' })).toMatch(/GitHub repository/);
+		expect(entryProblem('ui', { ...draft, desc: 'x'.repeat(descMax('ui') + 1) })).toMatch(/longer than/);
+		expect(entryProblem('ui', { ...draft, name: 'a\nb' })).toMatch(/single line/);
+		expect(entryProblem('showcase', { ...draft, url: 'https://x.dev/a b' })).toMatch(/spaces/);
+	});
+
+	it('appends the entry to every data file, keeping the rest of the file byte for byte', () => {
+		for (const cat of SUBMIT_CATS) {
+			const { file, list } = SUBMIT_FILES[cat];
+			const before = dataText(file);
+			const entry = buildEntry(cat, draft, 'native', ph);
+			const after = appendEntry(cat, before, entry);
+			expect(JSON.parse(after)[list].at(-1), cat).toEqual(entry);
+			const [b, a] = [before.split('\n'), after.split('\n')];
+			// Only the old last entry's closing brace gains a comma; everything above it is untouched.
+			expect(a.slice(0, b.length - 4), cat).toEqual(b.slice(0, b.length - 4));
+			expect(a.length - b.length, cat).toBe(JSON.stringify(entry, null, '\t').split('\n').length);
+		}
+	});
+
+	it('rejects an entry the file already has, or one that breaks its check, naming the field', () => {
+		const text = dataText('apps.json');
+		const first = JSON.parse(text).apps[0];
+		expect(() => appendEntry('showcase', text, first)).toThrow(/slug/);
+		expect(() => appendEntry('showcase', text, { ...first, slug: 'fresh-slug', summary: { ja: 'x' } })).toThrow(CatalogError);
+		expect(() => appendEntry('showcase', text, { ...first, slug: 'fresh-slug', summary: { ja: 'x' } })).toThrow(/summary\.en/);
 	});
 });

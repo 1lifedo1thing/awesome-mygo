@@ -16,8 +16,11 @@ export const LANGS = [
 
 export type LangCode = (typeof LANGS)[number]['code'];
 
-// One value per entry of LANGS, in the same order.
+// One value per entry of LANGS, in the same order. Used for the UI copy in strings.ts.
 export type Localized = readonly [string, string, string, string, string];
+
+// Text of a catalog entry, keyed by language. English is required; a missing language falls back to it.
+export type Text = { en: string } & Partial<Record<LangCode, string>>;
 
 // Simplified Chinese lives at the bare URL; every other language is addressed with `?lang=<code>`.
 export const DEFAULT_LANG = 'zh-CN' satisfies LangCode;
@@ -36,8 +39,8 @@ export function langDef(code: LangCode): LangDef {
 	return LANGS[langIndex(code)];
 }
 
-export function pick(values: Localized, code: LangCode): string {
-	return values[langIndex(code)];
+export function pick(text: Text, code: LangCode): string {
+	return text[code] || text.en;
 }
 
 // The language a first-time visit on a bare URL should switch to: a previously saved choice wins, then the browser language, then the default.
