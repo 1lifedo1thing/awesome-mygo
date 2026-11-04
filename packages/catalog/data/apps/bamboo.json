@@ -3,7 +3,7 @@
 	"slug": "bamboo",
 	"name": "Bamboo",
 	"author": "OldPanda",
-	"kind": "native",
+	"kind": "web",
 	"category": "UtilitiesApplication",
 	"url": "https://getbamboo.app/",
 	"repo": "OldPanda/bamboo",
@@ -15,12 +15,15 @@
 		"ko": "로컬과 S3, R2의 Parquet 파일을 둘러보고 DuckDB로 SQL 쿼리를 실행합니다."
 	},
 	"description": {
-		"en": "A Parquet workbench for macOS on Apple Silicon, Windows x64 and Linux x64, drawn with MyGo's native UI. It opens Parquet and local CSV/TSV files from local folders, Amazon S3 or Cloudflare R2, keeping cloud credentials in the system vault, and queries them with DuckDB SQL across files without importing anything into a database. Columns can be profiled, pivoted and exported.",
-		"zh-CN": "用 MyGo 原生 UI 绘制的 Parquet 数据工作台，支持 Apple Silicon 版 macOS、Windows x64 与 Linux x64。可打开本地文件夹、Amazon S3 或 Cloudflare R2 中的 Parquet 文件以及本地 CSV/TSV 文件，云端凭据保存在系统凭据库中；借助 DuckDB 跨文件用 SQL 查询，无需把数据导入数据库，还能做列分析、数据透视和导出。",
-		"zh-TW": "用 MyGo 原生 UI 繪製的 Parquet 資料工作台，支援 Apple Silicon 版 macOS、Windows x64 與 Linux x64。可開啟本機資料夾、Amazon S3 或 Cloudflare R2 中的 Parquet 檔案以及本機 CSV/TSV 檔案，雲端憑證存放在系統憑證庫中；透過 DuckDB 跨檔案以 SQL 查詢，不必把資料匯入資料庫，還能做欄位分析、樞紐分析與匯出。",
-		"ja": "MyGo のネイティブ UI で描かれた Parquet 用のワークベンチで、Apple Silicon の macOS、Windows x64、Linux x64 に対応します。ローカルフォルダー、Amazon S3、Cloudflare R2 にある Parquet と、ローカルの CSV/TSV ファイルを開き、クラウドの認証情報はシステムの資格情報ストアに保管します。データベースに取り込まずに DuckDB の SQL で複数ファイルをまたいで問い合わせでき、列のプロファイル、ピボット、書き出しもできます。",
-		"ko": "MyGo의 네이티브 UI로 그린 Parquet 워크벤치로, Apple Silicon macOS, Windows x64, Linux x64에서 동작합니다. 로컬 폴더, Amazon S3, Cloudflare R2의 Parquet 파일과 로컬 CSV/TSV 파일을 열고, 클라우드 자격 증명은 시스템 자격 증명 저장소에 보관합니다. 데이터베이스로 가져오지 않고 DuckDB SQL로 여러 파일에 걸쳐 쿼리할 수 있으며, 열 프로파일링, 피벗, 내보내기도 지원합니다."
+		"en": "A Parquet workbench for macOS on Apple Silicon, Windows x64 and Linux x64. It opens Parquet and local CSV/TSV files from local folders, Amazon S3 or Cloudflare R2, keeping cloud credentials in the system vault, and queries them with DuckDB SQL across files without importing anything into a database. Columns can be profiled, pivoted and exported.",
+		"zh-CN": "Parquet 数据工作台，支持 Apple Silicon 版 macOS、Windows x64 与 Linux x64。可打开本地文件夹、Amazon S3 或 Cloudflare R2 中的 Parquet 文件以及本地 CSV/TSV 文件，云端凭据保存在系统凭据库中；借助 DuckDB 跨文件用 SQL 查询，无需把数据导入数据库，还能做列分析、数据透视和导出。",
+		"zh-TW": "Parquet 資料工作台，支援 Apple Silicon 版 macOS、Windows x64 與 Linux x64。可開啟本機資料夾、Amazon S3 或 Cloudflare R2 中的 Parquet 檔案以及本機 CSV/TSV 檔案，雲端憑證存放在系統憑證庫中；透過 DuckDB 跨檔案以 SQL 查詢，不必把資料匯入資料庫，還能做欄位分析、樞紐分析與匯出。",
+		"ja": "Parquet 用のワークベンチで、Apple Silicon の macOS、Windows x64、Linux x64 に対応します。ローカルフォルダー、Amazon S3、Cloudflare R2 にある Parquet と、ローカルの CSV/TSV ファイルを開き、クラウドの認証情報はシステムの資格情報ストアに保管します。データベースに取り込まずに DuckDB の SQL で複数ファイルをまたいで問い合わせでき、列のプロファイル、ピボット、書き出しもできます。",
+		"ko": "Parquet 워크벤치로, Apple Silicon macOS, Windows x64, Linux x64에서 동작합니다. 로컬 폴더, Amazon S3, Cloudflare R2의 Parquet 파일과 로컬 CSV/TSV 파일을 열고, 클라우드 자격 증명은 시스템 자격 증명 저장소에 보관합니다. 데이터베이스로 가져오지 않고 DuckDB SQL로 여러 파일에 걸쳐 쿼리할 수 있으며, 열 프로파일링, 피벗, 내보내기도 지원합니다."
 	},
-	"added": "2026-11-04T20:03:45Z",
-	"screenshot": "bamboo.webp"
+	"screenshot": "bamboo.webp",
+	"icon": {
+		"file": "bamboo.webp"
+	},
+	"added": "2026-11-04T20:03:45Z"
 }
