@@ -33,6 +33,8 @@ pnpm 모노레포이며, [TanStack Start](https://tanstack.com/start)가 [Cloudf
 
 앱 아이콘은 [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo)의 CDN에서 가져옵니다. ai-logo에 없는 일부 앱은 `apps/web/public/icons/`의 공식 아이콘을 씁니다.
 
+앱 페이지마다 공유 카드가 있습니다. 앱의 아이콘, 이름, 작성자, 스크린샷을 담은 1200×630 PNG로, 링크 미리보기에 표시됩니다. `vite build`가 카드를 `/og/`에 생성하므로(코드는 `apps/web/og`) bot이 추가한 앱도 배포될 때 카드가 생깁니다. 카드를 만들려면 네트워크가 필요합니다: 빌드할 때 ai-logo 아이콘을 받아 오고, 이름에 라틴 문자가 아닌 글자가 있으면 Google Fonts에서 글리프도 가져옵니다.
+
 ## 개발
 
 Node.js 24 이상과 pnpm이 필요합니다.

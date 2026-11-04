@@ -33,6 +33,8 @@ pnpm monorepo，由 [TanStack Start](https://tanstack.com/start) 執行在 [Clou
 
 應用圖示來自 [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo)，由它的 CDN 提供；它未收錄的少數應用使用 `apps/web/public/icons/` 裡的官方圖示。
 
+每個應用頁都有一張分享卡片：1200×630 的 PNG，包含應用的圖示、名稱、作者和截圖，連結預覽會顯示它。`vite build` 把卡片產生到 `/og/`（程式碼在 `apps/web/og`），所以 bot 新增的應用在部署時就有自己的卡片。產生卡片需要連網：建置時會下載 ai-logo 圖示，名稱裡有非拉丁文字時還會從 Google Fonts 取字形。
+
 ## 本機開發
 
 需要 Node.js 24 或更新版本，以及 pnpm。

@@ -4,8 +4,10 @@
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
-# Screenshots, icons and the share image keep their names when replaced, so they are cached for a day and then revalidated.
+# Screenshots, icons, the apps' share cards (/og/, built with the site) and the site's share image keep their names when replaced, so they are cached for a day and then revalidated.
 /shots/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+/og/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 /icons/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800

@@ -5,9 +5,9 @@
 	"type": "module",
 	"description": "Awesome MyGo site, server-rendered by TanStack Start on Cloudflare Workers",
 	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
-		"preview": "vite preview",
+		"dev": "vite dev --configLoader runner",
+		"build": "vite build --configLoader runner",
+		"preview": "vite preview --configLoader runner",
 		"typecheck": "tsc --noEmit",
 		"deploy": "pnpm run build && wrangler deploy",
 		"cf-typegen": "wrangler types"
@@ -27,6 +27,8 @@
 		"@types/react": "^19.3.0",
 		"@types/react-dom": "^19.3.0",
 		"@vitejs/plugin-react": "^6.1.2",
+		"satori": "^0.19.3",
+		"sharp": "^0.34.5",
 		"tailwindcss": "^4.3.3",
 		"typescript": "^7.0.2",
 		"vite": "^8.3.5",
