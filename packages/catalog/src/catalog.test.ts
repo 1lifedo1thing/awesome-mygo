@@ -11,7 +11,7 @@ import stateSchema from '../data/schema/state.schema.json';
 import uiSchema from '../data/schema/ui.schema.json';
 import state from '../data/state.json';
 import ui from '../data/ui.json';
-import { AILOGO_CDN, APPS, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, hostOf } from './catalog';
+import { AILOGO_CDN, APP_CATEGORIES, APPS, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, authorProfile, hostOf, readApps } from './catalog';
 import { SUBMIT_CATS, SUBMIT_FILES, appendEntry, buildEntry, codeFence, descMax, editUrl, entryProblem, isBadUrl, isEntryComplete, issueUrl, jsonEntry, slugify } from './entry';
 import { LANGS, type LangCode, type Text, fill, langRedirectScript, negotiateLang, pick } from './lang';
 import { buildSearchIndex, searchCatalog } from './search';
@@ -86,6 +86,24 @@ describe('catalog data', () => {
 	it('resolves apps by slug', () => {
 		expect(appBySlug('kero')?.name).toBe('Kero');
 		expect(appBySlug('nope')).toBeUndefined();
+	});
+
+	it('names a category for every app, from the values its schema allows', () => {
+		const schemaEnum = (appsSchema as unknown as { properties: { apps: { items: { properties: { category: { enum: string[] } } } } } }).properties.apps.items.properties.category.enum;
+		expect(schemaEnum).toEqual([...APP_CATEGORIES]);
+		for (const a of APPS) expect(APP_CATEGORIES, a.slug).toContain(a.category);
+		const entry = { slug: 'kit', name: 'Kit', author: 'someone', kind: 'native', url: 'https://x.dev', summary: { en: 'A kit.' }, description: { en: 'A kit.' } };
+		expect(readApps({ apps: [entry] })[0].category).toBeUndefined();
+		expect(() => readApps({ apps: [{ ...entry, category: 'DesktopApplication' }] })).toThrow(/category must be one of/);
+	});
+
+	it('links an author to a GitHub profile only when one of their apps is in a repository they own', () => {
+		expect(authorProfile('fzn0x')).toBe('https://github.com/fzn0x');
+		// Pulse lives on its own domain, but egoist's other apps are in github.com/egoist.
+		expect(authorProfile('egoist')).toBe('https://github.com/egoist');
+		// video-downloader is in github.com/fazi-gondal: 'Faizan' is a name, not that login.
+		expect(authorProfile('Faizan')).toBeUndefined();
+		expect(authorProfile('echoVic')).toBeUndefined();
 	});
 
 	it('strips the scheme and trailing slash for display', () => {

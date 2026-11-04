@@ -44,6 +44,25 @@
 						],
 						"description": "native: its windows draw MyGo native UI; web: they show a web frontend."
 					},
+					"category": {
+						"enum": [
+							"BusinessApplication",
+							"CommunicationApplication",
+							"DesignApplication",
+							"DeveloperApplication",
+							"EducationalApplication",
+							"EntertainmentApplication",
+							"FinanceApplication",
+							"GameApplication",
+							"HealthApplication",
+							"LifestyleApplication",
+							"MultimediaApplication",
+							"ReferenceApplication",
+							"SecurityApplication",
+							"UtilitiesApplication"
+						],
+						"description": "What kind of app it is, as a schema.org applicationCategory that Google accepts. The app page's structured data names it; leave out when none fits."
+					},
 					"url": {
 						"$ref": "common.schema.json#/$defs/url",
 						"description": "Where to get it or read about it."

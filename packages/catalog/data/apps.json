@@ -6,6 +6,7 @@
 			"name": "MixMusic",
 			"author": "fzn0x",
 			"kind": "native",
+			"category": "MultimediaApplication",
 			"url": "https://github.com/fzn0x/mixmusic",
 			"summary": {
 				"en": "An open-source music player that searches YouTube Music and Spotify.",
@@ -31,6 +32,7 @@
 			"name": "Pulse",
 			"author": "egoist",
 			"kind": "native",
+			"category": "UtilitiesApplication",
 			"url": "https://pulse.egoist.dev",
 			"summary": {
 				"en": "An activity monitor for Mac, Windows and Linux.",
@@ -56,6 +58,7 @@
 			"name": "Kero",
 			"author": "egoist",
 			"kind": "native",
+			"category": "DeveloperApplication",
 			"url": "https://kero.sh",
 			"summary": {
 				"en": "A terminal for coding agents, with sessions that keep running after you quit.",
@@ -80,6 +83,7 @@
 			"name": "Lorca",
 			"author": "egoist",
 			"kind": "native",
+			"category": "CommunicationApplication",
 			"url": "https://lorca.app",
 			"summary": {
 				"en": "AI teammates on your computer, with end-to-end encrypted chat sync.",
@@ -104,6 +108,7 @@
 			"name": "MyGo 云音乐",
 			"author": "egoist",
 			"kind": "native",
+			"category": "MultimediaApplication",
 			"url": "https://cloudmusic.egoist.dev",
 			"summary": {
 				"en": "A third-party NetEase Cloud Music client.",
@@ -128,6 +133,7 @@
 			"name": "GoRex",
 			"author": "egoist",
 			"kind": "native",
+			"category": "DeveloperApplication",
 			"url": "https://github.com/egoist/gorex",
 			"summary": {
 				"en": "A replica of Superlogical’s Rex terminal.",
@@ -153,6 +159,7 @@
 			"name": "Godiff",
 			"author": "egoist",
 			"kind": "native",
+			"category": "DeveloperApplication",
 			"url": "https://github.com/egoist/godiff",
 			"summary": {
 				"en": "A minimal Git diff viewer and committer.",
@@ -177,6 +184,7 @@
 			"name": "2048",
 			"author": "egoist",
 			"kind": "native",
+			"category": "GameApplication",
 			"url": "https://github.com/egoist/2048",
 			"summary": {
 				"en": "The 2048 puzzle; its WebAssembly build also runs in the browser.",
@@ -199,6 +207,7 @@
 			"name": "Uma",
 			"author": "egoist",
 			"kind": "native",
+			"category": "BusinessApplication",
 			"url": "https://github.com/egoist/uma",
 			"summary": {
 				"en": "A menu bar app showing your Umami websites and visitors.",
@@ -220,6 +229,7 @@
 			"name": "留白 Liubai",
 			"author": "echoVic",
 			"kind": "web",
+			"category": "UtilitiesApplication",
 			"url": "https://liubai.echovic.com",
 			"summary": {
 				"en": "An open-source Markdown editor and reader for macOS, with a Windows beta.",
@@ -245,6 +255,7 @@
 			"name": "Clipnest",
 			"author": "echoVic",
 			"kind": "web",
+			"category": "UtilitiesApplication",
 			"url": "https://clipnest.echovic.com",
 			"summary": {
 				"en": "An open-source clipboard history for Mac.",
@@ -270,6 +281,7 @@
 			"name": "Cleanzo",
 			"author": "echoVic",
 			"kind": "web",
+			"category": "UtilitiesApplication",
 			"url": "https://cleanzo.echovic.com",
 			"summary": {
 				"en": "An open-source disk cleaner for macOS.",
@@ -295,6 +307,7 @@
 			"name": "小海底 Little Reef",
 			"author": "echoVic",
 			"kind": "web",
+			"category": "UtilitiesApplication",
 			"url": "https://reef.echovic.com",
 			"summary": {
 				"en": "An open-source focus timer for Mac.",
@@ -320,6 +333,7 @@
 			"name": "MyTwig",
 			"author": "HeroSizy",
 			"kind": "native",
+			"category": "DeveloperApplication",
 			"url": "https://mytwig.herosizy.dev",
 			"summary": {
 				"en": "A Git client for macOS, Windows and Linux.",
@@ -345,6 +359,7 @@
 			"name": "Godwit",
 			"author": "baranwang",
 			"kind": "native",
+			"category": "CommunicationApplication",
 			"url": "https://godwit.email",
 			"summary": {
 				"en": "An open-source, AI-native email client for macOS, Windows and Linux.",
@@ -370,6 +385,7 @@
 			"name": "Video-Downloader",
 			"author": "Faizan",
 			"kind": "native",
+			"category": "MultimediaApplication",
 			"url": "https://github.com/fazi-gondal/video-downloader-mygo",
 			"summary": {
 				"en": "A desktop video downloader built with Go, MyGo, yt-dlp and FFmpeg.",
@@ -395,6 +411,7 @@
 			"name": "Lumilo",
 			"author": "kotuke",
 			"kind": "native",
+			"category": "DeveloperApplication",
 			"url": "https://github.com/kotuke/lumilo",
 			"summary": {
 				"en": "A macOS menu-bar panel for local LLM engines.",
@@ -420,6 +437,7 @@
 			"name": "Tomoru",
 			"author": "ACAne0320",
 			"kind": "native",
+			"category": "MultimediaApplication",
 			"url": "https://tomoru.acane.dev",
 			"summary": {
 				"en": "Live bilingual subtitles for anything you watch on macOS and Windows.",
@@ -445,6 +463,7 @@
 			"name": "Quaver Astra",
 			"author": "Ne0W0r1d x Team Quaver",
 			"kind": "native",
+			"category": "MultimediaApplication",
 			"url": "https://quaver.0w0.red",
 			"summary": {
 				"en": "A lightweight, native-feeling QQ Music client, rebuilt from Electron on MyGo.",
@@ -470,6 +489,7 @@
 			"name": "Meiro",
 			"author": "elianiva",
 			"kind": "native",
+			"category": "MultimediaApplication",
 			"url": "https://meiro.elianiva.com",
 			"summary": {
 				"en": "YouTube Music without the bloat, in a native Material 3 Expressive player.",
@@ -495,6 +515,7 @@
 			"name": "Repo Hopper",
 			"author": "pteich",
 			"kind": "native",
+			"category": "DeveloperApplication",
 			"url": "https://github.com/pteich/repo-hopper",
 			"summary": {
 				"en": "Spotlight for your Git repositories: one shortcut to find and open any local repo.",
@@ -520,6 +541,7 @@
 			"name": "Universal S3 UI",
 			"author": "pteich",
 			"kind": "native",
+			"category": "DeveloperApplication",
 			"url": "https://github.com/pteich/us3ui",
 			"summary": {
 				"en": "A lightweight storage browser for S3-compatible services, SFTP and FTP/FTPS.",
@@ -545,6 +567,7 @@
 			"name": "APIGo",
 			"author": "younland",
 			"kind": "native",
+			"category": "DeveloperApplication",
 			"url": "https://github.com/younland/apigo",
 			"summary": {
 				"en": "A cross-platform API client drawn with native UI, in the vein of Hoppscotch, fully offline.",

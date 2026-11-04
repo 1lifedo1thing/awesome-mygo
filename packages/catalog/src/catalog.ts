@@ -43,11 +43,17 @@ const shot = (file: string | undefined) => (file ? `/shots/${file}` : undefined)
 
 export type AppKind = 'native' | 'web';
 
+// The schema.org applicationCategory values Google's software-app structured data accepts that can describe a desktop app.
+export const APP_CATEGORIES = ['BusinessApplication', 'CommunicationApplication', 'DesignApplication', 'DeveloperApplication', 'EducationalApplication', 'EntertainmentApplication', 'FinanceApplication', 'GameApplication', 'HealthApplication', 'LifestyleApplication', 'MultimediaApplication', 'ReferenceApplication', 'SecurityApplication', 'UtilitiesApplication'] as const;
+export type AppCategory = (typeof APP_CATEGORIES)[number];
+
 export interface App {
 	slug: string;
 	name: string;
 	author: string;
 	kind: AppKind;
+	// For structured data only; an entry without one names no category.
+	category?: AppCategory;
 	url: string;
 	// One line, for cards and search results.
 	desc: Text;
@@ -63,7 +69,7 @@ export interface App {
 export const AILOGO_CDN = 'https://ailogo.yldm.ai/avatar/';
 
 const readApp = (r: Reader): App => {
-	r.only(['slug', 'name', 'author', 'kind', 'url', 'summary', 'description', 'screenshot', 'icon']);
+	r.only(['slug', 'name', 'author', 'kind', 'category', 'url', 'summary', 'description', 'screenshot', 'icon']);
 	const icon = r.raw.icon as { ailogo?: unknown; file?: unknown } | undefined;
 	let iconUrl: string | undefined;
 	if (icon !== undefined) {
@@ -76,6 +82,7 @@ const readApp = (r: Reader): App => {
 		name: r.str('name'),
 		author: r.str('author'),
 		kind: r.oneOf('kind', ['native', 'web'] as const),
+		category: r.raw.category === undefined ? undefined : r.oneOf('category', APP_CATEGORIES),
 		url: r.url('url'),
 		desc: r.text('summary'),
 		about: r.text('description'),
@@ -94,6 +101,13 @@ export const APPS: readonly App[] = readApps(appsJson);
 
 export function appBySlug(slug: string): App | undefined {
 	return APPS.find((a) => a.slug === slug);
+}
+
+// The author's GitHub profile, only where the data proves the author name is a GitHub login: one of their apps lives in a repository that login owns. Otherwise undefined, since a name such as 'Faizan' is not necessarily a login.
+export function authorProfile(author: string): string | undefined {
+	const login = author.toLowerCase();
+	const owns = APPS.some((a) => a.author === author && new URL(a.url).hostname === 'github.com' && new URL(a.url).pathname.split('/')[1]?.toLowerCase() === login);
+	return owns ? `https://github.com/${author}` : undefined;
 }
 
 // ---- UI component libraries (data/ui.json) ----
