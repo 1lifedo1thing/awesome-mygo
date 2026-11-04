@@ -32,7 +32,7 @@ export function Learn() {
 function Reader() {
 	const t = useT();
 	return (
-		<Win level={1} title={t.learn_h}>
+		<Win level={1} title={t.learn_h} closeTo='/'>
 			<div className={`${well} relative`}>
 				{ARTICLES.map((ar) => (
 					<article key={ar.url} className='border-b border-line px-5 pt-5 pb-5 last:border-b-0 desk:px-10 desk:pt-7 desk:pb-7'>

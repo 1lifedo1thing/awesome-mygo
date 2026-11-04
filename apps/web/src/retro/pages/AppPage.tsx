@@ -131,7 +131,7 @@ function Page({ app }: { app: App }) {
 
 	return (
 		<div className='mx-auto max-w-[1180px] px-3.5 pt-3.5 desk:px-10 desk:pt-[30px]'>
-			<Win title={app.name} level={1} fill>
+			<Win title={app.name} level={1} fill closeTo='/showcase'>
 				<nav aria-label={t.a_crumbs} className='px-1.5 pt-[3px] pb-1.5'>
 					<ol className='m-0 flex list-none flex-wrap items-center gap-x-2 p-0'>
 						<li>

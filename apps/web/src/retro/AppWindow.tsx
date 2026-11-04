@@ -30,7 +30,7 @@ function QuickView({ app }: { app: App }) {
 		<div className='fixed inset-0 z-[60] overflow-y-auto px-3.5 py-6 desk:py-16'>
 			<button type='button' onClick={closeApp} aria-label={t.close_detail} tabIndex={-1} className='fixed inset-0 -z-10 cursor-default border-0 bg-ink/35 p-0 backdrop-blur-[2px]' />
 			<div ref={ref} role='dialog' aria-modal='true' aria-labelledby='qv-t' className='mx-auto max-w-[760px]'>
-				<Win id='qv' title={app.name} onClose={closeApp} closeLabel={t.close}>
+				<Win id='qv' title={app.name} onClose={closeApp}>
 					<div className={`${well} grid gap-3.5 p-3.5 desk:grid-cols-[minmax(0,1fr)_260px] desk:grid-rows-[auto_1fr] desk:gap-x-5 desk:p-4`}>
 						<AppHead app={app} kindLabel={kindLabel} className='desk:col-start-2 desk:row-start-1' />
 						<div className='grid content-start gap-3 desk:col-start-1 desk:row-span-2 desk:row-start-1'>

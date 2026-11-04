@@ -71,7 +71,7 @@ function Find({ onClose, onApp, onSubmit }: { onClose: () => void; onApp: (slug:
 	return (
 		<div className='fixed inset-0 z-[60] flex items-start justify-center bg-ink/35 backdrop-blur-[2px] px-3 pt-3 pb-4 desk:pt-[12vh]'>
 			<div ref={ref} role='dialog' aria-modal='true' aria-label={t.search} className='w-full max-w-[600px]'>
-				<Win title={t.search} onClose={onClose} closeLabel={t.close}>
+				<Win title={t.search} onClose={onClose}>
 					<div className='flex items-center gap-2 px-1.5 pt-[3px] pb-1.5'>
 						<label htmlFor='q' className='sr-only'>
 							{t.search_label}

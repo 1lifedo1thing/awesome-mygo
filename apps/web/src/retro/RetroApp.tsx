@@ -17,7 +17,7 @@ import { Plugins } from './pages/Plugins';
 import { Showcase } from './pages/Showcase';
 import { State } from './pages/State';
 import { Ui } from './pages/Ui';
-import { btn, btnGo, lnk } from './ui';
+import { btnGoSm, btnSm, lnk } from './ui';
 
 // The retro look renders its own page for each route instead of the route's component (which carries the original look's markup); routes still own their URL, head, loader and 404s.
 const PAGES: Record<string, ComponentType> = {
@@ -146,7 +146,7 @@ function MenuBar() {
 			</Link>
 			<nav aria-label={t.a_cats} className='hidden desk:flex'>
 				{NAV.map((n) => (
-					<Link key={n.to} to={n.to} activeOptions={{ exact: true, includeSearch: false }} className='flex h-[24px] items-center rounded-md px-[10px] no-underline hover:bg-ink/5 aria-[current=page]:bg-ink/8 aria-[current=page]:font-semibold'>
+					<Link key={n.to} to={n.to} activeOptions={{ exact: true, includeSearch: false }} className='flex h-[24px] items-center rounded-md px-[10px] whitespace-nowrap no-underline hover:bg-ink/5 aria-[current=page]:bg-ink/8 aria-[current=page]:font-semibold'>
 						{t[n.key]}
 					</Link>
 				))}
@@ -166,8 +166,8 @@ function MenuBar() {
 			<div className='ml-auto flex items-center gap-2'>
 				<button type='button' onClick={openPalette} aria-label={t.search_label} className='flex h-[24px] cursor-pointer items-center gap-1.5 rounded-md border border-line bg-hi/70 px-2 text-faint'>
 					<span aria-hidden='true'>⌕</span>
-					<span className='hidden w-[150px] text-left desk:inline'>{t.search_btn}</span>
-					<span aria-hidden='true' className='hidden rounded border border-line px-1 text-[11px] leading-[14px] desk:inline'>
+					<span className='hidden w-[150px] text-left whitespace-nowrap min-[1261px]:inline'>{t.search_btn}</span>
+					<span aria-hidden='true' className='hidden rounded border border-line px-1 text-[11px] leading-[14px] min-[1261px]:inline'>
 						⌘K
 					</span>
 				</button>
@@ -204,13 +204,13 @@ function MenuBar() {
 				<a href={SITE_REPO} target='_blank' rel='noopener' aria-label='GitHub' title='GitHub' className='grid size-[24px] place-items-center rounded-md hover:bg-ink/5'>
 					<GitHubMark size={16} />
 				</a>
-				<button type='button' className={`${btn} h-[24px] px-2.5`} onClick={() => switchTheme('original')} title={t.a_theme}>
+				<button type='button' className={btnSm} onClick={() => switchTheme('original')} title={t.a_theme}>
 					{t.theme_original}
 				</button>
-				<button type='button' className={`${btnGo} h-[24px] px-2.5`} onClick={() => openSubmit()}>
+				<button type='button' className={btnGoSm} onClick={() => openSubmit()}>
 					{t.submit_short}
 				</button>
-				<span aria-hidden='true' className='hidden min-w-[72px] pr-1 pl-1.5 text-right tabular-nums desk:inline' suppressHydrationWarning>
+				<span aria-hidden='true' className='hidden min-w-[72px] pr-1 pl-1.5 text-right whitespace-nowrap tabular-nums desk:inline' suppressHydrationWarning>
 					{clock}
 				</span>
 			</div>
