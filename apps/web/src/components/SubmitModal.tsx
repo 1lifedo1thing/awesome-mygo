@@ -16,7 +16,7 @@ function Modal() {
 	const { closeSubmit, form, setFormField, copy, copied } = useSite();
 	const t = useT();
 	const ref = useDialog<HTMLDivElement>();
-	const { bot, lang, round, setToken, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint } = useSubmit();
+	const { bot, lang, round, setToken, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint, viaJson, jsonError, onJsonChange, example } = useSubmit();
 	const urlNote = urlBad ? 'f-url-err' : repoMissing ? 'f-url-repo' : withAuthor ? 'f-url-tip' : undefined;
 
 	// The form scrolls; the footer with the submit button stays in view, saying what is still missing.
@@ -45,7 +45,63 @@ function Modal() {
 							))}
 						</div>
 					</div>
-					{isShow && (
+					<div className='stack-8'>
+						<span className='field-label'>{t.m_via}</span>
+						<div className='cat-opts' role='radiogroup' aria-label={t.m_via}>
+							{(['form', 'json'] as const).map((v) => (
+								<button key={v} type='button' role='radio' aria-checked={form.via === v} className='cat-opt' onClick={() => setFormField('via', v)}>
+									{v === 'form' ? t.m_via_form : t.m_via_json}
+								</button>
+							))}
+						</div>
+					</div>
+					{viaJson && (
+						<div className='stack-8'>
+							<label htmlFor='f-json' className='field-label'>
+								{t.m_json} · <span lang='en'>{`${DATA_DIR}/${file}`}</span>
+							</label>
+							<textarea
+								id='f-json'
+								rows={12}
+								spellCheck={false}
+								value={form.json}
+								onChange={(e) => onJsonChange(e.target.value)}
+								placeholder={example}
+								className='field field-area field-code'
+								lang='en'
+								data-bad={Boolean(jsonError)}
+								aria-invalid={Boolean(jsonError)}
+								aria-describedby={jsonError ? 'f-json-err' : 'f-json-tip'}
+							/>
+							{jsonError ? (
+								<p id='f-json-err' role='alert' className='field-err'>
+									{jsonError}
+								</p>
+							) : (
+								<p id='f-json-tip' className='field-tip'>
+									{t.m_json_tip}
+								</p>
+							)}
+							<div className='md-details-acts'>
+								<button type='button' className='btn-g btn-copy-line' onClick={() => ok && copy(entry, 'line')} disabled={!ok}>
+									{copied === 'line' ? t.copied : t.copy_entry}
+								</button>
+								{bot.enabled && (
+									<span className='modal-alt'>
+										{t.sub_gh}{' '}
+										<a href={edit} target='_blank' rel='noopener'>
+											{fill(t.go_edit, { x: file })}
+										</a>
+										{' · '}
+										<a href={issue} target='_blank' rel='noopener'>
+											{t.go_pr}
+										</a>
+									</span>
+								)}
+							</div>
+						</div>
+					)}
+					{!viaJson && isShow && (
 						<div className='stack-8'>
 							<span className='field-label'>{t.a_kind}</span>
 							<div className='cat-opts' role='radiogroup' aria-label={t.a_kind}>
@@ -57,7 +113,7 @@ function Modal() {
 							</div>
 						</div>
 					)}
-					{isShow && (
+					{!viaJson && isShow && (
 						<div className='stack-8'>
 							<span className='field-label'>{t.m_group}</span>
 							{/* Optional: a second press clears it, and the entry then names no category. */}
@@ -70,90 +126,94 @@ function Modal() {
 							</div>
 						</div>
 					)}
-					<div className='stack-8'>
-						<label htmlFor='f-url' className='field-label'>
-							{t.m_link}
-						</label>
-						<input
-							id='f-url'
-							type='url'
-							inputMode='url'
-							value={form.url}
-							onChange={(e) => setFormField('url', e.target.value)}
-							onBlur={onUrlBlur}
-							placeholder='https://github.com/…'
-							className='field'
-							data-bad={urlBad || repoMissing}
-							aria-invalid={urlBad || repoMissing}
-							aria-describedby={urlNote}
-						/>
-						{urlBad ? (
-							<p id='f-url-err' role='alert' className='field-err'>
-								{t.m_bad}
-							</p>
-						) : repoMissing ? (
-							<p id='f-url-repo' role='alert' className='field-err'>
-								{t.m_repo}
-							</p>
-						) : (
-							withAuthor && (
-								<p id='f-url-tip' className='field-tip'>
-									{t.m_link_tip}
-								</p>
-							)
-						)}
-					</div>
-					<div className='field-grid'>
-						<div className='stack-8'>
-							<label htmlFor='f-name' className='field-label'>
-								{t.m_name}
-							</label>
-							<input id='f-name' type='text' value={form.name} onChange={(e) => setFormField('name', e.target.value)} placeholder={t.m_name_ph} className='field' />
-						</div>
-						{withAuthor && (
+					{!viaJson && (
+						<>
 							<div className='stack-8'>
-								<label htmlFor='f-author' className='field-label'>
-									{t.m_author}
+								<label htmlFor='f-url' className='field-label'>
+									{t.m_link}
 								</label>
-								<input id='f-author' type='text' value={form.author} onChange={(e) => setFormField('author', e.target.value)} placeholder={t.m_author_ph} className='field' autoComplete='username' />
+								<input
+									id='f-url'
+									type='url'
+									inputMode='url'
+									value={form.url}
+									onChange={(e) => setFormField('url', e.target.value)}
+									onBlur={onUrlBlur}
+									placeholder='https://github.com/…'
+									className='field'
+									data-bad={urlBad || repoMissing}
+									aria-invalid={urlBad || repoMissing}
+									aria-describedby={urlNote}
+								/>
+								{urlBad ? (
+									<p id='f-url-err' role='alert' className='field-err'>
+										{t.m_bad}
+									</p>
+								) : repoMissing ? (
+									<p id='f-url-repo' role='alert' className='field-err'>
+										{t.m_repo}
+									</p>
+								) : (
+									withAuthor && (
+										<p id='f-url-tip' className='field-tip'>
+											{t.m_link_tip}
+										</p>
+									)
+								)}
 							</div>
-						)}
-					</div>
-					<div className='stack-8'>
-						<label htmlFor='f-desc' className='field-label'>
-							{t.m_desc_l}{' '}
-							<span className='field-count'>
-								{form.desc.length}/{max}
-							</span>
-						</label>
-						<textarea id='f-desc' rows={isShow ? 3 : 2} maxLength={max} value={form.desc} onChange={(e) => setFormField('desc', e.target.value.slice(0, max))} placeholder={t.m_desc_ph} className='field field-area' />
-					</div>
-					{/* The entry as it will land in the repository, for those who want to check it or take it to GitHub themselves. */}
-					<details className='md-details'>
-						<summary>
-							{t.m_preview} · <span lang='en'>{`${DATA_DIR}/${file}`}</span>
-						</summary>
-						<pre className='md-preview' lang='en'>
-							{entry}
-						</pre>
-						<div className='md-details-acts'>
-							<button type='button' className='btn-g btn-copy-line' onClick={() => ok && copy(entry, 'line')} disabled={!ok}>
-								{copied === 'line' ? t.copied : t.copy_entry}
-							</button>
-							{bot.enabled && (
-								<span className='modal-alt'>
-									{t.sub_gh}{' '}
-									<a href={edit} target='_blank' rel='noopener'>
-										{fill(t.go_edit, { x: file })}
-									</a>
-									{' · '}
-									<a href={issue} target='_blank' rel='noopener'>
-										{t.go_pr}
-									</a>
-								</span>
-							)}
-						</div>
-					</details>
+							<div className='field-grid'>
+								<div className='stack-8'>
+									<label htmlFor='f-name' className='field-label'>
+										{t.m_name}
+									</label>
+									<input id='f-name' type='text' value={form.name} onChange={(e) => setFormField('name', e.target.value)} placeholder={t.m_name_ph} className='field' />
+								</div>
+								{withAuthor && (
+									<div className='stack-8'>
+										<label htmlFor='f-author' className='field-label'>
+											{t.m_author}
+										</label>
+										<input id='f-author' type='text' value={form.author} onChange={(e) => setFormField('author', e.target.value)} placeholder={t.m_author_ph} className='field' autoComplete='username' />
+									</div>
+								)}
+							</div>
+							<div className='stack-8'>
+								<label htmlFor='f-desc' className='field-label'>
+									{t.m_desc_l}{' '}
+									<span className='field-count'>
+										{form.desc.length}/{max}
+									</span>
+								</label>
+								<textarea id='f-desc' rows={isShow ? 3 : 2} maxLength={max} value={form.desc} onChange={(e) => setFormField('desc', e.target.value.slice(0, max))} placeholder={t.m_desc_ph} className='field field-area' />
+							</div>
+							{/* The entry as it will land in the repository, for those who want to check it or take it to GitHub themselves. */}
+							<details className='md-details'>
+								<summary>
+									{t.m_preview} · <span lang='en'>{`${DATA_DIR}/${file}`}</span>
+								</summary>
+								<pre className='md-preview' lang='en'>
+									{entry}
+								</pre>
+								<div className='md-details-acts'>
+									<button type='button' className='btn-g btn-copy-line' onClick={() => ok && copy(entry, 'line')} disabled={!ok}>
+										{copied === 'line' ? t.copied : t.copy_entry}
+									</button>
+									{bot.enabled && (
+										<span className='modal-alt'>
+											{t.sub_gh}{' '}
+											<a href={edit} target='_blank' rel='noopener'>
+												{fill(t.go_edit, { x: file })}
+											</a>
+											{' · '}
+											<a href={issue} target='_blank' rel='noopener'>
+												{t.go_pr}
+											</a>
+										</span>
+									)}
+								</div>
+							</details>
+						</>
+					)}
 					{bot.enabled && status.kind !== 'done' && <Captcha siteKey={bot.siteKey} lang={lang} round={round} onToken={setToken} onFail={() => setStatus({ kind: 'error', message: t.sub_failed })} />}
 				</div>
 				<div className='modal-foot'>

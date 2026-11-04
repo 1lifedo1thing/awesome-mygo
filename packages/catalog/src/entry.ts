@@ -126,6 +126,50 @@ export function entryProblem(cat: SubmitCat, d: EntryDraft): string | undefined 
 	return undefined;
 }
 
+// ---- a pasted entry ----
+
+// A contributor may paste a whole entry instead of filling in the form: it then goes into its data file as written, translations and all, once it passes the same check the file does.
+
+// The pasted text as one entry, or why it is not one.
+export function parseEntryJson(text: string): { entry: Record<string, unknown> } | { error: 'json' | 'object' } {
+	let v: unknown;
+	try {
+		v = JSON.parse(text);
+	} catch {
+		return { error: 'json' };
+	}
+	return v && typeof v === 'object' && !Array.isArray(v) ? { entry: v as Record<string, unknown> } : { error: 'object' };
+}
+
+// Why entry cannot be submitted as a cat entry, or undefined when it can. The file's own check names the field; the rest are the limits the form's fields have.
+export function pastedEntryProblem(cat: SubmitCat, entry: Record<string, unknown>): string | undefined {
+	const { list, check } = SUBMIT_FILES[cat];
+	try {
+		check({ [list]: [entry] });
+	} catch (err) {
+		if (err instanceof CatalogError) return err.message;
+		throw err;
+	}
+	// Images live in the repository, and a visitor cannot add one; a maintainer adds them after merging.
+	if (entry.screenshot !== undefined || (entry.icon as { file?: unknown } | undefined)?.file !== undefined) return 'screenshot and icon.file name images in the repository, which a maintainer adds; leave them out';
+	const name = pastedName(entry);
+	if (name.length > 80 || /[\u0000-\u001f\u007f]/.test(name)) return 'the name must be a single line of at most 80 characters';
+	const url = String(entry.url ?? entry.docs ?? '');
+	if (url.length > 300) return 'the link is longer than 300 characters';
+	return undefined;
+}
+
+// The categories whose file accepts entry. The form switches to the category when exactly one does.
+export function entryCats(entry: Record<string, unknown>): SubmitCat[] {
+	return SUBMIT_CATS.filter((cat) => !pastedEntryProblem(cat, entry));
+}
+
+// The entry's name, for pull request and issue titles: articles have a title instead.
+export function pastedName(entry: Record<string, unknown>): string {
+	const v = entry.name ?? entry.title;
+	return typeof v === 'string' ? v.trim() : '';
+}
+
 // The data file with entry added at the end of its list, formatted as the repository keeps it. Throws a CatalogError, naming the field, when the result would not pass the file's check, e.g. a duplicate.
 export function appendEntry(cat: SubmitCat, fileText: string, entry: Record<string, unknown>): string {
 	const { file, list, check } = SUBMIT_FILES[cat];
