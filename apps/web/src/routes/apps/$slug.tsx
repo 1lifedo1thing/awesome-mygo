@@ -1,7 +1,7 @@
-import { appBySlug, pick } from '@awesome-mygo/catalog';
+import { appBySlug, appGroup, pick } from '@awesome-mygo/catalog';
 import { Link, createFileRoute, notFound } from '@tanstack/react-router';
-import { AppActions, AppFacts, MoreBy, neighbours } from '../../components/AppDetail';
-import { AppLink, KindTag, MonoTile, WinBar, appView } from '../../components/bits';
+import { AppActions, AppFacts, AppPager, MoreBy } from '../../components/AppDetail';
+import { KindTag, MonoTile, WinBar, appView } from '../../components/bits';
 import { useLang, useT } from '../../lib/lang';
 import { appHead } from '../../lib/seo';
 
@@ -27,10 +27,10 @@ function AppPage() {
 
 	const v = appView(app);
 	const kindLabel = app.kind === 'native' ? t.surf_native : t.web_fe;
-	const [prev, next] = neighbours(v);
+	const group = appGroup(app);
 
 	return (
-		<article className='page enter gap-32'>
+		<article className='page enter app-page'>
 			<nav aria-label={t.a_crumbs} className='crumbs'>
 				<ol>
 					<li>
@@ -42,47 +42,48 @@ function AppPage() {
 					<li aria-current='page'>{app.name}</li>
 				</ol>
 			</nav>
-			<header className='app-head'>
-				<MonoTile view={v} size={56} />
-				<div className='stack-8'>
-					<KindTag app={app} label={kindLabel} />
-					<h1 className='page-h1 app-h1'>{app.name}</h1>
-					<p className='page-p'>{pick(app.desc, lang)}</p>
+			<header className='app-hero'>
+				<div className='app-hero-icon'>
+					{/* A blurred copy of the icon lights the space behind it. */}
+					{app.icon && <img className='app-hero-glow' src={app.icon} alt='' aria-hidden='true' width={96} height={96} decoding='async' />}
+					<MonoTile view={v} size={96} />
+				</div>
+				<div className='app-hero-text'>
+					<p className='app-hero-meta'>
+						<KindTag app={app} label={kindLabel} />
+						<Link to='/showcase' search={{ cat: group }} className='app-hero-cat'>
+							{t[`grp_${group}`]}
+						</Link>
+						<span className='app-hero-by'>
+							<span lang='en'>by</span> {app.author}
+						</span>
+					</p>
+					<h1 className='app-hero-h1'>{app.name}</h1>
+					<p className='app-hero-sum'>{pick(app.desc, lang)}</p>
+					<AppActions app={app} />
 				</div>
 			</header>
-			<div className='app-grid'>
+			<div className='app-body'>
 				<div className='app-main'>
-					{app.image ? (
-						<div className='app-shot'>
+					{app.image && (
+						<figure className='app-shot'>
 							<WinBar label={v.host} size='md' className='card-bar' />
-							<div className='drawer-shot'>
-								<img src={app.image} alt={`${app.name} ${t.app_shot}`} width={1200} height={750} fetchPriority='high' decoding='async' />
-							</div>
-						</div>
-					) : (
-						<div className='app-shot dots drawer-hero'>
-							<span aria-hidden='true' className='drawer-num'>
-								{v.num}
-							</span>
-							<MonoTile view={v} size={112} />
-						</div>
+							<img src={app.image} alt={`${app.name} ${t.app_shot}`} width={1200} height={750} fetchPriority='high' decoding='async' />
+						</figure>
 					)}
-					<p className='drawer-desc'>{pick(app.about, lang)}</p>
+					<section className='app-about' aria-labelledby='app-about-h'>
+						<h2 id='app-about-h' className='app-sec-h'>
+							{t.app_about}
+						</h2>
+						<p className='app-about-p'>{pick(app.about, lang)}</p>
+					</section>
 				</div>
-				<div className='app-side'>
+				<aside className='app-side'>
 					<AppFacts view={v} kindLabel={kindLabel} />
-					<AppActions app={app} />
-					<MoreBy app={app} />
-				</div>
+				</aside>
 			</div>
-			<nav aria-label={t.a_pager} className='app-pager'>
-				<AppLink slug={prev.slug} quick={false} className='btn-g pager'>
-					← {prev.name}
-				</AppLink>
-				<AppLink slug={next.slug} quick={false} className='btn-g pager'>
-					{next.name} →
-				</AppLink>
-			</nav>
+			<MoreBy app={app} />
+			<AppPager view={v} />
 		</article>
 	);
 }
