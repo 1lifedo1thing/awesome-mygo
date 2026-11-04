@@ -29,6 +29,7 @@ A pnpm monorepo, served by [TanStack Start](https://tanstack.com/start) on [Clou
 |---|---|
 | `apps/web` | The site: React 19, TanStack Start (server rendering) and Vite with `@cloudflare/vite-plugin`. `wrangler.jsonc` deploys it to `mygodock.dev`. |
 | `packages/catalog` | The data: `data/*.json` (apps, UI components, state solutions, plugins, articles, guides) and their JSON Schemas, the UI copy in five languages, search and the submit form's entries. Its tests validate every entry. |
+| `packages/enrich` | Completes a pull request the submission bot opens: the app's icon and screenshot from its repository, its copy in all five languages (written with Claude) and the README app counts. Run by `.github/workflows/enrich-submission.yml`. |
 
 App icons come from [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo), served by its CDN; the few apps it does not list use their official icon from `apps/web/public/icons/`.
 
@@ -48,6 +49,8 @@ pnpm preview      # the production build in the Workers runtime
 `pnpm deploy` builds and deploys with Wrangler. It needs a Cloudflare account that holds the zone of the domain in `apps/web/wrangler.jsonc`.
 
 Direct submissions from the form go through a GitHub App installed on this repository, with Cloudflare Turnstile and a per-IP rate limit in front of it. Give the app *Contents* and *Pull requests* read and write access, convert its private key to PKCS#8 (`openssl pkcs8 -topk8 -nocrypt -in key.pem -out key-pkcs8.pem`), and set four secrets with `wrangler secret put` in `apps/web`: `GITHUB_APP_ID`, `GITHUB_APP_PRIVATE_KEY` (the PKCS#8 file), `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY`. Until all four are set, the form offers only the GitHub links. For local testing, put Turnstile's [test keys](https://developers.cloudflare.com/turnstile/troubleshooting/testing/) in `apps/web/.dev.vars`.
+
+When the bot opens a pull request, the *Complete submission* workflow fills in what the form cannot ask for: the icon named in the app's `mygo.json` (none when it has none, as `mygo init` leaves it), the first screenshot in its README, the summary and description in all five languages, and the README app counts. It runs the catalog checks, pushes to the same branch as the bot and comments what it did; a maintainer still reviews the result before merging. It needs, in the repository's Actions settings, the secrets `SUBMIT_APP_PRIVATE_KEY` (the app's PKCS#8 key, as for the Worker), `LLM_API_KEY` (an Anthropic Messages API key) and, for a gateway, `LLM_BASE_URL`, and the variable `SUBMIT_APP_CLIENT_ID` (the app's client ID); the variable `LLM_MODEL` overrides the model (`claude-opus-5-5`). Without `LLM_API_KEY` the copy stays as submitted.
 
 ## Adding a project
 
