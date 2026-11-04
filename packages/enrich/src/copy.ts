@@ -25,6 +25,10 @@ const lineCopy = z.object({ summary: text, notes: z.string() });
 export interface Copy {
 	summary: Text;
 	description?: Text;
+	// The category the model picked for an app submitted without one, when it is one the schema allows; undefined when it was not asked to.
+	category?: string;
+	// A pick outside the schema's categories, dropped, for the report.
+	badCategory?: string;
 	// For the maintainer reviewing the pull request: doubts about the entry, or empty.
 	notes: string;
 	// Texts still longer than the examples allow after one rewrite, as "description en 580/405"; empty when all fit.
@@ -38,6 +42,7 @@ You get one entry submitted through the site's form, the project's README and, f
 Write:
 - summary: one line for cards and search results that says what the thing does, in plain words.
 - description (apps only): two or three sentences for the app's page, from what the README states: what it does, what it works with, and how it is built (MyGo's native UI or a web frontend, as the entry's kind says). Pick what matters to someone deciding whether to try it rather than listing every feature. Never add a feature, number or platform the README does not state.
+- category (only when the prompt asks for it, for an app submitted without one): the one value from the list given that best says what the app is for.
 - notes: for the maintainer reviewing the pull request, in English, one or two short sentences, or an empty string. Say whether the README or mygo.json shows the project is built with MyGo, whether the entry's kind (native or web) and category look right, and anything else that looks wrong. Do not repeat the copy.
 
 Each text has the same meaning in en, zh-CN, zh-TW, ja and ko, written as a native writer of that language would write it, not translated word for word: zh-TW in Taiwan usage, full-width punctuation in Chinese and Japanese. Keep product names, commands and paths as they are written in the README. The site shows these texts as plain text, so no Markdown: no backticks, asterisks or links. No marketing language, no exclamation marks, no emoji.
@@ -50,6 +55,8 @@ export interface CopyInput {
 	readme?: string;
 	mygoJson?: string;
 	examples: Entry[];
+	// For an app submitted without a category: the categories the schema allows, one of which the model picks.
+	categories?: readonly string[];
 }
 
 export interface LlmConfig {
@@ -62,6 +69,7 @@ const capsLine = (field: string, caps: Caps) => `${field}: ${Object.entries(caps
 
 export async function writeCopy(cfg: LlmConfig, input: CopyInput): Promise<Copy> {
 	const isApp = input.kind === 'app';
+	const categories = isApp && input.categories?.length ? input.categories : undefined;
 	const client = new Anthropic({ apiKey: cfg.apiKey, baseURL: cfg.baseURL ?? null });
 	const readme = input.readme === undefined ? '(none found)' : input.readme.slice(0, README_LIMIT);
 	const caps = { summary: lengthCaps(input.examples, 'summary'), description: lengthCaps(input.examples, 'description') };
@@ -73,15 +81,17 @@ export async function writeCopy(cfg: LlmConfig, input: CopyInput): Promise<Copy>
 		...(isApp ? [`<mygo_json>\n${input.mygoJson ?? '(none found)'}\n</mygo_json>`] : []),
 		`<readme>\n${readme}\n</readme>`,
 		`Length limits in characters, the longest example in each language; keep every text within its limit, choosing what to leave out rather than compressing the wording:\n${limits.join('\n')}`,
-		isApp ? 'Write the summary, description and notes for this app.' : 'Write the summary and notes for this entry.',
+		...(categories ? [`The submission names no category. Pick the one that fits best from: ${categories.join(', ')}.`] : []),
+		isApp ? `Write the summary, description${categories ? ', category' : ''} and notes for this app.` : 'Write the summary and notes for this entry.',
 	];
-	const format = zodOutputFormat(isApp ? appCopy : lineCopy);
+	// A plain string rather than z.enum: structured outputs carry an enum only as a hint, and a value outside it would fail parsing and lose the copy with it. A pick that is not a category is dropped below instead.
+	const format = zodOutputFormat(categories ? appCopy.extend({ category: z.string().describe(`One of: ${categories.join(', ')}`) }) : isApp ? appCopy : lineCopy);
 	const messages: Anthropic.MessageParam[] = [{ role: 'user', content: parts.join('\n\n') }];
 	const ask = () => client.messages.parse({ model: cfg.model, max_tokens: 16000, system: SYSTEM, messages, output_config: { format } });
 	const tooLong = (out: { summary: Text; description?: Text }) => [...overCaps(out.summary, caps.summary).map((x) => `summary ${x}`), ...(out.description ? overCaps(out.description, caps.description).map((x) => `description ${x}`) : [])];
 
 	let res = await ask();
-	let out = checked(res) as { summary: Text; description?: Text; notes: string };
+	let out = checked(res) as { summary: Text; description?: Text; category?: string; notes: string };
 	// One rewrite when a text runs past its limit, with the first answer kept in the conversation as it came back.
 	const first = tooLong(out);
 	if (first.length) {
@@ -89,7 +99,9 @@ export async function writeCopy(cfg: LlmConfig, input: CopyInput): Promise<Copy>
 		res = await ask();
 		out = checked(res) as typeof out;
 	}
-	return { summary: out.summary, description: isApp ? out.description : undefined, notes: out.notes.trim(), tooLong: tooLong(out) };
+	const pick = categories ? out.category?.trim() : undefined;
+	const valid = pick !== undefined && categories?.includes(pick);
+	return { summary: out.summary, description: isApp ? out.description : undefined, category: valid ? pick : undefined, badCategory: pick !== undefined && !valid ? pick : undefined, notes: out.notes.trim(), tooLong: tooLong(out) };
 }
 
 // The parsed copy of a finished response; a refusal or a cut-off answer is an error the report shows.

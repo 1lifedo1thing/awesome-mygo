@@ -89,6 +89,28 @@ export function isSquarish(width: number, height: number): boolean {
 	return width > 0 && height > 0 && Math.max(width, height) / Math.min(width, height) < 1.15;
 }
 
+// Whether an image is taller than it is wide, such as a tray panel or a phone screen. The app page draws its screenshot at the column's full width, so a portrait one runs far taller than the window; a README usually has a window further down.
+export function isPortrait(width: number, height: number): boolean {
+	return width > 0 && height > width;
+}
+
+// The app categories the catalog's schema allows (app.schema.json, properties.category.enum).
+export function appCategories(schema: unknown): string[] {
+	const values = (schema as { properties?: { category?: { enum?: unknown } } })?.properties?.category?.enum;
+	return Array.isArray(values) ? values.filter((v): v is string => typeof v === 'string') : [];
+}
+
+// Sets the entry's category in place, right after kind as in the files written by hand, since the entry is written back in its key order.
+export function setCategory(entry: Entry, category: string): void {
+	const fields = Object.entries(entry).filter(([k]) => k !== 'category');
+	for (const k of Object.keys(entry)) delete entry[k];
+	for (const [k, v] of fields) {
+		entry[k] = v;
+		if (k === 'kind') entry.category = category;
+	}
+	if (!('category' in entry)) entry.category = category;
+}
+
 export const SITE_LANGS = ['en', 'zh-CN', 'zh-TW', 'ja', 'ko'] as const;
 
 // Whether a text field has a non-empty string in every site language, as one written by hand or completed before does.

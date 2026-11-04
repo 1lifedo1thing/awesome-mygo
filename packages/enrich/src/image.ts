@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
-import { iconCut, isSquarish, sniffImage } from './source.ts';
+import { iconCut, isPortrait, isSquarish, sniffImage } from './source.ts';
 
 // Icons and screenshots as the site keeps them: a 256 px WebP icon filling its square, and a WebP screenshot at most 1200 px wide. ImageMagick does the work; the runner has it, so the bot needs no image library.
 
@@ -98,12 +98,13 @@ export async function writeIcon(img: Downloaded, out: string): Promise<boolean> 
 	});
 }
 
-// Writes the screenshot to out as WebP, scaled down to 1200 px wide when larger, and says 'ok'. An image too narrow to be a screenshot of a desktop app, or a square one (an icon or a logo at the top of the README), is not written: 'narrow' or 'square' says why.
-export async function writeShot(img: Downloaded, out: string): Promise<'ok' | 'narrow' | 'square'> {
+// Writes the screenshot to out as WebP, scaled down to 1200 px wide when larger, and says 'ok'. An image too narrow to be a screenshot of a desktop app, a square one (an icon or a logo at the top of the README) or a portrait one (a tray panel) is not written: 'narrow', 'square' or 'portrait' says why.
+export async function writeShot(img: Downloaded, out: string): Promise<'ok' | 'narrow' | 'square' | 'portrait'> {
 	return withInput(img, async (input) => {
 		const [w, h] = (await size(input)).split(' ').map(Number);
 		if (w < SHOT_MIN_WIDTH) return 'narrow';
 		if (isSquarish(w, h)) return 'square';
+		if (isPortrait(w, h)) return 'portrait';
 		await magick([input, '-resize', '1200x>', '-strip', '-quality', '82', '-define', 'webp:method=6', `webp:${out}`]);
 		return 'ok';
 	});
