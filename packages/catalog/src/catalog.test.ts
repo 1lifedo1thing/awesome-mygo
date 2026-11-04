@@ -415,7 +415,7 @@ describe('search', () => {
 	it('matches app descriptions in any language', () => {
 		const names = searchCatalog(index, '音乐').map((r) => r.name);
 		expect(names).toContain('MixMusic');
-		expect(names).toContain('MyGo 云音乐');
+		expect(names).toContain('PudMusic');
 	});
 
 	it('finds state solutions', () => {
