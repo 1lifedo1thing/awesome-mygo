@@ -9,7 +9,5 @@
 	"routes": [{ "pattern": "mygodock.dev", "custom_domain": true }],
 	"observability": { "enabled": true },
 	// Anonymous submissions (/api/submit): at most 3 a minute from one IP. namespace_id only has to be unique within the Cloudflare account. The GitHub App and Turnstile keys are secrets (GITHUB_APP_ID, GITHUB_APP_PRIVATE_KEY, TURNSTILE_SITE_KEY, TURNSTILE_SECRET_KEY); without them the form keeps to GitHub links.
-	"ratelimits": [{ "name": "SUBMIT_LIMIT", "namespace_id": "4170", "simple": { "limit": 3, "period": 60 } }],
-	// Workers Builds runs `wrangler preview` for branches other than main, which needs this block; empty means a preview inherits everything above.
-	"previews": {}
+	"ratelimits": [{ "name": "SUBMIT_LIMIT", "namespace_id": "4170", "simple": { "limit": 3, "period": 60 } }]
 }
