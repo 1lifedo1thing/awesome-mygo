@@ -1,7 +1,7 @@
 {
 	"$schema": "../schema/app.schema.json",
 	"slug": "lody-mygo",
-	"name": "lody-mygo",
+	"name": "Lody Native",
 	"author": "lbr77",
 	"kind": "native",
 	"category": "DeveloperApplication",
