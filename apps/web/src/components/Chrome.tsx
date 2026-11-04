@@ -1,4 +1,4 @@
-import { SITE_REPO, SPONSOR_URL } from '@awesome-mygo/catalog';
+import { MYGO_REPO, SPONSOR_URL } from '@awesome-mygo/catalog';
 import { Link } from '@tanstack/react-router';
 import { useT } from '../lib/lang';
 import { useSite } from '../lib/site';
@@ -23,7 +23,7 @@ export function Footer() {
 				<div className='ftr-row'>
 					<span>{t.footer_l}</span>
 					<span className='ftr-links'>
-						<a href={SITE_REPO} target='_blank' rel='noopener' className='ftr-gh'>
+						<a href={MYGO_REPO} target='_blank' rel='noopener' className='ftr-gh'>
 							<GitHubMark size={14} />
 							GitHub
 						</a>
