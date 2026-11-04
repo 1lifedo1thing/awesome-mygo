@@ -46,7 +46,7 @@ function HomePage() {
 					{[...APPS, ...APPS].map((a, i) => (
 						<button key={`${a.slug}-${i}`} type='button' className='marq-item' onClick={() => openApp(a.slug)} tabIndex={i >= nApps ? -1 : undefined} aria-hidden={i >= nApps || undefined}>
 							{a.icon ? (
-								<img className='marq-icon app-icon' src={a.icon} alt='' width={36} height={36} decoding='async' />
+								<img className='marq-icon app-icon' src={a.icon} alt='' width={36} height={36} loading='lazy' decoding='async' />
 							) : (
 								<span aria-hidden='true' className={`marq-icon marq-letter tone-${APPS.indexOf(a) % 3}`}>
 									{a.name.charAt(0).toUpperCase()}
