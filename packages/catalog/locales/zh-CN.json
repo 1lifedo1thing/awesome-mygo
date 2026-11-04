@@ -83,6 +83,8 @@
 	"sort_def": "收录顺序",
 	"sort_az": "名称 A–Z",
 	"sort_author": "按作者",
+	"like_a": "给 {x} 点赞",
+	"sort_likes": "最热",
 	"learn_h": "文章与文档",
 	"article_k": "社区文章 · {x}",
 	"read_full": "阅读全文 ↗",

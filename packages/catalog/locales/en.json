@@ -83,6 +83,8 @@
 	"sort_def": "Listing order",
 	"sort_az": "Name A–Z",
 	"sort_author": "By author",
+	"like_a": "Like {x}",
+	"sort_likes": "Most liked",
 	"learn_h": "Articles & docs",
 	"article_k": "Community article · {x}",
 	"read_full": "Read the article ↗",

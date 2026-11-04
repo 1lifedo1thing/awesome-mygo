@@ -1,7 +1,8 @@
-import { BINDINGS_DOC, STATE_SOLUTIONS, pad2, pick } from '@awesome-mygo/catalog';
+import { BINDINGS_DOC, STATE_SOLUTIONS, likeKey, pad2, pick } from '@awesome-mygo/catalog';
 import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 import { Docky, WinBar } from '../components/bits';
+import { LikeButton } from '../components/Like';
 import { useLang, useT } from '../lib/lang';
 import { pageHead } from '../lib/seo';
 import { useSite } from '../lib/site';
@@ -79,6 +80,7 @@ function StatePage() {
 													{t.visit}
 												</a>
 											)}
+											<LikeButton item={likeKey.state(s)} name={s.name} className='like-btn like-lg like-end' size={18} />
 										</div>
 									</div>
 								</article>

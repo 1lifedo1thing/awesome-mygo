@@ -1648,6 +1648,72 @@ html:lang(ko) .site {
 	grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
 	gap: 16px;
 }
+/* Likes: a heart and a count. On a showcase card the button sits over the card's top right, beside its link rather than inside it, and rises with the card on hover. */
+.like-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	min-height: 32px;
+	padding: 0 10px;
+	border: 1px solid var(--line-3);
+	border-radius: 999px;
+	background: var(--bg);
+	color: var(--fg-2);
+	font-family: var(--f-mono);
+	font-size: 13px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: color 0.15s, border-color 0.15s, transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.like-btn:hover {
+	color: #ff6b8b;
+	border-color: #ff6b8b;
+}
+.like-btn[aria-pressed='true'] {
+	color: #ff6b8b;
+	border-color: rgba(255, 107, 139, 0.55);
+	background: rgba(255, 107, 139, 0.1);
+}
+.like-btn:disabled {
+	cursor: default;
+}
+.like-n:empty {
+	display: none;
+}
+.like-lg {
+	min-height: 46px;
+	padding: 0 16px;
+	font-size: 14px;
+	border-radius: 10px;
+}
+.like-end {
+	margin-left: auto;
+}
+.show-cell {
+	position: relative;
+}
+.like-on-card {
+	position: absolute;
+	top: 46px;
+	right: 16px;
+}
+.show-cell .show-id {
+	padding-right: 72px;
+}
+.show-cell:hover .show-card {
+	transform: translateY(-6px);
+	border-color: var(--cyan);
+	box-shadow: 0 0 0 1px var(--cyan), 0 28px 70px rgba(63, 211, 245, 0.16);
+}
+.show-cell:hover .like-on-card {
+	transform: translateY(-6px);
+}
+@media (prefers-reduced-motion: reduce) {
+	.show-cell:hover .show-card,
+	.show-cell:hover .like-on-card {
+		transform: none;
+	}
+}
 .plug-card {
 	border-radius: 14px;
 }

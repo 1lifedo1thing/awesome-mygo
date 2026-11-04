@@ -1,7 +1,9 @@
-import { CLI_CMDS, COMMUNITY_PLUGINS, PLUGINS, PLUGINS_DOC, type PluginSurface, fill, pick } from '@awesome-mygo/catalog';
+import { CLI_CMDS, COMMUNITY_PLUGINS, PLUGINS, PLUGINS_DOC, type PluginSurface, fill, likeKey, pick } from '@awesome-mygo/catalog';
 import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 import { WinBar } from '../components/bits';
+import { LikeButton } from '../components/Like';
+import { useLikes } from '../lib/likes';
 import { useLang, useT } from '../lib/lang';
 import { pageHead } from '../lib/seo';
 import { useSite } from '../lib/site';
@@ -29,6 +31,11 @@ function PluginsPage() {
 	const surfLabel: Record<PluginSurface, string> = { web: t.surf_web, native: t.surf_native, both: t.surf_both };
 	// A plugin for both kinds of window shows under either filter.
 	const fits = (s: PluginSurface) => surface === 'all' || s === surface || s === 'both';
+	const { status: likes, counts } = useLikes();
+	const [byLikes, setByLikes] = useState(false);
+	const shown = PLUGINS.filter((p) => fits(p.surface));
+	// Most liked first; ties keep the docs' order.
+	if (byLikes) shown.sort((a, b) => (counts[likeKey.plugin(b)] ?? 0) - (counts[likeKey.plugin(a)] ?? 0));
 	const chips = [
 		{ key: 'all' as const, label: `${t.all} · ${PLUGINS.length}` },
 		{ key: 'web' as const, label: `${t.surf_web} · ${PLUGINS.filter((p) => p.surface !== 'native').length}` },
@@ -41,15 +48,28 @@ function PluginsPage() {
 				<h1 className='page-h1'>{t.nav_plugins}</h1>
 				<p className='page-p mw-720'>{t.plug_p}</p>
 			</div>
-			<div className='chips' role='group' aria-label={t.a_filter}>
-				{chips.map((c) => (
-					<button key={c.key} type='button' className='chip' onClick={() => setSurface(c.key)} aria-pressed={surface === c.key}>
-						{c.label}
-					</button>
-				))}
+			<div className='filterbar'>
+				<div className='chips' role='group' aria-label={t.a_filter}>
+					{chips.map((c) => (
+						<button key={c.key} type='button' className='chip' onClick={() => setSurface(c.key)} aria-pressed={surface === c.key}>
+							{c.label}
+						</button>
+					))}
+				</div>
+				{likes !== 'off' && (
+					<div className='sort'>
+						<label htmlFor='sort' className='sort-label'>
+							{t.sort}
+						</label>
+						<select id='sort' value={byLikes ? 'likes' : 'default'} onChange={(e) => setByLikes(e.target.value === 'likes')} className='sort-select'>
+							<option value='default'>{t.sort_def}</option>
+							<option value='likes'>{t.sort_likes}</option>
+						</select>
+					</div>
+				)}
 			</div>
 			<div className='plug-grid'>
-				{PLUGINS.filter((p) => fits(p.surface)).map((p, k) => {
+				{shown.map((p, k) => {
 					// What the docs say to do first: import the Go package, and add the frontend package when there is one. `tail` is the part that tells the lines apart (the package's last two segments), which stays whole while `head` gives way to an ellipsis on a narrow card.
 					const setup = [...(p.goImport ? [{ key: `plug:${p.slug}:go` as const, ...goLine(p.goImport) }] : []), ...(p.npm ? [{ key: `plug:${p.slug}:npm` as const, head: 'bun add ', tail: p.npm }] : [])];
 					return (
@@ -73,6 +93,7 @@ function PluginsPage() {
 											</h2>
 											<span className={`surf surf-${p.surface}`}>{surfLabel[p.surface]}</span>
 										</div>
+										<LikeButton item={likeKey.plugin(p)} name={p.name} className='like-btn like-end' />
 									</div>
 									<p className='show-desc'>{pick(p.desc, lang)}</p>
 									{setup.length > 0 && (

@@ -5,3 +5,4 @@ export * from './search';
 export * from './strings';
 export * from './translate';
 export { CatalogError } from './validate';
+export * from './likes';

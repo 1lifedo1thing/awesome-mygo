@@ -1,9 +1,10 @@
-import { BINDINGS_DOC, STATE_SOLUTIONS, fill, pad2, pick } from '@awesome-mygo/catalog';
+import { BINDINGS_DOC, STATE_SOLUTIONS, fill, likeKey, pad2, pick } from '@awesome-mygo/catalog';
 import { useState } from 'react';
+import { LikeButton } from '../../components/Like';
 import { useLang, useT } from '../../lib/lang';
 import { useSite } from '../../lib/site';
 import { DesktopIcons } from '../DesktopIcons';
-import { PixelIcon, StatusBar, Win, btnGo, btnSm, field, well } from '../ui';
+import { PixelIcon, StatusBar, Win, btnGo, btnSm, field, likeBtn, well } from '../ui';
 
 type BlockId = 'bind' | 'chan' | 'evt';
 
@@ -93,6 +94,7 @@ function Solutions() {
 									{t.visit}
 								</a>
 							)}
+							<LikeButton item={likeKey.state(s)} name={s.name} className={likeBtn} size={12} />
 						</div>
 					</article>
 				))}

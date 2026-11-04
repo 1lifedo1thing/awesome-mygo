@@ -1,9 +1,10 @@
-import { NATIVE_UI_DOCS, UI_KEYS, UI_LIBS, type UiLib, type UiLibKey, fill, pick } from '@awesome-mygo/catalog';
+import { NATIVE_UI_DOCS, UI_KEYS, UI_LIBS, type UiLib, type UiLibKey, fill, likeKey, pick } from '@awesome-mygo/catalog';
 import { useState } from 'react';
+import { LikeButton } from '../../components/Like';
 import { useLang, useT } from '../../lib/lang';
 import { useSite } from '../../lib/site';
 import { DesktopIcons } from '../DesktopIcons';
-import { Note, StatusBar, Win, btnGo, btnSm, seg, field, lnk, well } from '../ui';
+import { Note, StatusBar, Win, btnGo, btnSm, seg, field, likeBtn, lnk, well } from '../ui';
 
 const TAG: Record<UiLibKey, 'tag_theme' | 'tag_retro' | 'tag_icons'> = { theme: 'tag_theme', retro: 'tag_retro', icons: 'tag_icons' };
 
@@ -87,6 +88,7 @@ function LibCard({ lib, first }: { lib: UiLib; first: boolean }) {
 						{t.visit}
 					</a>
 				)}
+				<LikeButton item={likeKey.ui(lib)} name={lib.name} className={likeBtn} size={12} />
 			</div>
 		</article>
 	);
