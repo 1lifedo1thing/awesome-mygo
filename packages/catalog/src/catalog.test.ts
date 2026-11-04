@@ -11,7 +11,7 @@ import stateSchema from '../data/schema/state.schema.json';
 import uiSchema from '../data/schema/ui.schema.json';
 import state from '../data/state.json';
 import ui from '../data/ui.json';
-import { AILOGO_CDN, APP_CATEGORIES, APPS, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, authorProfile, hostOf, readApps, readPlugins } from './catalog';
+import { AILOGO_CDN, APP_CATEGORIES, APP_GROUPS, APPS, GROUP_CATEGORY, appGroup, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, authorProfile, hostOf, readApps, readPlugins } from './catalog';
 import { SUBMIT_CATS, SUBMIT_FILES, appendEntry, buildEntry, codeFence, descMax, editUrl, entryProblem, guessFromLink, isBadUrl, isEntryComplete, issueUrl, jsonEntry, missingFields, slugify, withScheme } from './entry';
 import { LANGS, type LangCode, type Text, fill, langRedirectScript, negotiateLang, pick, validateRootSearch } from './lang';
 import { buildSearchIndex, searchCatalog } from './search';
@@ -132,6 +132,17 @@ describe('catalog data', () => {
 	it('strips the scheme and trailing slash for display', () => {
 		expect(hostOf('https://kero.sh/')).toBe('kero.sh');
 		expect(hostOf('https://github.com/egoist/gorex')).toBe('github.com/egoist/gorex');
+	});
+});
+
+describe('showcase groups', () => {
+	it('puts every category in a group, and every app in a group with others', () => {
+		for (const c of APP_CATEGORIES) expect(APP_GROUPS).toContain(appGroup({ category: c }));
+		expect(appGroup({})).toBe('other');
+		for (const [g, c] of Object.entries(GROUP_CATEGORY)) expect(appGroup({ category: c })).toBe(g);
+		// A group with a single app reads as a mistake on the page: merge it into a neighbour instead.
+		const sizes = APPS.reduce<Record<string, number>>((n, a) => ({ ...n, [appGroup(a)]: (n[appGroup(a)] ?? 0) + 1 }), {});
+		for (const [g, n] of Object.entries(sizes)) expect([g, n >= 2]).toEqual([g, true]);
 	});
 });
 
@@ -426,6 +437,12 @@ describe('submission entry', () => {
 		expect(missingFields('article', empty)).toEqual(['url', 'name']);
 		expect(missingFields('ui', { ...draft, url: 'http://x.dev' })).toEqual(['url']);
 		for (const cat of SUBMIT_CATS) expect(missingFields(cat, draft).length === 0).toBe(isEntryComplete(cat, draft));
+	});
+
+	it('writes the picked category into a showcase entry, and none when none was picked', () => {
+		expect(JSON.parse(jsonEntry('showcase', { ...draft, category: 'GameApplication' }, 'native', ph)).category).toBe('GameApplication');
+		expect('category' in JSON.parse(jsonEntry('showcase', draft, 'native', ph))).toBe(false);
+		expect(() => readApps({ apps: [buildEntry('showcase', { ...draft, category: 'GameApplication' }, 'native', ph)] })).not.toThrow();
 	});
 
 	it('writes, for every category, an entry with the fields its schema requires and no others', () => {

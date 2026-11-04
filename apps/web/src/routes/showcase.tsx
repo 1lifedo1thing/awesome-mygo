@@ -1,5 +1,6 @@
 import { APPS, type AppKind, MYGO_SHOWCASE, likeKey, pad2, pick } from '@awesome-mygo/catalog';
-import { createFileRoute } from '@tanstack/react-router';
+import { groupChips, validateShowcaseSearch } from '../lib/showcase';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import { AppLink, KindTag, MonoTile, WinBar, appView } from '../components/bits';
 import { LikeButton } from '../components/Like';
@@ -8,6 +9,8 @@ import { useLikes } from '../lib/likes';
 import { pageHead } from '../lib/seo';
 
 export const Route = createFileRoute('/showcase')({
+	// ?cat= and ?ui= keep the filters in the address, so a filtered list can be shared; an unknown value is dropped by the canonical-URL redirect.
+	validateSearch: validateShowcaseSearch,
 	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/showcase', title: 'title_showcase', desc: 'desc_showcase', name: 'cat_show_name' }),
 	component: ShowcasePage,
 });
@@ -17,18 +20,17 @@ type Sort = 'default' | 'likes' | 'az' | 'author';
 function ShowcasePage() {
 	const t = useT();
 	const lang = useLang();
-	const [kind, setKind] = useState<'all' | AppKind>('all');
+	const { cat: group, ui: kind } = Route.useSearch();
+	const navigate = useNavigate({ from: '/showcase' });
+	const setFilter = (next: { cat?: typeof group; ui?: AppKind }) => void navigate({ search: (prev) => ({ ...prev, ...next }), replace: true, resetScroll: false });
 	const { status: likes, counts } = useLikes();
 	const [sort, setSort] = useState<Sort>('default');
 
 	const nNative = APPS.filter((a) => a.kind === 'native').length;
-	const chips = [
-		{ key: 'all', label: `${t.all} · ${APPS.length}` },
-		{ key: 'native', label: `${t.surf_native} · ${nNative}` },
-		{ key: 'web', label: `${t.web_fe} · ${APPS.length - nNative}` },
-	] as const;
-
-	const list = APPS.filter((a) => kind === 'all' || a.kind === kind);
+	// The groups count the apps of the chosen interface, so a chip never leads to an empty list.
+	const ofKind = APPS.filter((a) => !kind || a.kind === kind);
+	const chips = groupChips(ofKind, group);
+	const list = ofKind.filter((a) => !group || chips.some((c) => c.key === group && c.apps.includes(a)));
 	if (sort === 'az') list.sort((a, b) => a.name.localeCompare(b.name));
 	if (sort === 'author') list.sort((a, b) => a.author.localeCompare(b.author));
 	// Most liked first; ties keep the listing order.
@@ -50,23 +52,38 @@ function ShowcasePage() {
 				<span className='show-count'>{pad2(list.length)}</span>
 			</div>
 			<div className='filterbar'>
-				<div className='chips' role='group' aria-label={t.a_kind}>
+				<div className='chips' role='group' aria-label={t.a_cats}>
+					<button type='button' className='chip' onClick={() => setFilter({ cat: undefined })} aria-pressed={!group}>
+						{`${t.all} · ${ofKind.length}`}
+					</button>
 					{chips.map((c) => (
-						<button key={c.key} type='button' className='chip' onClick={() => setKind(c.key)} aria-pressed={kind === c.key}>
-							{c.label}
+						<button key={c.key} type='button' className='chip' onClick={() => setFilter({ cat: c.key })} aria-pressed={group === c.key}>
+							{`${t[`grp_${c.key}`]} · ${c.apps.length}`}
 						</button>
 					))}
 				</div>
-				<div className='sort'>
-					<label htmlFor='sort' className='sort-label'>
-						{t.sort}
-					</label>
-					<select id='sort' value={sort} onChange={(e) => setSort(e.target.value as Sort)} className='sort-select'>
-						<option value='default'>{t.sort_def}</option>
-						{likes !== 'off' && <option value='likes'>{t.sort_likes}</option>}
-						<option value='az'>{t.sort_az}</option>
-						<option value='author'>{t.sort_author}</option>
-					</select>
+				<div className='filter-selects'>
+					<div className='sort'>
+						<label htmlFor='ui' className='sort-label'>
+							{t.f_ui}
+						</label>
+						<select id='ui' value={kind ?? 'all'} onChange={(e) => setFilter({ ui: e.target.value === 'all' ? undefined : (e.target.value as AppKind) })} className='sort-select'>
+							<option value='all'>{`${t.all} · ${APPS.length}`}</option>
+							<option value='native'>{`${t.surf_native} · ${nNative}`}</option>
+							<option value='web'>{`${t.web_fe} · ${APPS.length - nNative}`}</option>
+						</select>
+					</div>
+					<div className='sort'>
+						<label htmlFor='sort' className='sort-label'>
+							{t.sort}
+						</label>
+						<select id='sort' value={sort} onChange={(e) => setSort(e.target.value as Sort)} className='sort-select'>
+							<option value='default'>{t.sort_def}</option>
+							{likes !== 'off' && <option value='likes'>{t.sort_likes}</option>}
+							<option value='az'>{t.sort_az}</option>
+							<option value='author'>{t.sort_author}</option>
+						</select>
+					</div>
 				</div>
 			</div>
 			<div className='show-grid'>
@@ -99,6 +116,14 @@ function ShowcasePage() {
 					);
 				})}
 			</div>
+			{list.length === 0 && (
+				<div className='show-empty'>
+					<p>{t.f_none}</p>
+					<button type='button' className='btn-g btn-44 btn-outline' onClick={() => setFilter({ cat: undefined, ui: undefined })}>
+						{t.f_clear}
+					</button>
+				</div>
+			)}
 		</section>
 	);
 }

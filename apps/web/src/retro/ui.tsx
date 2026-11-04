@@ -18,6 +18,8 @@ export const btnGoSm = `${BTN} ${GO} h-[24px] px-2.5`;
 const LIKE = 'inline-flex cursor-pointer items-center gap-1 rounded-full border border-line bg-hi tabular-nums shadow-[0_1px_1px_rgb(16_35_58/.06)] transition-colors hover:text-[#e5486b] aria-pressed:border-[#f3a7b8] aria-pressed:bg-[#fff0f3] aria-pressed:text-[#e5486b] disabled:cursor-default';
 export const likeBtn = `${LIKE} h-[24px] px-2 text-xs`;
 export const likeBtnLg = `${LIKE} h-[28px] px-3`;
+// A drop-down with its own chevron, 8 px from the edge, rather than the browser's, which crowds the text.
+export const select = 'h-[24px] cursor-pointer appearance-none rounded-md border border-line bg-hi pr-6 pl-2 chevron';
 export const seg = '-ml-px first:ml-0 not-first:rounded-l-none not-last:rounded-r-none';
 // A text field.
 export const field = 'flex h-[24px] items-center gap-1.5 rounded-md border border-line bg-hi px-2';

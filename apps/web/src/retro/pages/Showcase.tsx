@@ -1,12 +1,13 @@
 import { APPS, type AppKind, MYGO_SHOWCASE, fill, likeKey, pick } from '@awesome-mygo/catalog';
-import { Link } from '@tanstack/react-router';
+import { Link, useNavigate, useSearch } from '@tanstack/react-router';
 import { useState } from 'react';
 import { AppLink } from '../../components/bits';
 import { LikeButton } from '../../components/Like';
 import { useLang, useT } from '../../lib/lang';
 import { useLikes } from '../../lib/likes';
+import { groupChips } from '../../lib/showcase';
 import { useSite } from '../../lib/site';
-import { AppIcon, Note, StatusBar, Win, btnGo, btnSm, seg, iconLabel, likeBtn, lnk, well } from '../ui';
+import { AppIcon, Note, StatusBar, Win, btnGo, btnSm, iconLabel, likeBtn, lnk, seg, select, well } from '../ui';
 import { noShot } from './AppPage';
 
 type Sort = 'default' | 'likes' | 'az' | 'author';
@@ -29,7 +30,11 @@ export function Showcase() {
 	const t = useT();
 	const lang = useLang();
 	const { openSubmit } = useSite();
-	const [kind, setKind] = useState<'all' | AppKind>('all');
+	// The group and the interface are kept in the address (?cat=, ?ui=), as in the original look; the author and the sort stay on this page.
+	const { cat: group, ui } = useSearch({ from: '/showcase' });
+	const kind = ui ?? 'all';
+	const navigate = useNavigate({ from: '/showcase' });
+	const setFilter = (next: { cat?: typeof group; ui?: AppKind }) => void navigate({ search: (prev) => ({ ...prev, ...next }), replace: true, resetScroll: false });
 	const [author, setAuthor] = useState<string | null>(null);
 	const { status: likes, counts } = useLikes();
 	const [sort, setSort] = useState<Sort>('default');
@@ -40,7 +45,10 @@ export function Showcase() {
 		{ key: 'web', label: t.web_fe, n: N_WEB },
 	] as const;
 
-	const list = APPS.filter((a) => (kind === 'all' || a.kind === kind) && (author === null || a.author === author));
+	const ofKind = APPS.filter((a) => kind === 'all' || a.kind === kind);
+	const groups = groupChips(ofKind, group);
+	const inGroup = group ? (groups.find((g) => g.key === group)?.apps ?? []) : ofKind;
+	const list = inGroup.filter((a) => author === null || a.author === author);
 	if (sort === 'az') list.sort((a, b) => a.name.localeCompare(b.name));
 	if (sort === 'author') list.sort((a, b) => a.author.localeCompare(b.author));
 	if (sort === 'likes') list.sort((a, b) => (counts[likeKey.app(b)] ?? 0) - (counts[likeKey.app(a)] ?? 0));
@@ -57,15 +65,25 @@ export function Showcase() {
 					</nav>
 					<div role='group' aria-label={t.a_kind} className='flex'>
 						{kinds.map((k) => (
-							<button key={k.key} type='button' aria-pressed={kind === k.key} onClick={() => setKind(k.key)} className={`${btnSm} ${seg}`}>
+							<button key={k.key} type='button' aria-pressed={kind === k.key} onClick={() => setFilter({ ui: k.key === 'all' ? undefined : k.key })} className={`${btnSm} ${seg}`}>
 								{k.label} <span className='tabular-nums opacity-70'>{k.n}</span>
 							</button>
 						))}
 					</div>
+					{/* Below the desktop width the side panel is hidden, so the groups are a menu here. */}
+					<label className='flex items-center gap-1.5 whitespace-nowrap desk:hidden'>
+						{t.a_cats}
+						<select value={group ?? ''} onChange={(e) => setFilter({ cat: groups.find((g) => g.key === e.target.value)?.key })} className={select}>
+							<option value=''>{`${t.all} · ${ofKind.length}`}</option>
+							{groups.map((g) => (
+								<option key={g.key} value={g.key}>{`${t[`grp_${g.key}`]} · ${g.apps.length}`}</option>
+							))}
+						</select>
+					</label>
 					<span className='flex-1' />
 					<label className='flex items-center gap-1.5 whitespace-nowrap'>
 						{t.sort}
-						<select value={sort} onChange={(e) => setSort(e.target.value as Sort)} className='h-[24px] cursor-pointer rounded-md border border-line bg-hi px-1.5'>
+						<select value={sort} onChange={(e) => setSort(e.target.value as Sort)} className={select}>
 							<option value='default'>{t.sort_def}</option>
 							{likes !== 'off' && <option value='likes'>{t.sort_likes}</option>}
 							<option value='az'>{t.sort_az}</option>
@@ -74,7 +92,24 @@ export function Showcase() {
 					</label>
 				</div>
 				<div className='grid gap-1 desk:min-h-0 desk:flex-1 desk:grid-cols-[176px_minmax(0,1fr)] desk:grid-rows-[minmax(0,1fr)]'>
-					<aside aria-label={t.f_author} className={`${well} relative hidden self-stretch px-1.5 py-2.5 desk:block desk:overflow-y-auto`}>
+					<aside aria-label={t.a_filter} className={`${well} relative hidden self-stretch px-1.5 py-2.5 desk:block desk:overflow-y-auto`}>
+						<p className='mx-1.5 mt-1 mb-0.5 text-faint'>{t.a_cats}</p>
+						<ul className='m-0 mb-3 list-none p-0'>
+							<li>
+								<button type='button' aria-pressed={!group} onClick={() => setFilter({ cat: undefined })} className={place}>
+									<span>{t.all}</span>
+									<span className='tabular-nums opacity-70'>{ofKind.length}</span>
+								</button>
+							</li>
+							{groups.map((g) => (
+								<li key={g.key}>
+									<button type='button' aria-pressed={group === g.key} onClick={() => setFilter({ cat: group === g.key ? undefined : g.key })} className={place}>
+										<span className='truncate'>{t[`grp_${g.key}`]}</span>
+										<span className='tabular-nums opacity-70'>{g.apps.length}</span>
+									</button>
+								</li>
+							))}
+						</ul>
 						<p className='mx-1.5 mt-1 mb-0.5 text-faint'>{t.f_author}</p>
 						<ul className='m-0 mb-3 list-none p-0'>
 							<li>
@@ -123,14 +158,29 @@ export function Showcase() {
 								<LikeButton item={likeKey.app(a)} name={a.name} className={`${likeBtn} absolute top-1.5 right-1.5`} size={12} />
 							</div>
 						))}
-						{list.length === 0 && (
-							<p className='col-span-full m-0'>
-								{t.no_res}{' '}
-								<button type='button' className={`${lnk} cursor-pointer border-0 bg-transparent p-0`} onClick={() => openSubmit('showcase')}>
-									{t.submit_it}
-								</button>
-							</p>
-						)}
+						{list.length === 0 &&
+							(group || ui || author !== null ? (
+								<p className='col-span-full m-0'>
+									{t.f_none}{' '}
+									<button
+										type='button'
+										className={`${lnk} cursor-pointer border-0 bg-transparent p-0`}
+										onClick={() => {
+											setAuthor(null);
+											setFilter({ cat: undefined, ui: undefined });
+										}}
+									>
+										{t.f_clear}
+									</button>
+								</p>
+							) : (
+								<p className='col-span-full m-0'>
+									{t.no_res}{' '}
+									<button type='button' className={`${lnk} cursor-pointer border-0 bg-transparent p-0`} onClick={() => openSubmit('showcase')}>
+										{t.submit_it}
+									</button>
+								</p>
+							))}
 					</div>
 				</div>
 				<StatusBar>

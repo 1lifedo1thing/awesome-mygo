@@ -1,4 +1,4 @@
-import { CatalogError, type EntryDraft, SUBMIT_CATS, type SubmitCat, buildEntry, entryProblem } from '@awesome-mygo/catalog';
+import { APP_CATEGORIES, CatalogError, type EntryDraft, SUBMIT_CATS, type SubmitCat, buildEntry, entryProblem } from '@awesome-mygo/catalog';
 import { createFileRoute } from '@tanstack/react-router';
 import { env } from 'cloudflare:workers';
 import { type BotConfig, SubmissionsBusy, openSubmission, verifyTurnstile } from '../../server/submit';
@@ -44,8 +44,11 @@ async function readSubmission(request: Request): Promise<Submission | undefined>
 	const cat = SUBMIT_CATS.find((c) => c === r.cat);
 	const mode = r.mode === 'web' ? 'web' : r.mode === 'native' || r.mode === undefined ? 'native' : undefined;
 	const [name, author, url, desc, token] = [str('name'), str('author') ?? '', str('url'), str('desc') ?? '', str('token')];
+	// A showcase entry may name its category; anything not in the schema's list is refused rather than dropped.
+	const category = r.category === undefined ? undefined : APP_CATEGORIES.find((c) => c === r.category);
+	if (r.category !== undefined && (!category || cat !== 'showcase')) return undefined;
 	if (!cat || !mode || name === undefined || url === undefined || !token || token.length > 2048) return undefined;
-	return { cat, mode, name, author, url, desc, token };
+	return { cat, mode, name, author, url, desc, token, category };
 }
 
 export const Route = createFileRoute('/api/submit')({
@@ -61,7 +64,7 @@ export const Route = createFileRoute('/api/submit')({
 				const ip = request.headers.get('cf-connecting-ip') ?? '';
 				if (!(await env.SUBMIT_LIMIT.limit({ key: ip || 'unknown' })).success) return json({ error: 'limited' }, 429);
 				const sub = await readSubmission(request);
-				if (!sub) return json({ error: 'invalid', message: 'expected a JSON object with cat, name, url, desc, author and token' }, 400);
+				if (!sub) return json({ error: 'invalid', message: 'expected a JSON object with cat, name, url, desc, author, token and, for the showcase, an optional category' }, 400);
 				const problem = entryProblem(sub.cat, sub);
 				if (problem) return json({ error: 'invalid', message: problem }, 400);
 				if (!(await verifyTurnstile(cfg.turnstileSecret, sub.token, ip))) return json({ error: 'captcha' }, 403);

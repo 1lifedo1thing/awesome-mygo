@@ -1,4 +1,4 @@
-import { DATA_DIR, SUBMIT_CATS, fill } from '@awesome-mygo/catalog';
+import { DATA_DIR, GROUP_CATEGORY, SUBMIT_CATS, fill } from '@awesome-mygo/catalog';
 import type { ReactNode } from 'react';
 import { useDialog } from '../lib/dialog';
 import { useT } from '../lib/lang';
@@ -10,6 +10,9 @@ import { PixelIcon, Win, btn, btnGo, lnk, well } from './ui';
 const input = 'block h-[30px] w-full min-w-0 rounded-md border border-line bg-hi px-2 outline-offset-0 placeholder:text-faint aria-invalid:border-red aria-invalid:bg-[#fff1ec]';
 // Greyed push buttons for actions that are not ready yet.
 const off = 'disabled:cursor-not-allowed disabled:bg-face disabled:text-lo';
+
+// The showcase groups a submission can pick, without Other. Optional: a second press clears the pick.
+const GROUPS = Object.keys(GROUP_CATEGORY) as (keyof typeof GROUP_CATEGORY)[];
 
 export function RetroSubmit() {
 	const { modal } = useSite();
@@ -80,6 +83,18 @@ function Dialog() {
 									{(['native', 'web'] as const).map((m) => (
 										<Radio key={m} checked={form.mode === m} onSelect={() => setFormField('mode', m)}>
 											{m === 'native' ? t.surf_native : t.web_fe}
+										</Radio>
+									))}
+								</div>
+							</div>
+						)}
+						{isShow && (
+							<div>
+								<span className='mb-1 block text-muted'>{t.m_group}</span>
+								<div role='radiogroup' aria-label={t.m_group} className='flex flex-wrap gap-x-2 gap-y-1'>
+									{GROUPS.map((g) => (
+										<Radio key={g} checked={form.category === GROUP_CATEGORY[g]} onSelect={() => setFormField('category', form.category === GROUP_CATEGORY[g] ? undefined : GROUP_CATEGORY[g])}>
+											{t[`grp_${g}`]}
 										</Radio>
 									))}
 								</div>
