@@ -1198,6 +1198,14 @@ html:lang(ko) .site {
 	height: 36px;
 	flex: none;
 }
+.marq-letter {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 22.5%;
+	font-size: 18px;
+	font-weight: 800;
+}
 
 /* ---- home sections ---- */
 .sec {

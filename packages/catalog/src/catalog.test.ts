@@ -31,10 +31,14 @@ describe('catalog data', () => {
 		expect(Object.keys(ABOUT).sort()).toEqual(APPS.map((a) => a.slug).sort());
 	});
 
-	it('takes icons from ai-logo, and the official icon only for the apps it does not list', () => {
-		const local = APPS.filter((a) => !a.icon.startsWith(AILOGO_CDN)).map((a) => a.slug);
-		expect(local.sort()).toEqual(['2048', 'repo-hopper', 'tomoru', 'uma']);
-		for (const a of APPS) expect(a.icon).toMatch(a.icon.startsWith(AILOGO_CDN) ? /^https:\/\/ailogo\.yldm\.ai\/avatar\/[a-z0-9]+\.webp$/ : new RegExp(`^/icons/${a.slug}\\.webp$`));
+	it('takes icons from ai-logo, a local official icon for a few, and none for the apps on the mygo init default', () => {
+		const slugs = (pred: (icon: string | undefined) => boolean) => APPS.filter((a) => pred(a.icon)).map((a) => a.slug).sort();
+		expect(slugs((i) => i === undefined)).toEqual(['2048', 'uma']);
+		expect(slugs((i) => i !== undefined && !i.startsWith(AILOGO_CDN))).toEqual(['mygo-cloudmusic', 'repo-hopper', 'tomoru']);
+		for (const a of APPS) {
+			if (!a.icon) continue;
+			expect(a.icon).toMatch(a.icon.startsWith(AILOGO_CDN) ? /^https:\/\/ailogo\.yldm\.ai\/avatar\/[a-z0-9]+\.webp$/ : new RegExp(`^/icons/${a.slug}\\.webp$`));
+		}
 	});
 
 	it('serves screenshots from /shots/', () => {

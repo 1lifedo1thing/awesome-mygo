@@ -46,8 +46,8 @@ export interface App {
 	about: Localized;
 	// Screenshot under /shots/, when the project provides one.
 	image?: string;
-	// The app's icon: its ai-logo avatar on the ai-logo CDN, or its official icon under /icons/ when ai-logo does not list it.
-	icon: string;
+	// The app's icon: its ai-logo avatar on the ai-logo CDN, its official icon under /icons/ when ai-logo has none that serves (MyGo Cloud Music's mark there is cut by its old tile), or none, for the letter tile.
+	icon?: string;
 }
 
 const N: AppKind = 'native';
@@ -113,7 +113,6 @@ const AILOGO_IDS: Record<string, string> = {
 	pulse: 'pulse',
 	kero: 'kero',
 	lorca: 'lorca',
-	'mygo-cloudmusic': 'mygocloudmusic',
 	gorex: 'gorex',
 	godiff: 'godiff',
 	liubai: 'liubai',
@@ -130,7 +129,13 @@ const AILOGO_IDS: Record<string, string> = {
 	apigo: 'apigo',
 };
 
-const iconOf = (slug: string) => (AILOGO_IDS[slug] ? `${AILOGO_CDN}${AILOGO_IDS[slug]}.webp` : `/icons/${slug}.webp`);
+// 2048 and Uma still ship the icon that `mygo init` draws for every new project (a ring on a blue-violet gradient), so the two would look identical and say nothing about either app: they keep the letter tile.
+const NO_ICON = new Set(['2048', 'uma']);
+
+const iconOf = (slug: string) => {
+	if (NO_ICON.has(slug)) return undefined;
+	return AILOGO_IDS[slug] ? `${AILOGO_CDN}${AILOGO_IDS[slug]}.webp` : `/icons/${slug}.webp`;
+};
 
 export const APPS: readonly App[] = APP_ROWS.map(([slug, name, author, kind, url, desc]) => {
 	const about = ABOUT[slug];
