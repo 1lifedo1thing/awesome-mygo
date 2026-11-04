@@ -1,0 +1,17 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "popmind",
+	"name": "popMind",
+	"author": "coderPerseus",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://pm.luckysnail.cn/",
+	"repo": "coderPerseus/popMind",
+	"summary": {
+		"en": "raycast + bob + paste = popMind  ，聚合快捷搜索窗口 + 划词翻译，解释 + 剪切板 ，自己每天在使用"
+	},
+	"description": {
+		"en": "raycast + bob + paste = popMind  ，聚合快捷搜索窗口 + 划词翻译，解释 + 剪切板 ，自己每天在使用"
+	},
+	"added": "2026-11-04T15:22:09Z"
+}
