@@ -1,19 +1,28 @@
 {
 	"$schema": "../schema/app.schema.json",
-	"added": "2026-11-04T16:36:00Z",
-	"author": "owocc",
-	"category": "DesignApplication",
-	"description": {
-		"en": "Point Bowerbird at a folder and it becomes a library: files are hashed with SHA-256 to remove duplicates, palettes are extracted on import, and assets can be filtered by color, type, tag, virtual folder and orientation. Images and video preview in place, previews and imports are extensible through plugins with a plugin store, and a library is a portable .library package with no upload and no account. It runs on macOS, Windows and Linux, with a mobile app and a browser extension in the same workspace.",
-		"zh-CN": "把文件夹交给 Bowerbird 就成了一个素材库：文件按 SHA-256 去重、导入时自动提色板，可按颜色、类型、标签、虚拟文件夹和方向筛选，图片视频都能原地预览。预览和导入都支持插件，还有插件商店；库是可携带的 .library 包，不上传、不开账号。macOS、Windows、Linux 都能跑，同一仓库里还有移动端和浏览器扩展。"
-	},
-	"kind": "web",
-	"name": "Bowerbird",
-	"repo": "owocc/bowerbird",
 	"slug": "bowerbird",
+	"name": "Bowerbird",
+	"author": "owocc",
+	"kind": "web",
+	"category": "MultimediaApplication",
+	"url": "https://github.com/owocc/bowerbird",
+	"repo": "owocc/bowerbird",
 	"summary": {
-		"en": "Local-first asset library for images, video and files, built with MyGo.",
-		"zh-CN": "本地优先的素材库，收图片、视频和各类文件，基于 MyGo 构建。"
+		"en": "A local-first asset library for your images, video and other files.",
+		"zh-CN": "本地优先的素材库，收纳图片、视频和各类文件。",
+		"zh-TW": "本地優先的素材庫，收納圖片、影片與各類檔案。",
+		"ja": "画像、動画、その他のファイルをまとめるローカルファーストの素材ライブラリ。",
+		"ko": "이미지, 동영상과 각종 파일을 모아 두는 로컬 우선 에셋 라이브러리."
 	},
-	"url": "https://github.com/owocc/bowerbird"
+	"description": {
+		"en": "Point Bowerbird at a folder and it becomes a library: files are hashed with SHA-256 to remove duplicates, palettes are extracted on import, and assets can be filtered by color, type, tag, virtual folder and orientation. Images and video preview in place, the preview and the inspector are extensible through plugins with a plugin store, and a library is a portable .library package with no upload and no account. It runs on macOS, Windows and Linux, with a mobile app and a browser extension in the same workspace.",
+		"zh-CN": "把文件夹交给 Bowerbird 就成了一个素材库：文件按 SHA-256 去重、导入时自动提取色板，可按颜色、类型、标签、虚拟文件夹和方向筛选，图片和视频都能原地预览。预览区和检查器都能用插件扩展，还有插件商店；库是可携带的 .library 包，不上传、不用注册账号。macOS、Windows、Linux 都能运行，同一仓库里还有移动端和浏览器扩展。",
+		"zh-TW": "把資料夾交給 Bowerbird 就成了一個素材庫：檔案以 SHA-256 去重、匯入時自動擷取色票，可依顏色、類型、標籤、虛擬資料夾與方向篩選，圖片和影片都能原地預覽。預覽區和檢視面板都能用外掛擴充，還有外掛商店；素材庫是可攜帶的 .library 套件，不上傳、不用註冊帳號。macOS、Windows、Linux 都能執行，同一個儲存庫裡還有行動版和瀏覽器擴充功能。",
+		"ja": "フォルダを Bowerbird に渡すだけでライブラリになります。ファイルは SHA-256 で重複を除き、取り込み時にパレットを抽出し、色・種類・タグ・仮想フォルダ・向きで絞り込めます。画像も動画もその場でプレビューでき、プレビューとインスペクタはプラグインストア付きのプラグインで拡張できます。ライブラリは持ち運べる .library パッケージで、アップロードもアカウントも不要です。macOS、Windows、Linux で動き、同じリポジトリにモバイルアプリとブラウザ拡張もあります。",
+		"ko": "폴더를 Bowerbird에 지정하면 라이브러리가 됩니다. 파일은 SHA-256으로 중복을 없애고, 가져올 때 팔레트를 추출하며, 색상·유형·태그·가상 폴더·방향으로 걸러 볼 수 있습니다. 이미지와 동영상은 그 자리에서 미리 보고, 미리보기와 인스펙터는 플러그인 스토어가 있는 플러그인으로 확장할 수 있습니다. 라이브러리는 옮겨 다닐 수 있는 .library 패키지이며 업로드도 계정도 필요 없습니다. macOS, Windows, Linux에서 실행되고, 같은 저장소에 모바일 앱과 브라우저 확장도 있습니다."
+	},
+	"icon": {
+		"file": "bowerbird.webp"
+	},
+	"added": "2026-11-04T16:36:00Z"
 }
