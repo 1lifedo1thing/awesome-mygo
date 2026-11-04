@@ -1,0 +1,17 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "lody-mygo",
+	"name": "lody-mygo",
+	"author": "lbr77",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/lbr77/lody-mygo",
+	"repo": "lbr77/lody-mygo",
+	"summary": {
+		"en": "Lody Native is a desktop client for lody.ai, written in Go. Its interface is drawn directly on the GPU by the ui package of MyGo and it talks to Lody Cloud the way Lody's own apps do."
+	},
+	"description": {
+		"en": "Lody Native is a desktop client for lody.ai, written in Go. Its interface is drawn directly on the GPU by the ui package of MyGo and it talks to Lody Cloud the way Lody's own apps do."
+	},
+	"added": "2026-11-04T12:28:00Z"
+}
