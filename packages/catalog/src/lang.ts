@@ -58,25 +58,25 @@ export function pick(text: Text, code: LangCode): string {
 // User agents that never get the browser-language redirect: search and AI crawlers, link-preview fetchers and audit tools. A crawler is shown exactly the language the URL declares, so the zh-CN bare URLs (also the hreflang x-default) are not seen as redirects to their ?lang= twins. Several Google fetchers (Google-InspectionTool, GoogleOther) have no "bot" in the UA, hence the explicit names. Brand names that also appear in browser UAs are left out: DuckDuckGo's mobile browsers and the NAVER app's in-app browser carry "DuckDuckGo/7" and "NAVER(inapp; …)", while their crawlers, DuckDuckBot and Yeti, are already matched.
 export const CRAWLER_UA = /bot|crawl|spider|slurp|google|bing|baidu|yandex|sogou|petal|yeti|bytespider|applebot|facebookexternalhit|twitterbot|slackbot|discordbot|linkedinbot|telegrambot|whatsapp|preview|lighthouse/i;
 
-// How a page was reached, for the bare-URL language choice. referrer is document.referrer ('' for a typed or bookmarked visit); origin is the site's own origin.
-export interface LangVisit {
-	userAgent?: string;
-	referrer?: string;
-	origin?: string;
+// The site's language for one browser language tag, or null for a language the site does not speak. Chinese goes by script, then region: Hans is Simplified wherever it is used, Hant and the regions that write Traditional (Taiwan, Hong Kong, Macau) are Traditional, and everything else is Simplified.
+export function langOfTag(tag: string): LangCode | null {
+	const t = tag.toLowerCase();
+	if (t.startsWith('zh')) return t.includes('hans') ? 'zh-CN' : /hant|tw|hk|mo/.test(t) ? 'zh-TW' : 'zh-CN';
+	if (t.startsWith('ja')) return 'ja';
+	if (t.startsWith('ko')) return 'ko';
+	if (t.startsWith('en')) return 'en';
+	return null;
 }
 
-// The language a visit on a bare URL should switch to (the default language means stay). A crawler always stays. A previously saved choice wins next. A visitor arriving from another site (a search result, a shared link) keeps the language the URL declares, so a search engine's hreflang choice holds; a typed, bookmarked or same-site visit follows the browser language, then the default.
-export function negotiateLang(saved: string | null, browser: string | null | undefined, visit: LangVisit = {}): LangCode {
-	if (CRAWLER_UA.test(visit.userAgent ?? '')) return DEFAULT_LANG;
+// The language a visit on a bare URL should switch to (the default language means stay). A crawler always stays, so search engines see each URL in the language it declares. A choice the visitor saved on the site wins next. Otherwise the browser's languages are tried in its order of preference (navigator.languages), whichever way the visitor arrived, a shared link or a search result included; a browser with none of the site's languages gets English, the one most visitors who read neither Chinese, Japanese nor Korean can read.
+export function negotiateLang(saved: string | null, browser: readonly string[] | null | undefined, userAgent = ''): LangCode {
+	if (CRAWLER_UA.test(userAgent)) return DEFAULT_LANG;
 	if (isLangCode(saved)) return saved;
-	const ref = visit.referrer ?? '';
-	if (ref && !ref.startsWith(`${visit.origin ?? ''}/`)) return DEFAULT_LANG;
-	const nl = (browser ?? '').toLowerCase();
-	if (nl.startsWith('zh')) return nl.includes('tw') || nl.includes('hk') || nl.includes('hant') ? 'zh-TW' : 'zh-CN';
-	if (nl.startsWith('ja')) return 'ja';
-	if (nl.startsWith('ko')) return 'ko';
-	if (nl.startsWith('en')) return 'en';
-	return DEFAULT_LANG;
+	for (const tag of browser ?? []) {
+		const lang = langOfTag(tag);
+		if (lang) return lang;
+	}
+	return 'en';
 }
 
 export function fill(template: string, values: { x?: string; n?: number | string }): string {
@@ -89,5 +89,5 @@ export function fill(template: string, values: { x?: string; n?: number | string
 // The same choice as negotiateLang, as an inline <head> script: it runs before React hydrates, so a first visit on a bare URL is sent to its ?lang= page by the server instead of switching language mid-hydration (which made React report hydration mismatches and flashed the Chinese page first). Any explicit valid ?lang=, the default language included, is final. Kept in sync with negotiateLang by the tests.
 export function langRedirectScript(): string {
 	const codes = JSON.stringify(LANGS.map((l) => l.code));
-	return `(function(){var C=${codes},D=${JSON.stringify(DEFAULT_LANG)},u=new URL(location.href),q=u.searchParams.get('lang');if(q&&C.indexOf(q)>=0)return;if(${CRAWLER_UA}.test(navigator.userAgent||''))return;var s=null;try{s=localStorage.getItem(${JSON.stringify(LANG_STORAGE_KEY)})}catch(e){}var w;if(s&&C.indexOf(s)>=0)w=s;else{var r=document.referrer||'';if(r&&r.indexOf(location.origin+'/')!==0)return;var n=(navigator.language||'').toLowerCase();w=n.indexOf('zh')===0?(n.indexOf('tw')>=0||n.indexOf('hk')>=0||n.indexOf('hant')>=0?'zh-TW':'zh-CN'):n.indexOf('ja')===0?'ja':n.indexOf('ko')===0?'ko':n.indexOf('en')===0?'en':D}if(w===D)return;u.searchParams.set('lang',w);location.replace(u.toString())})()`;
+	return `(function(){var C=${codes},D=${JSON.stringify(DEFAULT_LANG)},u=new URL(location.href),q=u.searchParams.get('lang');if(q&&C.indexOf(q)>=0)return;if(${CRAWLER_UA}.test(navigator.userAgent||''))return;var s=null;try{s=localStorage.getItem(${JSON.stringify(LANG_STORAGE_KEY)})}catch(e){}var w=null;if(s&&C.indexOf(s)>=0)w=s;else{var L=navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||''];for(var i=0;i<L.length&&!w;i++){var n=String(L[i]||'').toLowerCase();w=n.indexOf('zh')===0?(n.indexOf('hans')>=0?'zh-CN':/hant|tw|hk|mo/.test(n)?'zh-TW':'zh-CN'):n.indexOf('ja')===0?'ja':n.indexOf('ko')===0?'ko':n.indexOf('en')===0?'en':null}w=w||'en'}if(w===D)return;u.searchParams.set('lang',w);location.replace(u.toString())})()`;
 }
