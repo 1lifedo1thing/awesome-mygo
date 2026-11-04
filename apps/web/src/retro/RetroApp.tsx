@@ -1,6 +1,7 @@
 import { DEFAULT_LANG, LANGS, type RootSearch, SITE_REPO, langDef } from '@awesome-mygo/catalog';
 import { Link, useLocation, useMatches } from '@tanstack/react-router';
 import { type ComponentType, useEffect, useRef, useState } from 'react';
+import { GitHubMark } from '../components/bits';
 import { NAV } from '../components/Header';
 import { useLang, useSetLang, useT } from '../lib/lang';
 import { useSite } from '../lib/site';
@@ -124,9 +125,9 @@ function useMenu() {
 	return { open, setOpen, ref };
 }
 
-const menuBtn = 'h-[30px] cursor-pointer border-0 bg-transparent px-2.5 hover:bg-ink hover:text-paper aria-expanded:bg-ink aria-expanded:text-paper';
-const dropdown = 'absolute top-[30px] right-0 z-50 m-0 min-w-[160px] list-none border border-ink bg-paper py-[3px] shadow-[4px_4px_0_rgba(16,35,58,.55)]';
-const dropItem = 'flex justify-between gap-4 px-3.5 leading-[22px] no-underline hover:bg-ink hover:text-paper aria-[current=page]:bg-ink aria-[current=page]:text-yel';
+const menuBtn = 'h-[24px] cursor-pointer rounded-md border-0 bg-transparent px-2.5 hover:bg-ink/5 aria-expanded:bg-ink/8';
+const dropdown = 'absolute top-[27px] right-0 z-50 m-0 min-w-[160px] list-none rounded-lg border border-line bg-paper p-1 shadow-pop';
+const dropItem = 'flex justify-between gap-4 rounded-md px-2.5 leading-[26px] no-underline hover:bg-ink/5 aria-[current=page]:bg-ink/8 aria-[current=page]:font-semibold';
 
 function MenuBar() {
 	const t = useT();
@@ -138,14 +139,14 @@ function MenuBar() {
 	const navMenu = useMenu();
 
 	return (
-		<header className='px-text sticky top-0 text-xs z-40 flex h-[30px] flex-none items-stretch gap-0.5 border-b border-ink bg-paper px-2.5 shadow-[inset_0_1px_0_var(--color-hi)]'>
-			<Link to='/' aria-label={t.a_home} className='flex items-center gap-2 pr-2.5 pl-1 no-underline hover:bg-ink hover:text-paper'>
-				<img src='/icon-32.png' srcSet='/icon-32.png 1x, /icon-192.png 2x' width={20} height={20} alt='' className='size-5 border border-ink' />
+		<header className='sticky top-0 z-40 flex h-[30px] flex-none items-center gap-0.5 border-b border-line bg-paper/85 px-2.5 backdrop-blur-md'>
+			<Link to='/' aria-label={t.a_home} className='flex h-[24px] items-center gap-2 rounded-md pr-2.5 pl-1 font-semibold no-underline hover:bg-ink/5'>
+				<img src='/icon-32.png' srcSet='/icon-32.png 1x, /icon-192.png 2x' width={20} height={20} alt='' className='size-5 rounded-[5px]' />
 				<span className='hidden whitespace-nowrap min-[480px]:inline'>Awesome MyGo</span>
 			</Link>
 			<nav aria-label={t.a_cats} className='hidden desk:flex'>
 				{NAV.map((n) => (
-					<Link key={n.to} to={n.to} activeOptions={{ exact: true, includeSearch: false }} className='flex h-[30px] items-center px-[11px] no-underline hover:bg-ink hover:text-paper aria-[current=page]:bg-ink aria-[current=page]:text-yel'>
+					<Link key={n.to} to={n.to} activeOptions={{ exact: true, includeSearch: false }} className='flex h-[24px] items-center rounded-md px-[10px] no-underline hover:bg-ink/5 aria-[current=page]:bg-ink/8 aria-[current=page]:font-semibold'>
 						{t[n.key]}
 					</Link>
 				))}
@@ -163,14 +164,14 @@ function MenuBar() {
 				</div>
 			</div>
 			<div className='ml-auto flex items-center gap-2'>
-				<button type='button' onClick={openPalette} aria-label={t.search_label} className='flex h-[22px] cursor-pointer items-center gap-1.5 border border-ink bg-hi px-1.5 text-faint sunken'>
+				<button type='button' onClick={openPalette} aria-label={t.search_label} className='flex h-[24px] cursor-pointer items-center gap-1.5 rounded-md border border-line bg-hi/70 px-2 text-faint'>
 					<span aria-hidden='true'>⌕</span>
 					<span className='hidden w-[150px] text-left desk:inline'>{t.search_btn}</span>
-					<span aria-hidden='true' className='hidden border border-lo px-1 leading-[14px] desk:inline'>
+					<span aria-hidden='true' className='hidden rounded border border-line px-1 text-[11px] leading-[14px] desk:inline'>
 						⌘K
 					</span>
 				</button>
-				<div className='relative flex self-stretch' ref={langMenu.ref}>
+				<div className='relative flex' ref={langMenu.ref}>
 					<button type='button' className={menuBtn} aria-haspopup='menu' aria-expanded={langMenu.open} aria-label={t.lang} onClick={() => langMenu.setOpen((v) => !v)}>
 						{langDef(lang).short} ▾
 					</button>
@@ -200,13 +201,16 @@ function MenuBar() {
 						))}
 					</div>
 				</div>
-				<button type='button' className={`${btn} h-[22px] px-2.5`} onClick={() => switchTheme('original')} title={t.a_theme}>
+				<a href={SITE_REPO} target='_blank' rel='noopener' aria-label='GitHub' title='GitHub' className='grid size-[24px] place-items-center rounded-md hover:bg-ink/5'>
+					<GitHubMark size={16} />
+				</a>
+				<button type='button' className={`${btn} h-[24px] px-2.5`} onClick={() => switchTheme('original')} title={t.a_theme}>
 					{t.theme_original}
 				</button>
-				<button type='button' className={`${btnGo} h-[22px] px-2.5 outline-1 outline-offset-1`} onClick={() => openSubmit()}>
+				<button type='button' className={`${btnGo} h-[24px] px-2.5`} onClick={() => openSubmit()}>
 					{t.submit_short}
 				</button>
-				<span aria-hidden='true' className='hidden min-w-[72px] pr-1 pl-1.5 text-right font-mono desk:inline' suppressHydrationWarning>
+				<span aria-hidden='true' className='hidden min-w-[72px] pr-1 pl-1.5 text-right tabular-nums desk:inline' suppressHydrationWarning>
 					{clock}
 				</span>
 			</div>
@@ -217,7 +221,7 @@ function MenuBar() {
 function Foot() {
 	const t = useT();
 	return (
-		<footer className='mt-14 flex min-h-[30px] flex-none flex-wrap items-center gap-x-[18px] gap-y-1.5 border-t border-ink bg-paper px-4 py-1 desk:mt-0 desk:flex-nowrap desk:overflow-hidden desk:whitespace-nowrap'>
+		<footer className='mt-14 flex min-h-[30px] flex-none flex-wrap items-center gap-x-[18px] gap-y-1.5 border-t border-line bg-paper/85 px-4 py-1 text-xs text-muted backdrop-blur-md desk:mt-0 desk:flex-nowrap desk:overflow-hidden desk:whitespace-nowrap'>
 			<span>{t.footer_l}</span>
 			<nav aria-label={t.a_site_nav} className='flex flex-wrap gap-x-3'>
 				{NAV.map((n) => (
@@ -227,7 +231,8 @@ function Foot() {
 				))}
 			</nav>
 			<span className='flex-1' />
-			<a className={lnk} href={SITE_REPO} target='_blank' rel='noopener'>
+			<a className={`${lnk} inline-flex items-center gap-1.5`} href={SITE_REPO} target='_blank' rel='noopener'>
+				<GitHubMark size={13} />
 				GitHub
 			</a>
 			<a className={lnk} href='https://github.com/sponsors/egoist' target='_blank' rel='noopener'>
@@ -250,7 +255,7 @@ function Toast() {
 	const { copied } = useSite();
 	const t = useT();
 	return (
-		<div role='status' aria-live='polite' className={`pointer-events-none fixed bottom-7 left-1/2 z-[99] -translate-x-1/2 border border-ink bg-paper px-4 py-2 outline-[3px] outline-offset-2 outline-ink outline-double transition-[opacity,translate] duration-150 ease-[steps(3)] ${copied ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'}`}>
+		<div role='status' aria-live='polite' className={`pointer-events-none fixed bottom-7 left-1/2 z-[99] -translate-x-1/2 rounded-lg border border-line bg-paper px-4 py-2 shadow-pop transition-[opacity,translate] duration-200 ease-out ${copied ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'}`}>
 			{copied ? t.toast : ''}
 		</div>
 	);

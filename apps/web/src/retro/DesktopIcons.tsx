@@ -5,14 +5,14 @@ import { useT } from '../lib/lang';
 import { useSite } from '../lib/site';
 import { Folder, PixelIcon } from './ui';
 
-const label = 'px-text text-xs border border-transparent bg-paper px-1 leading-4 group-hover:bg-ink group-hover:text-yel';
+const label = 'rounded px-1.5 text-xs leading-4 font-medium text-paper [text-shadow:0_1px_2px_rgb(0_0_0/.45)] group-hover:bg-ink/30';
 
 function Icon({ art, name, count }: { art: ReactNode; name: string; count?: number }) {
 	return (
 		<>
-			<span className='group-hover:brightness-[.72] group-hover:saturate-[1.2]'>{art}</span>
+			<span className='group-hover:brightness-90'>{art}</span>
 			<span className={label}>{name}</span>
-			{count !== undefined && <span className='px-text text-xs leading-[14px] text-paper'>{count}</span>}
+			{count !== undefined && <span className='text-[11px] leading-[14px] text-paper/80'>{count}</span>}
 		</>
 	);
 }

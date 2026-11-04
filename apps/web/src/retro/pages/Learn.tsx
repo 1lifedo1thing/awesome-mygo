@@ -33,14 +33,13 @@ function Reader() {
 	const t = useT();
 	return (
 		<Win level={1} title={t.learn_h}>
-			<div className={`${well} relative pt-3`}>
-				<span aria-hidden='true' className='absolute inset-x-0 top-0 h-3 border-b border-lo ruler' />
+			<div className={`${well} relative`}>
 				{ARTICLES.map((ar) => (
-					<article key={ar.url} className='border-b border-dotted border-lo px-5 pt-5 pb-5 last:border-b-0 desk:px-10 desk:pt-7 desk:pb-7'>
+					<article key={ar.url} className='border-b border-line px-5 pt-5 pb-5 last:border-b-0 desk:px-10 desk:pt-7 desk:pb-7'>
 						<p className='m-0 mb-3'>
-							<span className='inline-block border border-ink bg-yel px-1.5 leading-4'>{fill(t.article_k, { x: ar.site })}</span>
+							<span className='inline-block rounded-full bg-yel px-2 text-xs leading-5'>{fill(t.article_k, { x: ar.site })}</span>
 						</p>
-						<h2 lang='en' className='m-0 mb-5 text-2xl leading-8 font-normal desk:text-[36px] desk:leading-[44px]'>
+						<h2 lang='en' className='m-0 mb-5 text-xl leading-7 font-semibold tracking-tight desk:text-[28px] desk:leading-[36px]'>
 							{ar.title}
 						</h2>
 						<a className={btnGo} href={ar.url} target='_blank' rel='noopener'>
@@ -90,15 +89,15 @@ function Guides() {
 		<Win title={t.guides_h} idle fill>
 			<ol className={`${well} relative m-0 list-none p-1.5 desk:min-h-0 desk:flex-1 desk:overflow-y-auto`}>
 				{DOCS.map((d, i) => (
-					<li key={d.url} className='border-b border-dotted border-[#d6cfbb] last:border-b-0'>
-						<a href={d.url} target='_blank' rel='noopener' className='group grid grid-cols-[22px_16px_1fr_auto] items-baseline gap-x-2.5 px-2 py-1.5 no-underline hover:bg-ink hover:text-paper'>
+					<li key={d.url} className='border-b border-line last:border-b-0'>
+						<a href={d.url} target='_blank' rel='noopener' className='group grid grid-cols-[22px_16px_1fr_auto] items-baseline gap-x-2.5 rounded-md px-2 py-1.5 no-underline hover:bg-ink/5'>
 							<span className='font-mono text-lo'>{pad2(i + 1)}</span>
 							<PixelIcon name='page' scale={1} className='self-center' />
 							<span lang='en' className='min-w-0'>
 								{d.title}
 							</span>
-							<span className='col-start-3 row-start-2 text-faint group-hover:text-[#c9c2ae]'>{pick(d.desc, lang)}</span>
-							<span aria-hidden='true' className='col-start-4 row-start-1 text-muted group-hover:text-yel'>
+							<span className='col-start-3 row-start-2 text-faint'>{pick(d.desc, lang)}</span>
+							<span aria-hidden='true' className='col-start-4 row-start-1 text-muted'>
 								↗
 							</span>
 						</a>

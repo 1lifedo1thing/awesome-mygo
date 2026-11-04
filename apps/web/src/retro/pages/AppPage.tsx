@@ -6,23 +6,23 @@ import { useLang, useT } from '../../lib/lang';
 import { useSite } from '../../lib/site';
 import { AppIcon, KindTag, StatusBar, Win, btn, btnGo, iconLabel, lnk, well } from '../ui';
 
-// The checkerboard behind an app that has no screenshot, as in the showcase grid.
-export const noShot = 'bg-[repeating-conic-gradient(#cfe7ef_0_25%,var(--color-paper)_0_50%)] bg-[length:4px_4px]';
+// The plain tint behind an app that has no screenshot, as in the showcase grid.
+export const noShot = 'bg-[linear-gradient(160deg,#eef2f6,#dde4ec)]';
 
-// The app's screenshot in an ink frame, or its icon and catalog number on the checkerboard when it has none.
+// The app's screenshot in a hairline frame, or its icon and catalog number on a plain tint when it has none.
 // `fit` caps the screenshot's height on the desktop to what the app page's window has left, so a screenshot taller than 16:10 does not push the description out of view; the frame then shrinks to the image's width.
 export function AppShot({ view, priority = false, fit = false }: { view: AppView; priority?: boolean; fit?: boolean }) {
 	const t = useT();
 	const { app } = view;
 	if (app.image) {
 		return (
-			<div className={`bg-ink p-[3px] ${fit ? 'desk:w-fit desk:max-w-full' : ''}`}>
+			<div className={`overflow-hidden rounded-lg border border-line ${fit ? 'desk:w-fit desk:max-w-full' : ''}`}>
 				<img key={app.slug} src={app.image} alt={`${app.name} ${t.app_shot}`} width={1200} height={750} fetchPriority={priority ? 'high' : undefined} decoding='async' className={`block h-auto w-full bg-paper ${fit ? 'desk:max-h-[calc(100dvh_-_400px)] desk:w-auto desk:max-w-full' : ''}`} />
 			</div>
 		);
 	}
 	return (
-		<div className={`relative grid aspect-[16/10] place-items-center border border-ink ${noShot}`}>
+		<div className={`relative grid aspect-[16/10] place-items-center rounded-lg border border-line ${noShot}`}>
 			<span aria-hidden='true' className='absolute top-2 left-3 font-mono text-[36px] leading-10 text-lo'>
 				{view.num}
 			</span>
@@ -39,7 +39,7 @@ export function AppHead({ app, kindLabel, className = '' }: { app: App; kindLabe
 			<div className='flex items-center gap-3'>
 				<AppIcon app={app} size={48} />
 				<div className='min-w-0'>
-					<p aria-hidden='true' className='m-0 truncate text-2xl leading-8'>
+					<p aria-hidden='true' className='m-0 truncate text-xl leading-7 font-semibold'>
 						{app.name}
 					</p>
 					<KindTag kind={app.kind} label={kindLabel} />
@@ -55,7 +55,7 @@ export function AppFacts({ view }: { view: AppView }) {
 	const t = useT();
 	const { app } = view;
 	return (
-		<dl className='m-0 grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 gap-y-0.5 border-y border-dotted border-lo py-2'>
+		<dl className='m-0 grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 gap-y-0.5 border-y border-line py-2'>
 			<dt className='text-faint'>{t.f_author}</dt>
 			<dd className='m-0 break-words'>{app.author}</dd>
 			<dt className='text-faint'>{t.f_ui}</dt>
@@ -97,11 +97,11 @@ export function MoreBy({ app, quick }: { app: App; quick: boolean }) {
 	const label = fill(t.more_by, { x: app.author });
 	return (
 		<div>
-			{quick ? <p className='m-0 mb-1 text-faint'>{label}</p> : <h2 className='m-0 mb-1 text-xs font-normal text-faint'>{label}</h2>}
+			{quick ? <p className='m-0 mb-1 text-faint'>{label}</p> : <h2 className='m-0 mb-1 text-xs font-medium text-faint'>{label}</h2>}
 			<ul className='m-0 list-none p-0'>
 				{others.map((o) => (
 					<li key={o.slug}>
-						<AppLink slug={o.slug} quick={quick} dialog={quick} className='group grid grid-cols-[24px_minmax(0,1fr)] items-center gap-x-2 border-b border-dotted border-lo py-1 no-underline'>
+						<AppLink slug={o.slug} quick={quick} dialog={quick} className='group grid grid-cols-[24px_minmax(0,1fr)] items-center gap-x-2 border-b border-line py-1 no-underline'>
 							<AppIcon app={o} size={24} />
 							<span className='min-w-0'>
 								<span className={`block truncate ${iconLabel} -ml-1 w-fit max-w-full`}>{o.name}</span>

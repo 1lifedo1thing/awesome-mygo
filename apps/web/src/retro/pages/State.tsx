@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useLang, useT } from '../../lib/lang';
 import { useSite } from '../../lib/site';
 import { DesktopIcons } from '../DesktopIcons';
-import { PixelIcon, StatusBar, Win, btn, btnGo, btnSm, field, well } from '../ui';
+import { PixelIcon, StatusBar, Win, btnGo, btnSm, field, well } from '../ui';
 
 type BlockId = 'bind' | 'chan' | 'evt';
 
@@ -22,7 +22,7 @@ export function State() {
 					</span>
 					<span className='flex-1' />
 					<span className='flex items-center gap-1.5'>
-						<span aria-hidden='true' className={`size-2 border border-ink bg-yel ${listed ? '' : 'animate-blink'}`} />
+						<span aria-hidden='true' className={`size-2 rounded-full bg-[#28c840] ${listed ? '' : 'animate-blink'}`} />
 						{listed ? fill(t.cat_state_count, { n: STATE_SOLUTIONS.length }) : t.cat_state_badge}
 					</span>
 				</div>
@@ -48,53 +48,48 @@ function Solutions() {
 	// Not `fill`: its cap is the grid area less the stagger offset, not the whole screen, so the window keeps its content height until the screen runs out.
 	return (
 		<Win title={t.state_listed_h} className='desk:col-span-6 desk:col-start-7 desk:row-span-4 desk:row-start-1 desk:mt-10 desk:-ml-3 desk:flex desk:max-h-[calc(100%-2.5rem)] desk:min-h-0 desk:flex-col' bodyClassName='desk:flex desk:min-h-0 desk:flex-1 desk:flex-col'>
-			<div className={`${well} relative divide-y divide-dotted divide-lo px-3.5 desk:min-h-0 desk:flex-1 desk:overflow-y-auto`}>
+			<div className={`${well} relative divide-y divide-line px-3.5 desk:min-h-0 desk:flex-1 desk:overflow-y-auto`}>
 				{STATE_SOLUTIONS.map((s, k) => (
-					<article key={s.repo} className='py-3.5'>
-						<p className='m-0 mb-2.5 flex items-center gap-2'>
-							<span className={`${field} min-w-0 flex-1`}>
-								<span aria-hidden='true' className='text-faint'>
-									⌂
-								</span>
-								<span lang='en' className='truncate font-mono'>
-									github.com/{s.repo}
-								</span>
-							</span>
-						</p>
+					<article key={s.repo} className='grid gap-x-4 gap-y-3 py-3.5 min-[480px]:grid-cols-[200px_minmax(0,1fr)]'>
 						{s.image && (
-							<a href={s.url} target='_blank' rel='noopener' className='mb-3.5 block bg-ink p-[3px]'>
+							<a href={s.url} target='_blank' rel='noopener' className='block self-start overflow-hidden rounded-lg border border-line shadow-sm transition-shadow hover:shadow-pop'>
 								<img src={s.image} alt={`${s.name} ${t.preview_img}`} width={1200} height={630} loading={k === 0 ? 'eager' : 'lazy'} fetchPriority={k === 0 ? 'high' : undefined} decoding='async' className='block aspect-[1200/630] w-full' />
 							</a>
 						)}
-						<div className='flex flex-wrap items-baseline gap-x-2.5'>
-							<h3 className='m-0 text-2xl leading-8 font-normal'>{s.name}</h3>
-							<span className='text-muted'>
-								<span lang='en'>by</span> {s.author}
-							</span>
+						<div className={`min-w-0 ${s.image ? '' : 'min-[480px]:col-span-2'}`}>
+							<div className='flex flex-wrap items-baseline gap-x-2'>
+								<h3 className='m-0 text-sm leading-5 font-semibold'>{s.name}</h3>
+								<span className='text-muted'>
+									<span lang='en'>by</span> {s.author}
+								</span>
+							</div>
+							<p lang='en' className='m-0 truncate font-mono text-xs leading-5 text-faint'>
+								github.com/{s.repo}
+							</p>
+							<p className='m-0 mt-1 mb-2 line-clamp-3'>{pick(s.desc, lang)}</p>
+							<div className='flex flex-wrap gap-1.5'>
+								{s.tags.map((tag) => (
+									<code key={tag} lang='en' className='rounded border border-line bg-face px-1.5 font-mono text-xs leading-5'>
+										{tag}
+									</code>
+								))}
+							</div>
 						</div>
-						<p className='m-0 mt-1 mb-2'>{pick(s.desc, lang)}</p>
-						<div className='mb-3 flex flex-wrap gap-1.5'>
-							{s.tags.map((tag) => (
-								<code key={tag} lang='en' className='border border-lo bg-face px-1.5 font-mono'>
-									{tag}
-								</code>
-							))}
-						</div>
-						<div className='mb-3.5 flex items-center justify-between gap-2 border border-ink bg-ink py-[3px] pr-[3px] pl-2.5 font-mono text-paper'>
+						<div className='flex items-center justify-between gap-2 rounded-lg bg-ink py-[3px] pr-[3px] pl-2.5 font-mono text-xs text-paper min-[480px]:col-span-2'>
 							<code lang='en' className='min-w-0 break-all'>
 								<span className='text-sky'>❯ </span>
 								<span className='text-yel'>{s.install}</span>
 							</code>
-							<button type='button' className={`${btnSm} text-ink`} onClick={() => copy(s.install, 'cmd0')} aria-label={t.a_copy_cmd}>
+							<button type='button' className={`${btnSm} font-ui text-ink`} onClick={() => copy(s.install, 'cmd0')} aria-label={t.a_copy_cmd}>
 								{copied === 'cmd0' ? t.copied : t.copy}
 							</button>
 						</div>
-						<div className='flex flex-wrap gap-2'>
-							<a className={btn} href={s.url} target='_blank' rel='noopener'>
+						<div className='flex flex-wrap gap-1.5 min-[480px]:col-span-2'>
+							<a className={btnSm} href={s.url} target='_blank' rel='noopener'>
 								{t.on_github}
 							</a>
 							{s.homepage && (
-								<a className={btn} href={s.homepage} target='_blank' rel='noopener'>
+								<a className={btnSm} href={s.homepage} target='_blank' rel='noopener'>
 									{t.visit}
 								</a>
 							)}
@@ -124,7 +119,7 @@ function Primitives() {
 			<div className={`${well} grid gap-3 p-3 desk:min-h-0 desk:flex-1 desk:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] desk:grid-rows-[minmax(0,1fr)]`}>
 				<div role='tablist' aria-label={t.a_builtin} aria-orientation='vertical' className='relative grid content-start gap-1 desk:min-h-0 desk:overflow-y-auto'>
 					{blocks.map((b, i) => (
-						<button key={b.id} type='button' role='tab' id={`blk-${b.id}`} aria-controls='blk-panel' aria-selected={b.id === block} onClick={() => setBlock(b.id)} className='group grid cursor-pointer grid-cols-[22px_1fr] gap-x-2 border border-transparent bg-transparent px-2 py-1.5 text-left hover:border-dotted hover:border-ink aria-selected:border-ink aria-selected:bg-ink aria-selected:text-paper'>
+						<button key={b.id} type='button' role='tab' id={`blk-${b.id}`} aria-controls='blk-panel' aria-selected={b.id === block} onClick={() => setBlock(b.id)} className='group grid cursor-pointer grid-cols-[22px_1fr] gap-x-2 rounded-lg border-0 bg-transparent px-2 py-1.5 text-left hover:bg-ink/5 aria-selected:bg-ink aria-selected:text-paper'>
 							<span className='font-mono text-lo group-aria-selected:text-yel'>{pad2(i + 1)}</span>
 							<span>
 								<span className='block'>
@@ -133,14 +128,13 @@ function Primitives() {
 										{b.kicker}
 									</span>
 								</span>
-								<span className='block text-muted group-aria-selected:text-[#c9c2ae]'>{b.desc}</span>
+								<span className='block text-muted group-aria-selected:text-paper/70'>{b.desc}</span>
 							</span>
 						</button>
 					))}
 				</div>
-				<div role='tabpanel' id='blk-panel' aria-labelledby={`blk-${current.id}`} className='flex flex-col border border-ink bg-ink text-paper desk:min-h-0'>
-					<div className='flex h-[22px] items-center gap-2 border-b border-[#2c4058] px-2 text-slate'>
-						<PixelIcon name='page' scale={1} />
+				<div role='tabpanel' id='blk-panel' aria-labelledby={`blk-${current.id}`} className='flex flex-col rounded-lg bg-ink text-paper desk:min-h-0'>
+					<div className='flex h-[24px] items-center gap-2 border-b border-[#2c4058] px-3 text-slate'>
 						<span lang='en' className='font-mono'>
 							app.ts
 						</span>
@@ -148,7 +142,7 @@ function Primitives() {
 					<pre lang='en' className='relative m-0 min-h-[96px] flex-1 overflow-x-auto desk:min-h-0 px-3 py-2.5 font-mono whitespace-pre-wrap'>
 						{current.code}
 					</pre>
-					<a href={BINDINGS_DOC} target='_blank' rel='noopener' lang='en' className='border-t border-[#2c4058] px-3 py-1.5 text-yel hover:bg-yel hover:text-ink'>
+					<a href={BINDINGS_DOC} target='_blank' rel='noopener' lang='en' className='rounded-b-lg border-t border-[#2c4058] px-3 py-1.5 text-yel hover:bg-paper/5'>
 						Calling Go from the frontend ↗
 					</a>
 				</div>
@@ -163,10 +157,10 @@ function Ask({ listed }: { listed: boolean }) {
 	const { openSubmit } = useSite();
 	// Below 1261px the desktop columns are too narrow for the header, the primitives and this dialog to share one screen (in English the primitives window collapsed to its title bar at 1100x700), so the dialog is hidden there; Submit stays in the menu bar and on the desktop icons.
 	return (
-		<section aria-labelledby='state-ask' className='mx-1 grid grid-cols-[40px_1fr] gap-x-4 gap-y-2.5 border border-ink bg-face p-3.5 outline-1 outline-offset-[3px] outline-ink shadow-[inset_1px_1px_0_var(--color-hi),inset_-1px_-1px_0_var(--color-lo),0_0_0_3px_var(--color-face),9px_9px_0_3px_rgba(16,35,58,.5)] desk:col-span-5 desk:col-start-2 desk:row-start-3 desk:hidden desk:m-0 desk:mt-6 desk:ml-4 desk:px-[18px] desk:pt-4 desk:pb-3.5 min-[1261px]:grid'>
+		<section aria-labelledby='state-ask' className='mx-1 grid grid-cols-[40px_1fr] gap-x-4 gap-y-2.5 rounded-xl border border-line bg-face p-3.5 shadow-win desk:col-span-5 desk:col-start-2 desk:row-start-3 desk:hidden desk:m-0 desk:mt-6 desk:ml-4 desk:px-[18px] desk:pt-4 desk:pb-3.5 min-[1261px]:grid'>
 			<PixelIcon name='inbox' scale={2} className='mt-1' />
 			<div>
-				<h2 id='state-ask' className='m-0 mb-1 text-2xl leading-8 font-normal text-balance [&:lang(ko)]:break-keep'>
+				<h2 id='state-ask' className='m-0 mb-1 text-xl leading-7 font-semibold text-balance [&:lang(ko)]:break-keep'>
 					{listed ? t.state_more_h : t.state_empty_h}
 				</h2>
 				<p className='m-0'>{t.state_empty_p}</p>

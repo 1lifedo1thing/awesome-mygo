@@ -4,9 +4,9 @@ import { useState } from 'react';
 import { useLang, useT } from '../../lib/lang';
 import { useSite } from '../../lib/site';
 import { DesktopIcons } from '../DesktopIcons';
-import { StatusBar, Win, btn, btnGo, btnSm, well } from '../ui';
+import { StatusBar, Win, btn, btnGo, btnSm, seg, well } from '../ui';
 
-// Headline size per language, so the longest line of r_h1 fits the README window (540px of text at the desktop width): a CJK character is a full em, the pixel face's Latin about half.
+// Headline size per language, so the longest line of r_h1 fits the README window (540px of text at the desktop width): a CJK character is a full em, bold Latin a little over half.
 const H1_SIZE: Record<LangCode, string> = {
 	'zh-CN': 'text-[40px] leading-[48px] desk:text-[64px] desk:leading-[72px]',
 	'zh-TW': 'text-[40px] leading-[48px] desk:text-[64px] desk:leading-[72px]',
@@ -15,11 +15,10 @@ const H1_SIZE: Record<LangCode, string> = {
 	en: 'text-[26px] leading-[32px] desk:text-[44px] desk:leading-[52px]',
 };
 
-// One screen: the folder icons on the left, the README and the terminal stacked beside them, the gopher as a small wallpaper in the corner. The sections live on their own pages, one click away through the folders. Below the desktop breakpoint the windows stack and the page scrolls.
+// One screen: the folder icons on the left, the README and the terminal stacked beside them. The sections live on their own pages, one click away through the folders. Below the desktop breakpoint the windows stack and the page scrolls.
 export function Home() {
 	return (
 		<div className='relative mx-auto flex max-w-[1440px] flex-col gap-[22px] px-3.5 pt-3.5 pb-6 desk:h-full desk:p-0'>
-			<img src='/retro-gopher.png' alt='' width={144} height={144} className='pointer-events-none hidden pixelated desk:absolute desk:right-8 desk:bottom-6 desk:block desk:size-[288px]' />
 			<DesktopIcons className='order-2 grid grid-cols-3 justify-items-center gap-x-0 gap-y-3.5 py-1.5 desk:absolute desk:top-[26px] desk:left-[18px] desk:z-[2] desk:grid-cols-1 desk:gap-4 desk:p-0' />
 			<div className='contents desk:absolute desk:top-[26px] desk:left-[136px] desk:flex desk:w-[640px] desk:flex-col desk:gap-[22px]'>
 				<Welcome />
@@ -34,22 +33,20 @@ function Welcome() {
 	const lang = useLang();
 	const lines = t.r_h1.split('\n');
 	return (
-		<Win title='README.txt' level={2} className='order-1'>
+		<Win title='README.md' level={2} className='order-1'>
 			<div className={`${well} relative px-5 pt-[22px] pb-[18px] desk:px-9 desk:pt-6 desk:pb-6`}>
-				<span aria-hidden='true' className='absolute inset-x-0 top-0 h-3 border-b border-lo ruler' />
-				<h1 className={`px-text my-3 font-normal desk:mt-2.5 desk:mb-4 ${H1_SIZE[lang]}`}>
+				<h1 className={`my-3 font-bold tracking-tight desk:mt-1 desk:mb-4 ${H1_SIZE[lang]}`}>
 					{lines.map((line, i) => (
 						<span key={line} className='block whitespace-nowrap'>
 							{line.split(/(\bGo\b)/).map((part, j) =>
 								part === 'Go' ? (
-									<mark key={j} className='mx-[0.08em] bg-ink px-[0.08em] text-yel'>
+									<mark key={j} className='mx-[0.06em] rounded-[0.18em] bg-ink px-[0.14em] text-yel'>
 										Go
 									</mark>
 								) : (
 									part
 								),
 							)}
-							{i === lines.length - 1 && <span aria-hidden='true' className='ml-[0.04em] inline-block h-[0.92em] w-[0.08em] animate-blink bg-ink align-[-0.06em]' />}
 							{i < lines.length - 1 && ' '}
 						</span>
 					))}
@@ -97,7 +94,7 @@ function Terminal() {
 			<div className='flex flex-wrap items-center gap-2.5 px-1.5 pt-[3px] pb-1.5'>
 				<div role='group' aria-label={t.a_install} className='flex'>
 					{INSTALL_TABS.map((it) => (
-						<button key={it.key} type='button' aria-pressed={tab === it.key} onClick={() => setTab(it.key)} className={`${btnSm} -ml-px first:ml-0`}>
+						<button key={it.key} type='button' aria-pressed={tab === it.key} onClick={() => setTab(it.key)} className={`${btnSm} ${seg}`}>
 							{it.label}
 						</button>
 					))}
@@ -107,7 +104,7 @@ function Terminal() {
 					{copied === 'cmd' ? t.copied : t.copy}
 				</button>
 			</div>
-			<div className='border border-ink bg-ink px-4 pt-3.5 pb-4 font-mono text-paper'>
+			<div className='rounded-lg bg-ink px-4 pt-3.5 pb-4 font-mono text-xs leading-5 text-paper'>
 				<p className='m-0 overflow-hidden break-all desk:truncate desk:break-normal'>
 					<span className='text-sky'>~/code $ </span>
 					<span className='text-yel'>{cmd}</span>

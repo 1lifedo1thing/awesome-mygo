@@ -18,8 +18,8 @@ const JUMPS = [
 // A magnifying glass for the empty result list, in the shared palette (k ink, c pale blue, w paper, o orange).
 const MAGNIFIER = ['................', '....kkkkk.......', '...kccccck......', '..kcwwcccck.....', '.kcwccccccck....', '.kcwccccccck....', '.kccccccccck....', '.kccccccccck....', '.kccccccccck....', '..kccccccck.....', '...kccccckkk....', '....kkkkk.kok...', '...........kok..', '............kok.', '.............kk.', '................'] as const;
 
-// A list row: the highlighted one is inverted, like a selection in a period file list.
-const row = 'group w-full cursor-pointer border-0 bg-transparent px-2 text-left aria-selected:bg-ink aria-selected:text-paper';
+// A list row: the highlighted one is filled, like a selection in a file list.
+const row = 'group w-full cursor-pointer rounded-md border-0 bg-transparent px-2 text-left aria-selected:bg-ink aria-selected:text-paper';
 
 // The ⌘K listener and Escape live in RetroApp; this only renders the Find window while it is open.
 export function RetroPalette() {
@@ -69,14 +69,14 @@ function Find({ onClose, onApp, onSubmit }: { onClose: () => void; onApp: (slug:
 	};
 
 	return (
-		<div className='fixed inset-0 z-[60] flex items-start justify-center bg-[repeating-conic-gradient(rgb(16_35_58/.55)_0_25%,transparent_0_50%)] bg-[length:2px_2px] px-3 pt-3 pb-4 desk:pt-[12vh]'>
+		<div className='fixed inset-0 z-[60] flex items-start justify-center bg-ink/35 backdrop-blur-[2px] px-3 pt-3 pb-4 desk:pt-[12vh]'>
 			<div ref={ref} role='dialog' aria-modal='true' aria-label={t.search} className='w-full max-w-[600px]'>
 				<Win title={t.search} onClose={onClose} closeLabel={t.close}>
 					<div className='flex items-center gap-2 px-1.5 pt-[3px] pb-1.5'>
 						<label htmlFor='q' className='sr-only'>
 							{t.search_label}
 						</label>
-						<div className='flex h-[26px] min-w-0 flex-1 items-center gap-1.5 border border-ink bg-hi px-1.5 sunken focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-ink'>
+						<div className='flex h-[28px] min-w-0 flex-1 items-center gap-1.5 rounded-md border border-line bg-hi px-2 focus-within:outline-2 focus-within:outline-offset-1 focus-within:outline-pur'>
 							<span aria-hidden='true' className='text-faint'>
 								⌕
 							</span>
@@ -103,10 +103,10 @@ function Find({ onClose, onApp, onSubmit }: { onClose: () => void; onApp: (slug:
 							{t.close}
 						</button>
 					</div>
-					<div id='palette-list' role='listbox' aria-label={t.search} ref={listRef} className={`${well} max-h-[min(60vh,440px)] overflow-y-auto py-1`}>
+					<div id='palette-list' role='listbox' aria-label={t.search} ref={listRef} className={`${well} max-h-[min(60vh,440px)] overflow-y-auto p-1`}>
 						{!hasQuery && (
 							<>
-								<span className='block border-b border-dotted border-lo px-2 pb-1 text-muted'>{t.jump}</span>
+								<span className='block border-b border-line px-2 pb-1 text-muted'>{t.jump}</span>
 								{JUMPS.map((j, i) => (
 									<button key={j.to} id={`pi-${i}`} data-i={i} role='option' aria-selected={i === active} type='button' className={`${row} flex h-7 items-center gap-3`} onClick={() => go(j.to)} onPointerMove={() => setActive(i)}>
 										<span className='font-mono text-lo group-aria-selected:text-sky'>{pad2(i + 1)}</span>
@@ -120,10 +120,10 @@ function Find({ onClose, onApp, onSubmit }: { onClose: () => void; onApp: (slug:
 						)}
 						{hasQuery && (
 							<>
-								<span className='block border-b border-dotted border-lo px-2 pb-1 text-muted'>{fill(t.results, { x: String(results.length) })}</span>
+								<span className='block border-b border-line px-2 pb-1 text-muted'>{fill(t.results, { x: String(results.length) })}</span>
 								{results.map((r, i) => (
 									<button key={`${r.cat}:${r.name}`} id={`pi-${i}`} data-i={i} role='option' aria-selected={i === active} type='button' className={`${row} grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-2.5 py-1 desk:grid-cols-[8.5rem_minmax(0,1fr)_auto]`} onClick={() => open(r)} onPointerMove={() => setActive(i)}>
-										<span className='col-start-2 row-start-1 max-w-[8.5rem] justify-self-end truncate border border-ink bg-face px-1.5 leading-4 text-ink group-aria-selected:border-paper group-aria-selected:bg-yel desk:col-start-1 desk:justify-self-start'>{catLabel[r.cat]}</span>
+										<span className='col-start-2 row-start-1 max-w-[8.5rem] justify-self-end truncate rounded-full bg-face-lo px-2 text-xs leading-5 text-ink group-aria-selected:bg-yel desk:col-start-1 desk:justify-self-start'>{catLabel[r.cat]}</span>
 										<span className='col-start-1 row-start-1 grid min-w-0 desk:col-start-2'>
 											<span className='truncate'>{r.name}</span>
 											<span className='truncate text-muted group-aria-selected:text-slate'>{r.desc}</span>

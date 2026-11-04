@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { AppLink } from '../../components/bits';
 import { useLang, useT } from '../../lib/lang';
 import { useSite } from '../../lib/site';
-import { AppIcon, Note, StatusBar, Win, btnGo, btnSm, iconLabel, lnk, well } from '../ui';
+import { AppIcon, Note, StatusBar, Win, btnGo, btnSm, seg, iconLabel, lnk, well } from '../ui';
 import { noShot } from './AppPage';
 
 type Sort = 'default' | 'az' | 'author';
@@ -20,8 +20,8 @@ const AUTHORS = Object.entries(
 	}, {}),
 ).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 
-// A row in the side panel: inverted while hovered or selected, like a Finder sidebar.
-const place = 'flex w-full cursor-pointer items-center justify-between gap-1.5 border-0 bg-transparent px-1.5 text-left leading-5 hover:bg-ink hover:text-yel aria-pressed:bg-ink aria-pressed:text-yel';
+// A row in the side panel: tinted while hovered, filled while selected, like a Finder sidebar.
+const place = 'flex w-full cursor-pointer items-center justify-between gap-1.5 rounded-md border-0 bg-transparent px-2 text-left leading-6 hover:bg-ink/5 aria-pressed:bg-ink aria-pressed:text-paper';
 
 export function Showcase() {
 	const t = useT();
@@ -43,7 +43,6 @@ export function Showcase() {
 
 	return (
 		<div className='relative mx-auto max-w-[1440px] px-3.5 pt-3.5 desk:px-10 desk:pt-[30px] min-[1261px]:grid min-[1261px]:grid-cols-[minmax(0,1fr)_260px] min-[1261px]:items-start min-[1261px]:gap-x-10 min-[1261px]:pr-6'>
-			<img src='/retro-gopher.png' alt='' width={144} height={144} className='pointer-events-none absolute right-6 bottom-6 hidden size-[216px] pixelated min-[1261px]:block' />
 			<Win title={t.cat_show_name} level={1} fill>
 				<div className='flex flex-wrap items-center gap-x-3 gap-y-2 px-1.5 pt-[5px] pb-[7px]'>
 					<nav aria-label={t.a_crumbs} className='hidden whitespace-nowrap desk:block'>
@@ -54,15 +53,15 @@ export function Showcase() {
 					</nav>
 					<div role='group' aria-label={t.a_kind} className='flex'>
 						{kinds.map((k) => (
-							<button key={k.key} type='button' aria-pressed={kind === k.key} onClick={() => setKind(k.key)} className={`${btnSm} -ml-px first:ml-0`}>
-								{k.label} <span className='font-mono'>{k.n}</span>
+							<button key={k.key} type='button' aria-pressed={kind === k.key} onClick={() => setKind(k.key)} className={`${btnSm} ${seg}`}>
+								{k.label} <span className='tabular-nums opacity-70'>{k.n}</span>
 							</button>
 						))}
 					</div>
 					<span className='flex-1' />
 					<label className='flex items-center gap-1.5 whitespace-nowrap'>
 						{t.sort}
-						<select value={sort} onChange={(e) => setSort(e.target.value as Sort)} className='h-[22px] cursor-pointer border border-ink bg-hi px-1 sunken'>
+						<select value={sort} onChange={(e) => setSort(e.target.value as Sort)} className='h-[24px] cursor-pointer rounded-md border border-line bg-hi px-1.5'>
 							<option value='default'>{t.sort_def}</option>
 							<option value='az'>{t.sort_az}</option>
 							<option value='author'>{t.sort_author}</option>
@@ -76,19 +75,19 @@ export function Showcase() {
 							<li>
 								<button type='button' aria-pressed={author === null} onClick={() => setAuthor(null)} className={place}>
 									<span>{t.all}</span>
-									<span className='font-mono'>{APPS.length}</span>
+									<span className='tabular-nums opacity-70'>{APPS.length}</span>
 								</button>
 							</li>
 							{AUTHORS.map(([name, n]) => (
 								<li key={name}>
 									<button type='button' aria-pressed={author === name} onClick={() => setAuthor(author === name ? null : name)} className={place}>
 										<span className='truncate'>{name}</span>
-										<span className='font-mono'>{n}</span>
+										<span className='tabular-nums opacity-70'>{n}</span>
 									</button>
 								</li>
 							))}
 						</ul>
-						<p className='mx-1.5 mt-2.5 mb-0 border-t border-dotted border-lo pt-2.5 text-muted'>
+						<p className='mx-1.5 mt-2.5 mb-0 border-t border-line pt-2.5 text-muted'>
 							{t.show_p}{' '}
 							<a className={`${lnk} whitespace-nowrap`} href={MYGO_SHOWCASE} target='_blank' rel='noopener'>
 								mygo.egoist.dev/showcase
@@ -98,11 +97,11 @@ export function Showcase() {
 					<div className={`${well} relative grid min-h-[300px] grid-cols-2 content-start gap-x-3 gap-y-4 p-3 desk:min-h-0 desk:overflow-y-auto desk:grid-cols-3 desk:gap-x-[18px] desk:gap-y-[22px] desk:p-[18px] min-[1261px]:grid-cols-4`}>
 						{list.map((a) => (
 							<AppLink key={a.slug} slug={a.slug} dialog className='group grid min-w-0 content-start gap-1 no-underline'>
-								<span className='block aspect-[16/10] border border-ink bg-face p-[3px] bevel group-hover:bg-ink'>
+								<span className='block aspect-[16/10] overflow-hidden rounded-lg border border-line bg-face shadow-sm transition-shadow group-hover:shadow-pop'>
 									{a.image ? (
-										<img src={a.image} alt='' width={1200} height={750} loading='lazy' decoding='async' className='block size-full border border-ink bg-paper object-cover object-top-left' />
+										<img src={a.image} alt='' width={1200} height={750} loading='lazy' decoding='async' className='block size-full bg-paper object-cover object-top-left' />
 									) : (
-										<span className={`grid size-full place-items-center border border-ink ${noShot}`}>
+										<span className={`grid size-full place-items-center ${noShot}`}>
 											<AppIcon app={a} size={56} />
 										</span>
 									)}
@@ -137,7 +136,7 @@ export function Showcase() {
 			</Win>
 			{/* Below 1261px the note would sit under the window and push the page past one screen; Submit stays in the menu bar there. */}
 			<Note title={t.r_note} className='mx-1 mt-10 desk:hidden min-[1261px]:mx-0 min-[1261px]:mt-32 min-[1261px]:block'>
-				<p className='m-0 mb-2.5 text-2xl leading-8'>{t.m_title}</p>
+				<p className='m-0 mb-2.5 text-xl leading-7 font-semibold'>{t.m_title}</p>
 				<p className='m-0 mb-2.5'>{t.m_desc_bot}</p>
 				<div className='mt-3 flex flex-wrap items-center gap-2.5'>
 					<button type='button' className={btnGo} onClick={() => openSubmit('showcase')}>
