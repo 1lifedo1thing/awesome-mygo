@@ -79,7 +79,7 @@ export function useSubmit() {
 	const [urlTouched, setUrlTouched] = useState(false);
 
 	// A result or an error belongs to what was submitted; editing the form clears it.
-	useEffect(() => setStatus({ kind: 'idle' }), [form.cat, form.mode, form.name, form.author, form.url, form.desc]);
+	useEffect(() => setStatus({ kind: 'idle' }), [form.cat, form.mode, form.name, form.author, form.url, form.desc, form.category]);
 
 	const catLabel: Record<SubmitCat, string> = { ui: t.cat_ui_name, state: t.cat_state_name, plugin: t.nav_plugins, showcase: t.cat_show_name, article: t.article };
 	const isShow = form.cat === 'showcase';
@@ -89,9 +89,10 @@ export function useSubmit() {
 	const ph = { name: t.m_name, desc: t.md_desc };
 	const withAuthor = needsAuthor(form.cat);
 	const file = SUBMIT_FILES[form.cat].file;
-	const entry = jsonEntry(form.cat, form, form.mode, ph);
+	const draft = isShow ? form : { ...form, category: undefined };
+	const entry = jsonEntry(form.cat, draft, form.mode, ph);
 	// Every category ends up as an entry in its JSON file here: either an issue prefilled with the entry, or GitHub's editor on that file for a pull request.
-	const issue = issueUrl(SITE_REPO, form.cat, catLabel[form.cat], form, entry, ph);
+	const issue = issueUrl(SITE_REPO, form.cat, catLabel[form.cat], draft, entry, ph);
 	const edit = editUrl(SITE_REPO, form.cat);
 	const repoMissing = urlTouched && needsRepo(form.cat) && form.url.length > 0 && !isBadUrl(form.url) && !repoOf(form.url);
 	const canSend = bot.enabled && !entryProblem(form.cat, form) && token !== '' && status.kind !== 'sending';
@@ -133,7 +134,7 @@ export function useSubmit() {
 			const res = await fetch('/api/submit', {
 				method: 'POST',
 				headers: { 'content-type': 'application/json' },
-				body: JSON.stringify({ cat: form.cat, mode: form.mode, name: form.name, author: withAuthor ? form.author : '', url: form.url, desc: form.desc, token }),
+				body: JSON.stringify({ cat: form.cat, mode: form.mode, name: form.name, author: withAuthor ? form.author : '', url: form.url, desc: form.desc, category: isShow ? form.category : undefined, token }),
 			});
 			const body = (await res.json().catch(() => ({}))) as { url?: string; number?: number; error?: string; message?: string };
 			setStatus(res.ok && body.url && body.number ? { kind: 'done', url: body.url, number: body.number } : { kind: 'error', message: errorText(body) });

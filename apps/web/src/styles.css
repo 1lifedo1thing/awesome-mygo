@@ -1880,6 +1880,12 @@ html:lang(ko) .site {
 	background: rgba(15, 18, 22, 0.9);
 	backdrop-filter: blur(10px);
 }
+.filter-selects {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px 16px;
+	align-items: center;
+}
 .sort {
 	display: flex;
 	gap: 10px;
@@ -1891,13 +1897,33 @@ html:lang(ko) .site {
 }
 .sort-select {
 	height: 40px;
-	padding: 0 12px;
+	/* The browser's own arrow sits wherever the widest option leaves it, against the text or the next label; our chevron keeps 12 px from the edge and 10 px from the text. */
+	appearance: none;
+	padding: 0 34px 0 12px;
 	border: 1px solid var(--line-3);
 	border-radius: 10px;
-	background: var(--panel);
+	background: var(--panel) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a3afba' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center / 12px 12px;
 	font: inherit;
 	font-size: 14px;
 	color: var(--fg);
+	cursor: pointer;
+}
+.sort-select:hover {
+	border-color: var(--fg-3);
+}
+.show-empty {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 12px 16px;
+	padding: 28px;
+	border: 1px dashed var(--line-3);
+	border-radius: 14px;
+	color: var(--fg-2);
+	font-size: 15px;
+}
+.show-empty p {
+	margin: 0;
 }
 .show-grid {
 	display: grid;

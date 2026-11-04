@@ -47,6 +47,45 @@ export type AppKind = 'native' | 'web';
 export const APP_CATEGORIES = ['BusinessApplication', 'CommunicationApplication', 'DesignApplication', 'DeveloperApplication', 'EducationalApplication', 'EntertainmentApplication', 'FinanceApplication', 'GameApplication', 'HealthApplication', 'LifestyleApplication', 'MultimediaApplication', 'ReferenceApplication', 'SecurityApplication', 'UtilitiesApplication'] as const;
 export type AppCategory = (typeof APP_CATEGORIES)[number];
 
+// What visitors browse the showcase by: a handful of groups over the schema.org categories, so a group never holds only one or two apps for long. An app without a category is `other`.
+export const APP_GROUPS = ['dev', 'media', 'utility', 'chat', 'game', 'design', 'other'] as const;
+export type AppGroup = (typeof APP_GROUPS)[number];
+
+const GROUP_OF: Record<AppCategory, Exclude<AppGroup, 'other'>> = {
+	DeveloperApplication: 'dev',
+	MultimediaApplication: 'media',
+	EntertainmentApplication: 'media',
+	UtilitiesApplication: 'utility',
+	BusinessApplication: 'utility',
+	FinanceApplication: 'utility',
+	LifestyleApplication: 'utility',
+	ReferenceApplication: 'utility',
+	SecurityApplication: 'utility',
+	HealthApplication: 'utility',
+	EducationalApplication: 'utility',
+	CommunicationApplication: 'chat',
+	GameApplication: 'game',
+	DesignApplication: 'design',
+};
+
+// The category a submission gets when its author picks a group.
+export const GROUP_CATEGORY: Record<Exclude<AppGroup, 'other'>, AppCategory> = {
+	dev: 'DeveloperApplication',
+	media: 'MultimediaApplication',
+	utility: 'UtilitiesApplication',
+	chat: 'CommunicationApplication',
+	game: 'GameApplication',
+	design: 'DesignApplication',
+};
+
+export function appGroup(app: { category?: AppCategory }): AppGroup {
+	return app.category ? GROUP_OF[app.category] : 'other';
+}
+
+export function isAppGroup(v: unknown): v is AppGroup {
+	return typeof v === 'string' && (APP_GROUPS as readonly string[]).includes(v);
+}
+
 export interface App {
 	slug: string;
 	name: string;

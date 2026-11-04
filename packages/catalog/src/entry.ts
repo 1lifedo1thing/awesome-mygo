@@ -1,5 +1,5 @@
 import { CatalogError } from './validate';
-import { DATA_DIR, hostOf, readApps, readArticles, readPlugins, readStateSolutions, readUiLibs } from './catalog';
+import { type AppCategory, DATA_DIR, hostOf, readApps, readArticles, readPlugins, readStateSolutions, readUiLibs } from './catalog';
 
 // Submission form: it writes the JSON entry for the category's data file. The site's bot opens a pull request with it, or a contributor with a GitHub account sends it as an issue or adds it to the file themselves.
 
@@ -25,6 +25,8 @@ export interface EntryDraft {
 	author: string;
 	url: string;
 	desc: string;
+	// Showcase only: the app's schema.org category, from the group its author picked. Left out when none was picked.
+	category?: AppCategory;
 }
 
 // Empty is not "bad": the error only shows once something that is not an https link has been typed.
@@ -92,7 +94,7 @@ export function buildEntry(cat: SubmitCat, d: EntryDraft, mode: 'native' | 'web'
 	const repo = repoOf(url);
 	switch (cat) {
 		case 'showcase':
-			return { slug: slugify(name), name, author, kind: mode, url, summary, description: summary };
+			return { slug: slugify(name), name, author, kind: mode, ...(d.category ? { category: d.category } : {}), url, summary, description: summary };
 		case 'ui':
 			return { name, author, tag: 'theme', summary, repo: repo ?? 'owner/name', url };
 		case 'state':
