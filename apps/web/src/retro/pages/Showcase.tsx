@@ -127,12 +127,6 @@ export function Showcase() {
 								</li>
 							))}
 						</ul>
-						<p className='mx-1.5 mt-2.5 mb-0 border-t border-line pt-2.5 text-muted'>
-							{t.show_p}{' '}
-							<a className={`${lnk} whitespace-nowrap`} href={MYGO_SHOWCASE} target='_blank' rel='noopener'>
-								mygo.egoist.dev/showcase
-							</a>
-						</p>
 					</aside>
 					<div className={`${well} relative grid min-h-[300px] grid-cols-2 content-start gap-x-3 gap-y-4 p-3 desk:min-h-0 desk:overflow-y-auto desk:grid-cols-3 desk:gap-x-[18px] desk:gap-y-[22px] desk:p-[18px] min-[1261px]:grid-cols-4`}>
 						{list.map((a) => (
