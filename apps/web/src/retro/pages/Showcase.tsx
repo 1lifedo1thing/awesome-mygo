@@ -1,4 +1,4 @@
-import { APPS, type AppKind, MYGO_SHOWCASE, fill, likeKey, pick } from '@awesome-mygo/catalog';
+import { APPS, type AppKind, fill, likeKey, pick } from '@awesome-mygo/catalog';
 import { Link, useNavigate, useSearch } from '@tanstack/react-router';
 import { AppLink } from '../../components/bits';
 import { LikeButton } from '../../components/Like';
@@ -179,9 +179,6 @@ export function Showcase() {
 					<span>
 						{t.surf_native} {N_NATIVE} · {t.web_fe} {N_WEB}
 					</span>
-					<a className={lnk} href={MYGO_SHOWCASE} target='_blank' rel='noopener'>
-						mygo.egoist.dev/showcase ↗
-					</a>
 				</StatusBar>
 			</Win>
 			{/* Below 1261px the note would sit under the window and push the page past one screen; Submit stays in the menu bar there. */}
