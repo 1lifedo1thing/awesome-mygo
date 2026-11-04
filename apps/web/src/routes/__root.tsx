@@ -63,7 +63,8 @@ export const Route = createRootRoute({
 			// Each look loads only its own stylesheet: the original with its Google Fonts, the desktop look with the reader's system fonts.
 			...(retro
 				? [{ rel: 'stylesheet', href: retroStyles }]
-				: [{ rel: 'stylesheet', href: fontsHref(lang) }, { rel: 'stylesheet', href: styles }]),
+				: // The Google Fonts stylesheet is only preloaded here; RootDocument applies it without blocking the first paint.
+					[{ rel: 'preload', as: 'style', href: fontsHref(lang) }, { rel: 'stylesheet', href: styles }]),
 		],
 		};
 	},
@@ -88,8 +89,28 @@ function RootComponent() {
 	);
 }
 
+// Applies the Google Fonts stylesheet from an inline script in <head>. As a <link rel="stylesheet"> in the markup it blocked the first paint until Google answered (about 90 KB of @font-face rules for a CJK family), and the text it styles is set with display=swap anyway, so the page now paints in the fallback fonts and swaps them in. A stylesheet inserted by script does not block rendering; the preload in the route head starts the download as early as before.
+const fontLoader = (href: string) => `(function(){var l=document.createElement('link');l.rel='stylesheet';l.href=${JSON.stringify(href)};l.setAttribute('data-fonts','');document.head.appendChild(l)})()`;
+
+// Keeps the loader's stylesheet on the page's language after a client-side language switch, which changes the CJK family.
+function useFontStylesheet(href: string | undefined): void {
+	useEffect(() => {
+		if (!href) return;
+		let link = document.querySelector<HTMLLinkElement>('link[data-fonts]');
+		if (!link) {
+			link = document.createElement('link');
+			link.rel = 'stylesheet';
+			link.setAttribute('data-fonts', '');
+			document.head.appendChild(link);
+		}
+		if (link.getAttribute('href') !== href) link.setAttribute('href', href);
+	}, [href]);
+}
+
 function RootDocument({ theme, children }: { theme: Theme; children: ReactNode }) {
 	const lang = useLang();
+	const fonts = theme !== 'retro' ? fontsHref(lang) : undefined;
+	useFontStylesheet(fonts);
 	// Through react-dom rather than head links: React emits these right after the charset and viewport, ahead of the stylesheets it hoists, whereas plain <link> elements land after them. The retro look serves its fonts itself.
 	if (theme !== 'retro') {
 		preconnect('https://fonts.googleapis.com');
@@ -102,11 +123,13 @@ function RootDocument({ theme, children }: { theme: Theme; children: ReactNode }
 				{/* A bare URL is Simplified Chinese. A first visit with a saved choice or another browser language goes to its ?lang= page before anything renders, so the server serves that language and React never switches it mid-hydration. */}
 				<script dangerouslySetInnerHTML={{ __html: LANG_REDIRECT }} />
 				<HeadContent />
+				{fonts && <script dangerouslySetInnerHTML={{ __html: fontLoader(fonts) }} />}
 				{ogLocaleAlternates(lang).map((locale) => (
 					<meta key={locale} property='og:locale:alternate' content={locale} />
 				))}
 				<noscript>
 					<style>{'.rv{opacity:1;transform:none}'}</style>
+					{fonts && <link rel='stylesheet' href={fonts} />}
 				</noscript>
 			</head>
 			<body>

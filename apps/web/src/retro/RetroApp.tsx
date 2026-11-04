@@ -141,7 +141,7 @@ function MenuBar() {
 	return (
 		<header className='sticky top-0 z-40 flex h-[30px] flex-none items-center gap-0.5 border-b border-line bg-paper/85 px-2.5 backdrop-blur-md'>
 			<Link to='/' aria-label={t.a_home} className='flex h-[24px] items-center gap-2 rounded-md pr-2.5 pl-1 font-semibold no-underline hover:bg-ink/5'>
-				<img src='/icon-32.png' srcSet='/icon-32.png 1x, /icon-192.png 2x' width={20} height={20} alt='' className='size-5 rounded-[5px]' />
+				<img src='/icon-32.png' srcSet='/icon-32.png 1x, /icon-64.webp 2x' width={20} height={20} alt='' className='size-5 rounded-[5px]' />
 				<span className='hidden whitespace-nowrap min-[480px]:inline'>Awesome MyGo</span>
 			</Link>
 			<nav aria-label={t.a_cats} className='hidden desk:flex'>

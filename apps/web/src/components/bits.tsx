@@ -78,7 +78,7 @@ export function KindTag({ app, label }: { app: App; label: string }) {
 
 // The 32 px icon on standard screens; high-density screens fall back to the 192 px icon, as there is no 64 px one. fetchPriority='low' keeps React from preloading the image ahead of the stylesheets on every page: the mark is small and never the LCP element.
 export function Logo() {
-	return <img className='brand-mark' src='/icon-32.png' srcSet='/icon-32.png 1x, /icon-192.png 2x' width={32} height={32} alt='' fetchPriority='low' decoding='async' />;
+	return <img className='brand-mark' src='/icon-32.png' srcSet='/icon-32.png 1x, /icon-64.webp 2x' width={32} height={32} alt='' fetchPriority='low' decoding='async' />;
 }
 
 const EAR_STROKE = { stroke: '#B8C1C9', strokeWidth: 1.2 };
