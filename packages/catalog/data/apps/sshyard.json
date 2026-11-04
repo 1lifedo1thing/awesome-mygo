@@ -1,0 +1,17 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "sshyard",
+	"name": "SSHYard",
+	"author": "Licoy",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://sshyard.com",
+	"repo": "Licoy/sshyard",
+	"summary": {
+		"en": "SSHYard 是一款跨平台桌面 SSH / SFTP 客户端，支持 macOS、Windows 和 Linux，搭配 AI Agent以及更多工具帮助您提升效率"
+	},
+	"description": {
+		"en": "SSHYard 是一款跨平台桌面 SSH / SFTP 客户端，支持 macOS、Windows 和 Linux，搭配 AI Agent以及更多工具帮助您提升效率"
+	},
+	"added": "2026-11-04T14:38:05Z"
+}
