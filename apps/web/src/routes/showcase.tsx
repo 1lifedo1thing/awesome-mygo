@@ -1,5 +1,5 @@
 import { APPS, type AppKind, MYGO_SHOWCASE, likeKey, pad2, pick } from '@awesome-mygo/catalog';
-import { groupChips, validateShowcaseSearch } from '../lib/showcase';
+import { type AppSort, groupChips, sortApps, validateShowcaseSearch } from '../lib/showcase';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import { AppLink, KindTag, MonoTile, WinBar, appView } from '../components/bits';
@@ -15,8 +15,6 @@ export const Route = createFileRoute('/showcase')({
 	component: ShowcasePage,
 });
 
-type Sort = 'default' | 'likes' | 'az' | 'author';
-
 function ShowcasePage() {
 	const t = useT();
 	const lang = useLang();
@@ -24,17 +22,17 @@ function ShowcasePage() {
 	const navigate = useNavigate({ from: '/showcase' });
 	const setFilter = (next: { cat?: typeof group; ui?: AppKind }) => void navigate({ search: (prev) => ({ ...prev, ...next }), replace: true, resetScroll: false });
 	const { status: likes, counts } = useLikes();
-	const [sort, setSort] = useState<Sort>('default');
+	const [sort, setSort] = useState<AppSort>('natural');
 
 	const nNative = APPS.filter((a) => a.kind === 'native').length;
 	// The groups count the apps of the chosen interface, so a chip never leads to an empty list.
 	const ofKind = APPS.filter((a) => !kind || a.kind === kind);
 	const chips = groupChips(ofKind, group);
-	const list = ofKind.filter((a) => !group || chips.some((c) => c.key === group && c.apps.includes(a)));
-	if (sort === 'az') list.sort((a, b) => a.name.localeCompare(b.name));
-	if (sort === 'author') list.sort((a, b) => a.author.localeCompare(b.author));
-	// Most liked first; ties keep the listing order.
-	if (sort === 'likes') list.sort((a, b) => (counts[likeKey.app(b)] ?? 0) - (counts[likeKey.app(a)] ?? 0));
+	const list = sortApps(
+		ofKind.filter((a) => !group || chips.some((c) => c.key === group && c.apps.includes(a))),
+		sort,
+		counts,
+	);
 
 	return (
 		<section className='page enter gap-32'>
@@ -77,11 +75,10 @@ function ShowcasePage() {
 						<label htmlFor='sort' className='sort-label'>
 							{t.sort}
 						</label>
-						<select id='sort' value={sort} onChange={(e) => setSort(e.target.value as Sort)} className='sort-select'>
-							<option value='default'>{t.sort_def}</option>
+						<select id='sort' value={sort} onChange={(e) => setSort(e.target.value as AppSort)} className='sort-select'>
+							<option value='natural'>{t.sort_natural}</option>
+							<option value='newest'>{t.sort_new}</option>
 							{likes !== 'off' && <option value='likes'>{t.sort_likes}</option>}
-							<option value='az'>{t.sort_az}</option>
-							<option value='author'>{t.sort_author}</option>
 						</select>
 					</div>
 				</div>
