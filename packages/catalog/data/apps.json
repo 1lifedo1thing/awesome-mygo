@@ -692,6 +692,21 @@
 				"file": "pudmusic.webp"
 			},
 			"screenshot": "pudmusic.webp"
+		},
+		{
+			"slug": "textviewer",
+			"name": "TextViewer",
+			"author": "Oranjekop",
+			"kind": "native",
+			"category": "UtilitiesApplication",
+			"url": "https://github.com/Oranjekop/TextViewer",
+			"repo": "Oranjekop/TextViewer",
+			"summary": {
+				"en": "单文件的文本编辑器"
+			},
+			"description": {
+				"en": "单文件的文本编辑器"
+			}
 		}
 	]
 }
