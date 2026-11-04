@@ -1,8 +1,10 @@
-import { type App, APPS, appBySlug, fill, pick } from '@awesome-mygo/catalog';
+import { type App, appBySlug, pick } from '@awesome-mygo/catalog';
+import { Link } from '@tanstack/react-router';
 import { useDialog } from '../lib/dialog';
 import { useLang, useT } from '../lib/lang';
 import { useSite } from '../lib/site';
-import { CloseIcon, KindTag, MonoTile, WinBar, appView } from './bits';
+import { AppActions, AppFacts, MoreBy, neighbours } from './AppDetail';
+import { AppLink, CloseIcon, KindTag, MonoTile, WinBar, appView } from './bits';
 
 export function AppDrawer() {
 	const { app: slug } = useSite();
@@ -12,17 +14,14 @@ export function AppDrawer() {
 
 // Stays mounted while prev/next/"more by" switch apps, so focus and scroll lock are not reset on every switch.
 function Drawer({ app }: { app: App }) {
-	const { closeApp, openApp, copy, copied } = useSite();
+	const { closeApp } = useSite();
 	const t = useT();
 	const lang = useLang();
 	const ref = useDialog<HTMLElement>();
 
 	const v = appView(app);
 	const kindLabel = app.kind === 'native' ? 'Native UI' : t.web_fe;
-	const others = APPS.filter((o) => o.author === app.author && o !== app).slice(0, 6);
-	const n = APPS.length;
-	const prev = APPS[(v.index - 1 + n) % n];
-	const next = APPS[(v.index + 1) % n];
+	const [prev, next] = neighbours(v);
 
 	return (
 		<div className='drawer-wrap'>
@@ -36,7 +35,7 @@ function Drawer({ app }: { app: App }) {
 				</div>
 				{app.image ? (
 					<div className='drawer-shot'>
-						<img key={app.slug} src={app.image} alt={`${app.name} ${t.shot}`} width={1200} height={750} decoding='async' />
+						<img key={app.slug} src={app.image} alt={`${app.name} ${t.app_shot}`} width={1200} height={750} decoding='async' />
 					</div>
 				) : (
 					<div className='dots drawer-hero'>
@@ -53,60 +52,21 @@ function Drawer({ app }: { app: App }) {
 							{app.name}
 						</h2>
 						<p className='drawer-desc'>{pick(app.about, lang)}</p>
+						<Link to='/apps/$slug' params={{ slug: app.slug }} className='inline-link'>
+							{t.full_page}
+						</Link>
 					</div>
-					<dl className='facts'>
-						<dt>{t.f_author}</dt>
-						<dd>{app.author}</dd>
-						<dt>{t.f_ui}</dt>
-						<dd>{kindLabel}</dd>
-						<dt>{t.f_site}</dt>
-						<dd className='mono-13 break'>{v.host}</dd>
-						<dt>{t.f_no}</dt>
-						<dd className='mono-13'>
-							#{v.num} / {n}
-						</dd>
-					</dl>
-					<div className='drawer-acts'>
-						<a className='btn-c btn-open' href={app.url} target='_blank' rel='noopener'>
-							{fill(t.open_x, { x: app.name })}
-						</a>
-						<button type='button' className='btn-g btn-copy-link' onClick={() => copy(app.url, 'det')}>
-							{copied === 'det' ? t.copied : t.copy_link}
-						</button>
-					</div>
-					{others.length > 0 && (
-						<div className='stack-10'>
-							<span className='kicker-muted'>{fill(t.more_by, { x: app.author })}</span>
-							<div className='others'>
-								{others.map((o) => (
-									<button key={o.slug} type='button' className='row other' onClick={() => openApp(o.slug)}>
-										{o.icon ? (
-											<img className='other-tile app-icon' src={o.icon} alt='' width={32} height={32} loading='lazy' decoding='async' />
-										) : (
-											<span aria-hidden='true' className='other-tile'>
-												{o.name.charAt(0).toUpperCase()}
-											</span>
-										)}
-										<span className='other-text'>
-											<span className='other-name'>{o.name}</span>
-											<span className='other-desc'>{pick(o.desc, lang)}</span>
-										</span>
-										<span aria-hidden='true' className='c-muted'>
-											→
-										</span>
-									</button>
-								))}
-							</div>
-						</div>
-					)}
+					<AppFacts view={v} kindLabel={kindLabel} />
+					<AppActions app={app} />
+					<MoreBy app={app} drawer />
 				</div>
 				<div className='drawer-foot'>
-					<button type='button' className='btn-g pager' onClick={() => openApp(prev.slug)}>
+					<AppLink slug={prev.slug} className='btn-g pager'>
 						← {prev.name}
-					</button>
-					<button type='button' className='btn-g pager' onClick={() => openApp(next.slug)}>
+					</AppLink>
+					<AppLink slug={next.slug} className='btn-g pager'>
 						{next.name} →
-					</button>
+					</AppLink>
 				</div>
 			</aside>
 		</div>

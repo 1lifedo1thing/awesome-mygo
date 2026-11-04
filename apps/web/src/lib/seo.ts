@@ -1,4 +1,4 @@
-import { APPS, DEFAULT_LANG, LANGS, type LangCode, SITE_URL, type StringKey, appBySlug, pick, t } from '@awesome-mygo/catalog';
+import { type App, APPS, DEFAULT_LANG, LANGS, type LangCode, SITE_URL, type StringKey, authorProfile, pick, t } from '@awesome-mygo/catalog';
 import type { JSX } from 'react';
 
 export const SITE_NAME = 'MyGo Dock';
@@ -8,17 +8,20 @@ const OG_LOCALE: Record<LangCode, string> = { 'zh-CN': 'zh_CN', 'zh-TW': 'zh_TW'
 export type SitePath = '/' | '/ui' | '/state' | '/plugins' | '/showcase' | '/learn';
 export const SITE_PATHS: readonly SitePath[] = ['/', '/ui', '/state', '/plugins', '/showcase', '/learn'];
 
-// Simplified Chinese lives at the bare path, other languages at ?lang=…; an open app adds ?app=…. Any other query (utm tags…) is left out of canonical URLs.
-export function pageUrl(path: SitePath, lang: LangCode, app?: string): string {
-	const q = new URLSearchParams();
-	if (lang !== DEFAULT_LANG) q.set('lang', lang);
-	if (app) q.set('app', app);
-	const qs = q.toString();
-	return `${SITE_URL}${path}${qs ? `?${qs}` : ''}`;
+// An app's own page.
+export type AppPath = `/apps/${string}`;
+export const appPath = (slug: string): AppPath => `/apps/${slug}`;
+
+// Simplified Chinese lives at the bare path, other languages at ?lang=…. Any other query (?app= for the drawer, utm tags…) is left out of canonical URLs: an app's canonical page is its /apps/<slug> page.
+export function pageUrl(path: SitePath | AppPath, lang: LangCode): string {
+	return `${SITE_URL}${path}${lang !== DEFAULT_LANG ? `?lang=${lang}` : ''}`;
 }
 
 // TanStack renders { 'script:ld+json': data } as an escaped <script type="application/ld+json">; its meta type only lists <meta> props, hence the cast.
 const ldJson = (data: Record<string, unknown>) => ({ 'script:ld+json': { '@context': 'https://schema.org', ...data } }) as unknown as JSX.IntrinsicElements['meta'];
+
+// A screenshot as a share image; SVG is left out, as share cards and image search do not take it.
+export const rasterShot = (app: App): string | undefined => (app.image && !app.image.endsWith('.svg') ? `${SITE_URL}${app.image}` : undefined);
 
 interface PageSeo {
 	lang: LangCode | undefined;
@@ -26,60 +29,94 @@ interface PageSeo {
 	// null for the home page.
 	title: StringKey | null;
 	desc: StringKey;
-	// Slug from ?app=; a known app turns the page's preview into that app's card.
-	app?: string;
 }
 
 export function pageHead(p: PageSeo) {
 	const lang = p.lang ?? DEFAULT_LANG;
 	const tr = t(lang);
-	const app = p.app ? appBySlug(p.app) : undefined;
-	const title = app ? `${app.name} · ${SITE_NAME}` : p.title ? `${tr[p.title]} · ${SITE_NAME}` : `${SITE_NAME} · MyGo ecosystem`;
-	const desc = app ? pick(app.about, lang) : tr[p.desc];
-	const url = pageUrl(p.path, lang, app?.slug);
-	const image = app?.image && !app.image.endsWith('.svg') ? `${SITE_URL}${app.image}` : OG_IMAGE;
+	const title = p.title ? `${tr[p.title]} · ${SITE_NAME}` : `${SITE_NAME} · MyGo ecosystem`;
+	const desc = tr[p.desc];
 
 	const jsonLd: Record<string, unknown>[] = [];
-	if (p.path === '/' && !app) jsonLd.push({ '@type': 'WebSite', name: SITE_NAME, url: SITE_URL, inLanguage: lang, description: desc });
-	if (p.path === '/showcase' && !app) {
-		jsonLd.push({
-			'@type': 'ItemList',
-			name: title,
-			itemListElement: APPS.map((a, i) => ({
-				'@type': 'ListItem',
-				position: i + 1,
-				item: { '@type': 'SoftwareApplication', name: a.name, url: a.url, description: pick(a.desc, lang), operatingSystem: 'macOS, Windows, Linux', applicationCategory: 'DesktopApplication', author: { '@type': 'Person', name: a.author } },
-			})),
-		});
-	}
-	if (app) {
-		jsonLd.push({ '@type': 'SoftwareApplication', name: app.name, url: app.url, description: desc, applicationCategory: 'DesktopApplication', author: { '@type': 'Person', name: app.author }, ...(app.image ? { screenshot: `${SITE_URL}${app.image}` } : {}) });
-	}
+	if (p.path === '/') jsonLd.push({ '@type': 'WebSite', name: SITE_NAME, url: SITE_URL, inLanguage: lang, description: desc });
+	// A summary list: each item only points at the app's own page, which carries the app's full SoftwareApplication data.
+	if (p.path === '/showcase') jsonLd.push({ '@type': 'ItemList', name: title, itemListElement: APPS.map((a, i) => ({ '@type': 'ListItem', position: i + 1, url: pageUrl(appPath(a.slug), lang) })) });
 
+	return headTags({ lang, path: p.path, title, desc, imageAlt: SITE_NAME, jsonLd });
+}
+
+// The head of an app's own page. The title stays short: the name and a localized descriptor, as names such as Pulse or Kero say little alone. The description is the app's one-line summary.
+export function appHead(app: App, langParam: LangCode | undefined) {
+	const lang = langParam ?? DEFAULT_LANG;
+	const tr = t(lang);
+	const path = appPath(app.slug);
+	const url = pageUrl(path, lang);
+	const title = `${app.name} — ${tr.app_kind} · ${SITE_NAME}`;
+	const desc = pick(app.desc, lang);
+	const shot = rasterShot(app);
+	const profile = authorProfile(app.author);
+
+	const software = {
+		'@type': 'SoftwareApplication',
+		name: app.name,
+		url,
+		sameAs: app.url,
+		description: desc,
+		...(app.category ? { applicationCategory: app.category } : {}),
+		author: { '@type': 'Person', name: app.author, ...(profile ? { url: profile } : {}) },
+		...(shot ? { screenshot: shot } : {}),
+	};
+	const crumbs = [
+		{ name: tr.nav_home, item: pageUrl('/', lang) },
+		{ name: tr.cat_show_name, item: pageUrl('/showcase', lang) },
+		{ name: app.name, item: url },
+	];
+	const jsonLd = [
+		{ '@type': 'ItemPage', url, name: title, inLanguage: lang, mainEntity: software },
+		{ '@type': 'BreadcrumbList', itemListElement: crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 1, ...c })) },
+	];
+
+	return headTags({ lang, path, title, desc, image: shot, imageAlt: shot ? `${app.name} ${tr.app_shot}` : SITE_NAME, jsonLd });
+}
+
+interface HeadTags {
+	lang: LangCode;
+	path: SitePath | AppPath;
+	title: string;
+	desc: string;
+	// Absolute URL; the site's share image when undefined.
+	image?: string;
+	imageAlt: string;
+	jsonLd: Record<string, unknown>[];
+}
+
+function headTags(h: HeadTags) {
+	const url = pageUrl(h.path, h.lang);
+	const image = h.image ?? OG_IMAGE;
 	return {
 		meta: [
-			{ title },
-			{ name: 'description', content: desc },
+			{ title: h.title },
+			{ name: 'description', content: h.desc },
 			{ name: 'robots', content: 'index, follow, max-image-preview:large' },
 			{ property: 'og:type', content: 'website' },
 			{ property: 'og:site_name', content: SITE_NAME },
-			{ property: 'og:title', content: title },
-			{ property: 'og:description', content: desc },
+			{ property: 'og:title', content: h.title },
+			{ property: 'og:description', content: h.desc },
 			{ property: 'og:url', content: url },
-			{ property: 'og:locale', content: OG_LOCALE[lang] },
+			{ property: 'og:locale', content: OG_LOCALE[h.lang] },
 			{ property: 'og:image', content: image },
 			...(image === OG_IMAGE ? [{ property: 'og:image:width', content: '1200' }, { property: 'og:image:height', content: '630' }] : []),
-			{ property: 'og:image:alt', content: app ? app.name : SITE_NAME },
+			{ property: 'og:image:alt', content: h.imageAlt },
 			{ name: 'twitter:card', content: 'summary_large_image' },
-			{ name: 'twitter:title', content: title },
-			{ name: 'twitter:description', content: desc },
+			{ name: 'twitter:title', content: h.title },
+			{ name: 'twitter:description', content: h.desc },
 			{ name: 'twitter:image', content: image },
-			...jsonLd.map(ldJson),
+			...h.jsonLd.map(ldJson),
 		],
 		links: [
 			{ rel: 'canonical', href: url },
-			...LANGS.map((l) => ({ rel: 'alternate', hrefLang: l.code, href: pageUrl(p.path, l.code, app?.slug) })),
-			{ rel: 'alternate', hrefLang: 'x-default', href: pageUrl(p.path, DEFAULT_LANG, app?.slug) },
+			...LANGS.map((l) => ({ rel: 'alternate', hrefLang: l.code, href: pageUrl(h.path, l.code) })),
+			{ rel: 'alternate', hrefLang: 'x-default', href: pageUrl(h.path, DEFAULT_LANG) },
 		],
 	};
 }

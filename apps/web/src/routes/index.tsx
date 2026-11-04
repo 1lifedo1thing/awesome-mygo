@@ -1,14 +1,14 @@
 import { APPS, INSTALL_CMDS, INSTALL_TABS, type InstallTab, MYGO_SITE, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, fill, langDef, pad2, pick } from '@awesome-mygo/catalog';
 import { Link, createFileRoute } from '@tanstack/react-router';
 import { type CSSProperties, type PointerEvent, useRef, useState } from 'react';
-import { KindTag, MonoTile, WinBar, appView } from '../components/bits';
+import { AppLink, KindTag, MonoTile, WinBar, appView } from '../components/bits';
 import { useLang, useT } from '../lib/lang';
 import { prefersReducedMotion, tilt, useCountUp } from '../lib/motion';
 import { pageHead } from '../lib/seo';
 import { useSite } from '../lib/site';
 
 export const Route = createFileRoute('/')({
-	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/', title: null, desc: 'hero_p', app: match.search.app }),
+	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/', title: null, desc: 'hero_p' }),
 	component: HomePage,
 });
 
@@ -36,7 +36,6 @@ function tokens(str: string, byWord: boolean, start: number, step: number) {
 function HomePage() {
 	const t = useT();
 	const lang = useLang();
-	const { openApp } = useSite();
 	const nApps = APPS.length;
 	return (
 		<div className='enter'>
@@ -44,7 +43,7 @@ function HomePage() {
 			<section aria-label={t.a_marquee} className='marq-wrap'>
 				<div className='marq'>
 					{[...APPS, ...APPS].map((a, i) => (
-						<button key={`${a.slug}-${i}`} type='button' className='marq-item' onClick={() => openApp(a.slug)} tabIndex={i >= nApps ? -1 : undefined} aria-hidden={i >= nApps || undefined}>
+						<AppLink key={`${a.slug}-${i}`} slug={a.slug} className='marq-item' tabIndex={i >= nApps ? -1 : undefined} hidden={i >= nApps}>
 							{a.icon ? (
 								<img className='marq-icon app-icon' src={a.icon} alt='' width={36} height={36} loading='lazy' decoding='async' />
 							) : (
@@ -53,7 +52,7 @@ function HomePage() {
 								</span>
 							)}
 							{a.name}
-						</button>
+						</AppLink>
 					))}
 				</div>
 			</section>
@@ -75,14 +74,14 @@ function HomePage() {
 						const v = appView(mustApp(slug));
 						return (
 							<div key={slug} className={`rv d${k} flex`}>
-								<button type='button' className='win card' onClick={() => openApp(slug)} aria-haspopup='dialog'>
+								<AppLink slug={slug} className='win card' dialog>
 									<WinBar label={v.host} size='sm' className='card-bar' />
 									<span className='card-body'>
 										<MonoTile view={v} size={52} />
 										<span className='card-name'>{v.app.name}</span>
 										<span className='card-desc'>{pick(v.app.desc, lang)}</span>
 									</span>
-								</button>
+								</AppLink>
 							</div>
 						);
 					})}
@@ -95,7 +94,7 @@ function HomePage() {
 function Hero() {
 	const t = useT();
 	const lang = useLang();
-	const { openApp, copy, copied } = useSite();
+	const { copy, copied } = useSite();
 	const [tab, setTab] = useState<InstallTab>('bun');
 	const heroRef = useRef<HTMLElement>(null);
 	const e = useCountUp();
@@ -198,7 +197,7 @@ function Hero() {
 						return (
 							<div key={h.slug} className={`side ${h.pos}`} style={style}>
 								<div className={`bob ${h.bob}`}>
-									<button type='button' className={`win hero-win wi ${h.wi}`} onClick={() => openApp(h.slug)}>
+									<AppLink slug={h.slug} className={`win hero-win wi ${h.wi}`} dialog>
 										<WinBar label={v.host} size='sm' className='card-bar' />
 										<span className='hero-win-body'>
 											<MonoTile view={v} size={52} />
@@ -206,7 +205,7 @@ function Hero() {
 											<span className='hero-win-desc'>{pick(v.app.desc, lang)}</span>
 											<KindTag app={v.app} label={v.app.kind === 'native' ? 'Native UI' : t.web_fe} />
 										</span>
-									</button>
+									</AppLink>
 								</div>
 							</div>
 						);

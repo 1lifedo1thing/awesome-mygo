@@ -1,5 +1,7 @@
 import { APPS, type App, hostOf, pad2 } from '@awesome-mygo/catalog';
+import { Link } from '@tanstack/react-router';
 import type { ReactNode } from 'react';
+import { useSite } from '../lib/site';
 
 // macOS-style title bar: three traffic lights followed by a label (a host, a file name…).
 export function WinBar({ label, size = 'md', className = '', children }: { label?: ReactNode; size?: 'sm' | 'md' | 'lg'; className?: string; children?: ReactNode }) {
@@ -36,6 +38,32 @@ export function MonoTile({ view, size }: { view: AppView; size: 44 | 52 | 56 | 1
 		<span className={`mono-tile mono-${size} tone-${view.tone}`} aria-hidden='true'>
 			{view.initial}
 		</span>
+	);
+}
+
+// A link to the app's own page, so crawlers and new tabs reach it. With `quick` (the default) a plain left click opens the quick-view drawer instead; a click with a modifier key, a middle click, or a click before the page hydrates follows the link.
+export function AppLink({ slug, className, quick = true, tabIndex, hidden, dialog, children }: { slug: string; className: string; quick?: boolean; tabIndex?: number; hidden?: boolean; dialog?: boolean; children: ReactNode }) {
+	const { openApp } = useSite();
+	return (
+		<Link
+			to='/apps/$slug'
+			params={{ slug }}
+			className={className}
+			tabIndex={tabIndex}
+			aria-hidden={hidden || undefined}
+			aria-haspopup={dialog ? 'dialog' : undefined}
+			onClick={
+				quick
+					? (e) => {
+							if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+							e.preventDefault();
+							openApp(slug);
+						}
+					: undefined
+			}
+		>
+			{children}
+		</Link>
 	);
 }
 

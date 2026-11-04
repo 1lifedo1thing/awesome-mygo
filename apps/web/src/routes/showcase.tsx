@@ -1,13 +1,12 @@
 import { APPS, type AppKind, MYGO_SHOWCASE, pad2, pick } from '@awesome-mygo/catalog';
 import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
-import { KindTag, MonoTile, WinBar, appView } from '../components/bits';
+import { AppLink, KindTag, MonoTile, WinBar, appView } from '../components/bits';
 import { useLang, useT } from '../lib/lang';
 import { pageHead } from '../lib/seo';
-import { useSite } from '../lib/site';
 
 export const Route = createFileRoute('/showcase')({
-	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/showcase', title: 'cat_show_name', desc: 'cat_show_desc', app: match.search.app }),
+	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/showcase', title: 'cat_show_name', desc: 'cat_show_desc' }),
 	component: ShowcasePage,
 });
 
@@ -16,7 +15,6 @@ type Sort = 'default' | 'az' | 'author';
 function ShowcasePage() {
 	const t = useT();
 	const lang = useLang();
-	const { openApp } = useSite();
 	const [kind, setKind] = useState<'all' | AppKind>('all');
 	const [sort, setSort] = useState<Sort>('default');
 
@@ -70,7 +68,7 @@ function ShowcasePage() {
 					const v = appView(a);
 					return (
 						<div key={a.slug} className={`rv d${k % 6} flex`}>
-							<button type='button' className='win card show-card' onClick={() => openApp(a.slug)} aria-haspopup='dialog'>
+							<AppLink slug={a.slug} className='win card show-card' dialog>
 								<WinBar label={v.host} size='md' className='card-bar'>
 									<span className='mono-11 c-muted'>{v.num}</span>
 								</WinBar>
@@ -87,7 +85,7 @@ function ShowcasePage() {
 									</span>
 									<span className='show-desc'>{pick(a.desc, lang)}</span>
 								</span>
-							</button>
+							</AppLink>
 						</div>
 					);
 				})}
