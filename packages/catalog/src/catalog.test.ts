@@ -86,10 +86,8 @@ describe('catalog data', () => {
 		}
 	});
 
-	it('takes icons from ai-logo, a local official icon for a few, and letter tiles for apps without one', () => {
-		const slugs = (pred: (icon: string | undefined) => boolean) => APPS.filter((a) => pred(a.icon)).map((a) => a.slug).sort();
-		expect(slugs((i) => i === undefined)).toEqual(['2048', 'catview', 'uma']);
-		expect(slugs((i) => i !== undefined && !i.startsWith(AILOGO_CDN))).toEqual(['joplin-lite', 'nova', 'repo-hopper', 'tomoru']);
+	// Which apps have which kind of icon is the data's business: the submission bot takes an app's icon from where MyGo finds it and leaves it out when it is MyGo's default one from mygo init, and it reports which in the pull request.
+	it('takes icons from ai-logo or a local official icon named after the app', () => {
 		for (const a of APPS) {
 			if (!a.icon) continue;
 			expect(a.icon).toMatch(a.icon.startsWith(AILOGO_CDN) ? /^https:\/\/ailogo\.yldm\.ai\/avatar\/[a-z0-9]+\.webp$/ : new RegExp(`^/icons/${a.slug}\\.webp$`));
