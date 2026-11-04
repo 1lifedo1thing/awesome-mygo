@@ -50,7 +50,7 @@ export function SiteProvider({ quickView, children }: { quickView: boolean; chil
 
 	const [palette, setPalette] = useState(false);
 	const [modal, setModal] = useState(false);
-	const [form, setForm] = useState<SubmitForm>({ cat: 'showcase', mode: 'native', name: '', author: '', url: '', repo: '', desc: '', via: 'form', json: '' });
+	const [form, setForm] = useState<SubmitForm>({ cat: 'showcase', mode: 'native', name: '', author: '', url: '', repo: '', screenshot: '', desc: '', via: 'form', json: '' });
 	const [copied, setCopied] = useState<CopyKey | null>(null);
 	const copyTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 	// True when the open quick view pushed its own history entry, so closing it can step back instead of stacking another entry.

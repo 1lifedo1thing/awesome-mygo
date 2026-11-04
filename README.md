@@ -29,7 +29,7 @@ A pnpm monorepo, served by [TanStack Start](https://tanstack.com/start) on [Clou
 |---|---|
 | `apps/web` | The site: React 19, TanStack Start (server rendering) and Vite with `@cloudflare/vite-plugin`. `wrangler.jsonc` deploys it to `mygodock.dev`. |
 | `packages/catalog` | The data: `data/*.json` (apps, UI components, state solutions, plugins, articles, guides) and their JSON Schemas, the UI copy in five languages, search and the submit form's entries. Its tests validate every entry. |
-| `packages/enrich` | Completes a pull request the submission bot opens: the app's icon and screenshot from its repository, and its copy in all five languages (written with Claude). Run by `.github/workflows/enrich-submission.yml`. |
+| `packages/enrich` | Completes a pull request the submission bot opens: the app's icon from its repository, its screenshot from the link given in the form or else from the repository, and its copy in all five languages (written with Claude). Run by `.github/workflows/enrich-submission.yml`. |
 
 App icons come from [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo), served by its CDN; the few apps it does not list use their official icon from `apps/web/public/icons/`.
 

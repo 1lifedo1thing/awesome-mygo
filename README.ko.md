@@ -29,7 +29,7 @@ pnpm 모노레포이며, [TanStack Start](https://tanstack.com/start)가 [Cloudf
 |---|---|
 | `apps/web` | 사이트: React 19, TanStack Start(서버 렌더링), `@cloudflare/vite-plugin`을 쓰는 Vite. `wrangler.jsonc`로 `mygodock.dev`에 배포합니다. |
 | `packages/catalog` | 데이터: `data/*.json`(앱, UI 컴포넌트, 상태 관리 솔루션, 플러그인, 글, 가이드)과 그 JSON Schema, 5개 언어의 UI 문구, 검색, 제출 양식의 항목. 테스트로 모든 항목을 검증합니다. |
-| `packages/enrich` | 제출 bot이 연 풀 리퀘스트를 완성합니다: 프로젝트 저장소에서 앱 아이콘과 스크린샷을 가져오고, 5개 언어 문구를 Claude로 씁니다. `.github/workflows/enrich-submission.yml`이 실행합니다. |
+| `packages/enrich` | 제출 bot이 연 풀 리퀘스트를 완성합니다: 프로젝트 저장소에서 앱 아이콘을, 양식에 적은 링크(없으면 저장소)에서 스크린샷을 가져오고, 5개 언어 문구를 Claude로 씁니다. `.github/workflows/enrich-submission.yml`이 실행합니다. |
 
 앱 아이콘은 [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo)의 CDN에서 가져옵니다. ai-logo에 없는 일부 앱은 `apps/web/public/icons/`의 공식 아이콘을 씁니다.
 

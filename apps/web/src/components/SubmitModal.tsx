@@ -16,7 +16,7 @@ function Modal() {
 	const { closeSubmit, form, setFormField, copy, copied } = useSite();
 	const t = useT();
 	const ref = useDialog<HTMLDivElement>();
-	const { bot, lang, round, setToken, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint, viaJson, jsonError, onJsonChange, example, repoBad, onRepoBlur, urlLabel } = useSubmit();
+	const { bot, lang, round, setToken, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint, viaJson, jsonError, onJsonChange, example, repoBad, onRepoBlur, shotBad, onShotBlur, urlLabel } = useSubmit();
 	const urlNote = urlBad ? 'f-url-err' : repoMissing ? 'f-url-repo' : isShow || withAuthor ? 'f-url-tip' : undefined;
 
 	// The form scrolls; the footer with the submit button stays in view, saying what is still missing.
@@ -186,6 +186,35 @@ function Modal() {
 									) : (
 										<p id='f-repo-tip' className='field-tip'>
 											{t.m_link_tip}
+										</p>
+									)}
+								</div>
+							)}
+							{isShow && (
+								<div className='stack-8'>
+									<label htmlFor='f-shot' className='field-label'>
+										{t.m_shot} <span className='field-count'>{t.m_opt}</span>
+									</label>
+									<input
+										id='f-shot'
+										type='url'
+										inputMode='url'
+										value={form.screenshot ?? ''}
+										onChange={(e) => setFormField('screenshot', e.target.value)}
+										onBlur={onShotBlur}
+										placeholder='https://…/screenshot.png'
+										className='field'
+										data-bad={shotBad}
+										aria-invalid={shotBad}
+										aria-describedby={shotBad ? 'f-shot-err' : 'f-shot-tip'}
+									/>
+									{shotBad ? (
+										<p id='f-shot-err' role='alert' className='field-err'>
+											{t.m_shot_bad}
+										</p>
+									) : (
+										<p id='f-shot-tip' className='field-tip'>
+											{t.m_shot_tip}
 										</p>
 									)}
 								</div>

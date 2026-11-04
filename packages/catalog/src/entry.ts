@@ -55,6 +55,8 @@ export interface EntryDraft {
 	repo?: string;
 	// Showcase only: the app's schema.org category, from the group its author picked. Left out when none was picked.
 	category?: AppCategory;
+	// Showcase only: a link to a screenshot of the app, for a project whose README shows none. Not part of the entry: the bot passes it to the submission workflow in the pull request, which downloads it into apps/web/public/shots.
+	screenshot?: string;
 }
 
 // Empty is not "bad": the error only shows once something that is not an https link has been typed.
@@ -138,6 +140,15 @@ export function jsonEntry(cat: SubmitCat, d: EntryDraft, mode: 'native' | 'web',
 	return JSON.stringify(buildEntry(cat, d, mode, placeholders), null, 2);
 }
 
+// A screenshot link the form accepts: https, at most 300 characters, and none of the characters that could break out of where the bot quotes it in the pull request (an HTML comment and a code span).
+const SHOT_URL = /^https:\/\/[^\s<>"'`]+$/;
+
+// A showcase app's optional screenshot link that is filled in but is not one the form accepts.
+export function isBadShot(link: string): boolean {
+	const v = link.trim();
+	return v.length > 0 && (v.length > 300 || !SHOT_URL.test(v));
+}
+
 // A showcase app's optional GitHub link that is filled in but is not a repository link.
 export function isBadRepo(link: string): boolean {
 	return link.trim().length > 0 && !repoOf(link);
@@ -157,6 +168,7 @@ export function entryProblem(cat: SubmitCat, d: EntryDraft): string | undefined 
 	if (/\s/.test(d.url.trim())) return 'the link must not contain spaces';
 	if (needsRepo(cat) && !repoOf(d.url)) return 'UI components and state management need a GitHub repository link';
 	if (cat === 'showcase' && d.repo?.trim() && (isBadRepo(d.repo) || d.repo.length > 300)) return 'the GitHub repository must be a link like https://github.com/owner/name';
+	if (d.screenshot?.trim() && (cat !== 'showcase' || isBadShot(d.screenshot))) return 'the screenshot must be an https link to an image, for an app';
 	return undefined;
 }
 
@@ -224,7 +236,8 @@ export function codeFence(text: string, lang = ''): string {
 export function issueUrl(repo: string, cat: SubmitCat, catLabel: string, d: EntryDraft, entry: string, placeholders: { name: string }): string {
 	const parsed = parseEntryJson(entry);
 	const path = entryPath(cat, 'entry' in parsed ? parsed.entry : {});
-	const q = new URLSearchParams({ title: `Add ${d.name.trim() || placeholders.name} (${catLabel})`, body: `${catLabel}: \`${DATA_DIR}/${path}\`\n\n${codeFence(entry, 'json')}\n` });
+	const shot = cat === 'showcase' && d.screenshot?.trim() && !isBadShot(d.screenshot) ? `\nScreenshot: ${d.screenshot.trim()}\n` : '';
+	const q = new URLSearchParams({ title: `Add ${d.name.trim() || placeholders.name} (${catLabel})`, body: `${catLabel}: \`${DATA_DIR}/${path}\`\n\n${codeFence(entry, 'json')}\n${shot}` });
 	return `${repo}/issues/new?${q}`;
 }
 

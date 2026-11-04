@@ -29,7 +29,7 @@ pnpm monorepo，由 [TanStack Start](https://tanstack.com/start) 執行在 [Clou
 |---|---|
 | `apps/web` | 網站：React 19、TanStack Start（伺服器端渲染），以及帶 `@cloudflare/vite-plugin` 的 Vite。`wrangler.jsonc` 把它部署到 `mygodock.dev`。 |
 | `packages/catalog` | 資料：`data/*.json`（應用、UI 元件、狀態方案、外掛、文章、指南）及其 JSON Schema，五種語言的介面文案，搜尋與提交表單的條目。測試會驗證每個條目。 |
-| `packages/enrich` | 補全提交 bot 開的 PR：從專案倉庫取應用圖示和截圖，並用 Claude 寫五種語言的文案。由 `.github/workflows/enrich-submission.yml` 執行。 |
+| `packages/enrich` | 補全提交 bot 開的 PR：從專案倉庫取應用圖示，截圖優先用表單裡填的連結、否則從倉庫取，並用 Claude 寫五種語言的文案。由 `.github/workflows/enrich-submission.yml` 執行。 |
 
 應用圖示來自 [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo)，由它的 CDN 提供；它未收錄的少數應用使用 `apps/web/public/icons/` 裡的官方圖示。
 
