@@ -2,17 +2,15 @@ import { ABOUT } from './about';
 import type { Localized } from './lang';
 import type { StringKey } from './strings';
 
-// Data sources: egoist/mygo (website/src/showcase.ts, docs/), fksune/awesome-mygo and each project's own README.
+// Data sources: egoist/mygo (website/src/showcase.ts, docs/) and each project's own README.
 
 export const SITE_URL = 'https://mygodock.dev';
 export const MYGO_SITE = 'https://mygo.egoist.dev';
 export const MYGO_SHOWCASE = 'https://mygo.egoist.dev/showcase';
 export const MYGO_REPO = 'https://github.com/egoist/mygo';
-// The upstream list, where README entries are submitted.
-export const LIST_REPO = 'https://github.com/fksune/awesome-mygo';
-// This site's own repository.
+// This site's own repository, where submissions other than apps arrive as issues.
 export const SITE_REPO = 'https://github.com/yldm-tech/awesome-mygo';
-// Apps are listed upstream in this file; showcase submissions go there as a pull request.
+// MyGo's own showcase lists apps in this file, so app submissions go there as a pull request.
 export const SHOWCASE_SOURCE = 'https://github.com/egoist/mygo/blob/main/website/src/showcase.ts';
 export const SPONSOR_URL = 'https://github.com/sponsors/egoist';
 export const DOCS_BASE = 'https://github.com/egoist/mygo/blob/main/docs/';
@@ -58,7 +56,7 @@ const W: AppKind = 'web';
 
 type AppRow = readonly [slug: string, name: string, author: string, kind: AppKind, url: string, desc: Localized];
 
-// Order: egoist/mygo's showcase.ts, then apps listed only in fksune/awesome-mygo.
+// Order: egoist/mygo's showcase.ts, then apps it does not list yet.
 const APP_ROWS: readonly AppRow[] = [
 	['mixmusic', 'MixMusic', 'fzn0x', N, 'https://github.com/fzn0x/mixmusic', ['开源音乐播放器，可搜索 YouTube Music 与 Spotify。', '開源音樂播放器，可搜尋 YouTube Music 與 Spotify。', 'An open-source music player that searches YouTube Music and Spotify.', 'YouTube Music と Spotify を検索できるオープンソースの音楽プレーヤー。', 'YouTube Music과 Spotify를 검색하는 오픈소스 음악 플레이어.']],
 	['pulse', 'Pulse', 'egoist', N, 'https://pulse.egoist.dev', ['适用于 Mac、Windows、Linux 的活动监视器。', '適用於 Mac、Windows、Linux 的活動監視器。', 'An activity monitor for Mac, Windows and Linux.', 'Mac・Windows・Linux 向けのアクティビティモニタ。', 'Mac, Windows, Linux용 활동 모니터.']],
