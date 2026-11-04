@@ -1,0 +1,28 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "meiro",
+	"name": "Meiro",
+	"author": "elianiva",
+	"kind": "native",
+	"category": "MultimediaApplication",
+	"url": "https://meiro.elianiva.com",
+	"summary": {
+		"en": "YouTube Music without the bloat, in a native Material 3 Expressive player.",
+		"zh-CN": "精简的 YouTube Music 播放器，Material 3 Expressive 原生界面。",
+		"zh-TW": "精簡的 YouTube Music 播放器，Material 3 Expressive 原生介面。",
+		"ja": "余計なもののない YouTube Music。Material 3 Expressive のネイティブプレーヤー。",
+		"ko": "군더더기 없는 YouTube Music, Material 3 Expressive 네이티브 플레이어."
+	},
+	"description": {
+		"en": "YouTube Music, without the bloat. A native Material 3 Expressive player that takes about 100 MB, with no ads, synced lyrics, Last.fm scrobbling and colours that match each song.",
+		"zh-CN": "去掉臃肿的 YouTube Music。原生 Material 3 Expressive 播放器，占用约 100 MB，无广告，支持同步歌词、Last.fm 记录，界面配色随每首歌变化。",
+		"zh-TW": "去掉臃腫的 YouTube Music。原生 Material 3 Expressive 播放器，佔用約 100 MB，無廣告，支援同步歌詞、Last.fm 紀錄，介面配色隨每首歌變化。",
+		"ja": "余計なもののない YouTube Music。約 100 MB で動くネイティブな Material 3 Expressive のプレーヤーで、広告なし、同期歌詞、Last.fm へのスクロブル、曲ごとに変わる配色に対応。",
+		"ko": "군더더기 없는 YouTube Music. 약 100MB를 쓰는 네이티브 Material 3 Expressive 플레이어로, 광고 없이 싱크 가사, Last.fm 스크로블, 곡마다 바뀌는 색을 지원합니다."
+	},
+	"screenshot": "meiro.webp",
+	"icon": {
+		"ailogo": "meiro"
+	},
+	"added": "2026-11-04T02:24:49Z"
+}

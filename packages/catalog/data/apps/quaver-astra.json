@@ -1,0 +1,28 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "quaver-astra",
+	"name": "Quaver Astra",
+	"author": "Ne0W0r1d x Team Quaver",
+	"kind": "native",
+	"category": "MultimediaApplication",
+	"url": "https://quaver.0w0.red",
+	"summary": {
+		"en": "A lightweight, native-feeling QQ Music client, rebuilt from Electron on MyGo.",
+		"zh-CN": "轻量、原生手感的 QQ 音乐客户端，从 Electron 迁移到 MyGo。",
+		"zh-TW": "輕量、原生手感的 QQ 音樂用戶端，從 Electron 遷移到 MyGo。",
+		"ja": "軽量でネイティブな使い心地の QQ Music クライアント。Electron から MyGo へ移行。",
+		"ko": "Electron에서 MyGo로 옮긴 가볍고 네이티브한 QQ Music 클라이언트."
+	},
+	"description": {
+		"en": "A lightweight, native-feeling QQ Music client. Team Quaver rebuilt their Electron app, Quaver Music, on MyGo, keeping its Go backend and playback engine.",
+		"zh-CN": "轻量、有原生手感的 QQ 音乐客户端。Team Quaver 把他们的 Electron 应用 Quaver Music 用 MyGo 重做，保留了原有的 Go 后端与播放引擎。",
+		"zh-TW": "輕量、有原生手感的 QQ 音樂用戶端。Team Quaver 把他們的 Electron 應用 Quaver Music 用 MyGo 重做，保留了原有的 Go 後端與播放引擎。",
+		"ja": "軽量でネイティブな使い心地の QQ Music クライアント。Team Quaver が Electron 製の Quaver Music を MyGo で作り直し、Go のバックエンドと再生エンジンはそのまま残しました。",
+		"ko": "가볍고 네이티브한 느낌의 QQ Music 클라이언트. Team Quaver가 Electron 앱 Quaver Music을 MyGo로 다시 만들면서 Go 백엔드와 재생 엔진은 그대로 유지했습니다."
+	},
+	"screenshot": "quaver-astra.webp",
+	"icon": {
+		"ailogo": "quaverastra"
+	},
+	"added": "2026-11-04T02:24:49Z"
+}

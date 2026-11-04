@@ -1,0 +1,28 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "nova",
+	"name": "Nova",
+	"author": "yaffalhakim1",
+	"kind": "native",
+	"category": "GameApplication",
+	"url": "https://github.com/yaffalhakim1/nova",
+	"summary": {
+		"en": "A native Windows game launcher: finds your installed games, shows Steam's artwork and starts them.",
+		"zh-CN": "原生 Windows 游戏启动器：找出已安装的游戏，配上 Steam 的封面，一键启动。",
+		"zh-TW": "原生 Windows 遊戲啟動器：找出已安裝的遊戲，配上 Steam 的封面，一鍵啟動。",
+		"ja": "ネイティブな Windows ゲームランチャー。手持ちのゲームを Steam のアートワークで並べて起動。",
+		"ko": "네이티브 Windows 게임 런처. 설치된 게임을 찾아 Steam 아트워크로 보여 주고 실행합니다."
+	},
+	"description": {
+		"en": "A Windows game launcher drawn with MyGo's native UI, with no web view and no bundled runtime. It finds games from Steam's app manifests and any folder you point it at, shows each one's Steam cover, screenshots and store description, tints the window to the selected cover, keeps play time and, with a Steam Web API key, achievements, and starts a game in one click. It does not buy, download or mod games.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 游戏启动器，没有 Web 视图，也不打包运行时。它读取 Steam 的应用清单并扫描你指定的文件夹来找出游戏，为每款游戏显示 Steam 的封面、截图和商店介绍，窗口颜色随选中的封面变化；它会记录游戏时长，填入 Steam Web API 密钥后还能显示成就，一键即可启动游戏。它不购买、不下载，也不修改游戏。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows 遊戲啟動器，沒有 Web 視圖，也不打包執行環境。它讀取 Steam 的應用程式清單並掃描你指定的資料夾來找出遊戲，為每款遊戲顯示 Steam 的封面、截圖和商店介紹，視窗顏色隨選中的封面變化；它會記錄遊戲時數，填入 Steam Web API 金鑰後還能顯示成就，一鍵即可啟動遊戲。它不購買、不下載，也不修改遊戲。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows 用ゲームランチャー。Web ビューも同梱ランタイムもありません。Steam のアプリマニフェストと指定したフォルダーからゲームを見つけ、それぞれに Steam のカバー、スクリーンショット、ストアの説明を表示し、選んだカバーに合わせてウィンドウの色を変えます。プレイ時間を記録し、Steam Web API キーがあれば実績も表示して、ワンクリックでゲームを起動します。ゲームの購入、ダウンロード、改造はしません。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows 게임 런처로, 웹 뷰도 번들 런타임도 없습니다. Steam의 앱 매니페스트와 지정한 폴더에서 게임을 찾아 각 게임의 Steam 커버, 스크린샷, 스토어 설명을 보여 주고, 선택한 커버에 맞춰 창 색이 바뀝니다. 플레이 시간을 기록하고 Steam Web API 키가 있으면 업적도 보여 주며, 클릭 한 번으로 게임을 실행합니다. 게임을 구매하거나 내려받거나 수정하지 않습니다."
+	},
+	"screenshot": "nova.webp",
+	"icon": {
+		"file": "nova.webp"
+	},
+	"added": "2026-11-04T09:57:36Z"
+}

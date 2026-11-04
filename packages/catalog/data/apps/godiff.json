@@ -1,0 +1,27 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "godiff",
+	"name": "Godiff",
+	"author": "egoist",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/egoist/godiff",
+	"summary": {
+		"en": "A minimal Git diff viewer and committer.",
+		"zh-CN": "极简的 Git diff 查看与提交工具。",
+		"zh-TW": "極簡的 Git diff 檢視與提交工具。",
+		"ja": "ミニマルな Git の差分ビューア兼コミットツール。",
+		"ko": "미니멀한 Git diff 뷰어 겸 커밋 도구."
+	},
+	"description": {
+		"en": "A minimal diff viewer for reviewing Git changes and committing them. Split and unified diffs, review comments to copy for an agent, history, and GitHub pull request reviews.",
+		"zh-CN": "用于审阅并提交 Git 改动的极简 diff 查看器。支持分栏与统一 diff、可复制给 Agent 的审阅评论、提交历史，以及 GitHub PR 审阅。",
+		"zh-TW": "用於審閱並提交 Git 變更的極簡 diff 檢視器。支援並排與統一 diff、可複製給 Agent 的審閱留言、提交歷史，以及 GitHub PR 審閱。",
+		"ja": "Git の変更をレビューしてコミットするためのミニマルな差分ビューア。分割表示と統合表示、エージェントに渡せるレビューコメント、履歴、GitHub のプルリクエストレビューに対応。",
+		"ko": "Git 변경을 검토하고 커밋하는 미니멀 diff 뷰어. 분할·통합 diff, 에이전트에게 복사해 줄 리뷰 코멘트, 히스토리, GitHub 풀 리퀘스트 리뷰를 지원합니다."
+	},
+	"icon": {
+		"ailogo": "godiff"
+	},
+	"added": "2026-11-04T02:24:49Z"
+}

@@ -1,10 +1,10 @@
 import { execFile } from 'node:child_process';
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, readdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { promisify } from 'node:util';
 import { DEFAULT_MODEL, README_LIMIT, type LlmConfig, writeCopy } from './copy.ts';
 import { downloadImage, isDefaultIcon, writeIcon, writeShot } from './image.ts';
-import { DATA_FILES, type DataFile, type Entry, addedEntries, appNameFrom, hasAllLanguages, iconOf, pickMygoJson, readmeImages, repoOfEntry, resolveImage } from './source.ts';
+import { APP_DIR, DATA_FILES, type DataFile, type Entry, type EntryKind, addedAppFiles, addedEntries, appNameFrom, hasAllLanguages, iconOf, pickMygoJson, readmeImages, repoOfEntry, resolveImage } from './source.ts';
 
 // Run by .github/workflows/enrich-submission.yml on a pull request the submission bot opened. It finds the entries the branch adds, then for each fills in what the form cannot ask for: an app's icon (from its mygo.json) and screenshot (the first one in its README), and the copy in every site language. It changes files in the working tree and writes a Markdown report for the pull request; the workflow runs the catalog checks and commits.
 //
@@ -121,14 +121,14 @@ async function addScreenshot(entry: Entry, slug: string, facts: RepoFacts, iconU
 	say(skipped.length ? `- Screenshot: none added. The README's images: ${skipped.join(', ')}.` : '- Screenshot: the README has no image.');
 }
 
-async function addCopy(cfg: LlmConfig | undefined, file: DataFile, entry: Entry, facts: RepoFacts | undefined, examples: Entry[]): Promise<void> {
-	if (hasAllLanguages(entry.summary) && (!DATA_FILES[file].description || hasAllLanguages(entry.description))) return say('- Copy: kept, as it is already in every site language.');
+async function addCopy(cfg: LlmConfig | undefined, kind: EntryKind, entry: Entry, facts: RepoFacts | undefined, examples: Entry[]): Promise<void> {
+	if (hasAllLanguages(entry.summary) && (kind !== 'app' || hasAllLanguages(entry.description))) return say('- Copy: kept, as it is already in every site language.');
 	if (!cfg) return say('- Copy: left as submitted, as LLM_API_KEY is not set for this workflow.');
 	if (facts?.readme && facts.readme.text.length > README_LIMIT) say(`- The README is ${facts.readme.text.length} characters long; the copy was written from its first ${README_LIMIT}.`);
 	try {
-		const copy = await writeCopy(cfg, { file, entry, readme: facts?.readme?.text, mygoJson: facts?.mygo?.text, examples });
+		const copy = await writeCopy(cfg, { kind, entry, readme: facts?.readme?.text, mygoJson: facts?.mygo?.text, examples });
 		entry.summary = copy.summary;
-		if (DATA_FILES[file].description && copy.description) entry.description = copy.description;
+		if (kind === 'app' && copy.description) entry.description = copy.description;
 		say(`- Copy: written by ${cfg.model} in all five languages from the submission${facts?.readme ? ' and the README' : ''}. Read it before merging.`);
 		if (copy.notes) say(`- Model's notes: ${copy.notes.replace(/\s+/g, ' ')}`);
 		if (copy.tooLong.length) say(`- Still longer than the hand-written examples after one rewrite (length/limit): ${copy.tooLong.join(', ')}. Shorten before merging.`);
@@ -137,9 +137,48 @@ async function addCopy(cfg: LlmConfig | undefined, file: DataFile, entry: Entry,
 	}
 }
 
+// Fills in one added entry, in place: for an app its name, icon and screenshot from its repository, and for every kind the copy.
+async function complete(cfg: LlmConfig | undefined, kind: EntryKind, where: string, entry: Entry, examples: Entry[]): Promise<void> {
+	say(`### ${String(entry.name ?? entry.slug ?? '?')} (\`${where}\`)`);
+	const repo = repoOfEntry(entry);
+	const facts = repo ? await repoFacts(repo) : undefined;
+	if (!repo) say('- No GitHub repository in the entry, so nothing was taken from one.');
+	else if (!facts) say(`- The repository ${repo} could not be found.`);
+	if (kind === 'app') {
+		const slug = String(entry.slug);
+		const better = facts?.mygo ? appNameFrom(String(entry.name), facts.mygo.json) : undefined;
+		if (better) {
+			say(`- Name: ${better}, as \`${facts?.mygo?.path}\` spells it (submitted as ${String(entry.name)}).`);
+			entry.name = better;
+		}
+		if (facts) {
+			const iconUrl = await addIcon(entry, slug, facts);
+			await addScreenshot(entry, slug, facts, iconUrl);
+		}
+	}
+	await addCopy(cfg, kind, entry, facts, examples);
+}
+
+const json = (v: unknown) => `${JSON.stringify(v, null, '\t')}\n`;
+
 async function main(): Promise<void> {
 	const cfg: LlmConfig | undefined = env.LLM_API_KEY ? { apiKey: env.LLM_API_KEY, baseURL: env.LLM_BASE_URL || undefined, model: env.LLM_MODEL || DEFAULT_MODEL } : undefined;
 
+	// Apps: the files in data/apps/ that the base branch does not have.
+	const appDir = `${DATA_DIR}/${APP_DIR}`;
+	const { stdout: listed } = await run('git', ['ls-tree', '--name-only', `${BASE_REF}:${appDir}`], { cwd: ROOT, maxBuffer: 4 * 1024 * 1024 });
+	const newApps = addedAppFiles(listed.split('\n'), await readdir(join(ROOT, appDir)));
+	if (newApps.length) {
+		const examples = await Promise.all(EXAMPLE_APPS.map(async (slug) => JSON.parse(await readFile(join(ROOT, appDir, `${slug}.json`), 'utf8')) as Entry));
+		for (const name of newApps) {
+			const path = join(ROOT, appDir, name);
+			const entry = JSON.parse(await readFile(path, 'utf8')) as Entry;
+			await complete(cfg, 'app', `${appDir}/${name}`, entry, examples);
+			await writeFile(path, json(entry));
+		}
+	}
+
+	// The other categories: the entries a list file gains.
 	for (const file of Object.keys(DATA_FILES) as DataFile[]) {
 		const { list } = DATA_FILES[file];
 		const path = join(ROOT, DATA_DIR, file);
@@ -148,31 +187,9 @@ async function main(): Promise<void> {
 		const base = JSON.parse(stdout) as Record<string, Entry[]>;
 		const added = addedEntries(base[list] ?? [], head[list]);
 		if (!added.length) continue;
-		const examples = file === 'apps.json' ? head[list].filter((e) => EXAMPLE_APPS.includes(String(e.slug))) : (base[list] ?? []).slice(-2);
-
-		for (const i of added) {
-			const entry = head[list][i];
-			const name = String(entry.name ?? entry.slug ?? '?');
-			say(`### ${name} (\`${DATA_DIR}/${file}\`)`);
-			const repo = repoOfEntry(entry);
-			const facts = repo ? await repoFacts(repo) : undefined;
-			if (!repo) say('- No GitHub repository in the entry, so nothing was taken from one.');
-			else if (!facts) say(`- The repository ${repo} could not be found.`);
-			if (file === 'apps.json') {
-				const slug = String(entry.slug);
-				const better = facts?.mygo ? appNameFrom(String(entry.name), facts.mygo.json) : undefined;
-				if (better) {
-					say(`- Name: ${better}, as \`${facts?.mygo?.path}\` spells it (submitted as ${String(entry.name)}).`);
-					entry.name = better;
-				}
-				if (facts) {
-					const iconUrl = await addIcon(entry, slug, facts);
-					await addScreenshot(entry, slug, facts, iconUrl);
-				}
-			}
-			await addCopy(cfg, file, entry, facts, examples);
-		}
-		await writeFile(path, `${JSON.stringify(head, null, '\t')}\n`);
+		const examples = (base[list] ?? []).slice(-2);
+		for (const i of added) await complete(cfg, file, `${DATA_DIR}/${file}`, head[list][i], examples);
+		await writeFile(path, json(head));
 	}
 
 	const text = report.length ? report.join('\n') : 'The branch adds no entry this workflow completes.';

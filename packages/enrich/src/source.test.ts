@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { addedEntries, appNameFrom, hasAllLanguages, iconOf, isSquarish, lengthCaps, overCaps, joinRepoPath, pickMygoJson, readmeImages, repoOfEntry, resolveImage, sniffImage } from './source.ts';
+import { addedAppFiles, addedEntries, appNameFrom, hasAllLanguages, iconOf, isSquarish, lengthCaps, overCaps, joinRepoPath, pickMygoJson, readmeImages, repoOfEntry, resolveImage, sniffImage } from './source.ts';
 
 describe('app names', () => {
 	it('takes mygo.json’s spelling of the same name only', () => {
@@ -32,6 +32,11 @@ describe('submitted entries', () => {
 		expect(addedEntries(base, [...base, { slug: 'c' }])).toEqual([2]);
 		expect(addedEntries(base, [{ slug: 'b' }, { slug: 'a' }])).toEqual([]);
 		expect(addedEntries([], [{ slug: 'a' }])).toEqual([0]);
+	});
+
+	it('finds the app files a branch adds', () => {
+		expect(addedAppFiles(['2048.json', 'nova.json', ''], ['nova.json', 'saundo.json', '2048.json', 'pinup.json', '.DS_Store'])).toEqual(['pinup.json', 'saundo.json']);
+		expect(addedAppFiles(['nova.json'], ['nova.json'])).toEqual([]);
 	});
 
 	it('takes the repository from repo, or from a GitHub link', () => {

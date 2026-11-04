@@ -1,0 +1,28 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "lumilo",
+	"name": "Lumilo",
+	"author": "kotuke",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/kotuke/lumilo",
+	"summary": {
+		"en": "A macOS menu-bar panel for local LLM engines.",
+		"zh-CN": "macOS 菜单栏面板，管理本地 LLM 引擎。",
+		"zh-TW": "macOS 選單列面板，管理本機 LLM 引擎。",
+		"ja": "ローカル LLM エンジン用の macOS メニューバーパネル。",
+		"ko": "로컬 LLM 엔진을 위한 macOS 메뉴 막대 패널."
+	},
+	"description": {
+		"en": "A menu-bar panel for local LLM engines on macOS. Start and stop Splash or llama.cpp, watch memory and speed, get models from Hugging Face and launch coding agents against the local server.",
+		"zh-CN": "macOS 菜单栏上的本地 LLM 引擎面板。启动和停止 Splash 或 llama.cpp，查看内存与速度，从 Hugging Face 获取模型，并让编程 Agent 直接连接本地服务。",
+		"zh-TW": "macOS 選單列上的本機 LLM 引擎面板。啟動與停止 Splash 或 llama.cpp，查看記憶體與速度，從 Hugging Face 取得模型，並讓程式設計 Agent 直接連到本機服務。",
+		"ja": "macOS のメニューバーに置くローカル LLM エンジン用パネル。Splash や llama.cpp の起動と停止、メモリと速度の確認、Hugging Face からのモデル取得、ローカルサーバーに向けたコーディングエージェントの起動ができます。",
+		"ko": "macOS 메뉴 막대의 로컬 LLM 엔진 패널. Splash나 llama.cpp를 켜고 끄고, 메모리와 속도를 확인하고, Hugging Face에서 모델을 받고, 로컬 서버를 향해 코딩 에이전트를 실행합니다."
+	},
+	"screenshot": "lumilo.webp",
+	"icon": {
+		"ailogo": "lumilo"
+	},
+	"added": "2026-11-04T02:24:49Z"
+}

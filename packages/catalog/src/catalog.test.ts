@@ -1,9 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import apps from '../data/apps.json';
 import articles from '../data/articles.json';
 import docs from '../data/docs.json';
 import plugins from '../data/plugins.json';
-import appsSchema from '../data/schema/apps.schema.json';
+import appSchema from '../data/schema/app.schema.json';
 import articlesSchema from '../data/schema/articles.schema.json';
 import docsSchema from '../data/schema/docs.schema.json';
 import pluginsSchema from '../data/schema/plugins.schema.json';
@@ -11,8 +10,8 @@ import stateSchema from '../data/schema/state.schema.json';
 import uiSchema from '../data/schema/ui.schema.json';
 import state from '../data/state.json';
 import ui from '../data/ui.json';
-import { AILOGO_CDN, APP_CATEGORIES, APP_GROUPS, APPS, GROUP_CATEGORY, appGroup, appSource, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, authorProfile, hostOf, readApps, readPlugins } from './catalog';
-import { SUBMIT_CATS, SUBMIT_FILES, appendEntry, buildEntry, codeFence, descMax, editUrl, entryCats, entryProblem, guessFromLink, isBadUrl, isEntryComplete, issueUrl, jsonEntry, missingFields, parseEntryJson, pastedEntryProblem, pastedName, slugify, withScheme } from './entry';
+import { AILOGO_CDN, APP_CATEGORIES, APP_GROUPS, APPS, GROUP_CATEGORY, appGroup, appSource, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, authorProfile, hostOf, readAppEntry, readAppFile, readApps, readPlugins } from './catalog';
+import { LIST_FILES, type ListCat, SUBMIT_CATS, appFileText, appendEntry, buildEntry, codeFence, descMax, editUrl, entryCats, entryPath, entryProblem, guessFromLink, isBadUrl, isEntryComplete, issueUrl, jsonEntry, missingFields, parseEntryJson, pastedEntryProblem, pastedName, slugify, withScheme } from './entry';
 import { LANGS, type LangCode, type Text, fill, langRedirectScript, negotiateLang, pick, validateRootSearch } from './lang';
 import { buildSearchIndex, searchCatalog } from './search';
 import { LIKE_KEYS, likeKey } from './likes';
@@ -27,8 +26,11 @@ const dataText = (file: string) => readFileSync(new URL(`../data/${file}`, impor
 
 const PUBLIC = new URL('../../../apps/web/public/', import.meta.url);
 type Schema = { $id: string; properties: Record<string, { items: { required: string[]; properties: Record<string, unknown> } }> };
-const SCHEMAS: Record<string, Schema> = { 'apps.json': appsSchema, 'ui.json': uiSchema, 'state.json': stateSchema, 'plugins.json': pluginsSchema, 'docs.json': docsSchema, 'articles.json': articlesSchema } as unknown as Record<string, Schema>;
-const FILES: Record<string, { $schema: string }> = { 'apps.json': apps, 'ui.json': ui, 'state.json': state, 'plugins.json': plugins, 'docs.json': docs, 'articles.json': articles };
+type ItemSchema = { $id: string; required: string[]; properties: Record<string, unknown> };
+const APP_SCHEMA = appSchema as unknown as ItemSchema & { properties: { category: { enum: string[] } } };
+const LIST_CATS = SUBMIT_CATS.filter((c): c is ListCat => c !== 'showcase');
+const SCHEMAS: Record<string, Schema> = { 'ui.json': uiSchema, 'state.json': stateSchema, 'plugins.json': pluginsSchema, 'docs.json': docsSchema, 'articles.json': articlesSchema } as unknown as Record<string, Schema>;
+const FILES: Record<string, { $schema: string }> = { 'ui.json': ui, 'state.json': state, 'plugins.json': plugins, 'docs.json': docs, 'articles.json': articles };
 const texts = (): Text[] => [...APPS.flatMap((a) => [a.desc, a.about]), ...UI_LIBS.map((l) => l.desc), ...STATE_SOLUTIONS.map((s) => s.desc), ...PLUGINS.map((p) => p.desc), ...COMMUNITY_PLUGINS.map((p) => p.desc), ...DOCS.map((d) => d.desc)];
 
 describe('catalog data', () => {
@@ -101,6 +103,21 @@ describe('catalog data', () => {
 
 	it('points every data file at its schema', () => {
 		for (const [file, json] of Object.entries(FILES)) expect(json.$schema, file).toBe(`./schema/${SCHEMAS[file].$id}`);
+		expect(APP_SCHEMA.$id).toBe('app.schema.json');
+	});
+
+	// Apps are one file each so that submissions arriving together never edit the same file; their order comes from when each was added.
+	it('keeps each app in a file named after its slug, in the order they were added', () => {
+		const app = { $schema: '../schema/app.schema.json', slug: 'kit', name: 'Kit', author: 'someone', kind: 'native', url: 'https://x.dev', summary: { en: 'A kit.' }, description: { en: 'A kit.' }, added: '2026-11-04T12:00:00Z' };
+		expect(readAppFile('kit.json', app).added).toBe('2026-11-04T12:00:00Z');
+		expect(() => readAppFile('other.json', app)).toThrow(/apps\/other.json \(Kit\): slug must match the file name/);
+		expect(() => readAppFile('kit.json', { ...app, added: undefined })).toThrow(/added is required/);
+		expect(() => readAppFile('kit.json', { ...app, added: '2026-11-04' })).toThrow(/added must be a UTC time/);
+		expect(() => readAppFile('kit.json', { ...app, $schema: './schema/apps.schema.json' })).toThrow(/\$schema must be/);
+		const later = { ...app, slug: 'aaa', added: '2026-11-05T00:00:00Z' };
+		const same = { ...app, slug: 'abc' };
+		expect(readApps({ 'aaa.json': later, 'kit.json': app, 'abc.json': same }).map((a) => a.slug)).toEqual(['abc', 'kit', 'aaa']);
+		for (let i = 1; i < APPS.length; i++) expect((APPS[i - 1].added ?? '') <= (APPS[i].added ?? ''), APPS[i].slug).toBe(true);
 	});
 
 	it('resolves apps by slug', () => {
@@ -110,12 +127,12 @@ describe('catalog data', () => {
 
 	// The category is optional (the submission form and bot write entries without one), so only its value is checked.
 	it('takes an app category only from the values its schema allows', () => {
-		const schemaEnum = (appsSchema as unknown as { properties: { apps: { items: { properties: { category: { enum: string[] } } } } } }).properties.apps.items.properties.category.enum;
+		const schemaEnum = APP_SCHEMA.properties.category.enum;
 		expect(schemaEnum).toEqual([...APP_CATEGORIES]);
 		for (const a of APPS) if (a.category !== undefined) expect(APP_CATEGORIES, a.slug).toContain(a.category);
 		const entry = { slug: 'kit', name: 'Kit', author: 'someone', kind: 'native', url: 'https://x.dev', summary: { en: 'A kit.' }, description: { en: 'A kit.' } };
-		expect(readApps({ apps: [entry] })[0].category).toBeUndefined();
-		expect(() => readApps({ apps: [{ ...entry, category: 'DesktopApplication' }] })).toThrow(/category must be one of/);
+		expect(readAppEntry(entry).category).toBeUndefined();
+		expect(() => readAppEntry({ ...entry, category: 'DesktopApplication' })).toThrow(/category must be one of/);
 	});
 
 	it('links an author to a GitHub profile only when one of their apps is in a repository they own', () => {
@@ -440,13 +457,13 @@ describe('submission entry', () => {
 	it('writes the picked category into a showcase entry, and none when none was picked', () => {
 		expect(JSON.parse(jsonEntry('showcase', { ...draft, category: 'GameApplication' }, 'native', ph)).category).toBe('GameApplication');
 		expect('category' in JSON.parse(jsonEntry('showcase', draft, 'native', ph))).toBe(false);
-		expect(() => readApps({ apps: [buildEntry('showcase', { ...draft, category: 'GameApplication' }, 'native', ph)] })).not.toThrow();
+		expect(() => readAppEntry(buildEntry('showcase', { ...draft, category: 'GameApplication' }, 'native', ph))).not.toThrow();
 	});
 
 	it('writes, for every category, an entry with the fields its schema requires and no others', () => {
 		for (const cat of SUBMIT_CATS) {
-			const { file, list } = SUBMIT_FILES[cat];
-			const item = SCHEMAS[file].properties[list].items;
+			// An app's file adds $schema and added, which the bot writes when it files the entry.
+			const item = cat === 'showcase' ? { required: APP_SCHEMA.required.filter((f) => f !== 'added'), properties: APP_SCHEMA.properties } : SCHEMAS[LIST_FILES[cat].file].properties[LIST_FILES[cat].list].items;
 			const entry = JSON.parse(jsonEntry(cat, draft, 'native', ph));
 			for (const field of item.required) expect(entry, `${cat} ${field}`).toHaveProperty(field);
 			for (const field of Object.keys(entry)) expect(Object.keys(item.properties), `${cat} ${field}`).toContain(field);
@@ -466,7 +483,15 @@ describe('submission entry', () => {
 		expect(u.origin + u.pathname).toBe('https://github.com/yldm-tech/awesome-mygo/issues/new');
 		expect(u.searchParams.get('title')).toBe('Add My "Kit" (UI)');
 		expect(u.searchParams.get('body')).toBe(`UI: \`packages/catalog/data/ui.json\`\n\n\`\`\`json\n${entry}\n\`\`\`\n`);
-		expect(editUrl('https://github.com/yldm-tech/awesome-mygo', 'showcase')).toBe('https://github.com/yldm-tech/awesome-mygo/edit/main/packages/catalog/data/apps.json');
+		expect(editUrl('https://github.com/yldm-tech/awesome-mygo', 'ui', JSON.parse(entry))).toBe('https://github.com/yldm-tech/awesome-mygo/edit/main/packages/catalog/data/ui.json');
+		// An app is a new file: GitHub's new-file page, named after the slug and filled in.
+		const app = buildEntry('showcase', draft, 'native', ph);
+		const n = new URL(editUrl('https://github.com/yldm-tech/awesome-mygo', 'showcase', app));
+		expect(n.origin + n.pathname).toBe('https://github.com/yldm-tech/awesome-mygo/new/main/packages/catalog/data/apps');
+		expect(n.searchParams.get('filename')).toBe('my-kit.json');
+		const filed = JSON.parse(n.searchParams.get('value') ?? '');
+		expect(() => readAppFile('my-kit.json', filed)).not.toThrow();
+		expect(new URL(issueUrl('https://github.com/yldm-tech/awesome-mygo', 'showcase', 'App', draft, JSON.stringify(app), ph)).searchParams.get('body')).toMatch(/^App: `packages\/catalog\/data\/apps\/my-kit.json`/);
 	});
 
 	it('flags non-https links only once something is typed', () => {
@@ -511,9 +536,9 @@ describe('bot submission', () => {
 		expect(entryProblem('showcase', { ...draft, url: 'https://x.dev/a b' })).toMatch(/spaces/);
 	});
 
-	it('appends the entry to every data file, keeping the rest of the file byte for byte', () => {
-		for (const cat of SUBMIT_CATS) {
-			const { file, list } = SUBMIT_FILES[cat];
+	it('appends the entry to every list file, keeping the rest of the file byte for byte', () => {
+		for (const cat of LIST_CATS) {
+			const { file, list } = LIST_FILES[cat];
 			const before = dataText(file);
 			const entry = buildEntry(cat, draft, 'native', ph);
 			const after = appendEntry(cat, before, entry);
@@ -530,8 +555,8 @@ describe('bot submission', () => {
 		const withRepo = buildEntry('showcase', { ...home, repo: 'https://github.com/someone/my-kit' }, 'native', ph);
 		expect(withRepo).toMatchObject({ url: 'https://my-kit.dev', repo: 'someone/my-kit' });
 		expect('repo' in buildEntry('showcase', home, 'native', ph)).toBe(false);
-		expect(readApps({ apps: [withRepo] })[0].repo).toBe('someone/my-kit');
-		expect(() => readApps({ apps: [{ ...withRepo, repo: 'https://github.com/someone/my-kit' }] })).toThrow(/repo must be owner\/name/);
+		expect(readAppEntry(withRepo).repo).toBe('someone/my-kit');
+		expect(() => readAppEntry({ ...withRepo, repo: 'https://github.com/someone/my-kit' })).toThrow(/repo must be owner\/name/);
 		expect(entryProblem('showcase', { ...home, repo: '' })).toBeUndefined();
 		expect(entryProblem('showcase', { ...home, repo: 'https://gitlab.com/someone/my-kit' })).toMatch(/GitHub repository/);
 	});
@@ -577,10 +602,24 @@ describe('bot submission', () => {
 	});
 
 	it('rejects an entry the file already has, or one that breaks its check, naming the field', () => {
-		const text = dataText('apps.json');
-		const first = JSON.parse(text).apps[0];
-		expect(() => appendEntry('showcase', text, first)).toThrow(/slug/);
-		expect(() => appendEntry('showcase', text, { ...first, slug: 'fresh-slug', summary: { ja: 'x' } })).toThrow(CatalogError);
-		expect(() => appendEntry('showcase', text, { ...first, slug: 'fresh-slug', summary: { ja: 'x' } })).toThrow(/summary\.en/);
+		const text = dataText('ui.json');
+		const first = JSON.parse(text).libraries[0];
+		expect(() => appendEntry('ui', text, first)).toThrow(/two entries have/);
+		expect(() => appendEntry('ui', text, { ...first, name: 'Fresh', summary: { ja: 'x' } })).toThrow(CatalogError);
+		expect(() => appendEntry('ui', text, { ...first, name: 'Fresh', summary: { ja: 'x' } })).toThrow(/summary\.en/);
+	});
+
+	it('files an app as a file of its own, with its schema and the time it was added', () => {
+		const app = buildEntry('showcase', draft, 'native', ph);
+		expect(entryPath('showcase', app)).toBe(`apps/${app.slug}.json`);
+		expect(entryPath('ui', app)).toBe('ui.json');
+		const text = appFileText(app, '2026-11-04T12:00:00Z');
+		const file = JSON.parse(text);
+		expect(Object.keys(file)[0]).toBe('$schema');
+		expect(file).toMatchObject({ ...app, added: '2026-11-04T12:00:00Z' });
+		expect(text.endsWith('}\n')).toBe(true);
+		expect(appFileText({ ...app, added: '1999-01-01T00:00:00Z' }, '2026-11-04T12:00:00Z')).toBe(text);
+		expect(JSON.parse(appFileText(app)).added).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/);
+		expect(() => appFileText({ ...app, summary: { ja: 'x' } })).toThrow(/summary\.en/);
 	});
 });
