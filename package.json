@@ -4,6 +4,13 @@
 	"private": true,
 	"type": "module",
 	"description": "MyGo Dock: the awesome-mygo ecosystem site, served from Cloudflare Workers",
+	"license": "MIT",
+	"homepage": "https://mygodock.dev",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/yldm-tech/awesome-mygo.git"
+	},
+	"bugs": "https://github.com/yldm-tech/awesome-mygo/issues",
 	"packageManager": "pnpm@12.3.4",
 	"scripts": {
 		"dev": "pnpm --filter @awesome-mygo/web dev",
