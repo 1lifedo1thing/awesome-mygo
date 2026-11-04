@@ -5,7 +5,7 @@ import { AppLink, KindTag, MonoTile, WinBar, appView } from '../../components/bi
 import { useLang, useT } from '../../lib/lang';
 import { appHead } from '../../lib/seo';
 
-// An app's own page: what the showcase cards link to and what search engines index. The drawer stays as the quick view on the listing pages.
+// An app's own page: what the showcase cards and search open in the original look, and what search engines index. The retro look keeps a quick-view window over the listing pages.
 export const Route = createFileRoute('/apps/$slug')({
 	loader: ({ params }) => {
 		if (!appBySlug(params.slug)) throw notFound();
@@ -72,7 +72,7 @@ function AppPage() {
 				<div className='app-side'>
 					<AppFacts view={v} kindLabel={kindLabel} />
 					<AppActions app={app} />
-					<MoreBy app={app} drawer={false} />
+					<MoreBy app={app} />
 				</div>
 			</div>
 			<nav aria-label={t.a_pager} className='app-pager'>

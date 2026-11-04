@@ -41,9 +41,10 @@ export function MonoTile({ view, size }: { view: AppView; size: 44 | 52 | 56 | 1
 	);
 }
 
-// A link to the app's own page, so crawlers and new tabs reach it. With `quick` (the default) a plain left click opens the quick-view drawer instead; a click with a modifier key, a middle click, or a click before the page hydrates follows the link.
+// A link to the app's own page, so crawlers and new tabs reach it. In the retro look, with `quick` (the default), a plain left click opens the app's quick-view window instead; a click with a modifier key, a middle click, or a click before the page hydrates follows the link. The original look always follows it.
 export function AppLink({ slug, className, quick = true, tabIndex, hidden, dialog, children }: { slug: string; className: string; quick?: boolean; tabIndex?: number; hidden?: boolean; dialog?: boolean; children: ReactNode }) {
-	const { openApp } = useSite();
+	const { openApp, quickView } = useSite();
+	const intercept = quick && quickView;
 	return (
 		<Link
 			to='/apps/$slug'
@@ -51,9 +52,9 @@ export function AppLink({ slug, className, quick = true, tabIndex, hidden, dialo
 			className={className}
 			tabIndex={tabIndex}
 			aria-hidden={hidden || undefined}
-			aria-haspopup={dialog ? 'dialog' : undefined}
+			aria-haspopup={dialog && quickView ? 'dialog' : undefined}
 			onClick={
-				quick
+				intercept
 					? (e) => {
 							if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
 							e.preventDefault();

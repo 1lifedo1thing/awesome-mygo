@@ -4,7 +4,7 @@ import { useSite } from '../lib/site';
 import { AppLink, type AppView } from './bits';
 import { LikeButton } from './Like';
 
-// The parts of an app's details shared by the quick-view drawer and the app's own page.
+// The parts of an app's own page in the original look.
 
 export function AppFacts({ view, kindLabel }: { view: AppView; kindLabel: string }) {
 	const t = useT();
@@ -51,8 +51,8 @@ export function AppActions({ app }: { app: App }) {
 	);
 }
 
-// Other apps by the same author. In the drawer a plain click switches the drawer to the app; on the app's page the rows are plain links to the other apps' pages, under a heading.
-export function MoreBy({ app, drawer }: { app: App; drawer: boolean }) {
+// Other apps by the same author, under a heading: links to their pages.
+export function MoreBy({ app }: { app: App }) {
 	const t = useT();
 	const lang = useLang();
 	const others = APPS.filter((o) => o.author === app.author && o !== app).slice(0, 6);
@@ -60,10 +60,10 @@ export function MoreBy({ app, drawer }: { app: App; drawer: boolean }) {
 	const label = fill(t.more_by, { x: app.author });
 	return (
 		<div className='stack-10'>
-			{drawer ? <span className='kicker-muted'>{label}</span> : <h2 className='kicker-muted app-sub-h'>{label}</h2>}
+			<h2 className='kicker-muted app-sub-h'>{label}</h2>
 			<div className='others'>
 				{others.map((o) => (
-					<AppLink key={o.slug} slug={o.slug} quick={drawer} className='row other'>
+					<AppLink key={o.slug} slug={o.slug} quick={false} className='row other'>
 						{o.icon ? (
 							<img className='other-tile app-icon' src={o.icon} alt='' width={32} height={32} loading='lazy' decoding='async' />
 						) : (
