@@ -1,0 +1,17 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "quosparr",
+	"name": "Quosparr",
+	"author": "Licoy",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://quosparr.com",
+	"repo": "Licoy/Quosparr",
+	"summary": {
+		"en": "面向 macOS、Windows、Linux 的原生菜单栏 / 系统托盘应用。订阅额度、reset credits、API 等价成本与本机会话一眼可见，三个供应商各自独立管理账号。全局 Skill、MCP 服务与本机会话也能集中管理。"
+	},
+	"description": {
+		"en": "面向 macOS、Windows、Linux 的原生菜单栏 / 系统托盘应用。订阅额度、reset credits、API 等价成本与本机会话一眼可见，三个供应商各自独立管理账号。全局 Skill、MCP 服务与本机会话也能集中管理。"
+	},
+	"added": "2026-11-04T14:36:05Z"
+}
