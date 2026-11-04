@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "cpa-bar",
+	"name": "CPA-Bar",
+	"author": "Licoy",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/Licoy/CPA-Bar",
+	"repo": "Licoy/CPA-Bar",
+	"summary": {
+		"en": "Monitor and manage your CLIProxyAPI servers from the menu bar or system tray.",
+		"zh-CN": "在菜单栏或系统托盘中查看并管理你的 CLIProxyAPI 服务。",
+		"zh-TW": "在選單列或系統匣中查看並管理你的 CLIProxyAPI 伺服器。",
+		"ja": "メニューバーやシステムトレイから CLIProxyAPI サーバーを監視・管理。",
+		"ko": "메뉴 막대나 시스템 트레이에서 CLIProxyAPI 서버를 확인하고 관리합니다."
+	},
+	"description": {
+		"en": "A native app for macOS, Windows and Linux, drawn with MyGo's native UI, that sits in the menu bar or system tray and shows how your CLIProxyAPI (CPA) servers are doing. A full window manages accounts, providers and API keys, configuration, logs and plugins, with each account's remaining quota and usage stats. Keys stay in the system keychain and there is no telemetry.",
+		"zh-CN": "运行在 macOS、Windows 与 Linux 上、由 MyGo 原生 UI 绘制的应用，常驻菜单栏或系统托盘，随时显示各个 CLIProxyAPI（CPA）服务的状态。需要时可打开完整的管理窗口，管理账号、提供商与 API 密钥、配置、日志和插件，并查看各账号的剩余额度与用量统计。密钥保存在系统钥匙串中，不收集任何遥测数据。",
+		"zh-TW": "可在 macOS、Windows 與 Linux 上執行、由 MyGo 原生 UI 繪製的應用程式，常駐選單列或系統匣，隨時顯示各個 CLIProxyAPI（CPA）伺服器的狀態。需要時可開啟完整的管理視窗，管理帳號、供應商與 API 金鑰、設定、日誌和外掛，並查看各帳號的剩餘額度與用量統計。金鑰存放在系統鑰匙圈中，不收集任何遙測資料。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS・Windows・Linux 向けアプリ。メニューバーやシステムトレイに常駐し、CLIProxyAPI（CPA）サーバーの状態をひと目で確認できます。必要なときは管理ウィンドウを開いて、アカウント、プロバイダーと API キー、設定、ログ、プラグインを管理し、アカウントごとの残りクォータや使用状況の統計も確認できます。キーはシステムのキーチェーンに保存され、テレメトリーはありません。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS·Windows·Linux용 앱으로, 메뉴 막대나 시스템 트레이에 상주하며 CLIProxyAPI(CPA) 서버의 상태를 한눈에 보여 줍니다. 필요할 때는 관리 창을 열어 계정, 공급자와 API 키, 설정, 로그, 플러그인을 관리하고 계정별 남은 할당량과 사용량 통계를 볼 수 있습니다. 키는 시스템 키체인에 저장되며 원격 측정은 없습니다."
+	},
+	"added": "2026-11-04T14:37:08Z",
+	"icon": {
+		"file": "cpa-bar.webp"
+	},
+	"screenshot": "cpa-bar.webp"
+}
