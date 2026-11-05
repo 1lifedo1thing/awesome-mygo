@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "twill",
+	"name": "Twill",
+	"author": "ziludev",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/ziludev/twill",
+	"repo": "ziludev/twill",
+	"summary": {
+		"en": "A native Git client: diffs, history with a lane graph, hunk staging, commits and branches.",
+		"zh-CN": "原生 Git 客户端：查看差异和分支线图历史，按区块暂存，提交与切换分支。",
+		"zh-TW": "原生 Git 用戶端：檢視差異與分支線圖歷史，依區塊暫存，提交與切換分支。",
+		"ja": "ネイティブな Git クライアント。差分と履歴を見て、ハンク単位でステージしてコミット。",
+		"ko": "네이티브 Git 클라이언트. diff와 히스토리를 보고 hunk 단위로 스테이징해 커밋합니다."
+	},
+	"description": {
+		"en": "A Git history and diff viewer in the style of IDEA's, drawn with MyGo's native UI with no web view, running the git on your PATH. It stages, unstages and discards whole files or single hunks, commits, shows history as a colored lane graph with per-file patches, switches and creates branches, and reopens the last repository. Stash and conflict editing are not there yet.",
+		"zh-CN": "仿 IDEA 差异查看器的 Git 历史与差异工具，由 MyGo 原生 UI 绘制，没有 Web 视图，调用 PATH 中的 git。可按整个文件或单个区块暂存、取消暂存和丢弃更改并提交，用彩色分支线图浏览历史和每个文件的补丁，切换和新建分支，启动时重新打开上次的仓库。stash 和冲突编辑尚未支持。",
+		"zh-TW": "仿 IDEA 差異檢視器的 Git 歷史與差異工具，由 MyGo 原生 UI 繪製，沒有 Web 視圖，呼叫 PATH 中的 git。可依整個檔案或單一區塊暫存、取消暫存與捨棄變更並提交，以彩色分支線圖瀏覽歷史與每個檔案的修補，切換與建立分支，啟動時重新開啟上次的儲存庫。stash 與衝突編輯尚未支援。",
+		"ja": "IDEA の差分ビューアーにならった Git の履歴・差分ビューアー。MyGo のネイティブ UI で描かれ、Web ビューはなく、PATH 上の git を使います。ファイル単位でもハンク単位でもステージ、ステージ解除、破棄ができ、コミット、色分けされたレーングラフでの履歴とファイルごとのパッチの表示、ブランチの切り替えと作成を行い、起動時に前回のリポジトリを開き直します。stash とコンフリクト編集はまだありません。",
+		"ko": "IDEA의 diff 뷰어를 본뜬 Git 히스토리·diff 뷰어로, MyGo의 네이티브 UI로 그려 웹 뷰가 없고 PATH에 있는 git을 사용합니다. 파일 전체나 hunk 단위로 스테이징, 스테이징 취소, 변경 폐기를 하고 커밋하며, 색으로 구분한 레인 그래프로 히스토리와 파일별 패치를 보여 주고, 브랜치를 전환하고 만들며, 실행 시 마지막 저장소를 다시 엽니다. stash와 충돌 편집은 아직 없습니다."
+	},
+	"icon": {
+		"file": "twill.webp"
+	},
+	"screenshot": "twill.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T14:05:27Z"
+}
