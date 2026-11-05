@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "vibe-cook",
+	"name": "Vibe Cook",
+	"author": "zkeq",
+	"kind": "web",
+	"category": "ReferenceApplication",
+	"url": "https://cook.corerevive.cn",
+	"repo": "zkeq/vibe-cook",
+	"summary": {
+		"en": "Follow HowToCook recipes one step at a time, with timers, voice control and shopping lists.",
+		"zh-CN": "跟着 HowToCook 菜谱一步步做菜，带计时器、语音控制和购物清单。",
+		"zh-TW": "跟著 HowToCook 食譜一步步做菜，附計時器、語音控制與購物清單。",
+		"ja": "HowToCook のレシピを一手順ずつ案内する料理アプリ。タイマー、音声操作、買い物リスト付き。",
+		"ko": "HowToCook 레시피를 한 단계씩 따라 하는 요리 앱. 타이머, 음성 제어, 장보기 목록 포함."
+	},
+	"description": {
+		"en": "A cooking app for the HowToCook recipes. Its full-screen cooking mode shows one step at a time, with timers, the screen kept on and voice commands recognized on the device, and shopping lists scale to the servings you need. The macOS and Windows clients run its Next.js web frontend through MyGo; optional AI agents suggest dishes from what is in your fridge and answer questions as you cook.",
+		"zh-CN": "把 HowToCook 菜谱做成一步步跟做的烹饪 App：烹饪模式全屏只显示当前一步，配有计时器和屏幕常亮，语音指令在本机识别、不上传录音；购物清单按份量自动缩放。macOS 与 Windows 客户端用 MyGo 运行其 Next.js 网页前端，可选的 AI 功能能根据冰箱里的食材推荐菜式，并在做菜时回答问题。",
+		"zh-TW": "把 HowToCook 食譜做成一步步跟著做的烹飪 App：烹飪模式全螢幕只顯示當前一步，附計時器與螢幕恆亮，語音指令在本機辨識、不上傳錄音；購物清單依份量自動縮放。macOS 與 Windows 用戶端以 MyGo 執行其 Next.js 網頁前端，選用的 AI 功能可依冰箱裡的食材推薦菜色，並在做菜時回答問題。",
+		"ja": "HowToCook のレシピを一手順ずつ案内する料理アプリ。調理モードでは全画面に今の手順だけを表示し、タイマーと画面の常時点灯に対応、音声コマンドは端末内で認識されアップロードされません。買い物リストは人数に合わせて分量が変わります。macOS・Windows 版は Next.js の Web フロントエンドを MyGo で動かし、任意の AI 機能が冷蔵庫の食材から献立を提案し、調理中の質問に答えます。",
+		"ko": "HowToCook 레시피를 한 단계씩 따라 하게 해 주는 요리 앱입니다. 요리 모드는 전체 화면에 지금 단계만 보여 주고 타이머와 화면 켜짐 유지를 지원하며, 음성 명령은 기기에서 인식해 업로드하지 않습니다. 장보기 목록은 인원에 맞춰 분량이 조절됩니다. macOS·Windows 클라이언트는 Next.js 웹 프런트엔드를 MyGo로 실행하고, 선택 기능인 AI가 냉장고 재료로 메뉴를 추천하고 요리 중 질문에 답합니다."
+	},
+	"icon": {
+		"file": "vibe-cook.webp"
+	},
+	"screenshot": "vibe-cook.webp",
+	"added": "2026-11-05T01:50:45Z"
+}
