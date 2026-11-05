@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "berth",
+	"name": "Berth",
+	"author": "xusenlin",
+	"kind": "web",
+	"group": "dev",
+	"url": "https://github.com/xusenlin/berth",
+	"repo": "xusenlin/berth",
+	"summary": {
+		"en": "Deploys Linux binaries to your servers over SSH and runs them with systemd, with rollbacks.",
+		"zh-CN": "通过 SSH 把 Linux 二进制部署到服务器，交给 systemd 运行，可回滚。",
+		"zh-TW": "透過 SSH 將 Linux 執行檔部署到伺服器，交給 systemd 執行，可回滾。",
+		"ja": "SSH で Linux バイナリをサーバーへデプロイし、systemd で動かす。ロールバックも可能。",
+		"ko": "SSH로 Linux 바이너리를 서버에 배포해 systemd로 실행하고, 롤백도 할 수 있습니다."
+	},
+	"description": {
+		"en": "Deploys any Linux binary to a server over SSH and runs it with the server's own systemd, leaving nothing resident on the server. It shows each server's apps, ports and resource use, releases a dragged-in binary or rolls back to an earlier one, and can start a local MCP server so an agent can inspect, release and troubleshoot read-only. Built for macOS, Windows and Linux with MyGo and a React web frontend.",
+		"zh-CN": "通过 SSH 把任意 Linux 二进制部署到服务器，用服务器自带的 systemd 运行，服务器上不装任何常驻程序。可查看服务器上的应用、端口和资源占用，拖入新的二进制即可发版，也能回滚到历史版本；在本机启用 MCP 服务后，还能让 agent 查看、发版和只读排查。基于 MyGo 与 React Web 前端，支持 macOS、Windows 和 Linux。",
+		"zh-TW": "透過 SSH 將任意 Linux 執行檔部署到伺服器，交給伺服器內建的 systemd 執行，伺服器上不安裝任何常駐程式。可檢視伺服器上的應用程式、連接埠與資源用量，拖入新的執行檔即可發版，也能回滾到先前版本；在本機啟用 MCP 服務後，還能讓 agent 檢視、發版和唯讀排查問題。以 MyGo 與 React Web 前端打造，支援 macOS、Windows 和 Linux。",
+		"ja": "SSH で任意の Linux バイナリをサーバーにデプロイし、サーバー標準の systemd で動かします。サーバーに常駐プログラムは入れません。サーバー上のアプリ、ポート、リソース使用量を表示し、バイナリをドラッグして新しいリリースを出したり過去のバージョンに戻したりできます。ローカルの MCP サーバーを有効にすれば、エージェントに確認、リリース、読み取り専用の調査を任せられます。MyGo と React の Web フロントエンドで作られ、macOS・Windows・Linux で動きます。",
+		"ko": "SSH로 Linux 바이너리를 서버에 배포하고 서버의 systemd로 실행하며, 서버에 상주 프로그램을 설치하지 않습니다. 서버의 앱, 포트, 리소스 사용량을 보여 주고, 바이너리를 끌어다 놓아 새 버전을 배포하거나 이전 버전으로 롤백합니다. 로컬 MCP 서버를 켜면 에이전트에게 조회, 배포, 읽기 전용 점검을 맡길 수 있습니다. MyGo와 React 웹 프런트엔드로 만들었고 macOS, Windows, Linux에서 실행됩니다."
+	},
+	"icon": {
+		"file": "berth.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "berth.webp",
+	"added": "2026-11-05T14:40:59Z"
+}
