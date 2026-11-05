@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "gist",
+	"name": "Gist管理器",
+	"author": "Oranjekop",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/Oranjekop/GistManager",
+	"repo": "Oranjekop/GistManager",
+	"summary": {
+		"en": "A native GitHub Gist client: browse, search and edit your gists in a three-pane workspace.",
+		"zh-CN": "原生 GitHub Gist 桌面客户端，在三栏工作区中浏览、搜索和编辑 Gist。",
+		"zh-TW": "原生 GitHub Gist 桌面用戶端，在三欄工作區中瀏覽、搜尋與編輯 Gist。",
+		"ja": "GitHub Gist のネイティブなデスクトップクライアント。3 ペインで閲覧、検索、編集。",
+		"ko": "GitHub Gist용 네이티브 데스크톱 클라이언트. 3단 작업 공간에서 찾고 편집합니다."
+	},
+	"description": {
+		"en": "A GitHub Gist client for Windows and macOS, drawn with MyGo's native UI. It signs in with a personal access token kept in the system credential store, searches all your gists by description, file name or ID, and edits them in an editor with syntax highlighting, find and replace and multiple cursors. A password, Windows Hello or Touch ID can lock it, and it updates itself from GitHub Releases.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 与 macOS GitHub Gist 客户端。用 Personal Access Token 连接账号，Token 存放在系统凭据库中；可按描述、文件名或 ID 搜索全部 Gist，并在支持语法高亮、查找替换和多光标的编辑器中修改文件。应用可用软件密码、Windows Hello 或 Touch ID 锁定，并能从 GitHub Releases 自动更新。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows 與 macOS GitHub Gist 用戶端。以 Personal Access Token 連接帳號，Token 存放在系統憑證庫中；可依描述、檔名或 ID 搜尋全部 Gist，並在支援語法醒目提示、尋找取代與多游標的編輯器中修改檔案。應用程式可用密碼、Windows Hello 或 Touch ID 鎖定，並能從 GitHub Releases 自動更新。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows・macOS 向けの GitHub Gist クライアント。Personal Access Token で接続し、トークンはシステムの資格情報ストアに保存されます。すべての Gist を説明、ファイル名、ID で検索でき、シンタックスハイライト、検索と置換、マルチカーソルを備えたエディターで編集できます。パスワード、Windows Hello、Touch ID でロックでき、GitHub Releases から自動で更新します。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows·macOS용 GitHub Gist 클라이언트입니다. Personal Access Token으로 연결하며 토큰은 시스템 자격 증명 저장소에 보관합니다. 모든 Gist를 설명, 파일 이름, ID로 검색하고 구문 강조, 찾기와 바꾸기, 다중 커서를 갖춘 편집기로 수정합니다. 비밀번호, Windows Hello, Touch ID로 잠글 수 있고 GitHub Releases에서 스스로 업데이트합니다."
+	},
+	"icon": {
+		"file": "gist.webp"
+	},
+	"screenshot": "gist.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T14:57:25Z"
+}
