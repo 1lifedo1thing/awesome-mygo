@@ -13,10 +13,10 @@ on:
     inputs:
       max_prs:
         description: Pull requests to open at most
-        default: '3'
+        default: '10'
       max_triage:
         description: Repositories to ask the model about at most
-        default: '10'
+        default: '30'
       dry_run:
         description: Only report what it would propose
         type: boolean
@@ -82,9 +82,9 @@ jobs:
           LLM_MODEL: ${{ vars.LLM_MODEL }}
           SEEN_FILE: ${{ runner.temp }}/discover-seen.json
           REPORT_FILE: ${{ runner.temp }}/discover-report.md
-          MAX_PRS: ${{ inputs.max_prs || '3' }}
-          MAX_TRIAGE: ${{ inputs.max_triage || '10' }}
-          MAX_OPEN: '10'
+          MAX_PRS: ${{ inputs.max_prs || '10' }}
+          MAX_TRIAGE: ${{ inputs.max_triage || '30' }}
+          MAX_OPEN: '20'
           DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
         run: pnpm --filter @awesome-mygo/enrich discover
 
