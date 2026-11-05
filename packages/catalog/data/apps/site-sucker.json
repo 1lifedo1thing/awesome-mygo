@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "site-sucker",
+	"name": "Site Sucker",
+	"author": "maksqi",
+	"kind": "native",
+	"group": "network",
+	"url": "https://github.com/maksqi/site-sucker",
+	"repo": "maksqi/site-sucker",
+	"summary": {
+		"en": "Downloads websites as browsable offline copies, rendering JavaScript pages through Chromium.",
+		"zh-CN": "把网站下载为可离线浏览的本地副本，需要时用 Chromium 渲染 JavaScript 页面。",
+		"zh-TW": "把網站下載成可離線瀏覽的本機副本，必要時以 Chromium 渲染 JavaScript 頁面。",
+		"ja": "Web サイトをオフライン閲覧用のコピーとして保存。JavaScript は Chromium で描画。",
+		"ko": "웹사이트를 오프라인 열람용 사본으로 저장하고 JavaScript는 Chromium으로 렌더링."
+	},
+	"description": {
+		"en": "A website downloader for macOS, Windows and Linux, drawn with MyGo's native UI on the GPU, with no web view. It saves pages with their CSS, scripts, images, fonts and media and rewrites links so the copy browses offline, renders JavaScript-heavy pages in a local Chrome or Chromium, and can crawl through HTTP, HTTPS or SOCKS5 proxies with authentication. It respects robots.txt by default.",
+		"zh-CN": "适用于 macOS、Windows 和 Linux 的网站下载工具，界面由 MyGo 原生 UI 在 GPU 上绘制，没有 Web 视图。它会连同 CSS、脚本、图片、字体和媒体一起保存网页，并改写链接，使副本可以离线浏览；依赖 JavaScript 的页面交给本机的 Chrome 或 Chromium 渲染，也可经由带认证的 HTTP、HTTPS 或 SOCKS5 代理抓取。默认遵守 robots.txt。",
+		"zh-TW": "適用於 macOS、Windows 和 Linux 的網站下載工具，介面由 MyGo 原生 UI 在 GPU 上繪製，沒有 Web 視圖。它會連同 CSS、指令碼、圖片、字型和媒體一起儲存網頁，並改寫連結，讓副本可以離線瀏覽；依賴 JavaScript 的頁面交給本機的 Chrome 或 Chromium 渲染，也能透過需驗證的 HTTP、HTTPS 或 SOCKS5 代理伺服器抓取。預設遵守 robots.txt。",
+		"ja": "macOS・Windows・Linux 向けの Web サイトダウンローダー。画面は MyGo のネイティブ UI で GPU に描かれ、Web ビューはありません。ページを CSS、スクリプト、画像、フォント、メディアごと保存し、リンクを書き換えてオフラインで閲覧できるコピーを作ります。JavaScript 主体のページはローカルの Chrome または Chromium で描画し、認証付きの HTTP・HTTPS・SOCKS5 プロキシ経由でもクロールできます。robots.txt には既定で従います。",
+		"ko": "macOS, Windows, Linux용 웹사이트 다운로더로, 화면은 MyGo의 네이티브 UI로 GPU에서 그리며 웹 뷰가 없습니다. 페이지를 CSS, 스크립트, 이미지, 글꼴, 미디어와 함께 저장하고 링크를 고쳐 오프라인에서 탐색할 수 있게 하며, JavaScript 위주 페이지는 로컬 Chrome 또는 Chromium으로 렌더링합니다. 인증이 있는 HTTP, HTTPS, SOCKS5 프록시를 거쳐 수집할 수도 있고, robots.txt는 기본으로 따릅니다."
+	},
+	"icon": {
+		"file": "site-sucker.webp"
+	},
+	"screenshot": "site-sucker.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T10:51:28Z"
+}
