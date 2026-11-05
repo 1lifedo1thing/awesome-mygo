@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "kube-desk",
+	"name": "Kube Desk",
+	"author": "ftech-vn",
+	"kind": "web",
+	"group": "dev",
+	"url": "https://kubedesk.cloud/",
+	"repo": "ftech-vn/kubedesk",
+	"summary": {
+		"en": "A Kubernetes client for many clusters: live resources, logs, shells and a timeline of changes.",
+		"zh-CN": "面向多集群的 Kubernetes 客户端：实时资源、日志、Shell 与变更时间线。",
+		"zh-TW": "面向多叢集的 Kubernetes 用戶端：即時資源、日誌、Shell 與變更時間軸。",
+		"ja": "複数クラスター向けの Kubernetes クライアント。ライブなリソース、ログ、シェル、変更タイムライン。",
+		"ko": "여러 클러스터를 다루는 Kubernetes 클라이언트. 실시간 리소스, 로그, 셸, 변경 타임라인."
+	},
+	"description": {
+		"en": "A Kubernetes client for macOS, Linux and Windows, with a React frontend in the system WebView through MyGo, in one Go binary of about 47 MB. It reads every context in your kubeconfig without changing it, switches clusters in a keystroke and shows resources live, with logs, shells, YAML editing and Helm releases, plus a 7-day timeline of changes in watched namespaces.",
+		"zh-CN": "适用于 macOS、Linux 和 Windows 的 Kubernetes 客户端，借助 MyGo 在系统 WebView 中运行 React 前端，是一个约 47 MB 的 Go 二进制文件。它读取 kubeconfig 的所有上下文而不改动文件，一键切换集群，资源实时更新；能看日志、开 Shell、编辑 YAML、查看 Helm release，并为关注的命名空间保留 7 天变更时间线。",
+		"zh-TW": "適用於 macOS、Linux 與 Windows 的 Kubernetes 用戶端，透過 MyGo 在系統 WebView 中執行 React 前端，是一個約 47 MB 的 Go 執行檔。它讀取 kubeconfig 的所有 context 而不改動檔案，一鍵切換叢集，資源即時更新；能看日誌、開 Shell、編輯 YAML、檢視 Helm release，並為關注的命名空間保留 7 天變更時間軸。",
+		"ja": "macOS・Linux・Windows 向けの Kubernetes クライアント。MyGo を使い、システムの WebView で React のフロントエンドを動かす、約 47 MB の Go バイナリ 1 つでできています。kubeconfig のコンテキストをすべて読み込みつつファイルは書き換えず、キー操作ひとつでクラスターを切り替えられ、リソースはライブで更新されます。ログ、シェル、YAML の編集、Helm リリースの確認に加え、監視中の名前空間では変更履歴を 7 日間残します。",
+		"ko": "macOS, Linux, Windows용 Kubernetes 클라이언트로, MyGo를 통해 시스템 WebView에서 React 프런트엔드를 실행하며 약 47MB짜리 Go 바이너리 하나로 이루어져 있습니다. kubeconfig의 모든 컨텍스트를 읽되 파일은 바꾸지 않고, 키 하나로 클러스터를 전환하며 리소스를 실시간으로 보여 줍니다. 로그, 셸, YAML 편집, Helm 릴리스 확인을 지원하고, 지켜보는 네임스페이스의 변경 내역을 7일간 타임라인으로 남깁니다."
+	},
+	"icon": {
+		"file": "kube-desk.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "kube-desk.webp",
+	"added": "2026-11-05T08:08:34Z"
+}
