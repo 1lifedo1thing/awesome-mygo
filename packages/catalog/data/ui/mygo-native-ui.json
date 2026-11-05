@@ -1,0 +1,22 @@
+{
+	"$schema": "../schema/ui.schema.json",
+	"slug": "mygo-native-ui",
+	"name": "mygo-native-ui",
+	"author": "xingkaixin",
+	"tag": "theme",
+	"surface": "native",
+	"summary": {
+		"en": "A large set of Go components for MyGo native UI: document tabs, a command palette, charts, a kanban board, a terminal emulator, diagrams from Mermaid and DOT, and more.",
+		"zh-CN": "MyGo 原生 UI 的大型 Go 组件集，涵盖文档标签页、命令面板、图表、看板、终端模拟器、Mermaid 与 DOT 图示等。",
+		"zh-TW": "MyGo 原生 UI 的大型 Go 元件集，涵蓋文件分頁、命令面板、圖表、看板、終端機模擬器、Mermaid 與 DOT 圖示等。",
+		"ja": "MyGo ネイティブ UI 向けの大規模な Go コンポーネント集。ドキュメントタブ、コマンドパレット、チャート、カンバン、ターミナルエミュレーター、Mermaid や DOT の図などを収録。",
+		"ko": "MyGo 네이티브 UI용 대규모 Go 컴포넌트 모음으로, 문서 탭, 명령 팔레트, 차트, 칸반 보드, 터미널 에뮬레이터, Mermaid·DOT 다이어그램 등을 제공합니다."
+	},
+	"repo": "xingkaixin/mygo-native-ui",
+	"url": "https://github.com/xingkaixin/mygo-native-ui",
+	"screenshot": "mygo-native-ui.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T14:05:27Z"
+}
