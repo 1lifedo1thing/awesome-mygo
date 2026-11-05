@@ -203,6 +203,9 @@ importers:
       '@anthropic-ai/sdk':
         specifier: ^1.4.0
         version: 1.4.0(zod@4.6.7)
+      spdx-license-list:
+        specifier: ^6.12.0
+        version: 6.12.0
       zod:
         specifier: ^4.6.7
         version: 4.6.7
@@ -1909,6 +1912,10 @@ packages:
   source-map@0.7.6:
     resolution: {integrity: sha512-i5uvt8C3ikiWeNZSVZNWcfZPItFQOsYTUAOkcUPGd8DqDy1uOUikjt5dG+uRlwyvR108Fb9DOd4GvXfT0N2/uQ==}
     engines: {node: '>= 12'}
+
+  spdx-license-list@6.12.0:
+    resolution: {integrity: sha512-+nUYqm3aZMSHbjsthK+i/HHI2okTElCvqwUd4k8QcSk+FTGgjq+fsdFj2wZOaX6XmR2JdWhf/NeflNnvKOjcnQ==}
+    engines: {node: '>=8'}
 
   srvx@1.0.8:
     resolution: {integrity: sha512-ngFS/J6St4PJfHRHGjr78xkPPtbyXtdMOLNE4x/XZunEK3OhV7aGUWMHf9WTUEy6wm1U0W4okkd82ZFFWRVQTw==}
@@ -3688,6 +3695,8 @@ snapshots:
   source-map-js@1.2.2: {}
 
   source-map@0.7.6: {}
+
+  spdx-license-list@6.12.0: {}
 
   srvx@1.0.8: {}
 
