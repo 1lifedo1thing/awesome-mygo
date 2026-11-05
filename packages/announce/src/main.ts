@@ -2,11 +2,12 @@ import { appendFile, readFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { TwitterApi } from 'twitter-api-v2';
+import { composeIssue, ISSUE_TITLE, projectRepo } from './issue.ts';
 import { type Counts, ENTRY_DIRS, type Entry, type EntryKind, composePost, githubUrl, sitePage } from './tweet.ts';
 
-// Run by .github/workflows/announce.yml once for each entry a push to main adds: node src/main.ts <dir>/<slug>.json, the path under packages/catalog/data (apps/, ui/, state/ or plugins/). It waits until the site lists the entry, so the post's links work, then posts it to X.
+// Run by .github/workflows/announce.yml once for each entry a push to main adds: node src/main.ts <dir>/<slug>.json, the path under packages/catalog/data (apps/, ui/, state/ or plugins/). It waits until the site lists the entry, so the links work, then posts it to X and opens an issue on the project's repository saying it was listed, with its page, the post and the README badge (issue.ts).
 //
-// Environment: X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN and X_ACCESS_SECRET (the posting account's OAuth 1.0a keys; without them the post is only printed), DRY_RUN=true to only print it anyway, WAIT_SECONDS (how long to wait for the site, default 900; 0 skips the check), GITHUB_TOKEN for the repository's stars and its owner's X account, and GITHUB_STEP_SUMMARY.
+// Environment: X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN and X_ACCESS_SECRET (the posting account's OAuth 1.0a keys; without them nothing is posted, and the issue goes without a post); NOTIFY_GITHUB_TOKEN (a classic personal access token with the public_repo scope of the account that opens the issues, as neither the workflow's token nor a GitHub App's can open one on a repository they are not installed on; without it the issue is only printed); DRY_RUN=true to only print both anyway; WAIT_SECONDS (how long to wait for the site, default 900; 0 skips the check); GITHUB_TOKEN for the repository's stars and its owner's X account; GITHUB_REPOSITORY_OWNER, whose own repositories are not told; and GITHUB_STEP_SUMMARY.
 
 const ROOT = join(import.meta.dirname, '../../..');
 const DATA_DIR = join(ROOT, 'packages/catalog/data');
@@ -47,6 +48,35 @@ async function waitForSite(page: string, name: string, seconds: number): Promise
 	}
 }
 
+// A call to GitHub as the account that opens the issues; any answer but a success is an error.
+async function githubAs<T>(token: string, path: string, init: { method?: string; body?: unknown } = {}): Promise<T> {
+	const res = await fetch(`https://api.github.com${path}`, {
+		method: init.method ?? 'GET',
+		headers: { accept: 'application/vnd.github+json', 'x-github-api-version': '2022-11-28', authorization: `Bearer ${token}`, ...(init.body !== undefined ? { 'content-type': 'application/json' } : {}) },
+		body: init.body !== undefined ? JSON.stringify(init.body) : undefined,
+		signal: AbortSignal.timeout(30_000),
+	});
+	if (!res.ok) throw new Error(`GitHub ${init.method ?? 'GET'} ${path}: ${res.status} ${(await res.text()).slice(0, 200)}`);
+	return (await res.json()) as T;
+}
+
+// Opens the issue on the project's repository, once: a repository that already has an issue of this account with the title is not told again, nor is one with issues turned off, an archived one or one of the site's own owner. Returns what the summary says.
+async function tellProject(repo: string, title: string, body: string): Promise<string> {
+	const token = env.NOTIFY_GITHUB_TOKEN;
+	if (!token) return `not opened on ${repo}, as NOTIFY_GITHUB_TOKEN is not set`;
+	const owner = repo.split('/')[0];
+	if (env.GITHUB_REPOSITORY_OWNER && owner.toLowerCase() === env.GITHUB_REPOSITORY_OWNER.toLowerCase()) return `not opened on ${repo}, which belongs to ${owner}, the site's own owner`;
+	const info = await githubAs<{ has_issues: boolean; archived: boolean; full_name: string }>(token, `/repos/${repo}`);
+	if (!info.has_issues) return `not opened on ${info.full_name}, which has issues turned off`;
+	if (info.archived) return `not opened on ${info.full_name}, which is archived`;
+	const me = await githubAs<{ login: string }>(token, '/user');
+	const mine = await githubAs<{ title: string; html_url: string }[]>(token, `/repos/${info.full_name}/issues?creator=${encodeURIComponent(me.login)}&state=all&per_page=100`);
+	const before = mine.find((i) => i.title === title);
+	if (before) return `not opened again, as ${before.html_url} was opened before`;
+	const issue = await githubAs<{ html_url: string }>(token, `/repos/${info.full_name}/issues`, { method: 'POST', body: { title, body } });
+	return `opened ${issue.html_url}`;
+}
+
 async function main(): Promise<void> {
 	const path = process.argv[2];
 	if (!path || !/^[a-z]+\/[a-z0-9-]+\.json$/.test(path)) throw new Error('usage: node src/main.ts <dir>/<slug>.json, e.g. ui/8bitmygoui.json');
@@ -61,21 +91,60 @@ async function main(): Promise<void> {
 	console.log(`---- post ----\n${text}\n--------------`);
 
 	const [appKey, appSecret, accessToken, accessSecret] = [env.X_API_KEY, env.X_API_SECRET, env.X_ACCESS_TOKEN, env.X_ACCESS_SECRET];
+	const canPost = !!(appKey && appSecret && accessToken && accessSecret);
 	const summary = (md: string) => (env.GITHUB_STEP_SUMMARY ? appendFile(env.GITHUB_STEP_SUMMARY, `${md}\n`) : Promise.resolve());
-	const block = `\n\n\`\`\`\n${text}\n\`\`\`\n`;
-	if (env.DRY_RUN === 'true' || !appKey || !appSecret || !accessToken || !accessSecret) {
-		const why = env.DRY_RUN === 'true' ? 'this is a dry run' : 'the X keys are not set (X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_SECRET)';
+	// A fence one longer than any run of backticks in the text, as the issue's body holds a code block of its own.
+	const block = (t: string) => {
+		const fence = '`'.repeat(Math.max(3, ...[...t.matchAll(/`+/g)].map((m) => m[0].length + 1)));
+		return `\n\n${fence}\n${t}\n${fence}\n`;
+	};
+	const repoToTell = projectRepo(kind, entry);
+	const printIssue = (postUrl?: string) => {
+		if (!repoToTell) return undefined;
+		const issue = composeIssue({ kind, entry, postUrl });
+		console.log(`---- issue on ${repoToTell} ----\n${issue.body}--------------`);
+		return issue;
+	};
+
+	if (env.DRY_RUN === 'true') {
+		console.log(`::notice::${name} was not posted, as this is a dry run.`);
+		const issue = printIssue();
+		await summary(`### ${name}: not posted, as this is a dry run${block(text)}`);
+		return summary(issue ? `Issue on ${repoToTell}, not opened in a dry run:${block(issue.body)}` : 'No GitHub repository to open an issue on.');
+	}
+	if (!canPost && !env.NOTIFY_GITHUB_TOKEN) {
+		const why = 'the X keys are not set (X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_SECRET), nor NOTIFY_GITHUB_TOKEN';
 		console.log(`::notice::${name} was not posted, as ${why}.`);
-		return summary(`### ${name}: not posted, as ${why}${block}`);
+		printIssue();
+		return summary(`### ${name}: not posted, as ${why}${block(text)}`);
 	}
 
 	const wait = Number(env.WAIT_SECONDS ?? 900);
 	if (wait > 0) await waitForSite(sitePage(kind, entry), name, wait);
-	const client = new TwitterApi({ appKey, appSecret, accessToken, accessSecret });
-	const { data } = await client.v2.tweet(text);
-	const url = `https://x.com/i/status/${data.id}`;
-	console.log(`Posted ${url}`);
-	await summary(`### ${name}: posted ${url}${block}`);
+	let postUrl: string | undefined;
+	if (canPost) {
+		const client = new TwitterApi({ appKey, appSecret, accessToken, accessSecret });
+		const { data } = await client.v2.tweet(text);
+		postUrl = `https://x.com/i/status/${data.id}`;
+		console.log(`Posted ${postUrl}`);
+		await summary(`### ${name}: posted ${postUrl}${block(text)}`);
+	} else {
+		console.log(`::notice::${name} was not posted, as the X keys are not set; the issue goes without a post.`);
+		await summary(`### ${name}: not posted, as the X keys are not set${block(text)}`);
+	}
+
+	// The post is out by now, so nothing here may fail the job: running it again would post it twice. What went wrong is a warning instead.
+	const issue = printIssue(postUrl);
+	if (!issue || !repoToTell) return summary('Issue: none, as the entry has no GitHub repository to open one on.');
+	try {
+		const done = await tellProject(repoToTell, ISSUE_TITLE, issue.body);
+		console.log(`Issue: ${done}.`);
+		await summary(`Issue: ${done}.`);
+	} catch (err) {
+		const why = err instanceof Error ? err.message : String(err);
+		console.log(`::warning::The issue on ${repoToTell} could not be opened: ${why}`);
+		await summary(`Issue: could not be opened on ${repoToTell}: ${why}`);
+	}
 }
 
 await main();
