@@ -1,8 +1,6 @@
-// The post announcing one entry, in Simplified Chinese, the site's default language: what was listed and by whom, its page on the site, its summary, its stars, and how much the site lists now. The site's page is the post's only link: X shows a card for the first link in a post, and the post is there to bring readers to the site, not to the project, which the site's page links to. It quotes the site's launch post, which the post's text does not count.
+// The post announcing one entry, in Simplified Chinese, the site's default language: what was listed and by whom, its page on the site, its summary, its stars, and how much the site lists now. The site's page is the post's only link: X shows a card for the first link in a post, and the post is there to bring readers to the site, not to the project, which the site's page links to. It is a post of its own rather than a quote of the site's launch post, as X shows no link card in a post that quotes another.
 
 export const SITE_URL = 'https://mygodock.dev';
-// The launch post every announcement quotes: https://x.com/suzukaze_haduki/status/2117891721086599212
-export const QUOTE_TWEET_ID = '2117891721086599212';
 
 export type EntryKind = 'app' | 'ui' | 'state' | 'plugin';
 export const ENTRY_DIRS: Record<EntryKind, string> = { app: 'apps', ui: 'ui', state: 'state', plugin: 'plugins' };
@@ -67,11 +65,16 @@ export function sitePage(kind: EntryKind, entry: Entry): string {
 	return kind === 'app' ? `${SITE_URL}/apps/${String(entry.slug)}` : `${SITE_URL}/${kind === 'plugin' ? 'plugins' : kind}`;
 }
 
+// What X accepts as a username: letters, digits and underscores, at most 15.
+const X_HANDLE = /^[A-Za-z0-9_]{1,15}$/;
+
 export interface PostInput {
 	kind: EntryKind;
 	entry: Entry;
 	// The repository's stars on GitHub, when it has one and they could be read.
 	stars?: number;
+	// The X account of the repository's owner, from their GitHub profile, which the post mentions so they can share it.
+	handle?: string;
 	// How many entries of each kind the site lists, this one included.
 	counts: Counts;
 }
@@ -82,9 +85,9 @@ export function statsLine(counts: Counts): string {
 }
 
 // The post's text, its summary cut short with … when the whole would weigh more than X allows. Throws when even without a summary it would.
-export function composePost({ kind, entry, stars, counts }: PostInput): string {
+export function composePost({ kind, entry, stars, handle, counts }: PostInput): string {
 	const name = str(entry.name) ?? String(entry.slug);
-	const author = str(entry.author);
+	const author = handle && X_HANDLE.test(handle) ? `@${handle}` : str(entry.author);
 	const page = sitePage(kind, entry);
 	const urls = [page];
 	const summary = zh(entry.summary) ?? '';

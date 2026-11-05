@@ -39,6 +39,11 @@ describe('the post', () => {
 		expect(statsLine(COUNTS)).toBe('已收录 59 项：作品 40 · 插件 12 · UI 组件 6 · 状态管理 1');
 	});
 
+	it('mentions the owner’s X account when their GitHub profile gives a valid one', () => {
+		expect(composePost({ kind: 'state', entry, handle: 'yldm_tech', counts: COUNTS })).toMatch(/^Awesome MyGo 新收录状态管理：Nodra by @yldm_tech\n/);
+		expect(composePost({ kind: 'state', entry, handle: 'not a handle', counts: COUNTS })).toMatch(/^Awesome MyGo 新收录状态管理：Nodra by yldm-tech\n/);
+	});
+
 	it('falls back to English and leaves out what the entry lacks', () => {
 		const text = composePost({ kind: 'plugin', entry: { slug: 'p', name: 'P', official: false, summary: { en: 'Does things.' } }, counts: COUNTS });
 		expect(text).toBe(['Awesome MyGo 新收录社区插件：P\nhttps://mygodock.dev/plugins', 'Does things.', statsLine(COUNTS)].join('\n\n'));
