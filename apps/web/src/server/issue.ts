@@ -1,4 +1,4 @@
-import { CatalogError, SITE_URL, type SubmitCat, codeFence, pastedName, pastedShotRepo, submissionFromIssue, takesShot } from '@awesome-mygo/catalog';
+import { CatalogError, ENTRY_PLACEHOLDERS, SITE_URL, type SubmitCat, codeFence, pastedName, pastedShotRepo, submissionFromIssue, takesShot } from '@awesome-mygo/catalog';
 import type { Octokit } from '@octokit/core';
 import { MAX_OPEN, MAX_OPEN_PER_SENDER, SenderBusy, SubmissionsBusy, openSubmission } from './pull';
 import { repoLacksShot } from './shots';
@@ -42,7 +42,7 @@ export async function submitIssue(gh: Octokit, token: string, issue: Issue): Pro
 	const again = 'Edit the issue to fix it and it is checked again.';
 	if ('problem' in found) return fix(`The entry in this issue cannot be submitted as it stands:\n\n${codeFence(found.problem)}\n\n${again} The line naming the entry's file and the \`json\` code block under it, holding the entry, are what the form on ${SITE_URL} writes; the form's preview shows what is still missing.`);
 	const noShot = await missingShot(found, token);
-	if (noShot) return fix(`This project still needs a screenshot. ${noShot} Add a line under the code block with a link to an image of its window or its components, wider than tall and at least 600 pixels wide (PNG, JPEG or WebP):\n\n${codeFence('Screenshot: https://…')}\n\n${again}`);
+	if (noShot) return fix(`This project still needs a screenshot. ${noShot} Add a line under the code block with a link to an image of its window or its components, wider than tall and at least 600 pixels wide (PNG, JPEG or WebP):\n\n${codeFence(`Screenshot: ${ENTRY_PLACEHOLDERS.url}`)}\n\n${again}`);
 	try {
 		const pr = await openSubmission(gh, found.cat, pastedName(found.entry), found.entry, { screenshot: found.screenshot, issue: { number: issue.number, author, opened: issue.created_at } });
 		return { result: 'opened', comment: `${COMMENT_MARKER}\nThe site's bot opened #${pr.number} with this entry. The *Complete submission* workflow completes it there (the icon, the screenshot and the copy in every site language), and a maintainer reviews it before it goes live on ${SITE_URL}. Follow the pull request from here; this issue is closed.` };

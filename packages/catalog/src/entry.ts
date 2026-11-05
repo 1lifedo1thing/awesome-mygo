@@ -350,6 +350,8 @@ export function submissionFromIssue(body: string): { cat: SubmitCat; entry: Reco
 	if ('error' in parsed) return { problem: parsed.error === 'json' ? 'the json code block does not parse as JSON' : 'the json code block must hold one JSON object, the entry' };
 	const shot = ISSUE_SHOT.exec(rest.slice(fence.index + fence[0].length))?.[1];
 	if (shot !== undefined && (!takesShot(cat) || isBadShot(shot))) return { problem: 'the screenshot must be an https link to an image, for an app, UI components or state management' };
+	// The bot's comment asking for a screenshot shows the line with the form's placeholder link, which passes isBadShot.
+	if (shot === ENTRY_PLACEHOLDERS.url) return { problem: `the Screenshot line still holds the example link ${shot}; put the link to the image in its place` };
 	const problem = pastedEntryProblem(cat, parsed.entry) ?? placeholderProblem(parsed.entry);
 	if (problem) return { problem };
 	return { cat, entry: parsed.entry, ...(shot !== undefined ? { screenshot: shot } : {}) };

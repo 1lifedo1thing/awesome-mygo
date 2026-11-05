@@ -836,6 +836,9 @@ describe('submission issue', () => {
 		expect(submissionFromIssue(fenced('apps/x.json', app(), '\nScreenshot: http://x.dev/s.png\n'))).toEqual({ problem: expect.stringMatching(/screenshot/) });
 		const plugin = JSON.stringify(buildEntry('plugin', draft, 'native', ph));
 		expect(submissionFromIssue(fenced('plugins/x.json', plugin, `\nScreenshot: ${shot}\n`))).toEqual({ problem: expect.stringMatching(/screenshot/) });
+		// The example the bot's comment shows, pasted as written.
+		expect(isBadShot(ENTRY_PLACEHOLDERS.url)).toBe(false);
+		expect(submissionFromIssue(fenced('apps/x.json', app(), `\nScreenshot: ${ENTRY_PLACEHOLDERS.url}\n`))).toEqual({ problem: expect.stringMatching(/example link/) });
 		// Above the code block it is not the form's line.
 		expect(submissionFromIssue(`Screenshot: ${shot}\n${fenced('apps/x.json', app())}`)).toEqual({ cat: 'showcase', entry: JSON.parse(app()) });
 	});
