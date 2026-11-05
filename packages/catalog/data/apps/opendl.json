@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "opendl",
+	"name": "OpenDL",
+	"author": "kindred-7",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/kindred-7/openDL",
+	"repo": "kindred-7/openDL",
+	"summary": {
+		"en": "A Windows download manager with split downloads, resume, queues and a browser extension.",
+		"zh-CN": "Windows 下载管理器：多连接下载、断点续传、队列计划，配有浏览器扩展。",
+		"zh-TW": "Windows 下載管理器：多連線下載、續傳、佇列排程，並有瀏覽器擴充功能。",
+		"ja": "Windows 用ダウンロードマネージャー。分割ダウンロード、再開、キュー、ブラウザー拡張に対応。",
+		"ko": "Windows 다운로드 관리자. 다중 연결 다운로드, 이어받기, 큐, 브라우저 확장 지원."
+	},
+	"description": {
+		"en": "A Windows download manager drawn with MyGo's native UI; there are no macOS or Linux builds yet. It splits downloads over several connections when the server allows, resumes interrupted ones and runs them through queues with their own limits and schedules. A browser extension for Chrome, Edge and Firefox sends links and media from web pages to it, and some HLS and DASH streams can be saved.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 下载管理器，暂无 macOS 与 Linux 版本。服务器支持时分多条连接下载，中断后可续传，任务按队列运行，可分别设置并发数、限速与运行时段。配套的 Chrome、Edge 与 Firefox 扩展可把网页中的链接和音视频发送到应用，也支持部分 HLS 与 DASH 媒体。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows 下載管理器，目前沒有 macOS 與 Linux 版本。伺服器支援時會分多條連線下載，中斷後可續傳，任務依佇列執行，可分別設定同時下載數、限速與執行時段。搭配的 Chrome、Edge 與 Firefox 擴充功能可把網頁中的連結和影音傳送到應用程式，也支援部分 HLS 與 DASH 媒體。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows 用ダウンロードマネージャー。macOS 版と Linux 版はまだありません。サーバーが対応していれば複数の接続に分けてダウンロードし、中断したタスクを再開でき、キューごとに同時実行数、速度制限、実行時間帯を設定できます。Chrome・Edge・Firefox 用の拡張機能からウェブページのリンクや音声・動画を送ることができ、一部の HLS と DASH にも対応します。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows용 다운로드 관리자로, macOS와 Linux 버전은 아직 없습니다. 서버가 지원하면 여러 연결로 나눠 내려받고 중단된 작업을 이어받으며, 큐마다 동시 작업 수, 속도 제한, 실행 시간대를 따로 정할 수 있습니다. Chrome, Edge, Firefox용 확장 프로그램으로 웹 페이지의 링크와 오디오·비디오를 앱에 보내며, 일부 HLS와 DASH도 지원합니다."
+	},
+	"icon": {
+		"file": "opendl.webp"
+	},
+	"screenshot": "opendl.webp",
+	"added": "2026-11-05T15:55:15Z"
+}
