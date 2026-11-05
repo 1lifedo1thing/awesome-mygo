@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "leafmark",
+	"name": "Leafmark",
+	"author": "KevinXC5",
+	"kind": "native",
+	"group": "notes",
+	"url": "https://kevinxc5.github.io/leafmark/",
+	"repo": "KevinXC5/leafmark",
+	"summary": {
+		"en": "A native WYSIWYG Markdown editor that renders math and Mermaid diagrams as you type.",
+		"zh-CN": "原生所见即所得 Markdown 编辑器，公式和 Mermaid 图表边写边显示。",
+		"zh-TW": "原生所見即所得 Markdown 編輯器，公式與 Mermaid 圖表邊寫邊顯示。",
+		"ja": "数式と Mermaid 図も描けるネイティブな WYSIWYG Markdown エディター。",
+		"ko": "수식과 Mermaid 다이어그램을 보여 주는 네이티브 WYSIWYG Markdown 편집기."
+	},
+	"description": {
+		"en": "A local Markdown editor for macOS and Windows, drawn on the GPU with MyGo's native UI: no Electron, Tauri or web view. Headings, tables, footnotes, formulas and Mermaid diagrams appear typeset as you write, with a source mode when you need the raw Markdown. Files open in tabs or from a folder workspace, and export to HTML, PDF or a Markdown copy.",
+		"zh-CN": "面向 macOS 与 Windows 的本地 Markdown 编辑器，由 MyGo 原生 UI 经 GPU 绘制，没有 Electron、Tauri 或 WebView。标题、表格、脚注、公式和 Mermaid 图表在书写时直接按排版结果显示，需要时可切到源码模式直接改 Markdown；文档以多标签打开，也可把文件夹作为工作区浏览，并能导出为 HTML、PDF 或 Markdown 副本。",
+		"zh-TW": "面向 macOS 與 Windows 的本機 Markdown 編輯器，由 MyGo 原生 UI 透過 GPU 繪製，沒有 Electron、Tauri 或 WebView。標題、表格、註腳、公式和 Mermaid 圖表在書寫時直接以排版結果顯示，需要時可切換到原始碼模式直接修改 Markdown；文件以多分頁開啟，也能把資料夾當作工作區瀏覽，並可匯出為 HTML、PDF 或 Markdown 副本。",
+		"ja": "macOS・Windows 向けのローカル Markdown エディター。MyGo のネイティブ UI で GPU 描画され、Electron も Tauri も Web ビューも使いません。見出し、表、脚注、数式、Mermaid 図は書いたそばから組版された形で表示され、必要ならソースモードで Markdown を直接編集できます。文書はタブで開くほか、フォルダーをワークスペースとして扱え、HTML、PDF、Markdown のコピーに書き出せます。",
+		"ko": "macOS·Windows용 로컬 Markdown 편집기로, MyGo의 네이티브 UI로 GPU에서 그리며 Electron, Tauri, 웹 뷰를 쓰지 않습니다. 제목, 표, 각주, 수식, Mermaid 다이어그램이 쓰는 즉시 조판된 모습으로 보이고, 필요하면 소스 모드에서 Markdown을 직접 고칠 수 있습니다. 문서는 탭으로 열거나 폴더를 작업 공간으로 열 수 있으며, HTML, PDF, Markdown 사본으로 내보냅니다."
+	},
+	"icon": {
+		"file": "leafmark.webp"
+	},
+	"screenshot": "leafmark.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T13:45:02Z"
+}
