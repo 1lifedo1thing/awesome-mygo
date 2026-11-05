@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mygost",
+	"name": "mygost",
+	"author": "pingfury108",
+	"kind": "native",
+	"group": "network",
+	"url": "https://github.com/pingfury108/mygost",
+	"repo": "pingfury108/mygost",
+	"summary": {
+		"en": "A native desktop client for gost: proxy profiles, start and stop, logs and China-direct routing.",
+		"zh-CN": "gost 代理的原生桌面客户端：管理配置档、启停、日志与国内直连分流。",
+		"zh-TW": "gost 代理的原生桌面用戶端：管理設定檔、啟停、日誌與國內直連分流。",
+		"ja": "gost プロキシのネイティブクライアント。プロファイル、起動・停止、ログ、中国直結の振り分けを管理。",
+		"ko": "gost 프록시용 네이티브 클라이언트. 프로필, 시작·중지, 로그, 중국 직결 라우팅을 관리합니다."
+	},
+	"description": {
+		"en": "A macOS and Windows client for the gost proxy tool, drawn with MyGo's native UI with no web view. It builds gost.yml from forms for http, socks5 and relay proxies or TCP/UDP port forwarding, or takes custom YAML, then runs one profile at a time with logs and a tray menu. A China-direct mode routes private and Chinese IPs directly and everything else through the forward chain.",
+		"zh-CN": "gost 代理工具的 macOS 与 Windows 客户端，由 MyGo 原生 UI 绘制，没有 Web 视图。可通过表单生成 http、socks5、relay 代理或 TCP/UDP 端口转发的 gost.yml，也可直接编写 YAML；一次运行一个配置，附带日志与托盘菜单。开启「国内直连」后，私网与国内 IP 直连，其余流量走转发链。",
+		"zh-TW": "gost 代理工具的 macOS 與 Windows 用戶端，由 MyGo 原生 UI 繪製，沒有 Web 視圖。可透過表單產生 http、socks5、relay 代理或 TCP/UDP 連接埠轉發的 gost.yml，也可直接撰寫 YAML；一次執行一個設定檔，附有日誌與系統匣選單。開啟「國內直連」後，私有網段與中國 IP 直連，其餘流量走轉發鏈。",
+		"ja": "gost プロキシツールの macOS・Windows 向けクライアントで、MyGo のネイティブ UI で描かれ、Web ビューはありません。http・socks5・relay プロキシや TCP/UDP ポート転送の gost.yml をフォームから生成でき、YAML を直接書くこともできます。一度に一つのプロファイルを実行し、ログとトレイメニューを備えます。「国内直連」を有効にすると、プライベートネットワークと中国の IP は直接接続し、それ以外は転送チェーンを通します。",
+		"ko": "gost 프록시 도구의 macOS·Windows용 클라이언트로, MyGo의 네이티브 UI로 그려 웹 뷰가 없습니다. http, socks5, relay 프록시나 TCP/UDP 포트 포워딩용 gost.yml을 폼으로 만들거나 YAML을 직접 쓸 수 있고, 한 번에 프로필 하나를 실행하며 로그와 트레이 메뉴를 제공합니다. 중국 직결 모드를 켜면 사설망과 중국 IP는 직접 연결하고 나머지는 포워딩 체인으로 보냅니다."
+	},
+	"icon": {
+		"file": "mygost.webp"
+	},
+	"screenshot": "mygost.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T15:55:15Z"
+}
