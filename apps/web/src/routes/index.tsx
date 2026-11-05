@@ -49,7 +49,8 @@ function HomePage() {
 			<Hero />
 			{/* fetchPriority='low' keeps React from preloading the icons ahead of the stylesheets. They are not lazy: the strip clips them with overflow:hidden and slides them in with a transform, so a lazy icon could start loading only as it enters and show as a blank square at the edge. */}
 			<section aria-label={t.a_marquee} className='marq-wrap'>
-				<div className='marq'>
+				{/* The strip's length grows with the catalog, so its duration does too (--marq-n, styles.css), keeping its speed as more apps are listed. */}
+				<div className='marq' style={{ '--marq-n': nApps } as CSSProperties}>
 					{[...APPS, ...APPS].map((a, i) => (
 						<AppLink key={`${a.slug}-${i}`} slug={a.slug} className='marq-item' tabIndex={i >= nApps ? -1 : undefined} hidden={i >= nApps}>
 							{a.icon ? (
