@@ -280,10 +280,10 @@ export function overCaps(text: Record<string, string>, caps: Caps): string[] {
 	});
 }
 
-// The app's name as its MyGo configuration spells it, when the submitted name is the same word in other letter case: the form offers the repository's name (myskills), while the app calls itself MySkills. A name the visitor chose differently is kept.
+// The app's name as its MyGo configuration spells it, when the submitted name is the same word in other letter case: the form offers the repository's name (myskills), while the app calls itself MySkills. A name the visitor chose differently is kept, and so is any name when the configuration's is all lower case, which is more often the executable's name than how the app writes itself (collate, where its README and site say Collate).
 export function appNameFrom(submitted: string, mygo: unknown): string | undefined {
 	const name = (mygo as { name?: unknown } | null)?.name;
-	if (typeof name !== 'string' || name === submitted) return undefined;
+	if (typeof name !== 'string' || name === submitted || name === name.toLowerCase()) return undefined;
 	return name.trim().toLowerCase() === submitted.trim().toLowerCase() ? name.trim() : undefined;
 }
 

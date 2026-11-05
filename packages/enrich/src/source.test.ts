@@ -9,6 +9,7 @@ describe('app names', () => {
 		expect(appNameFrom('MySkills', { name: 'MySkills' })).toBeUndefined();
 		expect(appNameFrom('Skill Shelf', { name: 'MySkills' })).toBeUndefined();
 		expect(appNameFrom('myskills', {})).toBeUndefined();
+		expect(appNameFrom('Collate', { name: 'collate' })).toBeUndefined();
 	});
 
 	it('limits copy to the longest example in each language', () => {
