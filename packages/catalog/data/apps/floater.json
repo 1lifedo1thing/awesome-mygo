@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "floater",
+	"name": "Floater",
+	"author": "Uninen",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/Uninen/floater",
+	"repo": "Uninen/floater",
+	"summary": {
+		"en": "A macOS menu bar app that opens any URL in a chromeless window that can float above other windows.",
+		"zh-CN": "macOS 菜单栏应用：把任意网址开在无边框窗口里，可浮在其他窗口之上。",
+		"zh-TW": "macOS 選單列應用程式：把任意網址開在無邊框視窗裡，可浮在其他視窗之上。",
+		"ja": "任意の URL を枠のないウィンドウで開き、最前面に浮かべられる macOS のメニューバーアプリ。",
+		"ko": "어떤 URL이든 테두리 없는 창으로 열어 다른 창 위에 띄워 두는 macOS 메뉴 막대 앱."
+	},
+	"description": {
+		"en": "A macOS menu bar app built with MyGo's native UI that opens any URL in a chromeless window, which you can keep floating on top of other windows or run apart from your browser. You add a URL when you launch it, do everything else from the menu bar menu, and move a window with Option+Click. One window takes under 50 MB on macOS 27.",
+		"zh-CN": "用 MyGo 原生 UI 构建的 macOS 菜单栏应用，把任意网址开在无边框窗口里，可以浮在其他窗口之上，也可以独立于浏览器运行。启动后添加一个网址，之后的操作都在菜单栏菜单中完成，按住 Option 点击即可移动窗口。在 macOS 27 上单个窗口占用不到 50 MB。",
+		"zh-TW": "用 MyGo 原生 UI 打造的 macOS 選單列應用程式，把任意網址開在無邊框視窗裡，可以浮在其他視窗之上，也可以獨立於瀏覽器執行。啟動後新增一個網址，之後的操作都在選單列選單中完成，按住 Option 點按即可移動視窗。在 macOS 27 上單一視窗佔用不到 50 MB。",
+		"ja": "MyGo のネイティブ UI で作られた macOS のメニューバーアプリ。任意の URL を枠のないウィンドウで開き、ほかのウィンドウの最前面に浮かべたり、ブラウザーとは別に動かしたりできます。起動して URL を追加すれば、あとの操作はすべてメニューバーのメニューから行え、ウィンドウは Option+クリックで移動します。macOS 27 ではウィンドウ 1 枚あたり 50 MB 未満で動きます。",
+		"ko": "MyGo의 네이티브 UI로 만든 macOS 메뉴 막대 앱으로, 어떤 URL이든 테두리 없는 창으로 열어 다른 창 위에 띄워 두거나 브라우저와 따로 실행할 수 있습니다. 실행해서 URL을 추가하면 이후 조작은 모두 메뉴 막대 메뉴에서 하고, 창은 Option+클릭으로 옮깁니다. macOS 27에서는 창 하나에 50MB도 쓰지 않습니다."
+	},
+	"icon": {
+		"file": "floater.webp"
+	},
+	"screenshot": "floater.webp",
+	"added": "2026-11-05T12:11:10Z"
+}
