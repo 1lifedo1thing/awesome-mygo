@@ -1,4 +1,4 @@
-// The post announcing one entry, in Simplified Chinese, the site's default language: what was listed and by whom, its summary, its links, and how much the site lists now. It quotes the site's launch post, which the post's text does not count.
+// The post announcing one entry, in Simplified Chinese, the site's default language: what was listed and by whom, its page on the site, its summary, its stars, and how much the site lists now. The site's page is the post's only link: X shows a card for the first link in a post, and the post is there to bring readers to the site, not to the project, which the site's page links to. It quotes the site's launch post, which the post's text does not count.
 
 export const SITE_URL = 'https://mygodock.dev';
 // The launch post every announcement quotes: https://x.com/suzukaze_haduki/status/2117891721086599212
@@ -67,13 +67,6 @@ export function sitePage(kind: EntryKind, entry: Entry): string {
 	return kind === 'app' ? `${SITE_URL}/apps/${String(entry.slug)}` : `${SITE_URL}/${kind === 'plugin' ? 'plugins' : kind}`;
 }
 
-// The project's own link: an app's homepage, a library's homepage or else its repository, a plugin's docs.
-export function projectLink(kind: EntryKind, entry: Entry): string | undefined {
-	if (kind === 'app') return str(entry.url);
-	if (kind === 'plugin') return str(entry.docs);
-	return str(entry.homepage) ?? str(entry.url);
-}
-
 export interface PostInput {
 	kind: EntryKind;
 	entry: Entry;
@@ -92,15 +85,14 @@ export function statsLine(counts: Counts): string {
 export function composePost({ kind, entry, stars, counts }: PostInput): string {
 	const name = str(entry.name) ?? String(entry.slug);
 	const author = str(entry.author);
-	const project = projectLink(kind, entry);
 	const page = sitePage(kind, entry);
-	const urls = [project, page].filter((u): u is string => !!u);
+	const urls = [page];
 	const summary = zh(entry.summary) ?? '';
-
-	const links = [...(project && project !== page ? [`${kind === 'plugin' ? '文档' : '项目'}：${project}${stars !== undefined ? `（GitHub ${stars} star）` : ''}`] : []), `详情：${page}`].join('\n');
-	// Paragraphs: what was listed, its summary when there is room, its links, the site's counts.
 	const label = kindLabel(kind, entry);
-	const build = (desc: string) => [`Awesome MyGo 新收录${/^[A-Za-z]/.test(label) ? ' ' : ''}${label}：${name}${author ? ` by ${author}` : ''}`, desc, links, statsLine(counts)].filter(Boolean).join('\n\n');
+	const head = `Awesome MyGo 新收录${/^[A-Za-z]/.test(label) ? ' ' : ''}${label}：${name}${author ? ` by ${author}` : ''}\n${page}`;
+	const stats = [...(stars !== undefined ? [`GitHub ${stars} star`] : []), statsLine(counts)].join('\n');
+	// Paragraphs: what was listed and where on the site, its summary when there is room, the numbers.
+	const build = (desc: string) => [head, desc, stats].filter(Boolean).join('\n\n');
 
 	const full = build(summary);
 	if (weightedLength(full, urls) <= MAX_WEIGHT) return full;
