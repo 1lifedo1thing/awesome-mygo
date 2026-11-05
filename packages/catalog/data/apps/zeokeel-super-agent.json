@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "zeokeel-super-agent",
+	"name": "ZeoKeel Super Agent",
+	"author": "zeokeel",
+	"kind": "native",
+	"group": "agents",
+	"url": "https://github.com/zeokeel/ZeoKeel-Super-Agent",
+	"repo": "zeokeel/ZeoKeel-Super-Agent",
+	"summary": {
+		"en": "Local AI coworker that takes tasks from GitHub, Feishu and DingTalk and sends back the results.",
+		"zh-CN": "本地 AI 同事：从 GitHub、飞书和钉钉接活，在项目里完成后把结果送回。",
+		"zh-TW": "本機 AI 同事：從 GitHub、飛書和釘釘接下任務，在專案中完成後回報結果。",
+		"ja": "GitHub・Feishu・DingTalk から仕事を受けて結果を返すローカル AI 同僚。",
+		"ko": "GitHub, Feishu, DingTalk에서 일을 받아 처리하고 결과를 돌려주는 로컬 AI 동료."
+	},
+	"description": {
+		"en": "A single-user AI coworker for Linux, macOS and Windows that takes requests from GitHub, Feishu and DingTalk, decides whether to act and which project they belong to, works in a copy of that project with an OpenAI-compatible model, and sends the results back where the request came from. A single Go binary with a native MyGo window and no WebView; it can also run headless as a service.",
+		"zh-CN": "面向单人使用的 AI 同事，支持 Linux、macOS 与 Windows。它从 GitHub、飞书和钉钉接收请求，判断该不该做、属于哪个项目，用兼容 OpenAI 的模型在项目的执行副本里干活，再把交付物送回原处。整个应用是一个 Go 二进制文件，窗口由 MyGo 原生 UI 绘制，不需要 WebView，也能以无窗口的服务模式运行。",
+		"zh-TW": "給單人使用的 AI 同事，支援 Linux、macOS 與 Windows。它從 GitHub、飛書和釘釘接收請求，判斷該不該做、屬於哪個專案，用相容 OpenAI 的模型在專案的執行副本裡工作，再把交付成果送回原處。整個應用程式是單一 Go 執行檔，視窗由 MyGo 原生 UI 繪製，不需要 WebView，也能以無視窗的服務模式執行。",
+		"ja": "一人で使う AI 同僚アプリで、Linux・macOS・Windows に対応します。GitHub、Feishu、DingTalk から依頼を受け取り、引き受けるかどうかとどのプロジェクトの仕事かを判断し、OpenAI 互換モデルでプロジェクトの作業コピー上で作業して、成果物を依頼元に返します。Go の単一バイナリで、ウィンドウは MyGo のネイティブ UI で描かれ、WebView は不要です。ウィンドウなしのサービスとしても動かせます。",
+		"ko": "1인용 AI 동료 앱으로 Linux, macOS, Windows를 지원합니다. GitHub, Feishu, DingTalk에서 요청을 받아 맡을지와 어느 프로젝트의 일인지 판단하고, OpenAI 호환 모델로 프로젝트의 실행 사본에서 작업한 뒤 결과물을 요청한 곳으로 돌려보냅니다. Go 단일 바이너리이고 창은 MyGo의 네이티브 UI로 그려 WebView가 필요 없으며, 창 없는 서비스 모드로도 실행됩니다."
+	},
+	"icon": {
+		"file": "zeokeel-super-agent.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "zeokeel-super-agent.webp",
+	"added": "2026-11-05T08:28:47Z"
+}
