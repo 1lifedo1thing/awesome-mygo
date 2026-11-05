@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "tuck",
+	"name": "Tuck",
+	"author": "m3hu1",
+	"kind": "native",
+	"group": "notes",
+	"url": "https://github.com/m3hu1/tuck",
+	"repo": "m3hu1/tuck",
+	"summary": {
+		"en": "A macOS menu bar app with a task list that clears at midnight and one Markdown note per day.",
+		"zh-CN": "macOS 菜单栏应用：每天午夜清空的任务清单，外加每天一篇 Markdown 笔记。",
+		"zh-TW": "macOS 選單列應用程式：每天午夜清空的待辦清單，外加每天一篇 Markdown 筆記。",
+		"ja": "macOS のメニューバーアプリ。0時に空になるタスクリストと、1日1つの Markdown ノート。",
+		"ko": "macOS 메뉴 막대 앱. 자정에 비워지는 할 일 목록과 하루 한 편의 Markdown 노트."
+	},
+	"description": {
+		"en": "A macOS menu bar app drawn with MyGo's native UI, with no web view and no Dock icon. Its panel holds a task list that clears itself at local midnight and one Markdown note per day, autosaved and kept for a rolling 30 days unless you pin the day, with a calendar for opening past notes. Tasks and notes stay in local JSON files on the Mac, and global shortcuts open today's tasks or note.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 菜单栏应用，没有 Web 视图，也不在程序坞显示图标。面板里有一份在本地午夜自动清空的任务清单，以及每天一篇自动保存的 Markdown 笔记；笔记默认保留最近 30 天，固定的日子则一直保留，往日笔记可从日历打开。所有数据都以 JSON 文件保存在本机，全局快捷键可直接打开今天的任务或笔记。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS 選單列應用程式，沒有 Web 視圖，也不在 Dock 顯示圖示。面板裡有一份在當地午夜自動清空的待辦清單，以及每天一篇自動儲存的 Markdown 筆記；筆記預設保留最近 30 天，釘選的日子則永久保留，過去的筆記可從日曆開啟。所有資料都以 JSON 檔存在本機，全域快捷鍵可直接開啟今天的待辦或筆記。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS のメニューバーアプリで、Web ビューも Dock アイコンもありません。パネルには現地時間の0時に空になるタスクリストと、1日1つ自動保存される Markdown ノートがあり、ノートは直近30日分を保持し、固定した日はずっと残ります。過去のノートはカレンダーから開けます。データはすべて Mac 内の JSON ファイルに保存され、グローバルショートカットで今日のタスクやノートをすぐに開けます。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS 메뉴 막대 앱으로, 웹 뷰도 Dock 아이콘도 없습니다. 패널에는 현지 시각 자정에 비워지는 할 일 목록과 하루 한 편씩 자동 저장되는 Markdown 노트가 있고, 노트는 최근 30일 동안 보관되며 고정한 날은 계속 남습니다. 지난 노트는 달력으로 열 수 있습니다. 모든 데이터는 Mac의 JSON 파일에 저장되며, 전역 단축키로 오늘의 할 일이나 노트를 바로 엽니다."
+	},
+	"icon": {
+		"file": "tuck.webp"
+	},
+	"screenshot": "tuck.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T16:30:17Z"
+}
