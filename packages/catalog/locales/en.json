@@ -217,7 +217,7 @@
 	"score_v_stars": "Stars: {n}",
 	"score_v_weeks": "Weeks with commits: {n} of the last {x}",
 	"score_v_weeks_new": "No commits before {x} yet, so it counts at half",
-	"score_v_likes": "Likes: {n}",
+	"score_v_likes": "Likes: {n} as of {x}",
 	"score_v_rel": "Latest: {x}",
 	"score_v_rel_none": "No release yet",
 	"score_lic_osi": "{x}, an OSI-approved open source license",

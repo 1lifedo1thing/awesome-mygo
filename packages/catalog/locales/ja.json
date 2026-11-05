@@ -217,7 +217,7 @@
 	"score_v_stars": "スター：{n}",
 	"score_v_weeks": "直近 {x} 週のうち {n} 週にコミット",
 	"score_v_weeks_new": "{x} より前のコミットがまだないため、半分として計算",
-	"score_v_likes": "いいね：{n}",
+	"score_v_likes": "いいね：{n}（{x} 時点）",
 	"score_v_rel": "最新：{x}",
 	"score_v_rel_none": "リリースなし",
 	"score_lic_osi": "{x}（OSI 承認のオープンソースライセンス）",

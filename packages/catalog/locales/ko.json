@@ -217,7 +217,7 @@
 	"score_v_stars": "스타: {n}",
 	"score_v_weeks": "최근 {x}주 중 {n}주 커밋",
 	"score_v_weeks_new": "{x} 이전 커밋이 아직 없어 절반으로 계산",
-	"score_v_likes": "좋아요: {n}",
+	"score_v_likes": "좋아요: {n} ({x} 기준)",
 	"score_v_rel": "최근: {x}",
 	"score_v_rel_none": "릴리스 없음",
 	"score_lic_osi": "{x}, OSI 승인 오픈 소스 라이선스",

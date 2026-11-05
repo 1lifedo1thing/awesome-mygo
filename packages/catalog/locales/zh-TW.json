@@ -217,7 +217,7 @@
 	"score_v_stars": "Star：{n}",
 	"score_v_weeks": "近 {x} 週中 {n} 週有提交",
 	"score_v_weeks_new": "{x} 之前還沒有提交，按一半計入",
-	"score_v_likes": "按讚：{n}",
+	"score_v_likes": "按讚：{n}（截至 {x}）",
 	"score_v_rel": "最近一次：{x}",
 	"score_v_rel_none": "尚無版本",
 	"score_lic_osi": "{x}，OSI 認可的開源授權",
