@@ -4,16 +4,16 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { promisify } from 'node:util';
 import { DEFAULT_MODEL, type LlmConfig } from './copy.ts';
-import { BRANCH_PREFIX, type CodeHit, KIND_LABELS, type Listed, MYGO_MODULE, type Seen, branchFor, configNear, entryFor, groupHits, isDue, listedAs, listedFrom, moduleOf, quiet, remember, requiresMygo, uniqueSlug, withoutFailed } from './find.ts';
+import { BRANCH_PREFIX, type CodeHit, KIND_LABELS, type Listed, MYGO_MODULE, RECHECK_DAYS, type Seen, branchFor, configNear, entryFor, goModsIn, groupHits, isDue, isSamplePath, listedAs, listedFrom, moduleOf, quiet, remember, reposInImportedBy, requiresMygo, uniqueSlug, withoutFailed } from './find.ts';
 import { github, rawFile } from './github.ts';
 import { ENTRY_DIRS, type Entry, type EntryKind } from './source.ts';
 import { triage } from './triage.ts';
 
-// Run by .github/workflows/discover.yml once a day. It looks on GitHub for projects whose go.mod requires MyGo and that the site does not list yet, asks the model whether each belongs on the site and as what, and opens a pull request for each one that does, completed as a submission is (main.ts: icon, screenshot, category and copy in every site language) and checked by the catalog's tests. A maintainer merges or closes it; a repository whose branch has had a pull request is never proposed again.
+// Run by .github/workflows/discover.yml once a day. It looks for projects whose go.mod requires MyGo and that the site does not list yet: through GitHub's code search for such go.mod files, and, as that search leaves out repositories it has not indexed, through code search for MyGo configurations, repository search for READMEs that name MyGo and for repositories named after it, and pkg.go.dev's importers; a repository found any way but the first has its go.mod checked before anything else. It asks the model whether each belongs on the site and as what, and opens a pull request for each one that does, completed as a submission is (main.ts: icon, screenshot, category and copy in every site language) and checked by the catalog's tests. A maintainer merges or closes it; a repository whose branch has had a pull request is never proposed again.
 //
 // The script works in the repository's working tree, checked out at main and clean, with origin/main fetched: for each proposal it checks out a branch of its own from origin/main, commits and pushes it, and leaves the tree detached at origin/main.
 //
-// Environment: GITHUB_TOKEN (the site's GitHub App, which pushes the branches and opens the pull requests, so CI runs on them; an installation token can search all public code), LLM_API_KEY with optional LLM_BASE_URL and LLM_MODEL, SEEN_FILE (where it remembers the repositories it looked at and did not propose), REPORT_FILE (a Markdown summary of the run), MAX_PRS (pull requests to open in a run, default 10), MAX_TRIAGE (repositories to ask the model about in a run, default 30), MAX_OPEN (no new pull request while this many of its own are open, default 20), DRY_RUN=true to report what it would propose without pushing, opening or remembering anything, and RETRY_FAILED=true to ask again about the repositories whose entry failed before. Without LLM_API_KEY it only lists the repositories it would ask about.
+// Environment: GITHUB_TOKEN (the site's GitHub App, which pushes the branches and opens the pull requests, so CI runs on them; an installation token can search all public code), LLM_API_KEY with optional LLM_BASE_URL and LLM_MODEL, SEEN_FILE (where it remembers the repositories it looked at and did not propose), REPORT_FILE (a Markdown summary of the run), MAX_PRS (pull requests to open in a run, default 10), MAX_TRIAGE (repositories to ask the model about in a run, default 30), MAX_OPEN (no new pull request while this many of its own are open, default 20), MAX_CHECK (repositories found without a go.mod hit whose go.mod it looks for in a run, default 150), DRY_RUN=true to report what it would propose without pushing, opening or remembering anything, and RETRY_FAILED=true to ask again about the repositories whose entry failed before. Without LLM_API_KEY it only lists the repositories it would ask about.
 
 const run = promisify(execFile);
 const ROOT = join(import.meta.dirname, '../../..');
@@ -27,8 +27,12 @@ const count = (v: string | undefined, fallback: number) => (v && /^\d+$/.test(v)
 const MAX_PRS = count(env.MAX_PRS, 10);
 const MAX_TRIAGE = count(env.MAX_TRIAGE, 30);
 const MAX_OPEN = count(env.MAX_OPEN, 20);
+const MAX_CHECK = count(env.MAX_CHECK, 150);
 const DRY_RUN = env.DRY_RUN === 'true';
 const now = new Date();
+
+// Where a repository can be found, as the report names them.
+const SOURCES = { goMod: 'a go.mod that names MyGo', config: 'a MyGo configuration', readme: 'a README that names MyGo', name: 'a name, description or topic', pkgGoDev: 'pkg.go.dev' } as const;
 
 const report: string[] = [];
 const say = (line: string): void => {
@@ -55,14 +59,18 @@ async function listedOnSite(): Promise<Listed> {
 	return listed;
 }
 
-// Why a repository needs no pull request from this script: one of its branch exists, open or closed, or a pull request or issue on the site names the repository, such as a visitor's submission. undefined when neither does.
-async function proposedBefore(repo: string): Promise<string | undefined> {
+// The pull request of the repository's branch, open or closed, when there is one: the repository was proposed before.
+async function branchPullRequest(repo: string): Promise<string | undefined> {
 	const [owner] = SITE.split('/');
 	const prs = await github<{ html_url: string }[]>(`/repos/${SITE}/pulls?state=all&per_page=1&head=${encodeURIComponent(`${owner}:${branchFor(repo)}`)}`);
-	if (prs?.length) return `proposed before in ${prs[0].html_url}`;
+	return prs?.[0]?.html_url;
+}
+
+// A pull request or issue on the site that names the repository, such as a visitor's submission, when there is one. A search, so it is paced, and asked only about a repository that is built with MyGo.
+async function namedOnSite(repo: string): Promise<string | undefined> {
+	await paced('other');
 	const found = await github<{ total_count: number; items: { html_url: string }[] }>(`/search/issues?per_page=1&q=${encodeURIComponent(`repo:${SITE} "${repo}"`)}`);
-	if (found?.total_count) return `named already in ${found.items[0].html_url}`;
-	return undefined;
+	return found?.total_count ? found.items[0].html_url : undefined;
 }
 
 async function loadSeen(): Promise<Record<string, Seen>> {
@@ -80,19 +88,66 @@ async function loadSeen(): Promise<Record<string, Seen>> {
 
 // ---- finding projects ----
 
-// Every go.mod on GitHub that names MyGo, through code search, which answers at most 1000 hits, 100 a page, and 10 pages a minute.
-async function searchGoMods(): Promise<CodeHit[]> {
-	const q = encodeURIComponent(`"${MYGO_MODULE}" filename:go.mod`);
+// GitHub's search limits: 10 code searches and 30 other searches a minute. Each search waits until its kind's pace allows.
+const lastSearch = { code: 0, other: 0 };
+async function paced(kind: 'code' | 'other'): Promise<void> {
+	const wait = lastSearch[kind] + (kind === 'code' ? 6_500 : 2_200) - Date.now();
+	if (wait > 0) await sleep(wait);
+	lastSearch[kind] = Date.now();
+}
+
+interface CodeItem {
+	path: string;
+	repository: { full_name: string; fork: boolean };
+}
+
+async function codePage(query: string, page: number): Promise<{ total: number; hits: CodeHit[] }> {
+	await paced('code');
+	const res = await github<{ total_count: number; items: CodeItem[] }>(`/search/code?q=${encodeURIComponent(query)}&per_page=100&page=${page}`);
+	return { total: res?.total_count ?? 0, hits: (res?.items ?? []).map((i) => ({ repo: i.repository.full_name, path: i.path, fork: i.repository.fork })) };
+}
+
+// Code search answers at most 1000 hits a query, 100 a page; past that the query is asked again in slices of file size, which together cover every hit.
+const SIZE_SLICES = ['<1000', '1000..1999', '2000..3999', '>=4000'];
+
+async function searchCode(query: string): Promise<CodeHit[]> {
+	const all = async (q: string, first: { total: number; hits: CodeHit[] }) => {
+		const hits = [...first.hits];
+		for (let page = 2, last = first.hits.length; page <= 10 && last === 100 && hits.length < first.total; page++) {
+			const next = await codePage(q, page);
+			hits.push(...next.hits);
+			last = next.hits.length;
+		}
+		return hits;
+	};
+	const first = await codePage(query, 1);
+	if (first.total <= 1000) return all(query, first);
 	const hits: CodeHit[] = [];
-	for (let page = 1; page <= 10; page++) {
-		if (page > 1) await sleep(7_000);
-		const res = await github<{ total_count: number; items: { path: string; repository: { full_name: string; fork: boolean } }[] }>(`/search/code?q=${q}&per_page=100&page=${page}`);
-		const items = res?.items ?? [];
-		if (page === 1 && !res?.total_count) throw new Error('code search found no go.mod that names MyGo; check GITHUB_TOKEN');
-		hits.push(...items.map((i) => ({ repo: i.repository.full_name, path: i.path, fork: i.repository.fork })));
-		if (items.length < 100 || hits.length >= (res?.total_count ?? 0)) break;
+	for (const size of SIZE_SLICES) {
+		const q = `${query} size:${size}`;
+		hits.push(...(await all(q, await codePage(q, 1))));
 	}
 	return hits;
+}
+
+// Repositories whose name, description, topics or README match, up to the 1000 the search answers.
+async function searchRepos(query: string): Promise<{ repo: string; fork: boolean }[]> {
+	const out: { repo: string; fork: boolean }[] = [];
+	for (let page = 1; page <= 10; page++) {
+		await paced('other');
+		const res = await github<{ total_count: number; items: { full_name: string; fork: boolean }[] }>(`/search/repositories?q=${encodeURIComponent(query)}&per_page=100&page=${page}`);
+		const items = res?.items ?? [];
+		out.push(...items.map((i) => ({ repo: i.full_name, fork: i.fork })));
+		if (items.length < 100 || out.length >= (res?.total_count ?? 0)) break;
+	}
+	return out;
+}
+
+// The repositories pkg.go.dev knows import MyGo: Go's module proxy sees them, which GitHub's search does not need to have indexed. A page, not an API, so a failure is reported and the other sources carry on.
+async function importedBy(): Promise<string[]> {
+	const res = await fetch(`https://pkg.go.dev/${MYGO_MODULE}?tab=importedby`, { signal: AbortSignal.timeout(30_000) });
+	if (!res.ok) throw new Error(`pkg.go.dev answered ${res.status}`);
+	return reposInImportedBy(await res.text());
 }
 
 interface RepoMeta {
@@ -111,25 +166,70 @@ interface RepoMeta {
 	license?: { spdx_id?: string } | null;
 }
 
-async function mapLimit<T, R>(items: readonly T[], limit: number, fn: (item: T) => Promise<R>): Promise<R[]> {
-	const out: R[] = new Array(items.length);
-	let next = 0;
-	await Promise.all(
-		Array.from({ length: Math.min(limit, items.length) }, async () => {
-			while (next < items.length) {
-				const i = next++;
-				out[i] = await fn(items[i]);
-			}
-		}),
-	);
-	return out;
+interface GqlRepo {
+	nameWithOwner: string;
+	url: string;
+	description: string | null;
+	homepageUrl: string | null;
+	stargazerCount: number;
+	pushedAt: string | null;
+	isFork: boolean;
+	isArchived: boolean;
+	isDisabled: boolean;
+	isPrivate: boolean;
+	defaultBranchRef: { name: string } | null;
+	licenseInfo: { spdxId: string | null } | null;
+	repositoryTopics: { nodes: { topic: { name: string } }[] };
+}
+
+const REPO_FIELDS = 'fragment F on Repository { nameWithOwner url description homepageUrl stargazerCount pushedAt isFork isArchived isDisabled isPrivate defaultBranchRef { name } licenseInfo { spdxId } repositoryTopics(first: 10) { nodes { topic { name } } } }';
+
+// The metadata of many repositories, 50 to a GraphQL request rather than one request each. A repository GitHub does not find is left out; a batch that cannot be read counts as unread and waits for the next run.
+async function repoMetas(repos: readonly string[]): Promise<{ metas: Map<string, RepoMeta>; unread: number }> {
+	const metas = new Map<string, RepoMeta>();
+	let unread = 0;
+	for (let i = 0; i < repos.length; i += 50) {
+		const batch = repos.slice(i, i + 50);
+		const fields = batch.map((r, j) => {
+			const [owner, name] = r.split('/');
+			return `r${j}: repository(owner: ${JSON.stringify(owner)}, name: ${JSON.stringify(name)}) { ...F }`;
+		});
+		const res = await github<{ data?: Record<string, GqlRepo | null> }>('/graphql', { method: 'POST', body: { query: `query { ${fields.join('\n')} }\n${REPO_FIELDS}` } }).catch(() => undefined);
+		if (!res?.data) {
+			unread += batch.length;
+			continue;
+		}
+		batch.forEach((repo, j) => {
+			const v = res.data?.[`r${j}`];
+			if (!v) return;
+			metas.set(repo.toLowerCase(), {
+				full_name: v.nameWithOwner,
+				html_url: v.url,
+				description: v.description,
+				homepage: v.homepageUrl,
+				stargazers_count: v.stargazerCount,
+				pushed_at: v.pushedAt ?? '',
+				default_branch: v.defaultBranchRef?.name ?? '',
+				fork: v.isFork,
+				archived: v.isArchived,
+				disabled: v.isDisabled,
+				private: v.isPrivate,
+				topics: v.repositoryTopics.nodes.map((n) => n.topic.name),
+				license: v.licenseInfo ? { spdx_id: v.licenseInfo.spdxId ?? undefined } : null,
+			});
+		});
+	}
+	return { metas, unread };
 }
 
 // ---- one repository ----
 
 interface Candidate {
 	meta: RepoMeta;
+	// The go.mod files code search matched; empty for a repository found another way, whose go.mod is looked for in its tree.
 	goMods: string[];
+	// Where the repository was found, for the report and the pull request.
+	sources: string[];
 }
 
 async function triageInput(c: Candidate) {
@@ -138,7 +238,7 @@ async function triageInput(c: Candidate) {
 	const paths = (tree?.tree ?? []).filter((t) => t.type === 'blob').map((t) => t.path);
 	// The go.mod that requires MyGo, shallowest first, as code search can match one that only names it.
 	let goMod: { path: string; text: string } | undefined;
-	for (const path of c.goMods.slice(0, 3)) {
+	for (const path of (c.goMods.length ? c.goMods : goModsIn(paths)).slice(0, 5)) {
 		const text = await rawFile(repo, branch, path);
 		if (text !== undefined && requiresMygo(text)) {
 			goMod = { path, text };
@@ -208,7 +308,7 @@ async function propose(c: Candidate, kind: EntryKind, entry: Entry, goModPath: s
 		pushed = true;
 
 		const body = [
-			`Found by the scheduled *Discover projects* workflow: [${repo}](${c.meta.html_url}) (${c.meta.stargazers_count} stars) requires \`${MYGO_MODULE}\` in \`${goModPath}\`, and the site does not list it yet.`,
+			`Found by the scheduled *Discover projects* workflow through ${c.sources.join(', ')}: [${repo}](${c.meta.html_url}) (${c.meta.stargazers_count} stars) requires \`${MYGO_MODULE}\` in \`${goModPath}\`, and the site does not list it yet.`,
 			`Category: ${KIND_LABELS[kind]} (\`${file}\`)`,
 			`Why it looks like a fit, as the model judged from the repository: ${quiet(reason)}`,
 			`## Completed from the repository\n\n${quiet(enrichReport.trim())}`,
@@ -247,48 +347,87 @@ async function main(): Promise<void> {
 
 	const listed = await listedOnSite();
 	const seen = await loadSeen();
-	const hits = await searchGoMods();
-	const grouped = groupHits(hits, listed.repos);
-	const due = [...grouped].filter(([repo]) => isDue(seen[repo.toLowerCase()], now));
-	say(`Code search found ${hits.length} go.mod files naming MyGo in ${new Set(hits.map((h) => h.repo)).size} repositories; ${grouped.size} are not on the site and are neither forks nor only examples or tests, and ${due.length} of them are due for a look.\n`);
+	// Every source names repositories that may be built with MyGo. A go.mod that requires it is the proof, which code search finds directly; the other sources reach repositories code search has not indexed, and their go.mod is checked before the model is asked.
+	const found = new Map<string, { repo: string; goMods: string[]; sources: string[] }>();
+	const add = (repo: string, source: string, goMods: readonly string[] = []) => {
+		const key = repo.toLowerCase();
+		if (listed.repos.has(key)) return;
+		const f = found.get(key) ?? { repo, goMods: [], sources: [] };
+		for (const g of goMods) if (!f.goMods.includes(g)) f.goMods.push(g);
+		if (!f.sources.includes(source)) f.sources.push(source);
+		found.set(key, f);
+	};
+	const goModHits = await searchCode(`"${MYGO_MODULE}" filename:go.mod`);
+	if (!goModHits.length) throw new Error('code search found no go.mod that names MyGo; check GITHUB_TOKEN');
+	for (const [repo, goMods] of groupHits(goModHits, listed.repos)) add(repo, SOURCES.goMod, goMods);
+	for (const q of ['filename:mygo.json', 'filename:mygo.config.ts', 'filename:mygo.config.js']) {
+		for (const h of await searchCode(q)) if (!h.fork && !isSamplePath(h.path)) add(h.repo, SOURCES.config);
+	}
+	for (const r of await searchRepos(`${MYGO_MODULE.replace('github.com/', '')} in:readme`)) if (!r.fork) add(r.repo, SOURCES.readme);
+	for (const r of await searchRepos('mygo in:name,description,topics language:Go')) if (!r.fork) add(r.repo, SOURCES.name);
+	try {
+		for (const repo of await importedBy()) add(repo, SOURCES.pkgGoDev);
+	} catch (err) {
+		say(`pkg.go.dev could not be read (${err instanceof Error ? err.message : String(err)}), so its importers were left out of this run.\n`);
+	}
+	const bySource = Object.values(SOURCES).map((src) => `${[...found.values()].filter((f) => f.sources.includes(src)).length} ${src}`);
+	const due = [...found.values()].filter((f) => isDue(seen[f.repo.toLowerCase()], now));
+	say(`Found ${found.size} repositories not on the site that may be built with MyGo (${bySource.join(', ')}; a repository can come from several), and ${due.length} of them are due for a look.\n`);
 
 	// A repository that cannot be read now is left for the next run rather than ending this one.
-	let unread = 0;
-	const metas = await mapLimit(due, 8, async ([repo, goMods]) => {
-		const meta = await github<RepoMeta>(`/repos/${repo}`).catch(() => void unread++);
-		if (!meta || meta.fork || meta.archived || meta.disabled || meta.private) return undefined;
-		// Listed under its own homepage or by its owner, without naming the repository.
-		return listedAs(listed, meta.full_name, meta.homepage) ? undefined : { meta, goMods };
-	});
+	const { metas, unread } = await repoMetas(due.map((f) => f.repo));
 	if (unread) say(`${unread} repositories could not be read from GitHub and wait for the next run.\n`);
-	const candidates = metas.filter((c): c is Candidate => !!c).sort((a, b) => b.meta.stargazers_count - a.meta.stargazers_count || b.meta.pushed_at.localeCompare(a.meta.pushed_at));
+	const fromGoMod = (c: Candidate) => c.sources.includes(SOURCES.goMod);
+	// How likely a candidate is built with MyGo, by where it was found: a go.mod hit proves it; a configuration, a README or pkg.go.dev say so; a name alone often means "my Go" practice.
+	const rank = (c: Candidate) => (fromGoMod(c) ? 0 : c.sources.some((src) => src !== SOURCES.name) ? 1 : 2);
+	const candidates = due
+		.flatMap((f): Candidate[] => {
+			const meta = metas.get(f.repo.toLowerCase());
+			if (!meta || meta.fork || meta.archived || meta.disabled || meta.private || !meta.default_branch) return [];
+			// Listed under its own homepage or by its owner, without naming the repository.
+			return listedAs(listed, meta.full_name, meta.homepage) ? [] : [{ meta, goMods: f.goMods, sources: f.sources }];
+		})
+		// The likeliest first, and among them the most starred.
+		.sort((a, b) => rank(a) - rank(b) || b.meta.stargazers_count - a.meta.stargazers_count || b.meta.pushed_at.localeCompare(a.meta.pushed_at));
 
 	if (!cfg) {
 		say(`LLM_API_KEY is not set, so no repository was judged. The first ${MAX_TRIAGE} it would ask about:\n`);
-		for (const c of candidates.slice(0, MAX_TRIAGE)) say(`- [${c.meta.full_name}](${c.meta.html_url}), ${c.meta.stargazers_count} stars: \`${c.goMods[0]}\``);
+		for (const c of candidates.slice(0, MAX_TRIAGE)) say(`- [${c.meta.full_name}](${c.meta.html_url}), ${c.meta.stargazers_count} stars, from ${c.sources.join(', ')}${c.goMods[0] ? `: \`${c.goMods[0]}\`` : ''}`);
 		return;
 	}
 
 	const lines = { proposed: [] as string[], skipped: [] as string[], failed: [] as string[] };
 	let triaged = 0;
 	let proposed = 0;
+	// Repositories found without a go.mod hit whose go.mod was looked for, and those of them built with no MyGo, which are counted rather than listed.
+	let checked = 0;
+	let notMygo = 0;
 	const room = DRY_RUN ? MAX_PRS : Math.min(MAX_PRS, MAX_OPEN - openOwn);
 	for (const c of candidates) {
-		if (triaged >= MAX_TRIAGE || proposed >= room) break;
+		if (triaged >= MAX_TRIAGE || proposed >= room || (!fromGoMod(c) && checked >= MAX_CHECK)) break;
 		const repo = c.meta.full_name;
 		const link = `[${repo}](${c.meta.html_url})`;
 		// Set once the model has been asked: only then is a failure remembered, so a passing GitHub error costs a day, not two weeks. A failure to push or open the pull request is never remembered (PublishError).
 		let asked = false;
 		try {
-			const before = await proposedBefore(repo);
-			if (before) {
-				lines.skipped.push(`- ${link}: ${before}`);
+			const pr = await branchPullRequest(repo);
+			if (pr) {
+				seen[repo.toLowerCase()] = remember('skip', `proposed before in ${pr}`, now);
+				lines.skipped.push(`- ${link}: proposed before in ${pr}`);
 				continue;
 			}
+			if (!fromGoMod(c)) checked++;
 			const input = await triageInput(c);
 			if (!input) {
-				seen[repo.toLowerCase()] = remember('skip', `no go.mod among ${c.goMods.join(', ')} requires ${MYGO_MODULE}`, now);
-				lines.skipped.push(`- ${link}: ${seen[repo.toLowerCase()].reason}`);
+				seen[repo.toLowerCase()] = remember('skip', `no go.mod requires ${MYGO_MODULE}`, now);
+				if (fromGoMod(c)) lines.skipped.push(`- ${link}: no go.mod among ${c.goMods.join(', ')} requires ${MYGO_MODULE}`);
+				else notMygo++;
+				continue;
+			}
+			const named = await namedOnSite(repo);
+			if (named) {
+				seen[repo.toLowerCase()] = remember('skip', `named already in ${named}`, now);
+				lines.skipped.push(`- ${link}: named already in ${named}`);
 				continue;
 			}
 			triaged++;
@@ -321,6 +460,7 @@ async function main(): Promise<void> {
 	say(`### ${DRY_RUN ? 'Would propose' : 'Proposed'} (${lines.proposed.length})\n\n${lines.proposed.join('\n') || 'None.'}\n`);
 	say(`### Skipped (${lines.skipped.length})\n\n${lines.skipped.join('\n') || 'None.'}\n`);
 	say(`### Failed (${lines.failed.length})\n\n${lines.failed.join('\n') || 'None.'}\n`);
+	if (checked) say(`Looked for a go.mod in ${checked} repositories found another way (at most ${MAX_CHECK}); ${notMygo} of them have none that requires MyGo and are not looked at again for ${RECHECK_DAYS.skip} days.\n`);
 	say(`Asked the model about ${triaged} repositories (at most ${MAX_TRIAGE}); the rest wait for the next run.`);
 	if (env.SEEN_FILE && !DRY_RUN) await writeFile(env.SEEN_FILE, `${JSON.stringify(seen, null, '\t')}\n`);
 }
