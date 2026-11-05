@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "pith",
+	"name": "Pith",
+	"author": "Kel077",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/Kel077/pith",
+	"repo": "Kel077/pith",
+	"summary": {
+		"en": "A Mac menu bar app that sends each app's connections out through the network interface you choose.",
+		"zh-CN": "Mac 菜单栏应用，按应用、域名或 IP 让连接走你选定的网络接口。",
+		"zh-TW": "Mac 選單列 App，依 App、網域或 IP 讓連線走你選定的網路介面。",
+		"ja": "アプリ・ドメイン・IP ごとに通信の出口となるネットワークを選べる Mac のメニューバーアプリ。",
+		"ko": "앱, 도메인, IP별로 연결이 나갈 네트워크 인터페이스를 고르는 Mac 메뉴 막대 앱."
+	},
+	"description": {
+		"en": "A Mac menu bar app for Apple silicon and macOS 13 or later, drawn with MyGo's native UI. Rules by app, domain or IP send new connections through Ethernet, Wi-Fi or a phone's hotspot, moving to the next interface when one fails, and Activity shows which interface each connection used. A helper installed with an administrator's password does the routing; nothing is decrypted.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Mac 菜单栏应用，支持 Apple 芯片与 macOS 13 及以上版本。按应用、域名或 IP 编写规则，让新连接从以太网、Wi-Fi 或手机热点出去，一个接口连不上就换下一个；Activity 页面显示每个连接实际走了哪个接口。路由由输入管理员密码后安装的辅助程序完成，不解密任何流量。",
+		"zh-TW": "以 MyGo 原生 UI 繪製的 Mac 選單列 App，支援 Apple 晶片與 macOS 13 以上版本。依 App、網域或 IP 設定規則，讓新連線從乙太網路、Wi-Fi 或手機熱點出去，一個介面連不上就換下一個；Activity 頁面會顯示每條連線實際走了哪個介面。路由由輸入管理員密碼後安裝的輔助程式負責，不解密任何流量。",
+		"ja": "MyGo のネイティブ UI で描かれた Mac のメニューバーアプリで、Apple シリコンと macOS 13 以降に対応します。アプリ・ドメイン・IP ごとのルールで新しい接続を Ethernet、Wi-Fi、スマートフォンのテザリングのいずれかから出し、つながらなければ次のインターフェースを試します。Activity では各接続が実際に使ったインターフェースを確認できます。ルーティングは管理者パスワードで入れるヘルパーが行い、通信内容は復号しません。",
+		"ko": "MyGo의 네이티브 UI로 그린 Mac 메뉴 막대 앱으로, Apple 실리콘과 macOS 13 이상에서 동작합니다. 앱, 도메인, IP별 규칙으로 새 연결을 이더넷, Wi-Fi, 휴대폰 핫스폿 중 원하는 곳으로 내보내고, 연결되지 않으면 다음 인터페이스를 시도합니다. Activity에서는 각 연결이 실제로 쓴 인터페이스를 볼 수 있습니다. 라우팅은 관리자 암호로 설치하는 헬퍼가 맡으며, 트래픽을 복호화하지 않습니다."
+	},
+	"icon": {
+		"file": "pith.webp"
+	},
+	"screenshot": "pith.webp",
+	"added": "2026-11-05T05:02:32Z"
+}
