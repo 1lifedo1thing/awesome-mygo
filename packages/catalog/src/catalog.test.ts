@@ -3,13 +3,17 @@ import appSchema from '../data/schema/app.schema.json';
 import articleSchema from '../data/schema/article.schema.json';
 import docSchema from '../data/schema/doc.schema.json';
 import pluginSchema from '../data/schema/plugin.schema.json';
+import scoresSchema from '../data/schema/scores.schema.json';
 import stateSchema from '../data/schema/state.schema.json';
 import uiSchema from '../data/schema/ui.schema.json';
+import scoresFile from '../data/scores.json';
 import { AILOGO_CDN, APP_CATEGORIES, APP_GROUPS, APP_KIND, APPS, ARTICLE_KIND, DOC_KIND, GROUP_CATEGORY, PLUGIN_KIND, STATE_KIND, UI_KIND, appGroup, appSource, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, authorProfile, byAdded, byName, byNewest, hostOf, readAppEntry, readAppFile, readApps, readEntry, readDocs, readEntryFile, readPlugins, readUiLibs } from './catalog';
 import { SUBMIT_CATS, SUBMIT_KINDS, type SubmitCat, alreadyListed, buildEntry, codeFence, descMax, editUrl, entryCats, entryFileText, entryPath, entryProblem, guessFromLink, isBadShot, isBadUrl, isEntryComplete, issueUrl, jsonEntry, missingFields, parseEntryJson, pastedEntryProblem, pastedName, pastedShotRepo, shotRepo, slugify, takesShot, withScheme } from './entry';
 import { LANGS, type LangCode, type Text, fill, langRedirectScript, negotiateLang, pick, validateRootSearch } from './lang';
 import { buildSearchIndex, searchCatalog } from './search';
 import { LIKE_KEYS, likeKey } from './likes';
+import { ACTIVITY_WEEKS, type ScoreSignals, scoreKey } from './score';
+import { HAS_SCORES, SCORE_FIELDS, SCORE_TARGETS, SCORES_AS_OF, entryScore, entrySignals, readScores, scoreRank, scoresFor } from './scores';
 import { LOCALES } from './strings';
 import { appDescription, t } from './translate';
 import { CatalogError, Reader, unique } from './validate';
@@ -700,5 +704,102 @@ describe('bot submission', () => {
 		expect(JSON.parse(entryFileText('ui', buildEntry('ui', draft, 'native', ph))).added).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/);
 		expect(() => entryFileText('showcase', { ...app, summary: { ja: 'x' } })).toThrow(CatalogError);
 		expect(() => entryFileText('ui', { ...buildEntry('ui', draft, 'native', ph), summary: { ja: 'x' } })).toThrow(/summary\.en/);
+	});
+});
+
+describe('scores', () => {
+	const kit: ScoreSignals = { repo: 'someone/kit', stars: 40, weeks: 12, activeWeeks: 5, license: 'MIT', osi: true, released: '2026-10-20', likes: 1 };
+	const file = (entries: Record<string, unknown>, asOf: string | null = '2026-11-02') => ({ $schema: './schema/scores.schema.json', asOf, entries });
+	const read = (entry: object, key = 'app:kit') => () => readScores(file({ [key]: entry }));
+
+	it('reads the bundled file', () => {
+		expect(() => readScores(scoresFile)).not.toThrow();
+		expect(SCORES_AS_OF).toBe(readScores(scoresFile).asOf);
+		expect(readScores(file({ 'app:kit': kit, 'app:pulse': { likes: 2 }, 'plugin:kit': { repo: 'someone/tools', path: 'plugins/kit', weeks: 3, activeWeeks: 0, license: null, likes: 0 }, 'ui:someone/old': { ...kit, license: 'NOASSERTION', osi: false, released: undefined, archived: true } })).entries['app:pulse']).toEqual({ likes: 2 });
+		expect(readScores(file({}, null))).toEqual({ asOf: null, entries: {} });
+	});
+
+	it('names the entry\'s key and the field of each mistake', () => {
+		expect(read({ ...kit, forks: 3 })).toThrow(/scores.json \(app:kit\): forks is not a known field/);
+		expect(read({ ...kit, stars: -1 })).toThrow(/scores.json \(app:kit\): stars must be a whole number, 0 or more/);
+		expect(read({ ...kit, likes: 1.5 })).toThrow(/\(app:kit\): likes must be a whole number/);
+		expect(read({ ...kit, stars: '40' })).toThrow(/\(app:kit\): stars must be a whole number/);
+		expect(read({ ...kit, likes: undefined })).toThrow(/\(app:kit\): likes is required/);
+		expect(read({ ...kit, weeks: 4, activeWeeks: 5 })).toThrow(/\(app:kit\): activeWeeks must be at most weeks \(4\)/);
+		expect(read({ ...kit, weeks: 13, activeWeeks: 5 })).toThrow(/\(app:kit\): weeks must be at most 12/);
+		expect(read({ ...kit, activeWeeks: undefined })).toThrow(/\(app:kit\): activeWeeks is required with weeks/);
+		expect(read({ ...kit, path: 'plugins/kit' }, 'plugin:kit')).toThrow(/scores.json \(plugin:kit\): stars is not recorded for an entry in a folder/);
+		expect(read({ ...kit, released: '2026-10-2' })).toThrow(/\(app:kit\): released must be a day like 2026-11-02/);
+		expect(read({ ...kit, released: '2026-02-30' })).toThrow(/\(app:kit\): released must be a day that exists/);
+		expect(read({ ...kit, license: 7 })).toThrow(/\(app:kit\): license must be an SPDX id/);
+		expect(read({ ...kit, license: null })).toThrow(/\(app:kit\): osi is recorded only with a license/);
+		expect(read({ ...kit, archived: false })).toThrow(/\(app:kit\): archived is written only as true/);
+		expect(read({ likes: 2, stars: 40 }, 'app:pulse')).toThrow(/\(app:pulse\): stars is recorded only for an entry with a repository/);
+		expect(read({ ...kit, repo: 'kit' })).toThrow(/\(app:kit\): repo must be owner\/name/);
+		expect(read(kit, 'apps:kit')).toThrow(/scores.json: entries.apps:kit is not an entry key/);
+		expect(() => readScores(file({ 'app:kit': kit }, null))).toThrow(/scores.json: asOf is required once there are entries/);
+		expect(() => readScores(file({}, '2026/11/02'))).toThrow(/scores.json: asOf must be a day/);
+		expect(() => readScores({ ...file({}), $schema: '../schema/scores.schema.json' })).toThrow(/scores.json: \$schema must be/);
+		expect(() => readScores({ ...file({}), scores: {} })).toThrow(/scores.json: scores is not a known field/);
+		expect(read(kit)).not.toThrow();
+	});
+
+	it('keys every entry\'s score as its like, and only the entries visitors can like', () => {
+		for (const a of APPS) expect(scoreKey('app', a)).toBe(likeKey.app(a));
+		for (const l of UI_LIBS) expect(scoreKey('ui', l)).toBe(likeKey.ui(l));
+		for (const s of STATE_SOLUTIONS) expect(scoreKey('state', s)).toBe(likeKey.state(s));
+		for (const p of PLUGINS) expect(scoreKey('plugin', p)).toBe(likeKey.plugin(p));
+		expect([...SCORE_TARGETS.keys()].sort()).toEqual([...LIKE_KEYS].sort());
+		for (const p of COMMUNITY_PLUGINS) {
+			expect(Object.keys(scoresFile.entries), p.slug).not.toContain(scoreKey('plugin', p));
+			expect(SCORE_TARGETS.has(scoreKey('plugin', p)), p.slug).toBe(false);
+		}
+	});
+
+	it('measures every official plugin in its own folder, and an app without a repo field by its repository link', () => {
+		for (const p of PLUGINS) expect(SCORE_TARGETS.get(scoreKey('plugin', p)), p.slug).toEqual({ repo: 'egoist/mygo', path: `plugins/${p.slug}` });
+		expect(SCORE_TARGETS.get('app:2048')).toEqual({ repo: 'egoist/2048' });
+		expect(SCORE_TARGETS.get('app:pulse')).toEqual({});
+	});
+
+	it('scores an entry only from signals taken of the repository and folder it has now, and ignores entries that are gone', () => {
+		const app = APPS.find((a) => a.repo)!;
+		const other = APPS.find((a) => a.repo && a.repo !== app.repo)!;
+		const closed = APPS.find((a) => !SCORE_TARGETS.get(scoreKey('app', a))?.repo)!;
+		const plugin = PLUGINS[0];
+		const at = (key: string) => SCORE_TARGETS.get(key)!;
+		const keys = { app: scoreKey('app', app), other: scoreKey('app', other), closed: scoreKey('app', closed), plugin: scoreKey('plugin', plugin) };
+		const scores = scoresFor(readScores(file({
+			[keys.app]: { ...kit, ...at(keys.app) },
+			[keys.other]: { ...kit, repo: 'someone/elsewhere' },
+			[keys.closed]: { likes: 2 },
+			[keys.plugin]: { ...kit, stars: undefined, repo: at(keys.plugin).repo, path: 'plugins/renamed' },
+			'app:gone': kit,
+		})), SCORE_TARGETS);
+		expect([...scores.keys()].sort()).toEqual([keys.app, keys.closed].sort());
+		expect(scores.get(keys.app)?.signals.repo).toBe(app.repo);
+		expect(scores.get(keys.closed)?.score.total).toBe(37);
+		const matched = scoresFor(readScores(file({ [keys.plugin]: { ...kit, stars: undefined, ...at(keys.plugin) }, [keys.closed]: { ...kit } })), SCORE_TARGETS);
+		expect([...matched.keys()]).toEqual([keys.plugin]);
+		expect(matched.get(keys.plugin)?.score.measured).toBeCloseTo(0.7, 10);
+		expect(scoresFor(readScores(file({}, null)), SCORE_TARGETS).size).toBe(0);
+	});
+
+	it('ranks an entry by its score, and one without a score after every scored one', () => {
+		for (const key of LIKE_KEYS) {
+			expect(scoreRank(key), key).toBe(entryScore(key)?.total ?? -1);
+			expect(entrySignals(key) === undefined, key).toBe(entryScore(key) === undefined);
+		}
+		expect(HAS_SCORES).toBe([...LIKE_KEYS].some((k) => entryScore(k) !== undefined));
+		expect(scoreRank('app:not-an-app')).toBe(-1);
+		expect(entryScore('app:not-an-app')).toBeUndefined();
+	});
+
+	it('describes in its schema the fields the reader takes', () => {
+		expect(scoresFile.$schema).toBe(`./schema/${scoresSchema.$id}`);
+		expect(Object.keys(scoresSchema.properties).sort()).toEqual(['$schema', 'asOf', 'entries']);
+		expect(Object.keys(scoresSchema.$defs.signals.properties).sort()).toEqual([...SCORE_FIELDS].sort());
+		expect(scoresSchema.$defs.signals.required).toEqual(['likes']);
+		expect(scoresSchema.$defs.signals.properties.weeks.maximum).toBe(ACTIVITY_WEEKS);
 	});
 });
