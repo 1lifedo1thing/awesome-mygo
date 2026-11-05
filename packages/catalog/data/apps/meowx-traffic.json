@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "meowx-traffic",
+	"name": "MeowX Traffic",
+	"author": "zshpaul",
+	"kind": "web",
+	"group": "network",
+	"url": "https://github.com/zshpaul/meowx-traffic/releases/latest",
+	"repo": "zshpaul/meowx-traffic",
+	"summary": {
+		"en": "A Windows tray app that records MeowX proxy and direct traffic by app, host and node.",
+		"zh-CN": "按应用、地址和节点统计 MeowX 代理与直连流量的 Windows 托盘工具。",
+		"zh-TW": "依應用程式、位址和節點統計 MeowX 代理與直連流量的 Windows 系統匣工具。",
+		"ja": "MeowX の通信量をアプリ・接続先・ノード別に記録する Windows トレイアプリ。",
+		"ko": "MeowX의 프록시·직접 연결 트래픽을 앱·호스트·노드별로 기록하는 Windows 트레이 앱."
+	},
+	"description": {
+		"en": "An unofficial Windows tray companion for the MeowX proxy client, with a web frontend shown in a MyGo window through WebView2. It reads MeowX's local mihomo controller once a second without changing MeowX or its rules, and keeps hourly totals per app, host and node on your machine, with proxy or direct filters, custom date ranges, a live connections view and CSV export.",
+		"zh-CN": "MeowX 代理客户端的非官方 Windows 托盘工具，界面是在 MyGo 窗口中通过 WebView2 显示的 Web 前端。它每秒读取一次 MeowX 本机的 mihomo 控制接口，不改动 MeowX 和代理规则，按应用、访问地址、节点和小时累计流量，数据只保存在本机；可按代理或直连过滤、自定义日期范围、查看实时连接并导出 CSV。",
+		"zh-TW": "MeowX 代理用戶端的非官方 Windows 系統匣工具，介面是在 MyGo 視窗中透過 WebView2 顯示的 Web 前端。它每秒讀取一次 MeowX 本機的 mihomo 控制介面，不更動 MeowX 和代理規則，依應用程式、連線位址、節點和小時累計流量，資料只存在本機；可依代理或直連篩選、自訂日期範圍、查看即時連線並匯出 CSV。",
+		"ja": "MeowX プロキシクライアント向けの非公式な Windows トレイツールで、画面は MyGo のウィンドウに WebView2 で表示する Web フロントエンドです。MeowX のローカルの mihomo コントローラーを毎秒読み取り、MeowX 本体やプロキシルールには手を加えません。通信量をアプリ・接続先・ノード・時間ごとに集計して手元の PC だけに保存し、プロキシ／直接接続での絞り込み、任意の期間指定、リアルタイムの接続一覧、CSV 書き出しに対応します。",
+		"ko": "MeowX 프록시 클라이언트를 위한 비공식 Windows 트레이 도구로, 화면은 MyGo 창에 WebView2로 띄우는 웹 프런트엔드입니다. MeowX의 로컬 mihomo 컨트롤러를 1초마다 읽을 뿐 MeowX나 프록시 규칙은 건드리지 않으며, 트래픽을 앱·호스트·노드·시간별로 모아 이 PC에만 저장합니다. 프록시/직접 연결 필터, 사용자 지정 기간, 실시간 연결 보기, CSV 내보내기를 지원합니다."
+	},
+	"icon": {
+		"file": "meowx-traffic.webp"
+	},
+	"screenshot": "meowx-traffic.webp",
+	"added": "2026-11-05T14:40:59Z"
+}
