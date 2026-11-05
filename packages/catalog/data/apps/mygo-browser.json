@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mygo-browser",
+	"name": "MyGo Browser",
+	"author": "cecil-su",
+	"kind": "native",
+	"group": "network",
+	"url": "https://github.com/cecil-su/mygo-browser",
+	"repo": "cecil-su/mygo-browser",
+	"summary": {
+		"en": "Windows browser prototype: tabs, bookmarks, Chrome bookmark import, history and downloads.",
+		"zh-CN": "Windows 浏览器原型：标签页、书签、Chrome 书签导入、历史记录与下载管理。",
+		"zh-TW": "Windows 瀏覽器原型：分頁、書籤、Chrome 書籤匯入、瀏覽記錄與下載管理。",
+		"ja": "Windows 向けブラウザーの試作版。タブ、ブックマーク、履歴、ダウンロード管理を備える。",
+		"ko": "Windows용 브라우저 프로토타입. 탭, 북마크, 방문 기록, 다운로드 관리를 갖췄습니다."
+	},
+	"description": {
+		"en": "A Windows web browser prototype that rebuilds an earlier Tauri browser in Go: tabs and panels are drawn with MyGo's native UI, and pages render in WebView2. It restores pinned tabs at launch and has a bookmarks bar and manager, Chrome bookmark import, searchable history and a download manager. Source only, with no installer; parts such as download controls are still unverified.",
+		"zh-CN": "以 Go 重写原有 Tauri 浏览器的 Windows 原型：标签栏和各面板由 MyGo 原生 UI 绘制，网页由 WebView2 渲染。启动时恢复固定标签页，提供书签栏与书签管理、Chrome 书签导入、可搜索的历史记录和下载管理。目前只有源码，没有安装包，下载控制等部分尚未验证。",
+		"zh-TW": "以 Go 重寫原有 Tauri 瀏覽器的 Windows 原型：分頁列和各面板由 MyGo 原生 UI 繪製，網頁由 WebView2 轉譯。啟動時還原釘選分頁，提供書籤列與書籤管理、Chrome 書籤匯入、可搜尋的瀏覽記錄和下載管理。目前只有原始碼，沒有安裝程式，下載控制等部分尚未驗證。",
+		"ja": "既存の Tauri 製ブラウザーを Go で作り直した Windows 向けプロトタイプ。タブバーや各パネルは MyGo のネイティブ UI で描画し、Web ページは WebView2 で表示します。起動時に固定タブを復元し、ブックマークバーとブックマーク管理、Chrome のブックマーク読み込み、検索できる履歴、ダウンロード管理を備えます。現時点ではソースのみでインストーラーはなく、ダウンロード操作などは未検証です。",
+		"ko": "기존 Tauri 브라우저를 Go로 다시 만든 Windows용 프로토타입입니다. 탭 바와 각 패널은 MyGo의 네이티브 UI로 그리고, 웹 페이지는 WebView2로 표시합니다. 시작할 때 고정 탭을 복원하며 북마크 바와 북마크 관리, Chrome 북마크 가져오기, 검색 가능한 방문 기록, 다운로드 관리를 갖췄습니다. 아직 소스만 있고 설치 파일은 없으며, 다운로드 제어 등은 검증되지 않았습니다."
+	},
+	"icon": {
+		"file": "mygo-browser.webp"
+	},
+	"screenshot": "mygo-browser.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T15:15:40Z"
+}
