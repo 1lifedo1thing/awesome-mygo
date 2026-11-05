@@ -2,7 +2,7 @@ import { appendFile, readFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { TwitterApi } from 'twitter-api-v2';
-import { composeIssue, ISSUE_TITLE, projectRepo } from './issue.ts';
+import { composeIssue, ISSUE_TITLE, notTold, projectRepo } from './issue.ts';
 import { type Counts, ENTRY_DIRS, type Entry, type EntryKind, composePost, githubUrl, sitePage } from './tweet.ts';
 
 // Run by .github/workflows/announce.yml once for each entry a push to main adds: node src/main.ts <dir>/<slug>.json, the path under packages/catalog/data (apps/, ui/, state/ or plugins/). It waits until the site lists the entry, so the links work, then posts it to X and opens an issue on the project's repository saying it was listed, with its page, the post and the README badge (issue.ts).
@@ -60,12 +60,12 @@ async function githubAs<T>(token: string, path: string, init: { method?: string;
 	return (await res.json()) as T;
 }
 
-// Opens the issue on the project's repository, once: a repository that already has an issue of this account with the title is not told again, nor is one with issues turned off, an archived one or one of the site's own owner. Returns what the summary says.
+// Opens the issue on the project's repository, once: a repository that already has an issue of this account with the title is not told again, nor is one with issues turned off, an archived one, or one of the site's own owner or of MyGo's author (notTold). Returns what the summary says.
 async function tellProject(repo: string, title: string, body: string): Promise<string> {
 	const token = env.NOTIFY_GITHUB_TOKEN;
 	if (!token) return `not opened on ${repo}, as NOTIFY_GITHUB_TOKEN is not set`;
-	const owner = repo.split('/')[0];
-	if (env.GITHUB_REPOSITORY_OWNER && owner.toLowerCase() === env.GITHUB_REPOSITORY_OWNER.toLowerCase()) return `not opened on ${repo}, which belongs to ${owner}, the site's own owner`;
+	const skip = notTold(repo, env.GITHUB_REPOSITORY_OWNER);
+	if (skip) return `not opened on ${repo}, as ${skip}`;
 	const info = await githubAs<{ has_issues: boolean; archived: boolean; full_name: string }>(token, `/repos/${repo}`);
 	if (!info.has_issues) return `not opened on ${info.full_name}, which has issues turned off`;
 	if (info.archived) return `not opened on ${info.full_name}, which is archived`;

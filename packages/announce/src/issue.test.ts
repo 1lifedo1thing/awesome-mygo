@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { ISSUE_TITLE, badgeMarkdown, composeIssue, missingImages, projectRepo, standInImages } from './issue.ts';
+import { ISSUE_TITLE, badgeMarkdown, composeIssue, missingImages, notTold, projectRepo, standInImages } from './issue.ts';
 import { SITE_URL } from './tweet.ts';
 
 describe('the project to tell', () => {
@@ -35,6 +35,14 @@ describe('missing images', () => {
 		const own = composeIssue({ kind: 'app', entry: { ...entry, provisional: undefined } }).body;
 		expect(own).not.toContain('For now the page shows');
 		expect(own).not.toContain('替代图');
+	});
+
+	it("tells neither the site's own owner nor MyGo's author", () => {
+		expect(notTold('yldm-tech/nodra', 'yldm-tech')).toBe("it belongs to yldm-tech, the site's own owner");
+		expect(notTold('egoist/kero', 'yldm-tech')).toBe("it belongs to egoist, MyGo's author");
+		expect(notTold('Egoist/2048')).toBe("it belongs to Egoist, MyGo's author");
+		expect(notTold('zkeq/vibe-cook', 'yldm-tech')).toBeUndefined();
+		expect(notTold('egoistic/app', 'yldm-tech')).toBeUndefined();
 	});
 
 	it('suggests adding what the page lacks, and nothing when it lacks nothing', () => {
