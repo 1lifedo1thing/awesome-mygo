@@ -71,7 +71,8 @@ async function judge(sub: AgentSubmission) {
 		// A need, so the agent does not tell the user the entry is ready: the form checks again on its own and asks for a screenshot if the repository turns out to have none.
 		else needs.push(`could not check right now whether its repository has a screenshot the site can take (too many checks, or GitHub did not answer); call again in a minute, or ${sub.via === 'form' ? 'pass screenshot, an https link to an image of it, or ' : ''}ask the user to upload one in the form`);
 	}
-	const details = { file, ...(sub.via === 'form' ? { entry } : {}), ...(screenshot ? { screenshot } : {}), submit: bot.enabled ? ('bot' as const) : ('github' as const) };
+	// The built entry only once nothing is missing: until then it holds the stand-ins the checks fill the gaps with, which an agent could take for the values.
+	const details = { file, ...(sub.via === 'form' && needs.length === 0 ? { entry } : {}), ...(screenshot ? { screenshot } : {}), submit: bot.enabled ? ('bot' as const) : ('github' as const) };
 	return { needs, problems, file, bot, details };
 }
 
