@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "elir",
+	"name": "Elir",
+	"author": "lesenelir",
+	"kind": "native",
+	"group": "ai",
+	"url": "https://lesenelir.me",
+	"repo": "lesenelir/lesenelir.me",
+	"summary": {
+		"en": "A macOS menu bar toolbox: voice dictation, translating and polishing selected text, screenshots.",
+		"zh-CN": "macOS 菜单栏工具箱：语音输入、选中文字的翻译与润色、截图。",
+		"zh-TW": "macOS 選單列工具箱：語音輸入、選取文字的翻譯與潤飾、截圖。",
+		"ja": "macOS のメニューバーの道具箱。音声入力、選択テキストの翻訳・推敲、スクリーンショット。",
+		"ko": "macOS 메뉴 막대 도구 모음. 음성 받아쓰기, 선택한 텍스트 번역·다듬기, 스크린샷."
+	},
+	"description": {
+		"en": "A macOS menu bar toolbox written in Go with MyGo's native UI. Press Fn to dictate and have the text cleaned up and pasted at the cursor, or add Left Shift to have it translated; translate or polish selected text in any app in place, and capture an area or window straight to the clipboard. Speech to text runs on Soniox and cleanup and translation on OpenRouter, with your own API keys.",
+		"zh-CN": "常驻 macOS 菜单栏的工具箱，用 Go 编写，由 MyGo 原生 UI 绘制。按住 Fn 说话，文字经过整理后直接粘贴到光标处，同时按左 Shift 则边说边翻译；在任意应用中选中的文字可以原地翻译或润色，截取的区域或窗口直接存入剪贴板。语音转文字使用 Soniox，整理与翻译使用 OpenRouter，需自备 API 密钥。",
+		"zh-TW": "常駐在 macOS 選單列的工具箱，以 Go 撰寫，由 MyGo 原生 UI 繪製。按住 Fn 說話，文字經過整理後直接貼到游標處，同時按左 Shift 則邊說邊翻譯；在任何 App 中選取的文字可以就地翻譯或潤飾，擷取的區域或視窗會直接存入剪貼簿。語音轉文字使用 Soniox，整理與翻譯使用 OpenRouter，需自備 API 金鑰。",
+		"ja": "Go で書かれ、MyGo のネイティブ UI で描かれた、macOS のメニューバーに常駐する道具箱。Fn を押して話すと文字が整えられてカーソル位置に貼り付けられ、左 Shift も一緒に押せば翻訳して貼り付けます。どのアプリでも選択したテキストをその場で翻訳・推敲でき、範囲やウィンドウのキャプチャはクリップボードへ直接送られます。音声認識は Soniox、整形と翻訳は OpenRouter を使い、API キーは自分で用意します。",
+		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 macOS 메뉴 막대 도구 모음입니다. Fn을 누르고 말하면 텍스트를 다듬어 커서 위치에 붙여 넣고, 왼쪽 Shift를 함께 누르면 번역해서 붙여 넣습니다. 어느 앱에서든 선택한 텍스트를 그 자리에서 번역하거나 다듬을 수 있고, 영역이나 창 캡처는 바로 클립보드로 들어갑니다. 음성 인식은 Soniox, 정리와 번역은 OpenRouter를 쓰며 API 키는 직접 넣어야 합니다."
+	},
+	"icon": {
+		"file": "elir.webp"
+	},
+	"screenshot": "elir.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T08:08:34Z"
+}
