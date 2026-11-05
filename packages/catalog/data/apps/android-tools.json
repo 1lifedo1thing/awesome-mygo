@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "android-tools",
+	"name": "android-tools",
+	"author": "wanan9999",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/wanan9999/android-tools",
+	"repo": "wanan9999/android-tools",
+	"summary": {
+		"en": "A Windows tool for Android devices: mirror the screen, manage files and flash with Fastboot.",
+		"zh-CN": "Windows 上的安卓设备工具：投屏、管理文件，用 Fastboot 刷机。",
+		"zh-TW": "Windows 上的安卓裝置工具：投影畫面、管理檔案，以 Fastboot 刷機。",
+		"ja": "Android 端末用 Windows ツール。ミラーリング、ファイル管理、Fastboot 書き込み。",
+		"ko": "Android 기기용 Windows 도구. 화면 미러링, 파일 관리, Fastboot 플래싱."
+	},
+	"description": {
+		"en": "A tool for Android devices on 64-bit Windows 10 and 11, drawn with MyGo's native UI. It connects over USB debugging or, from Android 11, wireless pairing, then installs APKs, takes screenshots, mirrors the screen with adjustable sound, frame rate and bitrate, and uploads, downloads, renames and deletes files on the phone. Devices in Fastboot mode can be rebooted or flashed with images.",
+		"zh-CN": "运行在 64 位 Windows 10 和 11 上的安卓设备工具，界面由 MyGo 原生 UI 绘制。可通过 USB 调试连接手机，Android 11 及以上也能无线配对；连接后可以安装 APK、截图、投屏（声音、帧率和码率可调），并上传、下载、重命名和删除手机里的文件。处于 Fastboot 模式的设备可以重启或刷写镜像。",
+		"zh-TW": "執行於 64 位元 Windows 10 與 11 的 Android 裝置工具，介面以 MyGo 原生 UI 繪製。可透過 USB 偵錯連接手機，Android 11 以上也能無線配對；連線後可安裝 APK、截圖、投影畫面（聲音、影格率與位元率可調），並上傳、下載、重新命名和刪除手機裡的檔案。處於 Fastboot 模式的裝置可重新啟動或刷寫映像檔。",
+		"ja": "64 ビット版 Windows 10・11 で動く Android 端末用ツールで、MyGo のネイティブ UI で描かれています。USB デバッグで接続でき、Android 11 以降ならワイヤレスでのペア設定も使えます。APK のインストール、スクリーンショット、音声・フレームレート・ビットレートを調整できる画面ミラーリング、端末内ファイルのアップロード・ダウンロード・名前変更・削除に対応し、Fastboot モードの端末は再起動やイメージの書き込みができます。",
+		"ko": "64비트 Windows 10·11에서 동작하는 Android 기기 도구로, MyGo의 네이티브 UI로 그렸습니다. USB 디버깅으로 연결하며 Android 11 이상에서는 무선 페어링도 됩니다. APK 설치, 스크린샷, 소리·프레임 레이트·비트레이트를 조절할 수 있는 화면 미러링, 휴대폰 파일 업로드·다운로드·이름 변경·삭제를 지원하고, Fastboot 모드 기기는 재부팅하거나 이미지를 플래싱할 수 있습니다."
+	},
+	"icon": {
+		"file": "android-tools.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "android-tools.webp",
+	"added": "2026-11-05T05:02:32Z"
+}
