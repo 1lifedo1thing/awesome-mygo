@@ -1676,6 +1676,10 @@ html:lang(ko) .site {
 	align-items: center;
 	gap: 8px;
 }
+/* At the top of a card's head, level with the name, rather than centred on a head of two or three lines, where it would line up with nothing. */
+.show-id > .card-acts {
+	align-self: flex-start;
+}
 /* Neither a score nor likes to show: no box, so the card lays out as before. */
 .card-acts:empty {
 	display: none;

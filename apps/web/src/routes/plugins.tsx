@@ -39,8 +39,9 @@ function PluginsPage() {
 	// A plugin for both kinds of window shows under either filter.
 	const fits = (s: PluginSurface) => surface === 'all' || s === surface || s === 'both';
 	const { status: likes, counts } = useLikes();
-	// With likes off there is no most-liked order to show, and before the first scores no order by score, whatever the link says; either falls back to the docs' order.
-	const sort = (search.sort === 'likes' && likes === 'off') || (search.sort === 'score' && !HAS_SCORES) ? undefined : search.sort;
+	// Highest score first, which the address leaves out, unless the link asks for the docs' order or the most liked. With likes off there is no most-liked order, and before the first scores no order by score, whatever the link says; either falls back to the default.
+	const fallback = HAS_SCORES ? 'score' : 'docs';
+	const sort = (search.sort === 'likes' && likes === 'off') || (search.sort === 'score' && !HAS_SCORES) || !search.sort ? fallback : search.sort;
 	const shown = PLUGINS.filter((p) => fits(p.surface));
 	// The community's plugins, under the same filter, after the official ones and the call to write one.
 	const community = COMMUNITY_PLUGINS.filter((p) => fits(p.surface));
@@ -132,8 +133,8 @@ function PluginsPage() {
 						<label htmlFor='sort' className='sort-label'>
 							{t.sort}
 						</label>
-						<select id='sort' value={sort ?? 'default'} onChange={(e) => setSearch({ sort: e.target.value === 'default' ? undefined : (e.target.value as typeof sort) })} className='sort-select'>
-							<option value='default'>{t.sort_def}</option>
+						<select id='sort' value={sort} onChange={(e) => setSearch({ sort: e.target.value === fallback ? undefined : (e.target.value as typeof sort) })} className='sort-select'>
+							<option value='docs'>{t.sort_def}</option>
 							{likes !== 'off' && <option value='likes'>{t.sort_likes}</option>}
 							{HAS_SCORES && <option value='score'>{t.sort_score}</option>}
 						</select>
