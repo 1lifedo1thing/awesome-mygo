@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "xiangzhuan",
+	"name": "香篆",
+	"author": "iwangjie",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/iwangjie/xiangzhuan",
+	"repo": "iwangjie/xiangzhuan",
+	"summary": {
+		"en": "A macOS menu bar break reminder that covers every display with a burning stick of incense.",
+		"zh-CN": "macOS 菜单栏休息提醒：到点后所有屏幕燃起一柱香，香尽再回去工作。",
+		"zh-TW": "macOS 選單列休息提醒：時間到時所有螢幕燃起一炷香，香盡再回去工作。",
+		"ja": "macOS のメニューバー休憩リマインダー。休憩中は全画面で線香が燃えます。",
+		"ko": "macOS 메뉴 막대 휴식 알림. 쉬는 동안 모든 화면에 향 한 개비가 탑니다."
+	},
+	"description": {
+		"en": "A break reminder for the macOS menu bar, drawn with MyGo's native UI, with no web view, network requests or account. When a work session ends, a borderless overlay covers every display with a burning stick of incense; you can postpone the rest, or press Esc unless skipping is turned off, and three postponements or one skip make the next rest mandatory. The Windows x64 build is experimental.",
+		"zh-CN": "驻在 macOS 菜单栏的休息提醒，由 MyGo 原生 UI 绘制，没有 Web 视图，不联网，也无需账号。工作时间一到，无边框覆盖层盖满所有显示器，一柱香燃尽才回到工作；休息可以延后，允许跳过时也可按 Esc 提前结束，但连续延后 3 次或跳过 1 次后，下一次休息将强制进行。Windows x64 版为实验性构建。",
+		"zh-TW": "常駐 macOS 選單列的休息提醒，由 MyGo 原生 UI 繪製，沒有 Web 視圖，不連網，也不需帳號。工作時間一到，無邊框覆蓋層蓋滿所有螢幕，一炷香燃盡才回到工作；休息可以延後，允許跳過時也可按 Esc 提前結束，但連續延後 3 次或跳過 1 次後，下一次休息將強制進行。Windows x64 版為實驗性建置。",
+		"ja": "macOS のメニューバーに常駐する休憩リマインダー。MyGo のネイティブ UI で描かれ、Web ビューもネットワーク通信もアカウントもありません。作業時間が終わると、枠のないオーバーレイがすべてのディスプレイを覆い、線香が燃え尽きるまで休憩します。休憩は延長でき、スキップを許可していれば Esc で早めに終えられますが、3 回続けて延長するか 1 回スキップすると次の休憩は強制になります。Windows x64 版は試験的なビルドです。",
+		"ko": "macOS 메뉴 막대에 머무는 휴식 알림으로, MyGo의 네이티브 UI로 그렸으며 웹 뷰도 네트워크 요청도 계정도 없습니다. 작업 시간이 끝나면 테두리 없는 오버레이가 모든 디스플레이를 덮고 향 한 개비가 다 탈 때까지 쉬게 합니다. 휴식은 미룰 수 있고 건너뛰기를 허용했다면 Esc로 일찍 끝낼 수 있지만, 연속 3번 미루거나 1번 건너뛰면 다음 휴식은 강제로 진행됩니다. Windows x64 버전은 실험적 빌드입니다."
+	},
+	"icon": {
+		"file": "xiangzhuan.webp"
+	},
+	"screenshot": "xiangzhuan.webp",
+	"added": "2026-11-05T02:43:19Z"
+}
