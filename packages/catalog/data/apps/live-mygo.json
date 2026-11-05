@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "live-mygo",
+	"name": "Live MyGo",
+	"author": "anamaxlec",
+	"kind": "native",
+	"category": "MultimediaApplication",
+	"url": "https://github.com/anamaxlec/live-mygo",
+	"repo": "anamaxlec/live-mygo",
+	"summary": {
+		"en": "A native live stream player with a danmaku overlay, followed streamers and libmpv playback.",
+		"zh-CN": "原生直播播放器：弹幕叠加、关注主播，基于 libmpv 播放。",
+		"zh-TW": "原生直播播放器：彈幕疊加、追蹤實況主，以 libmpv 播放。",
+		"ja": "弾幕表示、フォロー管理、libmpv 再生に対応したネイティブなライブ配信プレーヤー。",
+		"ko": "탄막 오버레이, 팔로우 관리, libmpv 재생을 갖춘 네이티브 라이브 방송 플레이어."
+	},
+	"description": {
+		"en": "A live stream player for macOS and Windows, drawn with MyGo's native UI and playing video through libmpv. It browses and searches streamers, opens a room by number or official link, overlays danmaku with message filters and blocked users or keywords, tracks followed streamers with go-live alerts, and can play in a pinned mini window, audio only or across several windows. Both builds are still betas.",
+		"zh-CN": "用 MyGo 原生 UI 绘制、通过 libmpv 播放视频的 macOS 与 Windows 直播播放器。可浏览推荐、搜索主播，用房间号或官方链接进入直播间；画面弹幕可筛选消息、屏蔽用户或关键词；关注的主播可刷新开播状态并订阅提醒；支持小窗置顶、只听声音和多窗口观看。两个平台目前都是测试版。",
+		"zh-TW": "用 MyGo 原生 UI 繪製、透過 libmpv 播放影像的 macOS 與 Windows 直播播放器。可瀏覽推薦、搜尋實況主，以房間號或官方連結進入直播間；畫面彈幕可篩選訊息、封鎖使用者或關鍵字；追蹤的實況主可重新整理開播狀態並訂閱提醒；支援置頂小視窗、只聽聲音和多視窗觀看。兩個平台目前都是測試版。",
+		"ja": "MyGo のネイティブ UI で描かれ、libmpv で映像を再生する macOS・Windows 向けのライブ配信プレーヤー。おすすめの閲覧や配信者の検索、ルーム番号や公式リンクからの入室ができ、弾幕はメッセージの絞り込みやユーザー・キーワードのブロックに対応します。フォローした配信者の配信開始を通知し、最前面の小窓、音声のみ、複数ウィンドウでも視聴できます。どちらもまだベータ版です。",
+		"ko": "MyGo의 네이티브 UI로 그리고 libmpv로 영상을 재생하는 macOS·Windows용 라이브 방송 플레이어입니다. 추천 목록을 둘러보고 스트리머를 검색하거나 방 번호나 공식 링크로 방에 들어갈 수 있으며, 탄막은 메시지 필터와 사용자·키워드 차단을 지원합니다. 팔로우한 스트리머의 방송 시작 알림을 받고, 항상 위에 있는 작은 창, 소리만 듣기, 여러 창으로 볼 수 있습니다. 두 플랫폼 모두 아직 베타입니다."
+	},
+	"icon": {
+		"file": "live-mygo.webp"
+	},
+	"screenshot": "live-mygo.webp",
+	"added": "2026-11-05T05:19:24Z"
+}
