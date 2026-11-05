@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "meridian",
+	"name": "Meridian",
+	"author": "alanbulan",
+	"kind": "native",
+	"group": "network",
+	"url": "https://github.com/alanbulan/meridian-vpn",
+	"repo": "alanbulan/meridian-vpn",
+	"summary": {
+		"en": "A native Linux VPN client for AnyConnect/OpenConnect and L2TP/IPsec connections.",
+		"zh-CN": "Linux 原生 VPN 客户端，支持 AnyConnect 与 L2TP/IPsec",
+		"zh-TW": "Linux 原生 VPN 用戶端，支援 AnyConnect 與 L2TP/IPsec",
+		"ja": "AnyConnect と L2TP/IPsec 対応の Linux 用ネイティブ VPN クライアント。",
+		"ko": "AnyConnect와 L2TP/IPsec을 지원하는 Linux용 네이티브 VPN 클라이언트."
+	},
+	"description": {
+		"en": "A Linux VPN client drawn with MyGo's native UI, with no web view. It keeps connection profiles, handles password and certificate sign-in, and asks before changing routes or DNS, then hands AnyConnect/OpenConnect and L2TP/IPsec connections to NetworkManager. It is in development: real corporate gateways are not yet tested, and the Windows and macOS builds have the interface but no VPN backend.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Linux VPN 客户端，没有 Web 视图。它管理连接配置，支持密码与证书认证，修改路由或 DNS 前会逐次确认，再交由 NetworkManager 建立 AnyConnect/OpenConnect 与 L2TP/IPsec 连接。项目仍在开发中，尚未在真实企业网关上验收；Windows 与 macOS 版只有界面，没有 VPN 后端。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Linux VPN 用戶端，沒有 Web 視圖。它管理連線設定檔，支援密碼與憑證認證，修改路由或 DNS 前會逐次確認，再交由 NetworkManager 建立 AnyConnect/OpenConnect 與 L2TP/IPsec 連線。專案仍在開發中，尚未在真實企業閘道上驗收；Windows 與 macOS 版只有介面，沒有 VPN 後端。",
+		"ja": "MyGo のネイティブ UI で描かれた Linux 向け VPN クライアント。Web ビューは使いません。接続プロファイルを管理し、パスワードや証明書で認証し、ルートや DNS の変更は毎回確認したうえで、AnyConnect/OpenConnect と L2TP/IPsec の接続を NetworkManager に任せます。開発中で、実際の企業ゲートウェイでは未検証です。Windows 版と macOS 版は画面のみで、VPN バックエンドはありません。",
+		"ko": "MyGo의 네이티브 UI로 그린 Linux용 VPN 클라이언트로, 웹 뷰를 쓰지 않습니다. 연결 프로필을 관리하고 비밀번호와 인증서로 인증하며, 경로나 DNS 변경은 매번 확인한 뒤 AnyConnect/OpenConnect와 L2TP/IPsec 연결을 NetworkManager에 맡깁니다. 아직 개발 중이며 실제 기업 게이트웨이에서는 검증되지 않았습니다. Windows·macOS 버전은 화면만 있고 VPN 백엔드가 없습니다."
+	},
+	"icon": {
+		"file": "meridian.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "meridian.webp",
+	"added": "2026-11-05T08:08:34Z"
+}
