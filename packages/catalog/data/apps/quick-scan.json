@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "quick-scan",
+	"name": "快速扫描（quick-scan）",
+	"author": "xiyaowong",
+	"kind": "native",
+	"group": "devices",
+	"url": "https://github.com/xiyaowong/quick-scan",
+	"repo": "xiyaowong/quick-scan",
+	"summary": {
+		"en": "Scans from network printers on Windows over eSCL and exports PDF or JPG, with no vendor drivers.",
+		"zh-CN": "Windows 扫描工具：通过 eSCL 扫描，导出 PDF 或 JPG，无需驱动。",
+		"zh-TW": "Windows 掃描工具：以 eSCL 掃描，匯出 PDF 或 JPG，免裝驅動程式。",
+		"ja": "eSCL でスキャンし、PDF や JPG に書き出す Windows 用ツール。ドライバー不要。",
+		"ko": "eSCL로 스캐너에서 스캔해 PDF나 JPG로 내보내는 Windows 도구. 드라이버 불필요."
+	},
+	"description": {
+		"en": "A Windows 10 and 11 scanning tool drawn with MyGo's native UI. It talks to network printers over eSCL or AirPrint, so no vendor drivers are needed. It finds scanners on the same subnet, scans a single sheet from the glass or a whole stack from the feeder, and lets you rotate, delete and reorder pages before exporting one PDF or a JPG per page, optionally named from a title found by OCR.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 10/11 局域网扫描工具，通过 eSCL 或 AirPrint 与打印机通信，不用装厂商驱动。它自动发现同一网段里的扫描仪，可在玻璃板上单张扫描，或从进纸口整叠逐张扫描；页面可旋转、删除、拖动排序，最后导出为一个 PDF 或每页一张 JPG，文件名可用 OCR 识别出的标题。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows 10/11 區域網路掃描工具，透過 eSCL 或 AirPrint 與印表機溝通，不必安裝廠商驅動程式。它會自動找出同一網段裡的掃描器，可在玻璃平台上單張掃描，或從進紙匣整疊逐張掃描；頁面可旋轉、刪除、拖曳排序，最後匯出成一個 PDF 或每頁一張 JPG，檔名可採用 OCR 辨識出的標題。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows 10・11 向けのスキャンツール。eSCL または AirPrint でネットワーク上のプリンターとやり取りするため、メーカーのドライバーは要りません。同じネットワーク内のスキャナーを自動で見つけ、原稿台から 1 枚ずつ、または給紙口から束ごと読み取れます。ページは回転・削除・並べ替えができ、1 つの PDF か 1 ページずつの JPG に書き出せます。ファイル名には OCR で読み取ったタイトルも使えます。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows 10·11용 스캔 도구입니다. eSCL 또는 AirPrint로 네트워크 프린터와 통신하므로 제조사 드라이버가 필요 없습니다. 같은 네트워크의 스캐너를 자동으로 찾아 평판에서 한 장씩, 또는 급지구에서 여러 장을 한꺼번에 스캔하며, 페이지를 회전·삭제·재정렬한 뒤 PDF 한 개나 페이지별 JPG로 내보냅니다. 파일 이름에는 OCR로 인식한 제목을 쓸 수 있습니다."
+	},
+	"icon": {
+		"file": "quick-scan.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "quick-scan.webp",
+	"added": "2026-11-05T14:57:25Z"
+}
