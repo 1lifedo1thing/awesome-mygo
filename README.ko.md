@@ -52,6 +52,8 @@ pnpm preview      # 프로덕션 빌드를 Workers 런타임에서 실행
 
 양식의 바로 제출은 이 저장소에 설치한 GitHub App이 처리하며, 그 앞에 Cloudflare Turnstile과 IP별 요청 제한이 있습니다. App에 *Contents*와 *Pull requests* 읽기·쓰기 권한을 주고, 개인 키를 PKCS#8로 변환한 뒤(`openssl pkcs8 -topk8 -nocrypt -in key.pem -out key-pkcs8.pem`), `apps/web`에서 `wrangler secret put`으로 시크릿 4개를 설정합니다: `GITHUB_APP_ID`, `GITHUB_APP_PRIVATE_KEY`(PKCS#8 파일), `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`. 4개가 모두 설정되기 전까지 양식은 GitHub 링크만 보여 줍니다. 로컬에서 시험할 때는 Turnstile의 [테스트 키](https://developers.cloudflare.com/turnstile/troubleshooting/testing/)를 `apps/web/.dev.vars`에 적습니다.
 
+Chrome은 제출 양식의 WebMCP 도구를 origin trial로 방문자에게 제공합니다. [developer.chrome.com/origintrials](https://developer.chrome.com/origintrials/)에서 실제 사이트의 오리진(`https://awesomemygo.dev`)을 WebMCP 트라이얼에 등록하고, `apps/web`에서 `wrangler secret put WEBMCP_ORIGIN_TRIAL`로 토큰을 설정합니다. 그러면 모든 페이지가 `<meta http-equiv="origin-trial">` 태그로 토큰을 담고, 설정하지 않으면 담지 않습니다. 토큰은 트라이얼이 끝나면 만료되므로, 그때 다시 등록하거나 시크릿을 삭제합니다.
+
 앱, UI 컴포넌트, 상태 관리에는 스크린샷이 필요합니다. 방문자가 저장소 링크를 입력하면 양식이 Worker(`/api/shot`)에 submission workflow 자체의 규칙(`packages/enrich/src/source.ts`)으로 저장소에 쓸 수 있는 스크린샷이 있는지 확인합니다. 없거나 앱에 저장소가 없으면 양식이 한 장을 요구하고, Worker도 스크린샷 없는 제출을 받지 않습니다. 방문자는 이미지(PNG, JPEG, WebP, 5MB 이하, 가로이며 너비 600픽셀 이상)를 업로드하거나 이미지 링크를 입력합니다. 업로드한 이미지는 `submissions/<slug>.<ext>`로 풀 리퀘스트 브랜치에 올라가 풀 리퀘스트에 표시되고, workflow가 사이트용 WebP로 바꾼 뒤 지웁니다. 이 확인은 IP마다 분당 20회로 제한됩니다.
 
 bot이 풀 리퀘스트를 열면 *Complete submission* 워크플로가 양식으로는 물을 수 없는 부분을 채웁니다: MyGo와 같은 방식으로 찾은 앱 아이콘(`mygo.json`의 `icon`, 없으면 `resources/icon.png`. `mygo init`이 넣은 MyGo 기본 아이콘이면 넣지 않습니다), README에서 아이콘이나 다른 정사각형 로고가 아닌 첫 스크린샷, 5개 언어의 요약과 설명입니다. UI 컴포넌트와 상태 관리에도 같은 방식으로 스크린샷을 붙이고 저장소 설정의 homepage를 채웁니다. 양식이 기본값으로 채우는 항목(앱의 쇼케이스 그룹 `group`. 카테고리를 따로 쓰지 않으면 그룹에서 정해집니다. UI 라이브러리의 `tag`와 `surface`, 플러그인의 `surface`, 상태 관리와 플러그인의 `tags`)은 모델이 문구와 함께 고릅니다. catalog 검사를 실행하고, bot으로 같은 브랜치에 푸시하고, 무엇을 했는지 댓글로 남깁니다. 병합 전 검토는 여전히 관리자가 합니다. 저장소의 Actions 설정에 시크릿 `SUBMIT_APP_PRIVATE_KEY`(App의 PKCS#8 개인 키, Worker와 같은 것), `LLM_API_KEY`(Anthropic Messages API 키), 게이트웨이를 쓴다면 `LLM_BASE_URL`을, 변수 `SUBMIT_APP_CLIENT_ID`(App의 Client ID)를 설정합니다. 변수 `LLM_MODEL`로 모델을 바꿀 수 있습니다(기본값 `claude-opus-5-5`). `LLM_API_KEY`가 없으면 문구는 제출된 그대로입니다.
@@ -71,7 +73,7 @@ bot이 풀 리퀘스트를 열면 *Complete submission* 워크플로가 양식�
 
 추가하는 방법은 두 가지입니다:
 
-- **사이트에서:** "제출"을 눌러 양식을 채우거나 항목을 JSON 그대로 붙여넣은 뒤 바로 제출합니다. GitHub 계정이 필요 없으며, 사이트의 bot이 풀 리퀘스트를 만들어 줍니다. GitHub 계정이 있다면 생성된 항목을 이슈로 보내거나, GitHub 편집기에서 항목의 새 파일을 열어 직접 추가할 수도 있습니다.
+- **사이트에서:** "제출"을 눌러 양식을 채우거나 항목을 JSON 그대로 붙여넣은 뒤 바로 제출합니다. GitHub 계정이 필요 없으며, 사이트의 bot이 풀 리퀘스트를 만들어 줍니다. GitHub 계정이 있다면 생성된 항목을 이슈로 보내거나, GitHub 편집기에서 항목의 새 파일을 열어 직접 추가할 수도 있습니다. [WebMCP](https://webmachinelearning.github.io/webmcp/)를 지원하는 브라우저에서는 AI 에이전트가 항목을 확인하고 양식을 채워 주며, 확인하고 제출하는 것은 직접 합니다.
 - **저장소에서:** 카테고리 디렉터리에 파일을 하나 추가한 뒤 풀 리퀘스트를 보냅니다.
 
 앱 파일 `apps/my-app.json`은 다음과 같습니다:

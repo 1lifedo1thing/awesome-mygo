@@ -15,6 +15,7 @@
 		{ "pattern": "mygodock.dev", "custom_domain": true },
 		{ "pattern": "www.mygodock.dev", "custom_domain": true }
 	],
+	// WEBMCP_ORIGIN_TRIAL, optional: Chrome's WebMCP origin-trial token for awesomemygo.dev, which every page's head then carries (routes/__root.tsx). It is set with `wrangler secret put` rather than under "vars" here, since a deploy replaces the vars with this file's and the token expires with the trial; unset, as in previews, the pages carry none.
 	"observability": { "enabled": true },
 	// Keep Preview URLs on (wrangler disables them when this is missing) so each pull request gets its own preview link.
 	"preview_urls": true,

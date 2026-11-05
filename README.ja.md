@@ -52,6 +52,8 @@ pnpm preview      # 本番ビルドを Workers ランタイムで実行
 
 フォームからの直接投稿は、このリポジトリにインストールした GitHub App が行い、その前段に Cloudflare Turnstile と IP ごとのレート制限があります。App には *Contents* と *Pull requests* の読み書き権限を与え、秘密鍵を PKCS#8 に変換し（`openssl pkcs8 -topk8 -nocrypt -in key.pem -out key-pkcs8.pem`）、`apps/web` で `wrangler secret put` を使って 4 つのシークレットを設定します：`GITHUB_APP_ID`、`GITHUB_APP_PRIVATE_KEY`（PKCS#8 のファイル）、`TURNSTILE_SITE_KEY`、`TURNSTILE_SECRET_KEY`。4 つすべてがそろうまで、フォームは GitHub へのリンクだけを表示します。ローカルで試すときは、Turnstile の[テスト用キー](https://developers.cloudflare.com/turnstile/troubleshooting/testing/)を `apps/web/.dev.vars` に書きます。
 
+Chrome は投稿フォームの WebMCP ツールを origin trial で訪問者に提供します。[developer.chrome.com/origintrials](https://developer.chrome.com/origintrials/) で本番のオリジン（`https://awesomemygo.dev`）を WebMCP のトライアルに登録し、`apps/web` で `wrangler secret put WEBMCP_ORIGIN_TRIAL` を使ってトークンを設定します。すると各ページが `<meta http-equiv="origin-trial">` タグでそれを持ち、設定しなければ持ちません。トークンはトライアルの終了とともに失効するので、そのときは登録し直すか、シークレットを削除します。
+
 アプリ、UI コンポーネント、状態管理にはスクリーンショットが必要です。訪問者がリポジトリのリンクを入力すると、フォームは Worker（`/api/shot`）に、submission workflow 自身の規則（`packages/enrich/src/source.ts`）でリポジトリに採用できるスクリーンショットがあるかを確かめます。ない場合やアプリにリポジトリがない場合は、フォームが 1 枚求め、Worker もスクリーンショットのない投稿を受け付けません。訪問者は画像（PNG、JPEG、WebP、5 MB まで、横長で幅 600 ピクセル以上）をアップロードするか、画像のリンクを入力します。アップロードされた画像は `submissions/<slug>.<ext>` としてプルリクエストのブランチに置かれてプルリクエストに表示され、workflow がサイト用の WebP に変換して削除します。この確認は IP ごとに 1 分 20 回までです。
 
 bot がプルリクエストを開くと、*Complete submission* ワークフローがフォームでは聞けない部分を補います：MyGo と同じ探し方で見つけたアプリのアイコン（`mygo.json` の `icon`、なければ `resources/icon.png`。`mygo init` が置く MyGo の既定アイコンなら追加しません）、README でアイコンやほかの正方形のロゴではない最初のスクリーンショット、5 言語の概要と説明です。UI コンポーネントと状態管理にも同じ方法でスクリーンショットを付け、リポジトリ設定の homepage を補います。フォームが既定値で埋める項目（アプリのショーケースでのグループ `group`。カテゴリを書かなければグループから決まります。UI ライブラリの `tag` と `surface`、プラグインの `surface`、状態管理とプラグインの `tags`）は、モデルが文面と一緒に選びます。catalog のチェックを実行し、bot として同じブランチにプッシュし、何をしたかをコメントします。マージ前のレビューは引き続きメンテナーが行います。リポジトリの Actions 設定で、シークレット `SUBMIT_APP_PRIVATE_KEY`（App の PKCS#8 秘密鍵。Worker と同じもの）、`LLM_API_KEY`（Anthropic Messages API のキー）、ゲートウェイを使う場合は `LLM_BASE_URL` を、変数 `SUBMIT_APP_CLIENT_ID`（App の Client ID）を設定します。変数 `LLM_MODEL` でモデルを変えられます（既定は `claude-opus-5-5`）。`LLM_API_KEY` がなければ文言は投稿されたままです。
@@ -71,7 +73,7 @@ bot がプルリクエストを開くと、*Complete submission* ワークフロ
 
 追加の方法は 2 つあります：
 
-- **サイトから：** 「投稿」を押してフォームに入力するか、項目を JSON のまま貼り付けて、そのまま投稿します。GitHub アカウントは不要で、サイトの bot がプルリクエストを作ります。GitHub アカウントがあれば、作られた項目を Issue として送ったり、GitHub のエディタで項目の新しいファイルを開いて自分で追加したりもできます。
+- **サイトから：** 「投稿」を押してフォームに入力するか、項目を JSON のまま貼り付けて、そのまま投稿します。GitHub アカウントは不要で、サイトの bot がプルリクエストを作ります。GitHub アカウントがあれば、作られた項目を Issue として送ったり、GitHub のエディタで項目の新しいファイルを開いて自分で追加したりもできます。[WebMCP](https://webmachinelearning.github.io/webmcp/) に対応したブラウザーでは、AI エージェントが項目を確認してフォームに入力し、あなたが確かめてから投稿できます。
 - **リポジトリで：** カテゴリのディレクトリにファイルを 1 つ追加し、プルリクエストを送ります。
 
 アプリのファイル `apps/my-app.json` は次のとおりです：
