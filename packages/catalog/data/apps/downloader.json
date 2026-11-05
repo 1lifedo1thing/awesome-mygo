@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "downloader",
+	"name": "Downloader",
+	"author": "josexy",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/josexy/go-downloader",
+	"repo": "josexy/go-downloader",
+	"summary": {
+		"en": "Native download manager: resumable HTTP/HTTPS downloads, batch queues, speed limits, proxies.",
+		"zh-CN": "原生下载管理器：HTTP/HTTPS 断点续传、批量排队、限速与代理。",
+		"zh-TW": "原生下載管理器：HTTP/HTTPS 續傳、批次排隊、限速與代理。",
+		"ja": "ネイティブなダウンロード管理アプリ。HTTP/HTTPS の再開、一括キュー、速度制限、プロキシ対応。",
+		"ko": "네이티브 다운로드 관리자. HTTP/HTTPS 이어 받기, 일괄 대기열, 속도 제한, 프록시 지원."
+	},
+	"description": {
+		"en": "A download manager for Windows, macOS and Linux drawn with MyGo's native UI, with no web view. It queues one or many HTTP/HTTPS links with a set concurrency, resumes after pauses and restarts, caps total speed and can use the system proxy or a custom HTTP, HTTPS or SOCKS5 one. Its interface is in Simplified Chinese only, and it does not do BitTorrent or multi-connection downloads.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows、macOS 与 Linux 下载管理器，不使用 WebView。可一次添加多条 HTTP/HTTPS 链接按并发数排队下载，暂停、退出或重启后都能断点续传，支持全局限速，并可走系统代理或自定义的 HTTP、HTTPS、SOCKS5 代理。界面仅有简体中文，不支持 BT、磁力链接和多连接分片下载。",
+		"zh-TW": "以 MyGo 原生 UI 繪製的 Windows、macOS 與 Linux 下載管理器，不使用 WebView。可一次加入多條 HTTP/HTTPS 連結依並行數排隊下載，暫停、結束或重新啟動後都能續傳，支援全域限速，並可透過系統代理或自訂的 HTTP、HTTPS、SOCKS5 代理連線。介面僅提供簡體中文，不支援 BT、磁力連結與多連線分段下載。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows・macOS・Linux 向けのダウンロードマネージャー。WebView は使いません。複数の HTTP/HTTPS リンクを同時実行数を決めてキューに入れ、一時停止や再起動のあとも続きから再開し、全体の速度を制限できます。システムのプロキシか、HTTP・HTTPS・SOCKS5 のカスタムプロキシを経由できます。画面は簡体字中国語のみで、BitTorrent やマルチ接続での分割ダウンロードには対応していません。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows·macOS·Linux용 다운로드 관리자로, WebView를 쓰지 않습니다. 여러 HTTP/HTTPS 링크를 동시 다운로드 수에 맞춰 대기열에 넣고, 일시 정지나 재시작 후에도 이어 받으며, 전체 속도를 제한할 수 있습니다. 시스템 프록시나 HTTP, HTTPS, SOCKS5 사용자 지정 프록시를 거칠 수 있습니다. 화면은 중국어 간체로만 제공되며 BitTorrent와 다중 연결 분할 다운로드는 지원하지 않습니다."
+	},
+	"icon": {
+		"file": "downloader.webp"
+	},
+	"screenshot": "downloader.webp",
+	"added": "2026-11-05T14:23:33Z"
+}
