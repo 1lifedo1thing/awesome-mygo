@@ -14,5 +14,6 @@
 		"en": "使用 MyGo 原生 UI + MujicaUI 构建的 Go 串口工具"
 	},
   "screenshot": "guart.webp",
+  "icon": "guart.svg",
 	"added": "2026-11-05T12:48:19Z"
 }
