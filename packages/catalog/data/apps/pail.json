@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "pail",
+	"name": "Pail",
+	"author": "DejavuMoe",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://pail.download",
+	"repo": "DejavuMoe/Pail",
+	"summary": {
+		"en": "A desktop client for Amazon S3, Cloudflare R2, MinIO and other S3-compatible storage.",
+		"zh-CN": "Amazon S3、Cloudflare R2、MinIO 等 S3 兼容存储的客户端。",
+		"zh-TW": "Amazon S3、Cloudflare R2、MinIO 等 S3 相容儲存用戶端。",
+		"ja": "Amazon S3、Cloudflare R2、MinIO などの S3 互換ストレージ用クライアント。",
+		"ko": "Amazon S3, Cloudflare R2, MinIO 등 S3 호환 스토리지용 클라이언트."
+	},
+	"description": {
+		"en": "A Windows, macOS and Linux client for Amazon S3, Cloudflare R2, MinIO and other S3-compatible storage, drawn with MyGo's native UI. It browses and previews objects, queues uploads and downloads, restores older versions, edits bucket settings, runs saved sync jobs and makes presigned links, keeping secret keys in the system keychain. Each download also includes the pail command-line tool.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Amazon S3、Cloudflare R2、MinIO 等 S3 兼容存储客户端，支持 Windows、macOS 和 Linux。可以浏览和预览对象，排队上传下载，恢复旧版本，编辑存储桶设置，运行保存好的同步任务并生成预签名链接，私密密钥保存在系统钥匙串中。每个下载包还附带 pail 命令行工具。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Amazon S3、Cloudflare R2、MinIO 等 S3 相容儲存空間用戶端，支援 Windows、macOS 與 Linux。可瀏覽與預覽物件、以佇列上傳下載、還原舊版本、編輯儲存貯體設定、執行已儲存的同步工作並產生預先簽署的連結，私密金鑰存放在系統鑰匙圈中。每個下載檔也附有 pail 命令列工具。",
+		"ja": "MyGo のネイティブ UI で描かれた、Amazon S3・Cloudflare R2・MinIO などの S3 互換ストレージ用クライアント。Windows、macOS、Linux に対応します。オブジェクトの閲覧とプレビュー、キューでのアップロード・ダウンロード、旧バージョンの復元、バケット設定の編集、保存した同期ジョブの実行、署名付き URL の作成ができ、シークレットキーはシステムのキーチェーンに保存します。各アーカイブには pail コマンドラインツールも含まれます。",
+		"ko": "MyGo의 네이티브 UI로 그린 Amazon S3, Cloudflare R2, MinIO 등 S3 호환 스토리지용 클라이언트로, Windows, macOS, Linux를 지원합니다. 객체를 탐색하고 미리 보며, 업로드와 다운로드를 대기열로 처리하고, 이전 버전 복원, 버킷 설정 편집, 동기화 작업, 미리 서명된 링크 생성을 지원합니다. 비밀 키는 시스템 키체인에 저장하며, pail 명령줄 도구도 함께 제공됩니다."
+	},
+	"added": "2026-11-05T00:51:47Z",
+	"icon": {
+		"file": "pail.webp"
+	},
+	"screenshot": "pail.webp"
+}
