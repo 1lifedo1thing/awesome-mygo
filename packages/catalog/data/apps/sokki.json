@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "sokki",
+	"name": "Sokki",
+	"author": "sorrycc",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/sorrycc/Sokki",
+	"repo": "sorrycc/Sokki",
+	"summary": {
+		"en": "A macOS menu bar text expander with triggers, variables, a snippet and prompt palette, and a CLI.",
+		"zh-CN": "macOS 菜单栏文本扩展工具：触发词、变量、片段与提示词面板，外加命令行。",
+		"zh-TW": "macOS 選單列文字展開工具：觸發詞、變數、片段與提示詞面板，另附命令列。",
+		"ja": "macOS のメニューバーで動くテキスト展開ツール。トリガーと変数、パレット、CLI を備える。",
+		"ko": "macOS 메뉴 막대 텍스트 확장 도구. 트리거, 변수, 스니펫·프롬프트 팔레트, CLI까지."
+	},
+	"description": {
+		"en": "A menu bar text expander for macOS on Apple silicon, written in Go with windows drawn by MyGo's native UI. Type a trigger such as :hello in any app and it expands, with clipboard and date variables, and nothing is read in password fields; a Spotlight-style palette finds snippets and prompts. Matches live in YAML files, and the sokki command does from a terminal what the app does.",
+		"zh-CN": "用 Go 编写、窗口由 MyGo 原生 UI 绘制的 macOS 菜单栏文本扩展工具，适用于 Apple 芯片的 Mac。在任何应用里输入 :hello 这样的触发词即可展开，支持剪贴板与日期变量，密码栏中不读取任何内容；类似 Spotlight 的面板可查找片段与提示词。匹配规则保存在 YAML 文件中，用 sokki 命令也能在终端完成应用里的各项操作。",
+		"zh-TW": "用 Go 撰寫、視窗由 MyGo 原生 UI 繪製的 macOS 選單列文字展開工具，適用於 Apple 晶片的 Mac。在任何 App 中輸入 :hello 這類觸發詞即可展開，支援剪貼簿與日期變數，密碼欄位中不讀取任何內容；類似 Spotlight 的面板可搜尋片段與提示詞。比對規則存放在 YAML 檔中，用 sokki 指令也能在終端機完成 App 裡的各項操作。",
+		"ja": "Go で書かれ、ウィンドウを MyGo のネイティブ UI で描く、Apple シリコン Mac 向けのメニューバー型テキスト展開ツール。どのアプリでも :hello のようなトリガーを打てば展開され、クリップボードや日付の変数が使え、パスワード欄では何も読み取りません。Spotlight 風のパレットでスニペットやプロンプトを探せます。マッチは YAML ファイルで管理し、sokki コマンドでアプリと同じ操作をターミナルから行えます。",
+		"ko": "Go로 작성하고 창을 MyGo의 네이티브 UI로 그린 Apple 실리콘 Mac용 메뉴 막대 텍스트 확장 도구입니다. 어느 앱에서든 :hello 같은 트리거를 입력하면 펼쳐지고, 클립보드와 날짜 변수를 쓸 수 있으며, 암호 입력란에서는 아무것도 읽지 않습니다. Spotlight 스타일 팔레트로 스니펫과 프롬프트를 찾습니다. 매치는 YAML 파일에 두고, sokki 명령으로 앱에서 하는 일을 터미널에서도 할 수 있습니다."
+	},
+	"icon": {
+		"file": "sokki.webp"
+	},
+	"screenshot": "sokki.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T11:50:47Z"
+}
