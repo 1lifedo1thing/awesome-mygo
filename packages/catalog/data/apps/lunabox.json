@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "lunabox",
+	"name": "LunaBox",
+	"author": "Saramanda9988",
+	"kind": "native",
+	"category": "GameApplication",
+	"url": "https://box.lunarain.site",
+	"repo": "Saramanda9988/LunaBox",
+	"summary": {
+		"en": "Visual novel library manager: tracks playtime, charts play stats, imports and backs up libraries.",
+		"zh-CN": "视觉小说游戏库管理工具：记录游戏时长、统计游玩数据，支持导入与备份。",
+		"zh-TW": "視覺小說遊戲庫管理工具：記錄遊戲時數、統計遊玩數據，支援匯入與備份。",
+		"ja": "ビジュアルノベルの管理ツール。プレイ時間の記録と統計、ライブラリの取り込みとバックアップに対応。",
+		"ko": "비주얼 노벨 관리 앱. 플레이 시간 기록과 통계, 라이브러리 가져오기와 백업 지원."
+	},
+	"description": {
+		"en": "A visual novel and game library manager drawn with MyGo's native UI. It imports collections from PotatoVN, Playnite, Vnite, Steam or a folder, records playtime when you launch a game, and charts it by day, week, month or year, with shareable stat cards to export. Data is kept locally, with a beta backup and sync to S3-compatible storage or OneDrive.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的视觉小说与游戏库管理工具。可从 PotatoVN、Playnite、Vnite、Steam 或文件夹导入游戏，启动游戏时自动记录时长，并按日、周、月、年统计游玩数据，还能导出可分享的统计卡片。数据保存在本地，另有测试版的备份与同步，支持 S3 兼容存储和 OneDrive。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的視覺小說與遊戲庫管理工具。可從 PotatoVN、Playnite、Vnite、Steam 或資料夾匯入遊戲，啟動遊戲時自動記錄時數，並按日、週、月、年統計遊玩數據，還能匯出可分享的統計卡片。資料儲存在本機，另有測試版的備份與同步，支援 S3 相容儲存空間和 OneDrive。",
+		"ja": "MyGo のネイティブ UI で描かれた、ビジュアルノベルとゲームのライブラリ管理ツール。PotatoVN、Playnite、Vnite、Steam やフォルダーからゲームを取り込み、起動時にプレイ時間を自動で記録して、日・週・月・年ごとの統計を表示します。統計は共有用のカードとして書き出せます。データはローカルに保存され、S3 互換ストレージや OneDrive へのバックアップと同期（ベータ）にも対応します。",
+		"ko": "MyGo의 네이티브 UI로 그린 비주얼 노벨·게임 라이브러리 관리 앱입니다. PotatoVN, Playnite, Vnite, Steam이나 폴더에서 게임을 가져오고, 게임을 실행하면 플레이 시간을 자동으로 기록해 일·주·월·연 단위 통계로 보여 주며, 공유용 통계 카드로 내보낼 수 있습니다. 데이터는 로컬에 저장되고, S3 호환 스토리지와 OneDrive로 백업·동기화(베타)도 지원합니다."
+	},
+	"icon": {
+		"file": "lunabox.webp"
+	},
+	"screenshot": "lunabox.webp",
+	"added": "2026-11-05T00:46:37Z"
+}
