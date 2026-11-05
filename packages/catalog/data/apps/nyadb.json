@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "nyadb",
+	"name": "NyaDB",
+	"author": "nyakang",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/nyakang/nyadb",
+	"repo": "nyakang/nyadb",
+	"summary": {
+		"en": "A native database workbench for connection profiles and read-only MySQL browsing.",
+		"zh-CN": "原生数据库工作台：管理连接配置，只读浏览 MySQL 数据库、表和数据。",
+		"zh-TW": "原生資料庫工作台：管理連線設定，唯讀瀏覽 MySQL 資料庫、資料表與資料。",
+		"ja": "接続を管理し、MySQL のデータベースとデータを読み取り専用で閲覧するネイティブなデータベースツール。",
+		"ko": "연결을 관리하고 MySQL 데이터베이스와 데이터를 읽기 전용으로 보는 네이티브 DB 도구."
+	},
+	"description": {
+		"en": "A database workbench for Windows, macOS and Linux, drawn with a fork of MyGo's native UI. It saves MySQL, PostgreSQL and SQLite connection profiles without passwords and browses MySQL databases, tables and data read-only, with server-side filtering and paging. Only MySQL connects for now, and the SQL editor only simulates execution.",
+		"zh-CN": "以 MyGo 原生 UI 的分支版本绘制的数据库工作台，面向 Windows、macOS 与 Linux。可保存 MySQL、PostgreSQL 和 SQLite 连接配置（不保存密码），并以只读方式浏览 MySQL 的数据库、表结构和数据，筛选与分页在服务端完成。目前只有 MySQL 能真正连接，SQL 编辑器的执行结果为模拟。",
+		"zh-TW": "以 MyGo 原生 UI 的分支版本繪製的資料庫工作台，支援 Windows、macOS 與 Linux。可儲存 MySQL、PostgreSQL 和 SQLite 連線設定（不儲存密碼），並以唯讀方式瀏覽 MySQL 的資料庫、資料表結構與資料，篩選與分頁在伺服器端完成。目前只有 MySQL 能實際連線，SQL 編輯器的執行結果為模擬。",
+		"ja": "MyGo のネイティブ UI のフォーク版で描かれた、Windows・macOS・Linux 向けのデータベースワークベンチ。MySQL・PostgreSQL・SQLite の接続プロファイルをパスワード抜きで保存し、MySQL のデータベース、テーブル構造、データを読み取り専用で閲覧できます。フィルターとページングはサーバー側で行います。現時点で実際に接続できるのは MySQL のみで、SQL エディターの実行結果はシミュレーションです。",
+		"ko": "MyGo 네이티브 UI의 포크 버전으로 그린 Windows·macOS·Linux용 데이터베이스 워크벤치입니다. MySQL, PostgreSQL, SQLite 연결 프로필을 비밀번호 없이 저장하고, MySQL 데이터베이스와 테이블 구조, 데이터를 읽기 전용으로 탐색하며 필터링과 페이징은 서버 쪽에서 처리합니다. 지금은 MySQL만 실제로 연결되고, SQL 편집기의 실행 결과는 시뮬레이션입니다."
+	},
+	"icon": {
+		"file": "nyadb.webp"
+	},
+	"screenshot": "nyadb.webp",
+	"added": "2026-11-05T05:38:23Z"
+}
