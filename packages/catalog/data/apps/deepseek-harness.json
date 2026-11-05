@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "deepseek-harness",
+	"name": "DeepSeek Harness",
+	"author": "dhx007",
+	"kind": "native",
+	"group": "agents",
+	"url": "https://github.com/dhx007/mygo-dsh",
+	"repo": "dhx007/mygo-dsh",
+	"summary": {
+		"en": "Unofficial native remake of the DeepSeek Harness coding agent, with modes, tool approval and MCP.",
+		"zh-CN": "非官方原生复刻的 DeepSeek Harness 编程智能体，含工具审批与 MCP。",
+		"zh-TW": "非官方原生復刻的 DeepSeek Harness 程式代理，含工具核准與 MCP。",
+		"ja": "DeepSeek Harness のコーディングエージェントを非公式にネイティブ再現したアプリ。",
+		"ko": "DeepSeek Harness 코딩 에이전트를 비공식으로 재현한 네이티브 데스크톱 앱."
+	},
+	"description": {
+		"en": "An unofficial recreation of the DeepSeek Harness v0.1 coding agent desktop app, drawn with MyGo's native UI with no web view and no cgo, and running on DeepSeek models. Sessions are grouped by workspace, each tool call unfolds on a timeline with an append-only trajectory to review, and changes such as bash commands or file edits wait for approval. It also has four modes, MCP servers, plugins and skills.",
+		"zh-CN": "非官方复刻的 DeepSeek Harness v0.1 编程智能体桌面端，用 MyGo 原生 UI 绘制，无 webview、无 cgo，接入 DeepSeek 模型。会话按工作区组织，每一步工具调用都在时间线上展开，只增不改的轨迹日志可供复盘；bash、写文件等变更操作需先经审批。另有四种模式，并支持 MCP 服务器、插件与技能。",
+		"zh-TW": "非官方復刻的 DeepSeek Harness v0.1 程式代理桌面版，以 MyGo 原生 UI 繪製，無 webview、無 cgo，串接 DeepSeek 模型。工作階段依工作區整理，每一步工具呼叫都在時間軸上展開，只增不改的軌跡紀錄可供回顧；bash、寫入檔案等變更操作須先經核准。另有四種模式，並支援 MCP 伺服器、外掛與技能。",
+		"ja": "DeepSeek Harness v0.1 のコーディングエージェントのデスクトップ版を非公式に再現したアプリです。MyGo のネイティブ UI で描かれ、Web ビューも cgo も使わず、DeepSeek のモデルで動きます。セッションはワークスペースごとに整理され、ツール呼び出しはタイムライン上に一つずつ展開されます。追記のみの軌跡ログで後から振り返れます。bash やファイル書き込みなどの変更は承認を経てから実行され、4 つのモード、MCP サーバー、プラグイン、スキルにも対応します。",
+		"ko": "DeepSeek Harness v0.1 코딩 에이전트의 데스크톱 앱을 비공식으로 재현한 앱으로, MyGo의 네이티브 UI로 그렸으며 웹 뷰도 cgo도 쓰지 않고 DeepSeek 모델로 동작합니다. 세션은 워크스페이스별로 정리되고, 도구 호출은 타임라인에 단계별로 펼쳐지며, 추가만 되는 궤적 로그로 다시 살펴볼 수 있습니다. bash 명령이나 파일 편집 같은 변경은 승인을 거친 뒤 실행되고, 네 가지 모드와 MCP 서버, 플러그인, 스킬도 지원합니다."
+	},
+	"icon": {
+		"file": "deepseek-harness.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "deepseek-harness.webp",
+	"added": "2026-11-05T14:05:27Z"
+}
