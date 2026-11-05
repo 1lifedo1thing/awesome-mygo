@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "aozora",
+	"name": "Aozora",
+	"author": "minittupoyo",
+	"kind": "web",
+	"group": "media",
+	"url": "https://github.com/minittupoyo/aozora",
+	"repo": "minittupoyo/aozora",
+	"summary": {
+		"en": "An unofficial desktop client for watching Japanese TV catch-up shows from TVer in its own player.",
+		"zh-CN": "TVer 日本电视节目回看的非官方桌面客户端，自带播放器。",
+		"zh-TW": "TVer 日本電視節目回看的非官方桌面用戶端，內建播放器。",
+		"ja": "TVer の見逃し配信を独自プレイヤーで見る、非公式のデスクトップクライアント。",
+		"ko": "TVer의 일본 TV 다시보기를 자체 플레이어로 보는 비공식 데스크톱 클라이언트."
+	},
+	"description": {
+		"en": "An unofficial client for TVer, Japan's TV catch-up service, built with MyGo and a Material Design 3 web frontend. It browses rankings, categories and search, and plays episodes in its own player with picture-in-picture and a mini player. It gets streams through yt-dlp, which it can install for you, and relies on TVer's unpublished API, so it may break without notice.",
+		"zh-CN": "TVer 日本电视节目回看服务的非官方客户端，由 MyGo 搭配 Material Design 3 风格的 Web 前端构建。可浏览排行榜、分类并搜索，用自带播放器观看，支持画中画和迷你播放器。播放地址通过 yt-dlp 获取，应用可代为下载安装；由于依赖 TVer 未公开的 API，随时可能失效。",
+		"zh-TW": "TVer 日本電視節目回看服務的非官方用戶端，以 MyGo 搭配 Material Design 3 風格的 Web 前端打造。可瀏覽排行榜、分類並搜尋，用內建播放器觀看，支援子母畫面與迷你播放器。播放網址透過 yt-dlp 取得，應用程式可代為下載安裝；由於依賴 TVer 未公開的 API，隨時可能失效。",
+		"ja": "日本のテレビ見逃し配信サービス TVer の非公式クライアント。MyGo と Material Design 3 の Web フロントエンドで作られています。ランキングやカテゴリ、検索から番組を探し、ピクチャーインピクチャーやミニプレイヤーを備えた独自プレイヤーで再生します。再生 URL は yt-dlp で取得し、yt-dlp はアプリから入れられます。TVer の非公開 API を使うため、突然動かなくなることがあります。",
+		"ko": "일본 TV 다시보기 서비스 TVer의 비공식 클라이언트로, MyGo와 Material Design 3 웹 프런트엔드로 만들었습니다. 랭킹, 카테고리, 검색으로 프로그램을 찾고, PIP와 미니 플레이어를 갖춘 자체 플레이어로 재생합니다. 재생 URL은 yt-dlp로 가져오며 앱에서 yt-dlp를 설치할 수 있습니다. TVer의 비공개 API를 쓰므로 갑자기 작동하지 않을 수 있습니다."
+	},
+	"icon": {
+		"file": "aozora.webp"
+	},
+	"screenshot": "aozora.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T12:35:14Z"
+}
