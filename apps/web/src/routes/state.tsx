@@ -34,7 +34,7 @@ function StatePage() {
 	const listed = STATE_SOLUTIONS.length > 0;
 
 	return (
-		<section className='page enter gap-40'>
+		<section className='page enter gap-10'>
 			<div className='stack-14'>
 				<span className='kicker kicker-amber'>
 					<span className={`amber-dot ${listed ? '' : 'pulse'}`} />

@@ -35,7 +35,7 @@ function ShowcasePage() {
 	);
 
 	return (
-		<section className='page enter gap-32'>
+		<section className='page enter gap-8'>
 			<div className='show-head'>
 				<div className='stack-14'>
 					<span className='kicker'>~/SHOWCASE</span>

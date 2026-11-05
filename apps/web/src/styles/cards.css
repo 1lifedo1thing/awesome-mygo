@@ -1,0 +1,85 @@
+.mono-tile {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex: none;
+	font-family: var(--font-display);
+	font-weight: 800;
+}
+.mono-44 {
+	width: 44px;
+	height: 44px;
+	border-radius: 12px;
+	font-size: 20px;
+}
+.mono-52 {
+	width: 52px;
+	height: 52px;
+	border-radius: 14px;
+	font-size: 24px;
+}
+.mono-56 {
+	width: 56px;
+	height: 56px;
+	border-radius: 15px;
+	font-size: 26px;
+}
+.tone-0 {
+	background: var(--color-cyan);
+	color: var(--color-bg);
+}
+.tone-1 {
+	background: var(--color-fg);
+	color: var(--color-bg);
+}
+.tone-2 {
+	background: var(--color-line);
+	color: var(--color-cyan);
+}
+.kind-tag {
+	align-self: flex-start;
+	font-family: var(--font-mono);
+	font-size: 11px;
+	padding: 3px 9px;
+	border-radius: 999px;
+	border: 1px solid currentColor;
+}
+.kind-native {
+	color: var(--color-fg-2);
+}
+.kind-web {
+	color: var(--color-amber);
+}
+.kind-both {
+	color: var(--color-fg-2);
+}
+.card {
+	flex: 1 1 auto;
+	padding: 0;
+	text-align: left;
+	display: flex;
+	flex-direction: column;
+	border: 1px solid var(--color-line-2);
+	border-radius: 14px;
+	background: var(--color-panel);
+	overflow: hidden;
+	color: var(--color-fg);
+}
+.card-body {
+	padding: 22px;
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	flex: 1 1 auto;
+}
+.card-name {
+	margin: 0;
+	font-size: 19px;
+	font-weight: 900;
+	letter-spacing: -0.01em;
+}
+.card-desc {
+	font-size: 14px;
+	line-height: 1.65;
+	color: var(--color-fg-2);
+}

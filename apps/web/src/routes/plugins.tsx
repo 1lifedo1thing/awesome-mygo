@@ -114,7 +114,7 @@ function PluginsPage() {
 		);
 	};
 	return (
-		<section className='page enter gap-40'>
+		<section className='page enter gap-10'>
 			<div className='stack-14'>
 				<span className='kicker' lang='en'>~/PLUGINS · {PLUGINS.length} OFFICIAL</span>
 				<h1 className='page-h1'>{t.nav_plugins}</h1>

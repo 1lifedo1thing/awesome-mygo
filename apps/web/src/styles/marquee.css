@@ -1,0 +1,33 @@
+.marq-wrap {
+	border-bottom: 1px solid var(--color-line);
+	overflow: hidden;
+	padding: 22px 0;
+	background: rgba(11, 13, 16, 0.5);
+}
+.marq-item {
+	display: inline-flex;
+	align-items: center;
+	gap: 14px;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	font-family: var(--font-display);
+	font-size: 26px;
+	font-weight: 700;
+	color: var(--color-fg-3);
+	white-space: nowrap;
+	letter-spacing: -0.02em;
+}
+.marq-icon {
+	width: 36px;
+	height: 36px;
+	flex: none;
+}
+.marq-letter {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 22.5%;
+	font-size: 18px;
+	font-weight: 800;
+}

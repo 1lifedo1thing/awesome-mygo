@@ -1,0 +1,238 @@
+.hero {
+	position: relative;
+	overflow: hidden;
+	border-bottom: 1px solid var(--color-line);
+}
+/* Copy on the left, the code window on the right; one column below 1000px. */
+.hero-in {
+	position: relative;
+	z-index: 2;
+	max-width: 1240px;
+	margin: 0 auto;
+	padding: 112px 24px 0;
+	display: grid;
+	grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+	align-items: center;
+	gap: 48px 64px;
+}
+.hero-copy {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 28px;
+	min-width: 0;
+}
+.hero-code {
+	min-width: 0;
+}
+.pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	min-height: 36px;
+	padding: 0 14px 0 6px;
+	border: 1px solid var(--color-line-3);
+	border-radius: 999px;
+	background: rgba(18, 22, 27, 0.75);
+	backdrop-filter: blur(8px);
+	color: var(--color-fg-2);
+	font-size: 13px;
+	text-decoration: none;
+	box-sizing: border-box;
+}
+.live {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 3px 10px;
+	border-radius: 999px;
+	background: rgba(63, 211, 245, 0.14);
+	color: var(--color-cyan);
+	font-family: var(--font-mono);
+	font-size: 11px;
+	font-weight: 700;
+}
+.live-dot {
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: var(--color-cyan);
+}
+/* CJK headlines keep their natural spacing; only the word-spaced languages are tightened. */
+.hero-h1 {
+	margin: 0;
+	font-size: clamp(38px, 4.7vw, 68px);
+	line-height: 1.16;
+	font-weight: 800;
+}
+.hero-h1[data-words='true'] {
+	font-size: clamp(36px, 4.4vw, 62px);
+	letter-spacing: -0.03em;
+}
+.hero-h1-2 {
+	color: var(--color-cyan);
+	text-shadow: 0 0 40px rgba(63, 211, 245, 0.25);
+}
+.hero-p {
+	margin: 0;
+	font-size: 17px;
+	line-height: 1.75;
+	color: var(--color-fg-2);
+	max-width: 600px;
+}
+.hero-p > span {
+	display: block;
+}
+.install {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	max-width: 100%;
+	box-sizing: border-box;
+	padding: 6px;
+	border: 1px solid var(--color-line-3);
+	border-radius: 14px;
+	background: rgba(18, 22, 27, 0.85);
+	backdrop-filter: blur(10px);
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+.install-tabs {
+	display: flex;
+	gap: 2px;
+	flex: 0 0 auto;
+}
+.install-tab {
+	min-height: 36px;
+	padding: 0 12px;
+	border: 0;
+	border-radius: 9px;
+	background: transparent;
+	color: var(--color-fg-3);
+	font-family: var(--font-mono);
+	font-size: 12px;
+}
+.install-tab[aria-selected='true'] {
+	background: var(--color-line-2);
+	color: var(--color-fg);
+}
+.install-cmd {
+	flex: 1 1 auto;
+	min-width: 0;
+	padding: 0 14px;
+	font-family: var(--font-mono);
+	font-size: 14px;
+	color: var(--color-fg);
+	white-space: nowrap;
+	overflow-x: auto;
+	text-align: left;
+}
+.install-copy {
+	flex: 0 0 auto;
+	min-height: 36px;
+	min-width: 72px;
+	padding: 0 12px;
+	border: 1px solid var(--color-line-3);
+	border-radius: 9px;
+	background: transparent;
+	color: var(--color-fg);
+	font-size: 13px;
+}
+.hero-ctas {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+}
+.stats {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px 28px;
+	font-size: 14px;
+	color: var(--color-fg-3);
+}
+.stat-n {
+	font-family: var(--font-display);
+	font-size: 18px;
+	font-weight: 800;
+	color: var(--color-fg);
+	font-variant-numeric: tabular-nums;
+}
+.stage {
+	position: relative;
+	z-index: 1;
+	height: 420px;
+	margin-top: 64px;
+	perspective: 1800px;
+}
+.stage-glow {
+	position: absolute;
+	left: 50%;
+	top: 120px;
+	/* The 560x160 ellipse softened as if blurred by 90px, drawn as a gradient for the same reason as the backdrop's blobs: the box is 180px larger on every side, and the centre is 62% of the colour, as the blur, wider than the ellipse is tall, never reached the whole of it. */
+	width: 920px;
+	height: 520px;
+	margin-left: -460px;
+	margin-top: -180px;
+	background: radial-gradient(closest-side, color-mix(in srgb, var(--color-cyan) 62%, transparent) 0%, color-mix(in srgb, var(--color-cyan) 55%, transparent) 30%, transparent 100%);
+	opacity: 0.22;
+}
+.wall {
+	position: absolute;
+	left: 50%;
+	top: 0;
+	width: 1200px;
+	height: 560px;
+	margin-left: -600px;
+	transform-style: preserve-3d;
+	transform: rotateX(calc(24deg - var(--py, 0) * 5deg)) rotateY(calc(var(--px, 0) * 7deg));
+	transform-origin: 50% 0%;
+	transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.side {
+	position: absolute;
+	transform-style: preserve-3d;
+}
+.hero-win {
+	width: 100%;
+	padding: 0;
+	text-align: left;
+	display: flex;
+	flex-direction: column;
+	border: 1px solid var(--color-line-3);
+	border-radius: 16px;
+	background: var(--color-panel);
+	overflow: hidden;
+	color: var(--color-fg);
+	box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+}
+.hero-win-body {
+	padding: 22px;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	width: 100%;
+	box-sizing: border-box;
+}
+.hero-win .card-name {
+	letter-spacing: normal;
+}
+.hero-win-desc {
+	font-size: 13px;
+	line-height: 1.6;
+	color: var(--color-fg-2);
+}
+.code-win {
+	border: 1px solid var(--color-cyan);
+	border-radius: 16px;
+	background: var(--color-panel);
+	overflow: hidden;
+	box-shadow: 0 0 0 1px rgba(63, 211, 245, 0.3), 0 50px 100px rgba(0, 0, 0, 0.65), 0 0 80px rgba(63, 211, 245, 0.18);
+}
+.stage-fade {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 240px;
+	background: linear-gradient(to bottom, rgba(11, 13, 16, 0), var(--color-bg) 85%);
+	z-index: 3;
+}

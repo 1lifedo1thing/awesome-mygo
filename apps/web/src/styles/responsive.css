@@ -1,0 +1,95 @@
+/* Between the burger breakpoint and 1240px the brand, the nav and the header actions share one row; the search button drops its label and the gaps tighten there, so English and Japanese still fit one row down to 1100px. */
+@media (max-width: 1240px) {
+	.hdr-in {
+		column-gap: 14px;
+	}
+	.sbtn {
+		min-width: 0;
+	}
+	.sbtn .lbl {
+		display: none;
+	}
+}
+@media (max-width: 1000px) {
+	.wall .far {
+		display: none;
+	}
+	.hero-in {
+		grid-template-columns: minmax(0, 1fr);
+		padding-top: 72px;
+	}
+	.hero-code {
+		max-width: 560px;
+	}
+}
+@media (max-width: 860px) {
+	.b7,
+	.b5 {
+		grid-column: span 12;
+	}
+	.burger {
+		display: flex;
+	}
+	.navwrap {
+		display: none;
+		order: 5;
+		width: 100%;
+		margin: 0;
+	}
+	.navwrap[data-open='true'] {
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+	}
+	.navwrap[data-open='true'] .navb {
+		justify-content: flex-start;
+		min-height: 48px;
+	}
+	.acts {
+		margin-left: auto;
+	}
+	.sbtn {
+		min-width: 0;
+	}
+	.sbtn .lbl {
+		display: none;
+	}
+}
+@media (max-width: 700px) {
+	.hero-p > span {
+		display: inline;
+	}
+	.wall .near {
+		display: none;
+	}
+	/* With the code window in the hero, the wall has no window left to show at this width. */
+	.stage {
+		display: none;
+	}
+	.hero {
+		padding-bottom: 56px;
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.ch,
+	.bob,
+	.blob,
+	.mesh,
+	.marq,
+	.enter,
+	.pulse,
+	.caret,
+	.wi,
+	.fade {
+		animation: none;
+	}
+	.rv {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+	.win:hover,
+	.tile {
+		transform: none !important;
+	}
+}

@@ -1,0 +1,71 @@
+.winbar {
+	display: flex;
+	align-items: center;
+	gap: 7px;
+	width: 100%;
+	box-sizing: border-box;
+	flex: none;
+	background: var(--color-bar);
+	border-bottom: 1px solid var(--color-line-2);
+}
+.tl {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	flex: none;
+}
+.winbar-lg .tl {
+	width: 11px;
+	height: 11px;
+}
+.tl-r {
+	background: #ff5f57;
+}
+.tl-y {
+	background: #febc2e;
+}
+.tl-g {
+	background: #28c840;
+}
+.winbar-label {
+	margin-left: 8px;
+	flex: 1 1 auto;
+	min-width: 0;
+	font-family: var(--font-mono);
+	font-size: 11px;
+	color: var(--color-fg-3);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.card-bar {
+	height: 32px;
+	padding: 0 12px;
+}
+.panel-bar {
+	height: 36px;
+	padding: 0 14px;
+}
+.code-bar {
+	height: 36px;
+	gap: 8px;
+	padding: 0 12px;
+}
+.code-title {
+	flex: 1 1 auto;
+	text-align: center;
+	font-family: var(--font-mono);
+	font-size: 12px;
+	color: var(--color-fg-3);
+	margin-right: 40px;
+}
+.code {
+	padding: 18px 20px;
+	font-family: var(--font-mono);
+	font-size: 13px;
+	line-height: 1.85;
+	color: var(--color-fg);
+	white-space: pre;
+	overflow-x: auto;
+	text-align: left;
+}

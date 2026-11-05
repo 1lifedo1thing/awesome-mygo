@@ -37,7 +37,7 @@ function UiPage() {
 	const libs = sortUiLibs(ofSurface.filter((l) => !tag || l.key === tag), sort, counts);
 
 	return (
-		<section className='page enter gap-36'>
+		<section className='page enter gap-9'>
 			<div className='stack-14'>
 				<span className='kicker' lang='en'>~/UI · {UI_LIBS.length} LIBRARIES</span>
 				<h1 className='page-h1'>{t.cat_ui_name}</h1>

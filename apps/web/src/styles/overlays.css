@@ -1,0 +1,454 @@
+.overlay {
+	position: fixed;
+	inset: 0;
+	z-index: 50;
+	background: rgba(5, 7, 9, 0.7);
+	backdrop-filter: blur(6px);
+	display: flex;
+}
+.overlay-top {
+	justify-content: center;
+	align-items: flex-start;
+	padding: 12vh 16px 16px;
+}
+.overlay-center {
+	align-items: center;
+	justify-content: center;
+	padding: 16px;
+}
+.palette {
+	width: 100%;
+	max-width: 640px;
+	max-height: 70vh;
+	display: flex;
+	flex-direction: column;
+	background: var(--color-panel);
+	border: 1px solid var(--color-line-3);
+	border-radius: 18px;
+	overflow: hidden;
+	box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
+}
+.palette-head {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 0 12px 0 20px;
+	border-bottom: 1px solid var(--color-line-2);
+}
+.palette-input,
+.palette-input:focus {
+	flex: 1 1 auto;
+	min-width: 0;
+	height: 60px;
+	border: 0;
+	background: transparent;
+	font: inherit;
+	font-size: 18px;
+	color: var(--color-fg);
+	outline: none;
+}
+.kbd-btn {
+	min-height: 32px;
+	padding: 0 10px;
+	border: 1px solid var(--color-line-3);
+	border-radius: 6px;
+	background: transparent;
+	color: var(--color-fg-2);
+	font-size: 12px;
+}
+.palette-body {
+	overflow-y: auto;
+	padding: 8px;
+}
+.palette-kicker {
+	display: block;
+	padding: 10px 12px 6px;
+	font-family: var(--font-mono);
+	font-size: 11px;
+	color: var(--color-fg-3);
+	letter-spacing: 0.1em;
+}
+.jump {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	min-height: 48px;
+	padding: 0 12px;
+	border: 0;
+	border-radius: 10px;
+	background: transparent;
+	color: var(--color-fg);
+	text-align: left;
+	font-size: 15px;
+}
+.jump-num {
+	font-family: var(--font-mono);
+	font-size: 12px;
+	color: var(--color-cyan);
+	width: 28px;
+}
+.result {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	padding: 12px;
+	border: 0;
+	border-radius: 10px;
+	background: transparent;
+	color: var(--color-fg);
+	text-align: left;
+}
+.result-cat {
+	font-size: 11px;
+	padding: 3px 8px;
+	border-radius: 6px;
+	border: 1px solid var(--color-line-3);
+	color: var(--color-fg-2);
+	min-width: 56px;
+	text-align: center;
+}
+.result-text {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	min-width: 0;
+	flex: 1 1 auto;
+}
+.result-name {
+	font-size: 15px;
+	font-weight: 700;
+}
+.result-desc {
+	font-size: 13px;
+	color: var(--color-fg-3);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.no-res {
+	padding: 32px 16px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 14px;
+	text-align: center;
+}
+.no-res p {
+	margin: 0;
+	font-size: 15px;
+	color: var(--color-fg-2);
+}
+.modal {
+	width: 100%;
+	max-width: 580px;
+	max-height: calc(100dvh - 32px);
+	overflow: hidden;
+	background: var(--color-panel);
+	border: 1px solid var(--color-line-3);
+	border-radius: 20px;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
+}
+/* The form scrolls inside the dialog; the footer below it stays put. */
+.modal-scroll {
+	flex: 1 1 auto;
+	min-height: 0;
+	overflow: auto;
+	padding: 30px 30px 22px;
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+}
+.modal-foot {
+	flex: none;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 10px 12px;
+	padding: 14px 30px;
+	border-top: 1px solid var(--color-line-2);
+	background: var(--color-panel);
+}
+.modal-hint {
+	flex: 1 1 200px;
+	min-width: 0;
+	margin: 0;
+	font-size: 13px;
+	line-height: 1.5;
+	color: var(--color-fg-3);
+}
+.modal-foot .field-err {
+	margin: 0;
+}
+.modal-foot .sub-done {
+	flex: 1 1 auto;
+}
+@media (max-width: 520px) {
+	.modal-scroll {
+		padding: 22px 20px 18px;
+	}
+	.modal-foot {
+		padding: 12px 20px;
+	}
+}
+.modal-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	gap: 12px;
+}
+.modal-title {
+	margin: 0;
+	font-size: 26px;
+	font-weight: 900;
+	letter-spacing: -0.02em;
+}
+.modal-sub {
+	margin: 0;
+	font-size: 14px;
+	color: var(--color-fg-2);
+}
+.field-label {
+	font-size: 14px;
+	font-weight: 700;
+}
+.cat-opts {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+}
+.cat-opt {
+	min-height: 40px;
+	padding: 0 14px;
+	border-radius: 10px;
+	border: 1px solid var(--color-line-3);
+	background: transparent;
+	color: var(--color-fg-2);
+	font-size: 14px;
+	font-weight: 600;
+}
+.cat-opt[aria-checked='true'] {
+	background: var(--color-cyan);
+	color: var(--color-bg);
+	border-color: var(--color-cyan);
+}
+.field-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+	gap: 14px;
+}
+.field {
+	height: 46px;
+	padding: 0 14px;
+	border: 1px solid var(--color-line-3);
+	border-radius: 10px;
+	background: var(--color-bg);
+	font: inherit;
+	font-size: 15px;
+	color: var(--color-fg);
+}
+.field[data-bad='true'] {
+	border-color: var(--color-err);
+}
+.field-area {
+	height: auto;
+	padding: 12px 14px;
+	resize: vertical;
+}
+/* A pasted JSON entry: set like the preview it replaces. */
+.field-code {
+	font-family: var(--font-mono);
+	font-size: 13px;
+	line-height: 1.7;
+}
+.field-err {
+	margin: -6px 0 0;
+	font-size: 13px;
+	color: var(--color-err);
+}
+.field-tip {
+	margin: 0;
+	font-size: 13px;
+	color: var(--color-fg-3);
+}
+/* The submit form's screenshot: the image to upload, with its preview, and what the bot found in the repository. */
+.shot-pick {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 12px;
+}
+.shot-btn {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	cursor: pointer;
+}
+.shot-btn:focus-within {
+	outline: 2px solid var(--color-cyan);
+	outline-offset: 2px;
+}
+.shot-btn input {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+.shot-preview {
+	width: auto;
+	max-width: 128px;
+	height: 72px;
+	object-fit: cover;
+	border: 1px solid var(--color-line-3);
+	border-radius: 8px;
+}
+.shot-name {
+	max-width: 240px;
+	overflow: hidden;
+	font-size: 13px;
+	color: var(--color-fg-2);
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.field-tip[data-need='true'] {
+	color: var(--color-amber);
+}
+.field-count {
+	font-weight: 400;
+	color: var(--color-fg-3);
+	font-family: var(--font-mono);
+	font-size: 12px;
+}
+.md-details > summary {
+	cursor: pointer;
+	width: fit-content;
+	font-size: 14px;
+	font-weight: 700;
+	color: var(--color-fg-2);
+}
+.md-details > summary:hover {
+	color: var(--color-fg);
+}
+.md-details[open] > summary {
+	margin-bottom: 10px;
+}
+.md-details-acts {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px 14px;
+	margin-top: 10px;
+}
+.md-details-acts .modal-alt {
+	text-align: left;
+}
+.md-preview {
+	background: var(--color-bg);
+	border: 1px solid var(--color-line-2);
+	border-radius: 10px;
+	padding: 14px 16px;
+	font-family: var(--font-mono);
+	font-size: 13px;
+	line-height: 1.7;
+	color: var(--color-fg);
+	white-space: pre-wrap;
+	word-break: break-all;
+	margin: 0;
+	max-height: 260px;
+	overflow: auto;
+}
+.modal-acts {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	justify-content: flex-end;
+}
+.btn-copy-line {
+	min-height: 46px;
+	padding: 0 18px;
+	border: 1px solid var(--color-line-3);
+	border-radius: 10px;
+	background: transparent;
+	color: var(--color-fg);
+	font-size: 14px;
+	font-weight: 700;
+}
+.btn-copy-line:disabled {
+	color: var(--color-fg-3);
+	cursor: not-allowed;
+}
+.btn-pr {
+	display: inline-flex;
+	align-items: center;
+	min-height: 46px;
+	padding: 0 20px;
+	border-radius: 10px;
+	font-size: 14px;
+	text-decoration: none;
+}
+button.btn-pr:disabled {
+	opacity: 0.45;
+	cursor: not-allowed;
+}
+/* Turnstile renders nothing here unless it needs the visitor to click; then it is 65 px tall. */
+.captcha:empty {
+	display: none;
+}
+.modal-alt {
+	margin: 0;
+	font-size: 13px;
+	color: var(--color-fg-3);
+	text-align: right;
+}
+.modal-alt a {
+	color: var(--color-cyan);
+}
+/* Said when a WebMCP tool filled the form in, so the visitor checks what an AI agent wrote before sending it. */
+.sub-agent {
+	margin: 0;
+	padding: 10px 14px;
+	border: 1px solid color-mix(in srgb, var(--color-amber) 45%, transparent);
+	border-radius: 10px;
+	background: color-mix(in srgb, var(--color-amber) 10%, transparent);
+	color: var(--color-amber);
+	font-size: 14px;
+}
+.sub-done {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 12px 12px 12px 16px;
+	border: 1px solid var(--color-line-2);
+	border-radius: 10px;
+	color: var(--color-fg);
+	font-size: 14px;
+}
+
+/* `translate` rather than `transform`, so the entrance animation (which animates transform) cannot undo the centring. */
+.toast {
+	position: fixed;
+	left: 50%;
+	bottom: 28px;
+	translate: -50% 0;
+	z-index: 60;
+	background: var(--color-cyan);
+	color: var(--color-bg);
+	padding: 12px 20px;
+	border-radius: 12px;
+	font-size: 14px;
+	font-weight: 700;
+	white-space: nowrap;
+	box-shadow: 0 16px 40px rgba(63, 211, 245, 0.25);
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}

@@ -1,0 +1,81 @@
+.c-cyan {
+	color: var(--color-cyan);
+}
+.c-amber {
+	color: var(--color-amber);
+}
+.c-green {
+	color: var(--color-green);
+}
+.c-muted {
+	color: var(--color-fg-3);
+}
+.c-fg {
+	color: var(--color-fg);
+}
+.mono-11 {
+	font-family: var(--font-mono);
+	font-size: 11px;
+}
+.mono-12 {
+	font-family: var(--font-mono);
+	font-size: 12px;
+}
+.mono-13 {
+	font-family: var(--font-mono);
+	font-size: 13px;
+}
+.break {
+	word-break: break-all;
+}
+.block {
+	display: block;
+}
+.flex {
+	display: flex;
+}
+.rel {
+	position: relative;
+}
+.self-start {
+	align-self: flex-start;
+}
+.stack-4,
+.stack-6,
+.stack-8,
+.stack-10,
+.stack-14,
+.stack-16 {
+	display: flex;
+	flex-direction: column;
+}
+.stack-4 {
+	gap: 4px;
+}
+.stack-6 {
+	gap: 6px;
+}
+.stack-8 {
+	gap: 8px;
+}
+.stack-10 {
+	gap: 10px;
+}
+.stack-14 {
+	gap: 14px;
+}
+.stack-16 {
+	gap: 16px;
+}
+.mw-640 {
+	max-width: 640px;
+}
+.mw-700 {
+	max-width: 700px;
+}
+.mw-720 {
+	max-width: 720px;
+}
+.mw-740 {
+	max-width: 740px;
+}
