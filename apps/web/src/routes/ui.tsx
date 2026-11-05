@@ -2,6 +2,7 @@ import { NATIVE_UI_DOCS, type Surface, UI_KEYS, UI_LIBS, type UiLibKey, likeKey,
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { WinBar } from '../components/bits';
 import { LikeButton } from '../components/Like';
+import { ScoreButton } from '../components/Score';
 import { useLang, useT } from '../lib/lang';
 import { validateUiSearch } from '../lib/page-search';
 import { pageHead } from '../lib/seo';
@@ -93,7 +94,10 @@ function UiPage() {
 												<span className={`kind-tag kind-${l.surface}`}>{surfLabel[l.surface]}</span>
 											</span>
 										</div>
-										<LikeButton item={likeKey.ui(l)} name={l.name} className='like-btn like-end' />
+										<span className='like-end card-acts'>
+											<ScoreButton item={likeKey.ui(l)} name={l.name} />
+											<LikeButton item={likeKey.ui(l)} name={l.name} className='like-btn' />
+										</span>
 									</div>
 									<p className='show-desc'>{pick(l.desc, lang)}</p>
 								</div>

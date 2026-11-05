@@ -1,7 +1,7 @@
-import { APPS, APP_GROUPS, type App, type AppGroup, type AppKind, appGroup, byNewest, isAppGroup, likeKey } from '@awesome-mygo/catalog';
+import { APPS, APP_GROUPS, type App, type AppGroup, type AppKind, appGroup, byNewest, isAppGroup, likeKey, scoreRank } from '@awesome-mygo/catalog';
 import { oneOf, text } from './page-search';
 
-// The showcase's view in the address: ?cat= a group, ?ui= native or web, ?sort= natural or likes (newest first when absent), and in the retro look ?author= the author picked in its side panel. Every key is always returned, undefined when absent or invalid, for the same reason as validateRootSearch: TanStack merges the validated object over the raw search. An old link's ?sort=newest is dropped as invalid, which still shows newest first.
+// The showcase's view in the address: ?cat= a group, ?ui= native or web, ?sort= natural, likes or score (newest first when absent), and in the retro look ?author= the author picked in its side panel. Every key is always returned, undefined when absent or invalid, for the same reason as validateRootSearch: TanStack merges the validated object over the raw search. An old link's ?sort=newest is dropped as invalid, which still shows newest first.
 export interface ShowcaseSearch {
 	cat?: AppGroup;
 	ui?: AppKind;
@@ -16,22 +16,23 @@ export function validateShowcaseSearch(search: Record<string, unknown>): Showcas
 	return {
 		cat: isAppGroup(search.cat) ? search.cat : undefined,
 		ui: search.ui === 'native' || search.ui === 'web' ? search.ui : undefined,
-		sort: oneOf(search.sort, ['natural', 'likes'] as const),
+		sort: oneOf(search.sort, ['natural', 'likes', 'score'] as const),
 		author: author !== undefined && AUTHORS.has(author) ? author : undefined,
 	};
 }
 
-// The showcase's orders: by name in natural order (APPS' own order), newest first, or most liked first.
-export type AppSort = 'natural' | 'newest' | 'likes';
+// The showcase's orders: by name in natural order (APPS' own order), newest first, most liked first, or highest score first.
+export type AppSort = 'natural' | 'newest' | 'likes' | 'score';
 
-// The order the showcase opens in, and falls back to when likes are off; the address leaves it out.
+// The order the showcase opens in, and falls back to when likes are off or there are no scores yet; the address leaves it out. Scores do not set the default order, so that newly listed apps are seen first and a high score does not feed itself.
 export const DEFAULT_SORT = 'newest' satisfies AppSort;
 
-// The apps in the chosen order; apps that tie (the same likes) keep their natural order. Shared by both looks.
+// The apps in the chosen order; apps that tie (the same likes or score) keep their natural order, and apps without a score go after those with one. Shared by both looks.
 export function sortApps(apps: readonly App[], sort: AppSort, likes: Readonly<Record<string, number>>): App[] {
 	const list = [...apps];
 	if (sort === 'newest') list.sort(byNewest);
 	if (sort === 'likes') list.sort((a, b) => (likes[likeKey.app(b)] ?? 0) - (likes[likeKey.app(a)] ?? 0));
+	if (sort === 'score') list.sort((a, b) => scoreRank(likeKey.app(b)) - scoreRank(likeKey.app(a)));
 	return list;
 }
 

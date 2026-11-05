@@ -1669,6 +1669,215 @@ html:lang(ko) .site {
 		transform: none;
 	}
 }
+/* Scores (components/Score.tsx): the total as a small chip in a neutral tone (no star, no red or green), a button beside the like button that opens the breakdown in a popover, and the breakdown, each signal's points on a meter. */
+.card-acts {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+/* Neither a score nor likes to show: no box, so the card lays out as before. */
+.card-acts:empty {
+	display: none;
+}
+.score-chip {
+	flex: none;
+	padding: 2px 8px;
+	border: 1px solid var(--line-3);
+	border-radius: 999px;
+	color: var(--fg-2);
+	font-family: var(--f-mono);
+	font-size: 11px;
+	font-weight: 700;
+	font-variant-numeric: tabular-nums;
+}
+.score-btn {
+	display: inline-flex;
+	align-items: center;
+	min-height: 32px;
+	padding: 0 10px;
+	border: 1px solid var(--line-3);
+	border-radius: 999px;
+	background: var(--bg);
+	color: var(--fg-2);
+	font-family: var(--f-mono);
+	font-size: 13px;
+	font-weight: 600;
+	transition: color 0.15s, border-color 0.15s;
+}
+.score-btn:hover {
+	color: var(--cyan);
+	border-color: var(--cyan);
+}
+.score-btn .score-chip {
+	padding: 0;
+	border: 0;
+	color: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+}
+/* The popover sits in the top layer, centred in the window by the browser. */
+.score-pop {
+	box-sizing: border-box;
+	width: min(440px, calc(100vw - 32px));
+	max-height: calc(100dvh - 32px);
+	padding: 22px;
+	border: 1px solid var(--line-2);
+	border-radius: 14px;
+	background: var(--panel);
+	color: var(--fg);
+	box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+}
+.score-pop::backdrop {
+	background: rgba(0, 0, 0, 0.45);
+}
+.score-x {
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	width: 32px;
+	height: 32px;
+	border: 0;
+	border-radius: 8px;
+	background: none;
+	color: var(--fg-3);
+	font-size: 20px;
+	line-height: 1;
+}
+.score-x:hover {
+	background: var(--line);
+	color: var(--fg);
+}
+.score-pop .score-h {
+	padding-right: 36px;
+}
+.score-bd {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+.app-score {
+	padding: 18px 20px;
+	border: 1px solid var(--line-2);
+	border-radius: 14px;
+	background: var(--panel);
+}
+.score-h {
+	margin: 0;
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 12px;
+	font-family: var(--f-mono);
+	font-size: 12px;
+	font-weight: 400;
+	color: var(--fg-3);
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+}
+.score-total {
+	font-family: var(--f-display);
+	font-size: 26px;
+	font-weight: 800;
+	letter-spacing: 0;
+	color: var(--fg);
+	font-variant-numeric: tabular-nums;
+}
+.score-rows {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+.score-row {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	align-items: baseline;
+	gap: 5px 12px;
+	font-size: 14px;
+}
+.score-lbl {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px;
+}
+.score-neu {
+	padding: 0 7px;
+	border: 1px dashed var(--fg-3);
+	border-radius: 999px;
+	color: var(--fg-3);
+	font-family: var(--f-mono);
+	font-size: 11px;
+	line-height: 18px;
+}
+.score-of {
+	color: var(--fg-2);
+	font-family: var(--f-mono);
+	font-size: 13px;
+	font-variant-numeric: tabular-nums;
+}
+.score-meter {
+	grid-column: 1 / -1;
+	display: block;
+	width: 100%;
+	height: 6px;
+	-webkit-appearance: none;
+	appearance: none;
+	border: 0;
+	border-radius: 999px;
+	background: var(--line-2);
+}
+.score-meter::-webkit-meter-bar {
+	height: 6px;
+	border: 0;
+	border-radius: 999px;
+	background: var(--line-2);
+}
+.score-meter::-webkit-meter-optimum-value {
+	border-radius: 999px;
+	background: var(--cyan);
+}
+.score-meter::-moz-meter-bar {
+	border-radius: 999px;
+	background: var(--cyan);
+}
+/* A signal counted at the neutral value was not measured, so its bar is greyed. */
+.score-row-neu .score-meter::-webkit-meter-optimum-value {
+	background: var(--fg-3);
+}
+.score-row-neu .score-meter::-moz-meter-bar {
+	background: var(--fg-3);
+}
+.score-detail {
+	grid-column: 1 / -1;
+	color: var(--fg-3);
+	font-size: 13px;
+	line-height: 1.5;
+}
+.score-arch,
+.score-about,
+.score-asof,
+.score-links {
+	margin: 0;
+	font-size: 13px;
+	line-height: 1.6;
+}
+.score-arch {
+	color: var(--amber);
+}
+.score-about {
+	color: var(--fg-2);
+}
+.score-asof {
+	color: var(--fg-3);
+}
+.score-links {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px 16px;
+}
 .plug-card {
 	border-radius: 14px;
 }

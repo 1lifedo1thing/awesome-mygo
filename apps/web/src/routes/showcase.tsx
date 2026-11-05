@@ -1,8 +1,9 @@
-import { APPS, type AppKind, likeKey, pad2, pick } from '@awesome-mygo/catalog';
+import { APPS, type AppKind, HAS_SCORES, likeKey, pad2, pick } from '@awesome-mygo/catalog';
 import { type AppSort, DEFAULT_SORT, groupChips, sortApps, validateShowcaseSearch } from '../lib/showcase';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { AppLink, KindTag, MonoTile, WinBar, appView } from '../components/bits';
 import { LikeButton } from '../components/Like';
+import { ScoreChip } from '../components/Score';
 import { useLang, useT } from '../lib/lang';
 import { useLikes } from '../lib/likes';
 import { pageHead } from '../lib/seo';
@@ -21,8 +22,8 @@ function ShowcasePage() {
 	const navigate = useNavigate({ from: '/showcase' });
 	const setFilter = (next: { cat?: typeof group; ui?: AppKind; sort?: typeof sortParam }) => void navigate({ search: (prev) => ({ ...prev, ...next }), replace: true, resetScroll: false });
 	const { status: likes, counts } = useLikes();
-	// With likes off there is no most-liked order to show, whatever the link says.
-	const sort: AppSort = sortParam === 'likes' && likes === 'off' ? DEFAULT_SORT : (sortParam ?? DEFAULT_SORT);
+	// With likes off there is no most-liked order to show, and before the first scores no order by score, whatever the link says. Scores are part of the build, so the order by score needs no likes.
+	const sort: AppSort = (sortParam === 'likes' && likes === 'off') || (sortParam === 'score' && !HAS_SCORES) ? DEFAULT_SORT : (sortParam ?? DEFAULT_SORT);
 
 	const nNative = APPS.filter((a) => a.kind === 'native').length;
 	// The groups count the apps of the chosen interface, so a chip never leads to an empty list.
@@ -73,6 +74,7 @@ function ShowcasePage() {
 							<option value='natural'>{t.sort_natural}</option>
 							<option value='newest'>{t.sort_new}</option>
 							{likes !== 'off' && <option value='likes'>{t.sort_likes}</option>}
+							{HAS_SCORES && <option value='score'>{t.sort_score}</option>}
 						</select>
 					</div>
 				</div>
@@ -84,6 +86,8 @@ function ShowcasePage() {
 						<div key={a.slug} className={`rv d${k % 6} flex show-cell`}>
 							<AppLink slug={a.slug} className='win card show-card' dialog>
 								<WinBar label={v.host} size='md' className='card-bar'>
+									{/* In the title bar rather than beside the author, which the like button already leaves little room for. */}
+									<ScoreChip item={likeKey.app(a)} name={a.name} />
 									<span className='mono-11 c-muted'>{v.num}</span>
 								</WinBar>
 								<div className='show-body'>

@@ -1,9 +1,11 @@
-import { type App, APPS, appBySlug, appSource, fill, hostOf, likeKey, pick } from '@awesome-mygo/catalog';
+import { type App, APPS, HAS_SCORES, appBySlug, appSource, entryScore, fill, hostOf, likeKey, pick } from '@awesome-mygo/catalog';
 import { Link, useParams } from '@tanstack/react-router';
 import { neighbours } from '../../components/AppDetail';
 import { AppLink, type AppView, appView } from '../../components/bits';
 import { LikeButton } from '../../components/Like';
+import { ScoreBreakdown } from '../../components/Score';
 import { useLang, useT } from '../../lib/lang';
+import { scoreTotal } from '../../lib/score';
 import { appBadgeMarkdown } from '../../lib/seo';
 import { useSite } from '../../lib/site';
 import { AppIcon, KindTag, StatusBar, Win, btn, btnGo, iconLabel, likeBtnLg, lnk, well } from '../ui';
@@ -52,11 +54,12 @@ export function AppHead({ app, kindLabel, className = '' }: { app: App; kindLabe
 	);
 }
 
-// Author, UI kind, site and catalog number.
+// Author, UI kind, site, catalog number and, once the workflow has recorded scores, the score (or that the app has not been measured yet).
 export function AppFacts({ view }: { view: AppView }) {
 	const t = useT();
 	const { app } = view;
 	const src = appSource(app);
+	const score = entryScore(likeKey.app(app));
 	return (
 		<dl className='m-0 grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 gap-y-0.5 border-y border-line py-2'>
 			<dt className='text-faint'>{t.f_author}</dt>
@@ -81,6 +84,12 @@ export function AppFacts({ view }: { view: AppView }) {
 			<dd className='m-0 font-mono'>
 				#{view.num} / {APPS.length}
 			</dd>
+			{HAS_SCORES && (
+				<>
+					<dt className='text-faint'>{t.score}</dt>
+					<dd className={score ? 'm-0 font-mono' : 'm-0'}>{score ? `${scoreTotal(score)}/100` : t.score_pending}</dd>
+				</>
+			)}
 		</dl>
 	);
 }
@@ -189,13 +198,14 @@ function Page({ app }: { app: App }) {
 						</li>
 					</ol>
 				</nav>
-				{/* On a phone the name comes first, then the screenshot, then the facts; on the desktop the screenshot takes the left column and the name and facts stack on the right. */}
+				{/* On a phone the name comes first, then the screenshot, then the facts; on the desktop the screenshot takes the left column and the name and facts stack on the right. The score's breakdown follows the description, in the column that scrolls. */}
 				{/* On the desktop the panel takes the height the window has left. The screenshot column is no wider than 1.6 times that height (less the padding and room for the description), so on a short screen the screenshot shrinks and the description under it stays in view. The author's other apps scroll on their own under the facts, and the left column scrolls too if a long description still does not fit. */}
 				<article className={`${well} grid gap-4 p-3.5 desk:min-h-0 desk:flex-1 desk:grid-cols-[minmax(0,calc((100dvh_-_400px)_*_1.6))_300px] desk:grid-rows-[auto_minmax(0,1fr)] desk:justify-center desk:gap-x-7 desk:gap-y-3.5 desk:p-5`}>
 					<AppHead app={app} kindLabel={kindLabel} className='desk:col-start-2 desk:row-start-1' />
 					<div className='relative grid content-start gap-4 desk:col-start-1 desk:row-span-2 desk:row-start-1 desk:min-h-0 desk:overflow-y-auto'>
 						<AppShot view={v} priority fit />
 						<p className='m-0 max-w-[48em] leading-[22px] [&:lang(ko)]:break-keep'>{pick(app.about, lang)}</p>
+						<ScoreBreakdown item={likeKey.app(app)} id='score' className='max-w-[48em]' />
 					</div>
 					<div className='grid content-start gap-3.5 desk:col-start-2 desk:row-start-2 desk:flex desk:min-h-0 desk:flex-col'>
 						<AppFacts view={v} />

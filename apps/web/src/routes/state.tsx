@@ -2,6 +2,7 @@ import { BINDINGS_DOC, STATE_SOLUTIONS, likeKey, pad2, pick } from '@awesome-myg
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { Docky, WinBar } from '../components/bits';
 import { LikeButton } from '../components/Like';
+import { ScoreButton } from '../components/Score';
 import { useLang, useT } from '../lib/lang';
 import { type StateBlock, validateStateSearch } from '../lib/page-search';
 import { pageHead } from '../lib/seo';
@@ -80,7 +81,10 @@ function StatePage() {
 														<span lang='en'>by</span> {s.author}
 													</span>
 												</div>
-												<LikeButton item={likeKey.state(s)} name={s.name} className='like-btn like-end' />
+												<span className='like-end card-acts'>
+													<ScoreButton item={likeKey.state(s)} name={s.name} />
+													<LikeButton item={likeKey.state(s)} name={s.name} className='like-btn' />
+												</span>
 											</div>
 											<p className='show-desc'>{pick(s.desc, lang)}</p>
 											<div className='cmd-row plug-cmd'>
