@@ -3,10 +3,11 @@ import { readFile, readdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { promisify } from 'node:util';
 import { DEFAULT_MODEL, README_LIMIT, type LlmConfig, writeCopy } from './copy.ts';
+import { github, rawFile, rawUrl as rawRepoUrl } from './github.ts';
 import { downloadImage, isDefaultIcon, writeIcon, writeShot } from './image.ts';
 import { ENTRY_DIRS, type Entry, type EntryKind, addedFiles, appCategories, appNameFrom, hasAllLanguages, iconOf, pickMygoJson, readmeImages, repoOfEntry, repoScreenshots, resolveImage, setCategory, submittedScreenshot } from './source.ts';
 
-// Run by .github/workflows/enrich-submission.yml on a pull request the submission bot opened. It finds the entries the branch adds, then for each fills in what the form cannot ask for: an app's icon (from its mygo.json) and screenshot (the first landscape one in its README, or else in a screenshot folder of the repository), its category when the submission names none, and the copy in every site language. It changes files in the working tree and writes a Markdown report for the pull request; the workflow runs the catalog checks and commits.
+// Run by .github/workflows/enrich-submission.yml on a pull request the submission bot opened, and by discover.ts on each entry it proposes. It finds the entries the branch adds, then for each fills in what the form cannot ask for: an app's icon (from its mygo.json) and screenshot (the first landscape one in its README, or else in a screenshot folder of the repository), its category when the submission names none, and the copy in every site language. It changes files in the working tree and writes a Markdown report for the pull request; the workflow runs the catalog checks and commits.
 //
 // Environment: BASE_REF (the branch the entries are compared with, default origin/main), REPORT_FILE (where the report goes), GITHUB_TOKEN (for the GitHub API), and LLM_API_KEY with optional LLM_BASE_URL and LLM_MODEL for the copy; without LLM_API_KEY the copy is left as submitted.
 
@@ -23,21 +24,6 @@ const report: string[] = [];
 const say = (line: string): void => {
 	report.push(line);
 };
-
-async function github<T>(path: string): Promise<T | undefined> {
-	const res = await fetch(`https://api.github.com${path}`, {
-		headers: { accept: 'application/vnd.github+json', 'x-github-api-version': '2022-11-28', ...(env.GITHUB_TOKEN ? { authorization: `Bearer ${env.GITHUB_TOKEN}` } : {}) },
-		signal: AbortSignal.timeout(30_000),
-	});
-	if (res.status === 404) return undefined;
-	if (!res.ok) throw new Error(`GitHub ${path}: ${res.status}`);
-	return (await res.json()) as T;
-}
-
-async function rawFile(repo: string, branch: string, path: string): Promise<string | undefined> {
-	const res = await fetch(`https://raw.githubusercontent.com/${repo}/${branch}/${path.split('/').map(encodeURIComponent).join('/')}`, { signal: AbortSignal.timeout(30_000) });
-	return res.ok ? res.text() : undefined;
-}
 
 interface RepoFacts {
 	repo: string;
@@ -70,7 +56,7 @@ async function repoFacts(repo: string): Promise<RepoFacts | undefined> {
 	return facts;
 }
 
-const rawUrl = (facts: RepoFacts, path: string) => `https://raw.githubusercontent.com/${facts.repo}/${facts.branch}/${path.split('/').map(encodeURIComponent).join('/')}`;
+const rawUrl = (facts: RepoFacts, path: string) => rawRepoUrl(facts.repo, facts.branch, path);
 
 // Adds the app's icon and returns where it was taken from, so the screenshot search can pass over the same image.
 async function addIcon(entry: Entry, slug: string, facts: RepoFacts): Promise<string | undefined> {
