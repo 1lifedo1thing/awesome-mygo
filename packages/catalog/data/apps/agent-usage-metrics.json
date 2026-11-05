@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "agent-usage-metrics",
+	"name": "Agent Usage Metrics",
+	"author": "meimingqi222",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/meimingqi222/devin-usage-metrics",
+	"repo": "meimingqi222/devin-usage-metrics",
+	"summary": {
+		"en": "Local coding-agent usage in a window or the tray: token charts, costs, sessions and live quotas.",
+		"zh-CN": "在窗口或托盘中查看本地编程智能体用量：token 图表、费用、会话与实时配额。",
+		"zh-TW": "在視窗或系統匣查看本機編碼代理用量：token 圖表、費用、工作階段與即時配額。",
+		"ja": "コーディングエージェントの利用状況をウィンドウとトレイで。トークン、コスト、セッション、クォータを表示。",
+		"ko": "로컬 코딩 에이전트 사용량을 창과 트레이에서: 토큰 차트, 비용, 세션, 실시간 할당량."
+	},
+	"description": {
+		"en": "Reads the local history of eleven coding agents, among them Claude Code, Codex, Devin and OpenCode, and shows token charts, costs, recent sessions and live quotas in a window and a tray panel on Windows, macOS and Linux. Account switching and sync to a self-hosted server are opt-in. Written in Go with MyGo's native UI and no WebView, as a migration of an earlier Rust version.",
+		"zh-CN": "读取 Claude Code、Codex、Devin、OpenCode 等十一种编程智能体的本地历史，在窗口和托盘面板中显示 token 图表、费用、近期会话与实时配额，支持 Windows、macOS 和 Linux。账号切换和同步到自托管服务器都需要手动开启。以 Go 编写、用 MyGo 原生 UI 绘制，不使用 WebView，由早期的 Rust 版本迁移而来。",
+		"zh-TW": "讀取 Claude Code、Codex、Devin、OpenCode 等十一種編碼代理的本機歷史紀錄，在視窗與系統匣面板中顯示 token 圖表、費用、近期工作階段與即時配額，支援 Windows、macOS 和 Linux。帳號切換與同步至自架伺服器都需要自行開啟。以 Go 撰寫、用 MyGo 原生 UI 繪製，不使用 WebView，由早期的 Rust 版本遷移而來。",
+		"ja": "Claude Code、Codex、Devin、OpenCode など 11 種のコーディングエージェントのローカル履歴を読み込み、トークンのグラフ、コスト、最近のセッション、リアルタイムのクォータをウィンドウとトレイのパネルに表示します。Windows、macOS、Linux に対応。アカウントの切り替えやセルフホストサーバーとの同期は、有効にした場合だけ動きます。Go で書かれ、MyGo のネイティブ UI で描かれており、WebView は使いません。以前の Rust 版から移行したものです。",
+		"ko": "Claude Code, Codex, Devin, OpenCode 등 11개 코딩 에이전트의 로컬 기록을 읽어 토큰 차트, 비용, 최근 세션, 실시간 할당량을 창과 트레이 패널에 보여 줍니다. Windows, macOS, Linux를 지원합니다. 계정 전환과 셀프 호스팅 서버 동기화는 직접 켜야 동작합니다. Go로 작성하고 MyGo의 네이티브 UI로 그렸으며 WebView를 쓰지 않고, 이전 Rust 버전에서 옮겨 온 것입니다."
+	},
+	"icon": {
+		"file": "agent-usage-metrics.webp"
+	},
+	"screenshot": "agent-usage-metrics.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T05:02:32Z"
+}
