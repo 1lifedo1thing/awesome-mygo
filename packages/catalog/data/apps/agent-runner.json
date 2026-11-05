@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "agent-runner",
+	"name": "Agent Runner",
+	"author": "walm",
+	"kind": "web",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/walm/agent-runner",
+	"repo": "walm/agent-runner",
+	"summary": {
+		"en": "A neon city game where your AI coding agents get buildings; drive there to read and answer them.",
+		"zh-CN": "霓虹城市游戏：每个 AI 编程智能体一栋楼，开过去查看终端并回复。",
+		"zh-TW": "霓虹城市遊戲：每個 AI 程式設計代理一棟樓，開過去查看終端機並回覆。",
+		"ja": "AI コーディングエージェントがビルを持つネオンの街。車で訪ねて端末を読み、応答する。",
+		"ko": "AI 코딩 에이전트마다 건물이 있는 네온 도시 게임. 찾아가 터미널을 읽고 답합니다."
+	},
+	"description": {
+		"en": "The macOS app of a neon city game forked from Neon Zenith, where Claude Code, Codex and other agents each get a building lit in their status colour. Drive or fly to one, read its terminal live and answer by picking an option, typing or speaking. MyGo wraps the web game with its agent server inside; on other systems the game runs from source in a WebGPU browser.",
+		"zh-CN": "一款霓虹城市游戏的 macOS 版，衍生自 Neon Zenith：Claude Code、Codex 等智能体各占一栋楼，楼顶灯光显示其状态。开车或飞到楼下即可实时查看它的终端，并通过选择选项、打字或语音回复。MyGo 将这款 Web 游戏连同智能体服务器封装成应用；在其他系统上可从源码运行，用支持 WebGPU 的浏览器游玩。",
+		"zh-TW": "一款霓虹城市遊戲的 macOS 版，衍生自 Neon Zenith：Claude Code、Codex 等代理各佔一棟樓，樓頂燈光顯示其狀態。開車或飛到樓下即可即時查看它的終端機，並透過選擇選項、打字或語音回覆。MyGo 將這款 Web 遊戲連同代理伺服器封裝成應用程式；在其他系統上可從原始碼執行，用支援 WebGPU 的瀏覽器遊玩。",
+		"ja": "ネオンの街を舞台にしたゲームの macOS 版で、Neon Zenith のフォークです。Claude Code や Codex などのエージェントがそれぞれビルを持ち、屋上の光で状態を示します。車で走るか飛んで向かえば、ターミナルの出力をリアルタイムで読み、選択肢を選ぶ、入力する、話しかけるのいずれかで応答できます。MyGo が Web ゲームをエージェントサーバーごとアプリにまとめており、ほかの OS ではソースから動かして WebGPU 対応ブラウザで遊びます。",
+		"ko": "Neon Zenith를 포크한 네온 도시 게임의 macOS 앱입니다. Claude Code, Codex 등 에이전트마다 건물이 생기고 옥상 불빛으로 상태를 보여 줍니다. 차를 몰거나 날아가 터미널 출력을 실시간으로 읽고, 선택지 고르기, 입력, 음성으로 답할 수 있습니다. MyGo가 웹 게임을 에이전트 서버와 함께 앱으로 묶었으며, 다른 OS에서는 소스에서 실행해 WebGPU 브라우저로 플레이합니다."
+	},
+	"icon": {
+		"file": "agent-runner.webp"
+	},
+	"screenshot": "agent-runner.webp",
+	"added": "2026-11-05T03:47:54Z"
+}
