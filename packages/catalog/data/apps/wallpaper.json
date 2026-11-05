@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "wallpaper",
+	"name": "Wallpaper",
+	"author": "Alpenl",
+	"kind": "native",
+	"group": "media",
+	"url": "https://github.com/Alpenl/wallpaper",
+	"repo": "Alpenl/wallpaper",
+	"summary": {
+		"en": "Plays videos and images as desktop wallpaper on Windows and macOS, with settings for each display.",
+		"zh-CN": "在 Windows 和 macOS 上把视频和图片设为桌面壁纸，每台显示器可单独设置。",
+		"zh-TW": "在 Windows 與 macOS 上把影片和圖片設為桌布，每台螢幕可個別設定。",
+		"ja": "Windows・macOS で動画や画像をデスクトップの壁紙にし、ディスプレイごとに設定できるアプリ。",
+		"ko": "Windows와 macOS에서 동영상과 이미지를 바탕화면 배경으로 재생하고 디스플레이별로 설정합니다."
+	},
+	"description": {
+		"en": "A dynamic wallpaper app for Windows and macOS that plays videos and images on the desktop, run from a tray icon and a settings window drawn with MyGo's native UI. Video plays through mpv or Media Foundation on Windows and AVFoundation on macOS. Each display can be played or paused on its own, one wallpaper can span several screens, and it offers app rules, batch import and optional H.264 transcoding.",
+		"zh-CN": "适用于 Windows 与 macOS 的动态壁纸应用，把视频和图片铺在桌面上，通过托盘图标和由 MyGo 原生 UI 绘制的设置窗口操作。Windows 上用 mpv 或 Media Foundation 播放视频，macOS 上用 AVFoundation。每台显示器可单独播放或暂停，一张壁纸也能横跨多块屏幕，另有应用规则、批量导入和可选的 H.264 转码。",
+		"zh-TW": "適用於 Windows 與 macOS 的動態桌布應用程式，把影片和圖片鋪在桌面上，透過系統匣圖示和由 MyGo 原生 UI 繪製的設定視窗操作。Windows 上以 mpv 或 Media Foundation 播放影片，macOS 上則用 AVFoundation。每台螢幕可個別播放或暫停，一張桌布也能橫跨多個螢幕，另有應用程式規則、批次匯入和可選的 H.264 轉檔。",
+		"ja": "Windows・macOS 向けの動く壁紙アプリで、動画や画像をデスクトップに表示します。操作はトレイアイコンと、MyGo のネイティブ UI で描かれた設定ウィンドウから行います。動画は Windows では mpv か Media Foundation、macOS では AVFoundation で再生します。ディスプレイごとに再生・一時停止でき、1 枚の壁紙を複数の画面にまたがせることもでき、アプリ別のルール、一括インポート、任意の H.264 変換も備えています。",
+		"ko": "Windows와 macOS용 움직이는 배경화면 앱으로, 동영상과 이미지를 바탕화면에 띄웁니다. 트레이 아이콘과 MyGo의 네이티브 UI로 그린 설정 창에서 조작합니다. 동영상은 Windows에서는 mpv나 Media Foundation으로, macOS에서는 AVFoundation으로 재생합니다. 디스플레이마다 따로 재생하거나 일시 정지할 수 있고, 배경화면 하나를 여러 화면에 걸쳐 펼칠 수 있으며, 앱별 규칙, 일괄 가져오기, 선택형 H.264 변환도 제공합니다."
+	},
+	"icon": {
+		"file": "wallpaper.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "wallpaper.webp",
+	"added": "2026-11-05T08:45:51Z"
+}
