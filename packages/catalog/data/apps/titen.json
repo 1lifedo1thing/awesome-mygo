@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "titen",
+	"name": "Titen",
+	"author": "nggalek-co",
+	"kind": "native",
+	"category": "BusinessApplication",
+	"url": "https://github.com/nggalek-co/titen",
+	"repo": "nggalek-co/titen",
+	"summary": {
+		"en": "Records your mic and system audio, transcribes meetings with Soniox and keeps the text locally.",
+		"zh-CN": "录下麦克风与系统声音，用 Soniox 转写会议，文字稿保存在本机。",
+		"zh-TW": "錄下麥克風與系統聲音，以 Soniox 轉寫會議，逐字稿保存在本機。",
+		"ja": "マイクとシステム音声を録音し、Soniox で会議を文字起こしして、記録をローカルに保存。",
+		"ko": "마이크와 시스템 오디오를 녹음해 Soniox로 회의를 받아쓰고 기록을 로컬에 저장합니다."
+	},
+	"description": {
+		"en": "A meeting transcription app for macOS, Windows and Linux, drawn with MyGo's native UI. It records the microphone and system audio, streams the speech to Soniox and saves finalized transcripts in SQLite, searchable from History. It is the desktop client of the Titen service; the account, prepaid billing and Google integration are built separately in titen-web.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的会议转写应用，支持 macOS、Windows 与 Linux。它录下麦克风和系统声音，把语音直接传给 Soniox 转写，并将定稿的文字存入本机 SQLite，可在 History 中搜索。它是 Titen 服务的桌面客户端，账户、预付费计费和 Google 集成由另行开发的 titen-web 负责。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的會議轉寫應用程式，支援 macOS、Windows 與 Linux。它錄下麥克風和系統聲音，將語音直接傳給 Soniox 轉寫，並把定稿的文字存進本機 SQLite，可在 History 中搜尋。它是 Titen 服務的桌面用戶端，帳號、預付計費與 Google 整合則由另外開發的 titen-web 負責。",
+		"ja": "MyGo のネイティブ UI で描かれた、macOS・Windows・Linux 向けの会議文字起こしアプリ。マイクとシステム音声を録音して Soniox に直接送り、確定したテキストをローカルの SQLite に保存して、History から検索できます。Titen サービスのデスクトップクライアントで、アカウント、前払いの課金、Google 連携は別に作られた titen-web が担います。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS·Windows·Linux용 회의 받아쓰기 앱입니다. 마이크와 시스템 오디오를 녹음해 Soniox로 바로 보내고, 확정된 텍스트를 로컬 SQLite에 저장해 History에서 검색할 수 있습니다. Titen 서비스의 데스크톱 클라이언트이며, 계정, 선불 결제, Google 연동은 별도로 만든 titen-web이 맡습니다."
+	},
+	"icon": {
+		"file": "titen.webp"
+	},
+	"screenshot": "titen.webp",
+	"added": "2026-11-05T05:38:23Z"
+}
