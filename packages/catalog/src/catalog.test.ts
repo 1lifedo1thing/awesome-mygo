@@ -304,7 +304,7 @@ describe('langRedirectScript', () => {
 			for (const saved of saves) {
 				for (const userAgent of [CHROME, GOOGLEBOT]) {
 					const want = negotiateLang(saved, browser, userAgent);
-					const to = run('https://mygodock.dev/showcase?app=kero', saved, browser, userAgent);
+					const to = run('https://awesomemygo.dev/showcase?app=kero', saved, browser, userAgent);
 					expect(to ? new URL(to).searchParams.get('lang') : 'zh-CN', `${browser} ${saved} ${userAgent}`).toBe(want);
 				}
 			}
@@ -312,25 +312,25 @@ describe('langRedirectScript', () => {
 	});
 
 	it('reads navigator.language when the browser has no navigator.languages', () => {
-		expect(run('https://mygodock.dev/', null, 'ja-JP')).toBe('https://mygodock.dev/?lang=ja');
-		expect(run('https://mygodock.dev/', null, 'zh-CN')).toBeNull();
+		expect(run('https://awesomemygo.dev/', null, 'ja-JP')).toBe('https://awesomemygo.dev/?lang=ja');
+		expect(run('https://awesomemygo.dev/', null, 'zh-CN')).toBeNull();
 	});
 
 	it('keeps the path and other parameters', () => {
-		expect(run('https://mygodock.dev/showcase?app=kero', null, ['en-US'])).toBe('https://mygodock.dev/showcase?app=kero&lang=en');
+		expect(run('https://awesomemygo.dev/showcase?app=kero', null, ['en-US'])).toBe('https://awesomemygo.dev/showcase?app=kero&lang=en');
 	});
 
 	it('leaves a page that already names a language', () => {
-		expect(run('https://mygodock.dev/?lang=ja', null, ['en-US'])).toBeNull();
+		expect(run('https://awesomemygo.dev/?lang=ja', null, ['en-US'])).toBeNull();
 	});
 
 	it('leaves an explicit ?lang= of the default language', () => {
-		expect(run('https://mygodock.dev/?lang=zh-CN', null, ['en-US'])).toBeNull();
-		expect(run('https://mygodock.dev/?lang=zh-CN', 'ja', ['en-US'])).toBeNull();
+		expect(run('https://awesomemygo.dev/?lang=zh-CN', null, ['en-US'])).toBeNull();
+		expect(run('https://awesomemygo.dev/?lang=zh-CN', 'ja', ['en-US'])).toBeNull();
 	});
 
 	it('does not redirect crawlers', () => {
-		expect(run('https://mygodock.dev/', null, ['en-US'], GOOGLEBOT)).toBeNull();
+		expect(run('https://awesomemygo.dev/', null, ['en-US'], GOOGLEBOT)).toBeNull();
 	});
 });
 

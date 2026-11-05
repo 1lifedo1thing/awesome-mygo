@@ -1,14 +1,14 @@
 # Awesome MyGo
 
-[![Website](https://img.shields.io/badge/website-mygodock.dev-3fd3f5)](https://mygodock.dev)
+[![Website](https://img.shields.io/badge/website-awesomemygo.dev-3fd3f5)](https://awesomemygo.dev)
 [![CI](https://github.com/yldm-tech/awesome-mygo/actions/workflows/ci.yml/badge.svg)](https://github.com/yldm-tech/awesome-mygo/actions/workflows/ci.yml)
 [![License](https://img.shields.io/github/license/yldm-tech/awesome-mygo)](LICENSE)
 
-[MyGo](https://github.com/egoist/mygo) まわりのアプリ、プラグイン、コンポーネント、ドキュメントをひとつのサイトに集めました：**[mygodock.dev](https://mygodock.dev)**。MyGo は Go でデスクトップアプリを作るツールキットで、UI はネイティブ UI でも Web フロントエンドでも作れます。
+[MyGo](https://github.com/egoist/mygo) まわりのアプリ、プラグイン、コンポーネント、ドキュメントをひとつのサイトに集めました：**[awesomemygo.dev](https://awesomemygo.dev)**。MyGo は Go でデスクトップアプリを作るツールキットで、UI はネイティブ UI でも Web フロントエンドでも作れます。
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · 日本語 · [한국어](README.ko.md)
 
-[![Awesome MyGo](.github/assets/banner.png)](https://mygodock.dev)
+[![Awesome MyGo](.github/assets/banner.png)](https://awesomemygo.dev)
 
 ## サイトの内容
 
@@ -27,7 +27,7 @@ pnpm のモノレポで、[TanStack Start](https://tanstack.com/start) が [Clou
 
 | パス | 内容 |
 |---|---|
-| `apps/web` | サイト本体：React 19、TanStack Start（サーバーレンダリング）、`@cloudflare/vite-plugin` 付きの Vite。`wrangler.jsonc` で `mygodock.dev` にデプロイします。 |
+| `apps/web` | サイト本体：React 19、TanStack Start（サーバーレンダリング）、`@cloudflare/vite-plugin` 付きの Vite。`wrangler.jsonc` で `awesomemygo.dev` にデプロイします。 |
 | `packages/catalog` | データ：`data/*.json`（アプリ、UI コンポーネント、状態管理、プラグイン、記事、ガイド）とその JSON Schema、5 言語の UI 文言、検索、投稿フォームの項目。テストで全項目を検証します。 |
 | `packages/enrich` | 投稿 bot が開いたプルリクエストを補完します：プロジェクトのリポジトリからアプリのアイコンを、フォームでアップロードされた画像か指定されたリンク（なければリポジトリ）からスクリーンショットを取り込み、5 言語の文言を Claude で書きます。`.github/workflows/enrich-submission.yml` が実行します。 |
 

@@ -6,11 +6,14 @@ import { createServerEntry, createStartHandler, defaultStreamHandler } from '@ta
 const handler = createStartHandler(defaultStreamHandler);
 const SITE = new URL(SITE_URL);
 
+// The other custom domains of this Worker (wrangler.jsonc), which serve nothing of their own: www; awesome-mygo.dev, the repository's name, which some will type; and the site's first domain, mygodock.dev, which posts, pull requests and READMEs already link to. Only these move, so a Preview URL or localhost still serves the site.
+const MOVED_HOSTS = new Set([`www.${SITE.hostname}`, 'awesome-mygo.dev', 'www.awesome-mygo.dev', 'mygodock.dev', 'www.mygodock.dev']);
+
 export default createServerEntry<Register>({
 	fetch(request, opts) {
 		const url = new URL(request.url);
-		// www.mygodock.dev (a custom domain of this Worker, wrangler.jsonc) serves nothing of its own: every path moves to the same path on the bare domain.
-		if (url.hostname === `www.${SITE.hostname}`) return Response.redirect(`${SITE.origin}${url.pathname}${url.search}`, 301);
+		// Every path on those domains moves to the same path on the site's domain, for good.
+		if (MOVED_HOSTS.has(url.hostname)) return Response.redirect(`${SITE.origin}${url.pathname}${url.search}`, 301);
 		// A path with a trailing slash goes to the one without it. The router does this too, but with a 307, which tells search engines the move is temporary; 308 is permanent and keeps the method, so a POST to /api/submit/ stays a POST.
 		if (url.pathname.length > 1 && url.pathname.endsWith('/')) {
 			url.pathname = url.pathname.replace(/\/+$/, '') || '/';

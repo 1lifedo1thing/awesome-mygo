@@ -3,12 +3,16 @@
 	"name": "awesome-mygo",
 	"compatibility_date": "2026-06-20",
 	"compatibility_flags": ["nodejs_compat"],
-	// The Worker entry (src/server.ts): TanStack Start's handler, which server-renders every route, behind the www and trailing-slash redirects. The client bundle and public/ are served as static assets.
+	// The Worker entry (src/server.ts): TanStack Start's handler, which server-renders every route, behind the redirects from its other domains and of trailing slashes. The client bundle and public/ are served as static assets.
 	"main": "src/server.ts",
-	// The zone mygodock.dev must be on the Cloudflare account that deploys; the custom domain creates its DNS record and certificate.
+	// The zones awesomemygo.dev, awesome-mygo.dev and mygodock.dev must be on the Cloudflare account that deploys; each custom domain creates its DNS record and certificate.
 	"routes": [
+		{ "pattern": "awesomemygo.dev", "custom_domain": true },
+		// None of these has a site of its own: src/server.ts moves every request on them to the same path on awesomemygo.dev. awesome-mygo.dev is the repository's name, which some will type; mygodock.dev was the site's first domain, which posts, pull requests and READMEs already link to.
+		{ "pattern": "www.awesomemygo.dev", "custom_domain": true },
+		{ "pattern": "awesome-mygo.dev", "custom_domain": true },
+		{ "pattern": "www.awesome-mygo.dev", "custom_domain": true },
 		{ "pattern": "mygodock.dev", "custom_domain": true },
-		// www has no site of its own: src/server.ts moves every request to the bare domain.
 		{ "pattern": "www.mygodock.dev", "custom_domain": true }
 	],
 	"observability": { "enabled": true },

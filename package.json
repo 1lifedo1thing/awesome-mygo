@@ -5,7 +5,7 @@
 	"type": "module",
 	"description": "Awesome MyGo: the MyGo ecosystem site, served from Cloudflare Workers",
 	"license": "MIT",
-	"homepage": "https://mygodock.dev",
+	"homepage": "https://awesomemygo.dev",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/yldm-tech/awesome-mygo.git"

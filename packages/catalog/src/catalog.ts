@@ -4,7 +4,7 @@ import { CatalogError, Reader, unique } from './validate';
 
 // The entries live in packages/catalog/data, one file each in their category's directory (apps/, ui/, state/, plugins/, articles/, docs/), named after the entry's slug, so submissions that arrive together never touch the same file. data/schema/ describes their fields. Data sources: egoist/mygo (website/src/showcase.ts, docs/) and each project's own README.
 
-export const SITE_URL = 'https://mygodock.dev';
+export const SITE_URL = 'https://awesomemygo.dev';
 export const MYGO_SITE = 'https://mygo.egoist.dev';
 export const MYGO_SHOWCASE = 'https://mygo.egoist.dev/showcase';
 export const MYGO_REPO = 'https://github.com/egoist/mygo';

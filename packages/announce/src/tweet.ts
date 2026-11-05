@@ -1,6 +1,6 @@
 // The post announcing one entry, in Simplified Chinese, the site's default language: what was listed and by whom, its page on the site, its summary, its stars, and how much the site lists now. The site's page is the post's first link, as X shows a card for the first link in a post and the post is there to bring readers to the site; the project's GitHub repository follows, with its stars. It is a post of its own rather than a quote of the site's launch post, as X shows no link card in a post that quotes another.
 
-export const SITE_URL = 'https://mygodock.dev';
+export const SITE_URL = 'https://awesomemygo.dev';
 
 export type EntryKind = 'app' | 'ui' | 'state' | 'plugin';
 export const ENTRY_DIRS: Record<EntryKind, string> = { app: 'apps', ui: 'ui', state: 'state', plugin: 'plugins' };

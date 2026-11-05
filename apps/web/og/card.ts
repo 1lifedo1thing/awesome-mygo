@@ -170,7 +170,7 @@ function card(app: App, im: CardImages): ReactNode {
 			h('div', { display: 'flex', marginTop: 28, fontSize: nameSize(app.name), fontWeight: 800, lineHeight: 1.05, letterSpacing: '-0.02em' }, app.name),
 			h('div', { display: 'flex', marginTop: 16, fontSize: 30, fontWeight: 500, color: C.fg2 }, `by ${app.author}`),
 			h('div', { display: 'flex', flexGrow: 1 }),
-			h('div', { display: 'flex', alignItems: 'center' }, img(im.site, 48, 48, { borderRadius: 12 }), h('div', { display: 'flex', marginLeft: 16, fontSize: 30, fontWeight: 800 }, 'mygodock.dev')),
+			h('div', { display: 'flex', alignItems: 'center' }, img(im.site, 48, 48, { borderRadius: 12 }), h('div', { display: 'flex', marginLeft: 16, fontSize: 30, fontWeight: 800 }, 'awesomemygo.dev')),
 		),
 		h('div', { display: 'flex', flexGrow: 1, justifyContent: 'flex-end' }, right),
 	);

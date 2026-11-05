@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://mygodock.dev/sitemap.xml
+Sitemap: https://awesomemygo.dev/sitemap.xml

@@ -37,7 +37,7 @@ export interface Copy {
 	tooLong: string[];
 }
 
-const SYSTEM = `You write the catalog copy for mygodock.dev, a directory of apps, UI components, state management libraries and plugins built with MyGo, a Go toolkit for desktop apps with a native UI or a web frontend.
+const SYSTEM = `You write the catalog copy for awesomemygo.dev, a directory of apps, UI components, state management libraries and plugins built with MyGo, a Go toolkit for desktop apps with a native UI or a web frontend.
 
 You get one entry submitted through the site's form, the project's README and, for an app, its MyGo configuration (mygo.json, or mygo.config.ts for an app with a web frontend), plus entries already on the site as examples of the voice and length to match.
 
