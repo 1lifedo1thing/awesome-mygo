@@ -1,0 +1,26 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "godraw",
+	"name": "godraw",
+	"author": "egoist",
+	"kind": "native",
+	"category": "BusinessApplication",
+	"url": "https://github.com/egoist/godraw",
+	"repo": "egoist/godraw",
+	"summary": {
+		"en": "A native whiteboard in the style of tldraw that opens and saves tldraw's .tldr files.",
+		"zh-CN": "tldraw 风格的原生白板，可打开并保存 tldraw 的 .tldr 文件。",
+		"zh-TW": "tldraw 風格的原生白板，可開啟並儲存 tldraw 的 .tldr 檔案。",
+		"ja": "tldraw 風のネイティブなホワイトボード。tldraw の .tldr ファイルを開いて保存できる。",
+		"ko": "tldraw 스타일의 네이티브 화이트보드. tldraw의 .tldr 파일을 열고 저장합니다."
+	},
+	"description": {
+		"en": "A whiteboard in the manner of tldraw, written in Go and drawn with MyGo's native UI, with no web view and no JavaScript. An independent reimplementation, it reads and writes tldraw's .tldr files so drawings move between the two, though rich text shows as plain text. It has drawing, arrow, note, frame and shape tools, opens each drawing in its own window with autosave, and exports PNG and SVG.",
+		"zh-CN": "仿照 tldraw 风格的白板，用 Go 编写、由 MyGo 原生 UI 绘制，没有 Web 视图，也没有 JavaScript。它是独立重新实现的，能读写 tldraw 的 .tldr 文件，绘图可以在两者之间互通，但富文本只显示为纯文本。提供手绘、箭头、便签、框架和几何图形等工具，每个绘图在独立窗口中打开并自动保存，可导出为 PNG 和 SVG。",
+		"zh-TW": "仿照 tldraw 風格的白板，用 Go 撰寫、由 MyGo 原生 UI 繪製，沒有 Web 視圖，也沒有 JavaScript。它是獨立重新實作的版本，能讀寫 tldraw 的 .tldr 檔案，繪圖可以在兩者之間互通，但格式化文字只會顯示為純文字。提供手繪、箭頭、便利貼、框架和幾何圖形等工具，每張繪圖在獨立視窗中開啟並自動儲存，可匯出為 PNG 與 SVG。",
+		"ja": "tldraw 風のホワイトボードで、Go で書かれ、MyGo のネイティブ UI で描かれています。Web ビューも JavaScript も使いません。tldraw とは別に作られた再実装ですが、tldraw の .tldr ファイルを読み書きできるので両者の間で図を受け渡せます。ただし、リッチテキストはプレーンテキストとして表示されます。手描き、矢印、付箋、フレーム、図形などのツールを備え、図ごとに別ウィンドウで開いて自動保存し、PNG と SVG に書き出せます。",
+		"ko": "tldraw 스타일의 화이트보드로, Go로 작성하고 MyGo의 네이티브 UI로 그렸으며 웹 뷰도 JavaScript도 없습니다. tldraw와 별개로 다시 구현했지만 tldraw의 .tldr 파일을 읽고 쓸 수 있어 두 앱 사이에 그림을 주고받을 수 있고, 서식 있는 텍스트는 일반 텍스트로 표시됩니다. 펜, 화살표, 메모, 프레임, 도형 도구를 갖췄고, 그림마다 별도 창에서 열려 자동 저장되며, PNG와 SVG로 내보낼 수 있습니다."
+	},
+	"added": "2026-11-05T00:58:48Z",
+	"screenshot": "godraw.webp"
+}
