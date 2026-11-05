@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "golauncher",
+	"name": "golauncher",
+	"author": "eziq1",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/eziq1/golauncher",
+	"repo": "eziq1/golauncher",
+	"summary": {
+		"en": "A Raycast-style launcher for Windows and macOS: apps, files, math, clipboard history and AI chat.",
+		"zh-CN": "仿 Raycast 的 Windows/macOS 启动器，含剪贴板历史与 AI 对话",
+		"zh-TW": "仿 Raycast 的 Windows/macOS 啟動器，含剪貼簿歷史與 AI 對話",
+		"ja": "Raycast 風の Windows・macOS 向けランチャー。アプリ、クリップボード履歴、AI チャット",
+		"ko": "Raycast 스타일의 Windows·macOS 런처. 앱, 파일, 클립보드 기록, AI 채팅"
+	},
+	"description": {
+		"en": "A Raycast-style launcher for Windows and macOS, written in Go and drawn with MyGo's native UI. Press Alt+Space to search apps, files and commands, convert units, browse clipboard history, translate, manage WinGet, Scoop or Homebrew packages, and act on selected text or the current folder. An optional AI chat runs through your Claude Code, Codex or Gemini CLI.",
+		"zh-CN": "仿 Raycast 的 Windows 与 macOS 启动器，用 Go 编写，由 MyGo 原生 UI 绘制。按 Alt+Space 即可搜索应用、文件和命令，进行单位换算、查看剪贴板历史、翻译，管理 WinGet、Scoop 或 Homebrew 软件包，还能对选中的文字或当前文件夹执行操作。可选的 AI 对话通过本机的 Claude Code、Codex 或 Gemini CLI 进行。",
+		"zh-TW": "仿 Raycast 的 Windows 與 macOS 啟動器，用 Go 撰寫，由 MyGo 原生 UI 繪製。按 Alt+Space 即可搜尋應用程式、檔案和指令，進行單位換算、查看剪貼簿歷史、翻譯，管理 WinGet、Scoop 或 Homebrew 套件，還能對選取的文字或目前資料夾執行動作。可選的 AI 對話透過本機的 Claude Code、Codex 或 Gemini CLI 進行。",
+		"ja": "Raycast 風の Windows・macOS 向けランチャー。Go で書かれ、MyGo のネイティブ UI で描かれています。Alt+Space でアプリ、ファイル、コマンドを検索し、単位換算、クリップボード履歴、翻訳、WinGet・Scoop・Homebrew のパッケージ管理に加え、選択中のテキストや開いているフォルダーへの操作もできます。オプションの AI チャットは手元の Claude Code、Codex、Gemini CLI を通して動きます。",
+		"ko": "Raycast 스타일의 Windows·macOS 런처로, Go로 작성하고 MyGo의 네이티브 UI로 그렸습니다. Alt+Space로 앱, 파일, 명령을 검색하고 단위 변환, 클립보드 기록, 번역, WinGet·Scoop·Homebrew 패키지 관리를 하며, 선택한 텍스트나 현재 폴더에 대한 동작도 제공합니다. 선택 기능인 AI 채팅은 설치된 Claude Code, Codex, Gemini CLI를 통해 동작합니다."
+	},
+	"icon": {
+		"file": "golauncher.webp"
+	},
+	"screenshot": "golauncher.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T17:06:44Z"
+}
