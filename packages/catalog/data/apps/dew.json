@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "dew",
+	"name": "Dew",
+	"author": "kzheart",
+	"kind": "web",
+	"group": "notes",
+	"url": "https://github.com/kzheart/Dew",
+	"repo": "kzheart/Dew",
+	"summary": {
+		"en": "A quiet desktop Markdown editor for plain .md files, with live editing, diagrams and math.",
+		"zh-CN": "安静的 Markdown 编辑器，直接编辑 .md 文件，支持实时编辑、图表与公式。",
+		"zh-TW": "安靜的 Markdown 編輯器，直接編輯 .md 檔案，支援即時編輯、圖表與公式。",
+		"ja": "普通の .md ファイルをそのまま扱う、静かな Markdown エディター。図表と数式にも対応。",
+		"ko": "일반 .md 파일을 그대로 다루는 조용한 Markdown 편집기. 다이어그램과 수식 지원."
+	},
+	"description": {
+		"en": "A Markdown editor for macOS that works on plain .md files, built with MyGo around a web frontend; Windows support is planned. It edits live, as source, or with source and preview side by side, renders Mermaid, Vega-Lite and PlantUML diagrams and LaTeX math, converts pasted web pages and table data to Markdown, and exports to PDF and HTML.",
+		"zh-CN": "一款 macOS 上的 Markdown 编辑器，文档就是磁盘上的普通 .md 文件，基于 MyGo 以 Web 前端构建，Windows 版尚在规划中。支持实时编辑、源码模式以及源码与预览并排对照，能渲染 Mermaid、Vega-Lite、PlantUML 图表和 LaTeX 公式；粘贴的网页内容和表格数据会自动转为 Markdown，并可导出 PDF 与 HTML。",
+		"zh-TW": "一款 macOS 上的 Markdown 編輯器，文件就是磁碟上的一般 .md 檔案，以 MyGo 搭配 Web 前端打造，Windows 版仍在規劃中。支援即時編輯、原始碼模式以及原始碼與預覽並排對照，能算繪 Mermaid、Vega-Lite、PlantUML 圖表和 LaTeX 公式；貼上的網頁內容和表格資料會自動轉成 Markdown，並可匯出 PDF 與 HTML。",
+		"ja": "MyGo と Web フロントエンドで作られた macOS 向けの Markdown エディター。文書はディスク上の普通の .md ファイルのままで、Windows 版は計画中です。リアルタイム編集、ソース表示、ソースとプレビューの並列表示を切り替えられ、Mermaid・Vega-Lite・PlantUML の図表と LaTeX の数式を描画します。貼り付けた Web ページや表データは Markdown に変換され、PDF と HTML に書き出せます。",
+		"ko": "MyGo와 웹 프런트엔드로 만든 macOS용 Markdown 편집기로, 문서는 디스크의 일반 .md 파일 그대로이며 Windows 버전은 계획 중입니다. 실시간 편집, 소스 보기, 소스와 미리보기 나란히 보기를 지원하고 Mermaid, Vega-Lite, PlantUML 다이어그램과 LaTeX 수식을 렌더링합니다. 붙여 넣은 웹 페이지와 표 데이터는 Markdown으로 바뀌며, PDF와 HTML로 내보낼 수 있습니다."
+	},
+	"icon": {
+		"file": "dew.webp"
+	},
+	"screenshot": "dew.webp",
+	"added": "2026-11-05T08:28:47Z"
+}
