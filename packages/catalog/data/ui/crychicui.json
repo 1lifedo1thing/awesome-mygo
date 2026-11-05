@@ -1,0 +1,19 @@
+{
+	"$schema": "../schema/ui.schema.json",
+	"slug": "crychicui",
+	"name": "CrychicUI",
+	"author": "ELY Open Source",
+	"tag": "theme",
+	"summary": {
+		"en": "1500 components for MyGo native UI in 38 categories, in MyGo's own look of zinc greys and the system accent color; every component animates, and interactive ones play synthesized sound cues.",
+		"zh-CN": "为 MyGo 原生 UI 打造的 1500 个组件，分 38 类，沿用 MyGo 自己的锌灰底色与系统强调色；每个组件都有动效，可交互组件还会播放合成音效。",
+		"zh-TW": "為 MyGo 原生 UI 打造的 1500 個元件，分 38 類，沿用 MyGo 自己的鋅灰底色與系統強調色；每個元件都有動態效果，可互動元件還會播放合成音效。",
+		"ja": "MyGo のネイティブ UI 向けに 38 カテゴリ・1500 のコンポーネント。亜鉛グレーの地とシステムのアクセントカラーという MyGo 自身の見た目で、どれも動き、操作できるものは合成した効果音を鳴らします。",
+		"ko": "MyGo 네이티브 UI용 컴포넌트 1500개, 38개 분류. 아연 회색 바탕과 시스템 강조색이라는 MyGo 고유의 모습에, 모든 컴포넌트가 움직이고 조작할 수 있는 컴포넌트는 합성 효과음을 냅니다."
+	},
+	"repo": "ELY-Open-Source/CrychicUI",
+	"url": "https://github.com/ELY-Open-Source/CrychicUI",
+	"homepage": "https://crychicui.zhangyanghaha0407.workers.dev",
+	"screenshot": "crychicui.webp",
+	"added": "2026-11-05T00:15:49Z"
+}
