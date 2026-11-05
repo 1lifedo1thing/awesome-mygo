@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "beekb",
+	"name": "beekb",
+	"author": "Kutius",
+	"kind": "native",
+	"group": "devices",
+	"url": "https://github.com/Kutius/beekb-driver",
+	"repo": "Kutius/beekb-driver",
+	"summary": {
+		"en": "Configures the Bee X80 keyboard on Windows: key map, lighting, macros and settings.",
+		"zh-CN": "在 Windows 上配置 Bee X80 键盘：键位、灯光、宏与各项设置。",
+		"zh-TW": "在 Windows 上設定 Bee X80 鍵盤：按鍵配置、燈光、巨集與各項設定。",
+		"ja": "Windows で Bee X80 キーボードのキーマップ、ライティング、マクロ、設定を変更するアプリ。",
+		"ko": "Windows에서 Bee X80 키보드의 키 매핑, 조명, 매크로, 설정을 바꾸는 앱."
+	},
+	"description": {
+		"en": "A Windows configuration app for the Bee X80 keyboard, over the USB cable or its 2.4 GHz receiver, drawn with MyGo's native UI; a command line front end on the same driver is built separately with go build. Five pages over a drawing of the board edit the key map, lighting, macros and settings, and nothing is written until you confirm the pending changes.",
+		"zh-CN": "Bee X80 键盘的 Windows 配置工具，通过 USB 线或附带的 2.4 GHz 接收器连接，界面由 MyGo 原生 UI 绘制；同一驱动上的命令行版本另行用 go build 构建。五个页面围绕一张键盘示意图，可修改键位、灯光、宏和各项设置，所有改动先列为待写入项，确认后才写入键盘。",
+		"zh-TW": "Bee X80 鍵盤的 Windows 設定工具，透過 USB 線或隨附的 2.4 GHz 接收器連線，介面由 MyGo 原生 UI 繪製；同一驅動程式上的命令列版本另以 go build 建置。五個頁面圍繞一張鍵盤示意圖，可修改按鍵配置、燈光、巨集與各項設定，所有變更先列為待寫入項目，確認後才寫入鍵盤。",
+		"ja": "Bee X80 キーボード用の Windows 設定アプリで、USB ケーブルか付属の 2.4 GHz レシーバー経由で接続し、MyGo のネイティブ UI で描かれています。同じドライバーを使うコマンドライン版は go build で別にビルドします。キーボードの図を中心にした五つのページでキーマップ、ライティング、マクロ、設定を変更でき、変更は保留リストに並び、確定するまでキーボードには書き込まれません。",
+		"ko": "Bee X80 키보드용 Windows 설정 앱으로, USB 케이블이나 동봉된 2.4GHz 수신기로 연결하며 MyGo의 네이티브 UI로 그렸습니다. 같은 드라이버를 쓰는 명령줄 버전은 go build로 따로 빌드합니다. 키보드 그림을 중심으로 한 다섯 페이지에서 키 매핑, 조명, 매크로, 설정을 바꿀 수 있고, 변경 사항은 대기 목록에 올라 확정하기 전까지 키보드에 쓰이지 않습니다."
+	},
+	"icon": {
+		"file": "beekb.webp"
+	},
+	"screenshot": "beekb.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T16:49:05Z"
+}
