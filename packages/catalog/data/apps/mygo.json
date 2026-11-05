@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mygo",
+	"name": "酷狗音乐 · MyGo",
+	"author": "fansa91",
+	"kind": "native",
+	"group": "media",
+	"url": "https://github.com/fansa91/mygo-kgou",
+	"repo": "fansa91/mygo-kgou",
+	"summary": {
+		"en": "Unofficial Kugou Music desktop client: QR login, lossless playback, word-by-word lyrics and FM.",
+		"zh-CN": "第三方酷狗音乐桌面客户端：扫码登录、无损音质、逐字歌词与私人 FM。",
+		"zh-TW": "第三方酷狗音樂桌面用戶端：掃碼登入、無損音質、逐字歌詞與私人 FM。",
+		"ja": "非公式の酷狗音楽デスクトップクライアント。QR ログイン、ロスレス再生、逐字歌詞、FM。",
+		"ko": "비공식 쿠거우 뮤직 데스크톱 클라이언트. QR 로그인, 무손실 재생, 글자 단위 가사, FM."
+	},
+	"description": {
+		"en": "An unofficial Kugou Music client written in Go and drawn with MyGo's native UI, with no web view. It signs in by QR code, browses daily picks, playlists, charts and audiobooks, and streams up to lossless FLAC and Hi-Res. Lyrics scroll word by word with translations, personal FM has several modes, and an optional notch player shows a mini player at the top of the screen.",
+		"zh-CN": "第三方酷狗音乐桌面客户端，用 Go 编写、由 MyGo 原生 UI 绘制，没有 WebView。扫码登录后可浏览每日推荐、歌单、排行榜与听书，边下边播，音质最高可选无损 FLAC 与 Hi-Res。支持逐字歌词与翻译、多种模式的私人 FM，还可在设置中开启刘海播放器，在屏幕顶部显示迷你播放器。",
+		"zh-TW": "第三方酷狗音樂桌面用戶端，以 Go 撰寫、由 MyGo 原生 UI 繪製，沒有 WebView。掃碼登入後可瀏覽每日推薦、歌單、排行榜與聽書，邊下邊播，音質最高可選無損 FLAC 與 Hi-Res。支援逐字歌詞與翻譯、多種模式的私人 FM，也能在設定中開啟瀏海播放器，在螢幕頂端顯示迷你播放器。",
+		"ja": "Go で書かれ、MyGo のネイティブ UI で描かれた非公式の酷狗音楽デスクトップクライアント。WebView は使いません。QR コードでログインし、毎日のおすすめ、プレイリスト、ランキング、オーディオブックを閲覧でき、ロスレス FLAC や Hi-Res までの音質でストリーミング再生します。一文字ずつ進む歌詞と翻訳、パーソナル FM に対応し、設定でノッチプレーヤーを有効にすると画面上部にミニプレーヤーを表示します。",
+		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 비공식 쿠거우 뮤직 데스크톱 클라이언트로, WebView를 쓰지 않습니다. QR 코드로 로그인해 오늘의 추천, 플레이리스트, 차트, 오디오북을 둘러보고, 무손실 FLAC과 Hi-Res까지의 음질로 스트리밍합니다. 한 글자씩 넘어가는 가사와 번역, 개인 FM을 지원하며, 설정에서 노치 플레이어를 켜면 화면 상단에 미니 플레이어가 나타납니다."
+	},
+	"icon": {
+		"file": "mygo.webp"
+	},
+	"screenshot": "mygo.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T15:55:15Z"
+}
