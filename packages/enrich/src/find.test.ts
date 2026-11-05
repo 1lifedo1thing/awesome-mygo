@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { type Verdict, branchFor, configNear, entryFor, groupHits, isDue, isSamplePath, listedAs, listedFrom, moduleOf, normalizeLink, quiet, remember, reposOfEntry, requiresMygo, uniqueSlug } from './find.ts';
+import { type Verdict, branchFor, configNear, entryFor, groupHits, isDue, isSamplePath, listedAs, listedFrom, moduleOf, normalizeLink, quiet, remember, reposOfEntry, requiresMygo, uniqueSlug, withoutFailed } from './find.ts';
 
 describe('what the site lists', () => {
 	it('takes every repository an entry points at, in lower case', () => {
@@ -137,6 +137,12 @@ describe('proposals', () => {
 		expect(isDue(skipped, new Date('2027-02-03T00:00:00Z'))).toBe(true);
 		expect(remember('failed', '', now).until).toBe('2026-11-19T00:00:00.000Z');
 		expect(isDue(undefined, now)).toBe(true);
+	});
+
+	it('forgets the failed repositories when asked to try them again, and keeps the skipped ones', () => {
+		const now = new Date('2026-11-05T00:00:00Z');
+		const seen = { 'a/skip': remember('skip', 'a template', now), 'b/failed': remember('failed', 'the catalog checks failed', now) };
+		expect(withoutFailed(seen)).toEqual({ 'a/skip': seen['a/skip'] });
 	});
 
 	it('keeps text from a repository from mentioning anyone', () => {
