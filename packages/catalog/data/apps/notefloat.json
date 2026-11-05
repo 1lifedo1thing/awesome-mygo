@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "notefloat",
+	"name": "Notefloat",
+	"author": "insv23",
+	"kind": "web",
+	"group": "notes",
+	"url": "https://github.com/insv23/notefloat",
+	"repo": "insv23/notefloat",
+	"summary": {
+		"en": "A floating macOS notes panel on a shortcut: blocks, todos and pasted pictures in plain text.",
+		"zh-CN": "按快捷键呼出的 macOS 浮动笔记面板：分块、待办、粘贴图片，存为纯文本。",
+		"zh-TW": "按快捷鍵叫出的 macOS 浮動筆記面板：分區塊、待辦、貼上圖片，存成純文字。",
+		"ja": "ショートカットで浮かぶ macOS のメモパネル。ブロック、ToDo、画像をプレーンテキストで。",
+		"ko": "단축키로 불러내는 macOS 플로팅 노트 패널. 블록, 할 일, 이미지를 텍스트 파일로."
+	},
+	"description": {
+		"en": "A floating notes panel for macOS that appears over whatever you are doing when you press Option-V and hides on the next press, built with MyGo around a web frontend. Each note is a plain .txt file split into blocks that can be moved, folded and marked done, and it holds todo lines and pasted pictures. It is keyboard first, every shortcut can be changed, and it stays local with no account, sync or network.",
+		"zh-CN": "macOS 浮动笔记面板，在任何地方按 Option-V 就浮现在当前工作之上，再按一次即隐藏，由 MyGo 以 Web 前端构建。每篇笔记都是一个 .txt 文件，分成可移动、折叠、标记完成的块，还能放待办行和粘贴的图片。以键盘操作为主，所有快捷键都可自定义；只在本地运行，没有账号、同步，也不联网。",
+		"zh-TW": "macOS 浮動筆記面板，在任何地方按 Option-V 就浮現在目前的工作之上，再按一次即隱藏，由 MyGo 以 Web 前端建構。每篇筆記都是一個 .txt 檔，分成可移動、摺疊、標記完成的區塊，還能放待辦行和貼上的圖片。以鍵盤操作為主，所有快捷鍵都可自訂；只在本機執行，沒有帳號、同步，也不連網。",
+		"ja": "どこでも Option-V を押すと今の作業の上に現れ、もう一度押すと消える macOS 用のフローティングノートパネル。MyGo の Web フロントエンドで作られています。ノートはそれぞれ .txt ファイルで、移動・折りたたみ・完了マークができるブロックに分かれ、ToDo 行や貼り付けた画像も置けます。キーボード中心で、ショートカットはすべて変更でき、アカウントも同期もネットワークも使わずローカルだけで動きます。",
+		"ko": "어디서든 Option-V를 누르면 작업 중인 화면 위에 나타나고 다시 누르면 사라지는 macOS용 플로팅 노트 패널로, MyGo의 웹 프런트엔드로 만들었습니다. 노트마다 하나의 .txt 파일이며 옮기고 접고 완료로 표시할 수 있는 블록으로 나뉘고, 할 일 줄과 붙여 넣은 그림도 담습니다. 키보드 중심으로 쓰며 모든 단축키를 바꿀 수 있고, 계정도 동기화도 네트워크도 없이 로컬에서만 동작합니다."
+	},
+	"icon": {
+		"file": "notefloat.webp"
+	},
+	"screenshot": "notefloat.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T23:30:36Z"
+}
