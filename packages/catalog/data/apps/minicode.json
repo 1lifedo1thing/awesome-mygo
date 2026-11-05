@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "minicode",
+	"name": "MiniCode",
+	"author": "oysterhyd",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/oysterhyd/minicode",
+	"repo": "oysterhyd/minicode",
+	"summary": {
+		"en": "A Windows desktop workbench for AI coding in local repositories, with chat, diffs and approvals.",
+		"zh-CN": "面向本地代码仓库的 Windows AI 编程工作台，支持对话、Diff 与审批。",
+		"zh-TW": "面向本機程式碼庫的 Windows AI 程式設計工作台，支援對話、Diff 與核准。",
+		"ja": "ローカルリポジトリ向けの Windows 用 AI コーディング環境。チャット、Diff、権限承認つき。",
+		"ko": "로컬 저장소용 Windows AI 코딩 작업대. 채팅, Diff, 권한 승인을 지원합니다."
+	},
+	"description": {
+		"en": "The Windows desktop client of MiniCode, an AI coding workbench for local repositories, drawn with MyGo's native UI; the agent runtime, CLI and terminal UI are made with Rust and Ink. It reads, edits and runs commands in your project, shows changes as diffs and asks before writes and commands. It uses your own OpenAI-compatible or Anthropic service and extends through Skills and MCP.",
+		"zh-CN": "MiniCode 是面向本地代码仓库的 AI 编程工作台，这是它的 Windows 桌面端，用 MyGo 原生 UI 绘制；Agent 运行核心、CLI 与终端界面另由 Rust 和 Ink 实现。它能在项目中读取、编辑文件并运行命令，修改以 Diff 呈现，写入和命令需经审批。可接入自己的 OpenAI 兼容服务或 Anthropic 服务，并通过 Skills 与 MCP 扩展。",
+		"zh-TW": "MiniCode 是面向本機程式碼庫的 AI 程式設計工作台，這是它的 Windows 桌面版，用 MyGo 原生 UI 繪製；Agent 執行核心、CLI 與終端機介面另以 Rust 和 Ink 實作。它能在專案中讀取、編輯檔案並執行命令，修改以 Diff 呈現，寫入和命令須經核准。可串接自己的 OpenAI 相容服務或 Anthropic 服務，並透過 Skills 與 MCP 擴充。",
+		"ja": "ローカルのコードリポジトリ向け AI コーディング環境 MiniCode の Windows デスクトップ版で、MyGo のネイティブ UI で描かれています。エージェントの実行基盤、CLI、ターミナル UI は Rust と Ink で別に作られています。プロジェクト内のファイルを読み、編集し、コマンドを実行し、変更は Diff で確認でき、書き込みやコマンドの前には承認を求めます。自分の OpenAI 互換サービスか Anthropic のサービスにつなぎ、Skills と MCP で拡張できます。",
+		"ko": "로컬 코드 저장소를 위한 AI 코딩 작업 환경 MiniCode의 Windows 데스크톱 버전으로, MyGo의 네이티브 UI로 그렸습니다. 에이전트 런타임, CLI, 터미널 UI는 Rust와 Ink로 따로 만들었습니다. 프로젝트의 파일을 읽고 편집하고 명령을 실행하며, 변경 사항은 Diff로 보여 주고 쓰기와 명령 실행 전에는 승인을 받습니다. 직접 준비한 OpenAI 호환 서비스나 Anthropic 서비스에 연결하고 Skills와 MCP로 확장할 수 있습니다."
+	},
+	"icon": {
+		"file": "minicode.webp"
+	},
+	"screenshot": "minicode.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T04:00:52Z"
+}
