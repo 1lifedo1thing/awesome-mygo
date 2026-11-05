@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "sshgo",
+	"name": "sshgo",
+	"author": "rzh0504",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/rzh0504/sshgo",
+	"repo": "rzh0504/sshgo",
+	"summary": {
+		"en": "A native SSH client for macOS, Windows and Linux: hosts in a sidebar, their shells beside them.",
+		"zh-CN": "适用 macOS、Windows、Linux 的原生 SSH 客户端，主机列在侧边栏。",
+		"zh-TW": "適用 macOS、Windows、Linux 的原生 SSH 用戶端，主機列在側邊欄。",
+		"ja": "macOS・Windows・Linux 向けのネイティブ SSH クライアント。ホストはサイドバーで管理。",
+		"ko": "macOS·Windows·Linux용 네이티브 SSH 클라이언트, 호스트는 사이드바에."
+	},
+	"description": {
+		"en": "An SSH client for macOS, Windows and Linux drawn with MyGo's native UI: hosts and groups sit in a sidebar, their shells in a card beside it. It signs in with a password, a private key or the SSH agent, keeps saved passwords and key passphrases in the system keychain and checks host keys against known_hosts. Terminals have eight pastel themes and a configurable font, size and cursor.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS、Windows 与 Linux SSH 客户端：主机和分组列在侧边栏，各自的 Shell 显示在旁边的卡片里。支持密码、私钥或 SSH agent 登录，保存的密码与密钥口令存入系统钥匙串，并对照 known_hosts 校验主机密钥。终端提供八种柔和的粉彩主题，字体、字号和光标均可调整。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS、Windows 與 Linux SSH 用戶端：主機和群組列在側邊欄，各自的 Shell 顯示在旁邊的卡片裡。支援密碼、私鑰或 SSH agent 登入，儲存的密碼與金鑰密語存入系統鑰匙圈，並對照 known_hosts 驗證主機金鑰。終端機提供八種柔和的粉彩主題，字型、字級和游標皆可調整。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS・Windows・Linux 向けの SSH クライアント。ホストとグループをサイドバーに並べ、各ホストのシェルを隣のカードに表示します。パスワード、秘密鍵、SSH エージェントでログインでき、保存したパスワードと鍵のパスフレーズはシステムのキーチェーンに保管し、ホスト鍵は known_hosts と照合します。ターミナルには 8 種類のパステル調テーマがあり、フォント、サイズ、カーソルを変更できます。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS·Windows·Linux용 SSH 클라이언트입니다. 호스트와 그룹을 사이드바에 두고 각 호스트의 셸을 옆 카드에 보여 줍니다. 비밀번호, 개인 키, SSH 에이전트로 로그인하고, 저장한 비밀번호와 키 암호는 시스템 키체인에 보관하며, 호스트 키는 known_hosts로 확인합니다. 터미널은 파스텔 테마 8가지를 제공하고 글꼴, 크기, 커서를 바꿀 수 있습니다."
+	},
+	"icon": {
+		"file": "sshgo.webp"
+	},
+	"screenshot": "sshgo.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T11:28:55Z"
+}
