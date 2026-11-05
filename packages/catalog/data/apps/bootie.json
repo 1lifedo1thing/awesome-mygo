@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "bootie",
+	"name": "Bootie",
+	"author": "ngobach",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/ngobach/bootie",
+	"repo": "ngobach/bootie",
+	"summary": {
+		"en": "A native desktop tool that builds GRUB4DOS/GRUB4EFI rescue disks on USB drives or disk images.",
+		"zh-CN": "原生桌面工具，把 GRUB4DOS/GRUB4EFI 救援盘写入 U 盘或磁盘镜像。",
+		"zh-TW": "原生桌面工具，將 GRUB4DOS/GRUB4EFI 救援碟寫入隨身碟或磁碟映像。",
+		"ja": "USB ドライブやディスクイメージに GRUB4DOS/GRUB4EFI のレスキューディスクを作成。",
+		"ko": "USB 드라이브나 디스크 이미지에 GRUB4DOS/GRUB4EFI 복구 디스크를 만드는 네이티브 앱."
+	},
+	"description": {
+		"en": "gbootie is the desktop GUI of Bootie, a rescue disk builder for macOS, Linux and Windows, drawn with MyGo's native UI. It writes to a USB drive or a .img file with internal drives hidden, sets up a dual EFI and data or a single FAT32 partition layout, previews the partition map and shows live progress. The CLI and the bare-metal C boot menu and games are built without MyGo.",
+		"zh-CN": "gbootie 是救援盘制作工具 Bootie 的桌面 GUI，用 MyGo 原生 UI 绘制，支持 macOS、Linux 与 Windows。可写入 U 盘或 .img 镜像文件，并隐藏内置硬盘；可选 EFI 加数据分区的双分区或单一 FAT32 分区，预览分区布局，实时显示进度。Bootie 的命令行工具和用裸机 C 编写的启动菜单与小游戏不使用 MyGo。",
+		"zh-TW": "gbootie 是救援碟製作工具 Bootie 的桌面 GUI，以 MyGo 原生 UI 繪製，支援 macOS、Linux 與 Windows。可寫入 USB 隨身碟或 .img 映像檔，並隱藏內建硬碟；可選 EFI 加資料分割區的雙分割區或單一 FAT32 分割區，預覽分割區配置，即時顯示進度。Bootie 的命令列工具與以裸機 C 撰寫的開機選單和小遊戲不使用 MyGo。",
+		"ja": "gbootie は、レスキューディスク作成ツール Bootie のデスクトップ GUI で、MyGo のネイティブ UI で描かれ、macOS・Linux・Windows で動きます。USB ドライブか .img イメージファイルに書き込み、内蔵ドライブは表示しません。EFI とデータの 2 パーティション構成か FAT32 の単一構成を選べ、パーティション配置のプレビューと進捗のリアルタイム表示があります。CLI と、ベアメタル C で書かれたブートメニューやゲームは MyGo を使わずに作られています。",
+		"ko": "gbootie는 복구 디스크 제작 도구 Bootie의 데스크톱 GUI로, MyGo의 네이티브 UI로 그렸으며 macOS, Linux, Windows에서 동작합니다. USB 드라이브나 .img 이미지 파일에 쓰며 내장 드라이브는 숨깁니다. EFI와 데이터의 이중 파티션 또는 단일 FAT32 파티션 구성을 고르고, 파티션 배치를 미리 보며 진행 상황을 실시간으로 보여 줍니다. CLI와 베어메탈 C로 작성한 부트 메뉴와 게임은 MyGo 없이 만들어졌습니다."
+	},
+	"icon": {
+		"file": "bootie.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "bootie.webp",
+	"added": "2026-11-05T17:38:35Z"
+}
