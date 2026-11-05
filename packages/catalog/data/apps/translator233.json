@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "translator233",
+	"name": "translator233",
+	"author": "neko233-com",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/neko233-com/translator233",
+	"repo": "neko233-com/translator233",
+	"summary": {
+		"en": "Offline machine translation on your desktop with local opus-mt models, no API key or usage fees.",
+		"zh-CN": "用本地 opus-mt 模型离线翻译的桌面工具，无需 API Key，也没有调用费用。",
+		"zh-TW": "以本機 opus-mt 模型離線翻譯的桌面工具，不需 API Key，也沒有呼叫費用。",
+		"ja": "ローカルの opus-mt モデルでオフライン翻訳。API キーも利用料も不要のデスクトップアプリ。",
+		"ko": "로컬 opus-mt 모델로 오프라인 번역하는 데스크톱 앱. API 키도 이용료도 필요 없습니다."
+	},
+	"description": {
+		"en": "An offline machine translator that runs opus-mt models locally through ONNX Runtime: once a language pack is downloaded it needs no network, API key or fees. It ships 38 language pairs and goes through English when no direct pair exists. MyGo draws only the desktop GUI, for Windows and Apple Silicon Macs; the CLI and HTTP API are a separate command-line program.",
+		"zh-CN": "离线机器翻译工具，通过 ONNX Runtime 在本地运行 opus-mt 模型，语言包下载后无需联网，也不用 API Key 和调用费用。内置 38 个语向，没有直连语向时经英语中转。MyGo 只负责绘制 Windows 与 Apple Silicon Mac 上的桌面 GUI，CLI 和 HTTP API 由单独的命令行程序提供。",
+		"zh-TW": "離線機器翻譯工具，透過 ONNX Runtime 在本機執行 opus-mt 模型，語言包下載後不必連網，也不需要 API Key 或呼叫費用。內建 38 個語向，沒有直接語向時會經由英語轉譯。MyGo 只負責繪製 Windows 與 Apple Silicon Mac 上的桌面 GUI，CLI 與 HTTP API 則由另一個命令列程式提供。",
+		"ja": "opus-mt モデルを ONNX Runtime でローカル実行するオフライン機械翻訳ツール。言語パックを一度ダウンロードすれば、ネット接続も API キーも利用料も要りません。38 の言語ペアを備え、直接のペアがない場合は英語を経由して訳します。MyGo が描くのは Windows と Apple Silicon Mac 向けのデスクトップ GUI だけで、CLI と HTTP API は別のコマンドラインプログラムが提供します。",
+		"ko": "opus-mt 모델을 ONNX Runtime으로 로컬에서 실행하는 오프라인 기계 번역 도구입니다. 언어 팩을 한 번 내려받으면 네트워크도 API 키도 이용료도 필요 없습니다. 38개 언어 쌍을 갖추고, 직접 쌍이 없으면 영어를 거쳐 번역합니다. MyGo는 Windows와 Apple Silicon Mac용 데스크톱 GUI만 그리며, CLI와 HTTP API는 별도의 명령줄 프로그램이 제공합니다."
+	},
+	"icon": {
+		"file": "translator233.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "translator233.webp",
+	"added": "2026-11-05T04:45:28Z"
+}
