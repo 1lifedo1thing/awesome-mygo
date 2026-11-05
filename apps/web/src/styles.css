@@ -2896,6 +2896,16 @@ button.btn-pr:disabled {
 .modal-alt a {
 	color: var(--cyan);
 }
+/* Said when a WebMCP tool filled the form in, so the visitor checks what an AI agent wrote before sending it. */
+.sub-agent {
+	margin: 0;
+	padding: 10px 14px;
+	border: 1px solid color-mix(in srgb, var(--amber) 45%, transparent);
+	border-radius: 10px;
+	background: color-mix(in srgb, var(--amber) 10%, transparent);
+	color: var(--amber);
+	font-size: 14px;
+}
 .sub-done {
 	display: flex;
 	flex-wrap: wrap;

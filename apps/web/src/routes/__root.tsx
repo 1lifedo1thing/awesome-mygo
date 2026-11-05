@@ -12,6 +12,7 @@ import { useReveal, useScrolledPast } from '../lib/motion';
 import { SITE_NAME, ogLocaleAlternates } from '../lib/seo';
 import { SiteProvider, useSite } from '../lib/site';
 import { type Theme, readTheme } from '../lib/theme';
+import { SubmitTools, readOriginTrial } from '../lib/webmcp';
 import retroStyles from '../retro/retro.css?url';
 import styles from '../styles.css?url';
 
@@ -46,12 +47,14 @@ export const Route = createRootRoute({
 	head: ({ match }) => {
 		const lang = match.search.lang ?? DEFAULT_LANG;
 		const retro = match.context.theme === 'retro';
+		const originTrial = readOriginTrial();
 		return {
 		meta: [
 			{ charSet: 'utf-8' },
 			{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
 			{ name: 'theme-color', content: retro ? '#00a6d4' : '#0B0D10' },
 			{ name: 'color-scheme', content: retro ? 'light' : 'dark' },
+			...(originTrial ? [{ httpEquiv: 'origin-trial', content: originTrial }] : []),
 			// A path no route matches (or a notFound() a route throws) is handled here, the only route with a notFoundComponent; no page head runs then, so the 404 gets its title and noindex from the root. Matched pages set their own through pageHead.
 			...(match._notFound ? [{ title: `${t(match.search.lang ?? DEFAULT_LANG).nf_h} · ${SITE_NAME}` }, { name: 'robots', content: 'noindex' }] : []),
 		],
@@ -77,6 +80,7 @@ function RootComponent() {
 	return (
 		<RootDocument theme={theme}>
 			<SiteProvider quickView={theme === 'retro'}>
+				<SubmitTools />
 				{theme === 'retro' ? (
 					<Suspense>
 						<RetroApp />

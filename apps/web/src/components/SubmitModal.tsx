@@ -7,13 +7,14 @@ import { CloseIcon } from './bits';
 
 const GROUPS = ENTRY_GROUPS;
 
+// Keyed by the WebMCP fills (lib/webmcp.ts), so each one opens a fresh dialog.
 export function SubmitModal() {
-	const { modal } = useSite();
-	return modal ? <Modal /> : null;
+	const { modal, filled } = useSite();
+	return modal ? <Modal key={filled} /> : null;
 }
 
 function Modal() {
-	const { closeSubmit, form, setFormField, copy, copied } = useSite();
+	const { closeSubmit, form, setFormField, copy, copied, filled } = useSite();
 	const t = useT();
 	const ref = useDialog<HTMLDivElement>();
 	const { bot, lang, round, setToken, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint, viaJson, jsonError, onJsonChange, example, repoBad, onRepoBlur, shotBad, onShotBlur, urlLabel, withShot, shotFile, onShotFile, shotRequired, shotNote } = useSubmit();
@@ -103,6 +104,7 @@ function Modal() {
 							<CloseIcon size={18} />
 						</button>
 					</div>
+					{filled > 0 && <p className='sub-agent'>{t.sub_agent}</p>}
 					<div className='stack-8'>
 						<span className='field-label'>{t.a_cats}</span>
 						<div className='cat-opts' role='radiogroup' aria-label={t.a_cats}>

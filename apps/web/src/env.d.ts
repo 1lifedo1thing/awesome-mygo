@@ -14,5 +14,7 @@ declare module 'cloudflare:workers' {
 		DB?: import('./server/likes').D1Like;
 		LIKE_SALT?: string;
 		LIKE_LIMIT?: { limit(options: { key: string }): Promise<{ success: boolean }> };
+		// Chrome's WebMCP origin-trial token for the production origin (developer.chrome.com/origintrials), which turns on document.modelContext for its visitors; it expires with the trial. Unset (as in previews and locally), the pages carry no token.
+		WEBMCP_ORIGIN_TRIAL?: string;
 	};
 }

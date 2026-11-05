@@ -23,6 +23,12 @@ interface Site {
 	closeSubmit: () => void;
 	form: SubmitForm;
 	setFormField: <K extends keyof SubmitForm>(key: K, value: SubmitForm[K]) => void;
+	// Replaces the whole form and opens the dialog afresh, for a WebMCP tool (lib/webmcp.ts). filled counts these fills: the dialog is keyed by it, so state the dialog keeps itself (an uploaded image, the screenshot check, which fields were left) cannot carry over from what was there before, and while it is above 0 the dialog says an AI agent filled it in.
+	fillSubmit: (form: SubmitForm) => void;
+	filled: number;
+	// Whether the dialog is sending a submission, which a fill must not change under it.
+	sending: boolean;
+	setSending: (sending: boolean) => void;
 	copied: CopyKey | null;
 	copy: (text: string, key: CopyKey) => void;
 	// Whether an app opens in a quick-view window over the page (the retro look) rather than on its own page (the original look).
@@ -51,6 +57,8 @@ export function SiteProvider({ quickView, children }: { quickView: boolean; chil
 	const [palette, setPalette] = useState(false);
 	const [modal, setModal] = useState(false);
 	const [form, setForm] = useState<SubmitForm>({ cat: 'showcase', mode: 'native', name: '', author: '', url: '', repo: '', screenshot: '', desc: '', via: 'form', json: '' });
+	const [filled, setFilled] = useState(0);
+	const [sending, setSending] = useState(false);
 	const [copied, setCopied] = useState<CopyKey | null>(null);
 	const copyTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 	// True when the open quick view pushed its own history entry, so closing it can step back instead of stacking another entry.
@@ -113,6 +121,16 @@ export function SiteProvider({ quickView, children }: { quickView: boolean; chil
 			closeSubmit: () => setModal(false),
 			form,
 			setFormField: (key, val) => setForm((f) => ({ ...f, [key]: val })),
+			fillSubmit: (next) => {
+				setForm(next);
+				setFilled((n) => n + 1);
+				setPalette(false);
+				setModal(true);
+				if (app) closeApp();
+			},
+			filled,
+			sending,
+			setSending,
 			copied,
 			copy,
 			quickView,
@@ -120,7 +138,7 @@ export function SiteProvider({ quickView, children }: { quickView: boolean; chil
 			openApp,
 			closeApp,
 		}),
-		[palette, openPalette, modal, form, copied, copy, quickView, app, openApp, closeApp],
+		[palette, openPalette, modal, form, filled, sending, copied, copy, quickView, app, openApp, closeApp],
 	);
 
 	return <SiteContext.Provider value={value}>{children}</SiteContext.Provider>;
