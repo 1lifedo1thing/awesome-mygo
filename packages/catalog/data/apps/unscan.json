@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "unscan",
+	"name": "Unscan",
+	"author": "tacshi",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/tacshi/Unscan",
+	"repo": "tacshi/Unscan",
+	"summary": {
+		"en": "Offline OCR for Mac that makes scanned PDFs searchable or retypes them into clean text PDFs.",
+		"zh-CN": "Mac 离线 OCR 工具：让扫描 PDF 可以搜索，或重排为干净的文字 PDF。",
+		"zh-TW": "Mac 離線 OCR 工具：讓掃描 PDF 可供搜尋，或重新排版成乾淨的文字 PDF。",
+		"ja": "スキャン PDF を検索可能にするか、きれいなテキスト PDF に組み直す Mac 用オフライン OCR。",
+		"ko": "스캔 PDF를 검색 가능하게 하거나 깔끔한 텍스트 PDF로 다시 짜는 Mac용 오프라인 OCR."
+	},
+	"description": {
+		"en": "A Mac app for Apple silicon, drawn with MyGo's native UI, that runs OCR on scanned Chinese and English PDFs with PaddleOCR models, entirely offline. It adds an invisible text layer that makes a scan searchable, or retypes each page in real fonts matched to the printed type, keeping pictures and line art. The repository also has a command-line version, run with go run.",
+		"zh-CN": "面向 Apple silicon Mac 的桌面应用，用 MyGo 原生 UI 绘制，借助 PaddleOCR 模型在本机离线识别中英文扫描 PDF。它可以给扫描件加上隐藏文字层，使其可以搜索；也可以按原本印刷的字体和字号，用真实字体重排每一页，并保留图片与线条图。仓库里另有一个用 go run 运行的命令行版本。",
+		"zh-TW": "專為 Apple silicon Mac 打造的桌面應用程式，以 MyGo 原生 UI 繪製，透過 PaddleOCR 模型在本機離線辨識中英文掃描 PDF。它能為掃描檔加上隱藏文字層，讓內容可供搜尋；也能依照原本印刷的字型與字級，以真實字型重新排版每一頁，並保留圖片與線條圖。儲存庫另附以 go run 執行的命令列版本。",
+		"ja": "Apple silicon の Mac 向けに MyGo のネイティブ UI で描かれたデスクトップアプリで、スキャンした中国語・英語の PDF を PaddleOCR のモデルで完全にオフラインのまま OCR します。見えないテキストレイヤーを重ねて検索できるようにするか、印刷どおりの書体とサイズに合わせて実際のフォントで各ページを組み直し、写真や線画は残します。リポジトリには go run で動かすコマンドライン版もあります。",
+		"ko": "Apple silicon Mac용 데스크톱 앱으로, MyGo의 네이티브 UI로 그렸으며 PaddleOCR 모델로 스캔한 중국어·영어 PDF를 완전히 오프라인에서 OCR합니다. 보이지 않는 텍스트 레이어를 얹어 검색할 수 있게 하거나, 인쇄된 서체와 크기에 맞춰 실제 글꼴로 각 페이지를 다시 조판하고 사진과 선화는 그대로 남깁니다. 저장소에는 go run으로 실행하는 명령줄 버전도 있습니다."
+	},
+	"icon": {
+		"file": "unscan.webp"
+	},
+	"screenshot": "unscan.webp",
+	"added": "2026-11-05T03:08:54Z"
+}
