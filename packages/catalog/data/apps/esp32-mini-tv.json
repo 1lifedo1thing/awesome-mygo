@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "esp32-mini-tv",
+	"name": "ESP32 Mini TV",
+	"author": "mu-zi-lee",
+	"kind": "web",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/mu-zi-lee/ESP32-Mini-TV",
+	"repo": "mu-zi-lee/ESP32-Mini-TV",
+	"summary": {
+		"en": "Companion app for a DIY ESP32 mini TV: sets up Wi-Fi, sends computer stats, mirrors the screen.",
+		"zh-CN": "DIY ESP32 小电视的桌面控制端：配网、同步电脑状态、镜像屏幕。",
+		"zh-TW": "DIY ESP32 小電視的桌面控制端：設定 Wi-Fi、同步電腦狀態、鏡像螢幕。",
+		"ja": "自作 ESP32 ミニテレビ用のデスクトップアプリ。Wi-Fi 設定、PC 状態送信、画面ミラーリング。",
+		"ko": "DIY ESP32 미니 TV용 데스크톱 앱. Wi-Fi 설정, 컴퓨터 상태 전송, 화면 미러링."
+	},
+	"description": {
+		"en": "Control is the desktop app for ESP32 Mini TV, a DIY 1.8-inch screen driven by an ESP32. It sets up the device's Wi-Fi, sends CPU, memory, battery and music info, and mirrors the screen over the LAN. On macOS it can also create a virtual display and send any window dragged onto it. It is built with MyGo and a web frontend; the firmware is built and flashed separately with PlatformIO.",
+		"zh-CN": "Control 是 ESP32 Mini TV 的桌面端，这台 DIY 小电视由 ESP32 驱动一块 1.8 英寸屏幕。它负责配网，同步 CPU、内存、电池和正在播放的音乐信息，并通过局域网镜像电脑屏幕；在 macOS 上还能创建系统级虚拟显示器，把拖到上面的窗口发送到设备。应用由 MyGo 加 Web 前端构建，ESP32 固件需用 PlatformIO 另行编译烧录。",
+		"zh-TW": "Control 是 ESP32 Mini TV 的桌面端，這台 DIY 小電視由 ESP32 驅動一塊 1.8 吋螢幕。它負責設定 Wi-Fi，同步 CPU、記憶體、電池和正在播放的音樂資訊，並透過區域網路鏡像電腦螢幕；在 macOS 上還能建立系統層級的虛擬顯示器，把拖到上面的視窗傳送到裝置。應用程式以 MyGo 加 Web 前端打造，ESP32 韌體需用 PlatformIO 另行編譯燒錄。",
+		"ja": "Control は、ESP32 で 1.8 インチ画面を動かす自作デバイス ESP32 Mini TV のデスクトップアプリです。デバイスの Wi-Fi を設定し、CPU・メモリ・バッテリー・再生中の音楽の情報を送り、LAN 経由で画面をミラーリングします。macOS ではシステムの仮想ディスプレイを作り、そこへドラッグしたウィンドウを送ることもできます。MyGo と Web フロントエンドで作られており、ESP32 のファームウェアは PlatformIO で別にビルドして書き込みます。",
+		"ko": "Control은 ESP32로 1.8인치 화면을 구동하는 DIY 기기 ESP32 Mini TV의 데스크톱 앱입니다. 기기의 Wi-Fi를 설정하고 CPU, 메모리, 배터리, 재생 중인 음악 정보를 보내며, LAN을 통해 화면을 미러링합니다. macOS에서는 시스템 가상 디스플레이를 만들어 거기로 끌어 놓은 창을 보낼 수도 있습니다. MyGo와 웹 프런트엔드로 만들었으며, ESP32 펌웨어는 PlatformIO로 따로 빌드해 기록합니다."
+	},
+	"icon": {
+		"file": "esp32-mini-tv.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "esp32-mini-tv.webp",
+	"added": "2026-11-05T04:32:09Z"
+}
