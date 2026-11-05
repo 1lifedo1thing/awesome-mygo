@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mygit",
+	"name": "MyGit",
+	"author": "Binaryify",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://binaryify.com/mygit/",
+	"repo": "Binaryify/MyGit",
+	"summary": {
+		"en": "A light native git client to review and stage what coding agents change, locally or over SSH.",
+		"zh-CN": "轻量的原生 git 客户端，用来检查和暂存编程智能体的改动，支持本地与 SSH 仓库。",
+		"zh-TW": "輕量的原生 git 用戶端，檢查並暫存 AI 代理寫出的改動，支援本機與 SSH 儲存庫。",
+		"ja": "軽量なネイティブ git クライアント。AI エージェントの変更を確認・ステージ、SSH 越しにも。",
+		"ko": "가벼운 네이티브 git 클라이언트. 코딩 에이전트가 만든 변경을 확인하고 스테이징합니다."
+	},
+	"description": {
+		"en": "A git client drawn with MyGo's native UI, with no webview, that refreshes while a coding agent edits the repository. It pairs a JetBrains-style commit graph and history with VS Code-style staging down to single lines, lets you edit files in the diff and resolve conflicts in three panes, and opens repositories over SSH or in WSL. It runs on macOS (Apple silicon), Windows and Linux.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 git 客户端，没有 Web 视图，编程智能体修改仓库时界面会随之刷新。它结合了 JetBrains 风格的提交图与历史和 VS Code 风格的暂存，可以精确到单行，能在 diff 里直接改文件、用三栏视图解决冲突，还能通过 SSH 或在 WSL 中打开仓库。支持 macOS（Apple 芯片）、Windows 和 Linux。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 git 用戶端，沒有 Web 視圖，AI 代理修改儲存庫時畫面會隨之更新。它結合 JetBrains 風格的提交圖與歷史，以及 VS Code 風格的暫存，可精確到單行；能在 diff 中直接編輯檔案、以三欄檢視解決衝突，也能透過 SSH 或在 WSL 中開啟儲存庫。支援 macOS（Apple 晶片）、Windows 與 Linux。",
+		"ja": "MyGo のネイティブ UI で描かれた git クライアントで、Web ビューはなく、コーディングエージェントがリポジトリを編集している間も表示が更新されます。JetBrains 風のコミットグラフと履歴に VS Code 風のステージングを組み合わせ、行単位のステージ、差分上での編集、3 ペインでのコンフリクト解決ができ、SSH 越しや WSL のリポジトリも開けます。macOS（Apple シリコン）、Windows、Linux で動作します。",
+		"ko": "MyGo의 네이티브 UI로 그린 git 클라이언트로, 웹 뷰가 없고 코딩 에이전트가 저장소를 고치는 동안 화면이 바로 갱신됩니다. JetBrains 스타일의 커밋 그래프와 히스토리에 VS Code 스타일의 스테이징을 더해 한 줄 단위로 스테이징하고, diff에서 파일을 바로 고치고, 3단 화면에서 충돌을 해결하며, SSH나 WSL의 저장소도 열 수 있습니다. macOS(Apple 실리콘), Windows, Linux에서 실행됩니다."
+	},
+	"added": "2026-11-05T00:53:16Z",
+	"icon": {
+		"file": "mygit.webp"
+	},
+	"screenshot": "mygit.webp"
+}
