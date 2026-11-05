@@ -12,8 +12,8 @@ import { SUBMIT_CATS, SUBMIT_KINDS, type SubmitCat, alreadyListed, buildEntry, c
 import { LANGS, type LangCode, type Text, fill, langRedirectScript, negotiateLang, pick, validateRootSearch } from './lang';
 import { buildSearchIndex, searchCatalog } from './search';
 import { LIKE_KEYS, likeKey } from './likes';
-import { ACTIVITY_WEEKS, type ScoreSignals, scoreKey } from './score';
-import { HAS_SCORES, SCORE_FIELDS, SCORE_TARGETS, SCORES_AS_OF, entryScore, entrySignals, readScores, scoreRank, scoresFor } from './scores';
+import { ACTIVITY_WEEKS, type ScoreSignals, scoreKey, scoreOf } from './score';
+import { type EntryScore, HAS_SCORES, SCORE_FIELDS, SCORE_TARGETS, SCORES_AS_OF, compareByScore, compareScores, entryScore, entrySignals, readScores, scoreRank, scoresFor } from './scores';
 import { LOCALES } from './strings';
 import { appDescription, t } from './translate';
 import { CatalogError, Reader, unique } from './validate';
@@ -708,7 +708,7 @@ describe('bot submission', () => {
 });
 
 describe('scores', () => {
-	const kit: ScoreSignals = { repo: 'someone/kit', stars: 40, weeks: 12, activeWeeks: 5, license: 'MIT', osi: true, released: '2026-10-20', likes: 1 };
+	const kit: ScoreSignals = { repo: 'someone/kit', stars: 40, weeks: 12, activeWeeks: 5, license: 'MIT', osi: true, released: '2026-10-20', releaseDays: 3, likes: 1 };
 	const file = (entries: Record<string, unknown>, asOf: string | null = '2026-11-02') => ({ $schema: './schema/scores.schema.json', asOf, entries });
 	const read = (entry: object, key = 'app:kit') => () => readScores(file({ [key]: entry }));
 
@@ -717,6 +717,10 @@ describe('scores', () => {
 		expect(SCORES_AS_OF).toBe(readScores(scoresFile).asOf);
 		expect(readScores(file({ 'app:kit': kit, 'app:pulse': { likes: 2 }, 'plugin:kit': { repo: 'someone/tools', path: 'plugins/kit', weeks: 3, activeWeeks: 0, license: null, likes: 0 }, 'ui:someone/old': { ...kit, license: 'NOASSERTION', osi: false, released: undefined, archived: true } })).entries['app:pulse']).toEqual({ likes: 2 });
 		expect(readScores(file({}, null))).toEqual({ asOf: null, entries: {} });
+		// A record written before release days were counted still reads, without them.
+		expect(readScores(file({ 'app:kit': { ...kit, releaseDays: undefined } })).entries['app:kit'].releaseDays).toBeUndefined();
+		expect(readScores(file({ 'app:kit': { ...kit, releaseDays: 0 } })).entries['app:kit'].releaseDays).toBe(0);
+		expect(readScores(file({ 'app:kit': { ...kit, releaseDays: 84 } })).entries['app:kit'].releaseDays).toBe(84);
 	});
 
 	it('names the entry\'s key and the field of each mistake', () => {
@@ -734,6 +738,9 @@ describe('scores', () => {
 		expect(read({ ...kit, license: 7 })).toThrow(/\(app:kit\): license must be an SPDX id/);
 		expect(read({ ...kit, license: null })).toThrow(/\(app:kit\): osi is recorded only with a license/);
 		expect(read({ ...kit, archived: false })).toThrow(/\(app:kit\): archived is written only as true/);
+		expect(read({ ...kit, releaseDays: 85 })).toThrow(/\(app:kit\): releaseDays must be at most 84, got 85/);
+		expect(read({ ...kit, releaseDays: 1.5 })).toThrow(/\(app:kit\): releaseDays must be a whole number/);
+		expect(read({ likes: 2, releaseDays: 0 }, 'app:pulse')).toThrow(/\(app:pulse\): releaseDays is recorded only for an entry with a repository/);
 		expect(read({ likes: 2, stars: 40 }, 'app:pulse')).toThrow(/\(app:pulse\): stars is recorded only for an entry with a repository/);
 		expect(read({ ...kit, repo: 'kit' })).toThrow(/\(app:kit\): repo must be owner\/name/);
 		expect(read(kit, 'apps:kit')).toThrow(/scores.json: entries.apps:kit is not an entry key/);
@@ -795,11 +802,49 @@ describe('scores', () => {
 		expect(entryScore('app:not-an-app')).toBeUndefined();
 	});
 
+	it('orders equal totals by the unrounded sum, then the raw stars, active weeks and release days, and an entry without a score last', () => {
+		const at = (s: ScoreSignals): EntryScore => ({ signals: s, score: scoreOf(s, '2026-11-02') });
+		const order = (...list: (EntryScore | undefined)[]) => [...list.keys()].sort((i, j) => compareScores(list[i], list[j]));
+		const base = at(kit);
+		// The total first: a higher one goes first whatever else.
+		const higher = at({ ...kit, activeWeeks: 8 });
+		expect(higher.score.total).toBeGreaterThan(base.score.total);
+		expect(order(base, higher)).toEqual([1, 0]);
+		// 40 and 41 stars give the same total, 60, but not the same sum: 59.7 and 59.8.
+		const more = at({ ...kit, stars: 41 });
+		expect([base.score.total, base.score.exact, more.score.total, more.score.exact]).toEqual([60, 59.7, 60, 59.8]);
+		expect(order(base, more)).toEqual([1, 0]);
+		// The same sum from more stars past the anchor, more active weeks past the full eight, or more release days past twelve.
+		const big = { ...kit, stars: 1000, activeWeeks: 8, releaseDays: 12 };
+		expect(order(at(big), at({ ...big, stars: 1639 }))).toEqual([1, 0]);
+		expect(order(at(big), at({ ...big, activeWeeks: 12 }))).toEqual([1, 0]);
+		expect(order(at(big), at({ ...big, releaseDays: 40 }))).toEqual([1, 0]);
+		expect(at({ ...big, stars: 1639, activeWeeks: 12, releaseDays: 40 }).score.exact).toBe(at(big).score.exact);
+		// Stars come before active weeks, and active weeks before release days.
+		expect(order(at({ ...big, activeWeeks: 12, releaseDays: 40 }), at({ ...big, stars: 1001 }))).toEqual([1, 0]);
+		expect(order(at({ ...big, releaseDays: 40 }), at({ ...big, activeWeeks: 9 }))).toEqual([1, 0]);
+		// A count that was not measured goes after 0: an entry in a folder has no stars of its own.
+		const folder = { ...big, stars: undefined, path: 'plugins/kit' };
+		expect(compareScores(at(folder), at({ ...folder, stars: 0 }))).toBeGreaterThan(0);
+		// Nothing tells identical signals apart: 0, so that a stable sort keeps the list's own order.
+		expect(compareScores(at(kit), at({ ...kit }))).toBe(0);
+		expect(order(at(kit), at({ ...kit }), at({ ...kit }))).toEqual([0, 1, 2]);
+		// Without a score, after every scored entry, however low; two without are equal.
+		const low = at({ likes: 0 });
+		expect(order(undefined, low, undefined, base)).toEqual([3, 1, 0, 2]);
+		expect(compareScores(undefined, undefined)).toBe(0);
+		// By key, as the site sorts: the bundled scores, highest first, and a key without a score last.
+		const keys = [...LIKE_KEYS, 'app:not-an-app'].sort(compareByScore);
+		expect(keys.at(-1)).toBe('app:not-an-app');
+		for (let i = 1; i < keys.length; i++) expect(scoreRank(keys[i]), keys[i]).toBeLessThanOrEqual(scoreRank(keys[i - 1]));
+	});
+
 	it('describes in its schema the fields the reader takes', () => {
 		expect(scoresFile.$schema).toBe(`./schema/${scoresSchema.$id}`);
 		expect(Object.keys(scoresSchema.properties).sort()).toEqual(['$schema', 'asOf', 'entries']);
 		expect(Object.keys(scoresSchema.$defs.signals.properties).sort()).toEqual([...SCORE_FIELDS].sort());
 		expect(scoresSchema.$defs.signals.required).toEqual(['likes']);
 		expect(scoresSchema.$defs.signals.properties.weeks.maximum).toBe(ACTIVITY_WEEKS);
+		expect(scoresSchema.$defs.signals.properties.releaseDays.maximum).toBe(ACTIVITY_WEEKS * 7);
 	});
 });

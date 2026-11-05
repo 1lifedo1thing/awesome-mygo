@@ -1,4 +1,4 @@
-// An entry's score, 0 to 100, from the raw signals the scheduled Update scores workflow records in data/scores.json (packages/enrich/src/score.ts): how many stars its repository has, in how many recent weeks it was worked on, whether it is open source and under what license, how many likes it has here, and how recently it was released. The score says how popular, active and open a project is, not how good it is.
+// An entry's score, 0 to 100, from the raw signals the scheduled Update scores workflow records in data/scores.json (packages/enrich/src/score.ts): how many stars its repository has, in how many recent weeks it was worked on, whether it is open source and under what license, how many likes it has here, and on how many days of the counted weeks it was released or tagged. The score says how popular, active and open a project is, not how good it is.
 //
 // This module must keep zero imports: the workflow loads it from Node by its path (packages/enrich imports '../../catalog/src/score.ts'), where the rest of the catalog, built on Vite's import.meta.glob, cannot load. It never reads the clock either: a score depends only on the signals and the day they were taken (asOf), so the same scores.json gives the same scores on whatever day the site is built.
 
@@ -7,7 +7,7 @@ export const SCORE_WEIGHTS = { stars: 30, activity: 25, openness: 20, likes: 15,
 export type ScoreSignal = keyof typeof SCORE_WEIGHTS;
 export const SCORE_SIGNALS = Object.keys(SCORE_WEIGHTS) as ScoreSignal[];
 
-// What a signal that cannot be measured counts for, as a share of its weight: half, an ordinary value (31 stars, about the directory's median), so that an entry is neither punished nor rewarded for what nobody can see.
+// What a signal that cannot be measured counts for, as a share of its weight: half of it, so that an entry is neither punished nor rewarded for what nobody can see.
 export const NEUTRAL = 0.5;
 // Fixed anchors rather than ranks among the entries, so that a score does not move when other entries come and go: 1,000 stars and 50 likes count in full, on a log scale below.
 export const STAR_ANCHOR = 1000;
@@ -18,9 +18,8 @@ export const ARCHIVED_FACTOR = 0.5;
 export const ACTIVITY_WEEKS = 12;
 const ACTIVITY_FULL = 8;
 const ACTIVITY_MIN = 4;
-// A release within this many days of asOf counts in full, within a year for half.
-const RELEASE_FRESH_DAYS = 90;
-const RELEASE_OLD_DAYS = 365;
+// How many days with a release or tag in the counted weeks count in full, on a log scale below: one a week.
+export const RELEASE_ANCHOR = 12;
 
 // What the workflow records of one entry. An entry without repo is closed source. path is set when the entry lives in a folder of a larger repository (an official plugin inside egoist/mygo): its activity is that folder's, its release and license the repository's, and its stars are not recorded, as the repository's are not the plugin's own. A field that is left out was not measured, except released (never released) and archived (not archived).
 export interface ScoreSignals {
@@ -36,6 +35,8 @@ export interface ScoreSignals {
 	osi?: boolean;
 	// The day of the latest release or tag, YYYY-MM-DD.
 	released?: string;
+	// On how many days in the counted weeks, the 12 full weeks before asOf, the repository published a release or had a tag; left out for a record written before it was counted.
+	releaseDays?: number;
 	archived?: boolean;
 	likes: number;
 }
@@ -50,8 +51,10 @@ export interface ScorePart {
 }
 
 export interface Score {
-	// 0 to 100: the parts' points, times ARCHIVED_FACTOR when archived, rounded.
+	// 0 to 100: exact, rounded.
 	total: number;
+	// The parts' points added up in tenths, times ARCHIVED_FACTOR when archived; total is it rounded. Adding whole tenths keeps a sum like 54.5 exact, so it rounds up as the breakdown a visitor adds up does, which a sum of the one-decimal points in floating point can miss.
+	exact: number;
 	parts: ScorePart[];
 	// The share of the weight that was measured: 1 for an open-source entry, less when some signals are counted at NEUTRAL. The site shows a score below 1 as approximate.
 	measured: number;
@@ -81,14 +84,17 @@ export function opennessShare(s: Pick<ScoreSignals, 'repo' | 'license' | 'osi'>)
 	return s.osi ? 1 : 0.6;
 }
 
-// A release up to a week after asOf is one the workflow read later in that week, and fresh; one later than that cannot have been read in that week, and counts for nothing.
-const RELEASE_AHEAD_DAYS = 7;
+// The days with a release or tag that a record is known to have: its releaseDays, or for a record written before they were counted, one when its latest release falls in the counted weeks, before asOf and on or after their first day (it had at least that one), and none otherwise, a release on asOf or later included, as the days are counted.
+export function knownReleaseDays(s: Pick<ScoreSignals, 'released' | 'releaseDays'>, asOf: string): number {
+	if (s.releaseDays !== undefined) return s.releaseDays;
+	if (!s.released) return 0;
+	const days = (Date.parse(`${asOf}T00:00:00Z`) - Date.parse(`${s.released}T00:00:00Z`)) / DAY;
+	return days >= 1 && days <= ACTIVITY_WEEKS * 7 ? 1 : 0;
+}
 
-export function releaseShare(released: string | undefined, asOf: string): number {
-	if (!released) return 0;
-	const days = (Date.parse(`${asOf}T00:00:00Z`) - Date.parse(`${released}T00:00:00Z`)) / DAY;
-	if (days < -RELEASE_AHEAD_DAYS) return 0;
-	return days <= RELEASE_FRESH_DAYS ? 1 : days <= RELEASE_OLD_DAYS ? 0.5 : 0;
+// Releases: the days with a release or tag in the counted weeks, on a log scale, in full from RELEASE_ANCHOR.
+export function releaseShare(days: number): number {
+	return logShare(days, RELEASE_ANCHOR);
 }
 
 export function scoreOf(s: ScoreSignals, asOf: string): Score {
@@ -99,7 +105,7 @@ export function scoreOf(s: ScoreSignals, asOf: string): Score {
 		activity: open && s.weeks !== undefined && s.weeks > 0 && s.activeWeeks !== undefined ? activityShare(s.weeks, s.activeWeeks) : undefined,
 		openness: opennessShare(s),
 		likes: logShare(s.likes, LIKE_ANCHOR),
-		release: open ? releaseShare(s.released, asOf) : undefined,
+		release: open ? releaseShare(knownReleaseDays(s, asOf)) : undefined,
 	};
 	const parts = SCORE_SIGNALS.map((signal): ScorePart => {
 		const share = shares[signal];
@@ -107,9 +113,10 @@ export function scoreOf(s: ScoreSignals, asOf: string): Score {
 		return { signal, max, points: round1(max * (share ?? NEUTRAL)), basis: share === undefined ? 'neutral' : 'measured' };
 	});
 	const archived = s.archived === true;
-	const sum = parts.reduce((n, p) => n + p.points, 0);
+	const tenths = parts.reduce((n, p) => n + Math.round(p.points * 10), 0);
+	const exact = ((archived ? ARCHIVED_FACTOR : 1) * tenths) / 10;
 	const measured = parts.filter((p) => p.basis === 'measured').reduce((n, p) => n + p.max, 0) / 100;
-	return { total: Math.round((archived ? ARCHIVED_FACTOR : 1) * sum), parts, measured, archived };
+	return { total: Math.round(exact), exact, parts, measured, archived };
 }
 
 export interface ScoreTarget {

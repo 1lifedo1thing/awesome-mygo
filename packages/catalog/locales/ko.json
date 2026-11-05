@@ -220,6 +220,7 @@
 	"score_v_likes": "좋아요: {n} ({x} 기준)",
 	"score_v_rel": "최근: {x}",
 	"score_v_rel_none": "릴리스 없음",
+	"score_v_rel_days": "최근 {x}주 중 {n}일 릴리스",
 	"score_lic_osi": "{x}, OSI 승인 오픈 소스 라이선스",
 	"score_lic_other": "{x}, OSI 미승인 라이선스",
 	"score_lic_unknown": "라이선스를 자동으로 식별하지 못했습니다",

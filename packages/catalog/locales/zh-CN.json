@@ -220,6 +220,7 @@
 	"score_v_likes": "点赞：{n}（截至 {x}）",
 	"score_v_rel": "最近一次：{x}",
 	"score_v_rel_none": "暂无版本",
+	"score_v_rel_days": "近 {x} 周中 {n} 天有发布",
 	"score_lic_osi": "{x}，OSI 认可的开源协议",
 	"score_lic_other": "{x}，非 OSI 认可的协议",
 	"score_lic_unknown": "协议未能自动识别",

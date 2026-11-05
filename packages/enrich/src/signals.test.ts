@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { scoreOf } from '../../catalog/src/score.ts';
 import type { ScoreSignals, ScoreTarget } from '../../catalog/src/score.ts';
-import { type Batch, type BatchResult, type ScoresFile, anomalies, assemble, batches, buildQuery, commitMessage, eligibleWeeks, isIdle, isOsi, latestRelease, parseBatch, planRun, readLikes, scoredEntry, serializeScores, signalsOf, weekStart, weekWindows } from './signals.ts';
+import { type Batch, type BatchResult, type ScoresFile, anomalies, assemble, batches, buildQuery, commitMessage, eligibleWeeks, isIdle, isOsi, latestRelease, parseBatch, planRun, readLikes, releaseDays, scoredEntry, serializeScores, signalsOf, weekStart, weekWindows } from './signals.ts';
 
 const DAY = 86_400_000;
 const ASOF = '2026-11-02';
@@ -75,6 +75,21 @@ describe('the release and the license', () => {
 		expect(latestRelease('2026-11-03T12:00:00Z', [], RUN)).toBe('2026-11-03');
 	});
 
+	it('count the days with a release or tag in the counted weeks, the 12 full weeks before asOf', () => {
+		const windows = weekWindows(ASOF);
+		const start = MONDAY - 84 * DAY;
+		expect(releaseDays([], windows)).toBe(0);
+		expect(releaseDays([null, undefined], windows)).toBe(0);
+		// Several on one day, or a monorepo's tags of all its packages, count once; days are UTC.
+		expect(releaseDays(['2026-10-20T08:00:00Z', '2026-10-20T08:00:05Z', '2026-10-20T23:59:59Z', '2026-10-21T00:00:00Z'], windows)).toBe(2);
+		// From the start of the oldest window, inclusive, up to asOf, exclusive: the days of this week are not counted, the same for every run of the week, as activity counts only the full weeks.
+		expect(releaseDays([iso(start), iso(start - 1000), iso(MONDAY - 1000), iso(MONDAY), '2026-11-03T12:00:00Z', iso(NOW)], windows)).toBe(2);
+		// A tag dated in the future is not believed, as for the latest release.
+		expect(releaseDays(['2099-01-01T00:00:00Z', iso(NOW + 1000)], windows)).toBe(0);
+		expect(releaseDays(Array.from({ length: 30 }, (_, i) => iso(start + i * DAY)), windows)).toBe(30);
+		expect(releaseDays(Array.from({ length: 90 }, (_, i) => iso(start + i * DAY)), windows)).toBe(84);
+	});
+
 	it('knows the licenses the OSI approves', () => {
 		expect(isOsi('MIT')).toBe(true);
 		expect(isOsi('Unlicense')).toBe(true);
@@ -101,8 +116,8 @@ describe('what the site scores', () => {
 	});
 });
 
-const kero: ScoreSignals = { repo: 'egoist/kero', stars: 1419, weeks: 12, activeWeeks: 12, license: 'MIT', osi: true, released: '2026-11-01', likes: 0 };
-const sqlite: ScoreSignals = { repo: 'egoist/mygo', path: 'plugins/sqlite', weeks: 6, activeWeeks: 4, license: 'MIT', osi: true, released: '2026-11-01', likes: 0 };
+const kero: ScoreSignals = { repo: 'egoist/kero', stars: 1419, weeks: 12, activeWeeks: 12, license: 'MIT', osi: true, released: '2026-11-01', releaseDays: 11, likes: 0 };
+const sqlite: ScoreSignals = { repo: 'egoist/mygo', path: 'plugins/sqlite', weeks: 6, activeWeeks: 4, license: 'MIT', osi: true, released: '2026-11-01', releaseDays: 26, likes: 0 };
 const pulse: ScoreSignals = { likes: 2 };
 
 describe('which entries a run measures', () => {
@@ -145,6 +160,33 @@ describe('which entries a run measures', () => {
 		expect(isIdle(plan)).toBe(false);
 	});
 
+	it('later in the week measures again the records of a file from before the release days were recorded, so a formula change needs no manual full run', () => {
+		const { releaseDays: _, ...before } = kero;
+		const { releaseDays: __, ...sqliteBefore } = sqlite;
+		const prev: ScoresFile = { asOf: ASOF, entries: { 'app:kero': before, 'app:pulse': pulse, 'plugin:sqlite': sqliteBefore } };
+		const plan = planRun(prev, targets, ASOF, false);
+		expect(plan.full).toBe(false);
+		expect(plan.measure).toEqual(['app:kero', 'app:new', 'plugin:sqlite']);
+		expect(plan.stale).toEqual(['app:kero', 'plugin:sqlite']);
+		expect(plan.moved).toEqual([]);
+		// A closed-source record has no release days to count.
+		expect(Object.keys(plan.keep)).toEqual(['app:pulse']);
+		// One that moved as well is moved, not stale.
+		const moved = planRun({ ...prev, entries: { ...prev.entries, 'plugin:sqlite': { ...sqliteBefore, path: 'plugins/sqlite3' } } }, targets, ASOF, false);
+		expect([moved.measure, moved.moved, moved.stale]).toEqual([['app:kero', 'app:new', 'plugin:sqlite'], ['plugin:sqlite'], ['app:kero']]);
+	});
+
+	it('keeps a record without release days once the file has them, so that one kept because its repository was not found does not leave every run with something to do', () => {
+		const { releaseDays: _, ...before } = kero;
+		// app:new's repository was not found when the release days were first recorded, so its record was kept as it was; 0 is a count.
+		const prev: ScoresFile = { asOf: ASOF, entries: { 'app:kero': { ...kero, releaseDays: 0 }, 'app:pulse': pulse, 'plugin:sqlite': sqlite, 'app:new': { ...before, repo: 'you/new' } } };
+		const plan = planRun(prev, targets, ASOF, false);
+		expect(plan.measure).toEqual([]);
+		expect(plan.stale).toEqual([]);
+		expect(plan.keep['app:new']).toBe(prev.entries['app:new']);
+		expect(isIdle(plan)).toBe(true);
+	});
+
 	it('has nothing to do when every entry is recorded this week', () => {
 		const prev: ScoresFile = { asOf: ASOF, entries: { 'app:kero': kero, 'app:pulse': pulse, 'plugin:sqlite': sqlite, 'app:new': { ...kero, repo: 'you/new' } } };
 		const plan = planRun(prev, targets, ASOF, false);
@@ -166,9 +208,9 @@ describe('the file', () => {
 				'\t"$schema": "./schema/scores.schema.json",',
 				'\t"asOf": "2026-11-02",',
 				'\t"entries": {',
-				'\t\t"app:kero": { "activeWeeks": 12, "license": "MIT", "likes": 0, "osi": true, "released": "2026-11-01", "repo": "egoist/kero", "stars": 1419, "weeks": 12 },',
+				'\t\t"app:kero": { "activeWeeks": 12, "license": "MIT", "likes": 0, "osi": true, "releaseDays": 11, "released": "2026-11-01", "repo": "egoist/kero", "stars": 1419, "weeks": 12 },',
 				'\t\t"app:pulse": { "likes": 2 },',
-				'\t\t"plugin:sqlite": { "activeWeeks": 4, "license": "MIT", "likes": 0, "osi": true, "path": "plugins/sqlite", "released": "2026-11-01", "repo": "egoist/mygo", "weeks": 6 }',
+				'\t\t"plugin:sqlite": { "activeWeeks": 4, "license": "MIT", "likes": 0, "osi": true, "path": "plugins/sqlite", "releaseDays": 26, "released": "2026-11-01", "repo": "egoist/mygo", "weeks": 6 }',
 				'\t}',
 				'}',
 				'',
@@ -178,7 +220,7 @@ describe('the file', () => {
 	});
 
 	it('is the same bytes for the same signals, whatever order they come in', () => {
-		const shuffled = { likes: 0, weeks: 12, stars: 1419, repo: 'egoist/kero', released: '2026-11-01', osi: true, license: 'MIT', activeWeeks: 12 };
+		const shuffled = { likes: 0, weeks: 12, releaseDays: 11, stars: 1419, repo: 'egoist/kero', released: '2026-11-01', osi: true, license: 'MIT', activeWeeks: 12 };
 		expect(serializeScores({ asOf: ASOF, entries: { 'app:pulse': pulse, 'app:kero': shuffled } })).toBe(serializeScores({ asOf: ASOF, entries: { 'app:kero': kero, 'app:pulse': pulse } }));
 	});
 
@@ -247,7 +289,7 @@ describe('reading GitHub\'s answer', () => {
 	const weeks = (n: number, counts: number[], pre?: number, ever?: number) => ({ ...Object.fromEntries(counts.map((c, w) => [`t${n}w${w}`, { totalCount: c }])), ...(pre === undefined ? {} : { [`t${n}pre`]: { totalCount: pre }, [`t${n}ever`]: { totalCount: ever } }) });
 	const answer = {
 		data: {
-			r0: { stargazerCount: 1419, isArchived: false, createdAt: '2025-01-01T00:00:00Z', licenseInfo: { spdxId: 'MIT' }, latestRelease: { publishedAt: '2026-10-01T00:00:00Z' }, refs: { nodes: [{ target: { committedDate: '2026-11-01T08:00:00Z' } }] }, defaultBranchRef: { target: weeks(0, [3400, 0, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1]) } },
+			r0: { stargazerCount: 1419, isArchived: false, createdAt: '2025-01-01T00:00:00Z', licenseInfo: { spdxId: 'MIT' }, latestRelease: { publishedAt: '2026-10-01T00:00:00Z' }, releases: { nodes: [{ publishedAt: null, tagName: 'v0.4.0' }, { publishedAt: '2026-10-01T00:00:00Z', tagName: 'v0.2.0' }, { publishedAt: '2026-07-01T00:00:00Z', tagName: 'v0.1.0' }] }, refs: { nodes: [{ name: 'v0.3.1', target: { committedDate: '2026-11-01T08:00:00Z' } }, { name: 'v0.3.0', target: { tagger: { date: '2026-11-01T20:00:00Z' } } }, { name: 'v0.2.0', target: { committedDate: '2026-10-01T00:00:00Z' } }] }, defaultBranchRef: { target: weeks(0, [3400, 0, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1]) } },
 			r1: null,
 			r2: {
 				stargazerCount: 4592,
@@ -255,7 +297,7 @@ describe('reading GitHub\'s answer', () => {
 				createdAt: '2026-09-25T00:00:00Z',
 				licenseInfo: { spdxId: 'NOASSERTION' },
 				latestRelease: null,
-				refs: { nodes: [{ target: { tagger: { date: '2026-10-20T00:00:00Z' } } }] },
+				refs: { nodes: [{ name: 'plugins/sqlite/v0.1.0', target: { tagger: { date: '2026-10-20T00:00:00Z' } } }] },
 				defaultBranchRef: { target: { ...weeks(2, [1, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0], 0, 5), ...weeks(3, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 0, 0) } },
 			},
 		},
@@ -265,16 +307,32 @@ describe('reading GitHub\'s answer', () => {
 	it('reads each repository and each entry\'s weeks, and lists a repository GitHub does not find', () => {
 		const out = parseBatch(batch, answer, windows, NOW);
 		expect(out.notFound).toEqual(['app:gone']);
-		expect(out.repos.get('egoist/kero')).toEqual({ stars: 1419, archived: false, createdAt: '2025-01-01T00:00:00Z', license: 'MIT', released: '2026-11-01' });
-		expect(out.repos.get('egoist/mygo')).toEqual({ stars: 4592, archived: true, createdAt: '2026-09-25T00:00:00Z', license: 'NOASSERTION', released: '2026-10-20' });
+		// kero's days: 2026-10-01 (a release and its tag) and 2026-11-01 (two tags); a draft has no date, and a release in July is before the weeks.
+		expect(out.repos.get('egoist/kero')).toEqual({ stars: 1419, archived: false, createdAt: '2025-01-01T00:00:00Z', license: 'MIT', released: '2026-11-01', releaseDays: 2 });
+		expect(out.repos.get('egoist/mygo')).toEqual({ stars: 4592, archived: true, createdAt: '2026-09-25T00:00:00Z', license: 'NOASSERTION', released: '2026-10-20', releaseDays: 1 });
 		expect(out.activity.get('app:kero')).toEqual({ active: activeAt(0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11) });
 		expect(out.activity.get('plugin:sqlite')).toEqual({ active: activeAt(0, 2), pre: 0, ever: 5 });
 		expect(out.activity.get('plugin:fetch')).toEqual({ active: none, pre: 0, ever: 0 });
 	});
 
+	it('dates a tag with a release by that release alone, so that the two count as one day even when the tag\'s commit is from an earlier day', () => {
+		const repo = (releases: { publishedAt: string | null; tagName: string }[], refs: { name: string; committedDate: string }[]) => {
+			const r0 = { stargazerCount: 1, isArchived: false, createdAt: '2026-09-01T00:00:00Z', licenseInfo: { spdxId: 'MIT' }, latestRelease: releases.find((n) => n.publishedAt) ?? null, releases: { nodes: releases }, refs: { nodes: refs.map(({ name, committedDate }) => ({ name, target: { committedDate } })) }, defaultBranchRef: null };
+			return parseBatch({ repos: [{ repo: 'a/b', fields: true, targets: [{ key: 'ui:a/b' }] }] }, { data: { r0 } }, windows, NOW).repos.get('a/b');
+		};
+		// A release made from GitHub's release page, or a lightweight tag of HEAD, is dated by its commit, here the evening before the release was published, on another UTC day.
+		const release = { publishedAt: '2026-10-28T00:21:57Z', tagName: 'v0.1.1' };
+		const tag = { name: 'v0.1.1', committedDate: '2026-10-27T19:38:12Z' };
+		expect(repo([release], [tag])).toMatchObject({ released: '2026-10-28', releaseDays: 1 });
+		// A bare tag on another day is a day of its own.
+		expect(repo([release], [tag, { name: 'v0.1.0', committedDate: '2026-10-20T10:00:00Z' }])?.releaseDays).toBe(2);
+		// A draft has no date, so its tag keeps its own.
+		expect(repo([{ publishedAt: null, tagName: 'v0.2.0' }], [{ name: 'v0.2.0', committedDate: '2026-10-15T10:00:00Z' }])).toMatchObject({ released: '2026-10-15', releaseDays: 1 });
+	});
+
 	it('takes a repository without a license as one, and without commits as inactive', () => {
-		const out = parseBatch({ repos: [{ repo: 'a/b', fields: true, targets: [{ key: 'ui:a/b' }] }] }, { data: { r0: { stargazerCount: 2, isArchived: false, createdAt: '2026-10-01T00:00:00Z', licenseInfo: null, latestRelease: null, refs: { nodes: [] }, defaultBranchRef: null } } }, windows, NOW);
-		expect(out.repos.get('a/b')).toEqual({ stars: 2, archived: false, createdAt: '2026-10-01T00:00:00Z', license: null, released: undefined });
+		const out = parseBatch({ repos: [{ repo: 'a/b', fields: true, targets: [{ key: 'ui:a/b' }] }] }, { data: { r0: { stargazerCount: 2, isArchived: false, createdAt: '2026-10-01T00:00:00Z', licenseInfo: null, latestRelease: null, releases: { nodes: [] }, refs: { nodes: [] }, defaultBranchRef: null } } }, windows, NOW);
+		expect(out.repos.get('a/b')).toEqual({ stars: 2, archived: false, createdAt: '2026-10-01T00:00:00Z', license: null, released: undefined, releaseDays: 0 });
 		expect(out.activity.get('ui:a/b')).toEqual({ active: none });
 	});
 
@@ -286,17 +344,20 @@ describe('reading GitHub\'s answer', () => {
 
 	it('records the signals the catalog reads', () => {
 		const out = parseBatch(batch, answer, windows, NOW);
-		expect(signalsOf({ repo: 'egoist/kero' }, out.repos.get('egoist/kero')!, out.activity.get('app:kero')!, 3, ASOF)).toEqual({ repo: 'egoist/kero', stars: 1419, weeks: 12, activeWeeks: 11, license: 'MIT', osi: true, released: '2026-11-01', likes: 3 });
-		expect(signalsOf({ repo: 'egoist/mygo', path: 'plugins/sqlite' }, out.repos.get('egoist/mygo')!, out.activity.get('plugin:sqlite')!, 0, ASOF)).toEqual({ repo: 'egoist/mygo', path: 'plugins/sqlite', weeks: 3, activeWeeks: 2, license: 'NOASSERTION', osi: false, released: '2026-10-20', archived: true, likes: 0 });
+		expect(signalsOf({ repo: 'egoist/kero' }, out.repos.get('egoist/kero')!, out.activity.get('app:kero')!, 3, ASOF)).toEqual({ repo: 'egoist/kero', stars: 1419, weeks: 12, activeWeeks: 11, license: 'MIT', osi: true, released: '2026-11-01', releaseDays: 2, likes: 3 });
+		expect(signalsOf({ repo: 'egoist/mygo', path: 'plugins/sqlite' }, out.repos.get('egoist/mygo')!, out.activity.get('plugin:sqlite')!, 0, ASOF)).toEqual({ repo: 'egoist/mygo', path: 'plugins/sqlite', weeks: 3, activeWeeks: 2, license: 'NOASSERTION', osi: false, released: '2026-10-20', releaseDays: 1, archived: true, likes: 0 });
 		// A folder with no commit ever moved or is misnamed: judged on the repository's weeks, 0 activity, not counted at half as a new one is.
-		const mygo = { stars: 4592, archived: false, createdAt: '2026-09-28T00:00:00Z', license: 'MIT' };
+		const mygo = { stars: 4592, archived: false, createdAt: '2026-09-28T00:00:00Z', license: 'MIT', releaseDays: 26 };
 		const gone = signalsOf({ repo: 'egoist/mygo', path: 'plugins/old' }, mygo, { active: none, pre: 0, ever: 0 }, 0, ASOF);
 		expect([gone.weeks, gone.activeWeeks]).toEqual([5, 0]);
 		expect(scoreOf(gone, ASOF).parts.find((p) => p.signal === 'activity')).toMatchObject({ points: 0, basis: 'measured' });
 		// A folder added after the windows (commits, but none in them yet) is new: 0 weeks, counted at half.
 		expect(signalsOf({ repo: 'egoist/mygo', path: 'plugins/new' }, mygo, { active: none, pre: 0, ever: 2 }, 0, ASOF).weeks).toBe(0);
-		const bare = signalsOf({ repo: 'a/b' }, { stars: 0, archived: false, createdAt: '2020-01-01T00:00:00Z', license: null }, { active: none }, 0, ASOF);
-		expect(bare).toEqual({ repo: 'a/b', stars: 0, weeks: 12, activeWeeks: 0, license: null, likes: 0 });
+		// A folder has its repository's release days, as its license.
+		expect(signalsOf({ repo: 'egoist/mygo', path: 'plugins/new' }, mygo, { active: none, pre: 0, ever: 2 }, 0, ASOF).releaseDays).toBe(26);
+		// The release days are written for every entry with a repository, none included: a record without them is one from before they were counted.
+		const bare = signalsOf({ repo: 'a/b' }, { stars: 0, archived: false, createdAt: '2020-01-01T00:00:00Z', license: null, releaseDays: 0 }, { active: none }, 0, ASOF);
+		expect(bare).toEqual({ repo: 'a/b', stars: 0, weeks: 12, activeWeeks: 0, license: null, releaseDays: 0, likes: 0 });
 		expect(Object.keys(bare)).not.toContain('osi');
 		expect(Object.keys(bare)).not.toContain('archived');
 		expect(Object.keys(bare)).not.toContain('released');
@@ -304,7 +365,7 @@ describe('reading GitHub\'s answer', () => {
 });
 
 describe('the file a run writes', () => {
-	const info = { stars: 10, archived: false, createdAt: '2020-01-01T00:00:00Z', license: 'MIT' };
+	const info = { stars: 10, archived: false, createdAt: '2020-01-01T00:00:00Z', license: 'MIT', releaseDays: 0 };
 	const keys = Array.from({ length: 10 }, (_, i) => `app:a${i}`);
 	const targets = new Map<string, ScoreTarget>([...keys.map((k, i): [string, ScoreTarget] => [k, { repo: `o/a${i}` }]), ['app:pulse', {}]]);
 	const found = (notFound: string[]): BatchResult => ({
@@ -356,7 +417,7 @@ describe('the file a run writes', () => {
 describe('anomalies', () => {
 	const at = (entries: Record<string, ScoreSignals>, asOf = ASOF): ScoresFile => ({ asOf, entries });
 	const what = (prev: ScoreSignals, next: ScoreSignals) => anomalies(at({ k: prev }, '2026-10-26'), at({ k: next })).map((a) => a.what);
-	const base: ScoreSignals = { repo: 'a/b', stars: 100, weeks: 12, activeWeeks: 6, license: 'MIT', osi: true, released: '2026-10-01', likes: 2 };
+	const base: ScoreSignals = { repo: 'a/b', stars: 100, weeks: 12, activeWeeks: 6, license: 'MIT', osi: true, released: '2026-10-01', releaseDays: 12, likes: 2 };
 
 	it('flags likes that rise by 10, or triple and rise by 5', () => {
 		expect(what(base, { ...base, likes: 12 })).toEqual(['likes went from 2 to 12']);
@@ -399,7 +460,7 @@ describe('the commit message', () => {
 		const prev: ScoresFile = { asOf: '2026-10-26', entries: { 'app:kero': kero, 'app:pulse': pulse, 'app:gone': pulse } };
 		const next: ScoresFile = { asOf: ASOF, entries: { 'app:kero': { ...kero, activeWeeks: 4 }, 'app:pulse': { likes: 3 } } };
 		const plan = planRun(prev, targets, ASOF, false);
-		expect(commitMessage(plan, prev, next)).toBe('chore(scores): weekly signals as of 2026-11-02\n\n- app:kero: 85 → 73\n- app:gone: removed\n');
+		expect(commitMessage(plan, prev, next)).toBe('chore(scores): weekly signals as of 2026-11-02\n\n- app:kero: 85 → 72\n- app:gone: removed\n');
 	});
 
 	it('counts the entries a later run fills in', () => {
@@ -411,6 +472,22 @@ describe('the commit message', () => {
 		const prev: ScoresFile = { asOf: ASOF, entries: { 'app:kero': kero } };
 		const next: ScoresFile = { asOf: ASOF, entries: { 'app:kero': kero, 'app:pulse': pulse, 'app:new': { ...kero, repo: 'you/new' } } };
 		expect(commitMessage(planRun(prev, targets, ASOF, false), prev, next)).toBe('chore(scores): signals for 2 new entries\n\n- app:new: 85\n- app:pulse: 37\n');
+	});
+
+	it('names the records from before a signal was recorded that a later run measures again, and not one it had to keep', () => {
+		const targets = new Map<string, ScoreTarget>([
+			['app:kero', { repo: 'egoist/kero' }],
+			['app:gone', { repo: 'gone/app' }],
+			['app:new', { repo: 'you/new' }],
+		]);
+		const { releaseDays: _, ...before } = kero;
+		const lost = { ...before, repo: 'gone/app' };
+		const prev: ScoresFile = { asOf: ASOF, entries: { 'app:kero': before, 'app:gone': lost } };
+		// kero is measured again; gone/app is not found, so its record is kept as it was.
+		const next: ScoresFile = { asOf: ASOF, entries: { 'app:kero': kero, 'app:gone': lost, 'app:new': { ...kero, repo: 'you/new' } } };
+		const plan = planRun(prev, targets, ASOF, false);
+		expect(plan.stale).toEqual(['app:gone', 'app:kero']);
+		expect(commitMessage(plan, prev, next)).toBe('chore(scores): signals for 2 new or re-measured entries\n\n- app:kero: 78 → 85\n- app:new: 85\n');
 	});
 
 	it('says when it only drops entries', () => {

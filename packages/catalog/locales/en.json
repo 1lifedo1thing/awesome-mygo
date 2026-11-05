@@ -220,6 +220,7 @@
 	"score_v_likes": "Likes: {n} as of {x}",
 	"score_v_rel": "Latest: {x}",
 	"score_v_rel_none": "No release yet",
+	"score_v_rel_days": "Days with a release in the last {x} weeks: {n}",
 	"score_lic_osi": "{x}, an OSI-approved open source license",
 	"score_lic_other": "{x}, a license the OSI has not approved",
 	"score_lic_unknown": "The license could not be identified",

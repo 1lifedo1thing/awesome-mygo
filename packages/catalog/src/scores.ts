@@ -14,11 +14,13 @@ export interface ScoresFile {
 
 const SCHEMA = './schema/scores.schema.json';
 // The fields of an entry's signals, as ScoreSignals names them; data/schema/scores.schema.json describes the same.
-export const SCORE_FIELDS = ['repo', 'path', 'stars', 'weeks', 'activeWeeks', 'license', 'osi', 'released', 'archived', 'likes'] as const satisfies readonly (keyof ScoreSignals)[];
+export const SCORE_FIELDS = ['repo', 'path', 'stars', 'weeks', 'activeWeeks', 'license', 'osi', 'released', 'releaseDays', 'archived', 'likes'] as const satisfies readonly (keyof ScoreSignals)[];
 
 const KEY = /^(app|ui|state|plugin):\S+$/;
 const REPO = /^[^/\s]+\/[^/\s]+$/;
 const DAY = /^\d{4}-\d{2}-\d{2}$/;
+// The most release days a record can have: they are counted in the ACTIVITY_WEEKS full weeks before asOf, at most one a day.
+const RELEASE_DAYS_MAX = ACTIVITY_WEEKS * 7;
 
 // A calendar day as YYYY-MM-DD, and one that exists.
 function readDay(r: Reader, field: string): string {
@@ -57,11 +59,13 @@ function readSignals(key: string, json: unknown): ScoreSignals {
 	const osi = r.raw.osi === undefined ? undefined : r.bool('osi');
 	if (osi !== undefined && typeof license !== 'string') r.fail('osi', 'is recorded only with a license');
 	const released = r.raw.released === undefined ? undefined : readDay(r, 'released');
+	const releaseDays = readCount(r, 'releaseDays');
+	if (releaseDays !== undefined && releaseDays > RELEASE_DAYS_MAX) r.fail('releaseDays', `must be at most ${RELEASE_DAYS_MAX}, got ${releaseDays}`);
 	if (r.raw.archived !== undefined && r.raw.archived !== true) r.fail('archived', 'is written only as true, and left out otherwise');
 	const archived = r.raw.archived === true ? true : undefined;
 	const likes = readCount(r, 'likes');
 	if (likes === undefined) r.fail('likes', 'is required');
-	return { repo, path, stars, weeks, activeWeeks, license, osi, released, archived, likes };
+	return { repo, path, stars, weeks, activeWeeks, license, osi, released, releaseDays, archived, likes };
 }
 
 // data/scores.json, or a version of it: throws a CatalogError naming the entry's key and the field of the first mistake.
@@ -128,4 +132,24 @@ export function entrySignals(key: string): ScoreSignals | undefined {
 // For sorting by score, highest first: an entry's total, or -1 for one without a score, so that it goes after every scored entry.
 export function scoreRank(key: string): number {
 	return ENTRY_SCORES.get(key)?.score.total ?? -1;
+}
+
+// A count for the tie-break, with one that was not measured (a closed-source entry's, a folder's stars) after 0.
+const countOf = (n: number | undefined) => n ?? -1;
+
+// Two entries' scores for sorting, the higher first: by the total, then for equal totals by the unrounded sum, then by the raw stars, active weeks and release days, which tell apart counts that round to the same points (stars from 1,000, a young project's weeks, release days from RELEASE_ANCHOR); an entry with a score goes before one without. 0 when nothing tells them apart, so that a stable sort keeps the list's own order.
+export function compareScores(a: EntryScore | undefined, b: EntryScore | undefined): number {
+	if (!a || !b) return Number(!a) - Number(!b);
+	return (
+		b.score.total - a.score.total ||
+		b.score.exact - a.score.exact ||
+		countOf(b.signals.stars) - countOf(a.signals.stars) ||
+		countOf(b.signals.activeWeeks) - countOf(a.signals.activeWeeks) ||
+		countOf(b.signals.releaseDays) - countOf(a.signals.releaseDays)
+	);
+}
+
+// compareScores of two entries by their keys (likeKey), for sorting a list of them by score.
+export function compareByScore(a: string, b: string): number {
+	return compareScores(ENTRY_SCORES.get(a), ENTRY_SCORES.get(b));
 }

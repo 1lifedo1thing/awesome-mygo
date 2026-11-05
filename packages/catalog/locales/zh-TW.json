@@ -220,6 +220,7 @@
 	"score_v_likes": "按讚：{n}（截至 {x}）",
 	"score_v_rel": "最近一次：{x}",
 	"score_v_rel_none": "尚無版本",
+	"score_v_rel_days": "近 {x} 週中 {n} 天有發布",
 	"score_lic_osi": "{x}，OSI 認可的開源授權",
 	"score_lic_other": "{x}，非 OSI 認可的授權",
 	"score_lic_unknown": "授權無法自動識別",

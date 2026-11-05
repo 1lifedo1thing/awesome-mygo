@@ -55,6 +55,18 @@ export function latestRelease(releaseAt: string | null | undefined, tagsAt: read
 	return times.length ? day(Math.max(...times)) : undefined;
 }
 
+// On how many days (UTC) there was a release or tag in the windows, the counted weeks, the same for every run of a week: several on one day, or a monorepo's tags of all its packages, count once; a tag with a release is dated by that release alone (parseBatch), so that a release and its own tag count once even when the tag's commit is from an earlier day; and one on asOf or later, this week's or a tag dated in the future, is left out, as activity leaves out this week's commits. The times are the newest 100 releases and the newest 100 tags (REPO_FIELDS): a repository with more in the windows (droi, golder, lark-music and quosparr had more than 100 by November 2026) is counted from those alone, which already reach well past RELEASE_ANCHOR's days, so its points are exact and only the raw count the tie-break reads is a lower bound.
+export function releaseDays(times: readonly (string | null | undefined)[], windows: readonly Window[]): number {
+	const start = windows[windows.length - 1].start;
+	const end = windows[0].end;
+	const days = new Set<number>();
+	for (const t of times) {
+		const at = t ? Date.parse(t) : Number.NaN;
+		if (at >= start && at < end) days.add(Math.floor(at / DAY));
+	}
+	return days.size;
+}
+
 // Whether an SPDX id is a license the Open Source Initiative approves, by the SPDX license list. NOASSERTION (a license GitHub cannot name) and no license are not.
 export function isOsi(id: string | null | undefined): boolean {
 	return Boolean(id) && Object.hasOwn(spdx, id as string) && spdx[id as string].osiApproved === true;
@@ -85,9 +97,10 @@ export function scoredEntry(kind: EntryKind, e: Entry): Scored | undefined {
 export interface Plan {
 	// Every entry is measured again: the first run of a week (asOf moved on), or FULL=true.
 	full: boolean;
-	// The keys measured in this run, and why: the whole catalog in a full run, otherwise the entries without a record and those whose repository or folder changed since theirs.
+	// The keys measured in this run, and why: the whole catalog in a full run, otherwise the entries without a record, those whose repository or folder changed since theirs (moved), and those whose record is from before a signal was recorded (stale).
 	measure: string[];
 	moved: string[];
+	stale: string[];
 	// The records left as they are, byte for byte.
 	keep: Record<string, ScoreSignals>;
 	// The keys of entries the catalog no longer lists, dropped from the file.
@@ -96,20 +109,24 @@ export interface Plan {
 
 const sameTarget = (s: ScoreSignals | undefined, t: ScoreTarget) => s !== undefined && s.repo === t.repo && s.path === t.path;
 
-// Which entries a run measures. The first run of a week measures all of them, so that a week's signals are one snapshot; a later run that week only fills in what is missing, so the scores do not move within the week, and a Monday that failed is made up the next day. Both drop the entries that are gone.
+// Which entries a run measures. The first run of a week measures all of them, so that a week's signals are one snapshot; a later run that week only fills in what is missing, so the scores do not move within the week, and a Monday that failed is made up the next day. Both drop the entries that are gone. While the file is from before a signal was recorded (no record has releaseDays), a record without it is measured again, so a formula change needs no manual full run: an entry with a repository whose record has no releaseDays. Runs record all they measure or nothing, so after the first one that succeeds every record whose repository was found has releaseDays, and a record kept because its repository was not found is kept again rather than measured on every run, which would leave no run idle.
 export function planRun(prev: ScoresFile, targets: ReadonlyMap<string, ScoreTarget>, asOf: string, full: boolean): Plan {
 	const all = full || prev.asOf !== asOf;
 	const measure: string[] = [];
 	const moved: string[] = [];
+	const stale: string[] = [];
 	const keep: Record<string, ScoreSignals> = {};
+	const predates = Object.values(prev.entries).every((s) => s.releaseDays === undefined);
 	for (const [key, target] of targets) {
 		const old = Object.hasOwn(prev.entries, key) ? prev.entries[key] : undefined;
+		const isStale = predates && sameTarget(old, target) && old?.repo !== undefined && old.releaseDays === undefined;
 		if (old && !sameTarget(old, target)) moved.push(key);
-		if (all || !sameTarget(old, target)) measure.push(key);
+		if (isStale) stale.push(key);
+		if (all || !sameTarget(old, target) || isStale) measure.push(key);
 		else keep[key] = old as ScoreSignals;
 	}
 	const dropped = Object.keys(prev.entries).filter((key) => !targets.has(key));
-	return { full: all, measure: measure.sort(), moved: moved.sort(), keep, dropped: dropped.sort() };
+	return { full: all, measure: measure.sort(), moved: moved.sort(), stale: stale.sort(), keep, dropped: dropped.sort() };
 }
 
 // Whether a run has nothing to do: no request is made and the file stays as it is.
@@ -147,7 +164,8 @@ export function batches(targets: readonly { key: string; repo: string; path?: st
 	return out;
 }
 
-const REPO_FIELDS = 'stargazerCount isArchived createdAt licenseInfo { spdxId } latestRelease { publishedAt } refs(refPrefix: "refs/tags/", first: 5, orderBy: { field: TAG_COMMIT_DATE, direction: DESC }) { nodes { target { ... on Commit { committedDate } ... on Tag { tagger { date } } } } }';
+// A repository's own fields: the latest release, and the newest 100 releases and tags, for the day of the latest (latestRelease) and the days with one (releaseDays). A release is dated when it was published (a draft has no date and is left out); a tag by its commit, or for an annotated tag by its tagger, and for the days with one, a tag with a release by that release (tagName and the ref's name match it to its tag).
+const REPO_FIELDS = 'stargazerCount isArchived createdAt licenseInfo { spdxId } latestRelease { publishedAt } releases(first: 100, orderBy: { field: CREATED_AT, direction: DESC }) { nodes { publishedAt tagName } } refs(refPrefix: "refs/tags/", first: 100, orderBy: { field: TAG_COMMIT_DATE, direction: DESC }) { nodes { name target { ... on Commit { committedDate } ... on Tag { tagger { date } } } } }';
 
 // A commit count on the default branch, in a folder when there is one, from since up to end, either open; until is inclusive in GitHub's history, so it stops a second before end.
 function history(since: number | undefined, end: number | undefined, path: string | undefined): string {
@@ -179,6 +197,8 @@ export interface RepoInfo {
 	// The SPDX id GitHub detects, NOASSERTION for a license it cannot name, null for none.
 	license: string | null;
 	released?: string;
+	// The days with a release or tag in the counted weeks, the 12 full weeks before asOf (releaseDays).
+	releaseDays: number;
 }
 
 // An entry's commits: whether it had any in each window (the latest first), how many before them, and for an entry in a folder how many ever.
@@ -206,7 +226,8 @@ interface GqlRepo {
 	createdAt?: string;
 	licenseInfo?: { spdxId: string | null } | null;
 	latestRelease?: { publishedAt: string | null } | null;
-	refs?: { nodes: { target: { committedDate?: string; tagger?: { date: string | null } | null } | null }[] } | null;
+	releases?: { nodes: { publishedAt: string | null; tagName: string }[] } | null;
+	refs?: { nodes: { name: string; target: { committedDate?: string; tagger?: { date: string | null } | null } | null }[] } | null;
 	defaultBranchRef: { target: Record<string, { totalCount: number }> | null } | null;
 }
 
@@ -232,13 +253,19 @@ export function parseBatch(batch: Batch, answer: GraphqlAnswer, windows: readonl
 		}
 		if (r.fields) {
 			const lic = repo.licenseInfo;
+			const releases = repo.releases?.nodes ?? [];
+			const refs = repo.refs?.nodes ?? [];
+			const tagDate = (n: (typeof refs)[number]) => n.target?.committedDate ?? n.target?.tagger?.date;
+			// A tag with a published release is dated once, by that release: its commit is often from an earlier day than the release, and would count it twice. A draft has no date, so its tag keeps its own.
+			const withRelease = new Set(releases.filter((n) => n.publishedAt).map((n) => n.tagName));
 			out.repos.set(r.repo.toLowerCase(), {
 				stars: repo.stargazerCount ?? 0,
 				archived: repo.isArchived === true,
 				createdAt: String(repo.createdAt),
 				license: lic ? (lic.spdxId ?? 'NOASSERTION') : null,
-				// The five newest tags by their commits' dates, so that one dated in the future does not hide the real ones.
-				released: latestRelease(repo.latestRelease?.publishedAt, (repo.refs?.nodes ?? []).map((n) => n.target?.committedDate ?? n.target?.tagger?.date), now),
+				// The newest tags by their commits' dates, every one of them, so that one dated in the future does not hide the real ones.
+				released: latestRelease(repo.latestRelease?.publishedAt, refs.map(tagDate), now),
+				releaseDays: releaseDays([...releases.map((n) => n.publishedAt), ...refs.filter((n) => !withRelease.has(n.name)).map(tagDate)], windows),
 			});
 		}
 		const counts = repo.defaultBranchRef?.target ?? {};
@@ -270,6 +297,7 @@ export function signalsOf(target: ScoreTarget, repo: RepoInfo, activity: Activit
 		license: repo.license,
 		...(repo.license === null ? {} : { osi: isOsi(repo.license) }),
 		...(repo.released ? { released: repo.released } : {}),
+		releaseDays: repo.releaseDays,
 		...(repo.archived ? { archived: true } : {}),
 		likes,
 	};
@@ -383,7 +411,10 @@ const entriesWord = (n: number) => (n === 1 ? 'entry' : 'entries');
 
 // The commit message of a run's change to the file: a week's full run lists the entries whose score moved by 5 or more; a run that fills in entries names them.
 export function commitMessage(plan: Plan, prev: ScoresFile, next: ScoresFile): string {
-	const measured = plan.measure.filter((key) => Object.hasOwn(next.entries, key));
+	// In a run that fills in entries, one whose repository was not found keeps its last record, the same one, and was not measured after all.
+	const measured = plan.measure.filter((key) => Object.hasOwn(next.entries, key) && (plan.full || next.entries[key] !== prev.entries[key]));
+	const stale = measured.some((key) => plan.stale.includes(key));
+	const kind = stale ? (plan.moved.length ? 'new, moved or re-measured' : 'new or re-measured') : plan.moved.length ? 'new or moved' : 'new';
 	const line = (key: string) => {
 		const from = totalOf(prev, key);
 		const to = totalOf(next, key);
@@ -401,7 +432,7 @@ export function commitMessage(plan: Plan, prev: ScoresFile, next: ScoresFile): s
 	const subject = plan.full
 		? `chore(scores): weekly signals as of ${next.asOf}`
 		: measured.length
-			? `chore(scores): signals for ${measured.length} ${plan.moved.length ? 'new or moved' : 'new'} ${entriesWord(measured.length)}`
+			? `chore(scores): signals for ${measured.length} ${kind} ${entriesWord(measured.length)}`
 			: `chore(scores): drop the signals of ${gone.length} ${entriesWord(gone.length)}`;
 	const lines = [...body.map(line), ...gone.map((key) => `- ${key}: removed`)];
 	return lines.length ? `${subject}\n\n${lines.join('\n')}\n` : `${subject}\n`;
