@@ -1,0 +1,22 @@
+{
+	"$schema": "../schema/ui.schema.json",
+	"slug": "mintui",
+	"name": "MintUI",
+	"author": "HycJack",
+	"tag": "theme",
+	"surface": "native",
+	"summary": {
+		"en": "Native UI components for MyGo in 22 Go packages, from layout and inputs to tables, charts and chat, with light and dark themes and a gallery.",
+		"zh-CN": "MyGo 原生 UI 组件库，分 22 个 Go 包，涵盖布局、输入、表格、图表、聊天等，含浅深两套主题与组件画廊。",
+		"zh-TW": "MyGo 原生 UI 元件庫，分為 22 個 Go 套件，涵蓋版面、輸入、表格、圖表、聊天等，附淺深兩套主題與元件畫廊。",
+		"ja": "MyGo ネイティブ UI 向けのコンポーネント集。22 の Go パッケージでレイアウト、入力、表、チャート、チャットなどを提供し、ライト・ダークテーマとギャラリー付き。",
+		"ko": "MyGo 네이티브 UI용 컴포넌트 라이브러리로, 22개 Go 패키지에 레이아웃, 입력, 표, 차트, 채팅 등을 담았고 라이트·다크 테마와 갤러리를 제공합니다."
+	},
+	"repo": "HycJack/MintUI",
+	"url": "https://github.com/HycJack/MintUI",
+	"screenshot": "mintui.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T15:37:24Z"
+}
