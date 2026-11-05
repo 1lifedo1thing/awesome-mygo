@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "renew",
+	"name": "Renew",
+	"author": "stevessr",
+	"kind": "web",
+	"group": "agents",
+	"url": "https://github.com/stevessr/agent-ebpf-filter",
+	"repo": "stevessr/agent-ebpf-filter",
+	"summary": {
+		"en": "Linux desktop client for Agent eBPF Filter's Renew, watching AI agent and CLI activity via eBPF.",
+		"zh-CN": "用 eBPF 监控 Linux 上 AI 智能体与 CLI 行为的桌面客户端。",
+		"zh-TW": "用 eBPF 監控 Linux 上 AI 代理與 CLI 行為的桌面用戶端。",
+		"ja": "eBPF で Linux 上の AI エージェントや CLI の動きを監視するデスクトップクライアント。",
+		"ko": "eBPF로 Linux에서 AI 에이전트와 CLI의 활동을 모니터링하는 데스크톱 클라이언트."
+	},
+	"description": {
+		"en": "Renew's web UI in a Linux desktop window built with MyGo. Renew is the low-noise monitoring view of Agent eBPF Filter, which traces what AI agents and developer CLIs do through eBPF: the commands they run, the files they touch and the connections they open, tied to agent runs and tool calls. The privileged Go backend and the full web dashboard are installed and run separately.",
+		"zh-CN": "用 MyGo 把 Renew 的 Web 界面装进 Linux 桌面窗口。Renew 是 Agent eBPF Filter 的低干扰日常监控视图，后者借助 eBPF 追踪 AI 智能体和开发者 CLI 的行为：执行了哪些命令、动了哪些文件、建立了哪些连接，并对应到具体的智能体运行与工具调用。以特权运行的 Go 后端和完整的 Web 仪表盘需另行安装运行。",
+		"zh-TW": "用 MyGo 把 Renew 的 Web 介面裝進 Linux 桌面視窗。Renew 是 Agent eBPF Filter 的低干擾日常監控畫面，後者藉由 eBPF 追蹤 AI 代理和開發者 CLI 的行為：執行了哪些指令、動了哪些檔案、建立了哪些連線，並對應到具體的代理執行與工具呼叫。以特權執行的 Go 後端和完整的 Web 儀表板需另行安裝執行。",
+		"ja": "Renew の Web UI を MyGo で Linux のデスクトップウィンドウにしたアプリです。Renew は Agent eBPF Filter の落ち着いた日常監視画面で、Agent eBPF Filter は eBPF を使って AI エージェントや開発者向け CLI の動きを追跡し、実行したコマンド、触れたファイル、張った接続をエージェントの実行やツール呼び出しに結び付けて示します。特権で動く Go バックエンドと Web ダッシュボード全体は別にインストールして動かします。",
+		"ko": "Renew의 웹 UI를 MyGo로 Linux 데스크톱 창에 담은 앱입니다. Renew는 Agent eBPF Filter의 차분한 일상 모니터링 화면으로, Agent eBPF Filter는 eBPF로 AI 에이전트와 개발자 CLI가 실행한 명령, 건드린 파일, 연 네트워크 연결을 추적해 에이전트 실행과 도구 호출에 연결해 보여 줍니다. 권한으로 실행되는 Go 백엔드와 전체 웹 대시보드는 따로 설치해 실행합니다."
+	},
+	"icon": {
+		"file": "renew.webp"
+	},
+	"screenshot": "renew.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T11:28:55Z"
+}
