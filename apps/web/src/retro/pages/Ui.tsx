@@ -67,7 +67,7 @@ function LibCard({ lib, first }: { lib: UiLib; first: boolean }) {
 	return (
 		<article className='grid min-w-0 content-start gap-1.5'>
 			{lib.image ? (
-				<a href={lib.url} target='_blank' rel='noopener' className='block overflow-hidden rounded-lg border border-line shadow-sm transition-shadow hover:shadow-pop'>
+				<a href={lib.homepage ?? lib.url} target='_blank' rel='noopener' className='block overflow-hidden rounded-lg border border-line shadow-sm transition-shadow hover:shadow-pop'>
 					<img src={lib.image} alt={`${lib.name} ${t.shot}`} width={1200} height={750} loading={first ? 'eager' : 'lazy'} fetchPriority={first ? 'high' : undefined} decoding='async' className='block aspect-[16/10] w-full bg-paper object-cover object-top-left' />
 				</a>
 			) : (

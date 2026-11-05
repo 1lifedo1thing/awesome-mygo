@@ -51,18 +51,20 @@ function StatePage() {
 							// As on a plugin card, the install line gives way to an ellipsis before its last path segment, which tells the lines apart.
 							const cut = s.install.lastIndexOf('/') + 1;
 							const key = `state:${s.slug}` as const;
+							// The card opens the library's website when it has one; the bar then links its repository.
+							const site = s.homepage ?? s.url;
 							return (
 								<div key={s.repo} className={`rv d${k % 6} flex`}>
 									<article className='win card plug-card'>
 										<WinBar label={`github.com/${s.repo}`} size='md' className='card-bar'>
 											{s.homepage && (
-												<a className='plug-bar-docs' href={s.homepage} target='_blank' rel='noopener'>
-													{t.visit}
+												<a className='plug-bar-docs' href={s.url} target='_blank' rel='noopener'>
+													{t.on_github}
 												</a>
 											)}
 										</WinBar>
 										{s.image && (
-											<a className='card-shot card-shot-social' href={s.url} target='_blank' rel='noopener' tabIndex={-1} aria-hidden='true'>
+											<a className='card-shot card-shot-social' href={site} target='_blank' rel='noopener' tabIndex={-1} aria-hidden='true'>
 												<img src={s.image} alt='' width={1200} height={630} loading={k === 0 ? 'eager' : 'lazy'} fetchPriority={k === 0 ? 'high' : undefined} decoding='async' />
 											</a>
 										)}
@@ -70,7 +72,7 @@ function StatePage() {
 											<div className='show-id'>
 												<div className='show-id-text'>
 													<h3 className='show-name'>
-														<a className='plug-link' href={s.url} target='_blank' rel='noopener'>
+														<a className='plug-link' href={site} target='_blank' rel='noopener'>
 															{s.name}
 														</a>
 													</h3>
