@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mygotion",
+	"name": "MyGotion",
+	"author": "LZD121",
+	"kind": "web",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/LZD121/my-gotion",
+	"repo": "LZD121/my-gotion",
+	"summary": {
+		"en": "A local-first Notion-style app: block pages and multi-view databases, synced via WebDAV or GitHub.",
+		"zh-CN": "本地优先的 Notion 式笔记与数据库，经 WebDAV 或 GitHub 同步。",
+		"zh-TW": "本機優先的 Notion 式筆記與資料庫，透過 WebDAV 或 GitHub 同步。",
+		"ja": "ローカルファーストの Notion 風ノートとデータベース。WebDAV か GitHub で同期。",
+		"ko": "로컬 우선 Notion 스타일 노트·데이터베이스 앱. WebDAV나 GitHub로 동기화합니다."
+	},
+	"description": {
+		"en": "A local-first, Notion-style app for Linux, macOS and Windows, built with MyGo around a React web frontend, as a single executable that works fully offline. Pages are block documents with page links and backlinks; databases have table, kanban, calendar and gallery views. Data is kept as plain JSON files and synced over WebDAV or a GitHub repository.",
+		"zh-CN": "本地优先的 Notion 式桌面应用，支持 Linux、macOS 与 Windows，由 MyGo 搭配 React Web 前端构建，单个可执行文件，离线即可完整使用。页面是块级文档，支持页面链接与反向链接；数据库可在表格、看板、日历和画廊视图间切换。数据以普通 JSON 文件存放在磁盘上，可通过 WebDAV 或 GitHub 仓库增量同步。",
+		"zh-TW": "本機優先的 Notion 式桌面應用程式，支援 Linux、macOS 與 Windows，由 MyGo 搭配 React Web 前端打造，單一執行檔，離線即可完整使用。頁面是區塊式文件，支援頁面連結與反向連結；資料庫可在表格、看板、行事曆和畫廊檢視間切換。資料以一般 JSON 檔案存放在磁碟上，可透過 WebDAV 或 GitHub 儲存庫增量同步。",
+		"ja": "Linux・macOS・Windows で動く、ローカルファーストの Notion 風アプリ。MyGo と React の Web フロントエンドで作られた単一の実行ファイルで、オフラインでもすべての機能が使えます。ページはブロック単位で編集でき、ページリンクとバックリンクに対応し、データベースはテーブル、カンバン、カレンダー、ギャラリーの各ビューで表示できます。データは普通の JSON ファイルとしてディスクに保存され、WebDAV か GitHub リポジトリで差分同期します。",
+		"ko": "Linux, macOS, Windows에서 쓰는 로컬 우선 Notion 스타일 앱입니다. MyGo와 React 웹 프런트엔드로 만든 단일 실행 파일이며, 오프라인에서도 모든 기능을 쓸 수 있습니다. 페이지는 블록 단위로 편집하고 페이지 링크와 백링크를 지원하며, 데이터베이스는 표, 칸반, 캘린더, 갤러리 보기로 볼 수 있습니다. 데이터는 일반 JSON 파일로 디스크에 저장되고 WebDAV나 GitHub 저장소로 증분 동기화됩니다."
+	},
+	"icon": {
+		"file": "mygotion.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "mygotion.webp",
+	"added": "2026-11-05T04:32:09Z"
+}
