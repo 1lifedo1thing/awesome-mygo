@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "droi",
+	"name": "Droi",
+	"author": "kkkk2323",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/kkkk2323/droi/releases/latest",
+	"repo": "kkkk2323/droi",
+	"summary": {
+		"en": "A native macOS and Windows client for the Factory Droid coding agent.",
+		"zh-CN": "Factory Droid 编程智能体的原生 macOS、Windows 客户端。",
+		"zh-TW": "Factory Droid 程式設計代理的原生 macOS、Windows 用戶端。",
+		"ja": "コーディングエージェント Factory Droid の macOS・Windows クライアント。",
+		"ko": "Factory Droid 코딩 에이전트를 위한 네이티브 macOS·Windows 클라이언트."
+	},
+	"description": {
+		"en": "A desktop client for Factory Droid written in Go on MyGo's native UI, with no Electron, no webview and no Node at runtime. It shows and drives the same Sessions as the droid CLI, with the same login, Skills and MCP Servers, isolates a Session in a Git Worktree in one click, and with Remote Access lets you continue a Session from the iPhone app or follow droi host on another machine.",
+		"zh-CN": "用 Go 编写、基于 MyGo 原生 UI 的 Factory Droid 桌面客户端，运行时没有 Electron、Webview，也不需要 Node。它与 droid CLI 共用登录、Skills 和 MCP Servers，查看并操作同样的会话，一键用 Git Worktree 隔离会话；开启远程访问后，可在 iPhone 应用上继续会话，或连接另一台机器上的 droi host。",
+		"zh-TW": "以 Go 撰寫、基於 MyGo 原生 UI 的 Factory Droid 桌面用戶端，執行時沒有 Electron、Webview，也不需要 Node。它與 droid CLI 共用登入、Skills 和 MCP Servers，檢視並操作同樣的工作階段，一鍵以 Git Worktree 隔離工作階段；開啟遠端存取後，可在 iPhone App 上接續工作階段，或連到另一台機器上的 droi host。",
+		"ja": "Go で書かれ、MyGo のネイティブ UI で動く Factory Droid のデスクトップクライアント。実行時に Electron も Webview も Node も使いません。droid CLI と同じログイン、Skills、MCP Servers で同じセッションを表示・操作でき、ワンクリックでセッションを Git Worktree に分離できます。リモートアクセスを有効にすれば、iPhone アプリからセッションを続けたり、別のマシンの droi host に接続したりできます。",
+		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 Factory Droid 데스크톱 클라이언트로, 실행 시 Electron, 웹뷰, Node를 쓰지 않습니다. droid CLI와 같은 로그인, Skills, MCP Servers로 같은 세션을 보고 조작하며, 클릭 한 번으로 세션을 Git Worktree로 분리합니다. 원격 액세스를 켜면 iPhone 앱에서 세션을 이어 가거나 다른 컴퓨터의 droi host에 연결할 수 있습니다."
+	},
+	"icon": {
+		"file": "droi.webp"
+	},
+	"screenshot": "droi.webp",
+	"added": "2026-11-05T02:29:36Z"
+}
