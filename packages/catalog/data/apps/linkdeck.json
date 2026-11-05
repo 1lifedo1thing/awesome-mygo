@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "linkdeck",
+	"name": "LinkDeck",
+	"author": "scialpicoody",
+	"kind": "web",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/scialpicoody/linkdeck",
+	"repo": "scialpicoody/linkdeck",
+	"summary": {
+		"en": "Serial and TCP workbench: view traffic as frames, send payloads and script protocols in Lua.",
+		"zh-CN": "串口与 TCP 调试工作台：按帧查看数据、发送报文，并用 Lua 编写协议脚本。",
+		"zh-TW": "序列埠與 TCP 除錯工作台：依訊框檢視資料、傳送封包，並以 Lua 撰寫協定腳本。",
+		"ja": "シリアル・TCP 通信のデバッグツール。フレーム単位で確認し、送信、Lua で自動化。",
+		"ko": "시리얼·TCP 디버깅 도구: 프레임 단위 확인, 데이터 전송, Lua 프로토콜 자동화."
+	},
+	"description": {
+		"en": "A serial and TCP debugging workbench built with MyGo and a React web frontend. It opens serial ports or acts as a TCP client or server, splits byte streams into complete frames by delimiter, length prefix or checksum, and shows them in ASCII or HEX. Payloads go out by hand, as saved commands or as send/delay/expect sequences, and embedded Lua scripts handle longer exchanges.",
+		"zh-CN": "基于 MyGo 与 React 网页前端构建的串口与 TCP 调试工作台。可打开串口，或作为 TCP 客户端、服务端连接，按分隔符、长度前缀或校验和把字节流切分成完整的帧，以 ASCII 或 HEX 显示。报文可手动发送、存为命令复用，或编排成发送、延时、等待应答的序列；更复杂的交互交给内置的 Lua 脚本处理。",
+		"zh-TW": "以 MyGo 與 React 網頁前端打造的序列埠與 TCP 除錯工作台。可開啟序列埠，或作為 TCP 用戶端、伺服器連線，依分隔字元、長度前綴或檢查碼把位元組串流切成完整訊框，以 ASCII 或 HEX 顯示。封包可手動傳送、存成指令重複使用，或編排成傳送、延遲、等待回應的序列；較複雜的互動則交給內建的 Lua 腳本處理。",
+		"ja": "MyGo と React の Web フロントエンドで作られた、シリアル・TCP 通信のデバッグ用ワークベンチ。シリアルポートを開くか TCP クライアント・サーバーとして接続し、バイト列を区切り文字、長さプレフィックス、チェックサムで完全なフレームに分け、ASCII または HEX で表示します。データは手入力、保存したコマンド、送信・待機・応答待ちのシーケンスで送れ、込み入ったやり取りは組み込みの Lua スクリプトで扱えます。",
+		"ko": "MyGo와 React 웹 프런트엔드로 만든 시리얼·TCP 디버깅 워크벤치입니다. 시리얼 포트를 열거나 TCP 클라이언트·서버로 연결하고, 바이트 스트림을 구분자, 길이 접두사, 체크섬 기준으로 완전한 프레임으로 나눠 ASCII나 HEX로 보여 줍니다. 데이터는 직접 입력하거나 저장한 명령, 전송·지연·응답 대기 시퀀스로 보낼 수 있고, 복잡한 주고받기는 내장 Lua 스크립트로 처리합니다."
+	},
+	"icon": {
+		"file": "linkdeck.webp"
+	},
+	"screenshot": "linkdeck.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T04:32:09Z"
+}
