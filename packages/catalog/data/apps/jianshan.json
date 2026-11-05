@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "jianshan",
+	"name": "见山",
+	"author": "ch1y1z1",
+	"kind": "native",
+	"group": "media",
+	"url": "https://github.com/ch1y1z1/jianshan",
+	"repo": "ch1y1z1/jianshan",
+	"summary": {
+		"en": "A minimal native image viewer with RAW previews, EXIF details, a grid view, sorting and filters.",
+		"zh-CN": "极简原生图片查看器：RAW 预览、EXIF 信息、网格浏览，可排序与筛选。",
+		"zh-TW": "極簡原生圖片檢視器：RAW 預覽、EXIF 資訊、網格瀏覽，可排序與篩選。",
+		"ja": "RAW プレビューと EXIF 表示、グリッド一覧、並べ替えと絞り込みを備えたシンプルな画像ビューアー。",
+		"ko": "RAW 미리보기, EXIF 정보, 그리드 보기, 정렬과 필터를 갖춘 미니멀 이미지 뷰어."
+	},
+	"description": {
+		"en": "An image viewer for macOS, Windows and Linux, drawn with MyGo's native UI. It shows one photo at a time with its EXIF details on the right, or a grid, with sorting in 11 orders, format, search and ISO filters under Tools. It previews common bitmap formats and RAW files through their embedded JPEG or the system preview, and checks for signed updates from inside the app.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的图片查看器，支持 macOS、Windows 与 Linux。默认一次看一张照片，右侧是 EXIF 信息栏，也可切换到网格浏览；11 种排序、格式、搜索和 ISO 筛选都收在「工具」里。常见位图直接预览，RAW 文件用内嵌 JPEG 或系统预览显示，在应用内即可检查签名更新。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的圖片檢視器，支援 macOS、Windows 與 Linux。預設一次看一張照片，右側是 EXIF 資訊欄，也可切換為網格瀏覽；11 種排序、格式、搜尋和 ISO 篩選都收在「工具」裡。常見點陣圖直接預覽，RAW 檔以內嵌 JPEG 或系統預覽顯示，在應用程式內就能檢查簽署過的更新。",
+		"ja": "MyGo のネイティブ UI で描かれた、macOS・Windows・Linux 向けの画像ビューアー。写真を 1 枚ずつ表示して右側に EXIF 情報を並べるほか、グリッドでの一覧にも切り替えられます。11 種類の並べ替え、形式、検索、ISO での絞り込みは「工具」メニューにまとめられています。一般的なビットマップ画像はそのまま、RAW は埋め込み JPEG かシステムのプレビューで表示し、署名付きのアップデートはアプリ内で確認できます。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS·Windows·Linux용 이미지 뷰어입니다. 사진을 한 장씩 보여 주며 오른쪽에 EXIF 정보를 두고, 그리드 보기로도 바꿀 수 있습니다. 11가지 정렬, 형식, 검색, ISO 필터는 '도구' 메뉴에 모여 있습니다. 일반 비트맵은 그대로, RAW는 내장 JPEG나 시스템 미리보기로 보여 주며, 서명된 업데이트를 앱 안에서 확인합니다."
+	},
+	"icon": {
+		"file": "jianshan.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "jianshan.webp",
+	"added": "2026-11-05T14:23:33Z"
+}
