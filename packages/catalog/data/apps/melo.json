@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "melo",
+	"name": "Melo",
+	"author": "douglarek",
+	"kind": "native",
+	"group": "media",
+	"url": "https://github.com/douglarek/melo",
+	"repo": "douglarek/melo",
+	"summary": {
+		"en": "An unofficial native YouTube Music client with your library, synced lyrics and tray controls.",
+		"zh-CN": "非官方原生 YouTube Music 客户端，同步媒体库，带同步歌词与托盘控制。",
+		"zh-TW": "非官方原生 YouTube Music 用戶端，同步媒體庫，附同步歌詞與系統匣控制。",
+		"ja": "非公式のネイティブ YouTube Music クライアント。ライブラリ同期、同期歌詞、トレイ操作に対応。",
+		"ko": "비공식 네이티브 YouTube Music 클라이언트. 보관함 동기화, 실시간 가사, 트레이 제어."
+	},
+	"description": {
+		"en": "An unofficial YouTube Music client in Go whose main window is drawn by MyGo's native UI; only Google sign-in uses the system web view. It syncs your liked songs, playlists and likes, browses home, charts, podcasts and search, and streams with a pure Go AAC decoder, local cache and synced lyrics, with playback controls in the tray.",
+		"zh-CN": "用 Go 编写的非官方 YouTube Music 客户端，主界面由 MyGo 原生 UI 以 GPU 渲染，只有 Google 登录借用系统网页视图。可同步「我喜欢的音乐」、云端歌单和点赞，浏览首页、排行榜、播客并搜索；播放采用纯 Go 的 AAC 解码与自适应流，支持本地缓存和同步歌词，托盘里也能控制播放。",
+		"zh-TW": "以 Go 撰寫的非官方 YouTube Music 用戶端，主介面由 MyGo 原生 UI 以 GPU 繪製，只有 Google 登入借用系統網頁視圖。可同步「我喜歡的音樂」、雲端播放清單和按讚，瀏覽首頁、排行榜、Podcast 並搜尋；播放採用純 Go 的 AAC 解碼與自適應串流，支援本機快取和同步歌詞，系統匣中也能控制播放。",
+		"ja": "Go で書かれた非公式の YouTube Music クライアント。メイン画面は MyGo のネイティブ UI が GPU で描画し、Google ログインだけにシステムの Web ビューを使います。お気に入りの曲、クラウドのプレイリスト、高評価を同期し、ホーム、チャート、ポッドキャスト、検索で曲を探せます。再生は純 Go の AAC デコーダーとアダプティブストリーミングで行い、ローカルキャッシュと同期歌詞に対応し、トレイからも操作できます。",
+		"ko": "Go로 작성한 비공식 YouTube Music 클라이언트입니다. 메인 화면은 MyGo의 네이티브 UI가 GPU로 그리고, Google 로그인에만 시스템 웹 뷰를 씁니다. 좋아요한 음악, 클라우드 재생목록, 좋아요 상태를 동기화하고 홈, 차트, 팟캐스트, 검색으로 음악을 찾습니다. 순수 Go AAC 디코더와 적응형 스트리밍으로 재생하며 로컬 캐시와 동기화 가사를 지원하고, 트레이에서도 재생을 조작할 수 있습니다."
+	},
+	"icon": {
+		"file": "melo.webp"
+	},
+	"screenshot": "melo.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T11:28:55Z"
+}
