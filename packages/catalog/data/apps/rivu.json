@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "rivu",
+	"name": "Rivu",
+	"author": "ntnyq",
+	"kind": "native",
+	"group": "system",
+	"url": "https://rivu.ntnyq.dev",
+	"repo": "ntnyq/rivu",
+	"summary": {
+		"en": "A native BitTorrent app for macOS, Windows and Linux that keeps downloading from the menu bar.",
+		"zh-CN": "原生 BitTorrent 下载工具，可挑选文件，关窗后在菜单栏继续下载。",
+		"zh-TW": "原生 BitTorrent 下載工具，可挑選檔案，關閉視窗後在選單列繼續下載。",
+		"ja": "ネイティブな BitTorrent アプリ。ファイルを選べて、閉じてもメニューバーで動き続ける。",
+		"ko": "네이티브 BitTorrent 앱. 파일을 골라 받고, 창을 닫아도 메뉴 막대에서 계속 받습니다."
+	},
+	"description": {
+		"en": "A BitTorrent app for macOS, Windows and Linux, drawn with MyGo's native UI on top of anacrolix/torrent. It opens torrent files and magnet links, lets you pick files and priorities, manages the queue with speed limits, resumes tasks after a restart and stops seeding at a ratio or time you set. With the window closed, a menu bar or tray panel keeps transfers running.",
+		"zh-CN": "用 MyGo 原生 UI 绘制、基于 anacrolix/torrent 的 BitTorrent 应用，支持 macOS、Windows 与 Linux。可添加种子文件和磁力链接，挑选要下载的文件与优先级，为队列设置限速，重启后恢复任务，并按分享率或做种时长停止做种。关闭窗口后，菜单栏或系统托盘面板会让传输在后台继续。",
+		"zh-TW": "以 MyGo 原生 UI 繪製、基於 anacrolix/torrent 的 BitTorrent 應用程式，支援 macOS、Windows 與 Linux。可加入種子檔與磁力連結，挑選要下載的檔案與優先順序，為佇列設定限速，重新啟動後恢復任務，並依分享率或做種時間停止做種。關閉視窗後，選單列或系統匣面板會讓傳輸在背景繼續。",
+		"ja": "anacrolix/torrent をもとに MyGo のネイティブ UI で描かれた、macOS・Windows・Linux 向けの BitTorrent アプリ。torrent ファイルやマグネットリンクを開き、ダウンロードするファイルと優先度を選べます。キューには速度制限をかけられ、再起動後もタスクを復元し、設定した共有比率や時間でシードを止めます。ウィンドウを閉じても、メニューバーやシステムトレイのパネルから転送を続けられます。",
+		"ko": "anacrolix/torrent를 바탕으로 MyGo의 네이티브 UI로 그린 macOS·Windows·Linux용 BitTorrent 앱입니다. 토렌트 파일과 마그넷 링크를 열어 받을 파일과 우선순위를 고르고, 대기열에 속도 제한을 걸 수 있으며, 재시작 후에도 작업을 복원하고 정한 공유 비율이나 시간에 시딩을 멈춥니다. 창을 닫아도 메뉴 막대나 시스템 트레이 패널에서 전송이 계속됩니다."
+	},
+	"icon": {
+		"file": "rivu.webp"
+	},
+	"screenshot": "rivu.webp",
+	"added": "2026-11-05T16:30:17Z"
+}
