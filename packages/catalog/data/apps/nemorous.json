@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "nemorous",
+	"name": "Nemorous",
+	"author": "iwangjie",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/iwangjie/Nemorous",
+	"repo": "iwangjie/Nemorous",
+	"summary": {
+		"en": "A native Git client for workspaces where one change spans several repositories.",
+		"zh-CN": "原生 Git 客户端，面向一次改动横跨多个仓库的工作区。",
+		"zh-TW": "原生 Git 用戶端，適用於一次修改橫跨多個儲存庫的工作區。",
+		"ja": "1つの変更が複数のリポジトリにまたがるワークスペースのための、ネイティブな Git クライアント。",
+		"ko": "한 변경이 여러 저장소에 걸친 워크스페이스를 위한 네이티브 Git 클라이언트."
+	},
+	"description": {
+		"en": "A Git client for macOS, Windows and Linux drawn with MyGo's native UI, with no Electron and no WebView. It puts every repository of a workspace in one branch matrix and one changes tree with hunk and line staging, commits and pushes them in batches, and has interactive rebase and reflog. AI commit messages and LSP are optional; plugins add GitLab, Jenkins, Kubernetes and more.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Git 客户端，支持 macOS、Windows 与 Linux，没有 Electron，也没有 WebView。工作区里的所有仓库集中在一个分支矩阵和一棵改动树中，可按代码块或逐行暂存，批量提交与推送，并提供交互式变基和 reflog。AI 生成提交信息与 LSP 均为可选，插件可接入 GitLab、Jenkins、Kubernetes 等。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Git 用戶端，支援 macOS、Windows 與 Linux，沒有 Electron，也沒有 WebView。工作區中的所有儲存庫集中在一個分支矩陣與一棵變更樹裡，可依區塊或逐行暫存，批次提交與推送，並提供互動式 rebase 與 reflog。AI 產生提交訊息與 LSP 皆為選用，外掛可串接 GitLab、Jenkins、Kubernetes 等。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS・Windows・Linux 向けの Git クライアント。Electron も WebView も使いません。ワークスペース内のすべてのリポジトリを1つのブランチマトリクスと変更ツリーにまとめ、ハンク単位・行単位でステージして、まとめてコミット・プッシュできます。インタラクティブ rebase や reflog にも対応しています。AI によるコミットメッセージ生成と LSP は任意で、プラグインで GitLab、Jenkins、Kubernetes などと連携できます。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS·Windows·Linux용 Git 클라이언트로, Electron도 WebView도 쓰지 않습니다. 워크스페이스의 모든 저장소를 하나의 브랜치 매트릭스와 변경 트리에 모아 헝크·줄 단위로 스테이징하고 한꺼번에 커밋·푸시하며, 대화형 리베이스와 reflog도 지원합니다. AI 커밋 메시지 생성과 LSP는 선택 사항이고, 플러그인으로 GitLab, Jenkins, Kubernetes 등과 연결됩니다."
+	},
+	"icon": {
+		"file": "nemorous.webp"
+	},
+	"screenshot": "nemorous.webp",
+	"added": "2026-11-05T02:55:41Z"
+}
