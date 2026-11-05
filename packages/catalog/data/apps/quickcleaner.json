@@ -24,9 +24,5 @@
 	"icon": {
 		"file": "quickcleaner.webp"
 	},
-	"screenshot": "quickcleaner.webp",
-	"provisional": [
-		"screenshot"
-	],
 	"added": "2026-11-05T04:16:52Z"
 }
