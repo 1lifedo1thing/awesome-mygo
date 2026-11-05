@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "winswx",
+	"name": "winswx",
+	"author": "quantulr",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/quantulr/winswx",
+	"repo": "quantulr/winswx",
+	"summary": {
+		"en": "A native Windows service manager that installs, starts and stops services through WinSW.",
+		"zh-CN": "原生 Windows 服务管理器，通过 WinSW 安装、启动和停止服务。",
+		"zh-TW": "原生 Windows 服務管理工具，透過 WinSW 安裝、啟動和停止服務。",
+		"ja": "WinSW でサービスをインストール・起動・停止する、ネイティブな Windows サービス管理ツール。",
+		"ko": "WinSW로 서비스를 설치, 시작, 중지하는 네이티브 Windows 서비스 관리자."
+	},
+	"description": {
+		"en": "A Windows service manager drawn with MyGo's native UI that installs, starts and stops services through WinSW, which it ships. Each service is a folder under %AppData%\\winswx\\services holding its WinSW XML configuration and logs, and runs from a separate copy of winsw.exe, so the app can be updated or uninstalled. Service operations need administrator rights; the app shows in English or Chinese.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 服务管理器，借助随附的 WinSW 安装、启动和停止服务。每个服务是 %AppData%\\winswx\\services 下的一个文件夹，存放其 WinSW XML 配置和日志；服务从单独的一份 winsw.exe 运行，不妨碍应用更新或卸载。操作服务需要管理员权限，界面提供英文和中文。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows 服務管理工具，藉由隨附的 WinSW 安裝、啟動和停止服務。每個服務是 %AppData%\\winswx\\services 下的一個資料夾，存放其 WinSW XML 設定和記錄檔；服務從另一份 winsw.exe 執行，不妨礙應用程式更新或解除安裝。操作服務需要系統管理員權限，介面提供英文和中文。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows 用サービスマネージャー。同梱の WinSW でサービスをインストール、起動、停止します。各サービスは %AppData%\\winswx\\services 内のフォルダーで、WinSW の XML 設定とログを収め、別に置かれた winsw.exe から動くため、実行中でもアプリの更新やアンインストールができます。サービスの操作には管理者権限が必要で、表示は英語か中国語です。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows 서비스 관리자로, 함께 들어 있는 WinSW로 서비스를 설치, 시작, 중지합니다. 각 서비스는 %AppData%\\winswx\\services 아래의 폴더로 WinSW XML 설정과 로그를 담고, 별도의 winsw.exe 사본에서 실행되므로 앱을 업데이트하거나 제거할 수 있습니다. 서비스 작업에는 관리자 권한이 필요하며, 영어나 중국어로 표시됩니다."
+	},
+	"icon": {
+		"file": "winswx.webp"
+	},
+	"screenshot": "winswx.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T12:35:14Z"
+}
