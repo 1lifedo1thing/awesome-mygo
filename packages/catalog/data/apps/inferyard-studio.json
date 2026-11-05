@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "inferyard-studio",
+	"name": "InferYard Studio",
+	"author": "sunny0826",
+	"kind": "native",
+	"group": "ai",
+	"url": "https://github.com/sunny0826/inferyard",
+	"repo": "sunny0826/inferyard",
+	"summary": {
+		"en": "The desktop app of InferYard, alongside its Python command-line tool.",
+		"zh-CN": "InferYard 的桌面应用，与其 Python 命令行工具配套。",
+		"zh-TW": "InferYard 的桌面應用程式，與其 Python 命令列工具搭配。",
+		"ja": "InferYard のデスクトップアプリ。Python 製のコマンドラインツールと対になる。",
+		"ko": "InferYard의 데스크톱 앱. Python 명령줄 도구와 함께 쓰는 Studio."
+	},
+	"description": {
+		"en": "InferYard Studio is the desktop application of InferYard, built with MyGo. The project's main product is the InferYard CLI, a Python tool kept in the same repository and made separately; MyGo builds only the Studio desktop app.",
+		"zh-CN": "InferYard Studio 是 InferYard 的桌面应用，用 MyGo 构建。项目的主体是同一仓库中用 Python 编写的 InferYard CLI，它另行开发；MyGo 只负责构建 Studio 这个桌面应用。",
+		"zh-TW": "InferYard Studio 是 InferYard 的桌面應用程式，以 MyGo 建置。專案的主體是同一儲存庫中以 Python 撰寫的 InferYard CLI，另行開發；MyGo 只負責建置 Studio 這個桌面應用程式。",
+		"ja": "InferYard Studio は InferYard のデスクトップアプリで、MyGo で作られています。プロジェクトの主体は同じリポジトリにある Python 製の InferYard CLI で、こちらは別に作られており、MyGo がビルドするのは Studio のデスクトップアプリだけです。",
+		"ko": "InferYard Studio는 MyGo로 만든 InferYard의 데스크톱 앱입니다. 프로젝트의 주된 제품은 같은 저장소에 있는 Python 도구 InferYard CLI로 따로 만들어지며, MyGo는 Studio 데스크톱 앱만 빌드합니다."
+	},
+	"icon": {
+		"file": "inferyard-studio.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "inferyard-studio.webp",
+	"added": "2026-11-05T12:35:14Z"
+}
