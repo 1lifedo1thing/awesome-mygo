@@ -1,0 +1,30 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "revda-next",
+	"name": "Revda-Next",
+	"author": "xmengnet",
+	"kind": "native",
+	"category": "MultimediaApplication",
+	"group": "media",
+	"url": "https://github.com/xmengnet/Revda-Next",
+	"repo": "xmengnet/Revda-Next",
+	"summary": {
+		"en": "A native desktop player for live streams and video with real-time danmaku, built with MyGo and no WebView.",
+		"zh-CN": "原生桌面直播与视频播放器，支持实时弹幕，使用 MyGo 构建，不使用 WebView。",
+		"zh-TW": "原生桌面直播與影片播放器，支援即時彈幕，使用 MyGo 打造，不使用 WebView。",
+		"ja": "リアルタイム弾幕に対応したネイティブなライブ・動画プレーヤー。MyGo で作られ、WebView を使いません。",
+		"ko": "실시간 탄막을 지원하는 네이티브 라이브·동영상 플레이어. MyGo로 만들었으며 WebView를 사용하지 않습니다."
+	},
+	"description": {
+		"en": "Revda-Next plays Bilibili live streams, videos and bangumi, plus Douyu, Huya, Douyin, YouTube and Twitch, resolving streams and danmaku natively in Go. It plays through mpv and records through ffmpeg, muxing live chat into the recording as an ASS subtitle track, and can read Bilibili login cookies from Chrome, Chromium or Firefox.",
+		"zh-CN": "Revda-Next 支持 B 站直播、视频与番剧，以及斗鱼、虎牙、抖音、YouTube、Twitch，取流和弹幕解析都由 Go 原生完成。播放使用 mpv、录制使用 ffmpeg，可将实时弹幕以 ASS 字幕轨内嵌到录制文件中；需要时还能从 Chrome、Chromium 或 Firefox 读取 B 站登录 Cookie。",
+		"zh-TW": "Revda-Next 支援 B 站直播、影片與番劇，以及鬥魚、虎牙、抖音、YouTube、Twitch，取流與彈幕解析皆由 Go 原生完成。播放使用 mpv、錄製使用 ffmpeg，可將即時彈幕以 ASS 字幕軌內嵌到錄製檔中；需要時還能從 Chrome、Chromium 或 Firefox 讀取 B 站登入 Cookie。",
+		"ja": "Revda-Next は Bilibili のライブ・動画・番組に加え、Douyu、Huya、Douyin、YouTube、Twitch に対応し、配信の解決と弾幕の解析を Go でネイティブに行います。再生は mpv、録画は ffmpeg を使い、ライブのチャットを ASS 字幕トラックとして録画ファイルに埋め込めます。必要なら Bilibili のログイン Cookie を Chrome・Chromium・Firefox から読み取れます。",
+		"ko": "Revda-Next는 Bilibili 라이브·동영상·애니메이션과 Douyu, Huya, Douyin, YouTube, Twitch를 지원하며, 스트림 해석과 탄막 파싱을 Go로 네이티브하게 처리합니다. 재생은 mpv, 녹화는 ffmpeg를 사용하고 라이브 채팅을 ASS 자막 트랙으로 녹화 파일에 넣을 수 있습니다. 필요하면 Bilibili 로그인 쿠키를 Chrome·Chromium·Firefox에서 읽어 올 수 있습니다."
+	},
+	"icon": {
+		"file": "revda-next.webp"
+	},
+	"screenshot": "revda-next.webp",
+	"added": "2026-11-05T07:49:39Z"
+}

@@ -5,6 +5,7 @@
 	"author": "tiramission",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "dev",
 	"url": "https://tiramission.github.io/oci-sync/",
 	"repo": "tiramission/oci-sync",
 	"summary": {
