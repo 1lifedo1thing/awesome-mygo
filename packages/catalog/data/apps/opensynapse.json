@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "opensynapse",
+	"name": "OpenSynapse",
+	"author": "JohnsonRan",
+	"kind": "web",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/JohnsonRan/OpenSynapse",
+	"repo": "JohnsonRan/OpenSynapse",
+	"summary": {
+		"en": "A Windows settings app for Razer devices: DPI, lighting, macros and per-program scenes.",
+		"zh-CN": "Windows 上的 Razer 设备设置工具：DPI、灯光、宏与按程序切换的情景。",
+		"zh-TW": "Windows 上的 Razer 裝置設定工具：DPI、燈光、巨集與依程式切換的情境。",
+		"ja": "Windows 用の Razer デバイス設定アプリ。DPI、ライティング、マクロ、アプリ別シーン。",
+		"ko": "Windows용 Razer 장치 설정 앱. DPI, 조명, 매크로, 프로그램별 장면 전환."
+	},
+	"description": {
+		"en": "A settings app for Razer mice and other Razer devices on 64-bit Windows 10 and 11 that works without Razer Synapse, with no account and no internet connection. It sets DPI, lighting, polling rate and power options, plays macros from mouse buttons, and switches settings by the program in front. Written in Go, with a web frontend in a MyGo WebView2 window.",
+		"zh-CN": "用于 64 位 Windows 10 与 11 的 Razer 鼠标及其他 Razer 设备设置工具，无需 Razer Synapse，不用账号，也不联网。可以设置 DPI、灯光、回报率和电源选项，把宏绑定到鼠标按键，并根据前台程序自动切换设置。用 Go 编写，网页前端运行在 MyGo 的 WebView2 窗口中。",
+		"zh-TW": "適用於 64 位元 Windows 10 與 11 的 Razer 滑鼠及其他 Razer 裝置設定工具，不需要 Razer Synapse，不用帳號，也不連網。可設定 DPI、燈光、回報率與電源選項，把巨集綁定到滑鼠按鍵，並依前景程式自動切換設定。以 Go 撰寫，網頁前端執行於 MyGo 的 WebView2 視窗中。",
+		"ja": "64 ビット版 Windows 10・11 向けの、Razer のマウスなどのデバイスを設定するアプリ。Razer Synapse は不要で、アカウントもインターネット接続も使いません。DPI、ライティング、ポーリングレート、電源設定を変更し、マウスボタンにマクロを割り当て、前面のプログラムに合わせて設定を自動で切り替えます。Go で書かれ、Web フロントエンドを MyGo の WebView2 ウィンドウで表示します。",
+		"ko": "64비트 Windows 10·11용 Razer 마우스와 기타 Razer 장치 설정 앱으로, Razer Synapse 없이 동작하며 계정이나 인터넷 연결도 쓰지 않습니다. DPI, 조명, 폴링 레이트, 전원 옵션을 설정하고 마우스 버튼에 매크로를 지정하며, 앞에 있는 프로그램에 따라 설정을 자동으로 바꿉니다. Go로 작성했고 웹 프런트엔드는 MyGo의 WebView2 창에서 실행됩니다."
+	},
+	"icon": {
+		"file": "opensynapse.webp"
+	},
+	"screenshot": "opensynapse.webp",
+	"added": "2026-11-05T03:47:54Z"
+}
