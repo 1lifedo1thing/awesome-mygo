@@ -1,0 +1,19 @@
+{
+	"$schema": "../schema/ui.schema.json",
+	"slug": "mujicaui",
+	"name": "MujicaUI",
+	"author": "ELY Open Source",
+	"tag": "theme",
+	"summary": {
+		"en": "Court-gothic components for MyGo native UI: ivory and charcoal grounds, a wine-red accent, old-gold rules and serif titles, in light and dark themes and three densities, from forms and charts to calendars, chat, agent and Git views.",
+		"zh-CN": "宫廷哥特风格的 MyGo 原生 UI 组件：象牙白与炭黑底色、酒红主色、旧金装饰线与衬线标题，浅深两套主题、三种密度，涵盖表单、图表、日历、聊天、智能体与 Git 等界面。",
+		"zh-TW": "宮廷哥德風格的 MyGo 原生 UI 元件：象牙白與炭黑底色、酒紅主色、舊金裝飾線與襯線標題，淺深兩套主題、三種密度，涵蓋表單、圖表、行事曆、聊天、代理與 Git 等介面。",
+		"ja": "宮廷ゴシック風の MyGo ネイティブ UI コンポーネント。アイボリーとチャコールの地にワインレッドの差し色、古金の飾り罫、セリフ体の見出し。ライトとダークの 2 テーマと 3 段階の密度で、フォームやチャートからカレンダー、チャット、エージェント、Git まで。",
+		"ko": "궁정 고딕풍 MyGo 네이티브 UI 컴포넌트: 아이보리와 차콜 바탕, 와인 레드 강조색, 고금색 장식선과 세리프 제목에 라이트·다크 테마와 세 가지 밀도를 갖추고, 폼과 차트부터 캘린더, 채팅, 에이전트, Git 화면까지."
+	},
+	"repo": "ELY-Open-Source/MujicaUI",
+	"url": "https://github.com/ELY-Open-Source/MujicaUI",
+	"homepage": "https://mujicaui.zhangyanghaha0407.workers.dev",
+	"screenshot": "mujicaui.webp",
+	"added": "2026-11-04T23:44:33Z"
+}
