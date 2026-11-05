@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "jalin",
+	"name": "Jalin",
+	"author": "firdausmntp",
+	"kind": "native",
+	"group": "network",
+	"url": "https://github.com/firdausmntp/Jalin",
+	"repo": "firdausmntp/Jalin",
+	"summary": {
+		"en": "Windows network tool: speed tests, live traffic, daily data usage and a floating speed meter.",
+		"zh-CN": "Windows 网络工具：多路测速、实时流量、每日用量统计和悬浮网速条。",
+		"zh-TW": "Windows 網路工具：多路測速、即時流量、每日用量統計和浮動網速條。",
+		"ja": "Windows のネットワークツール。速度測定、通信量の監視と記録、常に前面の速度メーター。",
+		"ko": "Windows 네트워크 도구. 속도 측정, 실시간 트래픽, 일별 데이터 사용량, 떠 있는 속도계."
+	},
+	"description": {
+		"en": "A Windows 10 and 11 network utility drawn with MyGo's native UI. It runs multi-stream download and upload tests with ping and jitter, reads live traffic from the Windows kernel while telling Wi-Fi from Ethernet, keeps daily and monthly data usage in a local SQLite database, and can route tests through HTTP or SOCKS5 proxies. A draggable speed meter stays above other windows.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 10/11 网络工具。它以多路并发测试下载、上传速度以及延迟和抖动，直接从 Windows 内核读取实时流量并区分 Wi-Fi 与有线网卡，把每日和每月的流量用量保存在本地 SQLite 数据库中，还能让测速经由 HTTP 或 SOCKS5 代理进行。可拖动的悬浮网速条始终显示在其他窗口之上。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows 10/11 網路工具。它以多路並行測試下載、上傳速度以及延遲和抖動，直接從 Windows 核心讀取即時流量並區分 Wi-Fi 與有線網卡，把每日和每月的流量用量存在本機 SQLite 資料庫中，還能讓測速經由 HTTP 或 SOCKS5 代理進行。可拖曳的浮動網速條始終顯示在其他視窗之上。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows 10・11 向けのネットワークツール。複数ストリームでダウンロードとアップロードの速度、ping、ジッターを測り、Windows カーネルからリアルタイムの通信量を読み取って Wi-Fi と有線を区別します。日別・月別のデータ使用量はローカルの SQLite データベースに記録し、測定を HTTP や SOCKS5 プロキシ経由で行うこともできます。ドラッグで動かせる速度メーターは常に他のウィンドウの前面に表示されます。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows 10·11용 네트워크 도구입니다. 여러 스트림으로 다운로드·업로드 속도와 핑, 지터를 측정하고, Windows 커널에서 실시간 트래픽을 읽어 Wi-Fi와 유선을 구분하며, 일별·월별 데이터 사용량을 로컬 SQLite 데이터베이스에 기록합니다. 측정을 HTTP나 SOCKS5 프록시를 거쳐 할 수도 있습니다. 끌어서 옮길 수 있는 속도계는 항상 다른 창 위에 표시됩니다."
+	},
+	"icon": {
+		"file": "jalin.webp"
+	},
+	"screenshot": "jalin.webp",
+	"added": "2026-11-05T14:40:59Z"
+}
