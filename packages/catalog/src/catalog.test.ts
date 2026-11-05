@@ -8,7 +8,7 @@ import stateSchema from '../data/schema/state.schema.json';
 import uiSchema from '../data/schema/ui.schema.json';
 import scoresFile from '../data/scores.json';
 import { AILOGO_CDN, APP_CATEGORIES, APP_GROUPS, APP_KIND, APPS, ARTICLE_KIND, DOC_KIND, ENTRY_GROUPS, type EntryGroup, GROUP_CATEGORY, PLUGIN_KIND, STATE_KIND, UI_KIND, appGroup, appSource, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, authorProfile, byAdded, byName, byNewest, hostOf, readAppEntry, readAppFile, readApps, readEntry, readDocs, readEntryFile, readPlugins, readUiLibs } from './catalog';
-import { AGENT_FIELDS, AGENT_INPUT_SCHEMA, AGENT_MAX_BYTES, type AgentSubmission, ENTRY_PLACEHOLDERS, MAX_SUBMISSION, SUBMIT_CATS, SUBMIT_KINDS, type SubmitCat, agentSubmissionReport, alreadyListed, buildEntry, codeFence, descMax, editUrl, entryCats, entryFileText, entryPath, entryProblem, guessFromLink, isBadShot, isBadUrl, isEntryComplete, issueMarker, issueUrl, jsonEntry, missingFields, parseEntryJson, pastedEntryProblem, pastedName, pastedShotRepo, placeholderProblem, readAgentSubmission, shotRepo, slugify, submissionBody, submissionFromIssue, submittedIssue, takesShot, withScheme } from './entry';
+import { AGENT_FIELDS, AGENT_INPUT_SCHEMA, AGENT_MAX_BYTES, type AgentSubmission, ENTRY_PLACEHOLDERS, MAX_SUBMISSION, SUBMIT_CATS, SUBMIT_KINDS, type SubmitCat, agentSubmissionReport, alreadyListed, buildEntry, codeFence, descMax, editUrl, entryCats, entryFileText, entryPath, entryProblem, guessFromLink, isBadShot, isBadUrl, isEntryComplete, issueMarker, issueUrl, jsonEntry, missingFields, parseEntryJson, parseSubmission, pastedEntryProblem, pastedName, pastedShotRepo, placeholderProblem, readAgentSubmission, shotRepo, slugify, submissionBody, submissionFromIssue, submittedIssue, takesShot, withScheme } from './entry';
 import { LANGS, type LangCode, type Text, fill, langRedirectScript, negotiateLang, pick, validateRootSearch } from './lang';
 import { buildSearchIndex, searchCatalog } from './search';
 import { LIKE_KEYS, likeKey } from './likes';
@@ -864,18 +864,31 @@ describe('agent submission', () => {
 		return 'problems' in r ? r.problems.join('; ') : '';
 	};
 
-	// What /api/submit's parseSubmission (apps/web/src/routes/api/submit.ts) and the checks after it accept, for the request the form sends once a tool has filled it in (useSubmit's send): the server cannot be imported here, so its rules are restated.
-	const serverAccepts = (sub: AgentSubmission): boolean => {
-		if (sub.via === 'json') return isEntryShape(sub.entry) && !pastedEntryProblem(sub.cat, sub.entry);
+	// The request useSubmit's send (apps/web/src/lib/submit.tsx) makes from the form once fill-submission has filled it in (webmcp.ts, formOf, which sets every field): a pasted entry as read back from the form's JSON field, else the fields, with repo and group only for an app, the screenshot link only when it is a good one, and no author for an article. Both live in React code, so they are restated; the token is as long as the server takes.
+	const sent = (sub: AgentSubmission): string => {
+		const token = 'x'.repeat(2048);
+		if (sub.via === 'json') return JSON.stringify({ cat: sub.cat, entry: JSON.parse(JSON.stringify(sub.entry, null, 2)), token });
 		const d = sub.draft;
-		if (d.group !== undefined && (sub.cat !== 'showcase' || !ENTRY_GROUPS.includes(d.group))) return false;
-		if (d.repo !== undefined && sub.cat !== 'showcase') return false;
-		if (d.screenshot !== undefined && !takesShot(sub.cat)) return false;
-		if (sub.mode !== 'native' && sub.mode !== 'web') return false;
-		const body = JSON.stringify({ cat: sub.cat, mode: sub.mode, ...d, author: sub.cat === 'article' ? '' : d.author, token: 'x'.repeat(2048) });
-		return new TextEncoder().encode(body).length <= 16 * 1024 && !entryProblem(sub.cat, d);
+		const isShow = sub.cat === 'showcase';
+		const shot = takesShot(sub.cat) && d.screenshot?.trim() && !isBadShot(d.screenshot) ? d.screenshot.trim() : undefined;
+		return JSON.stringify({ cat: sub.cat, mode: sub.mode, name: d.name, author: sub.cat === 'article' ? '' : d.author, url: d.url, repo: isShow ? (d.repo ?? '') : undefined, screenshot: shot, desc: d.desc, group: isShow ? d.group : undefined, token });
 	};
-	const isEntryShape = (v: unknown) => typeof v === 'object' && v !== null && !Array.isArray(v);
+	// Whether the Worker takes that request: its size, parseSubmission, which is the server's own, then the checks the route (routes/api/submit.ts) and openSubmission (server/pull.ts) make before opening the pull request, which need the Worker and are restated with the catalog functions they call.
+	const serverAccepts = (sub: AgentSubmission): boolean => {
+		const text = sent(sub);
+		if (new TextEncoder().encode(text).length > MAX_SUBMISSION) return false;
+		const req = parseSubmission(text);
+		if (!req) return false;
+		if (req.kind === 'entry' ? (pastedEntryProblem(req.cat, req.entry) ?? placeholderProblem(req.entry)) : entryProblem(req.cat, req.draft)) return false;
+		const entry = req.kind === 'entry' ? req.entry : buildEntry(req.cat, req.draft, req.mode, { name: '', desc: '' });
+		try {
+			entryFileText(req.cat, entry);
+		} catch (err) {
+			if (err instanceof CatalogError) return false;
+			throw err;
+		}
+		return !alreadyListed(req.cat, entry);
+	};
 
 	it('reads the fields, adding https:// to links as the form does when a field is left', () => {
 		const sub = read({ category: 'showcase', ...fields, repo: 'github.com/someone/brand-new-kit', screenshot: 'example.com/shot.png' });
@@ -904,8 +917,24 @@ describe('agent submission', () => {
 		expect(problemsOf({ category: 'nope', foo: 1, name: 5 }).split('; ')).toHaveLength(3);
 	});
 
+	it('refuses to fill a link the form would show with no error, or the file would refuse', () => {
+		const report = (input: object) => agentSubmissionReport(read(input));
+		// http: the form, opened afresh, shows it filled in and only says the field is still needed.
+		expect(report({ category: 'showcase', ...fields, url: 'http://brand-new-kit.example.com' }).problems).toEqual([expect.stringMatching(/url must be an https link/)]);
+		expect(report({ category: 'ui', name: 'Brand New Kit', url: 'http://github.com/someone/brand-new-kit' }).problems).toEqual([expect.stringMatching(/url must be an https link/)]);
+		// Links the form's rules take and the entry's file does not, which the Worker would refuse only after the captcha.
+		for (const [cat, url] of [['showcase', 'https://'], ['plugin', 'https://'], ['article', 'https://'], ['article', 'https:///x'], ['ui', 'https://github.com/a/.git'], ['state', 'https://github.com/a/.git']] as const) {
+			const input = cat === 'article' ? { category: cat, name: 'Brand New Post', url } : { category: cat, ...fields, url };
+			const r = report(input);
+			expect(r.problems, `${cat} ${url}`).toHaveLength(1);
+			expect(serverAccepts(read(input)), `${cat} ${url}`).toBe(false);
+			// Also while another field is still missing.
+			expect(report({ ...input, name: undefined }).problems, `${cat} ${url}`).toHaveLength(1);
+		}
+	});
+
 	it('only accepts what the server takes, for every category and every optional field', () => {
-		const extras = [{}, { repo: 'github.com/someone/brand-new-kit' }, { screenshot: 'https://x.dev/a.png' }, { group: 'game' }, { mode: 'web' }, { author: undefined, desc: undefined }];
+		const extras = [{}, { repo: 'github.com/someone/brand-new-kit' }, { repo: '' }, { screenshot: 'https://x.dev/a.png' }, { screenshot: '' }, { group: 'game' }, { mode: 'web' }, { author: undefined, desc: undefined }, { url: 'https://' }, { url: 'https://github.com/a/.git' }];
 		let accepted = 0;
 		for (const cat of SUBMIT_CATS) {
 			const base = cat === 'article' ? { name: 'Brand New Post', url: 'https://x.dev/brand-new-post' } : fields;
@@ -934,7 +963,7 @@ describe('agent submission', () => {
 		expect(agentSubmissionReport(read({ category: 'ui', ...fields, url: 'https://example.com/kit' })).problems).toEqual([expect.stringMatching(/GitHub repository/)]);
 		const ok = agentSubmissionReport(read({ category: 'ui', ...fields }));
 		expect(ok).toMatchObject({ needs: [], problems: [], file: 'packages/catalog/data/ui/brand-new-kit.json' });
-		expect(ok.entry).toEqual(buildEntry('ui', { ...fields, url: 'https://github.com/someone/brand-new-kit' }, 'native', { name: 'Name', desc: 'One-line description.' }));
+		expect(ok.entry).toEqual(buildEntry('ui', { ...fields, url: 'https://github.com/someone/brand-new-kit' }, 'native', { name: 'Name', desc: 'Description.' }));
 		expect(agentSubmissionReport(read({ category: 'showcase', entry: { slug: 'x', name: 'x', screenshot: 'x.webp' } })).problems).toHaveLength(1);
 	});
 
@@ -946,8 +975,14 @@ describe('agent submission', () => {
 		// Another library under the same name would need the same file.
 		expect(agentSubmissionReport(read({ category: 'ui', ...fields, name: lib.slug })).problems).toEqual([expect.stringMatching(new RegExp(`slug ${lib.slug} is already listed`))]);
 		expect(agentSubmissionReport(read({ category: 'showcase', entry: buildEntry('showcase', { ...fields, url: 'https://github.com/someone/brand-new-kit', name: app.name }, 'native', { name: '', desc: '' }) })).problems).toEqual([`already listed on the site as ${app.name}`]);
-		// Not looked up until the fields it is told apart by are there.
-		expect(agentSubmissionReport(read({ category: 'showcase', name: app.name })).problems).toEqual([]);
+		// Looked up as soon as the fields it is told apart by are there: an app's slug comes from its name alone, a library is listed by its link.
+		expect(agentSubmissionReport(read({ category: 'showcase', name: app.name })).problems).toEqual([`already listed on the site as ${app.name}`]);
+		expect(agentSubmissionReport(read({ category: 'ui', name: lib.slug })).problems).toEqual([expect.stringMatching(new RegExp(`slug ${lib.slug} is already listed`))]);
+		expect(agentSubmissionReport(read({ category: 'ui', ...fields, url: undefined, name: lib.name })).problems.filter((p) => p.startsWith('already listed'))).toEqual([]);
+		// A name with no Latin letter or digit takes its slug from the link, and nothing is looked up before there is one.
+		expect(agentSubmissionReport(read({ category: 'showcase', name: '小工具' })).problems).toEqual([]);
+		// A pasted entry that still holds the form's placeholders is refused, as the Worker refuses it.
+		expect(agentSubmissionReport(read({ category: 'ui', entry: buildEntry('ui', { ...fields, url: '' }, 'native', { name: 'x', desc: 'y' }) })).problems).toEqual([expect.stringMatching(/placeholder/)]);
 	});
 
 	it('describes its input in a schema that matches the reader', () => {
@@ -959,7 +994,7 @@ describe('agent submission', () => {
 		for (const [k, p] of Object.entries(props)) expect(p.description.length, k).toBeLessThanOrEqual(150);
 		// Every field the schema names is one the reader takes.
 		for (const k of AGENT_FIELDS) expect(problemsOf({ category: 'showcase', [k]: undefined })).not.toMatch(/unknown/);
-		expect(AGENT_MAX_BYTES).toBeLessThan(16 * 1024 - 2048);
+		expect(AGENT_MAX_BYTES).toBeLessThan(MAX_SUBMISSION - 2048);
 	});
 });
 

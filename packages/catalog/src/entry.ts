@@ -16,15 +16,28 @@ export const SUBMIT_LABELS: Record<SubmitCat, string> = { showcase: 'app', ui: '
 // When an entry is filed: now, in UTC to the second.
 const now = () => new Date().toISOString().replace(/\.\d{3}Z$/, 'Z');
 
+// The slug an entry's file is named after: its own, or for a pasted entry without one, its name's.
+const slugOf = (entry: Record<string, unknown>): string => (typeof entry.slug === 'string' && entry.slug ? entry.slug : slugify(pastedName(entry)));
+
 // Where an entry goes, under DATA_DIR: its own file in the category's directory, named after its slug.
 export function entryPath(cat: SubmitCat, entry: Record<string, unknown>): string {
-	const slug = typeof entry.slug === 'string' && entry.slug ? entry.slug : slugify(pastedName(entry));
-	return `${SUBMIT_KINDS[cat].dir}/${slug}.json`;
+	return `${SUBMIT_KINDS[cat].dir}/${slugOf(entry)}.json`;
 }
 
 // Throws a CatalogError, naming the field, when entry would not pass its file's check.
 export function checkEntry(cat: SubmitCat, entry: Record<string, unknown>): void {
 	readEntry(SUBMIT_KINDS[cat], entry);
+}
+
+// What checkEntry would throw for entry, as text, or undefined when it passes.
+function fileProblem(cat: SubmitCat, entry: Record<string, unknown>): string | undefined {
+	try {
+		checkEntry(cat, entry);
+	} catch (err) {
+		if (err instanceof CatalogError) return err.message;
+		throw err;
+	}
+	return undefined;
 }
 
 // The entry's file as the repository keeps it: its schema first, the entry, and when it was added.
@@ -235,12 +248,8 @@ export function parseEntryJson(text: string): { entry: Record<string, unknown> }
 
 // Why entry cannot be submitted as a cat entry, or undefined when it can. The file's own check names the field; the rest are the limits the form's fields have.
 export function pastedEntryProblem(cat: SubmitCat, entry: Record<string, unknown>): string | undefined {
-	try {
-		checkEntry(cat, entry);
-	} catch (err) {
-		if (err instanceof CatalogError) return err.message;
-		throw err;
-	}
+	const problem = fileProblem(cat, entry);
+	if (problem) return problem;
 	// Images live in the repository, and a visitor cannot add one; a maintainer adds them after merging.
 	if (entry.screenshot !== undefined || (entry.icon as { file?: unknown } | undefined)?.file !== undefined) return 'screenshot and icon.file name images in the repository, which a maintainer adds; leave them out';
 	const name = pastedName(entry);
@@ -295,6 +304,39 @@ export function editUrl(repo: string, cat: SubmitCat, entry: Record<string, unkn
 	const value = `${JSON.stringify(fileOf(cat, entry, now()), null, '\t')}\n`;
 	const q = new URLSearchParams({ filename: entryPath(cat, entry).slice(dir.length + 1), value });
 	return `${repo}/new/main/${DATA_DIR}/${dir}?${q}`;
+}
+
+// ---- the request the form sends ----
+
+// What the site's form sends /api/submit (apps/web/src/routes/api/submit.ts), read here rather than in the route so the catalog's tests can check that what the WebMCP tools accept is a request the Worker takes: either the form's fields, from which the entry is built, or an entry pasted whole, which goes in as written.
+export type SubmitRequest = { cat: SubmitCat; token: string } & ({ kind: 'form'; draft: EntryDraft; mode: 'native' | 'web' } | { kind: 'entry'; entry: Record<string, unknown> });
+
+// The request body is untrusted: anything but the expected shape is undefined, before any field is used.
+export function parseSubmission(text: string): SubmitRequest | undefined {
+	let raw: unknown;
+	try {
+		raw = JSON.parse(text);
+	} catch {
+		return undefined;
+	}
+	if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return undefined;
+	const r = raw as Record<string, unknown>;
+	const str = (k: string) => (typeof r[k] === 'string' ? (r[k] as string) : undefined);
+	const cat = SUBMIT_CATS.find((c) => c === r.cat);
+	const token = str('token');
+	if (!cat || !token || token.length > 2048) return undefined;
+	if (r.entry !== undefined) return r.entry && typeof r.entry === 'object' && !Array.isArray(r.entry) ? { cat, token, kind: 'entry', entry: r.entry as Record<string, unknown> } : undefined;
+	const mode = r.mode === 'web' ? 'web' : r.mode === 'native' || r.mode === undefined ? 'native' : undefined;
+	const [name, author, url, desc, repo, screenshot] = [str('name'), str('author') ?? '', str('url'), str('desc') ?? '', str('repo'), str('screenshot')];
+	// A showcase entry may name its group; anything not in the schema's list is refused rather than dropped.
+	const group = r.group === undefined ? undefined : ENTRY_GROUPS.find((g) => g === r.group);
+	if (r.group !== undefined && (!group || cat !== 'showcase')) return undefined;
+	// Only a showcase app has a repository besides its link.
+	if (r.repo !== undefined && (repo === undefined || cat !== 'showcase')) return undefined;
+	// A screenshot link only for what shows one; entryProblem judges the link itself.
+	if (r.screenshot !== undefined && (screenshot === undefined || !takesShot(cat))) return undefined;
+	if (!mode || name === undefined || url === undefined) return undefined;
+	return { cat, token, kind: 'form', mode, draft: { name, author, url, desc, group, repo, screenshot } };
 }
 
 // ---- the bot's pull request ----
@@ -362,7 +404,7 @@ export function submissionFromIssue(body: string): { cat: SubmitCat; entry: Reco
 
 // The site offers WebMCP tools (apps/web/src/lib/webmcp.ts) through which an AI agent in the visitor's browser checks an entry and fills in the submit form for the visitor to check and send. Their input is untrusted and read more strictly than /api/submit reads a request, which ignores keys it does not know: unknown keys, wrong types and fields the category does not take are refused in words an agent can act on.
 
-// The tools' input schema, loose on purpose: readAgentSubmission says what is wrong, which a schema violation would not. Each description stays within the 150 characters Chrome recommends.
+// The tools' input schema. It names the fields, the category and the closed lists, but leaves out what depends on the category (which fields each one takes and needs) and does not forbid other keys, so that readAgentSubmission and agentSubmissionReport name those problems in words an agent can act on, which a schema violation would not. Each description stays within the 150 characters Chrome recommends.
 export const AGENT_INPUT_SCHEMA = {
 	type: 'object',
 	required: ['category'],
@@ -383,8 +425,8 @@ export const AGENT_INPUT_SCHEMA = {
 export type AgentField = keyof typeof AGENT_INPUT_SCHEMA.properties;
 export const AGENT_FIELDS = Object.keys(AGENT_INPUT_SCHEMA.properties) as AgentField[];
 
-// Below /api/submit's MAX_BODY (16 KB), leaving room for the captcha token (up to 2 KB) and the rest of the request, so what the tools accept is never refused for its size on sending.
-export const AGENT_MAX_BYTES = 12 * 1024;
+// Below what /api/submit takes (MAX_SUBMISSION), leaving room for the captcha token (up to 2 KB) and the rest of the request, so what the tools accept is never refused for its size on sending.
+export const AGENT_MAX_BYTES = MAX_SUBMISSION - 4 * 1024;
 
 // The form's fields, from which the entry is built, or an entry pasted whole, as /api/submit takes them.
 export type AgentSubmission = { cat: SubmitCat } & ({ via: 'form'; draft: EntryDraft; mode: 'native' | 'web' } | { via: 'json'; entry: Record<string, unknown> });
@@ -400,7 +442,7 @@ export function readAgentSubmission(input: unknown): { submission: AgentSubmissi
 	if (new TextEncoder().encode(JSON.stringify(input)).length > AGENT_MAX_BYTES) problems.push(`the input is larger than ${AGENT_MAX_BYTES / 1024} KB`);
 	const cat = SUBMIT_CATS.find((c) => c === input.category);
 	if (!cat) problems.push(`category must be one of ${SUBMIT_CATS.join(', ')}`);
-	const fields = (['name', 'author', 'url', 'desc', 'repo', 'screenshot', 'group', 'mode'] as const).filter((k) => input[k] !== undefined);
+	const fields = AGENT_FIELDS.filter((k) => k !== 'category' && k !== 'entry' && input[k] !== undefined);
 
 	if (input.entry !== undefined) {
 		if (fields.length > 0) problems.push(`pass either entry or the fields (${fields.join(', ')}), not both`);
@@ -443,32 +485,37 @@ export interface AgentReport {
 	entry: Record<string, unknown>;
 }
 
-const AGENT_PH = { name: 'Name', desc: 'One-line description.' };
+// The site's entries of the categories alreadyListed tells apart by their link, by their slugs, which name their files: another entry under the same name would need the same file. An app's and a plugin's slug is what alreadyListed compares already.
+const LISTED_SLUGS: Partial<Record<SubmitCat, () => readonly { slug: string }[]>> = { ui: () => UI_LIBS, state: () => STATE_SOLUTIONS, article: () => ARTICLES };
 
-// The site's entries of a category, by their slugs, which name their files.
-const LISTED: Record<SubmitCat, () => readonly { slug: string }[]> = { showcase: () => APPS, ui: () => UI_LIBS, state: () => STATE_SOLUTIONS, plugin: () => [...PLUGINS, ...COMMUNITY_PLUGINS], article: () => ARTICLES };
-
-// Why the bot would refuse entry as a repeat, as openSubmission does: a file of its slug, or an entry the site lists under the field its category keeps unique. The bundled catalog is the deployed one, so an entry merged since then is only caught on sending.
-function repeats(cat: SubmitCat, entry: Record<string, unknown>): string[] {
-	const listed = alreadyListed(cat, entry);
+// Why the bot would refuse entry as a repeat, as openSubmission does: an entry the site lists under the field its category keeps unique (alreadyListed), or a file of its slug. known says which of the two the fields given so far decide; an unknown one is not looked up, as entry holds a placeholder there. The bundled catalog is the deployed one, so an entry merged since then is only caught on sending.
+function repeats(cat: SubmitCat, entry: Record<string, unknown>, known: { slug: boolean; link: boolean }): string[] {
+	const bySlug = cat === 'showcase' || cat === 'plugin';
+	const listed = (bySlug ? known.slug : known.link) ? alreadyListed(cat, entry) : undefined;
 	if (listed) return [`already listed on the site as ${listed}`];
-	const slug = entryPath(cat, entry).slice(SUBMIT_KINDS[cat].dir.length + 1, -'.json'.length);
-	return LISTED[cat]().some((e) => e.slug === slug) ? [`an entry with the slug ${slug} is already listed; give this one a name that tells it apart`] : [];
+	const slug = slugOf(entry);
+	return known.slug && LISTED_SLUGS[cat]?.().some((e) => e.slug === slug) ? [`an entry with the slug ${slug} is already listed; give this one a name that tells it apart`] : [];
 }
-// Valid stand-ins for the fields still missing, so the rest of the draft is judged too: entryProblem stops at the first problem, and a missing name would hide a description that is too long.
+
+// Valid stand-ins for the fields still missing, so the rest of the draft is judged too: entryProblem stops at the first problem, and a missing name would hide a description that is too long. They are also the name and description the reported entry shows until those are given.
 const STAND_IN: Record<DraftField, string> = { url: 'https://github.com/owner/name', name: 'Name', author: 'author', desc: 'Description.' };
 
 export function agentSubmissionReport(sub: AgentSubmission): AgentReport {
 	if (sub.via === 'json') {
-		const problem = pastedEntryProblem(sub.cat, sub.entry);
-		return { needs: [], problems: problem ? [problem] : repeats(sub.cat, sub.entry), file: `${DATA_DIR}/${entryPath(sub.cat, sub.entry)}`, entry: sub.entry };
+		const problem = pastedEntryProblem(sub.cat, sub.entry) ?? placeholderProblem(sub.entry);
+		return { needs: [], problems: problem ? [problem] : repeats(sub.cat, sub.entry, { slug: true, link: true }), file: `${DATA_DIR}/${entryPath(sub.cat, sub.entry)}`, entry: sub.entry };
 	}
 	const { cat, draft, mode } = sub;
 	const missing = missingFields(cat, draft);
-	const problem = entryProblem(cat, { ...draft, ...Object.fromEntries(missing.map((f) => [f, STAND_IN[f]])) });
-	const entry = buildEntry(cat, draft, mode, AGENT_PH);
-	// The fields an entry is told apart by (its name, or for a library and an article its link) have to be there before it can be looked up.
-	const problems = problem ? [problem] : missing.includes('name') || missing.includes('url') ? [] : repeats(cat, entry);
+	const whole = { ...draft, ...Object.fromEntries(missing.map((f) => [f, STAND_IN[f]])) };
+	// A link given but not https counts as missing, yet the form, opened afresh on it, shows it filled in with no error until the visitor leaves the field.
+	const badUrl = draft.url.trim() !== '' && isBadUrl(draft.url);
+	// The entry's file check after the form's rules, as openSubmission writes the file only once it passes: entryProblem takes a link that is only https://, which the file refuses, as it does an article whose link has no host or a repository link with no name.
+	const problem = badUrl ? `url must be an https link, got ${JSON.stringify(draft.url)}` : (entryProblem(cat, whole) ?? fileProblem(cat, buildEntry(cat, whole, mode, { name: '', desc: '' })));
+	const entry = buildEntry(cat, draft, mode, STAND_IN);
+	// The slug comes from the name, or from the link when the name has no Latin letter or digit; a library and an article are told apart by their link.
+	const known = { slug: !missing.includes('name') && (!missing.includes('url') || /[a-z0-9]/i.test(draft.name)), link: !missing.includes('url') };
+	const problems = problem ? [problem] : repeats(cat, entry, known);
 	const needs = missing.length > 0 ? [`still needed: ${missing.join(', ')}${missing.includes('url') ? ' (url must be an https link)' : ''}`] : [];
 	return { needs, problems, file: `${DATA_DIR}/${entryPath(cat, entry)}`, entry };
 }
