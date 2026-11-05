@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "tcs3200-sensor-kit",
+	"name": "TCS3200 Sensor Kit",
+	"author": "Nigh",
+	"kind": "native",
+	"group": "devices",
+	"url": "https://github.com/Nigh/TCS3200-sensor-kit",
+	"repo": "Nigh/TCS3200-sensor-kit",
+	"summary": {
+		"en": "Linux host app for an RP2040-Zero TCS3200 screen color sensor, with live four-channel charts over USB.",
+		"zh-CN": "TCS3200 屏幕测色套件的 Linux 上位机，经 USB 实时绘制四通道曲线。",
+		"zh-TW": "TCS3200 螢幕測色套件的 Linux 主機程式，經 USB 即時繪製四通道曲線。",
+		"ja": "TCS3200 画面測色キットの Linux ホストアプリ。4チャンネルを USB でリアルタイム表示。",
+		"ko": "TCS3200 화면 색 측정 키트용 Linux 호스트 앱. USB로 4채널 실시간 그래프."
+	},
+	"description": {
+		"en": "The Linux host app for a TCS3200 screen color sensor on an RP2040-Zero, drawn with MyGo's native UI; the firmware is built separately with the Pico SDK and TinyUSB. It connects over USB CDC and charts the R, G, B and clear channels for the last 10 seconds, with X-axis zoom and paused snapshots. A demo mode shows synthetic signals without hardware.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Linux 上位机，配合 RP2040-Zero 上的 TCS3200 传感器测量屏幕颜色；固件另以 Pico SDK 与 TinyUSB 编写。它通过 USB CDC 连接设备，实时绘制 RGB 与 C 四个通道最近 10 秒的曲线，支持 X 轴缩放和暂停快照；没有硬件时也能用合成信号演示。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Linux 主機端程式，搭配 RP2040-Zero 上的 TCS3200 感測器量測螢幕顏色；韌體另以 Pico SDK 與 TinyUSB 撰寫。它透過 USB CDC 連接裝置，即時繪製 RGB 與 C 四個通道最近 10 秒的曲線，支援 X 軸縮放與暫停快照；沒有硬體時也能用合成訊號示範。",
+		"ja": "RP2040-Zero と TCS3200 で画面の色を測るキットの Linux 用ホストアプリで、MyGo のネイティブ UI で描かれています。ファームウェアは Pico SDK と TinyUSB で別に作られています。USB CDC でデバイスにつなぎ、RGB と C の4チャンネルの直近10秒をリアルタイムでグラフにし、X 軸の拡大縮小や一時停止スナップショットに対応します。ハードウェアがなくても合成信号のデモで試せます。",
+		"ko": "RP2040-Zero와 TCS3200으로 화면 색을 측정하는 키트의 Linux 호스트 앱으로, MyGo의 네이티브 UI로 그렸습니다. 펌웨어는 Pico SDK와 TinyUSB로 따로 만듭니다. USB CDC로 장치에 연결해 RGB와 C 네 채널의 최근 10초를 실시간 그래프로 보여 주며, X축 확대·축소와 일시 정지 스냅숏을 지원합니다. 하드웨어가 없어도 합성 신호 데모로 써 볼 수 있습니다."
+	},
+	"icon": {
+		"file": "tcs3200-sensor-kit.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "tcs3200-sensor-kit.webp",
+	"added": "2026-11-05T16:30:17Z"
+}
