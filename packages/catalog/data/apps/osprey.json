@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "osprey",
+	"name": "Osprey",
+	"author": "overcat",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/overcat/osprey",
+	"repo": "overcat/osprey",
+	"summary": {
+		"en": "Review Git changes file by file, with diffs and reviewed marks, made for checking AI-written code.",
+		"zh-CN": "逐个文件审阅 Git 改动并标记已审文件，专为检查 AI 写的代码而做。",
+		"zh-TW": "逐一檔案審閱 Git 變更並標記已審檔案，專為檢查 AI 寫的程式碼而做。",
+		"ja": "Git の変更をファイルごとにレビューし、確認済みを記録。AI が書いたコードの確認向け。",
+		"ko": "Git 변경을 파일별로 리뷰하고 확인한 파일을 표시하는, AI가 쓴 코드 검토용 앱."
+	},
+	"description": {
+		"en": "A desktop app for reviewing code changes file by file, made for checking code an AI wrote, drawn with MyGo's native UI on macOS, Windows and Linux. It shows changes in one scrolling feed or a file at a time, side by side or unified, keeps files marked reviewed until they change again, and refreshes as an agent writes. It needs Git and also works as a git difftool.",
+		"zh-CN": "逐个文件审阅代码改动的桌面应用，专为检查 AI 写的代码而做，由 MyGo 原生 UI 绘制，支持 macOS、Windows 与 Linux。改动可在一条滚动视图中连续阅读，也可逐个文件查看，支持并排或合并对比；文件可标记为已审阅，再次改动后会回到待审，代理写代码时界面随之刷新。需要 Git，也可作为 git difftool 使用。",
+		"zh-TW": "逐一檔案審閱程式碼變更的桌面應用程式，專為檢查 AI 寫的程式碼而做，由 MyGo 原生 UI 繪製，支援 macOS、Windows 與 Linux。變更可在一條捲動檢視中連續閱讀，也可逐一檔案查看，支援並排或合併比對；檔案可標記為已審閱，再次變更後會回到待審，代理寫程式時畫面隨之更新。需要 Git，也可當作 git difftool 使用。",
+		"ja": "コードの変更をファイルごとにレビューするデスクトップアプリで、AI が書いたコードを人が確認するために作られています。MyGo のネイティブ UI で描かれ、macOS・Windows・Linux で動きます。すべての変更を一続きのフィードで、または1ファイルずつ、横並びか統合表示で読めます。レビュー済みにしたファイルは再び変更されると未レビューに戻り、エージェントが書くそばから表示が更新されます。Git が必要で、git difftool としても使えます。",
+		"ko": "코드 변경을 파일 단위로 리뷰하는 데스크톱 앱으로, AI가 쓴 코드를 사람이 확인하는 용도로 만들었습니다. MyGo의 네이티브 UI로 그려 macOS, Windows, Linux에서 동작합니다. 모든 변경을 하나의 스크롤 피드나 파일별로, 나란히 또는 통합 보기로 읽을 수 있고, 리뷰 완료로 표시한 파일은 다시 바뀌면 리뷰 대상으로 돌아오며, 에이전트가 코드를 쓰는 동안 화면이 갱신됩니다. Git이 필요하고 git difftool로도 쓸 수 있습니다."
+	},
+	"icon": {
+		"file": "osprey.webp"
+	},
+	"screenshot": "osprey.webp",
+	"added": "2026-11-05T11:28:55Z"
+}
