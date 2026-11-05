@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "kunpengclash",
+	"name": "KunpengClash",
+	"author": "wyq09",
+	"kind": "web",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/wyq09/kunpeng-clash",
+	"repo": "wyq09/kunpeng-clash",
+	"summary": {
+		"en": "A Clash client that keeps you online when its core crashes and lets AI agents run it over MCP.",
+		"zh-CN": "内核崩溃也不断网的 Clash 桌面客户端，AI 智能体可通过 MCP 管理代理。",
+		"zh-TW": "核心當掉也不斷網的 Clash 桌面用戶端，AI 代理可透過 MCP 操控。",
+		"ja": "コアが落ちても通信が途切れない Clash クライアント。AI エージェントから MCP で操作できる。",
+		"ko": "코어가 멈춰도 인터넷이 끊기지 않는 Clash 클라이언트. AI 에이전트가 MCP로 조작합니다."
+	},
+	"description": {
+		"en": "A Clash desktop client built with MyGo and a web frontend, with the mihomo core embedded. If the core crashes, it clears the system proxy so you stay online, restarts the core and restores the proxy. AI agents such as Claude Code or Cursor can manage nodes, subscriptions and routing rules over MCP. macOS is fully supported; Windows and Linux are experimental.",
+		"zh-CN": "用 MyGo 与 Web 前端构建的 Clash 桌面客户端，mihomo 内核以库的形式内嵌。内核意外退出时会立即清除系统代理，保证仍能直连上网，随后自动重启内核并恢复代理。Claude Code、Cursor 等 AI 智能体可通过 MCP 管理节点、订阅和分流规则。macOS 完整支持，Windows 与 Linux 为实验性支持。",
+		"zh-TW": "以 MyGo 搭配 Web 前端打造的 Clash 桌面用戶端，mihomo 核心以函式庫形式內嵌。核心意外結束時會立即清除系統代理，確保仍能直連上網，接著自動重啟核心並恢復代理設定。Claude Code、Cursor 等 AI 代理可透過 MCP 管理節點、訂閱與分流規則。macOS 完整支援，Windows 與 Linux 為實驗性支援。",
+		"ja": "MyGo と Web フロントエンドで作られた Clash デスクトップクライアントで、mihomo コアをライブラリとして内蔵しています。コアが異常終了するとすぐにシステムプロキシを解除して直接接続を保ち、コアを自動で再起動してからプロキシを元に戻します。Claude Code や Cursor などの AI エージェントから、MCP でノード、サブスクリプション、ルーティングルールを操作できます。macOS は完全対応、Windows と Linux は試験的な対応です。",
+		"ko": "MyGo와 웹 프런트엔드로 만든 Clash 데스크톱 클라이언트로, mihomo 코어를 라이브러리로 내장했습니다. 코어가 비정상 종료되면 즉시 시스템 프록시를 해제해 직접 연결을 유지하고, 코어를 자동으로 재시작한 뒤 프록시를 복원합니다. Claude Code, Cursor 같은 AI 에이전트가 MCP로 노드, 구독, 라우팅 규칙을 관리할 수 있습니다. macOS는 완전히 지원하며 Windows와 Linux는 실험적으로 지원합니다."
+	},
+	"icon": {
+		"file": "kunpengclash.webp"
+	},
+	"screenshot": "kunpengclash.webp",
+	"added": "2026-11-05T04:32:09Z"
+}
