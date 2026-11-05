@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "handbean",
+	"name": "Handbean",
+	"author": "youfun",
+	"kind": "web",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/youfun/Handbean",
+	"repo": "youfun/Handbean",
+	"summary": {
+		"en": "A local AI coding agent that works in your workspace and keeps chats and memory on your machine.",
+		"zh-CN": "本地 AI 编程助手：在工作区里读写代码、执行命令，对话与记忆都留在本机。",
+		"zh-TW": "本機 AI 程式開發助理：在工作區讀寫程式碼、執行指令，對話與記憶都留在本機。",
+		"ja": "会話も記憶も手元に残る、ローカルの AI コーディングエージェント。ファイル編集とシェル実行に対応。",
+		"ko": "대화와 기억을 내 컴퓨터에 두는 로컬 AI 코딩 에이전트. 파일을 편집하고 셸을 실행합니다."
+	},
+	"description": {
+		"en": "A local coding agent built on Elixir/OTP with a Phoenix LiveView web frontend; conversations, tool runs and long-term memory stay on your machine. It reads and edits workspace files, runs a shell and finds code by symbol or embeddings, with per-workspace permissions. It talks to Anthropic and OpenAI-compatible endpoints such as Ollama, DeepSeek and OpenRouter, and supports MCP.",
+		"zh-CN": "基于 Elixir/OTP、以 Phoenix LiveView Web 前端构建的本地编程助手，对话、工具执行和长期记忆都留在本机。它能读写工作区文件、运行 Shell，并按符号或向量嵌入定位代码，权限可按工作区细分。支持 Anthropic 以及 Ollama、DeepSeek、OpenRouter 等 OpenAI 兼容接口，也支持 MCP。",
+		"zh-TW": "以 Elixir/OTP 為基礎、用 Phoenix LiveView Web 前端打造的本機程式開發助理，對話、工具執行與長期記憶都留在本機。它能讀寫工作區檔案、執行 Shell，並依符號或向量嵌入定位程式碼，權限可依工作區細分。支援 Anthropic 以及 Ollama、DeepSeek、OpenRouter 等 OpenAI 相容端點，也支援 MCP。",
+		"ja": "Elixir/OTP 上に Phoenix LiveView の Web フロントエンドで作られたローカルのコーディングエージェント。会話、ツールの実行、長期記憶はすべて手元のマシンに残ります。ワークスペースのファイルを読み書きし、シェルを実行し、シンボルや埋め込みでコードの位置を探します。権限はワークスペースごとに細かく設定できます。Anthropic と、Ollama・DeepSeek・OpenRouter などの OpenAI 互換エンドポイントに対応し、MCP も使えます。",
+		"ko": "Elixir/OTP 위에 Phoenix LiveView 웹 프런트엔드로 만든 로컬 코딩 에이전트로, 대화와 도구 실행, 장기 기억이 모두 내 컴퓨터에 남습니다. 워크스페이스의 파일을 읽고 고치며 셸을 실행하고, 심볼이나 임베딩으로 코드 위치를 찾으며, 권한은 워크스페이스별로 세세하게 정할 수 있습니다. Anthropic과 Ollama, DeepSeek, OpenRouter 같은 OpenAI 호환 엔드포인트를 지원하고 MCP도 쓸 수 있습니다."
+	},
+	"icon": {
+		"file": "handbean.webp"
+	},
+	"screenshot": "handbean.webp",
+	"added": "2026-11-05T01:50:45Z"
+}
