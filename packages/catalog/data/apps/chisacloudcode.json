@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "chisacloudcode",
+	"name": "ChisaCloudCode",
+	"author": "ChisaAlter",
+	"kind": "web",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/ChisaAlter/ChisaCloudCode",
+	"repo": "ChisaAlter/ChisaCloudCode",
+	"summary": {
+		"en": "Windows client for a cloud coding workspace on your own VPS, running Claude Code and Codex.",
+		"zh-CN": "连接自建 VPS 运行 Claude Code、Codex 的 Windows 客户端。",
+		"zh-TW": "連接自建 VPS 執行 Claude Code、Codex 的 Windows 用戶端。",
+		"ja": "自前の VPS で Claude Code・Codex を使う Windows クライアント。",
+		"ko": "자체 VPS에서 Claude Code와 Codex를 쓰는 Windows 클라이언트."
+	},
+	"description": {
+		"en": "The Windows desktop client of a cloud AI coding workspace, built with MyGo around a web frontend based on CloudCLI UI; Claude Code, Codex and other providers run on your own VPS, set up separately. Files, Git, terminal and preview use the cloud workspace by default, or an existing Windows folder over SSH. No public server or accounts are provided.",
+		"zh-CN": "云端 AI 编程工作区的 Windows 桌面客户端，由 MyGo 包装基于 CloudCLI UI 的 Web 前端；Claude Code、Codex 等模型服务运行在你自己另行部署的 VPS 上。文件、Git、终端和预览默认使用云端工作区，也可通过 SSH 连接现有的 Windows 目录。仓库不提供公共服务器和账号。",
+		"zh-TW": "雲端 AI 程式開發工作區的 Windows 桌面用戶端，由 MyGo 包裝以 CloudCLI UI 為基礎的 Web 前端；Claude Code、Codex 等模型服務執行在你自己另行部署的 VPS 上。檔案、Git、終端機和預覽預設使用雲端工作區，也可透過 SSH 連接既有的 Windows 目錄。儲存庫不提供公用伺服器和帳號。",
+		"ja": "クラウド上の AI コーディングワークスペースを使う Windows デスクトップクライアントで、CloudCLI UI をもとにした Web フロントエンドを MyGo で包んでいます。Claude Code や Codex などのモデルサービスは、別途自分で用意する VPS 上で動きます。ファイル、Git、ターミナル、プレビューは既定でクラウドのワークスペースを使い、SSH で既存の Windows フォルダーにつなぐこともできます。公開サーバーやアカウントは提供されません。",
+		"ko": "클라우드 AI 코딩 작업 공간을 쓰는 Windows 데스크톱 클라이언트로, CloudCLI UI 기반 웹 프런트엔드를 MyGo로 감쌌습니다. Claude Code, Codex 등 모델 서비스는 직접 따로 배포한 VPS에서 실행됩니다. 파일, Git, 터미널, 미리보기는 기본적으로 클라우드 작업 공간을 쓰며, SSH로 기존 Windows 폴더에 연결할 수도 있습니다. 공개 서버나 계정은 제공하지 않습니다."
+	},
+	"icon": {
+		"file": "chisacloudcode.webp"
+	},
+	"screenshot": "chisacloudcode.webp",
+	"added": "2026-11-05T02:29:36Z"
+}
