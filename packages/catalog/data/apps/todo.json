@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "todo",
+	"name": "Todo",
+	"author": "m3hu1",
+	"kind": "web",
+	"group": "notes",
+	"url": "https://github.com/m3hu1/mygo-todo",
+	"repo": "m3hu1/mygo-todo",
+	"summary": {
+		"en": "A macOS menu bar todo list that clears itself at midnight, with a Markdown note for each day.",
+		"zh-CN": "macOS 菜单栏待办清单，每天午夜清空，每天附一篇 Markdown 笔记。",
+		"zh-TW": "macOS 選單列待辦清單，每天午夜清空，每天附一篇 Markdown 筆記。",
+		"ja": "毎日リセットされる macOS メニューバーの ToDo リスト。日ごとの Markdown メモ付き。",
+		"ko": "매일 자정에 비워지는 macOS 메뉴 막대 할 일 목록. 날짜별 Markdown 메모 포함."
+	},
+	"description": {
+		"en": "A todo list in the macOS menu bar that opens from a status bar icon into a popover, with no Dock icon. The list clears at local midnight, and a second tab holds a Markdown note for each day, autosaved as you type. Notes are kept for 30 days unless you pin a day, and a calendar shows which days have one. Built with MyGo: a native status bar icon and popover around a web frontend.",
+		"zh-CN": "常驻 macOS 菜单栏的待办清单，点状态栏图标即在弹出面板中打开，不占程序坞。清单在每天本地午夜清空；另一个标签页是每天一篇的 Markdown 笔记，输入时自动保存。笔记保留 30 天，固定的日子会一直保留，日历会标出哪些天有笔记。基于 MyGo 构建，状态栏图标和弹出面板为原生实现，面板内容是 Web 前端。",
+		"zh-TW": "常駐 macOS 選單列的待辦清單，點狀態列圖示即在彈出面板中開啟，不佔 Dock。清單在每天本地午夜清空；另一個分頁是每天一篇的 Markdown 筆記，輸入時自動儲存。筆記保留 30 天，釘選的日子會一直保留，月曆會標出哪些天有筆記。以 MyGo 建置，狀態列圖示與彈出面板為原生實作，面板內容則是 Web 前端。",
+		"ja": "macOS のメニューバーに常駐する ToDo リスト。ステータスバーのアイコンからポップオーバーで開き、Dock には表示されません。リストは毎日ローカル時間の午前0時に消え、もう一つのタブには日ごとの Markdown メモがあり、入力中に自動保存されます。メモは30日間保持され、固定した日は残り続け、カレンダーでメモのある日がわかります。MyGo で作られ、アイコンとポップオーバーはネイティブ、中身は Web フロントエンドです。",
+		"ko": "macOS 메뉴 막대에 머무는 할 일 목록으로, 상태 막대 아이콘을 누르면 팝오버로 열리고 Dock에는 나타나지 않습니다. 목록은 매일 자정에 비워지고, 다른 탭에는 날짜별 Markdown 메모가 있어 입력하는 동안 자동 저장됩니다. 메모는 30일간 보관되며 고정한 날은 계속 남고, 달력에서 메모가 있는 날을 볼 수 있습니다. MyGo로 만들었으며 아이콘과 팝오버는 네이티브, 패널 내용은 웹 프런트엔드입니다."
+	},
+	"icon": {
+		"file": "todo.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "todo.webp",
+	"added": "2026-11-05T15:15:40Z"
+}
