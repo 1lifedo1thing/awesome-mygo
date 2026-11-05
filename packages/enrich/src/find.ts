@@ -207,15 +207,18 @@ export function entryFor(v: Verdict, info: RepoInfo, slug: string): { kind: Entr
 	}
 }
 
-// What the script remembers about a repository it looked at and did not propose, so it does not ask the model again every day: skipped (not a fit) or failed (its entry did not pass the checks), and until when.
+// What the script remembers about a repository it looked at and did not propose, so it does not ask the model again every day: skipped (not a fit), failed (its entry did not pass the checks) or deferred (too new to judge, tooNewToJudge), and until when.
 export interface Seen {
-	verdict: 'skip' | 'failed';
+	verdict: 'skip' | 'failed' | 'defer';
 	reason: string;
 	at: string;
 	until: string;
 }
 
-export const RECHECK_DAYS = { skip: 90, failed: 14 } as const;
+// How long a repository too new to judge waits before it is looked at (tooNewToJudge), and how young that is.
+export const NEW_REPO_DAYS = 7;
+
+export const RECHECK_DAYS = { skip: 90, failed: 14, defer: NEW_REPO_DAYS } as const;
 
 export function remember(verdict: Seen['verdict'], reason: string, now: Date): Seen {
 	const until = new Date(now.getTime() + RECHECK_DAYS[verdict] * 86_400_000);
@@ -225,6 +228,16 @@ export function remember(verdict: Seen['verdict'], reason: string, now: Date): S
 // The repositories remembered, less those whose entry failed: for a run asked to try them again (RETRY_FAILED), once what made them fail is fixed.
 export function withoutFailed(seen: Record<string, Seen>): Record<string, Seen> {
 	return Object.fromEntries(Object.entries(seen).filter(([, s]) => s.verdict !== 'failed'));
+}
+
+// A repository too new to judge: made less than NEW_REPO_DAYS ago, with commits on one day at most and no release or tag. Its look is put off rather than made, as a project pushed in a day is often still being started; NEW_REPO_DAYS later it is looked at whatever it shows, so a finished project imported in one commit still gets in. Stars play no part: while the site is young, many complete projects have none. commitDays is the number of days among its latest commits, left out when it was not read (the repository is older or released).
+export function tooNewToJudge(f: { createdAt: string; released: boolean; commitDays?: number }, now: Date): boolean {
+	return isYoung(f.createdAt, now) && !f.released && (f.commitDays ?? 0) <= 1;
+}
+
+// Whether a repository was made less than NEW_REPO_DAYS ago, as of now.
+export function isYoung(createdAt: string, now: Date): boolean {
+	return now.getTime() - Date.parse(createdAt) < NEW_REPO_DAYS * 86_400_000;
 }
 
 // Whether a repository is due for a look: never seen, or its time is up.
