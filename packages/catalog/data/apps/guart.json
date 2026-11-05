@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "guart",
+	"name": "GUART 串口工具",
+	"author": "zty012",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://guart.2y.nz",
+	"repo": "zty012/guart",
+	"summary": {
+		"en": "A serial port terminal drawn with MyGo's native UI and MujicaUI, with no web view.",
+		"zh-CN": "用 MyGo 原生 UI 和 MujicaUI 绘制的串口调试工具，不使用 WebView。",
+		"zh-TW": "以 MyGo 原生 UI 與 MujicaUI 繪製的序列埠除錯工具，不使用 WebView。",
+		"ja": "MyGo のネイティブ UI と MujicaUI で描いたシリアルポートツール。Web ビューは使いません。",
+		"ko": "MyGo 네이티브 UI와 MujicaUI로 그린 시리얼 포트 도구로, 웹뷰를 쓰지 않습니다."
+	},
+	"description": {
+		"en": "A serial port tool in Go, drawn with MyGo's native UI and the MujicaUI components, with no web view and no cgo. It lists ports and can connect to new ones as they appear, sends and shows data as UTF-8 with ANSI colors or as hex, groups received bytes by idle gap or line ending while keeping each read's boundaries, sends on a loop, and guesses the microcontroller on the other end from what it receives, without sending probes.",
+		"zh-CN": "用 Go 编写的串口工具，界面由 MyGo 原生 UI 和 MujicaUI 组件绘制，不用 WebView，也不需要 CGO。它能枚举串口并自动连接新出现的端口，以带 ANSI 颜色的 UTF-8 或 HEX 收发和显示数据，按空闲间隔或换行把收到的字节分组，同时保留每次读取的边界，支持循环发送，还能根据收到的数据推断对端单片机的型号，不发送探测命令。",
+		"zh-TW": "以 Go 撰寫的序列埠工具，介面由 MyGo 原生 UI 與 MujicaUI 元件繪製，不使用 WebView，也不需要 CGO。它能列舉序列埠並自動連接新出現的埠，以帶 ANSI 色彩的 UTF-8 或 HEX 收發與顯示資料，依閒置間隔或換行將收到的位元組分組，同時保留每次讀取的邊界，支援循環傳送，還能依收到的資料推斷對端微控制器的型號，不傳送探測指令。",
+		"ja": "Go で書かれたシリアルポートツールで、MyGo のネイティブ UI と MujicaUI のコンポーネントで描かれ、Web ビューも cgo も使いません。ポートを一覧し、新しく現れたポートに自動で接続でき、ANSI カラー付きの UTF-8 または HEX でデータを送受信・表示し、受信したバイトをアイドル間隔や改行でまとめつつ読み取りごとの境界を残し、ループ送信もできます。受信内容から相手側のマイコンを推定し、探りのコマンドは送りません。",
+		"ko": "Go로 작성한 시리얼 포트 도구로, MyGo 네이티브 UI와 MujicaUI 컴포넌트로 그리며 웹뷰와 cgo를 쓰지 않습니다. 포트를 나열하고 새로 나타난 포트에 자동으로 연결할 수 있으며, ANSI 색상이 있는 UTF-8 또는 HEX로 데이터를 주고받아 표시하고, 받은 바이트를 유휴 간격이나 줄바꿈으로 묶되 읽기마다의 경계를 남기며, 반복 전송도 지원합니다. 받은 데이터로 상대편 마이크로컨트롤러를 추정하며, 탐지 명령은 보내지 않습니다."
+	},
+	"icon": {
+		"file": "guart.webp"
+	},
+	"screenshot": "guart.webp",
+	"added": "2026-11-05T12:48:19Z"
+}
