@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "imyemail-cloud-mygo",
+	"name": "imyemail-cloud-mygo",
+	"author": "logdns",
+	"kind": "native",
+	"category": "CommunicationApplication",
+	"url": "https://imy.email",
+	"repo": "logdns/imyemail-cloud",
+	"summary": {
+		"en": "A desktop email client for macOS, Windows and Linux: the MyGo edition of imyemail-cloud.",
+		"zh-CN": "适用 macOS、Windows、Linux 的 imyemail-cloud 桌面邮件客户端",
+		"zh-TW": "適用 macOS、Windows、Linux 的 imyemail-cloud 桌面郵件用戶端",
+		"ja": "macOS・Windows・Linux 用 imyemail-cloud のデスクトップ版メールアプリ。",
+		"ko": "macOS, Windows, Linux용 imyemail-cloud 데스크톱 메일 앱."
+	},
+	"description": {
+		"en": "The MyGo desktop preview of the imyemail-cloud email client for macOS, Windows and Linux, drawn with MyGo's native UI and inspired by Pulse. It bundles the project's Rust mail core, shows mail as plain text and has an English UI with fewer features than the main edition. The main editions for Apple platforms, Android, Linux and Windows are built separately with each platform's toolkit.",
+		"zh-CN": "imyemail-cloud 邮件客户端的 MyGo 桌面预览版，支持 macOS、Windows 与 Linux，用 MyGo 原生 UI 绘制，设计灵感来自 Pulse。它内置项目的 Rust 邮件核心，以纯文本显示邮件，界面只有英文，功能少于主版本。Apple 平台、Android、Linux 与 Windows 上的主版本则用各平台自己的工具包另行开发。",
+		"zh-TW": "imyemail-cloud 郵件用戶端的 MyGo 桌面預覽版，支援 macOS、Windows 與 Linux，以 MyGo 原生 UI 繪製，設計靈感來自 Pulse。內建專案的 Rust 郵件核心，以純文字顯示郵件，介面僅有英文，功能比主版本少。Apple 平台、Android、Linux 與 Windows 上的主版本則以各平台自身的工具包另行開發。",
+		"ja": "imyemail-cloud メールクライアントの MyGo 版デスクトッププレビュー。macOS・Windows・Linux に対応し、MyGo のネイティブ UI で描かれ、デザインは Pulse に着想を得ています。プロジェクトの Rust 製メールコアを同梱し、メールはプレーンテキストで表示、UI は英語のみで、機能はメイン版より少なめです。Apple 各プラットフォーム、Android、Linux、Windows 向けのメイン版は、それぞれのツールキットで別に作られています。",
+		"ko": "imyemail-cloud 메일 클라이언트의 MyGo 데스크톱 프리뷰판으로, macOS, Windows, Linux를 지원하며 MyGo의 네이티브 UI로 그렸고 Pulse에서 영감을 받았습니다. 프로젝트의 Rust 메일 코어를 함께 담고 있으며, 메일은 일반 텍스트로 보여 주고 UI는 영어만 지원하며 기능은 메인판보다 적습니다. Apple 플랫폼, Android, Linux, Windows용 메인판은 각 플랫폼의 툴킷으로 따로 만듭니다."
+	},
+	"icon": {
+		"file": "imyemail-cloud-mygo.webp"
+	},
+	"screenshot": "imyemail-cloud-mygo.webp",
+	"added": "2026-11-05T05:57:31Z"
+}
