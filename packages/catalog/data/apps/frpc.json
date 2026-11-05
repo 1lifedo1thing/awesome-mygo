@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "frpc",
+	"name": "frpc 客户端",
+	"author": "jiqing112",
+	"kind": "web",
+	"group": "network",
+	"url": "https://github.com/jiqing112/frpcclient",
+	"repo": "jiqing112/frpcclient",
+	"summary": {
+		"en": "A Windows manager for frp's frpc: edit TOML profiles and proxies, start frpc and read its logs.",
+		"zh-CN": "Windows 版 frpc 图形管理工具：编辑配置与代理，启停 frpc，查看日志。",
+		"zh-TW": "Windows 版 frpc 圖形管理工具：編輯設定與代理，啟停 frpc，查看日誌。",
+		"ja": "Windows 向け frpc 管理アプリ。TOML 設定とプロキシを編集し、起動とログ確認も。",
+		"ko": "Windows용 frpc 관리 도구. TOML 설정과 프록시 편집, 실행, 로그 확인을 한곳에서."
+	},
+	"description": {
+		"en": "A Windows 10/11 manager for frp's frpc client: a web frontend in the system WebView2 with a Go backend, built by MyGo into a single exe of about 9 MB. Each profile is a TOML file for one frps server; it edits server settings and proxies in forms, checks them before starting frpc, streams its logs live and runs from the tray. frpc.exe is downloaded separately from frp's releases.",
+		"zh-CN": "运行在 Windows 10/11 上的 frp 客户端图形管理工具，Go 后端配合系统 WebView2 渲染的 Web 前端，由 MyGo 构建为约 9 MB 的单文件 exe。每个 profile 对应一个 toml 文件和一台 frps，服务器配置与代理都用表单编辑，启动 frpc 前集中校验，日志实时显示，可缩到系统托盘。frpc.exe 需另行从 frp 的发布页下载。",
+		"zh-TW": "在 Windows 10/11 上執行的 frp 用戶端圖形管理工具，Go 後端搭配系統 WebView2 繪製的 Web 前端，由 MyGo 建置成約 9 MB 的單一 exe。每個 profile 對應一個 toml 檔和一台 frps，伺服器設定與代理都以表單編輯，啟動 frpc 前集中檢查，日誌即時顯示，可縮到系統匣。frpc.exe 需另外從 frp 的發布頁下載。",
+		"ja": "Windows 10/11 で動く frp クライアント frpc の管理ツール。Go のバックエンドと、システムの WebView2 で描く Web フロントエンドを、MyGo で約 9 MB の単一 exe にまとめています。プロファイルごとに TOML ファイルと frps サーバーが一つずつ対応し、サーバー設定とプロキシをフォームで編集できます。frpc の起動前に設定を検証し、ログをリアルタイムで表示して、トレイに常駐します。frpc.exe は frp のリリースから別途入手します。",
+		"ko": "Windows 10/11에서 동작하는 frp 클라이언트 frpc 관리 도구입니다. Go 백엔드와 시스템 WebView2로 그리는 웹 프런트엔드를 MyGo로 약 9MB의 단일 exe로 빌드했습니다. 프로필마다 TOML 파일과 frps 서버 하나가 대응하며, 서버 설정과 프록시를 폼으로 편집하고, frpc 시작 전에 설정을 검사하며, 로그를 실시간으로 보여 주고 트레이에 머뭅니다. frpc.exe는 frp 릴리스에서 따로 받아야 합니다."
+	},
+	"icon": {
+		"file": "frpc.webp"
+	},
+	"screenshot": "frpc.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T15:37:24Z"
+}
