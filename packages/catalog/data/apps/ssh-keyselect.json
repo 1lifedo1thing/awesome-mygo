@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "ssh-keyselect",
+	"name": "SSH KeySelect",
+	"author": "jfut",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/jfut/ssh-keyselect",
+	"repo": "jfut/ssh-keyselect",
+	"summary": {
+		"en": "SSH agent proxy with a tray app for picking which keys an SSH client may offer and sign with.",
+		"zh-CN": "SSH agent 代理，带托盘应用，让你选择 SSH 客户端可用来签名的密钥。",
+		"zh-TW": "SSH agent 代理，附系統匣程式，讓你選擇 SSH 用戶端可用來簽章的金鑰。",
+		"ja": "SSH クライアントが提示・署名に使える鍵を選べる、トレイ常駐の SSH エージェントプロキシ。",
+		"ko": "SSH 클라이언트가 제시하고 서명할 키를 고를 수 있는 트레이 앱 SSH 에이전트 프록시."
+	},
+	"description": {
+		"en": "An SSH agent proxy for Windows, macOS and Linux that sits in front of your existing agent and asks which keys each SSH client may see, rejecting signing requests for the rest to limit SSH agent hijacking. Private keys stay in the upstream agent. MyGo builds the tray GUI with its native UI; the ssh-keyselect CLI, which shows the picker in the terminal, is a separate tool.",
+		"zh-CN": "适用于 Windows、macOS 与 Linux 的 SSH agent 代理，挡在现有 agent 前面，让你为每个 SSH 客户端选择可见的密钥，并拒绝其余密钥的签名请求，以降低 SSH agent 劫持的风险。私钥始终留在上游 agent 中。MyGo 以原生 UI 构建的是其托盘 GUI；在终端里显示选择器的 ssh-keyselect 命令行工具是另一个独立程序。",
+		"zh-TW": "適用於 Windows、macOS 與 Linux 的 SSH agent 代理，擋在既有 agent 前面，讓你為每個 SSH 用戶端選擇可見的金鑰，並拒絕其餘金鑰的簽章請求，以降低 SSH agent 劫持的風險。私鑰始終留在上游 agent 中。MyGo 以原生 UI 建構的是其系統匣 GUI；在終端機中顯示選擇器的 ssh-keyselect 命令列工具是另一個獨立程式。",
+		"ja": "Windows・macOS・Linux 向けの SSH エージェントプロキシ。既存のエージェントの手前に入り、SSH クライアントごとに見せる鍵を選ばせ、それ以外の鍵への署名要求は拒否して SSH エージェントハイジャックのリスクを抑えます。秘密鍵は上流のエージェントに残ったままです。MyGo のネイティブ UI で作られているのはトレイ常駐の GUI で、ターミナル上で鍵を選ぶ ssh-keyselect CLI は別のツールです。",
+		"ko": "Windows, macOS, Linux용 SSH 에이전트 프록시로, 기존 에이전트 앞에서 SSH 클라이언트마다 보여 줄 키를 고르게 하고 나머지 키에 대한 서명 요청은 거부해 SSH 에이전트 하이재킹 위험을 줄입니다. 개인 키는 상위 에이전트에 그대로 남습니다. MyGo의 네이티브 UI로 만든 것은 트레이 GUI이며, 터미널에서 키를 고르는 ssh-keyselect CLI는 별도의 도구입니다."
+	},
+	"icon": {
+		"file": "ssh-keyselect.webp"
+	},
+	"screenshot": "ssh-keyselect.webp",
+	"added": "2026-11-05T02:29:36Z"
+}
