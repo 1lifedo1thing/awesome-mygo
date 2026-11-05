@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "calc",
+	"name": "Calc",
+	"author": "CBR0",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/CBR0/calc",
+	"repo": "CBR0/calc",
+	"summary": {
+		"en": "A Windows 11-style calculator for Linux and Windows with exact decimal arithmetic and history.",
+		"zh-CN": "Windows 11 风格的 Linux 与 Windows 计算器，十进制精确运算。",
+		"zh-TW": "Windows 11 風格的 Linux 與 Windows 計算機，十進位精確運算。",
+		"ja": "Windows 11 風の Linux・Windows 向け電卓。正確な10進演算と履歴つき。",
+		"ko": "Linux·Windows용 Windows 11 스타일 계산기. 정확한 십진 연산과 기록을 지원합니다."
+	},
+	"description": {
+		"en": "A calculator for Linux and Windows that copies the layout and behavior of the Windows 11 Calculator, drawn with MyGo's native UI with no HTML, JavaScript or web view. It computes in exact decimals and shows every digit without scientific notation, takes typing and pasting straight into the display from any keyboard layout, and switches between 1.5 and 1,5 as the decimal separator.",
+		"zh-CN": "仿照 Windows 11 计算器布局与操作方式的 Linux 与 Windows 计算器，由 MyGo 原生 UI 绘制，不用 HTML、JavaScript，也没有 Web 视图。它采用精确的十进制运算，结果完整显示所有位数，不用科学计数法；显示区可直接输入和粘贴，任何键盘布局都能用，小数点可在 1.5 与 1,5 之间切换。",
+		"zh-TW": "仿照 Windows 11 小算盤版面與操作方式的 Linux 與 Windows 計算機，由 MyGo 原生 UI 繪製，不用 HTML、JavaScript，也沒有 Web 視圖。它採用精確的十進位運算，結果完整顯示所有位數，不用科學記號；顯示區可直接輸入和貼上，任何鍵盤配置都能用，小數點可在 1.5 與 1,5 之間切換。",
+		"ja": "Windows 11 の電卓のレイアウトと動作を再現した Linux・Windows 向けの電卓で、MyGo のネイティブ UI で描かれています。HTML も JavaScript も Web ビューも使いません。計算は正確な10進演算で、結果は指数表記にせず全桁を表示します。表示欄には直接入力や貼り付けができ、どのキーボード配列でも使え、小数点は 1.5 と 1,5 を切り替えられます。",
+		"ko": "Windows 11 계산기의 배치와 동작을 따른 Linux·Windows용 계산기로, MyGo의 네이티브 UI로 그려 HTML도 JavaScript도 웹 뷰도 쓰지 않습니다. 정확한 십진 연산으로 계산하고 지수 표기 없이 모든 자릿수를 보여 주며, 표시창에 바로 입력하거나 붙여 넣을 수 있고 어떤 키보드 배열에서도 동작합니다. 소수점은 1.5와 1,5 중에서 고를 수 있습니다."
+	},
+	"icon": {
+		"file": "calc.webp"
+	},
+	"screenshot": "calc.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T03:47:54Z"
+}
