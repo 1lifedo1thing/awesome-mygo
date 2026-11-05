@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "voir",
+	"name": "Voir",
+	"author": "eliottwantz",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/eliottwantz/Voir",
+	"repo": "eliottwantz/Voir",
+	"summary": {
+		"en": "A native macOS git client with a commit graph, line staging, undo and GitHub pull requests.",
+		"zh-CN": "原生 macOS Git 客户端：提交图、按行暂存、撤销操作与 GitHub 拉取请求。",
+		"zh-TW": "原生 macOS Git 用戶端：提交圖、逐行暫存、復原操作與 GitHub 拉取請求。",
+		"ja": "macOS 向けネイティブ Git クライアント。行単位ステージ、取り消し、GitHub の PR 対応。",
+		"ko": "macOS용 네이티브 Git 클라이언트: 줄 단위 스테이징, 실행 취소, GitHub PR."
+	},
+	"description": {
+		"en": "A macOS git client drawn with MyGo's native UI, with no web view, that drives the git on your PATH with your own configuration, hooks and credentials. It stages and discards by file, hunk or line, offers interactive rebase, a 3-way merge editor and ⌘Z undo for operations, and lists, reviews and merges GitHub pull requests through the gh CLI.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS Git 客户端，没有 Web 视图，直接调用 PATH 中的 git，沿用你的配置、钩子和凭据。可按文件、代码块或单行暂存与丢弃，支持交互式变基和三方合并编辑器，还能用 ⌘Z 撤销提交、变基、重置等操作；通过 gh CLI 登录后，可浏览、审阅并合并 GitHub 拉取请求。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS Git 用戶端，沒有 Web 視圖，直接呼叫 PATH 中的 git，沿用你的設定、hook 與憑證。可依檔案、區塊或單行暫存與捨棄，支援互動式 rebase 和三方合併編輯器，還能用 ⌘Z 復原提交、rebase、重設等操作；透過 gh CLI 登入後，可瀏覽、審查並合併 GitHub 拉取請求。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS 向け Git クライアント。Web ビューはなく、PATH 上の git をそのまま使うので、設定やフック、認証情報も普段どおりです。ファイル・ハンク・行単位でステージや破棄ができ、インタラクティブリベース、3 方向マージエディター、⌘Z によるコミットやリベースなどの取り消しに対応。GitHub のプルリクエストは gh CLI でサインインして一覧、レビュー、マージできます。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS용 Git 클라이언트로, 웹 뷰 없이 PATH에 있는 git을 그대로 사용해 기존 설정, 훅, 자격 증명이 그대로 적용됩니다. 파일, 헝크, 줄 단위로 스테이징하고 버릴 수 있으며, 인터랙티브 리베이스, 3방향 병합 편집기, ⌘Z로 커밋·리베이스 등 작업 되돌리기를 지원합니다. GitHub 풀 리퀘스트는 gh CLI로 로그인해 목록 보기, 리뷰, 병합까지 할 수 있습니다."
+	},
+	"icon": {
+		"file": "voir.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "voir.webp",
+	"added": "2026-11-05T11:50:47Z"
+}
