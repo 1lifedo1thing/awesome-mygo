@@ -5,6 +5,17 @@ import { ENTRY_DIRS, type EntryKind, type Entry, SITE_URL, githubUrl, sitePage }
 // The title every issue has, which is also how a later run finds that it was opened already.
 export const ISSUE_TITLE = 'Listed on Awesome MyGo';
 
+// MyGo's own repository, whose owner is MyGo's author.
+export const MYGO_REPO = 'egoist/mygo';
+
+// Why a repository is not told, or undefined when it is: one of this site's own owner, or one of MyGo's author, whose projects (MyGo's own apps, such as Kero or Lorca) are listed without telling them, as MyGo's maintainers know the site.
+export function notTold(repo: string, siteOwner?: string): string | undefined {
+	const owner = repo.split('/')[0].toLowerCase();
+	if (siteOwner && owner === siteOwner.toLowerCase()) return `it belongs to ${repo.split('/')[0]}, the site's own owner`;
+	if (owner === MYGO_REPO.split('/')[0]) return `it belongs to ${repo.split('/')[0]}, MyGo's author`;
+	return undefined;
+}
+
 // The GitHub repository to tell, as owner/name: the entry's repository or GitHub link, or, for a community plugin, the repository its docs or Go import path name. An official plugin lives in MyGo's own repository, which needs no telling.
 export function projectRepo(kind: EntryKind, entry: Entry): string | undefined {
 	const own = githubUrl(entry)?.slice('https://github.com/'.length);
@@ -65,7 +76,7 @@ export function composeIssue({ kind, entry, postUrl }: IssueInput): { title: str
 		...(missing.icon ? [`an icon as \`apps/web/public/icons/${slug}.webp\` (a 256 px square WebP) with \`"icon": { "file": "${slug}.webp" }\``] : []),
 	];
 	const body = [
-		`${name} is now listed ${KIND_EN[kind]} on ${site}, the directory of projects built with [MyGo](https://github.com/egoist/mygo): ${page}`,
+		`${name} is now listed ${KIND_EN[kind]} on ${site}, the directory of projects built with [MyGo](https://github.com/${MYGO_REPO}): ${page}`,
 		...(postUrl ? [`It was announced on X: ${postUrl}`] : []),
 		"If you'd like to link back, here is a badge for your README:",
 		`\`\`\`markdown\n${badge}\n\`\`\``,
