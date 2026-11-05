@@ -5,6 +5,7 @@
 	"author": "tviber",
 	"kind": "web",
 	"category": "MultimediaApplication",
+	"group": "media",
 	"url": "https://github.com/tviber/voice-morph",
 	"repo": "tviber/voice-morph",
 	"summary": {
