@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "nutty",
+	"name": "Nutty",
+	"author": "smallnest",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/smallnest/nutty",
+	"repo": "smallnest/nutty",
+	"summary": {
+		"en": "A native macOS terminal with tabs, split panes, a command palette and Ghostty themes.",
+		"zh-CN": "原生 macOS 终端：标签页、分屏、命令面板和 Ghostty 主题。",
+		"zh-TW": "原生 macOS 終端機：分頁、分割窗格、命令面板和 Ghostty 主題。",
+		"ja": "タブ、分割ペイン、コマンドパレット、Ghostty テーマを備えたネイティブな macOS ターミナル。",
+		"ko": "탭, 분할 창, 명령 팔레트, Ghostty 테마를 갖춘 네이티브 macOS 터미널."
+	},
+	"description": {
+		"en": "A macOS terminal modeled on otty.sh, drawn with MyGo's native UI and no web view; the emulator is Ghostty's, loaded through MyGo's terminal plugin. Tabs keep sessions running, panes split right or down, Cmd+K opens a palette of actions, sessions and 16 Ghostty themes, and an info panel shows the directory, process and ports. The agent chat panel is a demo.",
+		"zh-CN": "仿照 otty.sh 的 macOS 终端，界面由 MyGo 原生 UI 绘制，不用 Web 视图；终端模拟器来自 Ghostty，通过 MyGo 的终端插件载入。切换标签页时会话继续运行，窗格可向右或向下拆分，Cmd+K 打开命令面板，可执行操作、跳转会话并从 16 款 Ghostty 主题中挑选；信息面板显示工作目录、运行中的进程和占用的端口。自带的智能体聊天面板目前只是演示。",
+		"zh-TW": "仿照 otty.sh 的 macOS 終端機，介面由 MyGo 原生 UI 繪製，不用 Web 視圖；終端模擬器來自 Ghostty，透過 MyGo 的終端機外掛載入。切換分頁時工作階段持續執行，窗格可向右或向下分割，Cmd+K 開啟命令面板，可執行操作、跳到工作階段並從 16 款 Ghostty 主題中挑選；資訊面板顯示工作目錄、執行中的程序和使用中的連接埠。內建的代理聊天面板目前只是示範。",
+		"ja": "otty.sh を手本にした macOS 用ターミナル。MyGo のネイティブ UI で描かれ、Web ビューは使いません。エミュレーターは Ghostty のものを MyGo のターミナルプラグインで読み込みます。タブを切り替えてもセッションは動き続け、ペインは右や下に分割でき、Cmd+K のコマンドパレットで操作の実行、セッションの移動、16 種の Ghostty テーマの選択ができます。情報パネルには作業ディレクトリ、プロセス、使用中のポートを表示します。エージェントチャットはデモです。",
+		"ko": "otty.sh를 본뜬 macOS 터미널로, MyGo의 네이티브 UI로 그리며 웹 뷰를 쓰지 않습니다. 터미널 에뮬레이터는 Ghostty의 것을 MyGo의 터미널 플러그인으로 불러옵니다. 탭을 옮겨도 세션은 계속 실행되고, 창은 오른쪽이나 아래로 나눌 수 있으며, Cmd+K 명령 팔레트로 동작 실행, 세션 이동, Ghostty 테마 16종 선택을 합니다. 정보 패널에는 작업 디렉터리, 실행 중인 프로세스, 사용 중인 포트가 표시됩니다. 에이전트 채팅은 데모입니다."
+	},
+	"icon": {
+		"file": "nutty.webp"
+	},
+	"screenshot": "nutty.webp",
+	"added": "2026-11-05T04:45:28Z"
+}
