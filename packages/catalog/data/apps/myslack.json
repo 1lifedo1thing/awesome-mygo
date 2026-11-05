@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "myslack",
+	"name": "MySlack",
+	"author": "mrzzmrzz",
+	"kind": "native",
+	"category": "CommunicationApplication",
+	"url": "https://github.com/mrzzmrzz/MySlack",
+	"repo": "mrzzmrzz/MySlack",
+	"summary": {
+		"en": "An unofficial, lightweight Slack client for macOS with channels, threads, reactions and files.",
+		"zh-CN": "非官方的轻量 macOS Slack 客户端，支持频道、讨论串、表情回应和文件。",
+		"zh-TW": "非官方的輕量 macOS Slack 用戶端，支援頻道、討論串、表情回應和檔案。",
+		"ja": "macOS 向けの軽量な非公式 Slack クライアント。チャンネル、スレッド、リアクション、ファイルに対応。",
+		"ko": "macOS용 가벼운 비공식 Slack 클라이언트. 채널, 스레드, 리액션, 파일을 지원합니다."
+	},
+	"description": {
+		"en": "An unofficial Slack client for Apple Silicon Macs, drawn with MyGo's native UI: no Electron, no web view, about 85 MB of memory when idle. It shows channels, direct messages and threads with real-time updates, reactions, file downloads, notifications and an unread count on the Dock. It signs in with a session token from Slack's web client, which Slack's terms may not allow.",
+		"zh-CN": "非官方的 Slack 客户端，适用于 Apple Silicon Mac，由 MyGo 原生 UI 绘制，没有 Electron，也没有 Web 视图，空闲时内存约 85 MB。频道、私信与讨论串实时更新，并支持表情回应、文件下载、桌面通知和 Dock 未读计数。它使用 Slack 网页版的会话令牌登录，这可能违反 Slack 的服务条款。",
+		"zh-TW": "非官方的 Slack 用戶端，適用於 Apple Silicon Mac，由 MyGo 原生 UI 繪製，沒有 Electron，也沒有 Web 視圖，閒置時記憶體約 85 MB。頻道、私訊與討論串即時更新，並支援表情回應、檔案下載、桌面通知和 Dock 未讀計數。它以 Slack 網頁版的工作階段權杖登入，這可能違反 Slack 的服務條款。",
+		"ja": "Apple Silicon Mac 向けの非公式 Slack クライアントで、MyGo のネイティブ UI で描かれています。Electron も Web ビューもなく、アイドル時のメモリは約 85 MB です。チャンネル、ダイレクトメッセージ、スレッドをリアルタイムで更新し、リアクション、ファイルのダウンロード、通知、Dock の未読数にも対応します。Slack の Web クライアントのセッショントークンでサインインするため、Slack の利用規約に反する可能性があります。",
+		"ko": "Apple Silicon Mac용 비공식 Slack 클라이언트로, MyGo의 네이티브 UI로 그렸습니다. Electron도 웹 뷰도 없이 유휴 시 메모리를 약 85MB 사용합니다. 채널, 다이렉트 메시지, 스레드를 실시간으로 갱신하고 리액션, 파일 다운로드, 알림, Dock의 읽지 않은 메시지 수를 지원합니다. Slack 웹 클라이언트의 세션 토큰으로 로그인하므로 Slack 약관에 어긋날 수 있습니다."
+	},
+	"icon": {
+		"file": "myslack.webp"
+	},
+	"screenshot": "myslack.webp",
+	"added": "2026-11-05T04:32:09Z"
+}
