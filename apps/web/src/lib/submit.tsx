@@ -11,7 +11,7 @@ import { loadTurnstile } from './turnstile';
 type Bot = { enabled: false } | { enabled: true; siteKey: string };
 let botQuery: Promise<Bot> | undefined;
 
-function queryBot(): Promise<Bot> {
+export function queryBot(): Promise<Bot> {
 	botQuery ??= fetch('/api/submit')
 		.then((res) => (res.ok ? (res.json() as Promise<Bot>) : { enabled: false as const }))
 		.catch(() => {
@@ -37,6 +37,22 @@ export type Status = { kind: 'idle' } | { kind: 'sending' } | { kind: 'done'; ur
 
 // What the bot found of a screenshot in the project's repository (GET /api/shot): one it will take (found), none (none), no repository to look in (no-repo, as for a closed-source app), or no answer (unknown, when the Worker decides at submission). Only none and no-repo make the form ask for one.
 export type ShotCheck = { kind: 'idle' } | { kind: 'checking' } | { kind: 'found' } | { kind: 'none' } | { kind: 'no-repo' } | { kind: 'unknown' };
+
+// What GET /api/shot says of the screenshot in a GitHub repository (owner/name), asked by the form and by the WebMCP tools (lib/webmcp.ts). Answers are kept for a minute per page, so an agent checking an entry again and again, and the form opening on what the agent filled in, do not spend the visitor's 20 checks a minute (SHOT_LIMIT); a minute is short enough that a screenshot the author has just added is soon seen. unknown, when the Worker gave no answer (too many checks, GitHub failing), is not kept.
+const SHOT_TTL = 60_000;
+const shotChecks = new Map<string, { at: number; check: Promise<ShotCheck> }>();
+
+export function checkShot(repo: string): Promise<ShotCheck> {
+	const kept = shotChecks.get(repo);
+	if (kept && Date.now() - kept.at < SHOT_TTL) return kept.check;
+	const check = fetch(`/api/shot?repo=${encodeURIComponent(repo)}`)
+		.then((res) => (res.ok ? (res.json() as Promise<{ found?: boolean; reason?: string }>) : undefined))
+		.then((body): ShotCheck => (!body ? { kind: 'unknown' } : body.found ? { kind: 'found' } : { kind: body.reason === 'no-repo' ? 'no-repo' : 'none' }))
+		.catch((): ShotCheck => ({ kind: 'unknown' }));
+	shotChecks.set(repo, { at: Date.now(), check });
+	check.then((c) => c.kind === 'unknown' && shotChecks.get(repo)?.check === check && shotChecks.delete(repo));
+	return check;
+}
 
 // An image the visitor picked to upload, with its preview, and why it cannot be the screenshot if it cannot.
 export type ShotFile = { file: File; preview: string; problem?: string };
@@ -77,7 +93,7 @@ export function Captcha({ siteKey, lang, round, onToken, onFail, theme = 'dark' 
 }
 
 export function useSubmit() {
-	const { form, setFormField } = useSite();
+	const { form, setFormField, sendStarted, sendEnded } = useSite();
 	const t = useT();
 	const lang = useLang();
 	const bot = useBot();
@@ -134,12 +150,7 @@ export function useSubmit() {
 		let live = true;
 		setShotCheck({ kind: 'checking' });
 		// Asked once the visitor stops typing the link.
-		const timer = setTimeout(() => {
-			fetch(`/api/shot?repo=${encodeURIComponent(checkRepo)}`)
-				.then((res) => (res.ok ? (res.json() as Promise<{ found?: boolean; reason?: string }>) : undefined))
-				.then((body) => live && setShotCheck(!body ? { kind: 'unknown' } : body.found ? { kind: 'found' } : { kind: body.reason === 'no-repo' ? 'no-repo' : 'none' }))
-				.catch(() => live && setShotCheck({ kind: 'unknown' }));
-		}, 500);
+		const timer = setTimeout(() => checkShot(checkRepo).then((c) => live && setShotCheck(c)), 500);
 		return () => {
 			live = false;
 			clearTimeout(timer);
@@ -232,6 +243,8 @@ export function useSubmit() {
 
 	const send = async () => {
 		setStatus({ kind: 'sending' });
+		sendStarted();
+		let pr: { url: string; number: number } | undefined;
 		try {
 			const payload = JSON.stringify(pastedEntry ? { cat: form.cat, entry: pastedEntry, token } : { cat: form.cat, mode: form.mode, name: form.name, author: withAuthor ? form.author : '', url: form.url, repo: isShow ? form.repo : undefined, screenshot: shotLink, desc: form.desc, group: isShow ? form.group : undefined, token });
 			// With an image, the JSON goes as one part of a multipart body and the image as another.
@@ -244,10 +257,12 @@ export function useSubmit() {
 			}
 			const res = await fetch('/api/submit', { method: 'POST', ...(upload ? {} : { headers: { 'content-type': 'application/json' } }), body: requestBody });
 			const body = (await res.json().catch(() => ({}))) as { url?: string; number?: number; error?: string; message?: string };
-			setStatus(res.ok && body.url && body.number ? { kind: 'done', url: body.url, number: body.number } : { kind: 'error', message: errorText(body) });
+			if (res.ok && body.url && body.number) pr = { url: body.url, number: body.number };
+			setStatus(pr ? { kind: 'done', ...pr } : { kind: 'error', message: errorText(body) });
 		} catch {
 			setStatus({ kind: 'error', message: t.sub_failed });
 		}
+		sendEnded(pr);
 		setToken('');
 		setRound((n) => n + 1);
 	};

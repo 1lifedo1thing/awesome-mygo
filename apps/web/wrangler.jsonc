@@ -18,7 +18,7 @@
 	"observability": { "enabled": true },
 	// Keep Preview URLs on (wrangler disables them when this is missing) so each pull request gets its own preview link.
 	"preview_urls": true,
-	// Anonymous submissions (/api/submit): at most 3 a minute from one IP; the form's screenshot check (/api/shot), at most 20. namespace_id only has to be unique within the Cloudflare account. The GitHub App and Turnstile keys are secrets (GITHUB_APP_ID, GITHUB_APP_PRIVATE_KEY, TURNSTILE_SITE_KEY, TURNSTILE_SECRET_KEY); without them the form keeps to GitHub links.
+	// Anonymous submissions (/api/submit): at most 3 a minute from one IP; the form's screenshot check (/api/shot), at most 20. namespace_id only has to be unique within the Cloudflare account. The GitHub App and Turnstile keys are secrets (GITHUB_APP_ID, GITHUB_APP_PRIVATE_KEY, TURNSTILE_SITE_KEY, TURNSTILE_SECRET_KEY); without them the form keeps to GitHub links. WEBMCP_ORIGIN_TRIAL, optional, is Chrome's WebMCP origin-trial token (env.d.ts), a secret too so that a deploy does not wipe it.
 	"ratelimits": [
 		{ "name": "SUBMIT_LIMIT", "namespace_id": "4170", "simple": { "limit": 3, "period": 60 } },
 		{ "name": "LIKE_LIMIT", "namespace_id": "4172", "simple": { "limit": 30, "period": 60 } },

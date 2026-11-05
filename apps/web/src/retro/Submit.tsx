@@ -14,9 +14,10 @@ const off = 'disabled:cursor-not-allowed disabled:bg-face disabled:text-lo';
 // The showcase groups a submission can pick, without Other. Optional: a second press clears the pick.
 const GROUPS = ENTRY_GROUPS;
 
+// Keyed by the WebMCP fills (lib/webmcp.ts), so each one opens a fresh dialog.
 export function RetroSubmit() {
-	const { modal } = useSite();
-	return modal ? <Dialog /> : null;
+	const { modal, filled } = useSite();
+	return modal ? <Dialog key={filled} /> : null;
 }
 
 // A radio button: a round well with a dot when checked, its label beside it.
@@ -44,7 +45,7 @@ function Err({ id, children }: { id?: string; children: ReactNode }) {
 }
 
 function Dialog() {
-	const { closeSubmit, form, setFormField, copy, copied } = useSite();
+	const { closeSubmit, form, setFormField, copy, copied, agentFilled } = useSite();
 	const t = useT();
 	const ref = useDialog<HTMLDivElement>();
 	const { bot, lang, round, setToken, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint, viaJson, jsonError, onJsonChange, example, repoBad, onRepoBlur, shotBad, onShotBlur, urlLabel, withShot, shotFile, onShotFile, shotRequired, shotNote } = useSubmit();
@@ -116,13 +117,14 @@ function Dialog() {
 
 	return (
 		<div className='fixed inset-0 z-[60] overflow-y-auto bg-ink/35 backdrop-blur-[2px] px-3 pt-3 pb-6 desk:pt-[6vh]'>
-			<div ref={ref} role='dialog' aria-modal='true' aria-labelledby='dlg-submit-t' className='mx-auto w-full max-w-[640px]'>
+			<div ref={ref} role='dialog' aria-modal='true' aria-labelledby='dlg-submit-t' aria-describedby={agentFilled ? 'sub-agent' : undefined} className='mx-auto w-full max-w-[640px]'>
 				<Win id='dlg-submit' title={t.m_title} onClose={closeSubmit}>
 					<div className={`${well} grid gap-4 px-4 pt-4 pb-5 desk:px-5`}>
 						<div className='grid grid-cols-[36px_1fr] items-center gap-3 border-b border-line pb-3 desk:grid-cols-[48px_1fr]'>
 							<PixelIcon name='inbox' scale={3} className='size-9 desk:size-12' />
 							<p className='m-0'>{bot.enabled ? t.m_desc_bot : t.m_desc}</p>
 						</div>
+						{agentFilled && <p id='sub-agent' className='m-0 rounded-lg border border-[#ecd98a] bg-note px-3 py-2.5 font-medium'>{t.sub_agent}</p>}
 
 						<div>
 							<span className='mb-1 block text-muted'>{t.a_cats}</span>

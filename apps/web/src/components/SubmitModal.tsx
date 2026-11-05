@@ -7,13 +7,14 @@ import { CloseIcon } from './bits';
 
 const GROUPS = ENTRY_GROUPS;
 
+// Keyed by the WebMCP fills (lib/webmcp.ts), so each one opens a fresh dialog.
 export function SubmitModal() {
-	const { modal } = useSite();
-	return modal ? <Modal /> : null;
+	const { modal, filled } = useSite();
+	return modal ? <Modal key={filled} /> : null;
 }
 
 function Modal() {
-	const { closeSubmit, form, setFormField, copy, copied } = useSite();
+	const { closeSubmit, form, setFormField, copy, copied, agentFilled } = useSite();
 	const t = useT();
 	const ref = useDialog<HTMLDivElement>();
 	const { bot, lang, round, setToken, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint, viaJson, jsonError, onJsonChange, example, repoBad, onRepoBlur, shotBad, onShotBlur, urlLabel, withShot, shotFile, onShotFile, shotRequired, shotNote } = useSubmit();
@@ -90,7 +91,7 @@ function Modal() {
 	// The form scrolls; the footer with the submit button stays in view, saying what is still missing.
 	return (
 		<div className='overlay overlay-center fade'>
-			<div ref={ref} role='dialog' aria-modal='true' aria-labelledby='dlg' className='modal enter'>
+			<div ref={ref} role='dialog' aria-modal='true' aria-labelledby='dlg' aria-describedby={agentFilled ? 'sub-agent' : undefined} className='modal enter'>
 				<div className='modal-scroll'>
 					<div className='modal-head'>
 						<div className='stack-6'>
@@ -103,6 +104,7 @@ function Modal() {
 							<CloseIcon size={18} />
 						</button>
 					</div>
+					{agentFilled && <p id='sub-agent' className='sub-agent'>{t.sub_agent}</p>}
 					<div className='stack-8'>
 						<span className='field-label'>{t.a_cats}</span>
 						<div className='cat-opts' role='radiogroup' aria-label={t.a_cats}>

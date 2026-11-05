@@ -1,4 +1,4 @@
-import { ENTRY_GROUPS, MAX_SUBMISSION, SUBMIT_CATS, CatalogError, type EntryDraft, type SubmitCat, buildEntry, entryProblem, pastedEntryProblem, pastedName, pastedShotRepo, placeholderProblem, shotRepo, takesShot } from '@awesome-mygo/catalog';
+import { MAX_SUBMISSION, CatalogError, type SubmitRequest, buildEntry, entryProblem, parseSubmission, pastedEntryProblem, pastedName, pastedShotRepo, placeholderProblem, shotRepo, takesShot } from '@awesome-mygo/catalog';
 import { UPLOAD_MAX_BYTES } from '@awesome-mygo/enrich/source';
 import { createFileRoute } from '@tanstack/react-router';
 import { env } from 'cloudflare:workers';
@@ -8,8 +8,8 @@ import { botConfig, installation, installationToken, verifyTurnstile } from '../
 
 // GET says whether the bot is set up (and gives the Turnstile site key); POST submits an entry, as JSON, or as multipart/form-data with the JSON in payload and an uploaded screenshot in shot. Error codes: invalid, shot (an app, UI components or state management with no screenshot to show: none given and none in its repository), limited, captcha, busy, disabled, github.
 
-// Either the form's fields, from which the entry is built, or an entry pasted whole, which goes in as written; with the screenshot uploaded with it, if any.
-type Submission = { cat: SubmitCat; token: string; shot?: Uint8Array } & ({ kind: 'form'; draft: EntryDraft; mode: 'native' | 'web' } | { kind: 'entry'; entry: Record<string, unknown> });
+// What the form sent (parseSubmission), with the screenshot uploaded with it, if any.
+type Submission = SubmitRequest & { shot?: Uint8Array };
 
 const MAX_BODY = MAX_SUBMISSION;
 // A multipart body: the JSON, the screenshot and the parts' headers.
@@ -43,33 +43,6 @@ async function readSubmission(request: Request): Promise<Submission | undefined>
 	if (text.length > MAX_BODY) return undefined;
 	const sub = parseSubmission(text);
 	return sub && { ...sub, shot };
-}
-
-function parseSubmission(text: string): Submission | undefined {
-	let raw: unknown;
-	try {
-		raw = JSON.parse(text);
-	} catch {
-		return undefined;
-	}
-	if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return undefined;
-	const r = raw as Record<string, unknown>;
-	const str = (k: string) => (typeof r[k] === 'string' ? (r[k] as string) : undefined);
-	const cat = SUBMIT_CATS.find((c) => c === r.cat);
-	const token = str('token');
-	if (!cat || !token || token.length > 2048) return undefined;
-	if (r.entry !== undefined) return r.entry && typeof r.entry === 'object' && !Array.isArray(r.entry) ? { cat, token, kind: 'entry', entry: r.entry as Record<string, unknown> } : undefined;
-	const mode = r.mode === 'web' ? 'web' : r.mode === 'native' || r.mode === undefined ? 'native' : undefined;
-	const [name, author, url, desc, repo, screenshot] = [str('name'), str('author') ?? '', str('url'), str('desc') ?? '', str('repo'), str('screenshot')];
-	// A showcase entry may name its group; anything not in the schema's list is refused rather than dropped.
-	const group = r.group === undefined ? undefined : ENTRY_GROUPS.find((g) => g === r.group);
-	if (r.group !== undefined && (!group || cat !== 'showcase')) return undefined;
-	// Only a showcase app has a repository besides its link.
-	if (r.repo !== undefined && (repo === undefined || cat !== 'showcase')) return undefined;
-	// A screenshot link only for what shows one; entryProblem judges the link itself.
-	if (r.screenshot !== undefined && (screenshot === undefined || !takesShot(cat))) return undefined;
-	if (!mode || name === undefined || url === undefined) return undefined;
-	return { cat, token, kind: 'form', mode, draft: { name, author, url, desc, group, repo, screenshot } };
 }
 
 // The screenshot of what is submitted, when it needs one: an app, UI components or state management with neither a link nor an upload from the form. undefined when the repository has one the submission workflow will take, or GitHub could not say (repoLacksShot), 'shot' when nothing would show.
