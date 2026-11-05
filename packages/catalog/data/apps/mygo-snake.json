@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mygo-snake",
+	"name": "mygo-snake",
+	"author": "Yurbin",
+	"kind": "native",
+	"group": "game",
+	"url": "https://github.com/Yurbin/mygo-snake",
+	"repo": "Yurbin/mygo-snake",
+	"summary": {
+		"en": "A Snake game for Linux x64 and Kylin V10 SP1, shipped as a portable build that needs no install.",
+		"zh-CN": "贪吃蛇桌面游戏，面向 Linux x64 与银河麒麟 V10 SP1 的绿色免安装包。",
+		"zh-TW": "貪食蛇桌面遊戲，提供 Linux x64 與銀河麒麟 V10 SP1 的免安裝可攜版。",
+		"ja": "Linux x64 と銀河麒麟 V10 SP1 向けの、インストール不要で動くスネークゲーム。",
+		"ko": "Linux x64와 Kylin V10 SP1용, 설치 없이 실행하는 스네이크 게임."
+	},
+	"description": {
+		"en": "A Snake game for Linux x64 and Kylin V10 SP1, drawn with MyGo's native UI in pure Go with no web view and no cgo. It ships as a portable package that runs without installing, root or network access, needing only the GTK3 libraries Kylin already has. Steer with the arrow keys or WASD; the snake speeds up every five apples and the high score is kept between games.",
+		"zh-CN": "用 MyGo 原生 UI 以纯 Go 编写的贪吃蛇游戏，无 webview、无 cgo，面向 Linux x64 与银河麒麟 V10 SP1。以绿色免安装包交付，无需 root、无需联网，运行时只依赖麒麟自带的 GTK3。用方向键或 WASD 控制，每吃 5 个苹果提速一档，最高分会保存下来。",
+		"zh-TW": "以 MyGo 原生 UI、純 Go 撰寫的貪食蛇遊戲，沒有 webview、沒有 cgo，支援 Linux x64 與銀河麒麟 V10 SP1。以免安裝的可攜套件提供，不需 root、不需連網，執行時只依賴麒麟內建的 GTK3。用方向鍵或 WASD 操作，每吃 5 顆蘋果加速一級，最高分會保存下來。",
+		"ja": "MyGo のネイティブ UI を使い、純粋な Go で書かれたスネークゲーム。Web ビューも cgo も使わず、Linux x64 と銀河麒麟 V10 SP1 を対象にしています。インストール不要のポータブル版として配布され、root 権限もネット接続も要らず、実行時に必要なのは麒麟に標準で入っている GTK3 だけです。方向キーか WASD で操作し、リンゴを 5 個食べるごとに速くなり、最高得点は保存されます。",
+		"ko": "MyGo의 네이티브 UI로 순수 Go만 써서 만든 스네이크 게임으로, 웹 뷰도 cgo도 없으며 Linux x64와 Kylin V10 SP1을 대상으로 합니다. 설치 없이 쓰는 포터블 패키지로 배포되어 root 권한도 네트워크도 필요 없고, 실행할 때는 Kylin에 기본으로 들어 있는 GTK3만 있으면 됩니다. 방향키나 WASD로 조작하며 사과를 5개 먹을 때마다 빨라지고 최고 점수는 저장됩니다."
+	},
+	"icon": {
+		"file": "mygo-snake.webp"
+	},
+	"screenshot": "mygo-snake.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T17:24:29Z"
+}
