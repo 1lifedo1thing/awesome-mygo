@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "lanscout",
+	"name": "LanScout",
+	"author": "Qsnh",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/Qsnh/lanscout",
+	"repo": "Qsnh/lanscout",
+	"summary": {
+		"en": "Scans your local network to list devices by type and vendor and show which IPs are free.",
+		"zh-CN": "扫描局域网，列出设备并认出类型和厂商，标出已用与空闲的 IP。",
+		"zh-TW": "掃描區域網路，列出裝置並辨識類型與廠商，標出已用與閒置的 IP。",
+		"ja": "LAN をスキャンして機器の種類とメーカーを見分け、使用中と空きの IP を一覧に。",
+		"ko": "로컬 네트워크를 스캔해 기기의 종류와 제조사, 사용 중인 IP와 빈 IP를 보여 줍니다."
+	},
+	"description": {
+		"en": "A macOS and Windows app drawn with MyGo's native UI. It scans the network your computer is on, lists the devices it finds and identifies their vendor, name and type. An IP map shows used, recently used and free addresses so you can pick a static IP that will not conflict. It needs no admin rights, uploads nothing, and its interface is in Simplified Chinese only.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 与 Windows 应用，自动扫描电脑所在的局域网，列出在线设备，并尽量认出每台设备的厂商、名称和类型。IP 分布图标出在线、近期使用和空闲的地址，方便挑一个不会冲突的固定 IP。不需要管理员权限，不上传任何数据，界面目前只有简体中文。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS 與 Windows 應用程式，會自動掃描電腦所在的區域網路，列出線上裝置，並盡量辨識每台裝置的廠商、名稱與類型。IP 分布圖標出線上、近期使用與閒置的位址，方便挑一個不會衝突的固定 IP。不需要系統管理員權限，不上傳任何資料，介面目前只有簡體中文。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS・Windows 向けアプリ。PC がつながっている LAN を自動でスキャンしてオンラインの機器を一覧にし、それぞれのメーカー、名前、種類をできるだけ判別します。IP マップでは使用中、最近使われた、空きのアドレスを色分けするので、衝突しない固定 IP を選べます。管理者権限は不要でデータも送信せず、画面は今のところ簡体字中国語のみです。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS·Windows 앱입니다. 컴퓨터가 연결된 로컬 네트워크를 자동으로 스캔해 온라인 기기를 나열하고, 각 기기의 제조사, 이름, 종류를 최대한 알아냅니다. IP 분포도는 사용 중, 최근 사용, 빈 주소를 구분해 보여 주어 충돌하지 않는 고정 IP를 고르기 쉽습니다. 관리자 권한이 필요 없고 데이터를 업로드하지 않으며, 인터페이스는 현재 중국어 간체만 지원합니다."
+	},
+	"icon": {
+		"file": "lanscout.webp"
+	},
+	"screenshot": "lanscout.webp",
+	"added": "2026-11-05T05:57:31Z"
+}
