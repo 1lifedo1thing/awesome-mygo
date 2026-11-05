@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "bigo-live-recorder",
+	"name": "BIGO Live Recorder",
+	"author": "SamiNassim",
+	"kind": "native",
+	"group": "media",
+	"url": "https://github.com/SamiNassim/bigo-live-recorder",
+	"repo": "SamiNassim/bigo-live-recorder",
+	"summary": {
+		"en": "Watches BIGO streamers and records their livestreams to MKV in original quality, no re-encoding.",
+		"zh-CN": "监控 BIGO 主播开播，以原始画质录制直播为 MKV，不重新编码。",
+		"zh-TW": "監控 BIGO 主播開播，以原始畫質將直播錄成 MKV，不重新編碼。",
+		"ja": "BIGO の配信者を見張り、ライブ配信を元の画質のまま再エンコードせず MKV に録画。",
+		"ko": "BIGO 스트리머를 감시해 라이브 방송을 원본 화질 그대로 재인코딩 없이 MKV로 녹화합니다."
+	},
+	"description": {
+		"en": "A BIGO livestream recorder for Windows, macOS and Linux, drawn with MyGo's native UI. Signed in to a BIGO account through one copied cookie, it listens for live notifications, with optional polling as a backup, and saves each stream as MKV in its original quality without re-encoding. It can also make a processed MKV, MP4 or TS copy with FFmpeg, which the app can install for you.",
+		"zh-CN": "适用于 Windows、macOS 与 Linux 的 BIGO 直播录制工具，由 MyGo 原生 UI 绘制。只需复制一个 Cookie 登录 BIGO 账号，它就会监听开播通知（可选轮询作为备用），把直播以原始画质存为 MKV，不重新编码；还能用 FFmpeg 另存一份 MKV、MP4 或 TS 副本，FFmpeg 也可由应用代为安装。",
+		"zh-TW": "適用於 Windows、macOS 與 Linux 的 BIGO 直播錄影工具，由 MyGo 原生 UI 繪製。只要複製一個 Cookie 登入 BIGO 帳號，它就會監聽開播通知（可選用輪詢作為備援），把直播以原始畫質存成 MKV，不重新編碼；也能用 FFmpeg 另存一份 MKV、MP4 或 TS 副本，FFmpeg 可由應用程式代為安裝。",
+		"ja": "Windows・macOS・Linux 向けの BIGO ライブ配信レコーダーで、MyGo のネイティブ UI で描かれています。Cookie を一つコピーして BIGO アカウントでサインインすると、配信開始の通知を待ち受け（予備としてポーリングも選べます）、配信を元の画質のまま再エンコードせずに MKV で保存します。FFmpeg で MKV・MP4・TS のコピーを別に作ることもでき、FFmpeg はアプリがインストールしてくれます。",
+		"ko": "Windows, macOS, Linux용 BIGO 라이브 방송 녹화 앱으로, MyGo의 네이티브 UI로 그렸습니다. 쿠키 하나를 복사해 BIGO 계정으로 로그인하면 방송 시작 알림을 기다리고(보조 수단으로 폴링도 선택 가능), 방송을 원본 화질 그대로 재인코딩 없이 MKV로 저장합니다. FFmpeg로 MKV, MP4, TS 사본을 따로 만들 수도 있으며, FFmpeg는 앱이 대신 설치해 줍니다."
+	},
+	"icon": {
+		"file": "bigo-live-recorder.webp"
+	},
+	"screenshot": "bigo-live-recorder.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T08:28:47Z"
+}
