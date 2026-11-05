@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "motionduo",
+	"name": "MotionDuo",
+	"author": "alvin-7",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/alvin-7/motionduo",
+	"repo": "alvin-7/motionduo",
+	"summary": {
+		"en": "Use one keyboard and mouse across Windows and Mac on your LAN; move to a screen edge to switch.",
+		"zh-CN": "在局域网内用一套键鼠控制 Windows 与 Mac，鼠标移到屏幕边缘即可切换。",
+		"zh-TW": "在區域網路內用一組鍵盤滑鼠控制 Windows 與 Mac，游標移到螢幕邊緣即可切換。",
+		"ja": "LAN 内で一組のキーボードとマウスを Windows と Mac で共有。画面端へ動かして切り替え。",
+		"ko": "LAN에서 키보드와 마우스 하나로 Windows와 Mac을 함께 쓰고, 화면 가장자리에서 전환합니다."
+	},
+	"description": {
+		"en": "A software KVM for Windows and Mac: one keyboard and mouse control several computers on the LAN, switching when the cursor reaches a screen edge, over encrypted connections and with text and PNG clipboard sync. It does not stream the screen. A fork of Mousehop, itself from lan-mouse, it keeps the Rust input backend and background service and replaces the GTK interface with a MyGo native UI.",
+		"zh-CN": "面向 Windows 与 Mac 的软件 KVM：在局域网内用一套键鼠控制多台电脑，鼠标移到屏幕边缘即可切换，连接经过加密，还能同步文本和 PNG 剪贴板，但不传输屏幕画面。它是 Mousehop（源自 lan-mouse）的改造分支，输入后端与后台服务仍由 Rust 实现，原来的 GTK 界面换成了 MyGo 原生界面。",
+		"zh-TW": "適用於 Windows 與 Mac 的軟體 KVM：在區域網路內用一組鍵盤滑鼠控制多台電腦，游標移到螢幕邊緣即可切換，連線經過加密，也能同步文字和 PNG 剪貼簿，但不傳送螢幕畫面。它是 Mousehop（源自 lan-mouse）的改造分支，輸入後端與背景服務仍以 Rust 實作，原本的 GTK 介面改為 MyGo 原生介面。",
+		"ja": "Windows と Mac 向けのソフトウェア KVM。LAN 内の複数のコンピューターを一組のキーボードとマウスで操作し、カーソルを画面端へ動かすと切り替わります。通信は暗号化され、テキストと PNG のクリップボードも同期できます。画面は転送しません。Mousehop（元は lan-mouse）のフォークで、入力バックエンドと常駐サービスは Rust のまま、GTK の画面を MyGo のネイティブ UI に置き換えています。",
+		"ko": "Windows와 Mac용 소프트웨어 KVM입니다. LAN의 여러 컴퓨터를 키보드와 마우스 하나로 조작하고, 커서를 화면 가장자리로 옮기면 전환됩니다. 연결은 암호화되며 텍스트와 PNG 클립보드도 동기화하고, 화면은 전송하지 않습니다. lan-mouse에서 나온 Mousehop의 포크로, 입력 백엔드와 백그라운드 서비스는 Rust 그대로 두고 GTK 화면을 MyGo의 네이티브 UI로 바꿨습니다."
+	},
+	"icon": {
+		"file": "motionduo.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "motionduo.webp",
+	"added": "2026-11-05T04:16:52Z"
+}
