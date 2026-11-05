@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "felicia",
+	"name": "Felicia",
+	"author": "azusachino",
+	"kind": "web",
+	"category": "MultimediaApplication",
+	"url": "https://azusachino.github.io/felicia/",
+	"repo": "azusachino/felicia",
+	"summary": {
+		"en": "Map-based travel journal studio: curate GPS routes, write mementos and preview the public site.",
+		"zh-CN": "地图式旅行日志的桌面工作室：整理 GPS 路线、撰写游记、预览公开网站。",
+		"zh-TW": "以地圖為索引的旅行日誌桌面工作室：整理 GPS 路線、撰寫遊記、預覽公開網站。",
+		"ja": "地図を軸にした旅行記のデスクトップ編集アプリ。GPS ルートを整え、記録を書き、公開サイトをプレビュー。",
+		"ko": "지도 기반 여행 일지 편집 앱. GPS 경로를 다듬고 글을 쓰고 공개 사이트를 미리 봅니다."
+	},
+	"description": {
+		"en": "The macOS desktop studio of Felicia, a local-first travel journal, built with MyGo and a SvelteKit frontend for macOS 26.0 or newer. On a MapLibre map you inspect GPS tracks, keep, merge or ignore detected stops, write essays with photos and preview the public site. Trips come in through a separate Go CLI; the admin web and public site are made without MyGo.",
+		"zh-CN": "Felicia 是一款本地优先的旅行日志，这里收录的是它的 macOS 桌面工作室，用 MyGo 搭配 SvelteKit 前端构建，需要 macOS 26.0 或更高版本。可在 MapLibre 地图上查看 GPS 轨迹，对识别出的停留点选择保留、合并或忽略，撰写配图游记，并预览公开网站。行程导入由单独的 Go 命令行工具完成，管理后台与公开网站不使用 MyGo。",
+		"zh-TW": "Felicia 是一款本機優先的旅行日誌，這裡收錄的是它的 macOS 桌面工作室，以 MyGo 搭配 SvelteKit 前端打造，需要 macOS 26.0 或更新版本。可在 MapLibre 地圖上檢視 GPS 軌跡，對偵測到的停留點選擇保留、合併或忽略，撰寫附照片的遊記，並預覽公開網站。行程匯入由獨立的 Go 命令列工具負責，管理後台與公開網站不使用 MyGo。",
+		"ja": "ローカルファーストの旅行記 Felicia の macOS 向けデスクトップ編集アプリで、MyGo と SvelteKit のフロントエンドで作られています（macOS 26.0 以降）。MapLibre の地図で GPS の軌跡を確かめ、検出された立ち寄り先を残す・まとめる・無視するを選び、写真付きのエッセイを書き、公開サイトをプレビューできます。旅の取り込みは別の Go 製 CLI が担い、管理用 Web と公開サイトは MyGo を使っていません。",
+		"ko": "로컬 우선 여행 일지 Felicia의 macOS용 데스크톱 편집 앱으로, MyGo와 SvelteKit 웹 프런트엔드로 만들었으며 macOS 26.0 이상이 필요합니다. MapLibre 지도에서 GPS 경로를 살피고, 감지된 체류 지점을 유지·병합·무시하고, 사진을 곁들인 에세이를 쓰고, 공개 사이트를 미리 봅니다. 여행 가져오기는 별도의 Go CLI가 맡고, 관리용 웹과 공개 사이트는 MyGo 없이 만듭니다."
+	},
+	"icon": {
+		"file": "felicia.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "felicia.webp",
+	"added": "2026-11-05T04:16:52Z"
+}
