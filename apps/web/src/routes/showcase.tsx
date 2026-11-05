@@ -3,7 +3,7 @@ import { DEFAULT_SORT, groupChips, shownSort, sortApps, validateShowcaseSearch }
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { AppLink, KindTag, MonoTile, WinBar, appView } from '../components/bits';
 import { LikeButton } from '../components/Like';
-import { ScoreChip } from '../components/Score';
+import { ScoreBar } from '../components/Score';
 import { useLang, useT } from '../lib/lang';
 import { useLikes } from '../lib/likes';
 import { pageHead } from '../lib/seo';
@@ -85,8 +85,6 @@ function ShowcasePage() {
 						<div key={a.slug} className={`rv d${k % 6} flex show-cell`}>
 							<AppLink slug={a.slug} className='win card show-card' dialog>
 								<WinBar label={v.host} size='md' className='card-bar'>
-									{/* In the title bar rather than beside the author, which the like button already leaves little room for. */}
-									<ScoreChip item={likeKey.app(a)} name={a.name} />
 									<span className='mono-11 c-muted'>{v.num}</span>
 								</WinBar>
 								<div className='show-body'>
@@ -104,6 +102,7 @@ function ShowcasePage() {
 									</div>
 									<span className='show-desc'>{pick(a.desc, lang)}</span>
 								</div>
+								<ScoreBar item={likeKey.app(a)} name={a.name} />
 							</AppLink>
 							<LikeButton item={likeKey.app(a)} name={a.name} className='like-btn like-on-card' />
 						</div>

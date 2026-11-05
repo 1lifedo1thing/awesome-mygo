@@ -1,11 +1,11 @@
 import { SCORES_AS_OF, entryScore, entrySignals } from '@awesome-mygo/catalog';
 import { useId } from 'react';
 import { useLang, useT } from '../lib/lang';
-import { SCORE_FORMULA_URL, SCORE_HISTORY_URL, scoreLabel, scoreRows, scoreTotal } from '../lib/score';
+import { SCORE_FORMULA_URL, SCORE_HISTORY_URL, scoreLabel, scoreRows, scoreTier, scoreTotal } from '../lib/score';
 
 // An entry's score (lib/score.ts) in both looks. Each part has its own score-* class, which each look's stylesheet draws (styles.css, retro/retro.css); `className` is where the caller places it, as with LikeButton. Each renders nothing for an entry without a score, so the site shows none of this until the Update scores workflow first records the signals.
 
-// The total as plain text, ≈ when part of it could not be measured: a neutral mark, with no star (which would read as GitHub's) and no red or green.
+// The total as a filled badge coloured by its band (scoreTier), ≈ when part of it could not be measured, with the word for score before it where the look shows it (the original look, where the badge sits beside a card's number): no star, which would read as GitHub's, and no red, which would read as a warning about the project.
 export function ScoreChip({ item, name, className = '' }: { item: string; name: string; className?: string }) {
 	const t = useT();
 	const lang = useLang();
@@ -13,8 +13,34 @@ export function ScoreChip({ item, name, className = '' }: { item: string; name: 
 	if (!score) return null;
 	const label = scoreLabel(score, name, t, lang);
 	return (
-		<span role='img' className={`score-chip ${className}`} aria-label={label} title={label}>
+		<span role='img' className={`score-chip ${className}`} data-tier={scoreTier(score)} aria-label={label} title={label}>
+			<span className='score-chip-k' aria-hidden='true'>
+				{t.score}
+			</span>
 			{scoreTotal(score)}
+		</span>
+	);
+}
+
+// The score as a window's status bar, at the foot of a showcase card in the original look, matching the card's title bar: the word, a thin bar as long as the score in its band's colour (scoreTier), and the total out of 100.
+export function ScoreBar({ item, name }: { item: string; name: string }) {
+	const t = useT();
+	const lang = useLang();
+	const score = entryScore(item);
+	if (!score) return null;
+	const label = scoreLabel(score, name, t, lang);
+	return (
+		<span role='img' className='score-bar' data-tier={scoreTier(score)} aria-label={label} title={label}>
+			<span className='score-bar-k' aria-hidden='true'>
+				{t.score}
+			</span>
+			<span className='score-bar-track' aria-hidden='true'>
+				<span className='score-bar-fill' style={{ width: `${score.total}%` }} />
+			</span>
+			<span className='score-bar-n' aria-hidden='true'>
+				{scoreTotal(score)}
+				<span className='score-bar-max'>/100</span>
+			</span>
 		</span>
 	);
 }
@@ -32,7 +58,9 @@ export function ScoreBreakdown({ item, id, className = '' }: { item: string; id?
 		<section id={id} aria-labelledby={hid} className={`score-bd ${className}`}>
 			<h2 id={hid} className='score-h'>
 				<span>{t.score_h}</span>
-				<span className='score-total'>{scoreTotal(score)}/100</span>
+				<span className='score-total' data-tier={scoreTier(score)}>
+					{scoreTotal(score)}/100
+				</span>
 			</h2>
 			<ul className='score-rows'>
 				{view.rows.map((r) => (

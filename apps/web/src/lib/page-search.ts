@@ -16,11 +16,11 @@ export function oneOf<T extends string>(v: unknown, values: readonly T[]): T | u
 // The plugins page: the kind of window a plugin serves, and the order besides the docs' own.
 export interface PluginsSearch {
 	surface?: 'web' | 'native';
-	sort?: 'likes' | 'score';
+	sort?: 'docs' | 'likes' | 'score';
 }
 
 export function validatePluginsSearch(search: Record<string, unknown>): PluginsSearch {
-	return { surface: oneOf(search.surface, ['web', 'native'] as const), sort: oneOf(search.sort, ['likes', 'score'] as const) };
+	return { surface: oneOf(search.surface, ['web', 'native'] as const), sort: oneOf(search.sort, ['docs', 'likes', 'score'] as const) };
 }
 
 // The UI components page: the kind of library shown, and the kind of window it serves, as on the plugins page.

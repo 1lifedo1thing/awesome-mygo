@@ -1672,26 +1672,50 @@ html:lang(ko) .site {
 /* Scores (components/Score.tsx): the total as a small chip in a neutral tone (no star, no red or green), a button beside the like button that opens the breakdown in a popover, and the breakdown, each signal's points on a meter. */
 .card-acts {
 	display: flex;
+	flex: none;
 	align-items: center;
 	gap: 8px;
+}
+/* At the top of a card's head, level with the name, rather than centred on a head of two or three lines, where it would line up with nothing. */
+.show-id > .card-acts {
+	align-self: flex-start;
 }
 /* Neither a score nor likes to show: no box, so the card lays out as before. */
 .card-acts:empty {
 	display: none;
 }
 .score-chip {
+	display: inline-flex;
 	flex: none;
-	padding: 2px 8px;
-	border: 1px solid var(--line-3);
-	border-radius: 999px;
-	color: var(--fg-2);
+	align-items: center;
+	gap: 6px;
 	font-family: var(--f-mono);
-	font-size: 11px;
-	font-weight: 700;
 	font-variant-numeric: tabular-nums;
 }
+/* A dot in the band's colour (scoreTier): green from 80, the site's cyan from 60, grey below. Never amber, yellow or red, which read as a warning. */
+.score-chip::before {
+	content: '';
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: var(--cyan);
+}
+.score-chip[data-tier='hi']::before {
+	background: var(--green);
+}
+.score-chip[data-tier='lo']::before {
+	background: var(--fg-3);
+}
+.score-chip-k {
+	font-family: var(--f-display);
+	font-weight: 600;
+	color: var(--fg-3);
+}
+/* The button that opens the breakdown, drawn as the like button beside it is; it keeps its width, so the name beside it gives way rather than the badge. */
 .score-btn {
 	display: inline-flex;
+	flex: none;
+	white-space: nowrap;
 	align-items: center;
 	min-height: 32px;
 	padding: 0 10px;
@@ -1699,21 +1723,66 @@ html:lang(ko) .site {
 	border-radius: 999px;
 	background: var(--bg);
 	color: var(--fg-2);
-	font-family: var(--f-mono);
 	font-size: 13px;
 	font-weight: 600;
+	cursor: pointer;
 	transition: color 0.15s, border-color 0.15s;
 }
 .score-btn:hover {
-	color: var(--cyan);
-	border-color: var(--cyan);
+	color: var(--fg);
+	border-color: var(--fg-3);
 }
-.score-btn .score-chip {
-	padding: 0;
-	border: 0;
-	color: inherit;
-	font-size: inherit;
-	font-weight: inherit;
+.score-btn:focus-visible {
+	outline: 2px solid var(--cyan);
+	outline-offset: 2px;
+}
+/* A showcase card's score as the window's status bar, the twin of its title bar: the word, a thin bar as long as the score, and the total. */
+.score-bar {
+	display: flex;
+	flex: none;
+	align-items: center;
+	gap: 10px;
+	height: 30px;
+	padding: 0 14px;
+	border-top: 1px solid var(--line-2);
+	background: var(--bar);
+	font-family: var(--f-mono);
+	font-size: 11px;
+	color: var(--fg-3);
+	font-variant-numeric: tabular-nums;
+}
+.score-bar-track {
+	flex: 1 1 auto;
+	height: 4px;
+	border-radius: 2px;
+	background: var(--line-2);
+	overflow: hidden;
+}
+.score-bar-fill {
+	display: block;
+	height: 100%;
+	border-radius: 2px;
+	background: var(--cyan);
+}
+.score-bar[data-tier='hi'] .score-bar-fill {
+	background: var(--green);
+}
+.score-bar[data-tier='lo'] .score-bar-fill {
+	background: var(--fg-3);
+}
+.score-bar-n {
+	font-weight: 700;
+	color: var(--fg-2);
+}
+.score-bar-max {
+	font-weight: 400;
+	color: var(--fg-3);
+}
+.score-total[data-tier='hi'] {
+	color: var(--green);
+}
+.score-total[data-tier='mid'] {
+	color: var(--cyan);
 }
 /* The popover sits in the top layer, centred in the window by the browser. */
 .score-pop {

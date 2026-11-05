@@ -28,6 +28,12 @@ export interface ScoreView {
 	asOf: string;
 }
 
+// A score's band, which each look colours its badge by: 80 and above, 60 to 79, below 60.
+export type ScoreTier = 'hi' | 'mid' | 'lo';
+export function scoreTier(score: Score): ScoreTier {
+	return score.total >= 80 ? 'hi' : score.total >= 60 ? 'mid' : 'lo';
+}
+
 // The total as shown: approximate (≈37) when part of the weight was counted at NEUTRAL rather than measured.
 export function scoreTotal(score: Score): string {
 	return `${score.measured < 1 ? '≈' : ''}${score.total}`;

@@ -80,8 +80,16 @@ jobs:
           if git diff --cached --quiet; then echo 'No signal changed'; exit 0; fi
           git commit -q -F "$RUNNER_TEMP/score-commit.txt"
           # Only this workflow writes scores.json, so a rebase onto a main that moved meanwhile does not conflict.
-          # A main that moved during the run may have removed or moved an entry: the checks run again on the rebased tree before the retry pushes.
-          git push origin HEAD:main || { git pull -q --rebase origin main && pnpm --filter @awesome-mygo/catalog test && git push origin HEAD:main; }
+          # A main that moves during the run (several pull requests merged a few seconds apart) refuses the push: rebase onto it, check the rebased tree again, as an entry may have been removed or moved, and push, up to five times, waiting longer each time.
+          for try in 1 2 3 4 5; do
+            if git push origin HEAD:main; then exit 0; fi
+            [[ $try == 5 ]] && break
+            sleep $((try * 10))
+            git pull -q --rebase origin main
+            pnpm --filter @awesome-mygo/catalog test
+          done
+          echo "::error::main kept moving; scores.json was not pushed"
+          exit 1
 
       - name: Summary
         if: always()
