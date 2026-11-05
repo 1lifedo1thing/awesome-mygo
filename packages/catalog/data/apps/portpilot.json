@@ -1,0 +1,26 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "portpilot",
+	"name": "PortPilot",
+	"author": "zhengchalei",
+	"kind": "web",
+	"group": "dev",
+	"url": "https://github.com/zhengchalei/port-kill",
+	"repo": "zhengchalei/port-kill",
+	"summary": {
+		"en": "A Windows port manager: lists processes holding TCP and UDP ports and ends them after you confirm.",
+		"zh-CN": "Windows 端口管理器：列出占用 TCP、UDP 端口的进程，确认后可结束进程。",
+		"zh-TW": "Windows 連接埠管理器：列出佔用 TCP、UDP 連接埠的程序，確認後可結束程序。",
+		"ja": "Windows のポート管理ツール。TCP・UDP ポートを使うプロセスを一覧にし、確認して終了できます。",
+		"ko": "Windows 포트 관리자. TCP·UDP 포트를 쓰는 프로세스를 보여 주고 확인 후 종료합니다."
+	},
+	"description": {
+		"en": "A Windows port manager in the vein of Task Manager that lists only processes holding ports, built with Go and a MyGo web frontend in WebView2. It reads TCP and UDP ports through the Windows IP Helper API, searches by port, name, PID or address, refreshes every 5 seconds, and ends a process after showing the ports it affects, refusing system processes and checking for PID reuse.",
+		"zh-CN": "类似 Windows 任务管理器的轻量端口管理工具，只列出占用端口的进程，用 Go 和 MyGo 的 Web 前端构建，运行在 WebView2 中。它通过 Windows IP Helper API 读取 TCP 与 UDP 端口，可按端口、进程名、PID 或地址搜索，每 5 秒自动刷新；结束进程前会列出受影响的端口，系统关键进程受保护，并校验进程创建时间以防 PID 重用误杀。",
+		"zh-TW": "類似 Windows 工作管理員的輕量連接埠管理工具，只列出佔用連接埠的程序，以 Go 和 MyGo 的 Web 前端打造，執行於 WebView2。它透過 Windows IP Helper API 讀取 TCP 與 UDP 連接埠，可依連接埠、程序名稱、PID 或位址搜尋，每 5 秒自動重新整理；結束程序前會列出受影響的連接埠，系統關鍵程序受保護，並核對建立時間，避免 PID 重用誤殺。",
+		"ja": "Windows のタスクマネージャーに似た軽量なポート管理ツールで、ポートを使っているプロセスだけを表示します。Go と MyGo の Web フロントエンドで作られ、WebView2 上で動きます。Windows IP Helper API で TCP・UDP ポートを読み取り、ポート、プロセス名、PID、アドレスで検索でき、5 秒ごとに自動更新します。終了前には影響するポートを示し、システムの重要プロセスを保護し、PID の再利用による誤終了も防ぎます。",
+		"ko": "Windows 작업 관리자와 비슷한 가벼운 포트 관리 도구로, 포트를 쓰는 프로세스만 보여 줍니다. Go와 MyGo의 웹 프런트엔드로 만들었고 WebView2에서 실행됩니다. Windows IP Helper API로 TCP·UDP 포트를 읽고 포트, 프로세스 이름, PID, 주소로 검색하며 5초마다 자동으로 새로 고칩니다. 종료 전에 영향받는 포트를 보여 주고, 시스템 핵심 프로세스를 보호하며 PID 재사용으로 인한 오종료를 막습니다."
+	},
+	"screenshot": "portpilot.webp",
+	"added": "2026-11-05T17:38:35Z"
+}
