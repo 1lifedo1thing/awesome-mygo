@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "gotrust",
+	"name": "goTrust",
+	"author": "YangtseSu",
+	"kind": "native",
+	"group": "network",
+	"url": "https://github.com/YangtseSu/goTrust",
+	"repo": "YangtseSu/goTrust",
+	"summary": {
+		"en": "A Sangfor aTrust tray client that keeps a session and serves local SOCKS5 and HTTP proxies.",
+		"zh-CN": "aTrust 托盘客户端：保持会话，提供本机 SOCKS5 与 HTTP 代理。",
+		"zh-TW": "aTrust 系統匣用戶端：維持連線，提供本機 SOCKS5 與 HTTP 代理。",
+		"ja": "aTrust 用トレイクライアント。セッションを保ち SOCKS5・HTTP プロキシをローカルで提供。",
+		"ko": "aTrust 트레이 클라이언트. 세션을 유지하고 로컬 SOCKS5·HTTP 프록시를 제공합니다."
+	},
+	"description": {
+		"en": "A tray client for Sangfor aTrust gateways on Linux, macOS and Windows, drawn with MyGo's native UI. It signs in through captchas, one-time codes or CAS and OAuth2, keeps the session and serves SOCKS5 and HTTP proxies on the loopback address, with no TUN device, system proxy changes or admin rights. The headless gotrust-cli for servers is a separate build.",
+		"zh-CN": "Sangfor aTrust 网关的托盘客户端，支持 Linux、macOS 与 Windows，界面由 MyGo 原生 UI 绘制。可完成图形验证码、一次性验证码以及 CAS、OAuth2 登录并保持会话，在本机回环地址提供 SOCKS5 与 HTTP 代理，不建 TUN 设备、不改系统代理，也不需要管理员权限。面向服务器的无界面版 gotrust-cli 另行构建。",
+		"zh-TW": "Sangfor aTrust 閘道的系統匣用戶端，支援 Linux、macOS 與 Windows，介面由 MyGo 原生 UI 繪製。可完成圖形驗證碼、一次性驗證碼以及 CAS、OAuth2 登入並維持工作階段，在本機回送位址提供 SOCKS5 與 HTTP 代理，不建立 TUN 裝置、不改系統代理，也不需要管理員權限。面向伺服器的無介面版 gotrust-cli 另行建置。",
+		"ja": "Linux・macOS・Windows 向けの Sangfor aTrust ゲートウェイ用トレイクライアントで、MyGo のネイティブ UI で描かれています。画像認証、ワンタイムコード、CAS や OAuth2 でのログインに対応してセッションを保ち、ループバックアドレスで SOCKS5 と HTTP のプロキシを提供します。TUN デバイスもシステムプロキシの変更も管理者権限も要りません。画面のないサーバー向けの gotrust-cli は別にビルドされています。",
+		"ko": "Linux, macOS, Windows용 Sangfor aTrust 게이트웨이 트레이 클라이언트로, MyGo의 네이티브 UI로 그렸습니다. 그림 인증, 일회용 코드, CAS·OAuth2 로그인을 거쳐 세션을 유지하고 루프백 주소에서 SOCKS5와 HTTP 프록시를 제공하며, TUN 장치나 시스템 프록시 변경, 관리자 권한이 필요 없습니다. 화면 없는 서버용 gotrust-cli는 따로 빌드됩니다."
+	},
+	"icon": {
+		"file": "gotrust.webp"
+	},
+	"screenshot": "gotrust.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T10:51:28Z"
+}
