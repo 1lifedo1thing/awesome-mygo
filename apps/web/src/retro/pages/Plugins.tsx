@@ -7,7 +7,7 @@ import { DesktopIcons } from '../DesktopIcons';
 import { PLUGIN_ICON } from '../plugin-icons';
 import { Note, PixelIcon, StatusBar, Win, btn, btnGo, btnSm, seg, field, likeBtn, well } from '../ui';
 
-// The plugins page: a file manager window listing the official plugins in a details view, a terminal with the mygo-cli commands leaning on its right edge, and a sticky note about community plugins.
+// The plugins page: a file manager window listing the official plugins and the community's in a details view, a terminal with the mygo-cli commands leaning on its right edge, and a sticky note about community plugins.
 export function Plugins() {
 	return (
 		<div className='relative mx-auto flex max-w-[1440px] flex-col gap-[26px] px-3.5 pt-3.5 desk:grid desk:grid-cols-12 desk:items-start desk:gap-x-7 desk:gap-y-0 desk:pt-[26px] desk:pr-10 desk:pl-[136px]'>
@@ -28,12 +28,13 @@ function Explorer() {
 	const surface = surfaceParam ?? 'all';
 	const setSurface = (s: 'all' | 'web' | 'native') => void navigate({ search: (prev) => ({ ...prev, surface: s === 'all' ? undefined : s }), replace: true, resetScroll: false });
 	const surfLabel: Record<PluginSurface, string> = { web: t.surf_web, native: t.surf_native, both: t.surf_both };
-	// A plugin for both kinds of window shows under either filter.
-	const shown = PLUGINS.filter((p) => surface === 'all' || p.surface === surface || p.surface === 'both');
+	// The official plugins, then the community's, each row marked which it is. A plugin for both kinds of window shows under either filter.
+	const all = [...PLUGINS, ...COMMUNITY_PLUGINS];
+	const shown = all.filter((p) => surface === 'all' || p.surface === surface || p.surface === 'both');
 	const chips = [
-		{ key: 'all' as const, label: `${t.all} · ${PLUGINS.length}` },
-		{ key: 'web' as const, label: `${t.surf_web} · ${PLUGINS.filter((p) => p.surface !== 'native').length}` },
-		{ key: 'native' as const, label: `${t.surf_native} · ${PLUGINS.filter((p) => p.surface !== 'web').length}` },
+		{ key: 'all' as const, label: `${t.all} · ${all.length}` },
+		{ key: 'web' as const, label: `${t.surf_web} · ${all.filter((p) => p.surface !== 'native').length}` },
+		{ key: 'native' as const, label: `${t.surf_native} · ${all.filter((p) => p.surface !== 'web').length}` },
 	];
 	return (
 		<Win level={1} title={t.nav_plugins} fill closeTo='/' className='desk:col-span-8 desk:col-start-1 desk:row-span-2 desk:row-start-1'>
@@ -81,7 +82,7 @@ function Explorer() {
 							</div>
 							<span className='col-start-3 row-start-1 flex flex-col items-end gap-1 text-right desk:col-start-4'>
 								<span lang='en' className='rounded-full bg-face-lo px-2 text-[11px] leading-5 font-medium tracking-wide text-muted'>
-									OFFICIAL
+									{p.official ? 'OFFICIAL' : 'COMMUNITY'}
 								</span>
 								<span className='whitespace-nowrap underline decoration-ink/30 underline-offset-[3px] group-hover:decoration-ink'>{t.docs_link}</span>
 							</span>
@@ -92,7 +93,7 @@ function Explorer() {
 			</ul>
 			<StatusBar>
 				<span>
-					<b className='font-semibold text-ink'>{shown.length}</b> / {fill(t.r_items, { n: PLUGINS.length })}
+					<b className='font-semibold text-ink'>{shown.length}</b> / {fill(t.r_items, { n: all.length })}
 				</span>
 				<span>{fill(t.cat_plug_desc, { n: PLUGINS.length })}</span>
 			</StatusBar>

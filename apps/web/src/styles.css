@@ -1597,9 +1597,10 @@ html:lang(ko) .site {
 }
 
 /* Plugins */
+/* auto-fill keeps a column's width when a row has fewer cards than columns, so the community's one plugin is as wide as an official one rather than the whole row. */
 .plug-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
 	gap: 16px;
 }
 /* Likes: a heart and a count. On a showcase card the button sits over the card's top right, beside its link rather than inside it, and rises with the card on hover. */
