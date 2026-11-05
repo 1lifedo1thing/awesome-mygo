@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "burrow",
+	"name": "Burrow",
+	"author": "zeroy1024",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/zeroy1024/Burrow",
+	"repo": "zeroy1024/Burrow",
+	"summary": {
+		"en": "An SSH, SFTP and FTP/FTPS workspace with split terminals, dual-pane transfers and server status.",
+		"zh-CN": "SSH、SFTP 与 FTP/FTPS 工作区：分屏终端、双面板文件传输和服务器状态。",
+		"zh-TW": "SSH、SFTP 與 FTP/FTPS 工作區：分割終端、雙面板檔案傳輸與伺服器狀態。",
+		"ja": "SSH・SFTP・FTP/FTPS 用ワークスペース。分割ターミナル、2ペインファイル転送、サーバー状態。",
+		"ko": "SSH, SFTP, FTP/FTPS 작업 공간. 분할 터미널, 양쪽 패널 파일 전송, 서버 상태."
+	},
+	"description": {
+		"en": "An SSH, SFTP and FTP/FTPS app drawn with MyGo's native UI, with a Ghostty VT terminal core. It splits terminals across tabs and panes, moves files between local and remote panes through a pausable queue, shows Linux host status, and runs a local MCP server that lets trusted clients use your connections within set permissions. A developer preview, mainly for macOS 13+ on Apple Silicon.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 SSH、SFTP 与 FTP/FTPS 桌面应用，终端由 Ghostty VT 内核驱动。支持多标签与分屏终端，在本地与远程双面板之间传输文件，传输队列可暂停和重试，还能查看 Linux 主机状态；内置的本机 MCP 服务可让可信客户端在授权范围内使用已有连接。目前为开发预览版，主要面向 macOS 13 及以上的 Apple Silicon 机型。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 SSH、SFTP 與 FTP/FTPS 桌面應用程式，終端機由 Ghostty VT 核心驅動。支援多分頁與分割終端機，在本機與遠端雙面板之間傳輸檔案，傳輸佇列可暫停與重試，也能查看 Linux 主機狀態；內建的本機 MCP 服務可讓受信任的用戶端在授權範圍內使用既有連線。目前為開發預覽版，主要支援 macOS 13 以上的 Apple Silicon 機型。",
+		"ja": "MyGo のネイティブ UI で描かれた SSH・SFTP・FTP/FTPS 用デスクトップアプリで、ターミナルは Ghostty VT のコアで動きます。タブと分割ペインでターミナルを並べ、ローカルとリモートの 2 ペイン間で一時停止できるキューを使ってファイルを転送し、Linux ホストの状態も確認できます。ローカルの MCP サーバーで、信頼したクライアントに許可した範囲で既存の接続を使わせられます。現在は開発プレビューで、主な対象は macOS 13 以降の Apple Silicon です。",
+		"ko": "MyGo의 네이티브 UI로 그린 SSH, SFTP, FTP/FTPS 앱으로, 터미널은 Ghostty VT 코어로 동작합니다. 탭과 분할 창으로 터미널을 쓰고, 로컬과 원격 두 패널 사이에서 일시 정지되는 대기열로 파일을 전송하며, Linux 호스트 상태도 봅니다. 로컬 MCP 서버로 신뢰하는 클라이언트가 허용 범위 안에서 기존 연결을 쓰게 합니다. macOS 13 이상 Apple Silicon 중심의 개발 프리뷰입니다."
+	},
+	"icon": {
+		"file": "burrow.webp"
+	},
+	"screenshot": "burrow.webp",
+	"added": "2026-11-05T17:38:35Z"
+}
