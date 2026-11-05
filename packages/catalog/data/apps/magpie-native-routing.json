@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "magpie-native-routing",
+	"name": "Magpie Native Routing",
+	"author": "Fan-chou",
+	"kind": "native",
+	"group": "agents",
+	"url": "https://github.com/Fan-chou/magpie-native-routing",
+	"repo": "Fan-chou/magpie-native-routing",
+	"summary": {
+		"en": "Read-only native viewer for Magpie's gateway routing: live topology, request history and replay.",
+		"zh-CN": "Magpie 网关路由的只读原生查看器：实时拓扑、请求历史与 Trace 回放。",
+		"zh-TW": "Magpie 閘道路由的唯讀原生檢視器：即時拓撲、請求歷史與 Trace 重播。",
+		"ja": "Magpie のルーティングを読み取り専用で見るネイティブアプリ。トポロジー、履歴、Trace 再生。",
+		"ko": "Magpie 라우팅 읽기 전용 네이티브 뷰어. 실시간 토폴로지, 요청 기록, Trace 재생."
+	},
+	"description": {
+		"en": "A read-only desktop viewer for Magpie, drawn with MyGo's native UI with no web view. It connects to a running Magpie Desktop gateway and reads its history files to show agents, the gateway and provider accounts as a live topology, each request's candidate order, attempts and failure reasons, and replays recorded traces by date. It does not proxy requests or change Magpie's files.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Magpie 只读桌面查看器，没有 Web 视图。它连接正在运行的 Magpie Desktop Gateway 并读取其历史文件，以实时拓扑展示 Agent、Gateway 与 Provider 账号，列出每个请求的候选顺序、尝试与失败原因，并可按日期回放真实 Trace。它不代理请求，也不修改 Magpie 的文件。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Magpie 唯讀桌面檢視器，沒有 Web 視圖。它連線到執行中的 Magpie Desktop Gateway 並讀取其歷史檔案，以即時拓撲呈現 Agent、Gateway 與 Provider 帳號，列出每個請求的候選順序、嘗試與失敗原因，並可依日期重播真實 Trace。它不代理請求，也不修改 Magpie 的檔案。",
+		"ja": "MyGo のネイティブ UI で描かれた、Magpie のルーティングを読み取り専用で見るデスクトップアプリ。Web ビューはありません。起動中の Magpie Desktop の Gateway と履歴ファイルを読み、Agent・Gateway・Provider のアカウントをリアルタイムのトポロジーで表示し、各リクエストの候補順、試行、失敗理由を一覧にして、日付ごとに実際の Trace を再生します。リクエストの中継や Magpie のファイルの書き換えはしません。",
+		"ko": "MyGo의 네이티브 UI로 그린 Magpie 라우팅 읽기 전용 데스크톱 뷰어로, 웹 뷰가 없습니다. 실행 중인 Magpie Desktop의 Gateway와 기록 파일을 읽어 Agent, Gateway, Provider 계정을 실시간 토폴로지로 보여 주고, 요청마다 후보 순서, 시도, 실패 원인을 나열하며, 날짜별로 실제 Trace를 재생합니다. 요청을 프록시하거나 Magpie 파일을 수정하지 않습니다."
+	},
+	"icon": {
+		"file": "magpie-native-routing.webp"
+	},
+	"screenshot": "magpie-native-routing.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T15:15:40Z"
+}
