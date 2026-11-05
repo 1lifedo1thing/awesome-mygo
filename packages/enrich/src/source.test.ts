@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { addedFiles, appCategories, appNameFrom, hasAllLanguages, iconCut, iconOf, isPortrait, isSquarish, lengthCaps, overCaps, joinRepoPath, pickMygoJson, readmeImages, repoOfEntry, repoScreenshots, resolveImage, setCategory, sniffImage, submittedScreenshot } from './source.ts';
+import { addedFiles, appCategories, appNameFrom, hasAllLanguages, iconCut, iconOf, isArtwork, isBanner, isPortrait, isSquarish, lengthCaps, overCaps, joinRepoPath, scriptConfig, parseMygoConfig, pickMygoConfig, readmeImages, repoOfEntry, repoScreenshots, resolveImage, setCategory, sniffImage, submittedScreenshot } from './source.ts';
 
 describe('app names', () => {
 	it('takes mygo.json’s spelling of the same name only', () => {
@@ -46,11 +46,53 @@ describe('submitted entries', () => {
 });
 
 describe('the repository', () => {
-	it('picks the app’s own mygo.json, not a vendored example', () => {
-		expect(pickMygoJson(['README.md', 'app/mygo.json', 'go.mod'])).toBe('app/mygo.json');
-		expect(pickMygoJson(['examples/demo/mygo.json', 'mygo.json'])).toBe('mygo.json');
-		expect(pickMygoJson(['node_modules/x/mygo.json', 'examples/a/mygo.json'])).toBeUndefined();
-		expect(pickMygoJson(['b/mygo.json', 'a/mygo.json'])).toBe('a/mygo.json');
+	it('picks the app’s own MyGo configuration, not a vendored example', () => {
+		expect(pickMygoConfig(['README.md', 'app/mygo.json', 'go.mod'])).toBe('app/mygo.json');
+		expect(pickMygoConfig(['examples/demo/mygo.json', 'mygo.json'])).toBe('mygo.json');
+		expect(pickMygoConfig(['node_modules/x/mygo.json', 'examples/a/mygo.json'])).toBeUndefined();
+		expect(pickMygoConfig(['b/mygo.json', 'a/mygo.json'])).toBe('a/mygo.json');
+		expect(pickMygoConfig(['apps/desktop/mygo.config.ts', 'apps/desktop/go.mod', 'package.json'])).toBe('apps/desktop/mygo.config.ts');
+		expect(pickMygoConfig(['mygo.config.ts', 'mygo.json'])).toBe('mygo.json');
+		expect(pickMygoConfig(['desktop/app/mygo.config.mjs', 'website/mygo.config.ts.bak'])).toBe('desktop/app/mygo.config.mjs');
+		expect(pickMygoConfig(['src/mygo.ts', 'mygo-config.ts'])).toBeUndefined();
+	});
+
+	it('takes a strip far wider than a window for a banner', () => {
+		expect(isBanner(720, 240)).toBe(true);
+		expect(isBanner(1932, 1218)).toBe(false);
+		expect(isBanner(2400, 1000)).toBe(false);
+		expect(isBanner(0, 0)).toBe(false);
+	});
+
+	it('tells artwork from screenshots by file name', () => {
+		expect(isArtwork('https://raw.githubusercontent.com/Saramanda9988/LunaBox/main/screenshot/hero.png')).toBe(true);
+		expect(isArtwork('https://example.com/img/banner-dark.webp?v=2')).toBe(true);
+		expect(isArtwork('https://example.com/assets/app_logo.png')).toBe(true);
+		expect(isArtwork('https://example.com/docs/og-image.png')).toBe(true);
+		expect(isArtwork('https://raw.githubusercontent.com/Saramanda9988/LunaBox/main/screenshot/home-img.png')).toBe(false);
+		expect(isArtwork('https://example.com/docs/preview/home_en.png')).toBe(false);
+		expect(isArtwork('https://example.com/covered-calls.png')).toBe(false);
+		expect(isArtwork('https://example.com/heroku-deploy.png')).toBe(false);
+		expect(isArtwork('https://raw.githubusercontent.com/Saramanda9988/LunaBox/main/screenshot/qq-community.png')).toBe(true);
+		expect(isArtwork('https://example.com/img/Telegram_Group.PNG')).toBe(true);
+		expect(isArtwork('https://example.com/wechat-qrcode.jpg')).toBe(true);
+		expect(isArtwork('https://example.com/screens/editor-dark.png')).toBe(false);
+	});
+
+	it('reads the name and icon a mygo.config.ts writes as plain strings', () => {
+		// As nexmoe/DayBee writes it: the name from package.json, the icon a PNG.
+		const daybee = `import { defineConfig } from "mygo-cli";\nimport pkg from "./package.json";\n\nexport default defineConfig({\n  name: pkg.productName,\n  identifier: "co.daybee.app",\n  icon: "resources/icon.png",\n  devUrl: "http://localhost:5173",\n  fileAssociations: [{ ext: ["wav"], name: "Recording" }],\n});\n`;
+		expect(scriptConfig(daybee)).toEqual({ icon: 'resources/icon.png' });
+		// As bitxeno/atvloadly writes it: only an Icon Composer icon for macOS, so resources/icon.png beside it is the one to take.
+		const atvloadly = `export default defineConfig({\n  name: "atvloadly",\n  macos: {\n    // Icon Composer icon; mygo build compiles it with actool\n    icon: 'AppIcon.icon',\n  },\n});\n`;
+		expect(scriptConfig(atvloadly)).toEqual({ name: 'atvloadly', macos: { icon: 'AppIcon.icon' } });
+		expect(iconOf('desktop/app/mygo.config.ts', scriptConfig(atvloadly), ['desktop/app/resources/icon.png'])).toEqual({ path: 'desktop/app/resources/icon.png' });
+		expect(iconOf('apps/desktop/mygo.config.ts', scriptConfig(daybee), [])).toEqual({ path: 'apps/desktop/resources/icon.png' });
+		// Commented-out fields and links in strings are not fields.
+		expect(scriptConfig(`/* icon: "old.png" */\n// name: "Old"\nexport default { devUrl: "http://localhost:5173", name: \`Pail\` }`)).toEqual({ name: 'Pail' });
+		expect(parseMygoConfig('mygo.json', '{"name":"Kero"}')).toEqual({ name: 'Kero' });
+		expect(parseMygoConfig('mygo.config.ts', 'export default { name: "Kero" }')).toEqual({ name: 'Kero' });
+		expect(() => parseMygoConfig('mygo.json', 'export default {}')).toThrow();
 	});
 
 	it('resolves paths inside the repository only', () => {

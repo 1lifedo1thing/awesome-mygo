@@ -29,12 +29,32 @@ export function repoOfEntry(entry: Entry): string | undefined {
 	return undefined;
 }
 
-// The project's own mygo.json among the repository's paths: the shallowest one outside dependencies and examples, so an app kept under app/ is found while a vendored copy of MyGo's examples is not.
-export function pickMygoJson(paths: readonly string[]): string | undefined {
+// The project's own MyGo configuration among the repository's paths: mygo.json, which apps of native UI have, or mygo.config.ts (or .mts, .js, .mjs), which apps with a web frontend have. The shallowest one outside dependencies and examples, so an app kept under app/ is found while a vendored copy of MyGo's examples is not; at the same depth mygo.json first.
+export function pickMygoConfig(paths: readonly string[]): string | undefined {
 	const skip = /(^|\/)(node_modules|vendor|examples?|testdata|third_party)\//;
-	const found = paths.filter((p) => (p === 'mygo.json' || p.endsWith('/mygo.json')) && !skip.test(p));
-	found.sort((a, b) => a.split('/').length - b.split('/').length || a.localeCompare(b));
+	const rank = (p: string) => (p.endsWith('.json') ? 0 : 1);
+	const found = paths.filter((p) => /(^|\/)mygo(\.json|\.config\.(ts|mts|js|mjs))$/.test(p) && !skip.test(p));
+	found.sort((a, b) => a.split('/').length - b.split('/').length || rank(a) - rank(b) || a.localeCompare(b));
 	return found[0];
+}
+
+// What a mygo.config.ts or .js says that this package uses, read from its text since it is code: the name and icon when they are written as plain strings. An icon that is not a PNG, JPEG or WebP is macOS's own (an Icon Composer .icon or an .icns), as macos.icon is in mygo.json. Only the first name counts, as a file association has one too.
+export function scriptConfig(text: string): { name?: string; icon?: string; macos?: { icon: string } } {
+	const code = text.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1');
+	const out: { name?: string; icon?: string; macos?: { icon: string } } = {};
+	const name = /\bname\s*:\s*(?:(["'`])([^"'`\n]+)\1)?/.exec(code)?.[2]?.trim();
+	if (name) out.name = name;
+	for (const m of code.matchAll(/\bicon\s*:\s*(["'`])([^"'`\n]+)\1/g)) {
+		const icon = m[2].trim();
+		if (/\.(png|jpe?g|webp)$/i.test(icon)) out.icon ??= icon;
+		else out.macos ??= { icon };
+	}
+	return out;
+}
+
+// A MyGo configuration's fields: mygo.json as JSON, which throws when it is not, and a script configuration as scriptConfig reads it.
+export function parseMygoConfig(path: string, text: string): unknown {
+	return path.endsWith('.json') ? JSON.parse(text) : scriptConfig(text);
 }
 
 // A path relative to a file in the repository, as a path from the repository root; undefined when it leaves the repository.
@@ -52,17 +72,17 @@ export function joinRepoPath(fromFile: string, rel: string): string | undefined 
 
 export type IconSource = { path: string } | { macOnly: string } | undefined;
 
-// The app's icon as MyGo builds it (cmd/mygo/config.go): mygo.json's `icon`, a square PNG, or else resources/icon.png beside mygo.json when it exists, which is where `mygo init` puts MyGo's default icon; the caller tells that one apart by its pixels. An app whose only icon is macos.icon (an Icon Composer .icon, an Assets.car or an .icns) has one of its own that cannot be converted here: { macOnly } names it. undefined when the app has no icon at all.
-export function iconOf(mygoJsonPath: string, mygo: unknown, paths: readonly string[]): IconSource {
+// The app's icon as MyGo builds it (cmd/mygo/config.go): the configuration's `icon`, a square PNG, or else resources/icon.png beside the configuration when it exists, which is where `mygo init` puts MyGo's default icon; the caller tells that one apart by its pixels. An app whose only icon is macos.icon (an Icon Composer .icon, an Assets.car or an .icns) has one of its own that cannot be converted here: { macOnly } names it. undefined when the app has no icon at all.
+export function iconOf(configPath: string, mygo: unknown, paths: readonly string[]): IconSource {
 	const cfg = (mygo ?? {}) as { icon?: unknown; macos?: { icon?: unknown } };
 	if (typeof cfg.icon === 'string' && cfg.icon.trim()) {
-		const path = joinRepoPath(mygoJsonPath, cfg.icon.trim());
+		const path = joinRepoPath(configPath, cfg.icon.trim());
 		if (path && /\.(png|jpe?g|webp)$/i.test(path)) return { path };
 	}
-	const fallback = joinRepoPath(mygoJsonPath, 'resources/icon.png');
+	const fallback = joinRepoPath(configPath, 'resources/icon.png');
 	if (fallback !== undefined && paths.includes(fallback)) return { path: fallback };
 	const mac = cfg.macos?.icon;
-	if (typeof mac === 'string' && mac.trim()) return { macOnly: joinRepoPath(mygoJsonPath, mac.trim()) ?? mac.trim() };
+	if (typeof mac === 'string' && mac.trim()) return { macOnly: joinRepoPath(configPath, mac.trim()) ?? mac.trim() };
 	return undefined;
 }
 
@@ -76,6 +96,11 @@ export function iconCut(box: string, width: number, height: number): { crop?: st
 // Whether an image's width and height are close enough to make it square: an app icon or a logo, not a screenshot of a desktop window.
 export function isSquarish(width: number, height: number): boolean {
 	return width > 0 && height > 0 && Math.max(width, height) / Math.min(width, height) < 1.15;
+}
+
+// Whether an image is far wider than a window, as a banner or a row of links is (LunaBox's QQ group strip is 720×240); a desktop window rarely runs past 2.4 to 1.
+export function isBanner(width: number, height: number): boolean {
+	return width > 0 && height > 0 && width / height > 2.4;
 }
 
 // Whether an image is taller than it is wide, such as a tray panel or a phone screen. The app page draws its screenshot at the column's full width, so a portrait one runs far taller than the window; a README usually has a window further down.
@@ -148,7 +173,7 @@ export function overCaps(text: Record<string, string>, caps: Caps): string[] {
 	});
 }
 
-// The app's name as mygo.json spells it, when the submitted name is the same word in other letter case: the form offers the repository's name (myskills), while the app calls itself MySkills. A name the visitor chose differently is kept.
+// The app's name as its MyGo configuration spells it, when the submitted name is the same word in other letter case: the form offers the repository's name (myskills), while the app calls itself MySkills. A name the visitor chose differently is kept.
 export function appNameFrom(submitted: string, mygo: unknown): string | undefined {
 	const name = (mygo as { name?: unknown } | null)?.name;
 	if (typeof name !== 'string' || name === submitted) return undefined;
@@ -165,6 +190,14 @@ export function readmeImages(md: string): string[] {
 
 // Badges and other images that are never a screenshot of the app.
 const NOT_A_SHOT = /(^|\.)(img\.shields\.io|badge\.fury\.io|badgen\.net|codecov\.io|goreportcard\.com|pkg\.go\.dev|deepwiki\.com)$/;
+
+// Whether an image's file name says it is not a screenshot of the app: a hero image, banner, cover, logo or social preview, which a README often puts first (LunaBox's screenshot/hero.png), or a link to a community, a sponsor page or a QR code.
+export function isArtwork(url: string): boolean {
+	const file = (url.split(/[?#]/)[0].split('/').pop() ?? '').toLowerCase();
+	const words = file.replace(/\.[a-z0-9]+$/, '').split(/[-_.\s]+/);
+	const art = ['hero', 'banner', 'cover', 'logo', 'og', 'social', 'community', 'qq', 'telegram', 'discord', 'wechat', 'weixin', 'sponsor', 'sponsors', 'donate', 'qr', 'qrcode', 'badge'];
+	return words.some((w) => art.includes(w));
+}
 
 // Where to download a README image from: a link inside the repository becomes its raw file on the default branch, a link elsewhere is kept as long as it is https. SVGs, badges and workflow status images are skipped.
 export function resolveImage(src: string, repo: string, branch: string, readmePath: string): string | undefined {
