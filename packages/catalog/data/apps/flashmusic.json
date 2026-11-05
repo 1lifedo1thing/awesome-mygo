@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "flashmusic",
+	"name": "FlashMusic",
+	"author": "FlashVCP",
+	"kind": "native",
+	"category": "MultimediaApplication",
+	"url": "https://github.com/FlashVCP/FlashMusic",
+	"repo": "FlashVCP/FlashMusic",
+	"summary": {
+		"en": "A native player for your local music library and NetEase Cloud Music, with synced lyrics.",
+		"zh-CN": "原生音乐播放器，播放本地音乐库与网易云音乐，歌词同步滚动。",
+		"zh-TW": "原生音樂播放器，播放本機音樂庫與網易雲音樂，歌詞同步捲動。",
+		"ja": "ローカル音源と NetEase Cloud Music を再生し、歌詞を同期表示するネイティブプレーヤー。",
+		"ko": "로컬 음악과 NetEase Cloud Music을 재생하는 네이티브 플레이어, 가사 동기화 지원."
+	},
+	"description": {
+		"en": "A music player drawn with MyGo's native GPU-rendered UI, with no WebView and no Electron. It scans local folders, reading ID3 and FLAC tags, .lrc lyrics and embedded covers, and plays NetEase Cloud Music with QR-code login, playlists, charts and lossless or Hi-Res streaming. Lyrics scroll line by line or word by word, and podcasts get captions generated on the device, with no audio uploaded.",
+		"zh-CN": "用 MyGo 原生 GPU 自绘界面构建的音乐播放器，没有 WebView，也没有 Electron。可扫描本地文件夹，读取 ID3、FLAC 元数据、同名 .lrc 歌词与内嵌封面；也能播放网易云音乐，支持扫码登录、歌单、排行榜和无损、Hi-Res 边下边播。歌词可逐行或逐字同步滚动，播客节目则在本机离线生成字幕，音频不上传。",
+		"zh-TW": "以 MyGo 原生 GPU 自繪介面打造的音樂播放器，沒有 WebView，也沒有 Electron。可掃描本機資料夾，讀取 ID3、FLAC 中繼資料、同名 .lrc 歌詞與內嵌封面；也能播放網易雲音樂，支援掃碼登入、歌單、排行榜和無損、Hi-Res 邊下載邊播放。歌詞可逐行或逐字同步捲動，Podcast 節目則在本機離線產生字幕，音訊不會上傳。",
+		"ja": "MyGo のネイティブ UI を GPU で描画する音楽プレーヤーで、WebView も Electron も使いません。ローカルのフォルダーを読み込んで ID3・FLAC のメタデータ、同名の .lrc 歌詞、埋め込みカバーを扱い、NetEase Cloud Music は QR コードでのログイン、プレイリスト、ランキング、ロスレス・Hi-Res のストリーミング再生に対応します。歌詞は行単位・文字単位で同期スクロールし、ポッドキャストには音声をアップロードせず端末上で字幕を生成します。",
+		"ko": "MyGo의 네이티브 UI를 GPU로 직접 그리는 음악 플레이어로, WebView도 Electron도 쓰지 않습니다. 로컬 폴더를 스캔해 ID3·FLAC 메타데이터, 같은 이름의 .lrc 가사, 내장 커버를 읽고, NetEase Cloud Music은 QR 코드 로그인, 플레이리스트, 차트, 무손실·Hi-Res 스트리밍 재생을 지원합니다. 가사는 줄 단위나 글자 단위로 동기화되어 흐르고, 팟캐스트는 오디오를 올리지 않고 기기에서 자막을 만듭니다."
+	},
+	"icon": {
+		"file": "flashmusic.webp"
+	},
+	"screenshot": "flashmusic.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T03:47:54Z"
+}
