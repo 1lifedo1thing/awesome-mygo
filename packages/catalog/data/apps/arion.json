@@ -1,0 +1,28 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "arion",
+	"name": "Arion",
+	"author": "AstraFoundry",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://arion.astrafoundry.si",
+	"repo": "AstraFoundry/Arion",
+	"summary": {
+		"en": "Voice dictation and Pinyin input for macOS and Windows that recognizes speech on the device.",
+		"zh-CN": "适用于 macOS 与 Windows 的语音听写和拼音输入法，语音识别在本机完成。",
+		"zh-TW": "適用於 macOS 與 Windows 的語音聽寫和拼音輸入法，語音辨識在本機完成。",
+		"ja": "macOS と Windows 向けの音声入力・ピンイン入力ツール。音声認識は端末上で実行。",
+		"ko": "macOS와 Windows용 음성 받아쓰기·병음 입력기. 음성 인식은 기기에서 처리합니다."
+	},
+	"description": {
+		"en": "Hold-to-talk dictation and a Pinyin input method, drawn with MyGo's native UI without Electron or a webview. Qwen3-ASR runs on the device, so dictating Mandarin, English or a mix works offline once the model is downloaded; an optional step polishes or translates the text with a local model or an opt-in cloud one. Runs on macOS with Apple silicon, with an early preview for Windows x64.",
+		"zh-CN": "按住说话的听写工具兼拼音输入法，由 MyGo 原生 UI 绘制，没有 Electron，也没有 WebView。Qwen3-ASR 在本机运行，下载模型后，普通话、英文及中英混说都能离线听写；还可选用本地模型或需主动开启的云端模型润色、翻译文字。主要支持 Apple 芯片的 macOS，Windows x64 为早期预览版。",
+		"zh-TW": "按住說話的聽寫工具兼拼音輸入法，由 MyGo 原生 UI 繪製，沒有 Electron，也沒有 WebView。Qwen3-ASR 在本機執行，下載模型後，中文、英文及中英夾雜都能離線聽寫；也可選用本機模型或需自行開啟的雲端模型潤飾、翻譯文字。主要支援 Apple 晶片的 macOS，Windows x64 為早期預覽版。",
+		"ja": "押している間だけ話せる音声入力ツール兼ピンイン入力システム。Electron も WebView も使わず、MyGo のネイティブ UI で描かれています。Qwen3-ASR を端末上で動かすため、モデルをダウンロードすれば中国語・英語・その混在をオフラインで書き起こせます。整形や翻訳は、ローカルモデルか、有効にした場合のみクラウドモデルで行えます。主な対象は Apple シリコンの macOS で、Windows x64 は早期プレビューです。",
+		"ko": "키를 누르는 동안 말하는 받아쓰기 도구이자 병음 입력기로, Electron도 웹뷰도 없이 MyGo의 네이티브 UI로 그렸습니다. Qwen3-ASR을 기기에서 실행해 모델을 내려받은 뒤에는 중국어, 영어, 섞은 말도 오프라인으로 받아씁니다. 다듬기와 번역은 로컬 모델이나 직접 켠 클라우드 모델로 할 수 있습니다. 주 플랫폼은 Apple 실리콘 macOS이며 Windows x64는 초기 프리뷰입니다."
+	},
+	"added": "2026-11-05T00:49:28Z",
+	"icon": {
+		"file": "arion.webp"
+	}
+}
