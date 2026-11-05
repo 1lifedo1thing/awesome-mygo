@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "nihongo-stack",
+	"name": "Nihongo Stack",
+	"author": "fishknowsss",
+	"kind": "web",
+	"group": "notes",
+	"url": "https://github.com/fishknowsss/Nihongo-Stack",
+	"repo": "fishknowsss/Nihongo-Stack",
+	"summary": {
+		"en": "A local-first Japanese study app with lessons, FSRS review, reading, listening and JLPT practice.",
+		"zh-CN": "本机优先的日语学习应用：课程、FSRS 复习、阅读、听力与 JLPT 练习。",
+		"zh-TW": "本機優先的日語學習應用程式：課程、FSRS 複習、閱讀、聽力與 JLPT 練習。",
+		"ja": "ローカルファーストの日本語学習アプリ。レッスン、FSRS 復習、読解、聴解、JLPT 対策。",
+		"ko": "로컬 우선 일본어 학습 앱. 단원 학습, FSRS 복습, 읽기, 듣기, JLPT 연습."
+	},
+	"description": {
+		"en": "A local-first Japanese study app with seven basic units, FSRS card review, reading and listening practice, and JLPT N5–N2 indexes with original practice questions. Study records stay in IndexedDB on your machine, and no account is needed. MyGo builds the macOS app around a React web frontend; a browser version is built separately with Vite.",
+		"zh-CN": "本机优先的日语学习应用，包含 7 个基础单元、FSRS 卡片复习、阅读与听力练习，以及 N5–N2 的 JLPT 学习索引和原创教学题。学习记录保存在本机 IndexedDB，无需账户。MyGo 以 React 前端构建 macOS 应用，浏览器版本另由 Vite 构建。",
+		"zh-TW": "本機優先的日語學習應用程式，包含 7 個基礎單元、FSRS 卡片複習、閱讀與聽力練習，以及 N5–N2 的 JLPT 學習索引和原創教學題。學習紀錄儲存在本機 IndexedDB，不需帳號。MyGo 以 React 前端建置 macOS 應用程式，瀏覽器版本另以 Vite 建置。",
+		"ja": "ローカルファーストの日本語学習アプリ。7 つの基礎単元、FSRS によるカード復習、読解・聴解の練習、N5〜N2 の JLPT 学習索引とオリジナルの練習問題を備えています。学習記録は手元の IndexedDB に保存され、アカウントは不要です。MyGo が React のフロントエンドから macOS アプリを作り、ブラウザー版は別に Vite でビルドされます。",
+		"ko": "로컬 우선 일본어 학습 앱으로, 7개 기초 단원, FSRS 카드 복습, 읽기·듣기 연습, N5–N2 JLPT 학습 색인과 자체 제작 연습 문제를 갖추고 있습니다. 학습 기록은 내 컴퓨터의 IndexedDB에 저장되며 계정이 필요 없습니다. MyGo가 React 프런트엔드로 macOS 앱을 빌드하고, 브라우저 버전은 Vite로 따로 빌드합니다."
+	},
+	"icon": {
+		"file": "nihongo-stack.webp"
+	},
+	"screenshot": "nihongo-stack.webp",
+	"added": "2026-11-05T14:23:33Z"
+}
