@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "video-player",
+	"name": "Video Player",
+	"author": "fazi-gondal",
+	"kind": "native",
+	"group": "media",
+	"url": "https://github.com/fazi-gondal/video",
+	"repo": "fazi-gondal/video",
+	"summary": {
+		"en": "A native desktop video player with subtitles, picture-in-picture and playlists, built on ffmpeg.",
+		"zh-CN": "原生桌面视频播放器，支持字幕、画中画和播放列表，基于 ffmpeg。",
+		"zh-TW": "原生桌面影片播放器，支援字幕、子母畫面和播放清單，基於 ffmpeg。",
+		"ja": "字幕・PiP・プレイリストに対応した、ffmpeg を使うネイティブなデスクトップ動画プレーヤー。",
+		"ko": "자막, PIP, 재생 목록을 지원하는 ffmpeg 기반 네이티브 데스크톱 동영상 플레이어."
+	},
+	"description": {
+		"en": "A desktop video player drawn with MyGo's native UI and MujicaUI widgets, built in pure Go without Cgo. It seeks precisely, changes playback speed, goes fullscreen or picture-in-picture, picks up SRT and VTT subtitle files sitting next to the video, and plays a queue of several items. It relies on ffmpeg, ffprobe and ffplay, which must be installed and on the PATH.",
+		"zh-CN": "用 MyGo 原生 UI 与 MujicaUI 组件绘制的桌面视频播放器，纯 Go 构建，不使用 Cgo。支持精确跳转、调节播放速度、全屏与画中画，会自动读取视频旁的 SRT、VTT 字幕文件，并可按队列连续播放多个视频。播放依赖 ffmpeg、ffprobe 和 ffplay，需事先安装并加入 PATH。",
+		"zh-TW": "用 MyGo 原生 UI 與 MujicaUI 元件繪製的桌面影片播放器，以純 Go 建置，不使用 Cgo。支援精確跳轉、調整播放速度、全螢幕與子母畫面，會自動讀取影片旁的 SRT、VTT 字幕檔，並可依佇列連續播放多部影片。播放仰賴 ffmpeg、ffprobe 和 ffplay，需事先安裝並加入 PATH。",
+		"ja": "MyGo のネイティブ UI と MujicaUI のウィジェットで描かれたデスクトップ用動画プレーヤー。Cgo を使わず純粋な Go でビルドされています。正確なシーク、再生速度の変更、フルスクリーンとピクチャーインピクチャーに対応し、動画と同じ場所にある SRT・VTT 字幕を自動で読み込み、キューに入れた複数の動画を順に再生します。ffmpeg、ffprobe、ffplay をインストールして PATH に通しておく必要があります。",
+		"ko": "MyGo의 네이티브 UI와 MujicaUI 위젯으로 그린 데스크톱 동영상 플레이어로, Cgo 없이 순수 Go로 빌드됩니다. 정밀 탐색, 재생 속도 조절, 전체 화면과 PIP를 지원하고, 동영상 옆에 있는 SRT·VTT 자막 파일을 자동으로 불러오며, 대기열에 넣은 여러 동영상을 차례로 재생합니다. ffmpeg, ffprobe, ffplay가 설치되어 PATH에 있어야 합니다."
+	},
+	"icon": {
+		"file": "video-player.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "video-player.webp",
+	"added": "2026-11-05T17:38:35Z"
+}
