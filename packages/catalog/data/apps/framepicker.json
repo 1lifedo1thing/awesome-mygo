@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "framepicker",
+	"name": "视频抽帧",
+	"author": "xiyaowong",
+	"kind": "native",
+	"category": "MultimediaApplication",
+	"url": "https://github.com/xiyaowong/framepicker",
+	"repo": "xiyaowong/framepicker",
+	"summary": {
+		"en": "Steps through a video frame by frame and saves the frame you pick as a PNG image.",
+		"zh-CN": "逐帧浏览视频，把选中的一帧保存为 PNG 图片。",
+		"zh-TW": "逐格瀏覽影片，將選定的影格存成 PNG 圖片。",
+		"ja": "動画を1コマずつ送り、選んだフレームを PNG 画像で保存。",
+		"ko": "동영상을 프레임 단위로 넘겨 보고 고른 프레임을 PNG 이미지로 저장합니다."
+	},
+	"description": {
+		"en": "A small Windows tool drawn with MyGo's native UI for pulling single frames out of a video. You open a video file, drag the progress bar or step one frame at a time with the ◀ ▶ buttons, and save the current frame as a PNG; the save folder is remembered for the rest of the session. Decoding uses what Windows already provides, so nothing extra needs installing.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 小工具，用来从视频中取出单帧画面。打开视频文件后，拖动进度条或点击 ◀ ▶ 逐帧查看，再把当前帧保存为 PNG；本次运行中会记住上次的保存目录。视频解码使用 Windows 自带的能力，不需要安装额外组件。",
+		"zh-TW": "以 MyGo 原生 UI 繪製的 Windows 小工具，用來從影片中擷取單一影格。開啟影片檔後，拖動進度列或點 ◀ ▶ 逐格查看，再把目前影格存成 PNG；本次執行期間會記住上次的儲存位置。影片解碼使用 Windows 內建的能力，不需要安裝額外元件。",
+		"ja": "MyGo のネイティブ UI で描かれた、動画から1フレームを取り出す Windows 用の小さなツール。動画ファイルを開き、シークバーをドラッグするか ◀ ▶ で1コマずつ送って、表示中のフレームを PNG で保存します。保存先は起動中は記憶されます。デコードには Windows 標準の機能を使うため、追加のインストールは不要です。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows용 작은 도구로, 동영상에서 한 프레임을 뽑아냅니다. 동영상 파일을 열고 진행 막대를 끌거나 ◀ ▶ 버튼으로 한 프레임씩 넘기며 현재 프레임을 PNG로 저장합니다. 저장 위치는 실행하는 동안 기억됩니다. 디코딩은 Windows 기본 기능을 사용하므로 별도 구성 요소를 설치할 필요가 없습니다."
+	},
+	"icon": {
+		"file": "framepicker.webp"
+	},
+	"screenshot": "framepicker.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T05:19:24Z"
+}
