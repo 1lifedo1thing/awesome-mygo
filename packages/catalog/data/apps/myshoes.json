@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "myshoes",
+	"name": "MyShoes",
+	"author": "margbug01",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/margbug01/ShoesGUI",
+	"repo": "margbug01/ShoesGUI",
+	"summary": {
+		"en": "A Windows and macOS proxy client for the shoes kernel: subscriptions, speed tests, rule routing.",
+		"zh-CN": "shoes 内核的 Windows 与 macOS 代理客户端：订阅、测速、规则分流。",
+		"zh-TW": "shoes 核心的 Windows 與 macOS 代理用戶端：訂閱、測速、規則分流。",
+		"ja": "shoes カーネル用の Windows・macOS プロキシクライアント。速度測定とルール振り分け対応。",
+		"ko": "shoes 커널용 Windows·macOS 프록시 클라이언트. 구독·속도 테스트·규칙 라우팅."
+	},
+	"description": {
+		"en": "A Windows 10/11 and Apple Silicon Mac client for the shoes proxy kernel, drawn with MyGo's native UI and shipped with the kernel bundled. It imports share links and subscription URLs, tests real latency the way v2rayN does, routes by rules or globally, and sits in the tray while it takes over the system proxy. Nodes and settings are kept encrypted on the machine, and updates are signed.",
+		"zh-CN": "为 shoes 代理内核打造的 Windows 10/11 与 Apple 芯片 Mac 客户端，由 MyGo 原生 UI 绘制，内核随包附带。可导入分享链接和订阅地址，按 v2rayN 的方式测真连接延迟，按规则或全局分流，常驻托盘并接管系统代理。节点和设置加密保存在本机，更新包经签名校验后才安装。",
+		"zh-TW": "為 shoes 代理核心打造的 Windows 10/11 與 Apple 晶片 Mac 用戶端，由 MyGo 原生 UI 繪製，核心隨附於安裝包。可匯入分享連結和訂閱網址，以 v2rayN 的方式測量真實連線延遲，依規則或全域分流，常駐系統匣並接管系統代理。節點和設定加密儲存在本機，更新檔經簽章驗證後才安裝。",
+		"ja": "shoes プロキシカーネル用の Windows 10/11・Apple シリコン Mac 向けクライアントで、MyGo のネイティブ UI で描かれ、カーネルも同梱しています。共有リンクやサブスクリプション URL を取り込み、v2rayN と同じ方法で実接続の遅延を測り、ルールまたはグローバルで振り分け、トレイに常駐してシステムプロキシを引き受けます。ノードと設定は暗号化して手元に保存され、更新は署名を検証してから適用されます。",
+		"ko": "shoes 프록시 커널을 위한 Windows 10/11·Apple Silicon Mac용 클라이언트로, MyGo의 네이티브 UI로 그렸고 커널도 함께 들어 있습니다. 공유 링크와 구독 URL을 가져오고, v2rayN과 같은 방식으로 실제 연결 지연을 재며, 규칙 또는 전역 모드로 트래픽을 나누고, 트레이에 상주하며 시스템 프록시를 맡습니다. 노드와 설정은 암호화해 로컬에 저장하고, 업데이트는 서명을 확인한 뒤 설치합니다."
+	},
+	"icon": {
+		"file": "myshoes.webp"
+	},
+	"screenshot": "myshoes.webp",
+	"added": "2026-11-05T03:22:12Z"
+}
