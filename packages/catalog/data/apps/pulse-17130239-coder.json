@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "pulse-17130239-coder",
+	"name": "Pulse",
+	"author": "17130239-coder",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/17130239-coder/Pulse",
+	"repo": "17130239-coder/Pulse",
+	"summary": {
+		"en": "A macOS system monitor for CPU, memory, GPU, disk, network and battery, with a process list.",
+		"zh-CN": "macOS 系统监视器：查看 CPU、内存、GPU、磁盘、网络与电池，附进程列表。",
+		"zh-TW": "macOS 系統監控工具：查看 CPU、記憶體、GPU、磁碟、網路與電池，附程序列表。",
+		"ja": "CPU、メモリ、GPU、ディスク、ネットワーク、バッテリーを表示する macOS のシステムモニター。",
+		"ko": "CPU, 메모리, GPU, 디스크, 네트워크, 배터리를 보여 주는 macOS 시스템 모니터."
+	},
+	"description": {
+		"en": "A macOS system monitor written in Go and drawn with MyGo's native UI on Apple Metal, with no web view. It shows CPU, memory, GPU, disk, network and battery as dot-matrix graphs over 1 minute to 1 hour, breaks memory and energy use down by app, and lists processes with search and a button to end them. It reads its numbers from built-in macOS tools and needs no sudo.",
+		"zh-CN": "用 Go 编写、由 MyGo 原生 UI 通过 Apple Metal 绘制的 macOS 系统监视器，没有 Web 视图。它以点阵图显示 CPU、内存、GPU、磁盘、网络和电池在 1 分钟到 1 小时内的变化，按应用细分内存与耗电，并提供可搜索、可结束进程的进程列表。数据取自 macOS 自带的工具，无需 sudo。",
+		"zh-TW": "用 Go 撰寫、由 MyGo 原生 UI 透過 Apple Metal 繪製的 macOS 系統監控工具，沒有 Web 視圖。它以點陣圖顯示 CPU、記憶體、GPU、磁碟、網路和電池在 1 分鐘到 1 小時內的變化，依應用程式細分記憶體與耗電，並提供可搜尋、可結束程序的程序列表。數據取自 macOS 內建的工具，不需要 sudo。",
+		"ja": "Go で書かれ、MyGo のネイティブ UI で Apple Metal 上に描かれた macOS 用システムモニター。Web ビューは使いません。CPU、メモリ、GPU、ディスク、ネットワーク、バッテリーを 1 分から 1 時間の範囲でドットマトリクスのグラフに表示し、メモリと電力の使用量をアプリ別に示します。プロセス一覧は検索でき、ボタンで終了させることもできます。数値は macOS 標準のツールから取得し、sudo は不要です。",
+		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 Apple Metal 위에 그린 macOS 시스템 모니터로, 웹 뷰를 쓰지 않습니다. CPU, 메모리, GPU, 디스크, 네트워크, 배터리를 1분부터 1시간까지 도트 매트릭스 그래프로 보여 주고, 메모리와 전력 사용량을 앱별로 나눠 보여 줍니다. 프로세스 목록은 검색할 수 있고 버튼으로 종료할 수도 있습니다. 수치는 macOS 기본 도구에서 읽으며 sudo가 필요 없습니다."
+	},
+	"icon": {
+		"file": "pulse-17130239-coder.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "pulse-17130239-coder.webp",
+	"added": "2026-11-05T14:40:59Z"
+}
