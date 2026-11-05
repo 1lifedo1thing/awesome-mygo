@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "transflowy",
+	"name": "transflowy",
+	"author": "narusenia",
+	"kind": "web",
+	"group": "ai",
+	"url": "https://github.com/narusenia/transflowy",
+	"repo": "narusenia/transflowy",
+	"summary": {
+		"en": "Records, transcribes and summarizes meetings and notes on macOS, locally or with cloud engines.",
+		"zh-CN": "在 macOS 上录制会议与笔记，本地或借助云端引擎完成转写与摘要。",
+		"zh-TW": "在 macOS 上錄製會議與筆記，於本機或透過雲端引擎完成轉寫與摘要。",
+		"ja": "会議やメモを録音し、ローカルまたはクラウドのエンジンで文字起こしと要約を行う macOS アプリ。",
+		"ko": "회의와 메모를 녹음하고 로컬 또는 클라우드 엔진으로 받아쓰고 요약하는 macOS 앱."
+	},
+	"description": {
+		"en": "A meeting and note recorder for Apple Silicon Macs on macOS 14.2 or later, built with MyGo and a React web frontend. It records the microphone and system audio, transcribes while recording with a bundled whisper.cpp or a cloud engine via OpenRouter, tells speakers apart and writes summaries from templates. Recordings are kept as plain files, and a local-only switch sends nothing to the cloud.",
+		"zh-CN": "面向 macOS 14.2 及以上 Apple Silicon Mac 的会议与笔记录音应用，用 MyGo 搭配 React 网页前端构建。它可录制麦克风与系统声音，录音时即用内置的 whisper.cpp 或经 OpenRouter 的云端引擎转写，区分说话人，并按模板生成摘要。每段录音都以普通文件保存，开启“仅本地”后不会向云端发送任何内容。",
+		"zh-TW": "適用於 macOS 14.2 以上 Apple Silicon Mac 的會議與筆記錄音 App，以 MyGo 搭配 React 網頁前端打造。可錄下麥克風與系統聲音，錄音同時以內建的 whisper.cpp 或透過 OpenRouter 的雲端引擎轉寫，區分說話者，並依範本產生摘要。每段錄音皆存為一般檔案，開啟「僅限本機」後不會傳送任何內容到雲端。",
+		"ja": "macOS 14.2 以降の Apple Silicon Mac 向けの、会議やメモの録音アプリ。MyGo と React の Web フロントエンドで作られています。マイクとシステム音声を録音し、同梱の whisper.cpp か OpenRouter 経由のクラウドエンジンで録音しながら文字起こしし、話者を聞き分けて、テンプレートで要約します。録音はプレーンなファイルで保存され、ローカル専用スイッチを入れればクラウドには何も送りません。",
+		"ko": "macOS 14.2 이상의 Apple Silicon Mac용 회의·메모 녹음 앱으로, MyGo와 React 웹 프런트엔드로 만들었습니다. 마이크와 시스템 오디오를 녹음하고, 녹음하는 동안 내장된 whisper.cpp 또는 OpenRouter를 거치는 클라우드 엔진으로 받아쓰며, 화자를 구분하고 템플릿으로 요약합니다. 녹음은 일반 파일로 저장되고, 로컬 전용 스위치를 켜면 클라우드로 아무것도 보내지 않습니다."
+	},
+	"icon": {
+		"file": "transflowy.webp"
+	},
+	"screenshot": "transflowy.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T14:40:59Z"
+}
