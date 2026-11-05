@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "omo",
+	"name": "omo",
+	"author": "QinYangWang",
+	"kind": "native",
+	"group": "agents",
+	"url": "https://github.com/QinYangWang/omo",
+	"repo": "QinYangWang/omo",
+	"summary": {
+		"en": "A native coding IDE for local ACP agents, with an editor, terminals and git diff review.",
+		"zh-CN": "原生编程 IDE：与本地 ACP 智能体对话，自带编辑器、终端和 git 差异审阅。",
+		"zh-TW": "原生程式開發 IDE：與本機 ACP 代理對話，內建編輯器、終端機與 git 差異檢視。",
+		"ja": "ローカル ACP エージェントと話せるネイティブ IDE。エディタ、ターミナル、git 差分レビュー付き。",
+		"ko": "로컬 ACP 에이전트와 대화하는 네이티브 코딩 IDE. 에디터, 터미널, git diff 리뷰 포함."
+	},
+	"description": {
+		"en": "A coding IDE drawn with MyGo's native UI, with no web view or Electron, that chats with local agents over the Agent Client Protocol: it finds Codex, Claude Code and Pi on PATH, streams replies and asks before granting permissions. It has an editor, native terminals and a split git diff with per-hunk keep or revert, also for the agent's changes. Workspace search and LSP are not there yet.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的编程 IDE，没有 Web 视图，也不用 Electron，通过 Agent Client Protocol 与本地智能体对话：启动时在 PATH 中找出 Codex、Claude Code 和 Pi，流式显示回复，授予权限前先征得你同意。内置编辑器、原生终端和分栏 git 差异视图，可逐块保留或撤销改动，智能体的修改也能这样审阅。工作区搜索和 LSP 尚未支持。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的程式開發 IDE，沒有 Web 視圖，也不用 Electron，透過 Agent Client Protocol 與本機代理對話：啟動時在 PATH 中找出 Codex、Claude Code 和 Pi，串流顯示回覆，授予權限前會先徵得你同意。內建編輯器、原生終端機和分割 git 差異檢視，可逐區塊保留或還原變更，代理做的修改也能這樣審閱。工作區搜尋和 LSP 尚未支援。",
+		"ja": "MyGo のネイティブ UI で描かれたコーディング IDE。Web ビューも Electron も使わず、Agent Client Protocol でローカルのエージェントと対話します。起動時に PATH から Codex・Claude Code・Pi を見つけ、返答をストリーミング表示し、権限は確認を取ってから与えます。エディター、ネイティブなターミナル、git の分割差分ビューを備え、エージェントの変更もハンク単位で残すか戻すかを選べます。ワークスペース検索と LSP はまだありません。",
+		"ko": "MyGo의 네이티브 UI로 그린 코딩 IDE로, 웹 뷰도 Electron도 쓰지 않고 Agent Client Protocol로 로컬 에이전트와 대화합니다. 시작할 때 PATH에서 Codex, Claude Code, Pi를 찾고, 응답을 스트리밍으로 보여 주며, 권한은 승인을 받은 뒤에 허용합니다. 에디터, 네이티브 터미널, 분할 git diff 뷰가 있어 에이전트의 변경도 hunk 단위로 유지하거나 되돌릴 수 있습니다. 워크스페이스 검색과 LSP는 아직 없습니다."
+	},
+	"icon": {
+		"file": "omo.webp"
+	},
+	"screenshot": "omo.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T13:45:02Z"
+}
