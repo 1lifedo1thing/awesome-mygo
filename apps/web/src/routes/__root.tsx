@@ -51,7 +51,8 @@ export const Route = createRootRoute({
 		return {
 		meta: [
 			{ charSet: 'utf-8' },
-			{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
+			// The original look draws to the screen's edges (viewport-fit=cover), so the safe-area insets its fixed buttons, toast and dialogs pad by are real on iPhones; its root pads the page by the side insets, keeping content out from under a landscape notch. The retro look keeps the default.
+			{ name: 'viewport', content: retro ? 'width=device-width, initial-scale=1' : 'width=device-width, initial-scale=1, viewport-fit=cover' },
 			{ name: 'theme-color', content: retro ? '#00a6d4' : '#0B0D10' },
 			{ name: 'color-scheme', content: retro ? 'light' : 'dark' },
 			...(originTrial ? [{ httpEquiv: 'origin-trial', content: originTrial }] : []),
@@ -161,10 +162,10 @@ function Shell() {
 	}, [site]);
 
 	return (
-		<div className='site'>
+		<div className='site relative isolate flex min-h-screen flex-col bg-bg pr-[env(safe-area-inset-right)] pl-[env(safe-area-inset-left)]'>
 			<Background />
 			<Header scrolled={scrolled} />
-			<main className='main'>
+			<main className='relative z-1 w-full flex-auto'>
 				<Outlet />
 			</main>
 			<Footer />
@@ -179,11 +180,11 @@ function Shell() {
 function NotFound() {
 	const t = useT();
 	return (
-		<section className='page enter nf'>
+		<section className='page enter min-h-[40vh] gap-5'>
 			<span className='kicker'>~/404</span>
 			<h1 className='page-h1'>{t.nf_h}</h1>
 			<p className='page-p'>{t.nf_p}</p>
-			<Link to='/' className='btn-c btn-44 nf-home'>
+			<Link to='/' className='btn-c btn-44 self-start'>
 				{t.a_home}
 			</Link>
 		</section>

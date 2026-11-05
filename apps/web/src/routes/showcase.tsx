@@ -2,6 +2,8 @@ import { APPS, type AppKind, HAS_SCORES, likeKey, pad2, pick } from '@awesome-my
 import { DEFAULT_SORT, groupChips, shownSort, sortApps, validateShowcaseSearch } from '../lib/showcase';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { AppLink, KindTag, MonoTile, WinBar, appView } from '../components/bits';
+import { showBy, showDesc, showGrid, showId, showIdText, showName } from '../components/EntryCard';
+import { FilterBar, FilterChip, FilterChips, FilterSelect, FilterSelects } from '../components/FilterBar';
 import { LikeButton } from '../components/Like';
 import { ScoreBar } from '../components/Score';
 import { useLang, useT } from '../lib/lang';
@@ -35,83 +37,75 @@ function ShowcasePage() {
 	);
 
 	return (
-		<section className='page enter gap-32'>
-			<div className='show-head'>
-				<div className='stack-14'>
+		<section className='page enter gap-8'>
+			<div className='flex flex-wrap items-end justify-between gap-6'>
+				<div className='flex flex-col gap-3.5'>
 					<span className='kicker'>~/SHOWCASE</span>
 					<h1 className='page-h1'>{t.cat_show_name}</h1>
 				</div>
-				<span className='show-count'>{pad2(list.length)}</span>
+				<span className='font-display text-[120px] leading-[0.8] font-extrabold tracking-[-0.06em] text-cyan tabular-nums max-sm:text-[72px]'>{pad2(list.length)}</span>
 			</div>
-			<div className='filterbar'>
-				<div className='chips' role='group' aria-label={t.a_cats}>
-					<button type='button' className='chip' onClick={() => setFilter({ cat: undefined })} aria-pressed={!group}>
+			<FilterBar>
+				<FilterChips label={t.a_cats}>
+					<FilterChip onClick={() => setFilter({ cat: undefined })} pressed={!group}>
 						{`${t.all} · ${ofKind.length}`}
-					</button>
+					</FilterChip>
 					{chips.map((c) => (
-						<button key={c.key} type='button' className='chip' onClick={() => setFilter({ cat: c.key })} aria-pressed={group === c.key}>
+						<FilterChip key={c.key} onClick={() => setFilter({ cat: c.key })} pressed={group === c.key}>
 							{`${t[`grp_${c.key}`]} · ${c.apps.length}`}
-						</button>
+						</FilterChip>
 					))}
-				</div>
-				<div className='filter-selects'>
-					<div className='sort'>
-						<label htmlFor='ui' className='sort-label'>
-							{t.f_ui}
-						</label>
-						<select id='ui' value={kind ?? 'all'} onChange={(e) => setFilter({ ui: e.target.value === 'all' ? undefined : (e.target.value as AppKind) })} className='sort-select'>
-							<option value='all'>{`${t.all} · ${APPS.length}`}</option>
-							<option value='native'>{`${t.surf_native} · ${nNative}`}</option>
-							<option value='web'>{`${t.web_fe} · ${APPS.length - nNative}`}</option>
-						</select>
-					</div>
-					<div className='sort'>
-						<label htmlFor='sort' className='sort-label'>
-							{t.sort}
-						</label>
-						<select id='sort' value={sort} onChange={(e) => setFilter({ sort: e.target.value === DEFAULT_SORT ? undefined : (e.target.value as typeof sortParam) })} className='sort-select'>
-							<option value='natural'>{t.sort_natural}</option>
-							<option value='newest'>{t.sort_new}</option>
-							{likes !== 'off' && <option value='likes'>{t.sort_likes}</option>}
-							{HAS_SCORES && <option value='score'>{t.sort_score}</option>}
-						</select>
-					</div>
-				</div>
-			</div>
-			<div className='show-grid'>
+				</FilterChips>
+				<FilterSelects grouped>
+					<FilterSelect id='ui' label={t.f_ui} value={kind ?? 'all'} onChange={(v) => setFilter({ ui: v === 'all' ? undefined : (v as AppKind) })}>
+						<option value='all'>{`${t.all} · ${APPS.length}`}</option>
+						<option value='native'>{`${t.surf_native} · ${nNative}`}</option>
+						<option value='web'>{`${t.web_fe} · ${APPS.length - nNative}`}</option>
+					</FilterSelect>
+					<FilterSelect id='sort' label={t.sort} value={sort} onChange={(v) => setFilter({ sort: v === DEFAULT_SORT ? undefined : (v as typeof sortParam) })}>
+						<option value='natural'>{t.sort_natural}</option>
+						<option value='newest'>{t.sort_new}</option>
+						{likes !== 'off' && <option value='likes'>{t.sort_likes}</option>}
+						{HAS_SCORES && <option value='score'>{t.sort_score}</option>}
+					</FilterSelect>
+				</FilterSelects>
+			</FilterBar>
+			<div className={showGrid}>
 				{list.map((a, k) => {
 					const v = appView(a);
+					// On a showcase card the like button sits over the card's top right, beside its link rather than inside it, and rises with the card on hover; hovering either lifts the card (as .win:hover does for the card alone). The card is a link to the app's page that keeps the look it had as a button instead of the link colour and underline.
 					return (
-						<div key={a.slug} className={`rv d${k % 6} flex show-cell`}>
-							<AppLink slug={a.slug} className='win card show-card' dialog>
-								<WinBar label={v.host} size='md' className='card-bar'>
-									<span className='mono-11 c-muted'>{v.num}</span>
+						<div key={a.slug} className={`rv d${k % 6} group relative flex`}>
+							<AppLink slug={a.slug} className='win card rounded-[14px] text-fg no-underline group-hover:[transform:translateY(-6px)] group-hover:border-cyan group-hover:shadow-[0_0_0_1px_var(--color-cyan),0_28px_70px_rgba(63,211,245,0.16)] motion-reduce:group-hover:[transform:none]' dialog>
+								<WinBar label={v.host} size='md' className='card-bar h-[30px]'>
+									<span className='font-mono text-[11px] text-fg-3'>{v.num}</span>
 								</WinBar>
-								<div className='show-body'>
-									<div className='show-id'>
+								<div className='box-border flex w-full flex-auto flex-col gap-3 p-[18px]'>
+									<div className={`${showId} pr-[72px]`}>
 										<MonoTile view={v} size={44} />
-										<div className='show-id-text'>
-											<h2 className='show-name'>{a.name}</h2>
-											<span className='show-meta'>
-												<span className='show-by' title={a.author}>
+										<div className={showIdText}>
+											<h2 className={showName}>{a.name}</h2>
+											{/* Below sm the author takes the line and the kind tag goes under it: beside the like button's reserve, the tag left a Japanese author no room past "by…". */}
+											<span className='flex min-w-0 items-center gap-2 max-sm:flex-wrap max-sm:gap-y-1 [&_.kind-tag]:flex-none [&_.kind-tag]:self-auto'>
+												<span className={`${showBy} max-sm:flex-[1_0_100%]`} title={a.author}>
 													<span lang='en'>by</span> {a.author}
 												</span>
 												<KindTag app={a} label={a.kind === 'native' ? t.surf_native : t.web_fe} />
 											</span>
 										</div>
 									</div>
-									<span className='show-desc'>{pick(a.desc, lang)}</span>
+									<span className={showDesc}>{pick(a.desc, lang)}</span>
 								</div>
 								<ScoreBar item={likeKey.app(a)} name={a.name} />
 							</AppLink>
-							<LikeButton item={likeKey.app(a)} name={a.name} className='like-btn like-on-card' />
+							<LikeButton item={likeKey.app(a)} name={a.name} className='like-btn absolute top-[46px] right-4 group-hover:[transform:translateY(-6px)] motion-reduce:group-hover:[transform:none]' />
 						</div>
 					);
 				})}
 			</div>
 			{list.length === 0 && (
-				<div className='show-empty'>
-					<p>{t.f_none}</p>
+				<div className='flex flex-wrap items-center gap-x-4 gap-y-3 rounded-[14px] border border-dashed border-line-3 p-7 text-[15px] text-fg-2'>
+					<p className='m-0'>{t.f_none}</p>
 					<button type='button' className='btn-g btn-44 btn-outline' onClick={() => setFilter({ cat: undefined, ui: undefined })}>
 						{t.f_clear}
 					</button>

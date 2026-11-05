@@ -1,8 +1,8 @@
 import { HAS_SCORES, NATIVE_UI_DOCS, type Surface, UI_KEYS, UI_LIBS, type UiLibKey, likeKey, pick } from '@awesome-mygo/catalog';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
-import { WinBar } from '../components/bits';
-import { LikeButton } from '../components/Like';
-import { ScoreButton } from '../components/Score';
+import { CtaBox, ctaP } from '../components/Cta';
+import { BarLink, CardHead, CardShot, EntryCard, cardShotImg, showBy, showDesc, showGrid } from '../components/EntryCard';
+import { FilterBar, FilterChip, FilterChips, FilterSelect, FilterSelects } from '../components/FilterBar';
 import { useLang, useT } from '../lib/lang';
 import { validateUiSearch } from '../lib/page-search';
 import { pageHead } from '../lib/seo';
@@ -37,104 +37,82 @@ function UiPage() {
 	const libs = sortUiLibs(ofSurface.filter((l) => !tag || l.key === tag), sort, counts);
 
 	return (
-		<section className='page enter gap-36'>
-			<div className='stack-14'>
+		<section className='page enter gap-9'>
+			<div className='flex flex-col gap-3.5'>
 				<span className='kicker' lang='en'>~/UI · {UI_LIBS.length} LIBRARIES</span>
 				<h1 className='page-h1'>{t.cat_ui_name}</h1>
-				<p className='page-p mw-700'>{t.ui_p}</p>
-				<a className='inline-link' href={NATIVE_UI_DOCS} target='_blank' rel='noopener'>
+				<p className='page-p max-w-[700px]'>{t.ui_p}</p>
+				<a className='self-start text-[15px] font-semibold no-underline' href={NATIVE_UI_DOCS} target='_blank' rel='noopener'>
 					{t.ui_builtin}
 				</a>
 			</div>
-			<div className='filterbar'>
-				<div className='chips' role='group' aria-label={t.a_filter}>
+			<FilterBar>
+				<FilterChips label={t.a_filter}>
 					{chips.map((c) => (
-						<button key={c.key ?? 'all'} type='button' className='chip' onClick={() => setFilter({ tag: c.key })} aria-pressed={tag === c.key}>
+						<FilterChip key={c.key ?? 'all'} onClick={() => setFilter({ tag: c.key })} pressed={tag === c.key}>
 							{`${c.label} · ${c.n}`}
-						</button>
+						</FilterChip>
 					))}
-				</div>
-				<div className='sort'>
-					<label htmlFor='surface' className='sort-label'>
-						{t.f_ui}
-					</label>
-					<select id='surface' value={surface ?? 'all'} onChange={(e) => setFilter({ surface: e.target.value === 'all' ? undefined : (e.target.value as 'web' | 'native') })} className='sort-select'>
+				</FilterChips>
+				<FilterSelects>
+					<FilterSelect id='surface' label={t.f_ui} value={surface ?? 'all'} onChange={(v) => setFilter({ surface: v === 'all' ? undefined : (v as 'web' | 'native') })}>
 						<option value='all'>{`${t.all} · ${UI_LIBS.length}`}</option>
 						<option value='native'>{`${t.surf_native} · ${nNative}`}</option>
 						<option value='web'>{`${t.surf_web} · ${nWeb}`}</option>
-					</select>
-				</div>
-				<div className='sort'>
-					<label htmlFor='sort' className='sort-label'>
-						{t.sort}
-					</label>
-					<select id='sort' value={sort} onChange={(e) => setFilter({ sort: e.target.value === UI_DEFAULT_SORT ? undefined : (e.target.value as UiSort) })} className='sort-select'>
+					</FilterSelect>
+					<FilterSelect id='sort' label={t.sort} value={sort} onChange={(v) => setFilter({ sort: v === UI_DEFAULT_SORT ? undefined : (v as UiSort) })}>
 						{HAS_SCORES && <option value='score'>{t.sort_score}</option>}
 						<option value='newest'>{t.sort_new}</option>
 						<option value='natural'>{t.sort_natural}</option>
 						{likes !== 'off' && <option value='likes'>{t.sort_likes}</option>}
-					</select>
-				</div>
-			</div>
-			<div className='show-grid'>
+					</FilterSelect>
+				</FilterSelects>
+			</FilterBar>
+			<div className={showGrid}>
 				{libs.map((l, k) => {
 					// The card opens the library's website when it has one; the bar then links its repository.
 					const site = l.homepage ?? l.url;
 					return (
 						<div key={l.repo} className={`rv d${k % 6} flex`}>
-							<article className='win card plug-card'>
-								<WinBar label={`github.com/${l.repo}`} size='md' className='card-bar'>
-									{l.homepage && (
-										<a className='plug-bar-docs' href={l.url} target='_blank' rel='noopener'>
-											{t.on_github}
-										</a>
-									)}
-								</WinBar>
-								<a className='card-shot' href={site} target='_blank' rel='noopener' tabIndex={-1} aria-hidden='true'>
-									{l.image ? <img src={l.image} alt='' width={1200} height={750} loading={k === 0 ? 'eager' : 'lazy'} fetchPriority={k === 0 ? 'high' : undefined} decoding='async' /> : <span className='card-shot-label'>{l.name}</span>}
-								</a>
-								<div className='plug-body'>
-									<div className='show-id'>
-										<div className='show-id-text'>
-											<h2 className='show-name'>
-												<a className='plug-link' href={site} target='_blank' rel='noopener'>
-													{l.name}
-												</a>
-											</h2>
-											<span className='show-meta show-meta-wrap'>
-												<span className='show-by' title={l.author}>
-													<span lang='en'>by</span> {l.author}
-												</span>
-												<span className='kind-tag tag-cyan'>{t[TAG[l.key]]}</span>
-												<span className={`kind-tag kind-${l.surface}`}>{surfLabel[l.surface]}</span>
-											</span>
-										</div>
-										<span className='like-end card-acts'>
-											<ScoreButton item={likeKey.ui(l)} name={l.name} />
-											<LikeButton item={likeKey.ui(l)} name={l.name} className='like-btn' />
+							<EntryCard
+								label={`github.com/${l.repo}`}
+								bar={l.homepage && <BarLink href={l.url}>{t.on_github}</BarLink>}
+								shot={
+									<CardShot href={site} className='aspect-[16/10]'>
+										{l.image ? <img className={cardShotImg} src={l.image} alt='' width={1200} height={750} loading={k === 0 ? 'eager' : 'lazy'} fetchPriority={k === 0 ? 'high' : undefined} decoding='async' /> : <span className='rounded-lg border border-dashed border-line-3 px-3.5 py-2 font-mono text-[13px] text-fg-3'>{l.name}</span>}
+									</CardShot>
+								}
+							>
+								<CardHead as='h2' name={l.name} href={site} item={likeKey.ui(l)}>
+									{/* A UI library's row carries two tags beside the like button: they go on their own line under the author, on every card so the descriptions line up, rather than squeeze its name away. */}
+									<span className='flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1.5'>
+										<span className={`${showBy} flex-[1_0_100%]`} title={l.author}>
+											<span lang='en'>by</span> {l.author}
 										</span>
-									</div>
-									<p className='show-desc'>{pick(l.desc, lang)}</p>
-								</div>
-							</article>
+										<span className='kind-tag flex-none self-auto text-cyan'>{t[TAG[l.key]]}</span>
+										<span className={`kind-tag kind-${l.surface} flex-none self-auto`}>{surfLabel[l.surface]}</span>
+									</span>
+								</CardHead>
+								<p className={showDesc}>{pick(l.desc, lang)}</p>
+							</EntryCard>
 						</div>
 					);
 				})}
 			</div>
 			{libs.length === 0 && (
-				<div className='show-empty'>
-					<p>{t.ui_none}</p>
+				<div className='flex flex-wrap items-center gap-x-4 gap-y-3 rounded-[14px] border border-dashed border-line-3 p-7 text-[15px] text-fg-2'>
+					<p className='m-0'>{t.ui_none}</p>
 					<button type='button' className='btn-g btn-44 btn-outline' onClick={() => setFilter({ tag: undefined, surface: undefined })}>
 						{t.f_clear}
 					</button>
 				</div>
 			)}
-			<div className='rv cta-dashed'>
-				<p className='cta-p'>{t.ui_cta}</p>
+			<CtaBox>
+				<p className={ctaP}>{t.ui_cta}</p>
 				<button type='button' className='btn-c btn-44' onClick={() => openSubmit('ui')}>
 					{t.sub_ui}
 				</button>
-			</div>
+			</CtaBox>
 		</section>
 	);
 }

@@ -1,8 +1,10 @@
 import { CLI_CMDS, COMMUNITY_PLUGINS, HAS_SCORES, PLUGINS, PLUGINS_DOC, type Plugin, type PluginSurface, compareByScore, fill, likeKey, pick } from '@awesome-mygo/catalog';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { WinBar } from '../components/bits';
-import { LikeButton } from '../components/Like';
-import { ScoreButton } from '../components/Score';
+import { CopyButton, SetupLine, cmdRow } from '../components/CopyCmd';
+import { CtaBox, CtaHead } from '../components/Cta';
+import { BarLink, CardHead, EntryCard, TagList, showDesc } from '../components/EntryCard';
+import { FilterBar, FilterChip, FilterChips, FilterSelect, FilterSelects } from '../components/FilterBar';
 import { useLikes } from '../lib/likes';
 import { validatePluginsSearch } from '../lib/page-search';
 import { useLang, useT } from '../lib/lang';
@@ -11,6 +13,9 @@ import { useSite } from '../lib/site';
 
 // The letter tile's colour cycles by position, as the showcase's tiles do.
 const TONES = ['tone-0', 'tone-1', 'tone-2'] as const;
+
+// The colour of a plugin's window tag.
+const SURF_TONE: Record<PluginSurface, string> = { web: 'text-amber', native: 'text-cyan', both: 'text-fg-2' };
 
 // `import "github.com/egoist/mygo/plugins/fetch"`, split before its last two segments.
 function goLine(path: string): { head: string; tail: string } {
@@ -29,7 +34,7 @@ export const Route = createFileRoute('/plugins')({
 function PluginsPage() {
 	const t = useT();
 	const lang = useLang();
-	const { openSubmit, copy, copied } = useSite();
+	const { openSubmit } = useSite();
 	const search = Route.useSearch();
 	const navigate = useNavigate({ from: '/plugins' });
 	const setSearch = (next: typeof search) => void navigate({ search: (prev) => ({ ...prev, ...next }), replace: true, resetScroll: false });
@@ -61,129 +66,98 @@ function PluginsPage() {
 		const setup = [...(p.goImport ? [{ key: `plug:${p.slug}:go` as const, ...goLine(p.goImport) }] : []), ...(p.npm ? [{ key: `plug:${p.slug}:npm` as const, head: 'bun add ', tail: p.npm }] : [])];
 		return (
 			<div key={p.slug} className={`rv d${k % 6} flex`}>
-				<article className='win card plug-card'>
-					<WinBar label={`plugins/${p.slug}`} size='md' className='card-bar'>
-						<a className='plug-bar-docs' href={p.url} target='_blank' rel='noopener'>
-							{t.docs_link}
-						</a>
-					</WinBar>
-					<div className='plug-body'>
-						<div className='show-id'>
+				<EntryCard label={`plugins/${p.slug}`} bar={<BarLink href={p.url}>{t.docs_link}</BarLink>}>
+					<CardHead
+						as='h2'
+						name={p.name}
+						href={p.url}
+						item={likeKey.plugin(p)}
+						tile={
 							<span className={`mono-tile mono-44 ${TONES[k % 3]}`} aria-hidden='true'>
 								{p.mark}
 							</span>
-							<div className='show-id-text'>
-								<h2 className='show-name'>
-									<a className='plug-link' href={p.url} target='_blank' rel='noopener'>
-										{p.name}
-									</a>
-								</h2>
-								<span className={`surf surf-${p.surface}`}>{surfLabel[p.surface]}</span>
-							</div>
-							<span className='like-end card-acts'>
-								<ScoreButton item={likeKey.plugin(p)} name={p.name} />
-								<LikeButton item={likeKey.plugin(p)} name={p.name} className='like-btn' />
-							</span>
-						</div>
-						<p className='show-desc'>{pick(p.desc, lang)}</p>
-						{setup.length > 0 && (
-							<div className='plug-setup'>
-								{setup.map((line) => (
-									<div key={line.key} className='cmd-row plug-cmd'>
-										<code className='plug-cmd-text' lang='en'>
-											<span className='plug-cmd-head'>{line.head}</span>
-											<span className='plug-cmd-tail'>{line.tail}</span>
-										</code>
-										<button type='button' className='cmd-copy' onClick={() => copy(line.head + line.tail, line.key)} aria-label={`${t.copy}: ${line.head}${line.tail}`}>
-											{copied === line.key ? t.copied : t.copy}
-										</button>
-									</div>
-								))}
-							</div>
-						)}
-						<span className='plug-tags'>
-							{p.tags.map((tg) => (
-								<span key={tg} className='plug-tag' lang='en'>
-									{tg}
-								</span>
+						}
+					>
+						<span className={`inline-block self-start rounded-full border border-current px-2 py-0.5 align-middle font-mono text-[11px] font-semibold tracking-normal ${SURF_TONE[p.surface]}`}>{surfLabel[p.surface]}</span>
+					</CardHead>
+					<p className={showDesc}>{pick(p.desc, lang)}</p>
+					{/* A plugin's setup lines: the Go import and, for a plugin with a JavaScript half, its package. */}
+					{setup.length > 0 && (
+						<div className='flex flex-col gap-1.5'>
+							{setup.map((line) => (
+								<SetupLine key={line.key} head={line.head} tail={line.tail} copyKey={line.key} />
 							))}
-						</span>
-					</div>
-				</article>
+						</div>
+					)}
+					<TagList tags={p.tags} />
+				</EntryCard>
 			</div>
 		);
 	};
 	return (
-		<section className='page enter gap-40'>
-			<div className='stack-14'>
+		<section className='page enter gap-10'>
+			<div className='flex flex-col gap-3.5'>
 				<span className='kicker' lang='en'>~/PLUGINS · {PLUGINS.length} OFFICIAL</span>
 				<h1 className='page-h1'>{t.nav_plugins}</h1>
-				<p className='page-p mw-720'>{t.plug_p}</p>
+				<p className='page-p max-w-[720px]'>{t.plug_p}</p>
 			</div>
-			<div className='filterbar'>
-				<div className='chips' role='group' aria-label={t.a_filter}>
+			<FilterBar>
+				<FilterChips label={t.a_filter}>
 					{chips.map((c) => (
-						<button key={c.key} type='button' className='chip' onClick={() => setSurface(c.key)} aria-pressed={surface === c.key}>
+						<FilterChip key={c.key} onClick={() => setSurface(c.key)} pressed={surface === c.key}>
 							{c.label}
-						</button>
+						</FilterChip>
 					))}
-				</div>
+				</FilterChips>
 				{(likes !== 'off' || HAS_SCORES) && (
-					<div className='sort'>
-						<label htmlFor='sort' className='sort-label'>
-							{t.sort}
-						</label>
-						<select id='sort' value={sort} onChange={(e) => setSearch({ sort: e.target.value === fallback ? undefined : (e.target.value as typeof sort) })} className='sort-select'>
+					<FilterSelects>
+						<FilterSelect id='sort' label={t.sort} value={sort} onChange={(v) => setSearch({ sort: v === fallback ? undefined : (v as typeof sort) })}>
 							<option value='docs'>{t.sort_def}</option>
 							{likes !== 'off' && <option value='likes'>{t.sort_likes}</option>}
 							{HAS_SCORES && <option value='score'>{t.sort_score}</option>}
-						</select>
-					</div>
+						</FilterSelect>
+					</FilterSelects>
 				)}
-			</div>
-			<div className='plug-grid'>
+			</FilterBar>
+			{/* auto-fill keeps a column's width when a row has fewer cards than columns, so the community's one plugin is as wide as an official one rather than the whole row. */}
+			<div className='grid grid-cols-[repeat(auto-fill,minmax(min(100%,320px),1fr))] gap-4'>
 				{shown.map(card)}
 			</div>
-			<div className='rv cli'>
+			<div className='rv overflow-hidden rounded-[18px] border border-line-3 bg-panel'>
 				<WinBar label='mygo-cli' size='md' className='panel-bar' />
-				<div className='cli-body'>
-					<div className='stack-8'>
-						<h2 className='cli-h'>{t.tool_h}</h2>
-						<p className='cli-p'>{t.tool_p}</p>
+				<div className='grid grid-cols-[repeat(auto-fit,minmax(min(100%,360px),1fr))] items-center gap-6 p-6 max-sm:p-[18px]'>
+					<div className='flex flex-col gap-2'>
+						<h2 className='m-0 text-[24px] font-black'>{t.tool_h}</h2>
+						<p className='m-0 text-[15px] leading-[1.7] text-fg-2'>{t.tool_p}</p>
 					</div>
-					<div className='stack-8'>
+					<div className='flex flex-col gap-2'>
 						{CLI_CMDS.map((cmd, i) => {
 							const key = i === 0 ? 'cmd0' : 'cmd1';
 							return (
-								<div key={cmd} className='cmd-row'>
-									<span className='cmd-text'>
-										<span className='c-cyan'>❯ </span>
+								<div key={cmd} className={cmdRow}>
+									<span className='flex-auto overflow-x-auto font-mono text-[14px] whitespace-nowrap text-fg'>
+										<span className='text-cyan'>❯ </span>
 										{cmd}
 									</span>
-									<button type='button' className='cmd-copy' onClick={() => copy(cmd, key)} aria-label={t.a_copy_cmd}>
-										{copied === key ? t.copied : t.copy}
-									</button>
+									<CopyButton text={cmd} copyKey={key} label={t.a_copy_cmd} />
 								</div>
 							);
 						})}
 					</div>
 				</div>
 			</div>
-			<div className='rv cta-dashed'>
-				<div className='stack-6'>
-					<h2 className='cta-h'>{COMMUNITY_PLUGINS.length > 0 ? fill(t.comm_h, { n: COMMUNITY_PLUGINS.length }) : t.comm_none}</h2>
-					<p className='cta-p cta-p-15'>{t.comm_p}</p>
-				</div>
-				<div className='cta-acts'>
-					<a className='btn-g btn-44 btn-outline' href={PLUGINS_DOC} target='_blank' rel='noopener'>
+			<CtaBox>
+				<CtaHead as='h2' title={COMMUNITY_PLUGINS.length > 0 ? fill(t.comm_h, { n: COMMUNITY_PLUGINS.length }) : t.comm_none} text={t.comm_p} />
+				<div className='flex flex-wrap gap-2.5'>
+					<a className='btn-g btn-44 btn-outline px-4' href={PLUGINS_DOC} target='_blank' rel='noopener'>
 						{t.guide}
 					</a>
 					<button type='button' className='btn-c btn-44' onClick={() => openSubmit('plugin')}>
 						{t.sub_plugin}
 					</button>
 				</div>
-			</div>
-			{community.length > 0 && <div className='plug-grid'>{community.map(card)}</div>}
+			</CtaBox>
+			{community.length > 0 && <div className='grid grid-cols-[repeat(auto-fill,minmax(min(100%,320px),1fr))] gap-4'>{community.map(card)}</div>}
 		</section>
 	);
 }

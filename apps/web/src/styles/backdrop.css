@@ -1,0 +1,105 @@
+/* The fixed backdrop behind every page (components/Background.tsx): the drifting blobs, the moving grid and the dot spotlight that follows the pointer. They stay CSS because each is a drawing (gradients, masks, a pattern kept on the screen's grid) with its own keyframes; the box, the canvas and the vignette are utilities in the component. */
+/* Each blob is a disc softened as if blurred by 100px, drawn as a radial gradient instead of with filter: blur(100px). A blur that large over a backdrop that changes every frame is redone every frame (Firefox's software renderer drops to a few frames a second); a gradient is painted once and only moves. The box is 200px wider on every side than the disc, for the fade the blur gave it: solid to where the blurred disc started to fade, half at the disc's edge, clear at the box's edge. */
+.blob {
+	position: absolute;
+	background: radial-gradient(closest-side, var(--blob) var(--core), color-mix(in srgb, var(--blob) 50%, transparent) var(--edge), transparent 100%);
+	will-change: transform;
+}
+.b1 {
+	--blob: #1fa9cc;
+	--core: 44%;
+	--edge: 63%;
+	width: 1080px;
+	height: 1080px;
+	opacity: 0.3;
+	left: -380px;
+	top: -400px;
+	animation: d1 26s ease-in-out infinite alternate;
+}
+.b2 {
+	--blob: #6e4bd8;
+	--core: 37%;
+	--edge: 58%;
+	width: 960px;
+	height: 960px;
+	opacity: 0.2;
+	right: -360px;
+	top: calc(18% - 200px);
+	animation: d2 34s ease-in-out infinite alternate;
+}
+.b3 {
+	--blob: #ffb547;
+	--core: 35%;
+	--edge: 57%;
+	width: 920px;
+	height: 920px;
+	opacity: 0.1;
+	left: calc(32% - 200px);
+	bottom: -460px;
+	animation: d3 40s ease-in-out infinite alternate;
+}
+.b4 {
+	--blob: #3fd3f5;
+	--core: 23%;
+	--edge: 49%;
+	width: 780px;
+	height: 780px;
+	opacity: 0.12;
+	left: calc(55% - 200px);
+	top: calc(40% - 200px);
+	animation: d4 22s ease-in-out infinite alternate;
+}
+@keyframes d1 {
+	to {
+		transform: translate(260px, 180px) scale(1.15);
+	}
+}
+@keyframes d2 {
+	to {
+		transform: translate(-220px, 160px) scale(0.9);
+	}
+}
+@keyframes d3 {
+	to {
+		transform: translate(-200px, -140px) scale(1.2);
+	}
+}
+@keyframes d4 {
+	0% {
+		transform: translate(0, 0);
+	}
+	50% {
+		transform: translate(-180px, -120px) scale(1.1);
+	}
+	100% {
+		transform: translate(120px, -200px) scale(0.85);
+	}
+}
+.mesh {
+	position: absolute;
+	inset: -2px;
+	background-image: linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+	background-size: 88px 88px;
+	-webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 100%);
+	mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 100%);
+	animation: gridmove 18s linear infinite;
+}
+@keyframes gridmove {
+	to {
+		background-position: 0 88px, 0 0;
+	}
+}
+/* The dot spotlight is a 560px box that the pointer moves with a transform (Background.tsx sets --mx and --my), its circular mask fixed to the box, rather than a full-screen layer whose mask moved: that made the browser repaint and re-mask the whole screen on every pointer move. The dots stay on the screen's 22px grid as the box moves, by moving the pattern back by as much. */
+.spot {
+	position: absolute;
+	left: -280px;
+	top: -280px;
+	width: 560px;
+	height: 560px;
+	transform: translate(var(--mx, 70vw), var(--my, 25vh));
+	background-image: radial-gradient(rgba(63, 211, 245, 0.6) 1px, transparent 1.3px);
+	background-size: 22px 22px;
+	background-position: calc(280px - var(--mx, 70vw)) calc(280px - var(--my, 25vh));
+	-webkit-mask-image: radial-gradient(closest-side, #000, transparent 72%);
+	mask-image: radial-gradient(closest-side, #000, transparent 72%);
+}

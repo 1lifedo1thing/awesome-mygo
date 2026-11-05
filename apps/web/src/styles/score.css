@@ -1,0 +1,312 @@
+/* The like and score buttons and the score's chip, status bar and breakdown (components/Like.tsx, components/Score.tsx). They stay named classes because both looks render these components: the retro look draws the same class names in retro/retro.css, and each look's stylesheet draws its own. The like button's classes are passed by the original look's pages (like-btn, and like-end to push it to the end of a card's head).
+
+Below md the buttons grow to 40px, the smallest touch target the phone layout allows. */
+/* Likes (components/Like.tsx): a heart and a count, on every entry card and the app page. */
+.like-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	min-height: 32px;
+	padding: 0 10px;
+	border: 1px solid var(--color-line-3);
+	border-radius: 999px;
+	background: var(--color-bg);
+	color: var(--color-fg-2);
+	font-family: var(--font-mono);
+	font-size: 13px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: color 0.15s, border-color 0.15s, transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
+	@variant max-md {
+		min-height: 40px;
+	}
+}
+.like-btn:hover {
+	color: #ff6b8b;
+	border-color: #ff6b8b;
+}
+.like-btn[aria-pressed='true'] {
+	color: #ff6b8b;
+	border-color: rgba(255, 107, 139, 0.55);
+	background: rgba(255, 107, 139, 0.1);
+}
+.like-btn:disabled {
+	cursor: default;
+}
+.like-n:empty {
+	display: none;
+}
+.like-end {
+	margin-left: auto;
+}
+/* Scores (components/Score.tsx): the total as a small chip in a neutral tone (no star, no red or green), a button beside the like button that opens the breakdown in a popover, and the breakdown, each signal's points on a meter. */
+
+.score-chip {
+	display: inline-flex;
+	flex: none;
+	align-items: center;
+	gap: 6px;
+	font-family: var(--font-mono);
+	font-variant-numeric: tabular-nums;
+}
+/* A dot in the band's colour (scoreTier): green from 80, the site's cyan from 60, grey below. Never amber, yellow or red, which read as a warning. */
+.score-chip::before {
+	content: '';
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: var(--color-cyan);
+}
+.score-chip[data-tier='hi']::before {
+	background: var(--color-green);
+}
+.score-chip[data-tier='lo']::before {
+	background: var(--color-fg-3);
+}
+.score-chip-k {
+	font-family: var(--font-display);
+	font-weight: 600;
+	color: var(--color-fg-3);
+}
+/* The button that opens the breakdown, drawn as the like button beside it is; it keeps its width, so the name beside it gives way rather than the badge. */
+.score-btn {
+	display: inline-flex;
+	flex: none;
+	white-space: nowrap;
+	align-items: center;
+	min-height: 32px;
+	padding: 0 10px;
+	border: 1px solid var(--color-line-3);
+	border-radius: 999px;
+	background: var(--color-bg);
+	color: var(--color-fg-2);
+	font-size: 13px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: color 0.15s, border-color 0.15s;
+	@variant max-md {
+		min-height: 40px;
+	}
+}
+.score-btn:hover {
+	color: var(--color-fg);
+	border-color: var(--color-fg-3);
+}
+.score-btn:focus-visible {
+	outline: 2px solid var(--color-cyan);
+	outline-offset: 2px;
+}
+/* A showcase card's score as the window's status bar, the twin of its title bar: the word, a thin bar as long as the score, and the total. */
+.score-bar {
+	display: flex;
+	flex: none;
+	align-items: center;
+	gap: 10px;
+	height: 30px;
+	padding: 0 14px;
+	border-top: 1px solid var(--color-line-2);
+	background: var(--color-bar);
+	font-family: var(--font-mono);
+	font-size: 11px;
+	color: var(--color-fg-3);
+	font-variant-numeric: tabular-nums;
+}
+.score-bar-track {
+	flex: 1 1 auto;
+	height: 4px;
+	border-radius: 2px;
+	background: var(--color-line-2);
+	overflow: hidden;
+}
+.score-bar-fill {
+	display: block;
+	height: 100%;
+	border-radius: 2px;
+	background: var(--color-cyan);
+}
+.score-bar[data-tier='hi'] .score-bar-fill {
+	background: var(--color-green);
+}
+.score-bar[data-tier='lo'] .score-bar-fill {
+	background: var(--color-fg-3);
+}
+.score-bar-n {
+	font-weight: 700;
+	color: var(--color-fg-2);
+}
+.score-bar-max {
+	font-weight: 400;
+	color: var(--color-fg-3);
+}
+.score-total[data-tier='hi'] {
+	color: var(--color-green);
+}
+.score-total[data-tier='mid'] {
+	color: var(--color-cyan);
+}
+/* The popover sits in the top layer, centred in the window by the browser. */
+.score-pop {
+	box-sizing: border-box;
+	width: min(440px, calc(100vw - 32px));
+	max-height: calc(100dvh - 32px);
+	padding: 22px;
+	border: 1px solid var(--color-line-2);
+	border-radius: 14px;
+	background: var(--color-panel);
+	color: var(--color-fg);
+	box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+}
+.score-pop::backdrop {
+	background: rgba(0, 0, 0, 0.45);
+}
+.score-x {
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	width: 32px;
+	height: 32px;
+	border: 0;
+	border-radius: 8px;
+	background: none;
+	color: var(--color-fg-3);
+	font-size: 20px;
+	line-height: 1;
+	@variant max-md {
+		top: 8px;
+		right: 8px;
+		width: 40px;
+		height: 40px;
+	}
+}
+.score-x:hover {
+	background: var(--color-line);
+	color: var(--color-fg);
+}
+.score-pop .score-h {
+	padding-right: 36px;
+	@variant max-md {
+		padding-right: 40px;
+	}
+}
+.score-bd {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+.score-h {
+	margin: 0;
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 12px;
+	font-family: var(--font-mono);
+	font-size: 12px;
+	font-weight: 400;
+	color: var(--color-fg-3);
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+}
+.score-total {
+	font-family: var(--font-display);
+	font-size: 26px;
+	font-weight: 800;
+	letter-spacing: 0;
+	color: var(--color-fg);
+	font-variant-numeric: tabular-nums;
+}
+.score-rows {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+.score-row {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	align-items: baseline;
+	gap: 5px 12px;
+	font-size: 14px;
+}
+.score-lbl {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px;
+}
+.score-neu {
+	padding: 0 7px;
+	border: 1px dashed var(--color-fg-3);
+	border-radius: 999px;
+	color: var(--color-fg-3);
+	font-family: var(--font-mono);
+	font-size: 11px;
+	line-height: 18px;
+}
+.score-of {
+	color: var(--color-fg-2);
+	font-family: var(--font-mono);
+	font-size: 13px;
+	font-variant-numeric: tabular-nums;
+}
+.score-meter {
+	grid-column: 1 / -1;
+	display: block;
+	width: 100%;
+	height: 6px;
+	-webkit-appearance: none;
+	appearance: none;
+	border: 0;
+	border-radius: 999px;
+	background: var(--color-line-2);
+}
+.score-meter::-webkit-meter-bar {
+	height: 6px;
+	border: 0;
+	border-radius: 999px;
+	background: var(--color-line-2);
+}
+.score-meter::-webkit-meter-optimum-value {
+	border-radius: 999px;
+	background: var(--color-cyan);
+}
+.score-meter::-moz-meter-bar {
+	border-radius: 999px;
+	background: var(--color-cyan);
+}
+/* A signal counted at the neutral value was not measured, so its bar is greyed. */
+.score-row-neu .score-meter::-webkit-meter-optimum-value {
+	background: var(--color-fg-3);
+}
+.score-row-neu .score-meter::-moz-meter-bar {
+	background: var(--color-fg-3);
+}
+.score-detail {
+	grid-column: 1 / -1;
+	color: var(--color-fg-3);
+	font-size: 13px;
+	line-height: 1.5;
+}
+.score-arch,
+.score-about,
+.score-asof,
+.score-links {
+	margin: 0;
+	font-size: 13px;
+	line-height: 1.6;
+}
+.score-arch {
+	color: var(--color-amber);
+}
+.score-about {
+	color: var(--color-fg-2);
+}
+.score-asof {
+	color: var(--color-fg-3);
+}
+.score-links {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px 16px;
+}

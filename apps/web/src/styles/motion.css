@@ -1,0 +1,111 @@
+/* Keyframes and the classes that run them. .enter (a page or dialog arriving) and .fade are used by every area; .rv is the reveal on scroll that lib/motion.ts turns on by setting data-in, with a delay .d1-.d5 picked by the card's position (`d${k % 6}`; d0, the first, has none). .pulse is the live dot on the home and state pages. With reduced motion, the block at the end turns them off. The home page's own animations (pop, marq, blink, chin, bob) are utilities on its elements (routes/index.tsx), which name the keyframes kept here. */
+.enter {
+	animation: up 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes up {
+	from {
+		opacity: 0;
+		transform: translateY(14px);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+@keyframes pop {
+	from {
+		opacity: 0;
+		transform: translateY(30px) scale(0.92);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+.rv {
+	opacity: 0;
+	transform: translateY(28px);
+	transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.rv[data-in] {
+	opacity: 1;
+	transform: none;
+}
+.d1 {
+	transition-delay: 0.06s;
+}
+.d2 {
+	transition-delay: 0.12s;
+}
+.d3 {
+	transition-delay: 0.18s;
+}
+.d4 {
+	transition-delay: 0.24s;
+}
+.d5 {
+	transition-delay: 0.3s;
+}
+@keyframes marq {
+	to {
+		transform: translateX(-50%);
+	}
+}
+.pulse {
+	animation: pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse {
+	50% {
+		opacity: 0.25;
+	}
+}
+@keyframes blink {
+	50% {
+		opacity: 0;
+	}
+}
+.fade {
+	animation: fade 0.3s ease both;
+}
+@keyframes fade {
+	from {
+		opacity: 0;
+	}
+}
+@keyframes chin {
+	from {
+		opacity: 0;
+		transform: translateY(0.35em) rotate(6deg);
+		filter: blur(14px);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+		filter: none;
+	}
+}
+@keyframes bob {
+	to {
+		transform: translateY(-16px);
+	}
+}
+
+/* With reduced motion: no animation (the page's and the backdrop's), the reveal shown at once, and no lift or tilt. Last of the stylesheets, so it wins over the rules it turns off in backdrop.css and primitives.css. */
+@media (prefers-reduced-motion: reduce) {
+	.blob,
+	.mesh,
+	.enter,
+	.pulse,
+	.fade {
+		animation: none;
+	}
+	.rv {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+	.win:hover,
+	.tile {
+		transform: none !important;
+	}
+}
