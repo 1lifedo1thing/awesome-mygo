@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "ceramic",
+	"name": "Ceramic",
+	"author": "looechao",
+	"kind": "native",
+	"group": "chat",
+	"url": "https://github.com/looechao/ceramic",
+	"repo": "looechao/ceramic",
+	"summary": {
+		"en": "A read-only Mastodon reader with multi-column timelines, search, profiles and Vim-style keys.",
+		"zh-CN": "只读 Mastodon 阅读器：多列时间线、搜索、个人页与 Vim 风格键位。",
+		"zh-TW": "唯讀 Mastodon 閱讀器：多欄時間軸、搜尋、個人頁與 Vim 風格按鍵。",
+		"ja": "読み取り専用の Mastodon リーダー。複数カラムのタイムライン、検索、Vim 風のキー操作。",
+		"ko": "읽기 전용 Mastodon 리더. 여러 열 타임라인, 검색, 프로필, Vim 방식 키 조작."
+	},
+	"description": {
+		"en": "A read-only Mastodon reader drawn with MyGo's native UI, with no web view, HTML or JavaScript. It is developed and used mainly on macOS; Windows and Linux builds are made but not yet tested on real machines. Threads and profiles open as new columns to the right of Home, Search and Profile, with Vimium-style keys to move between and scroll them. It cannot post, like or boost.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的只读 Mastodon 阅读器，没有 WebView、HTML 或 JavaScript。主要在 macOS 上开发和使用，也构建 Windows 与 Linux 版本，但尚未在真机上验证。从首页、搜索和个人页打开的讨论串与个人页会在右侧追加为新列，可用 Vimium 风格的键位切换和滚动。不能发帖、点赞或转发。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的唯讀 Mastodon 閱讀器，沒有 WebView、HTML 或 JavaScript。主要在 macOS 上開發與使用，也建置 Windows 與 Linux 版本，但尚未在實機上驗證。從首頁、搜尋和個人頁開啟的討論串與個人頁會在右側新增為新欄，可用 Vimium 風格的按鍵切換與捲動。無法發文、按讚或轉嘟。",
+		"ja": "MyGo のネイティブ UI で描かれた読み取り専用の Mastodon リーダー。WebView も HTML も JavaScript も使いません。主に macOS で開発・利用されており、Windows 版と Linux 版もビルドされますが、実機ではまだ検証されていません。ホーム、検索、プロフィールから開いたスレッドやプロフィールは右に新しいカラムとして並び、Vimium 風のキーでカラムの移動やスクロールができます。投稿、いいね、ブーストはできません。",
+		"ko": "MyGo의 네이티브 UI로 그린 읽기 전용 Mastodon 리더로, WebView도 HTML도 JavaScript도 쓰지 않습니다. 주로 macOS에서 개발하고 사용하며 Windows와 Linux 버전도 빌드하지만 아직 실기기에서 검증하지 않았습니다. 홈, 검색, 프로필에서 연 스레드와 프로필은 오른쪽에 새 열로 이어 붙고, Vimium 방식 키로 열 사이를 오가며 스크롤합니다. 글쓰기, 좋아요, 부스트는 할 수 없습니다."
+	},
+	"icon": {
+		"file": "ceramic.webp"
+	},
+	"screenshot": "ceramic.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T23:16:51Z"
+}
