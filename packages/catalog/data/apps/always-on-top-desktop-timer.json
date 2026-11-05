@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "always-on-top-desktop-timer",
+	"name": "Always-on-Top Desktop Timer",
+	"author": "ctzcs",
+	"kind": "web",
+	"group": "system",
+	"url": "https://github.com/ctzcs/Timer",
+	"repo": "ctzcs/Timer",
+	"summary": {
+		"en": "An always-on-top Windows timer with a segment bar, LCD digits and a work/break timetable.",
+		"zh-CN": "始终置顶的 Windows 桌面计时器，带格段进度条、LCD 数字和每日工作/休息课表。",
+		"zh-TW": "永遠置頂的 Windows 桌面計時器，附格段進度條、LCD 數字與每日工作/休息課表。",
+		"ja": "常に最前面に表示される Windows 用タイマー。セグメントバー、LCD 表示、作業と休憩の時間割つき。",
+		"ko": "항상 위에 뜨는 Windows 타이머. 세그먼트 막대, LCD 숫자, 작업/휴식 시간표 제공."
+	},
+	"description": {
+		"en": "A Windows desktop timer styled after physical visual timers: a 30-segment bar goes out over time beside a seven-segment LCD, always on top. Besides countdowns, it follows a daily timetable of work and break slots, ringing at clock times. Built with MyGo and a plain HTML, CSS and JS frontend on WebView2, it ships as a single timer.exe of about 9 MB.",
+		"zh-CN": "仿照实体可视化计时器设计的 Windows 桌面计时器：左侧 30 格进度条随时间熄灭，右侧七段 LCD 显示分秒，窗口始终置顶。除了倒计时，还能按你排好的每日课表交替工作与休息，并按时钟时间响铃。基于 MyGo 构建，前端是运行在 WebView2 上的纯 HTML/CSS/JS，发布版为一个约 9 MB 的 timer.exe。",
+		"zh-TW": "仿照實體視覺計時器設計的 Windows 桌面計時器：左側 30 格進度條隨時間熄滅，右側七段 LCD 顯示分秒，視窗始終置頂。除了倒數計時，還能依你排好的每日課表交替工作與休息，並按時鐘時間響鈴。以 MyGo 打造，前端是跑在 WebView2 上的純 HTML/CSS/JS，發行版為單一約 9 MB 的 timer.exe。",
+		"ja": "実物のビジュアルタイマーを模した Windows 用デスクトップタイマー。左の 30 セグメントのバーが時間とともに消え、右の 7 セグメント LCD が分と秒を表示し、常に最前面に表示されます。カウントダウンのほか、自分で組んだ 1 日の時間割に沿って作業と休憩を繰り返し、時計の時刻どおりにベルを鳴らします。MyGo と、WebView2 上で動くプレーンな HTML・CSS・JS のフロントエンドで作られ、約 9 MB の timer.exe 一つで動きます。",
+		"ko": "실물 비주얼 타이머를 본뜬 Windows 데스크톱 타이머로, 왼쪽의 30칸 막대가 시간이 지나며 꺼지고 오른쪽 7세그먼트 LCD가 분과 초를 보여 주며 항상 위에 떠 있습니다. 카운트다운 외에 직접 짠 하루 시간표에 따라 작업과 휴식을 번갈아 하고 정해진 시각에 종을 울립니다. MyGo와 WebView2에서 도는 순수 HTML·CSS·JS 프런트엔드로 만들었고, 약 9MB의 timer.exe 하나로 배포됩니다."
+	},
+	"icon": {
+		"file": "always-on-top-desktop-timer.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "always-on-top-desktop-timer.webp",
+	"added": "2026-11-05T15:15:40Z"
+}
