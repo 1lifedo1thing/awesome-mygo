@@ -3,7 +3,7 @@
 	"slug": "flagicons",
 	"name": "flagicons",
 	"author": "xiyaowong",
-	"tag": "theme",
+	"tag": "icons",
 	"summary": {
 		"en": "The 271 flags of lipis/flag-icons for MyGo native UI, as SVGs in 4x3 and square shapes shown in their own colors, with each country's name, capital and continent.",
 		"zh-CN": "lipis/flag-icons 的 271 面旗帜，供 MyGo 原生 UI 使用：SVG 格式，分 4x3 与正方形两种，并附国名、首都与所属大洲。",
@@ -13,5 +13,6 @@
 	},
 	"repo": "xiyaowong/flagicons",
 	"url": "https://github.com/xiyaowong/flagicons",
+	"screenshot": "flagicons.webp",
 	"added": "2026-11-05T01:09:05Z"
 }
