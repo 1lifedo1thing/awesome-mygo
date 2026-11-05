@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "haruhikage-app",
+	"name": "春日影",
+	"author": "yxxbc",
+	"kind": "native",
+	"group": "media",
+	"url": "https://github.com/yxxbc/haruhikage-app",
+	"repo": "yxxbc/haruhikage-app",
+	"summary": {
+		"en": "A cross-platform native music player with streaming, word-by-word lyrics and podcasts.",
+		"zh-CN": "原生跨平台音乐播放器：在线播放、逐字歌词，还能收听播客。",
+		"zh-TW": "原生跨平台音樂播放器：線上串流、逐字歌詞，還能收聽 Podcast。",
+		"ja": "クロスプラットフォームのネイティブ音楽プレーヤー。ストリーミング、単語ごとの歌詞、ポッドキャストに対応。",
+		"ko": "크로스플랫폼 네이티브 음악 플레이어. 스트리밍, 단어 단위 가사, 팟캐스트를 지원합니다."
+	},
+	"description": {
+		"en": "A cross-platform music player written in Go and drawn with MyGo's native UI, with no web view. It streams songs in up to lossless FLAC and Hi-Res quality, caches what you have played and shows word-by-word lyrics with translations. Podcast episodes can be transcribed on your machine with Qwen3-ASR into subtitles that scroll with playback like lyrics.",
+		"zh-CN": "用 Go 编写、由 MyGo 原生 UI 绘制的跨平台音乐播放器，没有 WebView。支持边下边播，音质最高可选无损（FLAC）与 Hi-Res，听过的歌曲缓存在本机；逐字歌词附带翻译。播客节目可在本机用 Qwen3-ASR 转写成字幕，像歌词一样随播放滚动。",
+		"zh-TW": "用 Go 撰寫、由 MyGo 原生 UI 繪製的跨平台音樂播放器，沒有 WebView。支援邊下載邊播放，音質最高可選無損（FLAC）與 Hi-Res，聽過的歌曲會快取在本機；逐字歌詞附帶翻譯。Podcast 節目可在本機用 Qwen3-ASR 轉寫成字幕，像歌詞一樣隨播放捲動。",
+		"ja": "Go で書かれ、MyGo のネイティブ UI で描かれたクロスプラットフォームの音楽プレーヤー。WebView は使いません。ダウンロードしながら再生し、音質はロスレス（FLAC）や Hi-Res まで選べ、一度聴いた曲はローカルにキャッシュされます。歌詞は単語ごとに表示され、翻訳も付きます。ポッドキャストのエピソードは Qwen3-ASR で手元で文字起こしでき、字幕が歌詞のように再生に合わせて流れます。",
+		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 크로스플랫폼 음악 플레이어로, WebView를 쓰지 않습니다. 내려받으면서 재생하고 음질은 무손실(FLAC)과 Hi-Res까지 고를 수 있으며, 들은 곡은 로컬에 캐시됩니다. 가사는 단어 단위로 표시되고 번역도 함께 나옵니다. 팟캐스트 에피소드는 Qwen3-ASR로 로컬에서 자막으로 변환해 가사처럼 재생에 맞춰 흐르게 할 수 있습니다."
+	},
+	"icon": {
+		"file": "haruhikage-app.webp"
+	},
+	"screenshot": "haruhikage-app.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T08:45:51Z"
+}
