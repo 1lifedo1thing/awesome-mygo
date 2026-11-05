@@ -1,4 +1,5 @@
-import { type DraftField, type LangCode, SITE_REPO, type SubmitCat, buildEntry, descMax, editUrl, entryCats, entryPath, entryProblem, fill, guessFromLink, isBadRepo, isBadShot, isBadUrl, isEntryComplete, issueUrl, jsonEntry, missingFields, needsAuthor, needsRepo, parseEntryJson, pastedEntryProblem, pastedName, repoOf, withScheme } from '@awesome-mygo/catalog';
+import { type DraftField, type LangCode, SITE_REPO, type SubmitCat, buildEntry, descMax, editUrl, entryCats, entryPath, entryProblem, fill, guessFromLink, isBadRepo, isBadShot, isBadUrl, isEntryComplete, issueUrl, jsonEntry, missingFields, needsAuthor, needsRepo, parseEntryJson, pastedEntryProblem, pastedName, pastedShotRepo, repoOf, shotRepo, takesShot, withScheme } from '@awesome-mygo/catalog';
+import { UPLOAD_MAX_BYTES, shotProblem } from '@awesome-mygo/enrich/source';
 import { useEffect, useRef, useState } from 'react';
 import { useLang, useT } from './lang';
 import { useSite } from './site';
@@ -33,6 +34,14 @@ function useBot(): Bot {
 }
 
 export type Status = { kind: 'idle' } | { kind: 'sending' } | { kind: 'done'; url: string; number: number } | { kind: 'error'; message: string };
+
+// What the bot found of a screenshot in the project's repository (GET /api/shot): one it will take (found), none (none), no repository to look in (no-repo, as for a closed-source app), or no answer (unknown, when the Worker decides at submission). Only none and no-repo make the form ask for one.
+export type ShotCheck = { kind: 'idle' } | { kind: 'checking' } | { kind: 'found' } | { kind: 'none' } | { kind: 'no-repo' } | { kind: 'unknown' };
+
+// An image the visitor picked to upload, with its preview, and why it cannot be the screenshot if it cannot.
+export type ShotFile = { file: File; preview: string; problem?: string };
+
+const SHOT_TYPES = ['image/png', 'image/jpeg', 'image/webp'];
 
 // The Turnstile widget. A token is good for one submission, so changing `round` renders a fresh widget. It stays out of sight unless Cloudflare needs the visitor to click, so most visitors never see it.
 export function Captcha({ siteKey, lang, round, onToken, onFail, theme = 'dark' }: { siteKey: string; lang: LangCode; round: number; onToken: (token: string) => void; onFail: () => void; theme?: 'dark' | 'light' }) {
@@ -79,16 +88,20 @@ export function useSubmit() {
 	const [urlTouched, setUrlTouched] = useState(false);
 	const [repoTouched, setRepoTouched] = useState(false);
 	const [shotTouched, setShotTouched] = useState(false);
+	const [shotFile, setShotFile] = useState<ShotFile | undefined>();
+	const [shotCheck, setShotCheck] = useState<ShotCheck>({ kind: 'idle' });
 
 	// A result or an error belongs to what was submitted; editing the form clears it.
-	useEffect(() => setStatus({ kind: 'idle' }), [form.cat, form.mode, form.name, form.author, form.url, form.repo, form.screenshot, form.desc, form.category, form.via, form.json]);
+	useEffect(() => setStatus({ kind: 'idle' }), [form.cat, form.mode, form.name, form.author, form.url, form.repo, form.screenshot, form.desc, form.category, form.via, form.json, shotFile]);
 
 	const catLabel: Record<SubmitCat, string> = { ui: t.cat_ui_name, state: t.cat_state_name, plugin: t.nav_plugins, showcase: t.cat_show_name, article: t.article };
 	const isShow = form.cat === 'showcase';
 	const max = descMax(form.cat);
 	const urlBad = urlTouched && isBadUrl(form.url);
 	const repoBad = isShow && repoTouched && isBadRepo(form.repo ?? '');
-	const shotBad = isShow && shotTouched && isBadShot(form.screenshot ?? '');
+	// An app, UI components and state management show a screenshot, which the form asks for when their repository has none.
+	const withShot = takesShot(form.cat);
+	const shotBad = withShot && shotTouched && isBadShot(form.screenshot ?? '');
 	// What the main link is: a showcase app's homepage, the repository of a UI library or state solution, or just a link.
 	const urlLabel = isShow ? t.m_home : needsRepo(form.cat) ? t.m_gh : t.m_link;
 	// A pasted entry: what it is, and what keeps it from being submitted as an entry of the picked category.
@@ -100,7 +113,7 @@ export function useSubmit() {
 	const ph = { name: t.m_name, desc: t.md_desc };
 	const withAuthor = needsAuthor(form.cat);
 	// The fields only an app has are dropped for the other categories, also when they were filled in before the category changed.
-	const draft = isShow ? form : { ...form, category: undefined, repo: undefined, screenshot: undefined };
+	const draft = isShow ? form : { ...form, category: undefined, repo: undefined, screenshot: withShot ? form.screenshot : undefined };
 	// The entry as it will be filed: the pasted one, or the one the form builds. Its file is named after its slug.
 	const entryObj = pastedEntry ?? buildEntry(form.cat, draft, form.mode, ph);
 	const file = entryPath(form.cat, entryObj);
@@ -111,7 +124,54 @@ export function useSubmit() {
 	const issue = issueUrl(SITE_REPO, form.cat, catLabel[form.cat], pastedEntry ? { ...draft, name: pastedName(pastedEntry) } : draft, entry, ph);
 	const edit = editUrl(SITE_REPO, form.cat, entryObj);
 	const repoMissing = urlTouched && needsRepo(form.cat) && form.url.length > 0 && !isBadUrl(form.url) && !repoOf(form.url);
-	const canSend = bot.enabled && (viaJson ? ok : !entryProblem(form.cat, draft)) && token !== '' && status.kind !== 'sending';
+
+	// The repository the screenshot is looked for in, once the links say which; an app with a homepage and no repository has none, and needs a screenshot from the form.
+	const linkReady = form.url.trim() !== '' && !isBadUrl(form.url) && !isBadRepo(form.repo ?? '');
+	const checkRepo = !withShot || !bot.enabled ? undefined : viaJson ? (pastedEntry ? pastedShotRepo(form.cat, pastedEntry) : undefined) : linkReady ? shotRepo(form.cat, form) : undefined;
+	const noRepo = withShot && bot.enabled && !checkRepo && (viaJson ? Boolean(pastedEntry) : linkReady && isShow);
+	useEffect(() => {
+		if (!checkRepo) return setShotCheck({ kind: noRepo ? 'no-repo' : 'idle' });
+		let live = true;
+		setShotCheck({ kind: 'checking' });
+		// Asked once the visitor stops typing the link.
+		const timer = setTimeout(() => {
+			fetch(`/api/shot?repo=${encodeURIComponent(checkRepo)}`)
+				.then((res) => (res.ok ? (res.json() as Promise<{ found?: boolean; reason?: string }>) : undefined))
+				.then((body) => live && setShotCheck(!body ? { kind: 'unknown' } : body.found ? { kind: 'found' } : { kind: body.reason === 'no-repo' ? 'no-repo' : 'none' }))
+				.catch(() => live && setShotCheck({ kind: 'unknown' }));
+		}, 500);
+		return () => {
+			live = false;
+			clearTimeout(timer);
+		};
+	}, [checkRepo, noRepo]);
+
+	// Picking an image: its preview, and why it cannot be the screenshot, judged as the Worker and the submission workflow judge it.
+	const onShotFile = async (file: File | undefined) => {
+		if (!file) return setShotFile(undefined);
+		const preview = URL.createObjectURL(file);
+		let problem: string | undefined;
+		if (!SHOT_TYPES.includes(file.type)) problem = t.m_shot_type;
+		else if (file.size > UPLOAD_MAX_BYTES) problem = t.m_shot_size;
+		else {
+			const bitmap = await createImageBitmap(file).catch(() => undefined);
+			if (!bitmap) problem = t.m_shot_type;
+			else {
+				if (shotProblem(bitmap.width, bitmap.height)) problem = fill(t.m_shot_shape, { x: `${bitmap.width}×${bitmap.height}` });
+				bitmap.close();
+			}
+		}
+		setShotFile({ file, preview, problem });
+	};
+	useEffect(() => () => shotFile && URL.revokeObjectURL(shotFile.preview), [shotFile]);
+
+	const upload = withShot && bot.enabled && shotFile && !shotFile.problem ? shotFile.file : undefined;
+	const shotLink = withShot && !viaJson && form.screenshot?.trim() && !isBadShot(form.screenshot) ? form.screenshot.trim() : undefined;
+	const shotRequired = shotCheck.kind === 'none' || shotCheck.kind === 'no-repo';
+	const shotMissing = shotRequired && !upload && !shotLink;
+	// What the form says under the screenshot field about the repository.
+	const shotNote = shotCheck.kind === 'checking' ? t.m_shot_checking : shotCheck.kind === 'found' ? t.m_shot_found : shotCheck.kind === 'none' ? t.m_shot_need : shotCheck.kind === 'no-repo' ? t.m_shot_norepo : undefined;
+	const canSend = bot.enabled && (viaJson ? ok : !entryProblem(form.cat, draft)) && token !== '' && status.kind !== 'sending' && shotCheck.kind !== 'checking' && !shotMissing && !(withShot && shotFile?.problem);
 
 	// Pasting an entry that only one category takes picks that category.
 	const onJsonChange = (text: string) => {
@@ -149,9 +209,9 @@ export function useSubmit() {
 
 	// Why the submit button is not ready yet, in words.
 	const fieldLabel: Record<DraftField, string> = { url: urlLabel, name: t.m_name, author: t.m_author, desc: t.m_desc_l };
-	const missing = viaJson ? [] : missingFields(form.cat, form);
-	const need = viaJson ? (pasted ? '' : fill(t.sub_need, { x: t.m_json })) : missing.length > 0 ? fill(t.sub_need, { x: new Intl.ListFormat(lang, { type: 'conjunction' }).format(missing.map((f) => fieldLabel[f])) }) : '';
-	const hint = status.kind === 'sending' || status.kind === 'done' ? '' : need || (viaJson && jsonError ? t.m_json_fix : bot.enabled && !token ? t.sub_wait : '');
+	const missing = [...(viaJson ? [] : missingFields(form.cat, form).map((f) => fieldLabel[f])), ...(shotMissing ? [t.m_shot] : [])];
+	const need = viaJson && !pasted ? fill(t.sub_need, { x: t.m_json }) : missing.length > 0 ? fill(t.sub_need, { x: new Intl.ListFormat(lang, { type: 'conjunction' }).format(missing) }) : '';
+	const hint = status.kind === 'sending' || status.kind === 'done' ? '' : need || (viaJson && jsonError ? t.m_json_fix : shotCheck.kind === 'checking' ? t.m_shot_checking : bot.enabled && !token ? t.sub_wait : '');
 
 	const errorText = (body: { error?: string; message?: string }): string => {
 		switch (body.error) {
@@ -161,6 +221,8 @@ export function useSubmit() {
 				return t.sub_busy;
 			case 'captcha':
 				return t.sub_captcha;
+			case 'shot':
+				return t.sub_shot;
 			case 'invalid':
 				return body.message ? fill(t.sub_err, { x: body.message }) : t.sub_failed;
 			default:
@@ -171,11 +233,16 @@ export function useSubmit() {
 	const send = async () => {
 		setStatus({ kind: 'sending' });
 		try {
-			const res = await fetch('/api/submit', {
-				method: 'POST',
-				headers: { 'content-type': 'application/json' },
-				body: JSON.stringify(pastedEntry ? { cat: form.cat, entry: pastedEntry, token } : { cat: form.cat, mode: form.mode, name: form.name, author: withAuthor ? form.author : '', url: form.url, repo: isShow ? form.repo : undefined, screenshot: isShow && form.screenshot?.trim() ? form.screenshot.trim() : undefined, desc: form.desc, category: isShow ? form.category : undefined, token }),
-			});
+			const payload = JSON.stringify(pastedEntry ? { cat: form.cat, entry: pastedEntry, token } : { cat: form.cat, mode: form.mode, name: form.name, author: withAuthor ? form.author : '', url: form.url, repo: isShow ? form.repo : undefined, screenshot: shotLink, desc: form.desc, category: isShow ? form.category : undefined, token });
+			// With an image, the JSON goes as one part of a multipart body and the image as another.
+			let requestBody: BodyInit = payload;
+			if (upload) {
+				const parts = new FormData();
+				parts.set('payload', payload);
+				parts.set('shot', upload);
+				requestBody = parts;
+			}
+			const res = await fetch('/api/submit', { method: 'POST', ...(upload ? {} : { headers: { 'content-type': 'application/json' } }), body: requestBody });
 			const body = (await res.json().catch(() => ({}))) as { url?: string; number?: number; error?: string; message?: string };
 			setStatus(res.ok && body.url && body.number ? { kind: 'done', url: body.url, number: body.number } : { kind: 'error', message: errorText(body) });
 		} catch {
@@ -185,5 +252,5 @@ export function useSubmit() {
 		setRound((n) => n + 1);
 	};
 
-	return { bot, lang, token, setToken, round, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint, viaJson, jsonError, onJsonChange, example, repoBad, onRepoBlur, shotBad, onShotBlur, urlLabel };
+	return { bot, lang, token, setToken, round, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint, viaJson, jsonError, onJsonChange, example, repoBad, onRepoBlur, shotBad, onShotBlur, urlLabel, withShot, shotFile, onShotFile, shotRequired, shotNote };
 }

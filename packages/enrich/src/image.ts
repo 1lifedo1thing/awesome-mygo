@@ -5,14 +5,13 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
-import { iconCut, isBanner, isPortrait, isSquarish, sniffImage } from './source.ts';
+import { iconCut, shotProblem, sniffImage } from './source.ts';
 
 // Icons and screenshots as the site keeps them: a 256 px WebP icon filling its square, and a WebP screenshot at most 1200 px wide. ImageMagick does the work; the runner has it, so the bot needs no image library.
 
 const run = promisify(execFile);
 const MAX_BYTES = 10 * 1024 * 1024;
 const ICON_MIN = 128;
-const SHOT_MIN_WIDTH = 600;
 
 // ImageMagick 7 is `magick`; the Ubuntu runners ship 6, where the same work is `convert`.
 let im: Promise<string> | undefined;
@@ -131,10 +130,8 @@ export async function writeIcon(img: Downloaded, out: string): Promise<boolean> 
 export async function writeShot(img: Downloaded, out: string): Promise<'ok' | 'narrow' | 'square' | 'portrait' | 'banner'> {
 	return withInput(img, async (input) => {
 		const [w, h] = (await size(input)).split(' ').map(Number);
-		if (w < SHOT_MIN_WIDTH) return 'narrow';
-		if (isSquarish(w, h)) return 'square';
-		if (isPortrait(w, h)) return 'portrait';
-		if (isBanner(w, h)) return 'banner';
+		const problem = shotProblem(w, h);
+		if (problem) return problem;
 		await magick([input, '-resize', '1200x>', '-strip', '-quality', '82', '-define', 'webp:method=6', `webp:${out}`]);
 		return 'ok';
 	});

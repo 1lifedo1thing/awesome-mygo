@@ -1,40 +1,52 @@
-import { APP_CATEGORIES, CatalogError, type EntryDraft, SUBMIT_CATS, type SubmitCat, buildEntry, entryProblem, pastedEntryProblem, pastedName } from '@awesome-mygo/catalog';
+import { APP_CATEGORIES, CatalogError, type EntryDraft, SUBMIT_CATS, type SubmitCat, buildEntry, entryProblem, pastedEntryProblem, pastedName, pastedShotRepo, shotRepo, takesShot } from '@awesome-mygo/catalog';
+import { UPLOAD_MAX_BYTES } from '@awesome-mygo/enrich/source';
 import { createFileRoute } from '@tanstack/react-router';
 import { env } from 'cloudflare:workers';
-import { type BotConfig, SubmissionsBusy, openSubmission, verifyTurnstile } from '../../server/submit';
+import { checkUpload, findRepoShot } from '../../server/shots';
+import { SubmissionsBusy, type Upload, botConfig, installationToken, openSubmission, verifyTurnstile } from '../../server/submit';
 
-// GET says whether the bot is set up (and gives the Turnstile site key); POST submits an entry. Error codes: invalid, limited, captcha, busy, disabled, github.
+// GET says whether the bot is set up (and gives the Turnstile site key); POST submits an entry, as JSON, or as multipart/form-data with the JSON in payload and an uploaded screenshot in shot. Error codes: invalid, shot (an app, UI components or state management with no screenshot to show: none given and none in its repository), limited, captcha, busy, disabled, github.
 
-// Either the form's fields, from which the entry is built, or an entry pasted whole, which goes in as written.
-type Submission = { cat: SubmitCat; token: string } & ({ kind: 'form'; draft: EntryDraft; mode: 'native' | 'web' } | { kind: 'entry'; entry: Record<string, unknown> });
+// Either the form's fields, from which the entry is built, or an entry pasted whole, which goes in as written; with the screenshot uploaded with it, if any.
+type Submission = { cat: SubmitCat; token: string; shot?: Uint8Array } & ({ kind: 'form'; draft: EntryDraft; mode: 'native' | 'web' } | { kind: 'entry'; entry: Record<string, unknown> });
 
 const MAX_BODY = 16 * 1024;
+// A multipart body: the JSON, the screenshot and the parts' headers.
+const MAX_MULTIPART = UPLOAD_MAX_BYTES + MAX_BODY + 4 * 1024;
 
 function json(body: unknown, status = 200): Response {
 	return Response.json(body, { status, headers: { 'cache-control': 'no-store' } });
 }
 
-// The bot is off until all four secrets are set, so the site works the same before the GitHub App exists.
-function botConfig(): BotConfig | undefined {
-	const { GITHUB_APP_ID, GITHUB_APP_PRIVATE_KEY, TURNSTILE_SITE_KEY, TURNSTILE_SECRET_KEY } = env;
-	if (!GITHUB_APP_ID || !GITHUB_APP_PRIVATE_KEY || !TURNSTILE_SITE_KEY || !TURNSTILE_SECRET_KEY) return undefined;
-	// A key pasted with literal \n (as some secret stores keep it) is turned back into lines.
-	const privateKey = GITHUB_APP_PRIVATE_KEY.replace(/\\n/g, '\n');
-	// GitHub hands out PKCS#1 keys, but the Workers runtime's WebCrypto only imports PKCS#8.
-	if (privateKey.includes('BEGIN RSA PRIVATE KEY')) {
-		console.error('GITHUB_APP_PRIVATE_KEY is PKCS#1; convert it with `openssl pkcs8 -topk8 -nocrypt -in key.pem` and set the secret again');
+// The request body is untrusted: anything but the expected shape is rejected here, before any field is used. A multipart body must say its length, so an oversized one is refused before it is read.
+async function readSubmission(request: Request): Promise<Submission | undefined> {
+	const length = Number(request.headers.get('content-length') ?? 0);
+	let text: string;
+	let shot: Uint8Array | undefined;
+	try {
+		if ((request.headers.get('content-type') ?? '').startsWith('multipart/form-data')) {
+			if (!length || length > MAX_MULTIPART) return undefined;
+			const form = await request.formData();
+			const payload = form.get('payload');
+			const file = form.get('shot');
+			if (typeof payload !== 'string' || (file !== null && typeof file === 'string')) return undefined;
+			text = payload;
+			if (file) shot = new Uint8Array(await file.arrayBuffer());
+		} else {
+			if (length > MAX_BODY) return undefined;
+			text = await request.text();
+		}
+	} catch {
 		return undefined;
 	}
-	return { appId: GITHUB_APP_ID, privateKey, siteKey: TURNSTILE_SITE_KEY, turnstileSecret: TURNSTILE_SECRET_KEY };
+	if (text.length > MAX_BODY) return undefined;
+	const sub = parseSubmission(text);
+	return sub && { ...sub, shot };
 }
 
-// The request body is untrusted: anything but the expected shape is rejected here, before any field is used.
-async function readSubmission(request: Request): Promise<Submission | undefined> {
-	if (Number(request.headers.get('content-length') ?? 0) > MAX_BODY) return undefined;
+function parseSubmission(text: string): Submission | undefined {
 	let raw: unknown;
 	try {
-		const text = await request.text();
-		if (text.length > MAX_BODY) return undefined;
 		raw = JSON.parse(text);
 	} catch {
 		return undefined;
@@ -53,10 +65,23 @@ async function readSubmission(request: Request): Promise<Submission | undefined>
 	if (r.category !== undefined && (!category || cat !== 'showcase')) return undefined;
 	// Only a showcase app has a repository besides its link.
 	if (r.repo !== undefined && (repo === undefined || cat !== 'showcase')) return undefined;
-	// So is a screenshot link; entryProblem judges the link itself.
-	if (r.screenshot !== undefined && (screenshot === undefined || cat !== 'showcase')) return undefined;
+	// A screenshot link only for what shows one; entryProblem judges the link itself.
+	if (r.screenshot !== undefined && (screenshot === undefined || !takesShot(cat))) return undefined;
 	if (!mode || name === undefined || url === undefined) return undefined;
 	return { cat, token, kind: 'form', mode, draft: { name, author, url, desc, category, repo, screenshot } };
+}
+
+// The screenshot of what is submitted, when it needs one: an app, UI components or state management with neither a link nor an upload from the form. undefined when the repository has one the submission workflow will take, 'shot' when nothing would show. A GitHub failure here does not hold the submission back: the workflow looks again.
+async function missingShot(cfg: NonNullable<ReturnType<typeof botConfig>>, sub: Submission): Promise<'shot' | undefined> {
+	if (!takesShot(sub.cat) || sub.shot || (sub.kind === 'form' && sub.draft.screenshot?.trim())) return undefined;
+	const repo = sub.kind === 'form' ? shotRepo(sub.cat, sub.draft) : pastedShotRepo(sub.cat, sub.entry);
+	if (!repo) return 'shot';
+	try {
+		return (await findRepoShot(repo, await installationToken(cfg))).found ? undefined : 'shot';
+	} catch (err) {
+		console.error('looking for a screenshot failed', err);
+		return undefined;
+	}
 }
 
 export const Route = createFileRoute('/api/submit')({
@@ -72,14 +97,19 @@ export const Route = createFileRoute('/api/submit')({
 				const ip = request.headers.get('cf-connecting-ip') ?? '';
 				if (!(await env.SUBMIT_LIMIT.limit({ key: ip || 'unknown' })).success) return json({ error: 'limited' }, 429);
 				const sub = await readSubmission(request);
-				if (!sub) return json({ error: 'invalid', message: 'expected a JSON object with cat, token and either entry (a whole entry) or name, url, desc, author and, for the showcase, an optional category, repo and screenshot' }, 400);
+				if (!sub) return json({ error: 'invalid', message: `expected a JSON object with cat, token and either entry (a whole entry) or name, url, desc, author, an optional screenshot link for an app, UI components or state management, and for the showcase an optional category and repo; with an uploaded screenshot, multipart/form-data with the JSON in payload and the image (at most ${UPLOAD_MAX_BYTES / 1024 / 1024} MB) in shot` }, 400);
 				const problem = sub.kind === 'entry' ? pastedEntryProblem(sub.cat, sub.entry) : entryProblem(sub.cat, sub.draft);
 				if (problem) return json({ error: 'invalid', message: problem }, 400);
+				if (sub.shot && !takesShot(sub.cat)) return json({ error: 'invalid', message: 'only an app, UI components or state management take a screenshot' }, 400);
+				const checked = sub.shot ? checkUpload(sub.shot) : undefined;
+				if (checked && 'problem' in checked) return json({ error: 'invalid', message: checked.problem }, 400);
 				if (!(await verifyTurnstile(cfg.turnstileSecret, sub.token, ip))) return json({ error: 'captcha' }, 403);
+				if (await missingShot(cfg, sub)) return json({ error: 'shot' }, 400);
+				const upload: Upload | undefined = sub.shot && checked && 'format' in checked ? { bytes: sub.shot, format: checked.format } : undefined;
 				const [entry, name] = sub.kind === 'entry' ? [sub.entry, pastedName(sub.entry)] : [buildEntry(sub.cat, sub.draft, sub.mode, { name: '', desc: '' }), sub.draft.name.trim()];
 				try {
 					const screenshot = sub.kind === 'form' ? sub.draft.screenshot?.trim() || undefined : undefined;
-					return json(await openSubmission(cfg, sub.cat, name, entry, screenshot));
+					return json(await openSubmission(cfg, sub.cat, name, entry, screenshot, upload));
 				} catch (err) {
 					if (err instanceof CatalogError) return json({ error: 'invalid', message: err.message }, 409);
 					if (err instanceof SubmissionsBusy) return json({ error: 'busy' }, 503);

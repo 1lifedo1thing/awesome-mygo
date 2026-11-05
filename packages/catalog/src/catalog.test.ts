@@ -6,7 +6,7 @@ import pluginSchema from '../data/schema/plugin.schema.json';
 import stateSchema from '../data/schema/state.schema.json';
 import uiSchema from '../data/schema/ui.schema.json';
 import { AILOGO_CDN, APP_CATEGORIES, APP_GROUPS, APP_KIND, APPS, ARTICLE_KIND, DOC_KIND, GROUP_CATEGORY, PLUGIN_KIND, STATE_KIND, UI_KIND, appGroup, appSource, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, authorProfile, byAdded, byName, byNewest, hostOf, readAppEntry, readAppFile, readApps, readDocs, readEntryFile, readPlugins, readUiLibs } from './catalog';
-import { SUBMIT_CATS, SUBMIT_KINDS, type SubmitCat, alreadyListed, buildEntry, codeFence, descMax, editUrl, entryCats, entryFileText, entryPath, entryProblem, guessFromLink, isBadShot, isBadUrl, isEntryComplete, issueUrl, jsonEntry, missingFields, parseEntryJson, pastedEntryProblem, pastedName, slugify, withScheme } from './entry';
+import { SUBMIT_CATS, SUBMIT_KINDS, type SubmitCat, alreadyListed, buildEntry, codeFence, descMax, editUrl, entryCats, entryFileText, entryPath, entryProblem, guessFromLink, isBadShot, isBadUrl, isEntryComplete, issueUrl, jsonEntry, missingFields, parseEntryJson, pastedEntryProblem, pastedName, pastedShotRepo, shotRepo, slugify, takesShot, withScheme } from './entry';
 import { LANGS, type LangCode, type Text, fill, langRedirectScript, negotiateLang, pick, validateRootSearch } from './lang';
 import { buildSearchIndex, searchCatalog } from './search';
 import { LIKE_KEYS, likeKey } from './likes';
@@ -599,8 +599,9 @@ describe('bot submission', () => {
 		expect(entryProblem('showcase', { ...home, screenshot: shot })).toBeUndefined();
 		expect(entryProblem('showcase', { ...home, screenshot: '' })).toBeUndefined();
 		expect('screenshot' in buildEntry('showcase', { ...home, screenshot: shot }, 'native', ph)).toBe(false);
-		// Only an app has a screenshot, and only an https link without characters that could break out of the pull request's quoting.
-		expect(entryProblem('ui', { ...draft, screenshot: shot })).toMatch(/screenshot/);
+		// An app, UI components and state management take a screenshot, and only an https link without characters that could break out of the pull request's quoting.
+		expect(entryProblem('ui', { ...draft, screenshot: shot })).toBeUndefined();
+		expect(entryProblem('plugin', { ...draft, screenshot: shot })).toMatch(/screenshot/);
 		for (const bad of ['http://my-kit.dev/a.png', 'https://my-kit.dev/a b.png', 'https://my-kit.dev/a.png-->x', 'https://x.dev/`a`.png', 'https://x.dev/"a".png', `https://x.dev/${'a'.repeat(300)}.png`]) {
 			expect(isBadShot(bad), bad).toBe(true);
 			expect(entryProblem('showcase', { ...home, screenshot: bad }), bad).toMatch(/screenshot/);
@@ -610,6 +611,19 @@ describe('bot submission', () => {
 		const body = new URL(issueUrl('https://github.com/yldm-tech/awesome-mygo', 'showcase', 'App', { ...home, screenshot: shot }, app, ph)).searchParams.get('body') ?? '';
 		expect(body).toContain(`Screenshot: ${shot}`);
 		expect(new URL(issueUrl('https://github.com/yldm-tech/awesome-mygo', 'showcase', 'App', home, app, ph)).searchParams.get('body')).not.toContain('Screenshot:');
+	});
+
+	it('looks for the screenshot in the repository of an app or a library', () => {
+		expect([takesShot('showcase'), takesShot('ui'), takesShot('state'), takesShot('plugin'), takesShot('article')]).toEqual([true, true, true, false, false]);
+		expect(shotRepo('showcase', { url: 'https://my-kit.dev', repo: 'https://github.com/someone/my-kit' })).toBe('someone/my-kit');
+		expect(shotRepo('showcase', { url: 'https://github.com/someone/my-kit' })).toBe('someone/my-kit');
+		// A closed-source app has no repository to look in.
+		expect(shotRepo('showcase', { url: 'https://my-kit.dev' })).toBeUndefined();
+		expect(shotRepo('ui', { url: 'https://github.com/xiyaowong/flagicons' })).toBe('xiyaowong/flagicons');
+		expect(shotRepo('plugin', { url: 'https://github.com/a/b' })).toBeUndefined();
+		expect(pastedShotRepo('state', { repo: 'yldm-tech/nodra', url: 'https://github.com/yldm-tech/nodra' })).toBe('yldm-tech/nodra');
+		expect(pastedShotRepo('showcase', { url: 'https://github.com/lesnolie/bunnybox' })).toBe('lesnolie/bunnybox');
+		expect(pastedShotRepo('showcase', { url: 'https://getbamboo.app/' })).toBeUndefined();
 	});
 
 	it('links the source of an app only when its homepage is not that repository already', () => {
