@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "cyberme",
+	"name": "CyberMe",
+	"author": "wherexml",
+	"kind": "web",
+	"category": "BusinessApplication",
+	"url": "https://github.com/wherexml/CyberMe",
+	"repo": "wherexml/CyberMe",
+	"summary": {
+		"en": "A macOS AI workspace linking chat, inbox, ideas, tasks and memory, kept in local SQLite.",
+		"zh-CN": "macOS AI 工作区：对话、收件箱、灵感、任务与记忆，数据存于本机 SQLite。",
+		"zh-TW": "macOS AI 工作區：對話、收件匣、靈感、任務與記憶，資料存於本機 SQLite。",
+		"ja": "macOS 用 AI ワークスペース。チャット・受信箱・アイデア・タスク・記憶を手元に保存。",
+		"ko": "macOS용 AI 워크스페이스. 대화, 인박스, 아이디어, 할 일, 기억을 로컬에 저장."
+	},
+	"description": {
+		"en": "An AI workspace for macOS that links chat, an inbox, ideas, tasks and memory, keeping its data in a local SQLite database. Which models and outside services it uses is up to you in its settings. The macOS client is built with MyGo around a web frontend, with chat on the left and briefings, tasks, memory and settings on the right.",
+		"zh-CN": "macOS 上的个人 AI 工作区，把对话、收件箱、灵感、任务与记忆连在一起，数据保存在本机 SQLite。使用哪些模型和外部服务，由你在设置中配置和授权。macOS 客户端由 MyGo 以 Web 前端构建，左侧是对话，右侧是简报、任务、记忆与设置。",
+		"zh-TW": "macOS 上的個人 AI 工作區，把對話、收件匣、靈感、任務與記憶串在一起，資料存放在本機 SQLite。要使用哪些模型和外部服務，由你在設定中設定並授權。macOS 用戶端由 MyGo 以 Web 前端建置，左側是對話，右側是簡報、任務、記憶與設定。",
+		"ja": "macOS 向けの個人用 AI ワークスペースで、チャット、受信箱、アイデア、タスク、記憶をつなぎ、データは手元の SQLite に保存します。使うモデルや外部サービスは設定画面で自分で構成し、許可します。macOS クライアントは Web フロントエンドを MyGo で包んだもので、左にチャット、右にブリーフィング、タスク、記憶、設定が並びます。",
+		"ko": "macOS용 개인 AI 워크스페이스로, 대화, 인박스, 아이디어, 할 일, 기억을 연결하고 데이터는 로컬 SQLite에 저장합니다. 사용할 모델과 외부 서비스는 설정에서 직접 구성하고 승인합니다. macOS 클라이언트는 MyGo로 웹 프런트엔드를 감싸 만들었으며, 왼쪽에 대화, 오른쪽에 브리핑, 할 일, 기억, 설정이 놓입니다."
+	},
+	"icon": {
+		"file": "cyberme.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "cyberme.webp",
+	"added": "2026-11-05T05:38:23Z"
+}
