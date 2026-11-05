@@ -6,6 +6,7 @@
 	"kind": "native",
 	"category": "CommunicationApplication",
 	"url": "https://godwit.email",
+	"repo": "godwit-email/godwit",
 	"summary": {
 		"en": "An open-source, AI-native email client for macOS, Windows and Linux.",
 		"zh-CN": "开源、AI 原生的跨平台邮件客户端。",

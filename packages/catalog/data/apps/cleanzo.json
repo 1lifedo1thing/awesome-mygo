@@ -6,6 +6,7 @@
 	"kind": "web",
 	"category": "UtilitiesApplication",
 	"url": "https://cleanzo.echovic.com",
+	"repo": "echoVic/cleanzo",
 	"summary": {
 		"en": "An open-source disk cleaner for macOS.",
 		"zh-CN": "开源 macOS 磁盘清理工具。",

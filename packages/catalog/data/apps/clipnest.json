@@ -6,6 +6,7 @@
 	"kind": "web",
 	"category": "UtilitiesApplication",
 	"url": "https://clipnest.echovic.com",
+	"repo": "echoVic/clipnest",
 	"summary": {
 		"en": "An open-source clipboard history for Mac.",
 		"zh-CN": "开源 Mac 剪贴板历史工具。",

@@ -6,6 +6,7 @@
 	"kind": "native",
 	"category": "CommunicationApplication",
 	"url": "https://lorca.app",
+	"repo": "egoist/lorca",
 	"summary": {
 		"en": "AI teammates on your computer, with end-to-end encrypted chat sync.",
 		"zh-CN": "电脑上的 AI 队友，聊天端到端加密同步。",

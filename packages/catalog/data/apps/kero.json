@@ -6,6 +6,7 @@
 	"kind": "native",
 	"category": "DeveloperApplication",
 	"url": "https://kero.sh",
+	"repo": "egoist/kero",
 	"summary": {
 		"en": "A terminal for coding agents, with sessions that keep running after you quit.",
 		"zh-CN": "为编程 Agent 打造的终端，退出后会话仍保持运行。",
