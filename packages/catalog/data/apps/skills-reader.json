@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "skills-reader",
+	"name": "Skills Reader",
+	"author": "songlairui",
+	"kind": "web",
+	"group": "agents",
+	"url": "https://github.com/songlairui/skills-reader",
+	"repo": "songlairui/skills-reader",
+	"summary": {
+		"en": "A desktop reader for the agent skills in ~/.agents/skills, grouped by source, with update checks.",
+		"zh-CN": "~/.agents/skills 中 agent skills 的桌面阅读器，可检查更新。",
+		"zh-TW": "~/.agents/skills 中 agent skills 的桌面閱讀器，可檢查更新。",
+		"ja": "~/.agents/skills の agent skills を読むリーダー。更新も確認できる。",
+		"ko": "~/.agents/skills의 agent skills를 읽는 데스크톱 리더. 업데이트 확인."
+	},
+	"description": {
+		"en": "A macOS reader for the agent skills in ~/.agents/skills or any folder you pick, built with MyGo as a Go backend and a web frontend in the system webview. It groups skills by source or prefix, searches and filters them, renders Markdown with the frontmatter shown as a card, and uses the .skill-lock.json of the vercel-labs/skills CLI to show versions and check for updates.",
+		"zh-CN": "用 MyGo 构建的 macOS 应用，用来阅读 ~/.agents/skills 或任意指定目录下的 agent skills，由 Go 后端和运行在系统 WebView 中的 Web 前端组成。可按来源或前缀分组，支持搜索与过滤，排版渲染 Markdown 并把 frontmatter 显示为卡片，还沿用 vercel-labs/skills CLI 的 .skill-lock.json 显示版本、检查更新。",
+		"zh-TW": "用 MyGo 打造的 macOS 應用程式，用來閱讀 ~/.agents/skills 或任意指定資料夾中的 agent skills，由 Go 後端與在系統 WebView 中執行的 Web 前端組成。可依來源或前綴分組，支援搜尋與篩選，排版呈現 Markdown 並把 frontmatter 顯示為卡片，也沿用 vercel-labs/skills CLI 的 .skill-lock.json 顯示版本、檢查更新。",
+		"ja": "~/.agents/skills または任意のフォルダーにある agent skills を読む macOS アプリで、MyGo を使い Go のバックエンドとシステムの WebView 上の Web フロントエンドで作られています。skill を出どころや接頭辞でグループ分けし、検索や絞り込みができ、Markdown を整えて表示し、frontmatter はカードにまとめます。vercel-labs/skills CLI の .skill-lock.json を使い、バージョンの表示と更新の確認も行います。",
+		"ko": "~/.agents/skills 또는 직접 고른 폴더의 agent skills를 읽는 macOS 앱으로, MyGo로 만든 Go 백엔드와 시스템 웹뷰 속 웹 프런트엔드로 이루어져 있습니다. skill을 출처나 접두사별로 묶고 검색과 필터를 지원하며, Markdown을 보기 좋게 렌더링하고 frontmatter는 카드로 보여 줍니다. vercel-labs/skills CLI의 .skill-lock.json을 이용해 버전을 표시하고 업데이트를 확인합니다."
+	},
+	"icon": {
+		"file": "skills-reader.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "skills-reader.webp",
+	"added": "2026-11-05T15:37:24Z"
+}
