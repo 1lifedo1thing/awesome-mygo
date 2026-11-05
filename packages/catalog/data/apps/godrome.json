@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "godrome",
+	"name": "Godrome",
+	"author": "XueJie1",
+	"kind": "native",
+	"category": "MultimediaApplication",
+	"url": "https://github.com/XueJie1/godrome",
+	"repo": "XueJie1/godrome",
+	"summary": {
+		"en": "A native desktop music player for Navidrome and Subsonic servers, with a queue and equalizer.",
+		"zh-CN": "原生桌面音乐播放器，连接你自己的 Navidrome 或 Subsonic 曲库。",
+		"zh-TW": "原生桌面音樂播放器，連接你自己的 Navidrome 或 Subsonic 音樂庫。",
+		"ja": "Navidrome や Subsonic サーバーの曲を聴く、ネイティブなデスクトップ音楽プレーヤー。",
+		"ko": "Navidrome·Subsonic 서버의 음악을 듣는 네이티브 데스크톱 음악 플레이어."
+	},
+	"description": {
+		"en": "A desktop music player with a Chinese interface, drawn with MyGo's native UI and playing through an in-process libmpv, with no web UI or background service. It connects to Navidrome or any Subsonic or OpenSubsonic server, with a play queue, a ten-band equalizer and offline browsing of cached covers and metadata. It is verified on Linux; it builds for Windows and macOS, and needs the system's libmpv.",
+		"zh-CN": "中文界面的桌面音乐播放器，由 MyGo 原生 UI 绘制，在进程内调用 libmpv 播放，没有 Web UI，也没有后台服务。它连接 Navidrome 或任何 Subsonic/OpenSubsonic 服务器，提供播放队列、十段均衡器，并能在断网时浏览已缓存的封面与元数据。已在 Linux 上实机验证，Windows 与 macOS 可以构建；播放需要系统安装的 libmpv。",
+		"zh-TW": "中文介面的桌面音樂播放器，由 MyGo 原生 UI 繪製，在行程內呼叫 libmpv 播放，沒有 Web UI，也沒有背景服務。它連接 Navidrome 或任何 Subsonic/OpenSubsonic 伺服器，提供播放佇列、十段等化器，並能在離線時瀏覽已快取的封面與中繼資料。已在 Linux 上實機驗證，Windows 與 macOS 可以建置；播放需要系統安裝的 libmpv。",
+		"ja": "中国語 UI のデスクトップ音楽プレーヤー。MyGo のネイティブ UI で描かれ、プロセス内の libmpv で再生し、Web UI もバックグラウンドサービスもありません。Navidrome や Subsonic・OpenSubsonic サーバーに接続し、再生キュー、10 バンドイコライザー、キャッシュしたジャケットとメタデータのオフライン閲覧に対応します。Linux で動作確認済みで、Windows・macOS 向けにもビルドでき、再生にはシステムの libmpv が必要です。",
+		"ko": "중국어 인터페이스의 데스크톱 음악 플레이어로, MyGo의 네이티브 UI로 그리고 프로세스 안의 libmpv로 재생하며 웹 UI도 백그라운드 서비스도 없습니다. Navidrome이나 Subsonic·OpenSubsonic 서버에 연결해 재생 대기열, 10밴드 이퀄라이저, 캐시한 커버와 메타데이터의 오프라인 탐색을 제공합니다. Linux에서 검증되었고 Windows와 macOS용으로도 빌드되며, 재생에는 시스템의 libmpv가 필요합니다."
+	},
+	"icon": {
+		"file": "godrome.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "godrome.webp",
+	"added": "2026-11-05T04:45:28Z"
+}
