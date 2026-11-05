@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "aurelia",
+	"name": "Aurelia",
+	"author": "j4ckxyz",
+	"kind": "native",
+	"category": "MultimediaApplication",
+	"url": "https://github.com/j4ckxyz/Aurelia",
+	"repo": "j4ckxyz/Aurelia",
+	"summary": {
+		"en": "A native music player for Jellyfin, with offline downloads, lyrics, an equalizer and themes.",
+		"zh-CN": "原生的 Jellyfin 音乐播放器，支持离线下载、歌词、均衡器和主题。",
+		"zh-TW": "原生的 Jellyfin 音樂播放器，支援離線下載、歌詞、等化器與主題。",
+		"ja": "Jellyfin 向けのネイティブな音楽プレーヤー。オフライン再生、歌詞、イコライザー、テーマに対応。",
+		"ko": "Jellyfin용 네이티브 음악 플레이어. 오프라인 재생, 가사, 이퀄라이저, 테마 지원."
+	},
+	"description": {
+		"en": "A Jellyfin music player for macOS, Windows and Linux, drawn with MyGo's native UI with no webview or Electron. It plays the music side of Jellyfin only, keeps the library indexed on disk so pages and search show at once, and adds offline downloads, gapless playback, timed lyrics, a ten-band equalizer and fourteen themes, plus themes imported from Visual Studio Code, Firefox and Chrome.",
+		"zh-CN": "适用于 macOS、Windows 和 Linux 的 Jellyfin 音乐播放器，由 MyGo 原生 UI 绘制，没有 WebView，也没有 Electron。它只播放 Jellyfin 的音乐部分，在本地保存曲库索引，翻页和搜索即时显示；支持离线下载、无缝播放、逐行歌词、十段均衡器和 14 款内置主题，还能直接导入 Visual Studio Code、Firefox 与 Chrome 的主题。",
+		"zh-TW": "適用於 macOS、Windows 與 Linux 的 Jellyfin 音樂播放器，由 MyGo 原生 UI 繪製，沒有 WebView，也沒有 Electron。它只播放 Jellyfin 的音樂部分，在本機保存曲庫索引，換頁與搜尋即時顯示；支援離線下載、無縫播放、逐行歌詞、十段等化器與 14 款內建主題，也能直接匯入 Visual Studio Code、Firefox 與 Chrome 的主題。",
+		"ja": "macOS・Windows・Linux 向けの Jellyfin 音楽プレーヤー。MyGo のネイティブ UI で描かれ、WebView も Electron も使いません。Jellyfin の音楽だけを扱い、ライブラリの索引をディスクに保持するので、ページも検索もすぐに表示されます。オフライン用のダウンロード、ギャップレス再生、同期歌詞、10 バンドのイコライザー、14 種類の内蔵テーマを備え、Visual Studio Code・Firefox・Chrome のテーマも読み込めます。",
+		"ko": "macOS, Windows, Linux용 Jellyfin 음악 플레이어로, MyGo의 네이티브 UI로 그려 웹뷰도 Electron도 쓰지 않습니다. Jellyfin의 음악만 다루며 라이브러리 색인을 디스크에 두어 페이지와 검색 결과가 바로 나타납니다. 오프라인 다운로드, 갭리스 재생, 싱크 가사, 10밴드 이퀄라이저, 내장 테마 14종을 갖추고 Visual Studio Code, Firefox, Chrome 테마도 가져올 수 있습니다."
+	},
+	"icon": {
+		"file": "aurelia.webp"
+	},
+	"screenshot": "aurelia.webp",
+	"added": "2026-11-05T02:55:41Z"
+}
