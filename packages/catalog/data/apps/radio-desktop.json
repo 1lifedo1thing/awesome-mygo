@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "radio-desktop",
+	"name": "radio-desktop",
+	"author": "hmgle",
+	"kind": "native",
+	"category": "MultimediaApplication",
+	"url": "https://github.com/hmgle/radio-desktop",
+	"repo": "hmgle/radio-desktop",
+	"summary": {
+		"en": "Internet radio for the desktop: search stations from around the world and listen from the tray.",
+		"zh-CN": "桌面网络电台播放器：搜索世界各地的电台，在系统托盘中继续收听。",
+		"zh-TW": "桌面網路電台播放器：搜尋世界各地的電台，在系統匣中繼續收聽。",
+		"ja": "世界中の局を検索し、システムトレイから聴き続けられるデスクトップ向けネットラジオ。",
+		"ko": "전 세계 방송국을 검색하고 시스템 트레이에서 계속 듣는 데스크톱 인터넷 라디오."
+	},
+	"description": {
+		"en": "An internet radio player for macOS and Linux, built with a React web frontend on MyGo that plays streams through the system WebView, with no mpv or FFmpeg to install. It searches the Radio Browser directory by name, country, language or tag, keeps favorites and custom stations locally, shows ICY track titles, and keeps playing from the system tray with media keys and a sleep timer.",
+		"zh-CN": "适用于 macOS 与 Linux 的网络电台播放器，以 React 网页前端搭配 MyGo 构建，通过系统 WebView 播放音频流，无需安装 mpv 或 FFmpeg。可按名称、国家、语言或标签搜索 Radio Browser 电台目录，收藏和自定义电台保存在本地，显示 ICY 曲目标题，关闭窗口后可在系统托盘中继续播放，并支持媒体键与睡眠定时。",
+		"zh-TW": "適用於 macOS 與 Linux 的網路電台播放器，以 React 網頁前端搭配 MyGo 打造，透過系統 WebView 播放串流，無須安裝 mpv 或 FFmpeg。可依名稱、國家、語言或標籤搜尋 Radio Browser 電台目錄，收藏與自訂電台存在本機，顯示 ICY 曲目標題，關閉視窗後可在系統匣繼續播放，並支援媒體鍵與睡眠定時器。",
+		"ja": "macOS・Linux 向けのネットラジオプレーヤー。MyGo の Web フロントエンドに React の画面を載せて作られ、システムの WebView で配信を再生するため、mpv や FFmpeg のインストールは不要です。Radio Browser のディレクトリを局名・国・言語・タグで検索でき、お気に入りや自分で追加した局はローカルに保存します。ICY の曲名を表示し、メディアキーとスリープタイマーに対応して、システムトレイから聴き続けられます。",
+		"ko": "macOS와 Linux용 인터넷 라디오 플레이어로, MyGo의 웹 프런트엔드에 React 화면을 올려 만들었고 시스템 WebView로 스트림을 재생해 mpv나 FFmpeg를 설치할 필요가 없습니다. Radio Browser 디렉터리를 이름, 국가, 언어, 태그로 검색하고, 즐겨찾기와 직접 추가한 방송국은 로컬에 저장하며, ICY 곡 제목을 보여 줍니다. 미디어 키와 슬립 타이머를 지원하고 시스템 트레이에서 계속 재생합니다."
+	},
+	"icon": {
+		"file": "radio-desktop.webp"
+	},
+	"screenshot": "radio-desktop.webp",
+	"added": "2026-11-05T01:27:22Z"
+}
