@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "minimuse",
+	"name": "MiniMuse",
+	"author": "Ahdeyyy",
+	"kind": "native",
+	"group": "media",
+	"url": "https://github.com/Ahdeyyy/minimuse",
+	"repo": "Ahdeyyy/minimuse",
+	"summary": {
+		"en": "A native music player with playlists, a mini player, tray playback, crossfade and synced lyrics.",
+		"zh-CN": "原生音乐播放器，支持歌单、迷你播放器、托盘播放、交叉淡入淡出和同步歌词。",
+		"zh-TW": "原生音樂播放器，支援播放清單、迷你播放器、系統匣播放、交叉淡入淡出與同步歌詞。",
+		"ja": "プレイリスト、ミニプレーヤー、トレイ再生、クロスフェード、同期歌詞を備えたネイティブな音楽プレーヤー。",
+		"ko": "재생목록, 미니 플레이어, 트레이 재생, 크로스페이드, 싱크 가사를 갖춘 네이티브 음악 플레이어."
+	},
+	"description": {
+		"en": "A music player drawn with MyGo's native UI, with no browser engine. It plays MP3, FLAC, WAV, Ogg Vorbis and M4A from your folders, with albums, playlists, crossfade, a mini player and tray playback. Lyrics come from LRC files beside the songs or, on request, from LRCLIB, with line and word timing. Windows is the tested target; Linux and macOS builds are released too.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的音乐播放器，不含浏览器引擎。可播放文件夹中的 MP3、FLAC、WAV、Ogg Vorbis 和 M4A，提供专辑浏览、歌单、交叉淡入淡出、迷你播放器和托盘播放。歌词读取歌曲旁的 LRC 文件，也可手动从 LRCLIB 获取，支持逐行和逐字同步。主要在 Windows 上验证，同时发布 Linux 与 macOS 版本。",
+		"zh-TW": "以 MyGo 原生 UI 繪製的音樂播放器，不含瀏覽器引擎。可播放資料夾中的 MP3、FLAC、WAV、Ogg Vorbis 與 M4A，提供專輯瀏覽、播放清單、交叉淡入淡出、迷你播放器和系統匣播放。歌詞讀取歌曲旁的 LRC 檔案，也可手動從 LRCLIB 取得，支援逐行與逐字同步。主要在 Windows 上驗證，同時發布 Linux 與 macOS 版本。",
+		"ja": "MyGo のネイティブ UI で描かれた音楽プレーヤーで、ブラウザーエンジンは使いません。フォルダー内の MP3、FLAC、WAV、Ogg Vorbis、M4A を再生し、アルバム表示、プレイリスト、クロスフェード、ミニプレーヤー、トレイからの再生に対応します。歌詞は曲の横に置いた LRC ファイルから読み込むか、操作したときだけ LRCLIB から取得し、行単位・単語単位で同期表示します。動作確認は Windows で行われ、Linux と macOS 版もリリースされています。",
+		"ko": "MyGo의 네이티브 UI로 그린 음악 플레이어로, 브라우저 엔진을 쓰지 않습니다. 폴더의 MP3, FLAC, WAV, Ogg Vorbis, M4A를 재생하며 앨범 보기, 재생목록, 크로스페이드, 미니 플레이어, 트레이 재생을 지원합니다. 가사는 곡 옆의 LRC 파일에서 읽거나 요청할 때 LRCLIB에서 받아 오며, 줄 단위와 단어 단위로 맞춰 보여 줍니다. 검증된 대상은 Windows이고 Linux와 macOS 빌드도 함께 배포됩니다."
+	},
+	"icon": {
+		"file": "minimuse.webp"
+	},
+	"screenshot": "minimuse.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T13:45:02Z"
+}
