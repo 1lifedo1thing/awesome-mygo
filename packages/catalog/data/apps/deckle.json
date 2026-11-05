@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "deckle",
+	"name": "Deckle",
+	"author": "sorrycc",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/sorrycc/Deckle",
+	"repo": "sorrycc/Deckle",
+	"summary": {
+		"en": "A native Markdown editor for a folder of notes, with live styling, backlinks, math and diagrams.",
+		"zh-CN": "原生 Markdown 编辑器：边写边排版，支持反向链接、数学公式与图表。",
+		"zh-TW": "原生 Markdown 編輯器：邊寫邊排版，支援反向連結、數學公式與圖表。",
+		"ja": "ネイティブな Markdown エディター。入力しながら装飾し、バックリンクや数式、図にも対応。",
+		"ko": "네이티브 Markdown 편집기. 입력하며 서식이 입혀지고 백링크, 수식, 다이어그램을 지원."
+	},
+	"description": {
+		"en": "A Markdown editor written in Go and drawn with MyGo's native UI, with no webview and no Electron. Notes are plain .md files in a folder you choose; Markdown is styled as you type, KaTeX math and Mermaid diagrams render inline, and links between notes show backlinks. It runs on macOS 13 or later, builds for Linux and Windows, and is in early development.",
+		"zh-CN": "用 Go 编写、由 MyGo 原生 UI 绘制的 Markdown 编辑器，没有 Web 视图，也没有 Electron。笔记就是你所选文件夹里的普通 .md 文件；Markdown 边输入边排版，KaTeX 数学公式和 Mermaid 图表直接内嵌显示，还能查看反向链接。可在 macOS 13 及以上版本运行，也能构建 Linux 与 Windows 版本，目前仍处于早期开发阶段。",
+		"zh-TW": "用 Go 撰寫、由 MyGo 原生 UI 繪製的 Markdown 編輯器，沒有 Web 視圖，也沒有 Electron。筆記就是你所選資料夾裡的一般 .md 檔案；Markdown 邊輸入邊排版，KaTeX 數學公式和 Mermaid 圖表直接內嵌顯示，還能查看反向連結。可在 macOS 13 以上版本執行，也能建置 Linux 與 Windows 版本，目前仍處於早期開發階段。",
+		"ja": "Go で書かれ、MyGo のネイティブ UI で描かれた Markdown エディター。Web ビューも Electron も使いません。ノートは選んだフォルダー内の普通の .md ファイルで、入力に合わせて Markdown が装飾され、KaTeX の数式や Mermaid の図はその場で表示され、バックリンクも確認できます。macOS 13 以降で動き、Linux と Windows 向けにもビルドできます。現在は開発初期の段階です。",
+		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 Markdown 편집기로, 웹 뷰도 Electron도 쓰지 않습니다. 노트는 직접 고른 폴더 안의 일반 .md 파일이며, 입력하는 대로 Markdown 서식이 입혀지고 KaTeX 수식과 Mermaid 다이어그램이 본문에 바로 표시되며 백링크도 볼 수 있습니다. macOS 13 이상에서 실행되고 Linux와 Windows용으로도 빌드할 수 있으며, 아직 초기 개발 단계입니다."
+	},
+	"icon": {
+		"file": "deckle.webp"
+	},
+	"screenshot": "deckle.webp",
+	"added": "2026-11-05T02:55:41Z"
+}
