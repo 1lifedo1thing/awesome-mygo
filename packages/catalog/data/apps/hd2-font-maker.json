@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "hd2-font-maker",
+	"name": "HD2 Font Maker",
+	"author": "cainiao524",
+	"kind": "native",
+	"group": "game",
+	"url": "https://github.com/cainiao524/hd2-font-maker-go",
+	"repo": "cainiao524/hd2-font-maker-go",
+	"summary": {
+		"en": "Builds a Helldivers 2 font replacement mod from your own fonts, matching the game's font weights.",
+		"zh-CN": "用你自己的字体生成 Helldivers 2 字体替换 Mod，并匹配游戏字重。",
+		"zh-TW": "用你自己的字型產生 Helldivers 2 字型替換 Mod，並比對遊戲字重。",
+		"ja": "手持ちのフォントから、ウェイトを合わせた Helldivers 2 のフォント置き換え Mod を作成。",
+		"ko": "내 글꼴로 게임 굵기에 맞춘 Helldivers 2 글꼴 교체 Mod를 만듭니다."
+	},
+	"description": {
+		"en": "A Windows tool drawn with MyGo's native UI over a Go font engine, with no Python or WebView to install. It takes your TTF, OTF, TTC or OTC fonts, replaces the game's Latin, Simplified and Traditional Chinese, Japanese and Korean font groups, matches the game's font weights and previews them beside the originals. It only reads the game folder and writes a ZIP for your mod manager.",
+		"zh-CN": "用 MyGo 原生 UI 搭配 Go 字体引擎的 Windows 工具，无需安装 Python 或 WebView。导入 TTF、OTF、TTC、OTC 字体，替换游戏的西文、简中、繁中、日文和韩文字体组，自动匹配游戏字重，并可与原版字体对照预览。它只读取游戏目录，生成供 Mod 管理器安装的 ZIP，不会修改游戏。",
+		"zh-TW": "以 MyGo 原生 UI 搭配 Go 字型引擎的 Windows 工具，不需安裝 Python 或 WebView。匯入 TTF、OTF、TTC、OTC 字型，替換遊戲的西文、簡中、繁中、日文與韓文字型組，自動比對遊戲字重，並可與原版字型對照預覽。它只讀取遊戲目錄，產生供 Mod 管理器安裝的 ZIP，不會修改遊戲。",
+		"ja": "Go のフォントエンジンと MyGo のネイティブ UI で作られた Windows 用ツール。Python や WebView のインストールは不要です。TTF・OTF・TTC・OTC フォントを読み込み、ゲームの欧文・簡体字・繁体字・日本語・韓国語のフォントグループを置き換え、ゲームのウェイトに合わせて生成し、元のフォントと並べてプレビューできます。ゲームフォルダーは読み取るだけで、Mod マネージャー用の ZIP を書き出します。",
+		"ko": "Go 글꼴 엔진과 MyGo의 네이티브 UI로 만든 Windows 도구로, Python이나 WebView를 설치할 필요가 없습니다. TTF, OTF, TTC, OTC 글꼴을 불러와 게임의 라틴 문자, 중국어 간체·번체, 일본어, 한국어 글꼴 그룹을 바꾸고, 게임의 굵기에 맞춰 생성하며 원본 글꼴과 나란히 미리 봅니다. 게임 폴더는 읽기만 하고 Mod 관리자로 설치할 ZIP을 만듭니다."
+	},
+	"icon": {
+		"file": "hd2-font-maker.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "hd2-font-maker.webp",
+	"added": "2026-11-05T23:30:36Z"
+}
