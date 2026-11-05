@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "aio-proxy",
+	"name": "AIO Proxy",
+	"author": "aio-proxy",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://aioproxy.dev",
+	"repo": "aio-proxy/aio-proxy",
+	"summary": {
+		"en": "Local AI gateway that serves OpenAI, Anthropic and Gemini clients from API keys or subscriptions.",
+		"zh-CN": "本地 AI 网关，让各类客户端通过一个端口使用 API 密钥或已有订阅。",
+		"zh-TW": "本機 AI 閘道，讓各類用戶端透過同一個連接埠使用 API 金鑰或既有訂閱。",
+		"ja": "API キーやサブスクリプションを一つのポートで AI クライアントに提供するローカルゲートウェイ。",
+		"ko": "API 키나 구독으로 여러 AI 클라이언트를 한 포트에서 처리하는 로컬 게이트웨이."
+	},
+	"description": {
+		"en": "A local gateway that gives OpenAI, Anthropic and Gemini clients, including coding agents such as Claude Code and Codex, one endpoint backed by API keys or subscriptions like ChatGPT and GitHub Copilot. It converts between protocols, fails over to the next upstream and logs each request's tokens and cost in a built-in dashboard. It comes as a CLI and a desktop app for macOS, Linux and Windows.",
+		"zh-CN": "本地 AI 网关，为 OpenAI、Anthropic、Gemini 客户端以及 Claude Code、Codex 等编程代理提供同一个端点，后端可用 API 密钥或 ChatGPT、GitHub Copilot 等订阅。它在协议之间转换，上游失败时转到下一个，并在内置面板中记录每次请求的 token 用量与费用。提供命令行工具与 macOS、Linux、Windows 桌面应用。",
+		"zh-TW": "本機 AI 閘道，為 OpenAI、Anthropic、Gemini 用戶端以及 Claude Code、Codex 等程式設計代理提供同一個端點，後端可用 API 金鑰或 ChatGPT、GitHub Copilot 等訂閱。它在協定之間轉換，上游失敗時改用下一個，並在內建儀表板記錄每次請求的 token 用量與費用。提供命令列工具與 macOS、Linux、Windows 桌面應用程式。",
+		"ja": "OpenAI・Anthropic・Gemini のクライアントや、Claude Code・Codex などのコーディングエージェントに一つのエンドポイントを提供するローカルゲートウェイです。裏側では API キーのほか、ChatGPT や GitHub Copilot などのサブスクリプションを使えます。プロトコル間の変換、上流が失敗したときの次の候補への切り替えを行い、リクエストごとのトークン数とコストを内蔵ダッシュボードに記録します。CLI と、macOS・Linux・Windows 向けのデスクトップアプリがあります。",
+		"ko": "OpenAI, Anthropic, Gemini 클라이언트와 Claude Code, Codex 같은 코딩 에이전트에 하나의 엔드포인트를 제공하는 로컬 게이트웨이입니다. 뒤에서는 API 키나 ChatGPT, GitHub Copilot 같은 구독을 사용합니다. 프로토콜 간 변환과 업스트림 실패 시 다음 후보로의 전환을 처리하고, 요청마다 토큰 사용량과 비용을 내장 대시보드에 기록합니다. CLI와 macOS, Linux, Windows용 데스크톱 앱으로 제공됩니다."
+	},
+	"icon": {
+		"file": "aio-proxy.webp"
+	},
+	"screenshot": "aio-proxy.webp",
+	"added": "2026-11-05T01:50:45Z"
+}
