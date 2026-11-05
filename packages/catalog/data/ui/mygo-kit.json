@@ -1,0 +1,19 @@
+{
+	"$schema": "../schema/ui.schema.json",
+	"slug": "mygo-kit",
+	"name": "mygo-kit",
+	"author": "VaalaCat",
+	"tag": "theme",
+	"surface": "native",
+	"summary": {
+		"en": "A Go component library for MyGo native UI in the style of Zed, with One Light and One Dark themes, docks, a command palette, settings pages, streaming Markdown, diffs and a terminal.",
+		"zh-CN": "Zed 风格的 MyGo 原生 UI 组件库，含 One Light 与 One Dark 主题、停靠面板、Markdown、diff 与终端。",
+		"zh-TW": "Zed 風格的 MyGo 原生 UI 元件庫，含 One Light 與 One Dark 主題、停靠面板、Markdown、diff 與終端機。",
+		"ja": "Zed 風の MyGo ネイティブ UI 向けコンポーネントライブラリ。One Light と One Dark のテーマ、ドック、Markdown、差分表示、ターミナルを備えます。",
+		"ko": "Zed 스타일의 MyGo 네이티브 UI 컴포넌트 라이브러리. One Light와 One Dark 테마, 도크, 명령 팔레트, 스트리밍 Markdown, diff, 터미널을 제공합니다."
+	},
+	"repo": "VaalaCat/mygo-kit",
+	"url": "https://github.com/VaalaCat/mygo-kit",
+	"screenshot": "mygo-kit.webp",
+	"added": "2026-11-05T03:47:54Z"
+}
