@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "lark-music",
+	"name": "Lark Music",
+	"author": "ca-x",
+	"kind": "web",
+	"category": "MultimediaApplication",
+	"url": "https://github.com/ca-x/lark",
+	"repo": "ca-x/lark",
+	"summary": {
+		"en": "Desktop client for your self-hosted Lark music server, with tray playback controls and lark:// links.",
+		"zh-CN": "自托管音乐服务器 Lark 的桌面客户端，支持托盘播放控制与 lark:// 链接。",
+		"zh-TW": "自架音樂伺服器 Lark 的桌面用戶端，支援系統匣播放控制與 lark:// 連結。",
+		"ja": "セルフホスト型音楽サーバー Lark のデスクトップクライアント。トレイ操作と lark:// リンクに対応。",
+		"ko": "자체 호스팅 음악 서버 Lark용 데스크톱 클라이언트. 트레이 재생 제어와 lark:// 링크 지원."
+	},
+	"description": {
+		"en": "A desktop client for Lark, a self-hosted music server that scans, plays and shares your own library, including FLAC, Hi-Res albums and CUE sheets. The client works out whether to connect over Connect, gRPC-Web or gRPC on its own, can reach the server through Cloudflare Tunnel, and adds tray playback controls and lark:// links. It is built with MyGo and a web frontend.",
+		"zh-CN": "Lark 是一款自托管音乐服务器，可扫描、播放和分享你自己的曲库，支持 FLAC、Hi-Res 专辑与 CUE。这是它的桌面客户端：自动在 Connect、gRPC-Web 和 gRPC 之间选择连接方式，也能经由 Cloudflare Tunnel 连接服务器，并提供托盘播放控制和 lark:// 链接。基于 MyGo 与 Web 前端构建。",
+		"zh-TW": "Lark 是一套自架音樂伺服器，可掃描、播放和分享你自己的音樂庫，支援 FLAC、Hi-Res 專輯與 CUE。這是它的桌面用戶端：自動在 Connect、gRPC-Web 和 gRPC 之間選擇連線方式，也能透過 Cloudflare Tunnel 連上伺服器，並提供系統匣播放控制和 lark:// 連結。以 MyGo 與 Web 前端打造。",
+		"ja": "Lark は自分の音楽ライブラリをスキャン、再生、共有できるセルフホスト型の音楽サーバーで、FLAC やハイレゾのアルバム、CUE シートにも対応します。これはそのデスクトップクライアントで、Connect・gRPC-Web・gRPC から接続方式を自動で選び、Cloudflare Tunnel 経由でもサーバーにつながり、トレイからの再生操作と lark:// リンクを備えます。MyGo と Web フロントエンドで作られています。",
+		"ko": "Lark는 자신의 음악 라이브러리를 스캔하고 재생하고 공유하는 자체 호스팅 음악 서버로, FLAC, 하이레조 앨범, CUE 시트를 지원합니다. 이 앱은 그 데스크톱 클라이언트로, Connect, gRPC-Web, gRPC 중 연결 방식을 자동으로 정하고 Cloudflare Tunnel을 거쳐서도 서버에 연결할 수 있으며, 트레이 재생 제어와 lark:// 링크를 제공합니다. MyGo와 웹 프런트엔드로 만들었습니다."
+	},
+	"icon": {
+		"file": "lark-music.webp"
+	},
+	"screenshot": "lark-music.webp",
+	"added": "2026-11-05T01:50:45Z"
+}
