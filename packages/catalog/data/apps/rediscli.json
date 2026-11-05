@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "rediscli",
+	"name": "RedisCli",
+	"author": "preceeder",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/preceeder/gui-redis",
+	"repo": "preceeder/gui-redis",
+	"summary": {
+		"en": "A native Redis client for macOS and Windows: browse keys in a tree, edit values, run commands.",
+		"zh-CN": "原生 macOS 与 Windows Redis 客户端：树形浏览 Key、编辑值、执行命令。",
+		"zh-TW": "原生 macOS 與 Windows Redis 用戶端：樹狀瀏覽 Key、編輯值、執行命令。",
+		"ja": "macOS・Windows 向けのネイティブな Redis クライアント。キーをツリーで閲覧し、値を編集。",
+		"ko": "macOS·Windows용 네이티브 Redis 클라이언트. 키를 트리로 보고 값을 편집합니다."
+	},
+	"description": {
+		"en": "A client for standalone Redis on macOS and Windows, drawn with MyGo's native UI with no Electron or WebView. It reaches servers through SSH tunnels and local HTTP or SOCKS5 proxies, browses keys as a tree or a list filtered by type, edits strings as text, JSON or hex and the members of the other types, and exports and imports keys with DUMP and RESTORE. It also has a slow log view and a CLI.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 与 Windows Redis 客户端，不依赖 Electron 或 WebView，目前只支持单机 Redis。可通过 SSH 隧道和本地 HTTP、SOCKS5 代理连接，按树形或列表浏览 Key 并按类型过滤；string 可用文本、JSON 或 Hex 编辑，其他类型可增删改成员；支持用 DUMP / RESTORE 导出导入，另有慢日志和 CLI。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS 與 Windows Redis 用戶端，不依賴 Electron 或 WebView，目前只支援單機 Redis。可透過 SSH 通道和本機 HTTP、SOCKS5 代理連線，以樹狀或清單瀏覽 Key 並依類型篩選；string 可用文字、JSON 或 Hex 編輯，其他類型可增刪改成員；支援以 DUMP / RESTORE 匯出匯入，另有慢查詢日誌和 CLI。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS・Windows 向けの Redis クライアントで、Electron も WebView も使いません。現在はスタンドアロンの Redis のみに対応します。SSH トンネルやローカルの HTTP・SOCKS5 プロキシ経由で接続でき、キーはツリーかリストで型ごとに絞り込んで閲覧できます。string はテキスト・JSON・Hex で、その他の型はメンバー単位で編集でき、DUMP / RESTORE による書き出しと読み込み、スローログ、CLI も備えています。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS·Windows용 Redis 클라이언트로, Electron이나 WebView를 쓰지 않습니다. 현재는 단일 Redis만 지원합니다. SSH 터널과 로컬 HTTP·SOCKS5 프록시로 접속하고, 키를 트리나 목록으로 보며 타입별로 걸러 낼 수 있습니다. string은 텍스트, JSON, Hex로, 다른 타입은 멤버 단위로 편집하며, DUMP / RESTORE로 내보내고 가져오기, 슬로 로그, CLI도 갖췄습니다."
+	},
+	"icon": {
+		"file": "rediscli.webp"
+	},
+	"screenshot": "rediscli.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T05:57:31Z"
+}
