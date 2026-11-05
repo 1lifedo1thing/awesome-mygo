@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "locus",
+	"name": "Locus",
+	"author": "oneo-me",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://oneo-me.github.io/locus/",
+	"repo": "oneo-me/locus",
+	"summary": {
+		"en": "Local-first Markdown notebook for plain-file notes, with a relation graph, HTML canvases and MCP.",
+		"zh-CN": "本地优先的 Markdown 笔记本，读取纯文件笔记，带关系图、HTML 画布与 MCP。",
+		"zh-TW": "本機優先的 Markdown 筆記本，讀取純檔案筆記，附關係圖、HTML 畫布與 MCP。",
+		"ja": "ファイルのままのノートを読む Markdown ノートアプリ。関係グラフ、HTML キャンバス、MCP 付き。",
+		"ko": "일반 파일 노트를 읽는 로컬 우선 Markdown 노트. 관계 그래프, HTML 캔버스, MCP 지원."
+	},
+	"description": {
+		"en": "A local-first Markdown notebook for macOS, Windows and Linux, drawn with MyGo's native UI. Notes stay plain files in a folder you choose, one folder with an index.md per note, so Locus reads and organizes them while you edit in any app. It adds a graph of how notes link, HTML canvases inside notes, read-only MCP for external Agents and a built-in terminal.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的本地优先 Markdown 笔记本，支持 macOS、Windows 与 Linux。笔记就是你所选文件夹里的普通文件，每条笔记一个含 index.md 的文件夹，在 Locus 中阅读整理，用任意应用编辑。另有笔记关系图、笔记内的 HTML 画布、供外部 Agent 使用的只读 MCP 和内置终端。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的本機優先 Markdown 筆記本，支援 macOS、Windows 與 Linux。筆記就是你所選資料夾裡的一般檔案，每則筆記一個含 index.md 的資料夾，在 Locus 中閱讀整理，用任何應用程式編輯。另有筆記關係圖、筆記內的 HTML 畫布、供外部 Agent 使用的唯讀 MCP 與內建終端機。",
+		"ja": "MyGo のネイティブ UI で描かれた、macOS・Windows・Linux 向けのローカルファーストな Markdown ノートアプリ。ノートは選んだフォルダー内の普通のファイルで、1 ノートにつき index.md を含むフォルダーが 1 つ。Locus で読んで整理し、編集は好きなアプリで行えます。ノートのつながりを示すグラフ、ノート内の HTML キャンバス、外部 Agent 向けの読み取り専用 MCP、内蔵ターミナルも備えます。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS·Windows·Linux용 로컬 우선 Markdown 노트 앱입니다. 노트는 직접 고른 폴더 안의 일반 파일로, 노트마다 index.md가 든 폴더 하나이며, Locus에서 읽고 정리하고 편집은 원하는 앱에서 합니다. 노트 연결을 보여 주는 그래프, 노트 안의 HTML 캔버스, 외부 Agent용 읽기 전용 MCP, 내장 터미널도 갖췄습니다."
+	},
+	"icon": {
+		"file": "locus.webp"
+	},
+	"screenshot": "locus.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T02:43:19Z"
+}
