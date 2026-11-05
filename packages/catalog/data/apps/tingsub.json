@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "tingsub",
+	"name": "TingSub",
+	"author": "yeshan333",
+	"kind": "web",
+	"category": "MultimediaApplication",
+	"url": "https://shansan.top/tingsub/",
+	"repo": "yeshan333/tingsub",
+	"summary": {
+		"en": "Live Chinese and English captions for English and Japanese videos in Chrome, run locally on a Mac.",
+		"zh-CN": "在 Mac 本地为 Chrome 中的英语、日语视频生成中英双语实时字幕。",
+		"zh-TW": "在 Mac 本機為 Chrome 中的英語、日語影片產生中英雙語即時字幕。",
+		"ja": "Chrome の英語・日本語動画に、Mac 上でローカルに中英の字幕をリアルタイム表示。",
+		"ko": "Chrome의 영어·일본어 영상에 Mac에서 로컬로 중국어·영어 실시간 자막을 표시."
+	},
+	"description": {
+		"en": "An app for Apple Silicon Macs that puts Chinese and English captions over English and Japanese videos playing in Chrome, with Whisper and Qwen running locally on MLX: no cloud keys, accounts or audio uploads. MyGo builds the desktop app, a web frontend for picking models and running the service; the Chrome extension that captures the tab and the Python inference service are made separately.",
+		"zh-CN": "面向 Apple Silicon Mac 的应用，为 Chrome 中播放的英语和日语视频叠加中英双语字幕，语音识别与翻译由 Whisper 和 Qwen 在本机 MLX 上完成，无需云端密钥和账号，也不上传音频。MyGo 构建的是桌面应用，以 Web 前端选择模型、启停服务；负责捕获标签页的 Chrome 扩展和 Python 推理服务另行实现。",
+		"zh-TW": "適用於 Apple Silicon Mac 的應用程式，為 Chrome 中播放的英語和日語影片疊加中英雙語字幕，語音辨識與翻譯由 Whisper 和 Qwen 在本機 MLX 上執行，不需雲端金鑰和帳號，也不上傳音訊。MyGo 建置的是桌面應用程式，以 Web 前端選擇模型、啟停服務；負責擷取分頁的 Chrome 擴充功能與 Python 推論服務另行實作。",
+		"ja": "Apple Silicon Mac 向けのアプリで、Chrome で再生する英語・日本語の動画に中国語と英語の字幕を重ねます。音声認識と翻訳は Whisper と Qwen が MLX 上でローカルに行い、クラウドの API キーやアカウント、音声のアップロードは不要です。MyGo が作るのはモデル選択やサービス操作を行う Web フロントエンドのデスクトップアプリで、タブを取り込む Chrome 拡張と Python の推論サービスは別に作られています。",
+		"ko": "Apple Silicon Mac용 앱으로, Chrome에서 재생하는 영어·일본어 영상에 중국어와 영어 자막을 띄웁니다. 음성 인식과 번역은 Whisper와 Qwen이 MLX에서 로컬로 처리해 클라우드 키나 계정, 오디오 업로드가 필요 없습니다. MyGo로 만든 것은 모델 선택과 서비스 제어를 맡는 웹 프런트엔드 데스크톱 앱이며, 탭을 캡처하는 Chrome 확장과 Python 추론 서비스는 따로 만들어졌습니다."
+	},
+	"icon": {
+		"file": "tingsub.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "tingsub.webp",
+	"added": "2026-11-05T03:08:54Z"
+}
