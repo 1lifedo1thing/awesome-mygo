@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mayoi",
+	"name": "Mayoi",
+	"author": "sorrycc",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/sorrycc/Mayoi",
+	"repo": "sorrycc/Mayoi",
+	"summary": {
+		"en": "A small, fast code editor with a Vim mode, a Git view, a built-in terminal and remote SSH.",
+		"zh-CN": "小巧快速的代码编辑器，带 Vim 模式、Git 视图、终端和远程 SSH。",
+		"zh-TW": "小巧快速的程式碼編輯器，有 Vim 模式、Git 檢視、終端機與遠端 SSH。",
+		"ja": "小さく速いコードエディター。Vim モード、Git ビュー、ターミナル、リモート SSH を備える。",
+		"ko": "작고 빠른 코드 편집기. Vim 모드, Git 뷰, 내장 터미널, 원격 SSH를 갖췄습니다."
+	},
+	"description": {
+		"en": "A code editor written in Go, drawn on the GPU with MyGo's native UI: no webview, no Electron, and about 18 MB packaged. It has a Vim mode, split columns, search and replace across files, a Git view with diffs and a commit graph, and Ghostty's terminal, and it opens folders on other machines over SSH. It runs on macOS 13 or later, Linux with GTK 3, and Windows.",
+		"zh-CN": "用 Go 编写、由 MyGo 原生 UI 在 GPU 上绘制的代码编辑器，没有 Web 视图，也没有 Electron，打包后约 18 MB。它有 Vim 模式、分栏编辑、跨文件搜索替换、带差异对比和提交图的 Git 视图，以及 Ghostty 的终端，还能通过 SSH 打开另一台机器上的文件夹。支持 macOS 13 及以上、装有 GTK 3 的 Linux 和 Windows。",
+		"zh-TW": "用 Go 撰寫、由 MyGo 原生 UI 在 GPU 上繪製的程式碼編輯器，沒有 Web 視圖，也沒有 Electron，打包後約 18 MB。它有 Vim 模式、分欄編輯、跨檔案搜尋取代、附差異比對與提交圖的 Git 檢視，以及 Ghostty 的終端機，還能透過 SSH 開啟另一台機器上的資料夾。支援 macOS 13 以上、裝有 GTK 3 的 Linux 與 Windows。",
+		"ja": "Go で書かれ、MyGo のネイティブ UI で GPU に描画されるコードエディター。Web ビューも Electron もなく、パッケージは約 18 MB です。Vim モード、分割カラム、ファイルをまたいだ検索と置換、差分とコミットグラフを備えた Git ビュー、Ghostty のターミナルを持ち、別のマシンのフォルダーを SSH で開けます。macOS 13 以降、GTK 3 のある Linux、Windows で動きます。",
+		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 GPU에서 그리는 코드 편집기로, 웹 뷰도 Electron도 없이 패키지 크기가 약 18MB입니다. Vim 모드, 분할 열, 파일 전체 검색과 바꾸기, diff와 커밋 그래프가 있는 Git 뷰, Ghostty 터미널을 갖췄고, 다른 컴퓨터의 폴더를 SSH로 열 수 있습니다. macOS 13 이상, GTK 3이 있는 Linux, Windows에서 실행됩니다."
+	},
+	"added": "2026-11-05T00:45:32Z",
+	"icon": {
+		"file": "mayoi.webp"
+	},
+	"screenshot": "mayoi.webp"
+}
