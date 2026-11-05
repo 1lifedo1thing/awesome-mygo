@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "tendedero-in-mygo",
+	"name": "Tendedero, in MyGo",
+	"author": "HycJack",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/HycJack/mygo-tendedero",
+	"repo": "HycJack/mygo-tendedero",
+	"summary": {
+		"en": "Hangs new screenshots on a line at the top of the screen to copy, drag into a folder or discard.",
+		"zh-CN": "把新截图挂在屏幕顶部的一根绳上，可复制、拖进文件夹或取下。",
+		"zh-TW": "把新截圖掛在螢幕頂端的一條繩子上，可複製、拖進資料夾或取下。",
+		"ja": "新しいスクリーンショットを画面上端のロープに吊るし、コピー・ドラッグ・取り外しができる。",
+		"ko": "새 스크린샷을 화면 위쪽 줄에 걸어 두고 복사하거나 끌어 옮기거나 내립니다."
+	},
+	"description": {
+		"en": "A port of Alejandro Buján's macOS app Tendedero from SwiftUI to MyGo's native UI in Go, building for macOS, Linux and Windows. It watches the Desktop, ~/Pictures/Screenshots and other folders and hangs each new screenshot on a line that drops down when the pointer rests at the top of the screen. A click copies a shot, a drag hands it to a folder and the corner cross takes it down.",
+		"zh-CN": "把 Alejandro Buján 的 macOS 应用 Tendedero 从 SwiftUI 移植到 Go 与 MyGo 原生 UI 的版本，可构建 macOS、Linux 与 Windows 版。它监视桌面、~/Pictures/Screenshots 等文件夹，把新截图挂在屏幕顶部的一根绳上，指针停在屏幕顶端时绳子便会落下；单击复制，拖进文件夹保存，点角落的叉号取下。",
+		"zh-TW": "把 Alejandro Buján 的 macOS 應用程式 Tendedero 從 SwiftUI 移植到 Go 與 MyGo 原生 UI 的版本，可建置 macOS、Linux 與 Windows 版。它監看桌面、~/Pictures/Screenshots 等資料夾，把新截圖掛在螢幕頂端的一條繩子上，游標停在螢幕頂端時繩子便會垂下；點一下複製，拖進資料夾保存，按角落的叉號取下。",
+		"ja": "Alejandro Buján の macOS アプリ Tendedero を、SwiftUI から Go と MyGo のネイティブ UI に移植したもので、macOS・Linux・Windows 向けにビルドできます。デスクトップや ~/Pictures/Screenshots などのフォルダーを監視し、新しいスクリーンショットを画面上端のロープに吊るします。ポインターを上端に置くとロープが下りてきて、クリックでコピー、ドラッグでフォルダーへ、隅のバツ印で取り外せます。",
+		"ko": "Alejandro Buján의 macOS 앱 Tendedero를 SwiftUI에서 Go와 MyGo의 네이티브 UI로 옮긴 버전으로, macOS, Linux, Windows용으로 빌드됩니다. 바탕화면과 ~/Pictures/Screenshots 등의 폴더를 지켜보다가 새 스크린샷을 화면 위쪽 줄에 걸어 두고, 포인터를 화면 위쪽에 두면 줄이 내려옵니다. 클릭하면 복사, 폴더로 끌면 보관, 모서리의 X를 누르면 내립니다."
+	},
+	"icon": {
+		"file": "tendedero-in-mygo.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "tendedero-in-mygo.webp",
+	"added": "2026-11-05T17:24:29Z"
+}
