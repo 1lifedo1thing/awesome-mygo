@@ -5,6 +5,7 @@
 	"author": "hmgle",
 	"kind": "native",
 	"category": "MultimediaApplication",
+	"group": "media",
 	"url": "https://github.com/hmgle/radio-desktop",
 	"repo": "hmgle/radio-desktop",
 	"summary": {

@@ -5,6 +5,7 @@
 	"author": "owocc",
 	"kind": "native",
 	"category": "MultimediaApplication",
+	"group": "media",
 	"url": "https://orbit360.owocc.website",
 	"repo": "owocc/orbit360",
 	"summary": {

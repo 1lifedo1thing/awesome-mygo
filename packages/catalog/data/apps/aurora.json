@@ -5,6 +5,7 @@
 	"author": "pplmx",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "dev",
 	"url": "https://github.com/pplmx/aurora",
 	"repo": "pplmx/aurora",
 	"summary": {

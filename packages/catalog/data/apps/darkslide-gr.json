@@ -5,6 +5,7 @@
 	"author": "LiorMoment",
 	"kind": "web",
 	"category": "MultimediaApplication",
+	"group": "media",
 	"url": "https://github.com/LiorMoment/darkslide-gr",
 	"repo": "LiorMoment/darkslide-gr",
 	"summary": {

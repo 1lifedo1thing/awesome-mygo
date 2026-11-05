@@ -5,6 +5,7 @@
 	"author": "OUBIGFA",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "system",
 	"url": "https://github.com/OUBIGFA/WinTray",
 	"repo": "OUBIGFA/WinTray",
 	"summary": {

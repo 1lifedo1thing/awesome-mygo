@@ -5,6 +5,7 @@
 	"author": "egoist",
 	"kind": "native",
 	"category": "BusinessApplication",
+	"group": "notes",
 	"url": "https://github.com/egoist/godraw",
 	"repo": "egoist/godraw",
 	"summary": {

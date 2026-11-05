@@ -5,6 +5,7 @@
 	"author": "egoist",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "dev",
 	"url": "https://github.com/egoist/gorex",
 	"summary": {
 		"en": "A replica of Superlogical’s Rex terminal.",

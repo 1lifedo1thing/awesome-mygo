@@ -5,6 +5,7 @@
 	"author": "fzn0x",
 	"kind": "native",
 	"category": "MultimediaApplication",
+	"group": "media",
 	"url": "https://github.com/fzn0x/mixmusic",
 	"summary": {
 		"en": "An open-source music player that searches YouTube Music and Spotify.",

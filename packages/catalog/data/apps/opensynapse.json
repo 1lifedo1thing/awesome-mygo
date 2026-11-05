@@ -5,6 +5,7 @@
 	"author": "JohnsonRan",
 	"kind": "web",
 	"category": "UtilitiesApplication",
+	"group": "devices",
 	"url": "https://github.com/JohnsonRan/OpenSynapse",
 	"repo": "JohnsonRan/OpenSynapse",
 	"summary": {

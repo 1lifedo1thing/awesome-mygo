@@ -5,6 +5,7 @@
 	"author": "egoist",
 	"kind": "native",
 	"category": "CommunicationApplication",
+	"group": "ai",
 	"url": "https://lorca.app",
 	"repo": "egoist/lorca",
 	"summary": {

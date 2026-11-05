@@ -5,6 +5,7 @@
 	"author": "baka-world",
 	"kind": "web",
 	"category": "DeveloperApplication",
+	"group": "agents",
 	"url": "https://github.com/baka-world/dsh-gtk",
 	"repo": "baka-world/dsh-gtk",
 	"summary": {

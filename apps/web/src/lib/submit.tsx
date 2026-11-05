@@ -92,7 +92,7 @@ export function useSubmit() {
 	const [shotCheck, setShotCheck] = useState<ShotCheck>({ kind: 'idle' });
 
 	// A result or an error belongs to what was submitted; editing the form clears it.
-	useEffect(() => setStatus({ kind: 'idle' }), [form.cat, form.mode, form.name, form.author, form.url, form.repo, form.screenshot, form.desc, form.category, form.via, form.json, shotFile]);
+	useEffect(() => setStatus({ kind: 'idle' }), [form.cat, form.mode, form.name, form.author, form.url, form.repo, form.screenshot, form.desc, form.group, form.via, form.json, shotFile]);
 
 	const catLabel: Record<SubmitCat, string> = { ui: t.cat_ui_name, state: t.cat_state_name, plugin: t.nav_plugins, showcase: t.cat_show_name, article: t.article };
 	const isShow = form.cat === 'showcase';
@@ -113,7 +113,7 @@ export function useSubmit() {
 	const ph = { name: t.m_name, desc: t.md_desc };
 	const withAuthor = needsAuthor(form.cat);
 	// The fields only an app has are dropped for the other categories, also when they were filled in before the category changed.
-	const draft = isShow ? form : { ...form, category: undefined, repo: undefined, screenshot: withShot ? form.screenshot : undefined };
+	const draft = isShow ? form : { ...form, group: undefined, repo: undefined, screenshot: withShot ? form.screenshot : undefined };
 	// The entry as it will be filed: the pasted one, or the one the form builds. Its file is named after its slug.
 	const entryObj = pastedEntry ?? buildEntry(form.cat, draft, form.mode, ph);
 	const file = entryPath(form.cat, entryObj);
@@ -233,7 +233,7 @@ export function useSubmit() {
 	const send = async () => {
 		setStatus({ kind: 'sending' });
 		try {
-			const payload = JSON.stringify(pastedEntry ? { cat: form.cat, entry: pastedEntry, token } : { cat: form.cat, mode: form.mode, name: form.name, author: withAuthor ? form.author : '', url: form.url, repo: isShow ? form.repo : undefined, screenshot: shotLink, desc: form.desc, category: isShow ? form.category : undefined, token });
+			const payload = JSON.stringify(pastedEntry ? { cat: form.cat, entry: pastedEntry, token } : { cat: form.cat, mode: form.mode, name: form.name, author: withAuthor ? form.author : '', url: form.url, repo: isShow ? form.repo : undefined, screenshot: shotLink, desc: form.desc, group: isShow ? form.group : undefined, token });
 			// With an image, the JSON goes as one part of a multipart body and the image as another.
 			let requestBody: BodyInit = payload;
 			if (upload) {

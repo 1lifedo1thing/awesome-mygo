@@ -5,6 +5,7 @@
 	"author": "egoist",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "system",
 	"url": "https://pulse.egoist.dev",
 	"summary": {
 		"en": "An activity monitor for Mac, Windows and Linux.",

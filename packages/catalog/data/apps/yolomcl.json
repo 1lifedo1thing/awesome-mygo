@@ -5,6 +5,7 @@
 	"author": "Viking602",
 	"kind": "native",
 	"category": "GameApplication",
+	"group": "game",
 	"url": "https://github.com/Viking602/YoloMCL",
 	"repo": "Viking602/YoloMCL",
 	"summary": {

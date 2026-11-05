@@ -12,10 +12,13 @@ export interface ShowcaseSearch {
 
 const AUTHORS = new Set(APPS.map((a) => a.author));
 
+// Groups the showcase had before it had groups of its own, so a link shared then still opens a list: utility's apps are mostly system tools now, and design's category is media's.
+const FORMER_GROUPS: Record<string, AppGroup> = { utility: 'system', design: 'media' };
+
 export function validateShowcaseSearch(search: Record<string, unknown>): ShowcaseSearch {
 	const author = text(search.author);
 	return {
-		cat: isAppGroup(search.cat) ? search.cat : undefined,
+		cat: isAppGroup(search.cat) ? search.cat : typeof search.cat === 'string' ? FORMER_GROUPS[search.cat] : undefined,
 		ui: search.ui === 'native' || search.ui === 'web' ? search.ui : undefined,
 		sort: oneOf(search.sort, ['natural', 'newest', 'likes', 'score'] as const),
 		author: author !== undefined && AUTHORS.has(author) ? author : undefined,

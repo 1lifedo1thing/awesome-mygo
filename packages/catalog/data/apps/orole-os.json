@@ -5,6 +5,7 @@
 	"author": "rayorole",
 	"kind": "web",
 	"category": "DeveloperApplication",
+	"group": "agents",
 	"url": "https://github.com/rayorole/orole-os-desktop",
 	"repo": "rayorole/orole-os-desktop",
 	"summary": {

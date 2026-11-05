@@ -5,6 +5,7 @@
 	"author": "WonderLantern",
 	"kind": "web",
 	"category": "DeveloperApplication",
+	"group": "dev",
 	"url": "https://github.com/WonderLantern/z63-qemu",
 	"repo": "WonderLantern/z63-qemu",
 	"summary": {

@@ -5,6 +5,7 @@
 	"author": "zkeq",
 	"kind": "web",
 	"category": "ReferenceApplication",
+	"group": "notes",
 	"url": "https://cook.corerevive.cn",
 	"repo": "zkeq/vibe-cook",
 	"summary": {

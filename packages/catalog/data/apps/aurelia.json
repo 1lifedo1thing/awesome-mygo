@@ -5,6 +5,7 @@
 	"author": "j4ckxyz",
 	"kind": "native",
 	"category": "MultimediaApplication",
+	"group": "media",
 	"url": "https://github.com/j4ckxyz/Aurelia",
 	"repo": "j4ckxyz/Aurelia",
 	"summary": {

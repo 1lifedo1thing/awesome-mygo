@@ -5,6 +5,7 @@
 	"author": "mu-zi-lee",
 	"kind": "web",
 	"category": "UtilitiesApplication",
+	"group": "devices",
 	"url": "https://github.com/mu-zi-lee/ESP32-Mini-TV",
 	"repo": "mu-zi-lee/ESP32-Mini-TV",
 	"summary": {

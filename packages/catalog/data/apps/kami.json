@@ -5,6 +5,7 @@
 	"author": "Umupa",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "ai",
 	"url": "https://umupa.github.io/Kami/",
 	"repo": "Umupa/Kami",
 	"summary": {

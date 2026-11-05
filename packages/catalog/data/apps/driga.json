@@ -5,6 +5,7 @@
 	"author": "labstack",
 	"kind": "web",
 	"category": "DeveloperApplication",
+	"group": "agents",
 	"url": "https://github.com/labstack/driga",
 	"repo": "labstack/driga",
 	"summary": {

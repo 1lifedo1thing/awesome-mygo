@@ -5,6 +5,7 @@
 	"author": "alvin-7",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "devices",
 	"url": "https://github.com/alvin-7/motionduo",
 	"repo": "alvin-7/motionduo",
 	"summary": {

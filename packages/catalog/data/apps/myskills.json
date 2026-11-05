@@ -5,6 +5,7 @@
 	"author": "legibet",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "agents",
 	"url": "https://github.com/legibet/myskills",
 	"repo": "legibet/myskills",
 	"summary": {

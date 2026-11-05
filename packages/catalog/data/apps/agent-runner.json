@@ -5,6 +5,7 @@
 	"author": "walm",
 	"kind": "web",
 	"category": "DeveloperApplication",
+	"group": "agents",
 	"url": "https://github.com/walm/agent-runner",
 	"repo": "walm/agent-runner",
 	"summary": {

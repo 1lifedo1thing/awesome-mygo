@@ -5,6 +5,7 @@
 	"author": "CBR0",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "system",
 	"url": "https://github.com/CBR0/calc",
 	"repo": "CBR0/calc",
 	"summary": {

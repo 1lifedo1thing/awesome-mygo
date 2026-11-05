@@ -5,6 +5,7 @@
 	"author": "OldPanda",
 	"kind": "web",
 	"category": "UtilitiesApplication",
+	"group": "dev",
 	"url": "https://getbamboo.app/",
 	"repo": "OldPanda/bamboo",
 	"summary": {

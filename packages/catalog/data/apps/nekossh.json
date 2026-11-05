@@ -5,6 +5,7 @@
 	"author": "neko233-com",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "dev",
 	"url": "https://github.com/neko233-com/nekossh",
 	"repo": "neko233-com/nekossh",
 	"summary": {

@@ -5,6 +5,7 @@
 	"author": "sorrycc",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "system",
 	"url": "https://github.com/sorrycc/Shun",
 	"repo": "sorrycc/Shun",
 	"summary": {

@@ -5,6 +5,7 @@
 	"author": "margbug01",
 	"kind": "native",
 	"category": "MultimediaApplication",
+	"group": "media",
 	"url": "https://github.com/margbug01/MySpotify",
 	"repo": "margbug01/MySpotify",
 	"summary": {

@@ -5,6 +5,7 @@
 	"author": "margbug01",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "network",
 	"url": "https://github.com/margbug01/ShoesGUI",
 	"repo": "margbug01/ShoesGUI",
 	"summary": {

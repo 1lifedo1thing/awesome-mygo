@@ -5,6 +5,7 @@
 	"author": "RedwindA",
 	"kind": "web",
 	"category": "CommunicationApplication",
+	"group": "chat",
 	"url": "https://github.com/RedwindA/gotify-desktop",
 	"repo": "RedwindA/gotify-desktop",
 	"summary": {

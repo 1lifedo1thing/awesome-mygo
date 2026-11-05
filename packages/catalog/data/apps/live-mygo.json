@@ -5,6 +5,7 @@
 	"author": "anamaxlec",
 	"kind": "native",
 	"category": "MultimediaApplication",
+	"group": "media",
 	"url": "https://github.com/anamaxlec/live-mygo",
 	"repo": "anamaxlec/live-mygo",
 	"summary": {

@@ -5,6 +5,7 @@
 	"author": "real-jacket",
 	"kind": "web",
 	"category": "UtilitiesApplication",
+	"group": "system",
 	"url": "https://github.com/real-jacket/orbit",
 	"repo": "real-jacket/orbit",
 	"summary": {

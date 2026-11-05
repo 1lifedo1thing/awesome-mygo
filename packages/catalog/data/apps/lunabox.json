@@ -5,6 +5,7 @@
 	"author": "Saramanda9988",
 	"kind": "native",
 	"category": "GameApplication",
+	"group": "game",
 	"url": "https://box.lunarain.site",
 	"repo": "Saramanda9988/LunaBox",
 	"summary": {

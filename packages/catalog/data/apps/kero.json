@@ -5,6 +5,7 @@
 	"author": "egoist",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "agents",
 	"url": "https://kero.sh",
 	"repo": "egoist/kero",
 	"summary": {

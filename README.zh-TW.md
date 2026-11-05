@@ -54,7 +54,7 @@ pnpm preview      # 在 Workers 執行環境中執行正式建置
 
 作品、UI 元件和狀態管理都需要截圖。訪客填好倉庫連結後，表單會請 Worker（`/api/shot`）依 submission workflow 自己的規則（`packages/enrich/src/source.ts`）檢查倉庫裡有沒有它會採用的截圖；沒有，或者作品沒有倉庫時，表單會要求提供一張，Worker 也會拒絕沒有截圖的提交。訪客可以上傳圖片（PNG、JPEG 或 WebP，5 MB 以內，橫向且寬度至少 600 像素），也可以填圖片連結。上傳的圖片會以 `submissions/<slug>.<ext>` 提交到 PR 的分支上並顯示在 PR 裡，workflow 把它轉成站點用的 WebP 後刪除。這項檢查依 IP 限流，每分鐘 20 次。
 
-bot 開出 PR 後，*Complete submission* workflow 會補上表單問不到的內容：應用圖示，依 MyGo 的查找方式取（`mygo.json` 的 `icon`，沒有則用 `resources/icon.png`；如果是 `mygo init` 產生的 MyGo 預設圖示就不加）、README 裡第一張不是圖示或其他方形 logo 的截圖，以及五種語言的簡介和介紹。UI 元件和狀態管理也會照同樣的方式補截圖，並從倉庫設定裡補 homepage；表單填了預設值的欄位（應用的分類、UI 元件的 `tag` 和 `surface`、外掛的 `surface`、狀態管理和外掛的 `tags`）由模型在寫文案時一併選定。它會跑 catalog 檢查，以 bot 身分推到同一分支，並在 PR 裡留言說明做了什麼；合併前仍需維護者審核。需要在倉庫的 Actions 設定裡配置 secret：`SUBMIT_APP_PRIVATE_KEY`（App 的 PKCS#8 私鑰，與 Worker 用的相同）、`LLM_API_KEY`（Anthropic Messages API 的金鑰），走閘道時再加 `LLM_BASE_URL`；以及變數 `SUBMIT_APP_CLIENT_ID`（App 的 Client ID）。變數 `LLM_MODEL` 可以換模型（預設 `claude-opus-5-5`）。沒有 `LLM_API_KEY` 時文案維持提交時的樣子。
+bot 開出 PR 後，*Complete submission* workflow 會補上表單問不到的內容：應用圖示，依 MyGo 的查找方式取（`mygo.json` 的 `icon`，沒有則用 `resources/icon.png`；如果是 `mygo init` 產生的 MyGo 預設圖示就不加）、README 裡第一張不是圖示或其他方形 logo 的截圖，以及五種語言的簡介和介紹。UI 元件和狀態管理也會照同樣的方式補截圖，並從倉庫設定裡補 homepage；表單填了預設值的欄位（應用在作品集裡的分組 `group`，沒有另寫分類時分類隨分組而定、UI 元件的 `tag` 和 `surface`、外掛的 `surface`、狀態管理和外掛的 `tags`）由模型在寫文案時一併選定。它會跑 catalog 檢查，以 bot 身分推到同一分支，並在 PR 裡留言說明做了什麼；合併前仍需維護者審核。需要在倉庫的 Actions 設定裡配置 secret：`SUBMIT_APP_PRIVATE_KEY`（App 的 PKCS#8 私鑰，與 Worker 用的相同）、`LLM_API_KEY`（Anthropic Messages API 的金鑰），走閘道時再加 `LLM_BASE_URL`；以及變數 `SUBMIT_APP_CLIENT_ID`（App 的 Client ID）。變數 `LLM_MODEL` 可以換模型（預設 `claude-opus-5-5`）。沒有 `LLM_API_KEY` 時文案維持提交時的樣子。
 
 ## 收錄專案
 

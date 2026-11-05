@@ -5,6 +5,7 @@
 	"author": "Itoktsnhc",
 	"kind": "native",
 	"category": "MultimediaApplication",
+	"group": "media",
 	"url": "https://github.com/Itoktsnhc/WaveAlign",
 	"repo": "Itoktsnhc/WaveAlign",
 	"summary": {

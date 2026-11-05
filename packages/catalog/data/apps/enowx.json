@@ -5,6 +5,7 @@
 	"author": "enowdev",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "agents",
 	"url": "https://enowx.ai",
 	"repo": "enowdev/enowx",
 	"summary": {

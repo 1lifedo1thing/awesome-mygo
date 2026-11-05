@@ -5,6 +5,7 @@
 	"author": "meimingqi222",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "agents",
 	"url": "https://github.com/meimingqi222/devin-usage-metrics",
 	"repo": "meimingqi222/devin-usage-metrics",
 	"summary": {

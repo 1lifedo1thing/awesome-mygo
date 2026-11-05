@@ -5,6 +5,7 @@
 	"author": "tacshi",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "notes",
 	"url": "https://github.com/tacshi/Leaflet",
 	"repo": "tacshi/Leaflet",
 	"summary": {

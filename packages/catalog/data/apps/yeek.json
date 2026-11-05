@@ -5,6 +5,7 @@
 	"author": "tacshi",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "dev",
 	"url": "https://github.com/tacshi/Yeek",
 	"repo": "tacshi/Yeek",
 	"summary": {

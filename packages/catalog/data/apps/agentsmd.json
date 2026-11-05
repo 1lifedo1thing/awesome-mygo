@@ -5,6 +5,7 @@
 	"author": "iwangjie",
 	"kind": "web",
 	"category": "DeveloperApplication",
+	"group": "agents",
 	"url": "https://github.com/iwangjie/agentsmd",
 	"repo": "iwangjie/agentsmd",
 	"summary": {

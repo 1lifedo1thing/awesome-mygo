@@ -5,6 +5,7 @@
 	"author": "baranwang",
 	"kind": "native",
 	"category": "CommunicationApplication",
+	"group": "chat",
 	"url": "https://godwit.email",
 	"repo": "godwit-email/godwit",
 	"summary": {

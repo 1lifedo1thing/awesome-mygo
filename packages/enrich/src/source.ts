@@ -187,22 +187,23 @@ export function schemaEnum(schema: unknown, field: string): string[] {
 }
 
 // A field the model picks from the values its schema allows.
-export type ChoiceField = 'category' | 'tag' | 'surface';
+export type ChoiceField = 'category' | 'group' | 'tag' | 'surface';
 
 // What the values of each field mean, for the model picking one; the same words as the discover workflow's triage.
 export const CHOICE_HINTS: Record<ChoiceField, string> = {
 	category: 'the one that best says what the app is for',
+	group: "the showcase's group that best says what the app is for: agents for tools for AI coding agents (terminals and workspaces for them, their usage, quotas and skills); dev for other developer tools (Git, editors, terminals, SSH, databases, API clients, cloud storage); ai for AI assistants (chat clients, writing, translation, voice input, local models); network for proxy and VPN clients; notes for notes, documents and reading (Markdown, PDF, OCR, RSS); system for system and file utilities (cleaning, files, clipboard, screenshots, remote desktop, menu bar tools); devices for hardware and the smart home (chargers, monitors, peripherals, Home Assistant); media for music, video, audio and images; game for games and their launchers; chat for messaging, mail and notifications",
 	tag: 'theme for a component library or theme, retro for one in a retro style, icons for an icon set',
 	surface: 'web when it serves web pages (a JavaScript package), native when it works with the native UI (Go), both when it has a part for each',
 };
 
-// What the model picks along with the copy: the fields the site's form fills in without asking (buildEntry in packages/catalog), as long as they still hold its default. An app's category, which the form leaves out unless its author picked a group; a UI library's tag and surface, which it sets to theme and native; a plugin's surface, which it sets to web; and the tags of a state management library (just state) and of a plugin (none). An entry the discover workflow adds was triaged with these already, and one still at the default is only picked again.
+// What the model picks along with the copy: the fields the site's form fills in without asking (buildEntry in packages/catalog), as long as they still hold its default. An app's showcase group, which the form leaves out unless its author picked one (its schema.org category then follows from the group); a UI library's tag and surface, which it sets to theme and native; a plugin's surface, which it sets to web; and the tags of a state management library (just state) and of a plugin (none). An entry the discover workflow adds was triaged with these already, and one still at the default is only picked again.
 export function formDefaults(kind: EntryKind, entry: Entry): { choices: ChoiceField[]; tags: boolean } {
 	const tags = Array.isArray(entry.tags) ? entry.tags : [];
 	const at = (field: ChoiceField, def?: string) => (entry[field] === undefined || entry[field] === def ? [field] : []);
 	switch (kind) {
 		case 'app':
-			return { choices: at('category'), tags: false };
+			return { choices: at('group'), tags: false };
 		case 'ui':
 			return { choices: [...at('tag', 'theme'), ...at('surface', 'native')], tags: false };
 		case 'state':
@@ -234,6 +235,18 @@ export function homepageOf(homepage: string | null | undefined, repo: string): s
 export function markProvisional(entry: Entry, image: 'icon' | 'screenshot'): void {
 	const list = Array.isArray(entry.provisional) ? (entry.provisional as string[]) : [];
 	entry.provisional = [...new Set([...list, image])].sort();
+}
+
+// Sets the entry's group in place, right after its category or else its kind, as in the files written by hand, since the entry is written back in its key order.
+export function setGroup(entry: Entry, group: string): void {
+	const after = 'category' in entry ? 'category' : 'kind';
+	const fields = Object.entries(entry).filter(([k]) => k !== 'group');
+	for (const k of Object.keys(entry)) delete entry[k];
+	for (const [k, v] of fields) {
+		entry[k] = v;
+		if (k === after) entry.group = group;
+	}
+	if (!('group' in entry)) entry.group = group;
 }
 
 // Sets the entry's category in place, right after kind as in the files written by hand, since the entry is written back in its key order.

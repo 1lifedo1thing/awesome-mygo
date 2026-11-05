@@ -5,6 +5,7 @@
 	"author": "saanuregh",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "dev",
 	"url": "https://github.com/saanuregh/dgopher",
 	"repo": "saanuregh/dgopher",
 	"summary": {

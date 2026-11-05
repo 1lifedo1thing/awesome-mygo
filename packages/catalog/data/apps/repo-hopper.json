@@ -5,6 +5,7 @@
 	"author": "pteich",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "dev",
 	"url": "https://github.com/pteich/repo-hopper",
 	"summary": {
 		"en": "Spotlight for your Git repositories: one shortcut to find and open any local repo.",

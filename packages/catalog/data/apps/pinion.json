@@ -5,6 +5,7 @@
 	"author": "DanielZhangyc",
 	"kind": "native",
 	"category": "GameApplication",
+	"group": "game",
 	"url": "https://github.com/DanielZhangyc/Pinion",
 	"repo": "DanielZhangyc/Pinion",
 	"summary": {

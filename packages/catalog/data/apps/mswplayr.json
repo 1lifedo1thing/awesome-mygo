@@ -5,6 +5,7 @@
 	"author": "Ahdeyyy",
 	"kind": "native",
 	"category": "MultimediaApplication",
+	"group": "media",
 	"url": "https://github.com/Ahdeyyy/msw-player",
 	"repo": "Ahdeyyy/msw-player",
 	"summary": {

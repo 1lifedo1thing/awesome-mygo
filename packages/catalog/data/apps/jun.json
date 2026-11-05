@@ -5,6 +5,7 @@
 	"author": "bencode",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "agents",
 	"url": "https://github.com/bencode/jun",
 	"repo": "bencode/jun",
 	"summary": {

@@ -5,6 +5,7 @@
 	"author": "xptea",
 	"kind": "native",
 	"category": "MultimediaApplication",
+	"group": "media",
 	"url": "https://curb.seths.app",
 	"repo": "xptea/curb",
 	"summary": {

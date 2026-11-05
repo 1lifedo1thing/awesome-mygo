@@ -5,6 +5,7 @@
 	"author": "coderPerseus",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "ai",
 	"url": "https://pm.luckysnail.cn/",
 	"repo": "coderPerseus/popMind",
 	"summary": {

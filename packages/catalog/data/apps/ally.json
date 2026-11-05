@@ -5,6 +5,7 @@
 	"author": "Bronya0",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "agents",
 	"url": "https://bronya0.github.io/ally-agent/",
 	"repo": "Bronya0/ally-agent",
 	"summary": {

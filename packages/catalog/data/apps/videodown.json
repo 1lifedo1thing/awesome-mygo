@@ -5,6 +5,7 @@
 	"author": "kamiertop",
 	"kind": "native",
 	"category": "MultimediaApplication",
+	"group": "media",
 	"url": "https://github.com/kamiertop/videodown",
 	"repo": "kamiertop/videodown",
 	"summary": {

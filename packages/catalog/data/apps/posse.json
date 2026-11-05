@@ -5,6 +5,7 @@
 	"author": "syanbo",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "agents",
 	"url": "https://github.com/syanbo/posse",
 	"repo": "syanbo/posse",
 	"summary": {

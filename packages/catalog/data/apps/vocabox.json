@@ -5,6 +5,7 @@
 	"author": "hu-ja-ja",
 	"kind": "native",
 	"category": "MultimediaApplication",
+	"group": "media",
 	"url": "https://github.com/hu-ja-ja/VocaBox_Desktop",
 	"repo": "hu-ja-ja/VocaBox_Desktop",
 	"summary": {

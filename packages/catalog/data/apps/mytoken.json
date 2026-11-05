@@ -5,6 +5,7 @@
 	"author": "nerv-base",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "agents",
 	"url": "https://github.com/nerv-base/mytoken",
 	"repo": "nerv-base/mytoken",
 	"summary": {

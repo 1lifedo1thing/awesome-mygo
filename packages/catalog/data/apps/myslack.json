@@ -5,6 +5,7 @@
 	"author": "mrzzmrzz",
 	"kind": "native",
 	"category": "CommunicationApplication",
+	"group": "chat",
 	"url": "https://github.com/mrzzmrzz/MySlack",
 	"repo": "mrzzmrzz/MySlack",
 	"summary": {

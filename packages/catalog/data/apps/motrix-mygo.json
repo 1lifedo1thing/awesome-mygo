@@ -5,6 +5,7 @@
 	"author": "missuo",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "system",
 	"url": "https://github.com/missuo/motrix-mygo",
 	"repo": "missuo/motrix-mygo",
 	"summary": {

@@ -5,6 +5,7 @@
 	"author": "oneo-me",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "notes",
 	"url": "https://oneo-me.github.io/locus/",
 	"repo": "oneo-me/locus",
 	"summary": {

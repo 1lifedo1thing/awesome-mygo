@@ -5,6 +5,7 @@
 	"author": "ji233-Sun",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "dev",
 	"url": "https://github.com/ji233-Sun/easy-ssh-port",
 	"repo": "ji233-Sun/easy-ssh-port",
 	"summary": {

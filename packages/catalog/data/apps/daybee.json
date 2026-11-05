@@ -5,6 +5,7 @@
 	"author": "nexmoe",
 	"kind": "web",
 	"category": "MultimediaApplication",
+	"group": "media",
 	"url": "https://daybee.co",
 	"repo": "nexmoe/DayBee",
 	"summary": {

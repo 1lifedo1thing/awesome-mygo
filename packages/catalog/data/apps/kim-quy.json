@@ -5,6 +5,7 @@
 	"author": "msongd",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "ai",
 	"url": "https://github.com/msongd/kimquy",
 	"repo": "msongd/kimquy",
 	"summary": {

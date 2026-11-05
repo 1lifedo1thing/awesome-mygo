@@ -5,6 +5,7 @@
 	"author": "maximousblk",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "system",
 	"url": "https://github.com/maximousblk/mochi",
 	"repo": "maximousblk/mochi",
 	"summary": {

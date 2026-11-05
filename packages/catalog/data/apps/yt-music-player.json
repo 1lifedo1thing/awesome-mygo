@@ -5,6 +5,7 @@
 	"author": "xlanstar",
 	"kind": "native",
 	"category": "MultimediaApplication",
+	"group": "media",
 	"url": "https://github.com/xlanstar/yt-music-player",
 	"repo": "xlanstar/yt-music-player",
 	"summary": {

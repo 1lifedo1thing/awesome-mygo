@@ -5,6 +5,7 @@
 	"author": "Nemuboshi",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "system",
 	"url": "https://github.com/Nemuboshi/BadRename",
 	"repo": "Nemuboshi/BadRename",
 	"summary": {
