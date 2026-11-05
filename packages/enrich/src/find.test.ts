@@ -108,6 +108,8 @@ describe('proposals', () => {
 	it('picks a slug no entry has', () => {
 		expect(uniqueSlug('LunaBox', 'Saramanda9988/LunaBox', new Set())).toBe('lunabox');
 		expect(uniqueSlug('留白', 'echoVic/liubai', new Set())).toBe('liubai');
+		expect(uniqueSlug('酷狗音乐 · MyGo', 'fansa91/mygo-kgou', new Set())).toBe('mygo-kgou');
+		expect(uniqueSlug('Gist管理器', 'Oranjekop/GistManager', new Set())).toBe('gistmanager');
 		expect(uniqueSlug('Pulse', 'someone/pulse', new Set(['pulse']))).toBe('pulse-someone');
 		expect(uniqueSlug('Pulse', 'someone/pulse', new Set(['pulse', 'pulse-someone']))).toBe('pulse-someone-2');
 	});

@@ -136,10 +136,10 @@ export function slugify(name: string): string {
 	);
 }
 
-// A slug no file in the directory has yet: from the name, or the repository's name when the name has no Latin letter or digit; then with the owner's name added, then a number.
+// A slug no file in the directory has yet: from the name when it is all ASCII with a Latin letter or digit, else from the repository's name, since a name like 酷狗音乐 · MyGo or Gist管理器 keeps only its Latin part and would become mygo or gist; then with the owner's name added, then a number.
 export function uniqueSlug(name: string, repo: string, taken: ReadonlySet<string>): string {
 	const [owner, repoName] = repo.split('/');
-	const base = slugify(/[a-z0-9]/i.test(name) ? name : repoName);
+	const base = slugify(/^[\x20-\x7e]*$/.test(name) && /[a-z0-9]/i.test(name) ? name : repoName);
 	if (!taken.has(base)) return base;
 	const owned = `${base}-${slugify(owner)}`;
 	if (!taken.has(owned)) return owned;
