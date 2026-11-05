@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "sakana",
+	"name": "Sakana",
+	"author": "fimars",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/fimars/sakana",
+	"repo": "fimars/sakana",
+	"summary": {
+		"en": "A macOS desktop pet: a fish or your own character that sways on screen and reminds you to rest.",
+		"zh-CN": "macOS 桌面宠物：小鱼或自选角色在屏幕上摇摆，还会提醒你休息。",
+		"zh-TW": "macOS 桌面寵物：小魚或自選角色在螢幕上搖擺，還會提醒你休息。",
+		"ja": "macOS のデスクトップペット。小さな魚や自分のキャラクターが画面で揺れ、休憩も促します。",
+		"ko": "macOS 데스크톱 펫. 물고기나 직접 고른 캐릭터가 화면에서 흔들리고 휴식을 알려 줍니다."
+	},
+	"description": {
+		"en": "A macOS desktop pet drawn with MyGo's native UI, with no web view: a little fish, or a PNG or JPEG of your own, that sways on spring physics and can be grabbed and pulled. It floats over every Space and full-screen apps without taking focus, lives in the menu bar with no Dock icon, and after 40 minutes of work shows a toast for a 10-minute rest; the message and both lengths can be changed.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 桌面宠物，没有 Web 视图：一条小鱼，或你自选的 PNG、JPEG 角色，按弹簧物理在屏幕上摇摆，还能抓住拖动。它浮在所有桌面空间和全屏应用之上，不抢焦点，只在菜单栏显示，没有 Dock 图标；工作 40 分钟后会弹出提示让你休息 10 分钟，提示文字和两段时长都可以修改。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS 桌面寵物，沒有 Web 視圖：一條小魚，或你自選的 PNG、JPEG 角色，依彈簧物理在螢幕上搖擺，還能抓住拖動。它浮在所有桌面空間和全螢幕 App 之上，不搶焦點，只在選單列顯示，沒有 Dock 圖示；工作 40 分鐘後會跳出提示讓你休息 10 分鐘，提示文字和兩段時長都可以修改。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS 用デスクトップペットで、Web ビューは使いません。小さな魚、または自分で選んだ PNG・JPEG のキャラクターがばねの物理演算で揺れ、つかんで引っぱることもできます。すべての操作スペースとフルスクリーンアプリの上に浮かび、フォーカスを奪いません。メニューバーに常駐して Dock アイコンは出さず、40 分作業すると 10 分休むよう吹き出しで知らせます。メッセージと両方の時間は設定で変えられます。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS용 데스크톱 펫으로, 웹 뷰를 쓰지 않습니다. 작은 물고기나 직접 고른 PNG·JPEG 캐릭터가 스프링 물리로 흔들리고, 붙잡아 당길 수도 있습니다. 모든 Space와 전체 화면 앱 위에 떠 있으면서 포커스를 가져가지 않고, Dock 아이콘 없이 메뉴 막대에 머물며, 40분 동안 일하면 10분 쉬라는 알림을 띄웁니다. 알림 문구와 두 시간은 설정에서 바꿀 수 있습니다."
+	},
+	"icon": {
+		"file": "sakana.webp"
+	},
+	"screenshot": "sakana.webp",
+	"added": "2026-11-05T16:30:17Z"
+}
