@@ -1,0 +1,19 @@
+{
+	"$schema": "../schema/ui.schema.json",
+	"slug": "ryugo",
+	"name": "Ryugo",
+	"author": "imhalid",
+	"tag": "theme",
+	"surface": "native",
+	"summary": {
+		"en": "A Go design system for MyGo native UI with raised controls, inset fields, light and dark themes with a brand accent, and components from forms and tables to dialogs, toasts and chat.",
+		"zh-CN": "MyGo 原生 UI 的 Go 设计系统，控件凸起、输入框内凹，含明暗主题与强调色，组件涵盖表单、表格、对话框、通知与聊天。",
+		"zh-TW": "MyGo 原生 UI 的 Go 設計系統，控制項凸起、輸入框內凹，含深淺色主題與強調色，元件涵蓋表單、表格、對話框、通知與聊天。",
+		"ja": "MyGo ネイティブ UI 向けの Go デザインシステム。浮き出たコントロールとくぼんだ入力欄、明暗テーマとアクセントカラー、フォームや表、ダイアログ、チャットの部品を収録。",
+		"ko": "MyGo 네이티브 UI용 Go 디자인 시스템. 도드라진 컨트롤과 들어간 입력 필드, 강조 색상을 지원하는 라이트·다크 테마, 폼과 테이블부터 대화상자, 채팅까지 컴포넌트를 제공합니다."
+	},
+	"repo": "imhalid/ryu-go",
+	"url": "https://github.com/imhalid/ryu-go",
+	"screenshot": "ryugo.webp",
+	"added": "2026-11-05T08:08:34Z"
+}
