@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "sunvale",
+	"name": "Sunvale",
+	"author": "mcxen",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/mcxen/WinExplorer",
+	"repo": "mcxen/WinExplorer",
+	"summary": {
+		"en": "A file manager modeled on Windows 11 Explorer, with tabs, indexed search and an AI assistant.",
+		"zh-CN": "仿 Windows 11 资源管理器的文件管理器，带标签页、索引搜索与 AI 助手。",
+		"zh-TW": "仿 Windows 11 檔案總管的檔案管理器，具分頁、索引搜尋與 AI 助理。",
+		"ja": "Windows 11 エクスプローラー風のファイル管理アプリ。タブと索引検索、AI アシスタント付き。",
+		"ko": "Windows 11 탐색기를 본뜬 파일 관리자. 탭, 색인 검색, AI 어시스턴트를 갖췄습니다."
+	},
+	"description": {
+		"en": "A file manager for macOS, Windows and Linux laid out like Windows 11 File Explorer, drawn in Go with MyGo's native UI, with no HTML, WebView or cgo. It has tabs, an Everything-style search index, browsing inside archives as if they were folders, and an assistant that works on files through a model provider you configure. It can also share your home folder on the LAN, compatible with OpenList.",
+		"zh-CN": "按 Windows 11 文件资源管理器布局打造的 macOS、Windows 与 Linux 文件管理器，整个界面由 Go 通过 MyGo 原生 UI 绘制，没有 HTML、WebView 和 cgo。支持标签页、Everything 式搜索索引、像文件夹一样浏览压缩包，以及通过自行配置的模型操作文件的助手；还能在局域网内共享主文件夹，兼容 OpenList。",
+		"zh-TW": "依 Windows 11 檔案總管版面打造的 macOS、Windows 與 Linux 檔案管理器，整個介面由 Go 透過 MyGo 原生 UI 繪製，沒有 HTML、WebView 和 cgo。支援分頁、Everything 式搜尋索引、像資料夾一樣瀏覽壓縮檔，以及透過自行設定的模型操作檔案的助理；還能在區域網路內分享主資料夾，相容 OpenList。",
+		"ja": "Windows 11 のエクスプローラーと同じレイアウトを持つ、macOS・Windows・Linux 向けのファイルマネージャー。画面全体を Go から MyGo のネイティブ UI で描いており、HTML も WebView も cgo も使いません。タブ、Everything 風の検索インデックス、圧縮ファイルをフォルダーのように開く機能、自分で設定したモデルでファイルを扱うアシスタントを備え、ホームフォルダーを OpenList 互換の方式で LAN に共有することもできます。",
+		"ko": "Windows 11 파일 탐색기와 같은 배치를 갖춘 macOS·Windows·Linux용 파일 관리자로, 화면 전체를 Go에서 MyGo의 네이티브 UI로 그려 HTML도 WebView도 cgo도 쓰지 않습니다. 탭, Everything 방식의 검색 색인, 압축 파일을 폴더처럼 여는 기능, 직접 설정한 모델로 파일을 다루는 어시스턴트를 갖췄고, 홈 폴더를 OpenList 호환 방식으로 LAN에 공유할 수도 있습니다."
+	},
+	"icon": {
+		"file": "sunvale.webp"
+	},
+	"screenshot": "sunvale.webp",
+	"added": "2026-11-05T05:19:24Z"
+}
