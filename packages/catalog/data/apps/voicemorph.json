@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "voicemorph",
+	"name": "VoiceMorph",
+	"author": "tviber",
+	"kind": "web",
+	"category": "MultimediaApplication",
+	"url": "https://github.com/tviber/voice-morph",
+	"repo": "tviber/voice-morph",
+	"summary": {
+		"en": "A real-time voice changer for macOS modeled on MorphVOX Pro, with pitch, timbre, EQ and presets.",
+		"zh-CN": "仿 MorphVOX Pro 的 macOS 实时变声器，可调音高、音色与均衡并附预设。",
+		"zh-TW": "仿 MorphVOX Pro 的 macOS 即時變聲器，可調音高、音色與等化並附預設。",
+		"ja": "MorphVOX Pro 風の macOS 用リアルタイム変声アプリ。ピッチ・音色・EQ を調整できる。",
+		"ko": "MorphVOX Pro 스타일의 macOS 실시간 음성 변조기. 피치, 음색, EQ, 프리셋 지원."
+	},
+	"description": {
+		"en": "A MorphVOX Pro-style voice changer for macOS, with a web frontend in MyGo over a pure Go DSP engine. It reworks microphone input or an audio file with pitch, timbre and a 10-band EQ, with presets and an experimental speech mode that shifts only voiced sound. Its output cannot yet be used as a microphone in other apps.",
+		"zh-CN": "仿 MorphVOX Pro 的 macOS 变声器，由纯 Go 编写的 DSP 引擎加上运行在 MyGo 中的 Web 前端构成。可对麦克风输入或音频文件调节音高、音色和十段均衡，附带预设，另有只变换浊音的实验性语音模式。目前还不能作为虚拟麦克风，把变声结果送给其他应用。",
+		"zh-TW": "仿 MorphVOX Pro 的 macOS 變聲器，以純 Go 撰寫的 DSP 引擎搭配運行在 MyGo 中的 Web 前端。可對麥克風輸入或音訊檔調整音高、音色與十段等化器，附有預設，另有只轉換濁音的實驗性語音模式。目前還無法當作虛擬麥克風，把變聲結果送給其他應用程式。",
+		"ja": "MorphVOX Pro 風の macOS 用ボイスチェンジャー。純 Go の DSP エンジンに、MyGo で動く Web フロントエンドを組み合わせています。マイク入力や音声ファイルのピッチ、音色、10 バンド EQ を調整でき、プリセットのほか、有声音だけを変換する実験的な音声モードもあります。変換した声を仮想マイクとして他のアプリに渡すことはまだできません。",
+		"ko": "MorphVOX Pro 스타일의 macOS용 음성 변조기로, 순수 Go DSP 엔진 위에 MyGo의 웹 프런트엔드를 얹었습니다. 마이크 입력이나 오디오 파일의 피치, 음색, 10밴드 EQ를 조절하고 프리셋을 쓸 수 있으며, 유성음만 바꾸는 실험적 음성 모드도 있습니다. 변조한 음성을 가상 마이크로 다른 앱에 보내는 기능은 아직 없습니다."
+	},
+	"icon": {
+		"file": "voicemorph.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "voicemorph.webp",
+	"added": "2026-11-05T05:57:31Z"
+}
