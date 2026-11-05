@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "nagi",
+	"name": "Nagi",
+	"author": "HeimaoLST",
+	"kind": "native",
+	"category": "BusinessApplication",
+	"url": "https://github.com/HeimaoLST/Saki",
+	"repo": "HeimaoLST/Saki",
+	"summary": {
+		"en": "A desktop app for handing tasks to long-lived AI agent contacts and following their work.",
+		"zh-CN": "桌面工作台：把事项交给长期 AI Agent 联系人，并跟进进展。",
+		"zh-TW": "桌面工作台：把事項交給長期 AI Agent 聯絡人，並追蹤進度。",
+		"ja": "長く付き合う AI エージェントの連絡先に用件を任せ、進み具合を追うデスクトップアプリ。",
+		"ko": "오래 함께하는 AI 에이전트 연락처에 일을 맡기고 진행을 지켜보는 데스크톱 앱."
+	},
+	"description": {
+		"en": "Nagi is the desktop client of Saki, an early-stage Rust agent runtime: you chat with long-lived AI agent contacts, hand them tasks and follow each task's status and results. It is drawn with MyGo's native UI and talks to the runtime over stdio; the runtime and its terminal UI are built separately in Rust. For now it runs only on macOS arm64, as a development build.",
+		"zh-CN": "Nagi 是早期开发中的 Rust Agent Runtime Saki 的桌面客户端：与长期存在的 AI Agent 联系人聊天、交办事项，并查看每件事项的执行状态和结果。界面由 MyGo 原生 UI 绘制，通过 stdio 连接 Runtime；Runtime 与终端界面另以 Rust 构建。目前仅支持 macOS arm64，为开发候选版本。",
+		"zh-TW": "Nagi 是開發初期的 Rust Agent Runtime Saki 的桌面用戶端：與長期存在的 AI Agent 聯絡人聊天、交辦事項，並查看每件事項的執行狀態與結果。介面由 MyGo 原生 UI 繪製，透過 stdio 連接 Runtime；Runtime 與終端介面另以 Rust 建置。目前僅支援 macOS arm64，為開發候選版本。",
+		"ja": "開発初期の Rust 製エージェントランタイム Saki のデスクトップクライアント。長く付き合う AI エージェントの連絡先とチャットして用件を任せ、用件ごとの実行状況と結果を確認できます。画面は MyGo のネイティブ UI で描かれ、stdio でランタイムに接続します。ランタイムとターミナル UI は Rust で別に作られています。現在は macOS arm64 のみ対応の開発版です。",
+		"ko": "개발 초기 단계인 Rust 에이전트 런타임 Saki의 데스크톱 클라이언트입니다. 오래 함께하는 AI 에이전트 연락처와 대화하며 일을 맡기고, 일마다 실행 상태와 결과를 확인합니다. 화면은 MyGo의 네이티브 UI로 그리고 stdio로 런타임에 연결하며, 런타임과 터미널 UI는 Rust로 따로 만듭니다. 현재는 macOS arm64만 지원하는 개발 빌드입니다."
+	},
+	"icon": {
+		"file": "nagi.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "nagi.webp",
+	"added": "2026-11-05T05:02:32Z"
+}
