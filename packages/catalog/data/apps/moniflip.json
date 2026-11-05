@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "moniflip",
+	"name": "Moniflip",
+	"author": "qzz0518",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/qzz0518/Moniflip",
+	"repo": "qzz0518/Moniflip",
+	"summary": {
+		"en": "Switches your monitors between computers from the macOS menu bar or Windows tray, over DDC/CI.",
+		"zh-CN": "macOS 与 Windows 小工具，经 DDC/CI 一键把显示器切到另一台电脑。",
+		"zh-TW": "macOS 與 Windows 小工具，經 DDC/CI 一鍵把螢幕切到另一台電腦。",
+		"ja": "DDC/CI でモニターの入力を別のパソコンへ切り替える、macOS・Windows 用常駐ツール。",
+		"ko": "DDC/CI로 모니터 입력을 다른 컴퓨터로 한 번에 전환하는 macOS·Windows 도구."
+	},
+	"description": {
+		"en": "A macOS menu bar and Windows tray app, drawn with MyGo's native UI, for monitors shared between computers. It shows which computer each monitor is on and switches inputs over DDC/CI by click, global shortcut, command line or moniflip:// link, and can join Apple Home so Siri, scenes and accessory buttons switch them too. It needs an Apple silicon Mac on macOS 13 or later, or Windows 10/11.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 状态栏与 Windows 托盘工具，为多台电脑共用的显示器而做。它显示每台显示器正在显示哪台电脑，经 DDC/CI 切换输入源，可以点按、用全局快捷键、命令行或 moniflip:// 链接触发；加入 Apple 家庭后，还能用 Siri、场景和配件按钮切换。需要 Apple 芯片的 Mac（macOS 13 及以上）或 Windows 10/11。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS 選單列與 Windows 系統匣工具，為多台電腦共用的螢幕而做。它顯示每台螢幕正在顯示哪台電腦，經 DDC/CI 切換輸入來源，可以點按、用全域快速鍵、命令列或 moniflip:// 連結觸發；加入 Apple 家庭後，還能用 Siri、場景和配件按鈕切換。需要 Apple 晶片的 Mac（macOS 13 以上）或 Windows 10/11。",
+		"ja": "MyGo のネイティブ UI で描かれた、macOS のメニューバーと Windows のトレイに常駐するモニター切り替えツール。各モニターがどのパソコンを映しているかを表示し、クリック、ショートカット、コマンドライン、moniflip:// リンクから DDC/CI で入力を切り替えます。Apple ホームに追加すれば Siri やシーン、アクセサリのボタンでも切り替えられます。Apple シリコンの Mac（macOS 13 以降）か Windows 10/11 で動きます。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS 메뉴 막대·Windows 트레이용 모니터 전환 도구입니다. 각 모니터가 지금 어느 컴퓨터를 보여 주는지 표시하고, 클릭이나 전역 단축키, 명령줄, moniflip:// 링크로 DDC/CI를 통해 입력을 전환합니다. Apple 홈에 추가하면 Siri, 장면, 액세서리 버튼으로도 전환할 수 있습니다. Apple 실리콘 Mac(macOS 13 이상) 또는 Windows 10/11에서 동작합니다."
+	},
+	"icon": {
+		"file": "moniflip.webp"
+	},
+	"screenshot": "moniflip.webp",
+	"added": "2026-11-05T03:08:54Z"
+}
