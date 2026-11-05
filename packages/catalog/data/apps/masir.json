@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "masir",
+	"name": "Masir",
+	"author": "Narixius",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/Narixius/masir-go",
+	"repo": "Narixius/masir-go",
+	"summary": {
+		"en": "Tray app for Masir, an Xray proxy client with per-app routing, subscriptions and a TUN mode.",
+		"zh-CN": "Xray 代理客户端 Masir 的托盘应用：订阅、按应用分流与 TUN 模式。",
+		"zh-TW": "Masir 系統匣程式：Xray 代理用戶端，支援訂閱、依程式分流與 TUN 模式。",
+		"ja": "Xray クライアント Masir のトレイアプリ。購読、アプリ別ルーティング、TUN モードに対応。",
+		"ko": "Xray 프록시 클라이언트 Masir의 트레이 앱. 구독, 앱별 라우팅, TUN 모드 지원."
+	},
+	"description": {
+		"en": "The desktop app for Masir, an Xray client that applies routing rules and server switches to the running core without restarting it. MyGo builds only this tray app, in its native UI for macOS, Windows and Linux; the masir CLI and daemon are built separately and ship inside it. It starts the daemon when needed and asks for root through the system prompt for TUN mode.",
+		"zh-CN": "Masir 的桌面托盘应用。Masir 是一款 Xray 客户端，路由规则和服务器切换直接作用于运行中的核心，无需重启。MyGo 只负责这款托盘应用，以原生 UI 运行于 macOS、Windows 和 Linux；masir 命令行工具与守护进程另行构建，并随应用一同提供。需要时它会启动守护进程，TUN 模式需要 root 权限时通过系统自带的提示申请。",
+		"zh-TW": "Masir 的桌面系統匣應用程式。Masir 是一款 Xray 用戶端，路由規則與伺服器切換會直接套用到執行中的核心，不必重新啟動。MyGo 只負責這個系統匣應用程式，以原生 UI 在 macOS、Windows 和 Linux 上執行；masir 命令列工具與常駐程式另行建置，並隨應用程式一起提供。需要時它會啟動常駐程式，TUN 模式需要 root 權限時透過系統本身的提示來取得。",
+		"ja": "Xray クライアント Masir のデスクトップ版で、トレイに常駐します。ルーティングルールやサーバーの切り替えは、コアを再起動せずに稼働中の Xray に反映されます。MyGo で作られているのはこのトレイアプリだけで、macOS・Windows・Linux でネイティブ UI で動きます。masir コマンドラインツールとデーモンは別に作られ、アプリに同梱されています。必要に応じてデーモンを起動し、TUN モードで root 権限が要るときはシステム標準のダイアログで求めます。",
+		"ko": "Xray 클라이언트 Masir의 데스크톱 트레이 앱입니다. 라우팅 규칙과 서버 전환이 코어를 재시작하지 않고 실행 중인 Xray에 바로 적용됩니다. MyGo로 만든 것은 이 트레이 앱뿐이며 macOS, Windows, Linux에서 네이티브 UI로 동작하고, masir 명령줄 도구와 데몬은 따로 빌드되어 앱에 함께 들어 있습니다. 필요하면 데몬을 시작하고, TUN 모드에 root 권한이 필요하면 시스템 자체 프롬프트로 요청합니다."
+	},
+	"icon": {
+		"file": "masir.webp"
+	},
+	"screenshot": "masir.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T04:00:52Z"
+}
