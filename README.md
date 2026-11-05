@@ -29,7 +29,7 @@ A pnpm monorepo, served by [TanStack Start](https://tanstack.com/start) on [Clou
 |---|---|
 | `apps/web` | The site: React 19, TanStack Start (server rendering) and Vite with `@cloudflare/vite-plugin`. `wrangler.jsonc` deploys it to `awesomemygo.dev`. |
 | `packages/catalog` | The data: `data/*.json` (apps, UI components, state solutions, plugins, articles, guides) and their JSON Schemas, the UI copy in five languages, search and the submit form's entries. Its tests validate every entry. |
-| `packages/enrich` | Completes a pull request the submission bot opens: the app's icon from its repository, its screenshot from the image uploaded or the link given in the form, or else from the repository, and its copy in all five languages (written with Claude). Run by `.github/workflows/enrich-submission.yml`. |
+| `packages/enrich` | Completes a pull request the submission bot opens: the app's icon from its repository, its screenshot from the image uploaded or the link given in the form, or else from the repository, and its copy in all five languages (written with Claude). Run by `.github/workflows/enrich-submission.yml`. Once a week `.github/workflows/verify.yml` also checks every listed project's repository and opens a pull request per entry for what the repository says has changed: a deleted, private or disabled repository removes the entry, a renamed or transferred one updates it, a missing homepage is added and a stand-in image is replaced once the project has its own; an archived repository, or one no longer built with MyGo, is only listed in the run's summary. |
 
 App icons come from [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo), served by its CDN; the few apps it does not list use their official icon from `apps/web/public/icons/`.
 
