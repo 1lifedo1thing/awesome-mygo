@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "kura",
+	"name": "kura",
+	"author": "ArnoChenFx",
+	"kind": "native",
+	"group": "agents",
+	"url": "https://github.com/ArnoChenFx/kura",
+	"repo": "ArnoChenFx/kura",
+	"summary": {
+		"en": "A native desktop manager for AI agent skills: install, enable or disable, update and translate.",
+		"zh-CN": "原生桌面 AI 智能体技能管理器：安装、启用停用、更新与翻译技能。",
+		"zh-TW": "原生桌面 AI 代理技能管理工具：安裝、啟用停用、更新與翻譯技能。",
+		"ja": "AI エージェントのスキルを管理するネイティブなデスクトップアプリ。導入、有効化、更新、翻訳に対応。",
+		"ko": "AI 에이전트 스킬을 위한 네이티브 데스크톱 관리자. 설치, 켜고 끄기, 업데이트, 번역."
+	},
+	"description": {
+		"en": "A desktop manager for AI agent skills, drawn with MyGo's native UI with no web view, for Windows, macOS and Linux. It installs skills from GitHub or a local folder, enables and disables them by moving their folders, checks for updates by git hash and translates their text. It picks up the skill folders of Claude Code, Codex, Cursor and others, and a separate CLI works on the same store.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 AI 智能体技能桌面管理器，没有 Web 视图，支持 Windows、macOS 与 Linux。可从 GitHub 或本地文件夹安装技能，以移动文件夹的方式启用和停用，按 git 哈希检查上游更新，还能翻译技能全文、恢复历史快照。启动时会自动加入 Claude Code、Codex、Cursor 等工具已有的技能目录，另有一个共用同一数据的命令行工具。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 AI 代理技能桌面管理工具，沒有 Web 視圖，支援 Windows、macOS 與 Linux。可從 GitHub 或本機資料夾安裝技能，以搬移資料夾的方式啟用和停用，依 git 雜湊檢查上游更新，還能翻譯技能全文、還原歷史快照。啟動時會自動加入 Claude Code、Codex、Cursor 等工具既有的技能目錄，另有一個共用同一份資料的命令列工具。",
+		"ja": "MyGo のネイティブ UI で描かれた、AI エージェントのスキルを管理するデスクトップアプリ。Web ビューはなく、Windows・macOS・Linux に対応します。GitHub やローカルフォルダーからスキルを導入し、フォルダーの移動で有効・無効を切り替え、git のハッシュで更新を確認し、本文の翻訳や履歴スナップショットからの復元もできます。Claude Code、Codex、Cursor などの既存のスキルフォルダーを自動で追加し、同じデータを扱う CLI も別に用意されています。",
+		"ko": "MyGo의 네이티브 UI로 그린 AI 에이전트 스킬 데스크톱 관리자로, 웹 뷰 없이 Windows, macOS, Linux에서 동작합니다. GitHub나 로컬 폴더에서 스킬을 설치하고, 폴더를 옮기는 방식으로 켜고 끄며, git 해시로 업데이트를 확인하고, 본문 번역과 스냅샷 복원도 지원합니다. Claude Code, Codex, Cursor 등의 기존 스킬 폴더를 자동으로 추가하며, 같은 데이터를 쓰는 CLI도 따로 있습니다."
+	},
+	"icon": {
+		"file": "kura.webp"
+	},
+	"screenshot": "kura.webp",
+	"added": "2026-11-05T14:57:25Z"
+}
