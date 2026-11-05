@@ -73,7 +73,8 @@ export function scoreRows(score: Score, signals: ScoreSignals, asOf: string, t: 
 		stars: () => fill(t.score_v_stars, { n: num.format(signals.stars ?? 0) }),
 		activity: () => fill(t.score_v_weeks, { x: num.format(signals.weeks ?? 0), n: num.format(signals.activeWeeks ?? 0) }),
 		openness: () => license(signals, t),
-		likes: () => fill(t.score_v_likes, { n: num.format(signals.likes) }),
+		// As of the week's start, like every signal: the heart beside the name counts likes as they come, so the row says which day its count is from.
+		likes: () => fill(t.score_v_likes, { n: num.format(signals.likes), x: day }),
 		release: () => (signals.released ? fill(t.score_v_rel, { x: dayOf(signals.released, lang) }) : t.score_v_rel_none),
 	};
 	const rows = score.parts.map(
