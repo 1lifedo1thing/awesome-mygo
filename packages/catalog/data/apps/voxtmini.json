@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "voxtmini",
+	"name": "VoxtMini",
+	"author": "hehehai",
+	"kind": "native",
+	"group": "ai",
+	"url": "https://github.com/hehehai/VoxtMini",
+	"repo": "hehehai/VoxtMini",
+	"summary": {
+		"en": "Local-model voice input for macOS: transcribe, translate or rewrite text at your cursor.",
+		"zh-CN": "只用本地模型的 macOS 语音输入：在光标处转录、翻译或改写文字。",
+		"zh-TW": "只用本機模型的 macOS 語音輸入：在游標處轉錄、翻譯或改寫文字。",
+		"ja": "ローカルモデルだけで動く macOS の音声入力。カーソル位置で文字起こし、翻訳、書き換え。",
+		"ko": "로컬 모델만 쓰는 macOS 음성 입력. 커서 위치에서 받아쓰기, 번역, 다시 쓰기."
+	},
+	"description": {
+		"en": "Voice input for Apple silicon Macs: press a shortcut in any app, speak, and the text is typed at your cursor, optionally cleaned up by a language model; selected text can also be translated or rewritten by voice. Speech and language models run on the Mac, so audio and text never leave it. The app is Go on MyGo's native UI, with a Swift helper and local model runtimes alongside.",
+		"zh-CN": "面向 Apple 芯片 Mac 的语音输入：在任意应用中按下快捷键说话，文字就输入到光标处，还可交给语言模型润色；也能用语音翻译或改写选中的文字。语音识别与语言模型都在本机运行，音频和文字不会离开这台 Mac。主程序用 Go 编写、由 MyGo 原生 UI 绘制，另配 Swift 辅助进程和本地模型运行时。",
+		"zh-TW": "為 Apple 晶片 Mac 打造的語音輸入：在任何應用程式中按下快捷鍵說話，文字就輸入到游標處，還可交給語言模型潤飾；也能用語音翻譯或改寫選取的文字。語音辨識與語言模型都在本機執行，音訊和文字不會離開這台 Mac。主程式以 Go 撰寫、由 MyGo 原生 UI 繪製，另搭配 Swift 輔助程式和本機模型執行環境。",
+		"ja": "Apple シリコン搭載 Mac 向けの音声入力。どのアプリでもショートカットを押して話せばカーソル位置に文字が入り、言語モデルで整えることもできます。選択したテキストを声で翻訳したり書き換えたりもできます。音声認識も言語モデルも Mac 上で動き、音声とテキストが外に出ることはありません。本体は Go と MyGo のネイティブ UI で作られ、Swift のヘルパーとローカルモデルのランタイムを併用します。",
+		"ko": "Apple 실리콘 Mac용 음성 입력 앱입니다. 어떤 앱에서든 단축키를 누르고 말하면 커서 위치에 글이 입력되고 언어 모델로 다듬을 수도 있으며, 선택한 텍스트를 말로 번역하거나 다시 쓸 수 있습니다. 음성 인식과 언어 모델이 모두 Mac에서 실행되어 음성과 텍스트가 밖으로 나가지 않습니다. 본체는 Go와 MyGo의 네이티브 UI로 만들었고, Swift 헬퍼와 로컬 모델 런타임을 함께 씁니다."
+	},
+	"icon": {
+		"file": "voxtmini.webp"
+	},
+	"screenshot": "voxtmini.webp",
+	"added": "2026-11-05T14:23:33Z"
+}
