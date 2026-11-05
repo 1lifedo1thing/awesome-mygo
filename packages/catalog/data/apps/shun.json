@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "shun",
+	"name": "Shun",
+	"author": "sorrycc",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/sorrycc/Shun",
+	"repo": "sorrycc/Shun",
+	"summary": {
+		"en": "A macOS menu bar app that brings an app to the front or hides it with a global hotkey.",
+		"zh-CN": "macOS 菜单栏应用：用全局快捷键把应用切到前台，或将其隐藏。",
+		"zh-TW": "macOS 選單列 App：用全域快捷鍵把 App 切到前景，或將它隱藏。",
+		"ja": "グローバルホットキーでアプリを前面に出したり隠したりする macOS のメニューバーアプリ。",
+		"ko": "전역 단축키로 앱을 앞으로 가져오거나 숨기는 macOS 메뉴 막대 앱."
+	},
+	"description": {
+		"en": "A macOS 14+ menu bar app drawn with MyGo's native UI, as a single Go binary with no cgo and no web view. A shortcut brings its app to the front, launching it if it isn't running, and hides it when it is already in front. The shun command does from the terminal what Settings does, such as adding, pausing, exporting and importing shortcuts.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 14+ 菜单栏应用，是单个 Go 二进制文件，没有 cgo，也没有 Web 视图。按下快捷键会把对应应用切到前台，未运行时先启动它；应用已在前台时则将其隐藏。shun 命令可以在终端完成设置里的操作，比如添加、暂停、导出和导入快捷键。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS 14+ 選單列 App，是單一 Go 執行檔，沒有 cgo，也沒有 Web 視圖。按下快捷鍵會把對應的 App 切到前景，尚未執行時先啟動它；App 已在前景時則將它隱藏。shun 指令可以在終端機完成設定裡的操作，例如新增、暫停、匯出和匯入快捷鍵。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS 14 以降向けのメニューバーアプリで、cgo も Web ビューもない単一の Go バイナリです。ショートカットを押すとそのアプリを前面に出し、起動していなければ起動し、すでに前面にあれば隠します。shun コマンドを使えば、ショートカットの追加、一時停止、書き出し、読み込みなど、設定画面と同じ操作をターミナルからできます。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS 14 이상용 메뉴 막대 앱으로, cgo도 웹 뷰도 없는 단일 Go 바이너리입니다. 단축키를 누르면 해당 앱을 앞으로 가져오고, 실행 중이 아니면 실행하며, 이미 앞에 있으면 숨깁니다. shun 명령으로 단축키 추가, 일시 중지, 내보내기, 가져오기 등 설정 화면의 작업을 터미널에서도 할 수 있습니다."
+	},
+	"icon": {
+		"file": "shun.webp"
+	},
+	"screenshot": "shun.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T04:16:52Z"
+}
