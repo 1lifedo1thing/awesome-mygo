@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "rocom-egg-check",
+	"name": "蛋查查 · Rocom Egg Check",
+	"author": "JayeGT002",
+	"kind": "web",
+	"category": "ReferenceApplication",
+	"url": "https://github.com/JayeGT002/rocom-egg-check",
+	"repo": "JayeGT002/rocom-egg-check",
+	"summary": {
+		"en": "Looks up which Roco Kingdom pets match an egg's size and weight, by egg group.",
+		"zh-CN": "洛克王国精灵蛋查询：按蛋组找出尺寸与重量相符的精灵。",
+		"zh-TW": "洛克王國精靈蛋查詢：依蛋組找出尺寸與重量相符的精靈。",
+		"ja": "Roco Kingdom のタマゴの大きさと重さから、グループ別に当てはまるペットを調べる。",
+		"ko": "Roco Kingdom 알의 크기와 무게로 알 그룹별 해당 펫을 찾아 줍니다."
+	},
+	"description": {
+		"en": "A desktop lookup tool for Roco Kingdom players that shows which pets match an egg's size and weight within an egg group. Its data on 578 pets is generated from rocom-wiki-data and built into the app. The interface is a web frontend running in MyGo's WebView, with lookups handled in Go; builds are made for Windows and macOS, and the macOS builds are not notarized.",
+		"zh-CN": "面向洛克王国玩家的桌面查询工具，按蛋组查出与精灵蛋尺寸和重量相符的精灵。578 条精灵数据由 rocom-wiki-data 生成并内置在应用中。界面是运行在 MyGo WebView 中的 Web 前端，查询由 Go 完成；提供 Windows 与 macOS 版本，其中 macOS 版未经公证。",
+		"zh-TW": "為洛克王國玩家打造的桌面查詢工具，依蛋組查出與精靈蛋尺寸和重量相符的精靈。578 筆精靈資料由 rocom-wiki-data 產生並內建於應用程式中。介面是在 MyGo WebView 中執行的 Web 前端，查詢由 Go 處理；提供 Windows 與 macOS 版本，其中 macOS 版未經公證。",
+		"ja": "Roco Kingdom のプレイヤー向けのデスクトップ検索ツールで、タマゴグループごとに、タマゴの大きさと重さに当てはまるペットを表示します。578 件のペットデータは rocom-wiki-data から生成され、アプリに組み込まれています。画面は MyGo の WebView で動く Web フロントエンドで、検索は Go が担当します。Windows 版と macOS 版がありますが、macOS 版は公証を受けていません。",
+		"ko": "Roco Kingdom 플레이어를 위한 데스크톱 조회 도구로, 알 그룹별로 알의 크기와 무게에 맞는 펫을 보여 줍니다. 578개 펫 데이터는 rocom-wiki-data에서 생성해 앱에 내장했습니다. 화면은 MyGo의 WebView에서 돌아가는 웹 프런트엔드이고 조회는 Go가 처리합니다. Windows와 macOS용으로 빌드되며, macOS 빌드는 공증을 받지 않았습니다."
+	},
+	"icon": {
+		"file": "rocom-egg-check.webp"
+	},
+	"screenshot": "rocom-egg-check.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T04:45:28Z"
+}
