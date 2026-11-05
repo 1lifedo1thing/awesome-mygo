@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "otool",
+	"name": "otool",
+	"author": "welllog",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/welllog/otool",
+	"repo": "welllog/otool",
+	"summary": {
+		"en": "A desktop toolbox for encoding, hashing, file encryption, base conversion, QR codes and images.",
+		"zh-CN": "桌面工具箱：文本编解码与哈希、文件加密、进制转换、二维码和图片转换。",
+		"zh-TW": "桌面工具箱：文字編解碼與雜湊、檔案加密、進位轉換、QR Code 與圖片轉換。",
+		"ja": "エンコード、ハッシュ、ファイル暗号化、進数変換、QR コード、画像変換のデスクトップツール集。",
+		"ko": "인코딩과 해시, 파일 암호화, 진법 변환, QR 코드, 이미지 변환을 모은 데스크톱 도구 모음."
+	},
+	"description": {
+		"en": "A toolbox for macOS, Windows and Linux drawn with MyGo's native UI, with no web view and about 15 to 30 MB of memory. It encodes, hashes and AES-encrypts text, encrypts and checksums large files, converts numbers between bases 2 to 36, reads and generates styled QR codes with SVG export, and converts, resizes and crops images one at a time or a whole folder at once.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS、Windows 与 Linux 工具箱，没有 Web 视图，常驻内存约 15 至 30 MB。可对文本做编解码、哈希与 AES 加解密，对大文件加密并计算校验和，在 2 到 36 进制之间转换大数，识别并生成带样式的二维码（可导出 SVG），还能对单张图片或整个文件夹做格式转换、缩放与裁剪。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS、Windows 與 Linux 工具箱，沒有 Web 視圖，常駐記憶體約 15 至 30 MB。可對文字做編解碼、雜湊與 AES 加解密，對大型檔案加密並計算檢查碼，在 2 到 36 進位之間轉換大數，辨識並產生帶樣式的 QR Code（可匯出 SVG），還能對單張圖片或整個資料夾做格式轉換、縮放與裁切。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS・Windows・Linux 向けのツールボックス。Web ビューはなく、常駐メモリは約 15〜30 MB です。テキストのエンコード・ハッシュ・AES 暗号化、大きなファイルの暗号化とチェックサム計算、2〜36 進数の相互変換、スタイル付き QR コードの読み取りと生成（SVG 書き出し対応）、画像の形式変換・リサイズ・切り抜きを、一枚ずつでもフォルダー単位でもこなします。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS·Windows·Linux용 도구 모음으로, 웹 뷰 없이 상주 메모리는 약 15~30MB입니다. 텍스트 인코딩·해시·AES 암호화, 대용량 파일 암호화와 체크섬 계산, 2진법부터 36진법까지의 진법 변환, 스타일을 입힌 QR 코드 인식과 생성(SVG 내보내기 지원), 이미지 형식 변환·크기 조정·자르기를 한 장씩 또는 폴더 단위로 처리합니다."
+	},
+	"icon": {
+		"file": "otool.webp"
+	},
+	"screenshot": "otool.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T02:43:19Z"
+}
