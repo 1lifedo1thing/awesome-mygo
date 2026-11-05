@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "wavealign",
+	"name": "WaveAlign",
+	"author": "Itoktsnhc",
+	"kind": "native",
+	"category": "MultimediaApplication",
+	"url": "https://github.com/Itoktsnhc/WaveAlign",
+	"repo": "Itoktsnhc/WaveAlign",
+	"summary": {
+		"en": "Aligns separately recorded audio to videos by waveform, fixes clock drift and exports via ffmpeg.",
+		"zh-CN": "按波形把单独录制的音频对齐到视频，校正时钟漂移，再用 ffmpeg 导出。",
+		"zh-TW": "依波形將單獨錄製的音訊對齊到影片，校正時脈漂移，再用 ffmpeg 匯出。",
+		"ja": "別録りの音声を波形で動画に合わせ、クロックのずれを補正して ffmpeg で書き出す。",
+		"ko": "따로 녹음한 오디오를 파형으로 영상에 맞추고 클록 드리프트를 보정해 ffmpeg로 내보냅니다."
+	},
+	"description": {
+		"en": "A Windows app drawn with MyGo's native UI that lines up audio from a recorder or mixer with one or more videos by waveform, corrects the clock drift between recorder and camera and detects reversed polarity. It lets you audition and nudge clips on a timeline, then exports through ffmpeg, copying the video stream without re-encoding and writing the new audio as AAC, PCM or FLAC.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 应用，按波形把录音机、调音台等单独录制的音频对齐到一个或多个视频上，校正录音机与相机之间的时钟漂移，并检测反相。可以在时间轴上试听、微调，再经 ffmpeg 导出：视频流直接复制、不二次编码，新音轨可选 AAC、PCM 或 FLAC。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows 應用程式，依波形把錄音機、混音器等單獨錄製的音訊對齊到一部或多部影片上，校正錄音機與相機之間的時脈漂移，並偵測反相。可在時間軸上試聽、微調，再透過 ffmpeg 匯出：視訊串流直接複製、不重新編碼，新音軌可選 AAC、PCM 或 FLAC。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows アプリ。レコーダーやミキサーで別録りした音声を、波形を手がかりに 1 本または複数の動画に合わせ、レコーダーとカメラのクロックのずれを補正し、逆相も検出します。タイムライン上で試聴と微調整ができ、ffmpeg で書き出す際は映像ストリームを再エンコードせずにコピーし、新しい音声トラックは AAC、PCM、FLAC から選べます。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows 앱입니다. 녹음기나 믹서로 따로 녹음한 오디오를 파형으로 하나 이상의 영상에 맞추고, 녹음기와 카메라 사이의 클록 드리프트를 보정하며 역상도 감지합니다. 타임라인에서 들어 보며 미세 조정한 뒤 ffmpeg로 내보내는데, 영상 스트림은 다시 인코딩하지 않고 복사하고 새 오디오 트랙은 AAC, PCM, FLAC 중에서 고를 수 있습니다."
+	},
+	"icon": {
+		"file": "wavealign.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "wavealign.webp",
+	"added": "2026-11-05T04:16:52Z"
+}
