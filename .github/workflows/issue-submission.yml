@@ -42,6 +42,9 @@ jobs:
         with:
           client-id: ${{ vars.SUBMIT_APP_CLIENT_ID }}
           private-key: ${{ secrets.SUBMIT_APP_PRIVATE_KEY }}
+          # Only what opening the pull request takes (refs, the entry's file and the pull request; contents also reads the project's public repository for a screenshot), not everything the app may hold, as the token goes to a script that loads the whole dependency tree.
+          permission-contents: write
+          permission-pull-requests: write
 
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -66,6 +69,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           COMMENT_FILE: ${{ runner.temp }}/comment.md
           RESULT: ${{ steps.submit.outputs.result }}
+        # bash with pipefail, so a failed listing of the comments fails the step instead of posting a second comment.
+        shell: bash
         run: |
           id=$(gh api --paginate "repos/$GITHUB_REPOSITORY/issues/$ISSUE/comments" --jq '.[] | select(.user.login == "github-actions[bot]" and (.body | startswith("<!-- submission-issue -->"))) | .id' | tail -n 1)
           if [[ -n "$id" ]]; then
