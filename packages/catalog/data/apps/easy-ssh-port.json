@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "easy-ssh-port",
+	"name": "Easy SSH Port",
+	"author": "ji233-Sun",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/ji233-Sun/easy-ssh-port",
+	"repo": "ji233-Sun/easy-ssh-port",
+	"summary": {
+		"en": "A macOS menu bar app that switches SSH local, remote and SOCKS5 tunnels on and off.",
+		"zh-CN": "macOS 菜单栏应用，一键开关 SSH 本地、远程转发与 SOCKS5 隧道。",
+		"zh-TW": "macOS 選單列應用程式，一鍵開關 SSH 本機、遠端轉發與 SOCKS5 通道。",
+		"ja": "SSH のローカル・リモート転送と SOCKS5 を切り替える macOS メニューバーアプリ。",
+		"ko": "SSH 로컬·원격 포워딩과 SOCKS5 터널을 켜고 끄는 macOS 메뉴 막대 앱."
+	},
+	"description": {
+		"en": "A macOS menu bar app drawn with MyGo's native UI that turns SSH port forwards on and off with a switch. It imports hosts from ~/.ssh/config, keeping your existing keys and ProxyJump, sets up local, remote and SOCKS5 forwards from a form, and runs each tunnel as a system ssh process that only shows green once the port is actually forwarded.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 菜单栏应用，用开关控制 SSH 端口转发。它从 ~/.ssh/config 导入主机，沿用已有的密钥和 ProxyJump，通过表单配置本地转发、远程转发和 SOCKS5 代理；每条隧道都是一个系统 ssh 进程，只有端口真正转发成功才会亮绿灯。",
+		"zh-TW": "以 MyGo 原生 UI 繪製的 macOS 選單列應用程式，用開關控制 SSH 連接埠轉發。它從 ~/.ssh/config 匯入主機，沿用既有的金鑰和 ProxyJump，透過表單設定本機轉發、遠端轉發和 SOCKS5 代理；每條通道都是一個系統 ssh 行程，只有連接埠真正轉發成功才會亮綠燈。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS のメニューバーアプリで、SSH のポートフォワードをスイッチで切り替えます。~/.ssh/config からホストを読み込んで既存の鍵や ProxyJump をそのまま使い、ローカル転送、リモート転送、SOCKS5 プロキシをフォームで設定できます。トンネルはそれぞれシステムの ssh プロセスとして動き、ポートが実際に転送されてはじめて緑のランプが点きます。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS 메뉴 막대 앱으로, SSH 포트 포워딩을 스위치로 켜고 끕니다. ~/.ssh/config에서 호스트를 가져와 기존 키와 ProxyJump를 그대로 쓰고, 로컬 포워딩, 원격 포워딩, SOCKS5 프록시를 양식으로 설정합니다. 터널마다 시스템 ssh 프로세스로 실행되며, 포트가 실제로 포워딩된 뒤에만 초록불이 켜집니다."
+	},
+	"icon": {
+		"file": "easy-ssh-port.webp"
+	},
+	"screenshot": "easy-ssh-port.webp",
+	"added": "2026-11-05T02:55:41Z"
+}
