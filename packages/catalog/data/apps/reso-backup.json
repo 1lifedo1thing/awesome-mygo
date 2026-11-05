@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "reso-backup",
+	"name": "ReSo Backup",
+	"author": "Nigh",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/Nigh/ReSoBackup",
+	"repo": "Nigh/ReSoBackup",
+	"summary": {
+		"en": "Splits a file into shards to keep in separate places; a restore needs only some of them.",
+		"zh-CN": "把文件切成多份分片分散存放，只要凑齐其中几份就能还原，可选加密。",
+		"zh-TW": "把檔案切成多份分片分散存放，只要湊齊其中幾份就能還原，可選加密。",
+		"ja": "ファイルをシャードに分けて別々の場所に保管し、一部がそろえば復元できるバックアップツール。",
+		"ko": "파일을 여러 조각으로 나눠 따로 보관하고, 일부만 모여도 복원하는 백업 도구."
+	},
+	"description": {
+		"en": "A backup tool that cuts a file into N Reed-Solomon shards plus a metadata file, any K of which restore it, so the pieces can sit on different cloud drives and a local disk. It can encrypt file contents and names with AES-256-GCM under a password, and works through a GUI drawn with MyGo's native UI, with no web view, or through the rsbackup command line.",
+		"zh-CN": "一款备份工具，用 Reed-Solomon 纠删码把文件切成 N 份分片并附带一个元数据文件，凑齐任意 K 份即可还原，分片可分别存放在不同网盘和本地硬盘。可用密码以 AES-256-GCM 加密文件内容和文件名；既有用 MyGo 原生 UI 绘制、不含 WebView 的图形界面，也有 rsbackup 命令行。",
+		"zh-TW": "一款備份工具，以 Reed-Solomon 糾刪碼把檔案切成 N 份分片並附帶一個中繼資料檔，湊齊任意 K 份即可還原，分片可分別存放在不同雲端硬碟與本機硬碟。可用密碼以 AES-256-GCM 加密檔案內容與檔名；既有以 MyGo 原生 UI 繪製、不含 WebView 的圖形介面，也有 rsbackup 命令列。",
+		"ja": "Reed-Solomon 消失訂正符号でファイルを N 個のシャードとメタデータファイルに分け、任意の K 個がそろえば復元できるバックアップツール。シャードは複数のクラウドストレージとローカルディスクに分けて置けます。パスワードによる AES-256-GCM でファイルの中身とファイル名を暗号化でき、MyGo のネイティブ UI で描かれた WebView なしの GUI と、rsbackup コマンドラインの両方で使えます。",
+		"ko": "Reed-Solomon 소거 부호로 파일을 N개의 샤드와 메타데이터 파일로 나누고, 그중 아무 K개만 있으면 복원하는 백업 도구입니다. 샤드는 여러 클라우드 드라이브와 로컬 디스크에 나눠 둘 수 있습니다. 비밀번호를 사용한 AES-256-GCM으로 파일 내용과 파일 이름을 암호화할 수 있으며, MyGo 네이티브 UI로 그린 웹 뷰 없는 GUI와 rsbackup 명령줄로 모두 쓸 수 있습니다."
+	},
+	"icon": {
+		"file": "reso-backup.webp"
+	},
+	"screenshot": "reso-backup.webp",
+	"added": "2026-11-05T01:50:45Z"
+}
