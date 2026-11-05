@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "rnaxray-desktop",
+	"name": "RNAxRay Desktop",
+	"author": "Vicky-0256",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/Vicky-0256/RNAxRAY",
+	"repo": "Vicky-0256/RNAxRAY",
+	"summary": {
+		"en": "Maps chimeric reads, explores RNA–RNA interactions and folds RNA structures with CPLfold.",
+		"zh-CN": "比对嵌合读段，探索 RNA–RNA 相互作用，并用 CPLfold 折叠 RNA 结构。",
+		"zh-TW": "比對嵌合讀段，探索 RNA–RNA 交互作用，並以 CPLfold 摺疊 RNA 結構。",
+		"ja": "キメラリードをマッピングし、RNA–RNA 相互作用を調べ、CPLfold で RNA 構造を予測。",
+		"ko": "키메라 리드를 매핑하고 RNA–RNA 상호작용을 살피며 CPLfold로 RNA 구조를 예측합니다."
+	},
+	"description": {
+		"en": "The desktop build of RNAxRay for macOS, Windows and Linux, drawn with MyGo's native UI; RNAxRay Web is a separate static site. It maps raw reads from CLASH, PARIS, COMRADES and similar experiments with Bowtie2, calls hybrids, and keeps QC, contact maps and condition comparisons as projects on disk. CPLfold folds RNAs offline, guided by the chimeric reads, pseudoknots included.",
+		"zh-CN": "RNAxRay 的桌面版，支持 macOS、Windows 与 Linux，由 MyGo 原生 UI 绘制；RNAxRay Web 是另行构建的静态网站。它用 Bowtie2 比对 CLASH、PARIS、COMRADES 等实验的原始读段并识别杂合体，QC、接触图和条件比较都作为项目保存在本地。CPLfold 以嵌合读段为依据离线折叠 RNA，可预测假结。",
+		"zh-TW": "RNAxRay 的桌面版，支援 macOS、Windows 與 Linux，由 MyGo 原生 UI 繪製；RNAxRay Web 則是另外建置的靜態網站。它以 Bowtie2 比對 CLASH、PARIS、COMRADES 等實驗的原始讀段並辨識雜合體，QC、接觸圖與條件比較都以專案形式存在本機。CPLfold 以嵌合讀段為依據離線摺疊 RNA，可預測假結。",
+		"ja": "RNAxRay の macOS・Windows・Linux 向けデスクトップ版で、MyGo のネイティブ UI で描かれています。RNAxRay Web は別に作られた静的サイトです。CLASH、PARIS、COMRADES などの実験の生リードを Bowtie2 でマッピングしてハイブリッドを検出し、QC、コンタクトマップ、条件間の比較をプロジェクトとしてディスクに保存します。CPLfold はキメラリードを手がかりにオフラインで RNA を折りたたみ、シュードノットも予測します。",
+		"ko": "RNAxRay의 macOS·Windows·Linux용 데스크톱 버전으로, MyGo의 네이티브 UI로 그렸습니다. RNAxRay Web은 따로 만든 정적 사이트입니다. CLASH, PARIS, COMRADES 같은 실험의 원시 리드를 Bowtie2로 매핑해 하이브리드를 찾고, QC, 콘택트 맵, 조건 간 비교를 프로젝트로 디스크에 저장합니다. CPLfold는 키메라 리드를 근거로 오프라인에서 RNA를 접고 슈도노트도 예측합니다."
+	},
+	"icon": {
+		"file": "rnaxray-desktop.webp"
+	},
+	"screenshot": "rnaxray-desktop.webp",
+	"added": "2026-11-05T16:49:05Z"
+}
