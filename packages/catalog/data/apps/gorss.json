@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "gorss",
+	"name": "GoRss",
+	"author": "RSK21X",
+	"kind": "native",
+	"category": "ReferenceApplication",
+	"url": "https://github.com/RSK21X/GoRss",
+	"repo": "RSK21X/GoRss",
+	"summary": {
+		"en": "A native RSS and Atom reader for Apple Silicon Macs, with optional AI summaries and translation.",
+		"zh-CN": "Apple Silicon Mac 原生 RSS 阅读器，可选 AI 摘要与翻译。",
+		"zh-TW": "Apple Silicon Mac 原生 RSS 閱讀器，可選 AI 摘要與翻譯。",
+		"ja": "Apple Silicon Mac 向けのネイティブ RSS リーダー。AI による要約と翻訳も選べる。",
+		"ko": "Apple Silicon Mac용 네이티브 RSS·Atom 리더, AI 요약·번역은 선택."
+	},
+	"description": {
+		"en": "A native RSS and Atom reader for Apple Silicon Macs, drawn with MyGo's native UI and Onevra, with no web frontend. It imports and exports subscriptions as OPML, filters unread and starred articles, and renders feeds as Markdown with images, tables and code. AI summaries and translation, with a bilingual view, are off by default and use OpenAI-compatible providers you add.",
+		"zh-CN": "用 MyGo 原生 UI 和 Onevra 绘制的 Apple Silicon Mac RSS 与 Atom 阅读器，没有 Web 前端。可用 OPML 导入导出订阅，筛选未读和星标文章，并以 Markdown 呈现订阅内容，支持图片、表格和代码块。AI 摘要与翻译默认关闭，接入你自己添加的 OpenAI 兼容服务，可在原文、译文和双语对照之间切换。",
+		"zh-TW": "用 MyGo 原生 UI 與 Onevra 繪製的 Apple Silicon Mac RSS 與 Atom 閱讀器，沒有 Web 前端。可用 OPML 匯入匯出訂閱，篩選未讀與加星號的文章，並以 Markdown 呈現訂閱內容，支援圖片、表格與程式碼區塊。AI 摘要與翻譯預設關閉，使用你自行加入的 OpenAI 相容服務，可在原文、譯文與雙語對照之間切換。",
+		"ja": "MyGo のネイティブ UI と Onevra で描かれた、Apple Silicon Mac 向けの RSS・Atom リーダー。Web フロントエンドはありません。OPML で購読を読み込み・書き出しでき、未読やスター付きの記事を絞り込み、フィードの内容を画像や表、コードを含む Markdown として表示します。AI による要約と翻訳は初期状態でオフで、自分で追加した OpenAI 互換のプロバイダーを使い、原文・訳文・対訳を切り替えられます。",
+		"ko": "MyGo의 네이티브 UI와 Onevra로 그린 Apple Silicon Mac용 RSS·Atom 리더로, 웹 프런트엔드가 없습니다. OPML로 구독을 가져오고 내보내며, 읽지 않은 글과 별표한 글을 걸러 보고, 피드 내용을 이미지·표·코드 블록을 포함한 Markdown으로 보여 줍니다. AI 요약과 번역은 기본으로 꺼져 있으며, 직접 추가한 OpenAI 호환 공급자를 사용해 원문, 번역, 이중 언어 보기를 전환할 수 있습니다."
+	},
+	"icon": {
+		"file": "gorss.webp"
+	},
+	"screenshot": "gorss.webp",
+	"added": "2026-11-05T03:32:35Z"
+}
