@@ -189,8 +189,10 @@ async function main(): Promise<void> {
 	for (const kind of Object.keys(ENTRY_DIRS) as EntryKind[]) {
 		const dir = `${DATA_DIR}/${ENTRY_DIRS[kind]}`;
 		const { stdout: listed } = await run('git', ['ls-tree', '--name-only', `${BASE_REF}:${dir}`], { cwd: ROOT, maxBuffer: 4 * 1024 * 1024 });
-		const known = listed.split('\n').filter(Boolean);
-		const names = addedFiles(known, await readdir(join(ROOT, dir)));
+		const head = await readdir(join(ROOT, dir));
+		// Only the files the branch still has: one it deletes or renames cannot be read as an example.
+		const known = listed.split('\n').filter((name) => name && head.includes(name));
+		const names = addedFiles(known, head);
 		if (names.length) added.push({ kind, dir, known, names });
 	}
 	// The bot's pull request adds one app, and its body may carry the screenshot link from the form; with several apps it would be unclear whose it is, so it is left out.

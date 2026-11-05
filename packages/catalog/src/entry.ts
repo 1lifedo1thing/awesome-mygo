@@ -97,6 +97,12 @@ export function slugify(name: string): string {
 	);
 }
 
+// The slug, and so the file name, of a new entry: from its name, or, for a name with no Latin letter or digit (留白), from its link (a repository's name, or the address), since every such name would otherwise become my-app and the second one could not be filed.
+function entrySlug(name: string, url: string): string {
+	if (/[a-z0-9]/i.test(name)) return slugify(name);
+	return slugify(repoOf(url)?.split('/')[1] ?? url.replace(/^https:\/\//, '').slice(0, 60));
+}
+
 // owner/name of a GitHub link, which UI libraries and state management ask for.
 export function repoOf(url: string): string | undefined {
 	const m = /^https:\/\/github\.com\/([^/\s]+)\/([^/\s#?]+)/.exec(url.trim());
@@ -139,15 +145,15 @@ export function buildEntry(cat: SubmitCat, d: EntryDraft, mode: 'native' | 'web'
 	const repo = repoOf(url);
 	switch (cat) {
 		case 'showcase':
-			return { slug: slugify(name), name, author, kind: mode, ...(d.category ? { category: d.category } : {}), url, ...(repoOf(d.repo ?? '') ? { repo: repoOf(d.repo ?? '') } : {}), summary, description: summary };
+			return { slug: entrySlug(name, url), name, author, kind: mode, ...(d.category ? { category: d.category } : {}), url, ...(repoOf(d.repo ?? '') ? { repo: repoOf(d.repo ?? '') } : {}), summary, description: summary };
 		case 'ui':
-			return { slug: slugify(name), name, author, tag: 'theme', summary, repo: repo ?? 'owner/name', url };
+			return { slug: entrySlug(name, url), name, author, tag: 'theme', summary, repo: repo ?? 'owner/name', url };
 		case 'state':
-			return { slug: slugify(name), name, author, summary, repo: repo ?? 'owner/name', url, install: repo ? `go get github.com/${repo}` : 'go get …', tags: ['state'] };
+			return { slug: entrySlug(name, url), name, author, summary, repo: repo ?? 'owner/name', url, install: repo ? `go get github.com/${repo}` : 'go get …', tags: ['state'] };
 		case 'plugin':
-			return { slug: slugify(name), name, mark: name.replace(/\s/g, '').slice(0, 2), official: false, surface: 'web', tags: [], docs: url, summary };
+			return { slug: entrySlug(name, url), name, mark: name.replace(/\s/g, '').slice(0, 2), official: false, surface: 'web', tags: [], docs: url, summary };
 		case 'article':
-			return { slug: slugify(name), title: name, site: d.url.trim() ? hostOf(url).split('/')[0] : 'example.com', url };
+			return { slug: entrySlug(name, url), title: name, site: d.url.trim() ? hostOf(url).split('/')[0] : 'example.com', url };
 	}
 }
 

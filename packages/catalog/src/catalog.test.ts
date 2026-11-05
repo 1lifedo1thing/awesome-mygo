@@ -124,7 +124,7 @@ describe('catalog data', () => {
 
 	it('lists libraries, state management, articles and community plugins oldest first, official plugins and guides by name', () => {
 		for (const list of [UI_LIBS, STATE_SOLUTIONS, ARTICLES, COMMUNITY_PLUGINS]) for (let i = 1; i < list.length; i++) expect(byAdded(list[i - 1], list[i]), list[i].slug).toBeLessThan(0);
-		for (let i = 1; i < PLUGINS.length; i++) expect(PLUGINS[i - 1].name.localeCompare(PLUGINS[i].name, 'en', { sensitivity: 'base' }), PLUGINS[i].slug).toBeLessThan(0);
+		for (let i = 1; i < PLUGINS.length; i++) expect(byName(PLUGINS[i - 1], PLUGINS[i]), PLUGINS[i].slug).toBeLessThan(0);
 		for (let i = 1; i < DOCS.length; i++) expect(DOCS[i - 1].title.localeCompare(DOCS[i].title, 'en', { sensitivity: 'base' }), DOCS[i].slug).toBeLessThan(0);
 		const plugin = { $schema: '../schema/plugin.schema.json', mark: 'Kt', surface: 'web', tags: [], docs: 'https://x.dev', summary: { en: 'A kit.' } };
 		const files = {
@@ -502,6 +502,9 @@ describe('submission entry', () => {
 		expect(app).toMatchObject({ slug: 'my-kit', name: 'My "Kit"', kind: 'web', summary: { en: 'Widgets for MyGo.' } });
 		expect(JSON.parse(jsonEntry('ui', draft, 'native', ph)).repo).toBe('someone/my-kit');
 		expect(slugify('留白 Liubai')).toBe('liubai');
+		// A name with no Latin letter or digit takes its slug from the link rather than becoming my-app, which a second such entry could not be filed as.
+		expect(buildEntry('ui', { ...draft, name: '留白' }, 'native', ph).slug).toBe('my-kit');
+		expect(buildEntry('article', { ...draft, name: '用桌面应用', url: 'https://zhuanlan.zhihu.com/p/123' }, 'native', ph).slug).toBe('zhuanlan-zhihu-com-p-123');
 	});
 
 	it('opens a prefilled issue, or the entry\'s new file in GitHub\'s editor', () => {

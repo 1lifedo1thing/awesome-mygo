@@ -2,7 +2,7 @@ import { CatalogError, DATA_DIR, SITE_REPO, SITE_URL, SUBMIT_LABELS, type Submit
 import { createAppAuth } from '@octokit/auth-app';
 import { Octokit } from '@octokit/core';
 
-// Submissions from visitors without a GitHub account: the site's GitHub App adds the entry to its data file on a new branch and opens a pull request, which CI checks and a maintainer merges.
+// Submissions from visitors without a GitHub account: the site's GitHub App adds the entry's file on a new branch and opens a pull request, which CI checks and a maintainer merges.
 
 const [OWNER, REPO] = SITE_REPO.replace('https://github.com/', '').split('/');
 const BASE = 'main';

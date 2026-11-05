@@ -191,8 +191,8 @@ export function readAppFile(name: string, json: unknown): App {
 	return readEntryFile(APP_KIND, name, json);
 }
 
-// The showcase's default order, and the order APPS is in: by name, naturally; the same name goes by slug.
-export function byName(a: App, b: App): number {
+// The showcase's default order, the order APPS is in, and the official plugins': by name, naturally; the same name goes by slug.
+export function byName(a: { name: string; slug: string }, b: { name: string; slug: string }): number {
 	return NATURAL.compare(a.name, b.name) || a.slug.localeCompare(b.slug);
 }
 
@@ -361,7 +361,7 @@ export const PLUGIN_KIND: Kind<Plugin> = { dir: 'plugins', schema: '../schema/pl
 // The plugins of data/plugins/, keyed by file name: the official ones by name, then the community's, the oldest first.
 export function readPlugins(files: Record<string, unknown>): Plugin[] {
 	const plugins = readEntryFiles(PLUGIN_KIND, files);
-	const official = plugins.filter((p) => p.official).sort((a, b) => NATURAL.compare(a.name, b.name) || a.slug.localeCompare(b.slug));
+	const official = plugins.filter((p) => p.official).sort(byName);
 	return [...official, ...plugins.filter((p) => !p.official).sort(byAdded)];
 }
 

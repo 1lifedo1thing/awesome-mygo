@@ -90,7 +90,7 @@ An app's file, `apps/my-app.json`, looks like this:
 ```
 
 - The file is named after `slug`. `added` is when the entry joined the site, in UTC; the site bot sets it, and by hand you write the current time. Every category but the guides has it: the showcase can list apps newest first by it, and UI libraries, state management, articles and community plugins are listed oldest first. Official plugins and the guides are listed by name. Keeping each entry in its own file means pull requests that add entries at the same time never conflict.
-- The other categories' files have the same `$schema`, `slug` and `added` around their fields; their schemas in `data/schema/` list the fields.
+- The other categories' files have the same `$schema`, `slug` and (but for the guides) `added` around their fields; their schemas in `data/schema/` list the fields.
 - `url` is the app's homepage: its website, or its repository if it has none; it need not be on GitHub. An open-source app adds its GitHub repository as `repo` (`owner/name`); a closed-source one leaves it out.
 - Text fields hold one string per language. `en` is required; `zh-CN`, `zh-TW`, `ja` and `ko` are optional, and a missing language shows the English text.
 - Each file names its JSON Schema (in `data/schema/`) in `$schema`, so VS Code and other editors complete and check the fields as you type.

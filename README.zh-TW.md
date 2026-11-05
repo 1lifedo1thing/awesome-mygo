@@ -90,7 +90,7 @@ bot 開出 PR 後，*Complete submission* workflow 會補上表單問不到的�
 ```
 
 - 檔名與 `slug` 相同。`added` 是條目加入網站的時間（UTC），網站 bot 會自動填寫，手動新增時寫目前時間。除官方指南外每個類別都有這個欄位：作品集可以依它把最新的應用排在前面，UI 元件庫、狀態管理、文章和社群外掛依它從早到晚排列；官方外掛和官方指南依名稱排列。每個條目一個檔案，所以同時新增條目的多個 PR 不會互相衝突。
-- 其他類別的檔案同樣在欄位外帶 `$schema`、`slug` 和 `added`，具體欄位見 `data/schema/` 裡對應的 schema。
+- 其他類別的檔案同樣在欄位外帶 `$schema`、`slug` 和 `added`（官方指南沒有 `added`），具體欄位見 `data/schema/` 裡對應的 schema。
 - `url` 是應用首頁：官網，沒有官網就填倉庫網址，不要求在 GitHub 上。開源應用再用 `repo` 填 GitHub 倉庫（`owner/name`），閉源應用不填。
 - 文字欄位依語言各寫一份。`en` 必填；`zh-CN`、`zh-TW`、`ja`、`ko` 可選，缺少的語言顯示英文。
 - 每個檔案都在 `$schema` 裡指向自己的 JSON Schema（在 `data/schema/`），VS Code 等編輯器會在你輸入時補全並檢查欄位。
