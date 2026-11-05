@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mytoken",
+	"name": "MyToken!!!!!",
+	"author": "nerv-base",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/nerv-base/mytoken",
+	"repo": "nerv-base/mytoken",
+	"summary": {
+		"en": "Tracks tokens and API-equivalent cost of your AI coding tools, and how much plan quota is left.",
+		"zh-CN": "统计 AI 编程工具的 token 用量和 API 等价花费，并显示套餐剩余额度。",
+		"zh-TW": "統計 AI 程式開發工具的 token 用量與 API 等價花費，並顯示方案剩餘額度。",
+		"ja": "AI コーディングツールのトークン使用量と API 換算コスト、プランの残りクォータを表示。",
+		"ko": "AI 코딩 도구의 토큰 사용량과 API 환산 비용, 남은 요금제 한도를 보여 줍니다."
+	},
+	"description": {
+		"en": "A macOS, Windows and Linux app drawn with MyGo's native UI, with no Electron or WebView. It reads the session logs that 33 AI coding tools, including Claude Code, Codex CLI and Gemini CLI, already write, prices each request at API list price, and shows today's and this month's spend, live sessions and plan quotas in a window, a menu bar panel or the CLI. Usage data never leaves your machine.",
+		"zh-CN": "macOS、Windows 与 Linux 桌面应用，由 MyGo 原生 UI 绘制，没有 Electron，也没有 WebView。它读取 Claude Code、Codex CLI、Gemini CLI 等 33 款 AI 编程工具已写入磁盘的会话日志，按官方 API 标价为每次请求计价，并在窗口、菜单栏面板或命令行中显示今天与本月的花费、正在运行的会话和套餐额度。用量数据不会离开你的电脑。",
+		"zh-TW": "macOS、Windows 與 Linux 桌面應用程式，由 MyGo 原生 UI 繪製，沒有 Electron，也沒有 WebView。它讀取 Claude Code、Codex CLI、Gemini CLI 等 33 款 AI 程式開發工具已寫入磁碟的工作階段紀錄，依官方 API 牌價為每次請求計價，並在視窗、選單列面板或命令列中顯示今天與本月的花費、執行中的工作階段和方案額度。用量資料不會離開你的電腦。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS・Windows・Linux 向けアプリで、Electron も WebView も使いません。Claude Code、Codex CLI、Gemini CLI など 33 の AI コーディングツールがディスクに書き出すセッションログを読み、各リクエストを公式 API の定価で計算して、今日と今月の支出、実行中のセッション、プランのクォータをウィンドウ、メニューバーのパネル、CLI で表示します。使用量のデータは手元のマシンから出ません。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS·Windows·Linux용 앱으로, Electron도 WebView도 쓰지 않습니다. Claude Code, Codex CLI, Gemini CLI 등 33개 AI 코딩 도구가 디스크에 남기는 세션 로그를 읽어 요청마다 공식 API 정가로 비용을 매기고, 오늘과 이번 달 지출, 실행 중인 세션, 요금제 한도를 창, 메뉴 막대 패널, CLI로 보여 줍니다. 사용량 데이터는 내 컴퓨터 밖으로 나가지 않습니다."
+	},
+	"icon": {
+		"file": "mytoken.webp"
+	},
+	"screenshot": "mytoken.webp",
+	"added": "2026-11-05T02:29:36Z"
+}
