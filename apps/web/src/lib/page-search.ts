@@ -23,13 +23,14 @@ export function validatePluginsSearch(search: Record<string, unknown>): PluginsS
 	return { surface: oneOf(search.surface, ['web', 'native'] as const), sort: oneOf(search.sort, ['likes'] as const) };
 }
 
-// The UI components page: the kind of library shown.
+// The UI components page: the kind of library shown, and the kind of window it serves, as on the plugins page.
 export interface UiSearch {
 	tag?: UiLibKey;
+	surface?: 'web' | 'native';
 }
 
 export function validateUiSearch(search: Record<string, unknown>): UiSearch {
-	return { tag: oneOf(search.tag, UI_KEYS) };
+	return { tag: oneOf(search.tag, UI_KEYS), surface: oneOf(search.surface, ['web', 'native'] as const) };
 }
 
 // The state page: the open example of MyGo's own primitives, besides the first (bound services).

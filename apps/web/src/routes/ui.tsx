@@ -1,4 +1,4 @@
-import { NATIVE_UI_DOCS, UI_KEYS, UI_LIBS, type UiLibKey, likeKey, pick } from '@awesome-mygo/catalog';
+import { NATIVE_UI_DOCS, type Surface, UI_KEYS, UI_LIBS, type UiLibKey, likeKey, pick } from '@awesome-mygo/catalog';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { WinBar } from '../components/bits';
 import { LikeButton } from '../components/Like';
@@ -8,7 +8,7 @@ import { pageHead } from '../lib/seo';
 import { useSite } from '../lib/site';
 
 export const Route = createFileRoute('/ui')({
-	// ?tag= keeps the filter in the address, so a link reproduces the view.
+	// ?tag= and ?surface= keep the filters in the address, so a link reproduces the view.
 	validateSearch: validateUiSearch,
 	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/ui', title: 'title_ui', desc: 'desc_ui', name: 'cat_ui_name' }),
 	component: UiPage,
@@ -20,12 +20,16 @@ function UiPage() {
 	const t = useT();
 	const lang = useLang();
 	const { openSubmit } = useSite();
-	const { tag } = Route.useSearch();
+	const { tag, surface } = Route.useSearch();
 	const navigate = useNavigate({ from: '/ui' });
-	const filter = tag ?? 'all';
-	const setFilter = (k: 'all' | UiLibKey) => void navigate({ search: (prev) => ({ ...prev, tag: k === 'all' ? undefined : k }), replace: true, resetScroll: false });
-	const chips = [{ key: 'all' as const, label: `${t.all} · ${UI_LIBS.length}` }, ...UI_KEYS.map((k) => ({ key: k, label: `${t[TAG[k]]} · ${UI_LIBS.filter((l) => l.key === k).length}` }))];
-	const libs = UI_LIBS.filter((l) => filter === 'all' || l.key === filter);
+	const setFilter = (next: { tag?: UiLibKey; surface?: 'web' | 'native' }) => void navigate({ search: (prev) => ({ ...prev, ...next }), replace: true, resetScroll: false });
+	const surfLabel: Record<Surface, string> = { web: t.surf_web, native: t.surf_native, both: t.surf_both };
+	// A library for both kinds of window shows under either. The tags count the libraries of the chosen window, so a chip never leads to an empty list; the one picked stays, and an empty list says so.
+	const ofSurface = UI_LIBS.filter((l) => !surface || l.surface === surface || l.surface === 'both');
+	const nNative = UI_LIBS.filter((l) => l.surface !== 'web').length;
+	const nWeb = UI_LIBS.filter((l) => l.surface !== 'native').length;
+	const chips = [{ key: undefined, n: ofSurface.length, label: t.all }, ...UI_KEYS.map((k) => ({ key: k, n: ofSurface.filter((l) => l.key === k).length, label: t[TAG[k]] }))].filter((c) => c.key === undefined || c.n > 0 || c.key === tag);
+	const libs = ofSurface.filter((l) => !tag || l.key === tag);
 
 	return (
 		<section className='page enter gap-36'>
@@ -37,12 +41,24 @@ function UiPage() {
 					{t.ui_builtin}
 				</a>
 			</div>
-			<div className='chips' role='group' aria-label={t.a_filter}>
-				{chips.map((c) => (
-					<button key={c.key} type='button' className='chip' onClick={() => setFilter(c.key)} aria-pressed={filter === c.key}>
-						{c.label}
-					</button>
-				))}
+			<div className='filterbar'>
+				<div className='chips' role='group' aria-label={t.a_filter}>
+					{chips.map((c) => (
+						<button key={c.key ?? 'all'} type='button' className='chip' onClick={() => setFilter({ tag: c.key })} aria-pressed={tag === c.key}>
+							{`${c.label} · ${c.n}`}
+						</button>
+					))}
+				</div>
+				<div className='sort'>
+					<label htmlFor='surface' className='sort-label'>
+						{t.f_ui}
+					</label>
+					<select id='surface' value={surface ?? 'all'} onChange={(e) => setFilter({ surface: e.target.value === 'all' ? undefined : (e.target.value as 'web' | 'native') })} className='sort-select'>
+						<option value='all'>{`${t.all} · ${UI_LIBS.length}`}</option>
+						<option value='native'>{`${t.surf_native} · ${nNative}`}</option>
+						<option value='web'>{`${t.surf_web} · ${nWeb}`}</option>
+					</select>
+				</div>
 			</div>
 			<div className='show-grid'>
 				{libs.map((l, k) => {
@@ -69,11 +85,12 @@ function UiPage() {
 													{l.name}
 												</a>
 											</h2>
-											<span className='show-meta'>
+											<span className='show-meta show-meta-wrap'>
 												<span className='show-by' title={l.author}>
 													<span lang='en'>by</span> {l.author}
 												</span>
 												<span className='kind-tag tag-cyan'>{t[TAG[l.key]]}</span>
+												<span className={`kind-tag kind-${l.surface}`}>{surfLabel[l.surface]}</span>
 											</span>
 										</div>
 										<LikeButton item={likeKey.ui(l)} name={l.name} className='like-btn like-end' />
@@ -85,6 +102,14 @@ function UiPage() {
 					);
 				})}
 			</div>
+			{libs.length === 0 && (
+				<div className='show-empty'>
+					<p>{t.ui_none}</p>
+					<button type='button' className='btn-g btn-44 btn-outline' onClick={() => setFilter({ tag: undefined, surface: undefined })}>
+						{t.f_clear}
+					</button>
+				</div>
+			)}
 			<div className='rv cta-dashed'>
 				<p className='cta-p'>{t.ui_cta}</p>
 				<button type='button' className='btn-c btn-44' onClick={() => openSubmit('ui')}>
