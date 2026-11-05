@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "morilo",
+	"name": "Morilo",
+	"author": "hifizz",
+	"kind": "web",
+	"category": "BusinessApplication",
+	"url": "https://github.com/hifizz/morilo",
+	"repo": "hifizz/morilo",
+	"summary": {
+		"en": "A desktop AI workspace: separate assistants and chats, streaming replies, local profiles.",
+		"zh-CN": "桌面 AI 工作台：分开管理多个助手与对话，流式回复，本地档案。",
+		"zh-TW": "桌面 AI 工作區：分開管理多個助理與對話，串流回覆，本機設定檔。",
+		"ja": "デスクトップの AI ワークスペース。アシスタントと会話を分けて管理し、回答をストリーミング表示。",
+		"ko": "데스크톱 AI 작업 공간. 어시스턴트와 대화를 나눠 관리하고 답변을 스트리밍으로 보여 줍니다."
+	},
+	"description": {
+		"en": "An early-stage macOS AI app built with a React frontend on MyGo, with separate assistants and conversations, streaming Markdown replies and local profiles. It works with OpenAI, Anthropic, Google Gemini, Ollama or OpenAI-compatible providers, runs agents through the bundled Pi RPC CLI, and can link GitHub and Vercel through Composio or a remote Instabox machine.",
+		"zh-CN": "一款早期阶段的 macOS AI 应用，React 前端运行在 MyGo 上，分开管理多个助手与对话，回复以 Markdown 流式呈现，支持本地档案。支持 OpenAI、Anthropic、Gemini、Ollama 等模型服务，由内置的 Pi RPC CLI 运行智能体，还可经 Composio 连接 GitHub 与 Vercel，或接入远程 Instabox 电脑。",
+		"zh-TW": "一款早期階段的 macOS AI 應用程式，React 前端執行於 MyGo 上，分開管理多個助理與對話，回覆以 Markdown 串流呈現，支援本機設定檔。支援 OpenAI、Anthropic、Gemini、Ollama 等模型服務，由內建的 Pi RPC CLI 執行代理，還可經由 Composio 連接 GitHub 與 Vercel，或接上遠端 Instabox 電腦。",
+		"ja": "React のフロントエンドを MyGo で動かす、開発初期の macOS 向け AI アプリ。アシスタントと会話を分けて管理でき、回答は Markdown でストリーミング表示、データはプロファイル別にローカル保存します。OpenAI、Anthropic、Gemini、Ollama などに対応し、同梱の Pi RPC CLI でエージェントを動かします。Composio 経由で GitHub と Vercel に接続したり、リモートの Instabox マシンをつないだりもできます。",
+		"ko": "React 프런트엔드를 MyGo로 실행하는 초기 단계의 macOS용 AI 앱입니다. 어시스턴트와 대화를 따로 관리하고, 답변은 Markdown으로 스트리밍되며, 데이터는 로컬 프로필별로 저장됩니다. OpenAI, Anthropic, Gemini, Ollama 등을 지원하고 내장된 Pi RPC CLI로 에이전트를 실행하며, Composio로 GitHub와 Vercel을 연결하거나 원격 Instabox 머신에 접속할 수 있습니다."
+	},
+	"icon": {
+		"file": "morilo.webp"
+	},
+	"screenshot": "morilo.webp",
+	"added": "2026-11-05T05:02:32Z"
+}
