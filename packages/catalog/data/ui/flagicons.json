@@ -5,7 +5,11 @@
 	"author": "xiyaowong",
 	"tag": "theme",
 	"summary": {
-		"en": "Country flags for the native UI of MyGo apps"
+		"en": "The 271 flags of lipis/flag-icons for MyGo native UI, as SVGs in 4x3 and square shapes shown in their own colors, with each country's name, capital and continent.",
+		"zh-CN": "lipis/flag-icons 的 271 面旗帜，供 MyGo 原生 UI 使用：SVG 格式，分 4x3 与正方形两种，并附国名、首都与所属大洲。",
+		"zh-TW": "lipis/flag-icons 的 271 面旗幟，供 MyGo 原生 UI 使用：SVG 格式，分 4x3 與正方形兩種，並附國名、首都與所屬洲別。",
+		"ja": "lipis/flag-icons の 271 の旗を、MyGo のネイティブ UI で使える SVG にしたもの。4x3 と正方形の 2 種類があり、元の色のまま表示でき、国名・首都・大陸のデータも付きます。",
+		"ko": "lipis/flag-icons의 깃발 271개를 MyGo 네이티브 UI에서 쓰는 SVG로 제공합니다. 4x3과 정사각형 두 가지가 있고 원래 색으로 표시되며, 국가 이름·수도·대륙 정보도 담았습니다."
 	},
 	"repo": "xiyaowong/flagicons",
 	"url": "https://github.com/xiyaowong/flagicons",
