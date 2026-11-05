@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "nekossh",
+	"name": "NekoSSH",
+	"author": "neko233-com",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/neko233-com/nekossh",
+	"repo": "neko233-com/nekossh",
+	"summary": {
+		"en": "A native SSH client with SFTP, a local terminal and optional self-hosted credential sync.",
+		"zh-CN": "原生 SSH 桌面客户端，带 SFTP、本机终端和可选的自部署凭据同步。",
+		"zh-TW": "原生 SSH 桌面用戶端，內建 SFTP、本機終端機，並可選用自架的憑證同步。",
+		"ja": "SFTP とローカル端末を備え、自前の認証情報同期にも対応したネイティブ SSH クライアント。",
+		"ko": "SFTP, 로컬 터미널, 선택적 자체 호스팅 자격 증명 동기화를 갖춘 네이티브 SSH 클라이언트."
+	},
+	"description": {
+		"en": "An SSH desktop client drawn with MyGo's native UI, with no web view or external SSH client. It connects by password or private key, moves single files over SFTP and opens a local terminal. Optional credential and team sync runs through a separate self-hosted Go server, not built with MyGo, which holds the decryption key, so the sync is not end-to-end encrypted.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 SSH 桌面客户端，无需 WebView 或外部 SSH 客户端。可用密码或私钥连接，通过 SFTP 上传下载单个文件，也能打开本机终端。凭据与团队同步为可选功能，由另外用 Go 编写、不使用 MyGo 的自部署服务提供；服务端持有解密密钥，并非端到端加密。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 SSH 桌面用戶端，不需要 WebView 或外部 SSH 用戶端。可用密碼或私鑰連線，透過 SFTP 上傳下載單一檔案，也能開啟本機終端機。憑證與團隊同步為選用功能，由另外以 Go 撰寫、不使用 MyGo 的自架服務提供；伺服器端持有解密金鑰，並非端對端加密。",
+		"ja": "MyGo のネイティブ UI で描かれた SSH デスクトップクライアント。WebView も外部の SSH クライアントも使いません。パスワードか秘密鍵で接続し、SFTP で単一ファイルをやり取りでき、ローカルターミナルも開けます。認証情報とチームの同期は任意で、MyGo ではなく Go で別に書かれたセルフホストのサーバーが担います。サーバー側が復号鍵を持つため、エンドツーエンド暗号化ではありません。",
+		"ko": "MyGo의 네이티브 UI로 그린 SSH 데스크톱 클라이언트로, WebView도 외부 SSH 클라이언트도 필요 없습니다. 비밀번호나 개인 키로 접속하고, SFTP로 파일을 한 개씩 주고받으며, 로컬 터미널도 열 수 있습니다. 자격 증명과 팀 동기화는 선택 사항으로, MyGo가 아닌 Go로 따로 만든 자체 호스팅 서버가 맡습니다. 서버가 복호화 키를 갖고 있어 종단간 암호화는 아닙니다."
+	},
+	"icon": {
+		"file": "nekossh.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "nekossh.webp",
+	"added": "2026-11-05T04:45:28Z"
+}
