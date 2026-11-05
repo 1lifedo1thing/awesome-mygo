@@ -1,4 +1,4 @@
-import { APPS, APP_GROUPS, type App, type AppGroup, type AppKind, HAS_SCORES, appGroup, byNewest, isAppGroup, likeKey, scoreRank } from '@awesome-mygo/catalog';
+import { APPS, APP_GROUPS, type App, type AppGroup, type AppKind, HAS_SCORES, appGroup, byNewest, compareByScore, isAppGroup, likeKey } from '@awesome-mygo/catalog';
 import type { LikesState } from './likes';
 import { oneOf, text } from './page-search';
 
@@ -36,12 +36,12 @@ export function shownSort(sort: ShowcaseSearch['sort'], likes: LikesState['statu
 	return (sort === 'likes' && likes === 'off') || (sort === 'score' && !HAS_SCORES) ? DEFAULT_SORT : (sort ?? DEFAULT_SORT);
 }
 
-// The apps in the chosen order; apps that tie (the same likes or score) keep their natural order, and apps without a score go after those with one. Shared by both looks.
+// The apps in the chosen order; apps with the same likes keep their natural order, and by score equal totals are ordered by the unrounded sum, then the raw stars, active weeks and release days, then their natural order (compareByScore), with apps without a score after those with one. Shared by both looks.
 export function sortApps(apps: readonly App[], sort: AppSort, likes: Readonly<Record<string, number>>): App[] {
 	const list = [...apps];
 	if (sort === 'newest') list.sort(byNewest);
 	if (sort === 'likes') list.sort((a, b) => (likes[likeKey.app(b)] ?? 0) - (likes[likeKey.app(a)] ?? 0));
-	if (sort === 'score') list.sort((a, b) => scoreRank(likeKey.app(b)) - scoreRank(likeKey.app(a)));
+	if (sort === 'score') list.sort((a, b) => compareByScore(likeKey.app(a), likeKey.app(b)));
 	return list;
 }
 

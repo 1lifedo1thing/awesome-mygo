@@ -5,9 +5,9 @@ import { github } from './github.ts';
 import { type BatchResult, type GraphqlAnswer, type Scored, type ScoresFile, anomalies, assemble, batches, buildQuery, commitMessage, isIdle, parseBatch, planRun, readLikes, scoredEntry, serializeScores, totalOf, weekStart, weekWindows } from './signals.ts';
 import { ENTRY_DIRS, type Entry, type EntryKind } from './source.ts';
 
-// Run by .github/workflows/score.yml once a day. It records in packages/catalog/data/scores.json the raw signals each entry's score is computed from when the site is built (packages/catalog/src/score.ts): for every app, UI library, state management library and official plugin, its repository's stars, license, latest release or tag and whether it is archived, in how many of the 12 full weeks before this week's Monday (asOf) it had commits, and its likes on the site. A closed-source app has only its likes; an official plugin's commits are counted in its own folder of egoist/mygo, and its stars are not recorded, as egoist/mygo's are not the plugin's own.
+// Run by .github/workflows/score.yml once a day. It records in packages/catalog/data/scores.json the raw signals each entry's score is computed from when the site is built (packages/catalog/src/score.ts): for every app, UI library, state management library and official plugin, its repository's stars, license, latest release or tag and whether it is archived, in how many of the 12 full weeks before this week's Monday (asOf) it had commits, on how many days in those weeks it had a release or tag, and its likes on the site. A closed-source app has only its likes; an official plugin's commits are counted in its own folder of egoist/mygo, and its stars are not recorded, as egoist/mygo's are not the plugin's own.
 //
-// The first run of a week measures every entry, so that a week's signals are one snapshot; a later run that week only measures the entries that have no record yet or whose repository or folder changed, and leaves every other record as it is (signals.ts, planRun). A run is all or nothing: a failed request, a GraphQL error other than a repository GitHub does not find, likes that cannot be read, or more than a fifth of the repositories not found throws before anything is written, and the next day's run makes up the week. A repository that is not found keeps its entry's last record of it, or leaves the entry without one (the site shows it as pending), and is listed under Data to fix.
+// The first run of a week measures every entry, so that a week's signals are one snapshot; a later run that week only measures the entries that have no record yet, whose repository or folder changed, or whose record is from before a signal was recorded, and leaves every other record as it is (signals.ts, planRun). A run is all or nothing: a failed request, a GraphQL error other than a repository GitHub does not find, likes that cannot be read, or more than a fifth of the repositories not found throws before anything is written, and the next day's run makes up the week. A repository that is not found keeps its entry's last record of it, or leaves the entry without one (the site shows it as pending), and is listed under Data to fix.
 //
 // GitHub is asked through GraphQL, 10 entries a request: a repository's own fields once a run, and for each entry 12 commit counts, one a week (signals.ts, buildQuery), which measures a repository with thousands of commits as exactly as a small one. A full run makes about a dozen requests.
 //
@@ -59,7 +59,7 @@ function partCells(file: ScoresFile, key: string): string[] {
 		activity: s.weeks === undefined ? '' : `${s.activeWeeks}/${s.weeks} weeks`,
 		openness: !s.repo ? 'closed' : s.license === null || s.license === undefined ? 'no license' : `${s.license}${s.osi ? ', OSI' : ''}`,
 		likes: String(s.likes),
-		release: s.released ?? (s.repo ? 'never' : ''),
+		release: s.releaseDays === undefined ? (s.released ?? (s.repo ? 'never' : '')) : `${s.releaseDays} days, latest ${s.released ?? 'never'}`,
 	};
 	return score.parts.map((p) => `${p.points}${p.basis === 'neutral' ? ' n/a' : raw[p.signal] ? ` (${cell(raw[p.signal])})` : ''}`);
 }
@@ -82,7 +82,7 @@ async function main(): Promise<void> {
 	say(`The site scores ${scored.length} entries: ${open.length} with a repository, in ${repos.size} repositories, and ${scored.length - open.length} closed source.\n`);
 	if (isIdle(plan)) return say(`The week ending ${asOf} is recorded for every entry, so nothing was asked and scores.json is unchanged.`);
 	if (plan.full) say(`A full run for the week ending ${asOf}${FULL ? ' (FULL=true)' : prev.asOf ? `, as the file was taken as of ${prev.asOf}` : ', the first one'}: every entry is measured.\n`);
-	else if (plan.measure.length) say(`The week ending ${asOf} is recorded; this run measures the ${plan.measure.length} entries without a record of their repository (${plan.measure.join(', ')}) and leaves the others as they are.\n`);
+	else if (plan.measure.length) say(`The week ending ${asOf} is recorded; this run measures the ${plan.measure.length} entries without a record of their repository or of every signal (${plan.measure.join(', ')}) and leaves the others as they are.\n`);
 	if (plan.dropped.length) say(`Dropped the signals of ${plan.dropped.length} entries the site no longer lists: ${plan.dropped.join(', ')}.\n`);
 
 	let requests = 0;

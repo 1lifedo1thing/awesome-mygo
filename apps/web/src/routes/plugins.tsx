@@ -1,4 +1,4 @@
-import { CLI_CMDS, COMMUNITY_PLUGINS, HAS_SCORES, PLUGINS, PLUGINS_DOC, type Plugin, type PluginSurface, fill, likeKey, pick, scoreRank } from '@awesome-mygo/catalog';
+import { CLI_CMDS, COMMUNITY_PLUGINS, HAS_SCORES, PLUGINS, PLUGINS_DOC, type Plugin, type PluginSurface, compareByScore, fill, likeKey, pick } from '@awesome-mygo/catalog';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { WinBar } from '../components/bits';
 import { LikeButton } from '../components/Like';
@@ -45,10 +45,10 @@ function PluginsPage() {
 	const shown = PLUGINS.filter((p) => fits(p.surface));
 	// The community's plugins, under the same filter, after the official ones and the call to write one.
 	const community = COMMUNITY_PLUGINS.filter((p) => fits(p.surface));
-	// Most liked or highest score first; ties keep the docs' order. The community's plugins have no score yet, so by score they keep theirs.
+	// Most liked or highest score first; equal likes keep the docs' order, and equal totals are ordered by the unrounded sum, then the raw active weeks and release days, then the docs' order (compareByScore). The community's plugins have no score yet, so by score they keep theirs.
 	for (const list of [shown, community]) {
 		if (sort === 'likes') list.sort((a, b) => (counts[likeKey.plugin(b)] ?? 0) - (counts[likeKey.plugin(a)] ?? 0));
-		if (sort === 'score') list.sort((a, b) => scoreRank(likeKey.plugin(b)) - scoreRank(likeKey.plugin(a)));
+		if (sort === 'score') list.sort((a, b) => compareByScore(likeKey.plugin(a), likeKey.plugin(b)));
 	}
 	const chips = [
 		{ key: 'all' as const, label: `${t.all} · ${PLUGINS.length}` },

@@ -93,6 +93,12 @@
 					"$ref": "#/$defs/day",
 					"description": "The day of the latest release or tag."
 				},
+				"releaseDays": {
+					"type": "integer",
+					"minimum": 0,
+					"maximum": 84,
+					"description": "On how many days in the 12 full weeks before asOf the repository published a release or had a tag."
+				},
 				"archived": {
 					"const": true
 				},
@@ -123,6 +129,9 @@
 					"license"
 				],
 				"released": [
+					"repo"
+				],
+				"releaseDays": [
 					"repo"
 				],
 				"archived": [

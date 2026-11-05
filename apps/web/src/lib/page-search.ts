@@ -1,4 +1,5 @@
 import { type InstallTab, UI_KEYS, type UiLibKey } from '@awesome-mygo/catalog';
+import { UI_SORTS, type UiSort } from './ui';
 
 // What each page shows beyond its path lives in its query string, so a link reproduces the view: the filter, the order, the open tab. A default is left out (the plain path shows it), and an unknown value is dropped, as the showcase's ?cat= and ?ui= already were. Every key is always returned, undefined when absent, for the same reason as validateRootSearch: TanStack merges the validated object over the raw search.
 
@@ -23,14 +24,15 @@ export function validatePluginsSearch(search: Record<string, unknown>): PluginsS
 	return { surface: oneOf(search.surface, ['web', 'native'] as const), sort: oneOf(search.sort, ['docs', 'likes', 'score'] as const) };
 }
 
-// The UI components page: the kind of library shown, and the kind of window it serves, as on the plugins page.
+// The UI components page: the kind of library shown, the kind of window it serves, as on the plugins page, and the order (lib/ui.ts).
 export interface UiSearch {
 	tag?: UiLibKey;
 	surface?: 'web' | 'native';
+	sort?: UiSort;
 }
 
 export function validateUiSearch(search: Record<string, unknown>): UiSearch {
-	return { tag: oneOf(search.tag, UI_KEYS), surface: oneOf(search.surface, ['web', 'native'] as const) };
+	return { tag: oneOf(search.tag, UI_KEYS), surface: oneOf(search.surface, ['web', 'native'] as const), sort: oneOf(search.sort, UI_SORTS) };
 }
 
 // The state page: the open example of MyGo's own primitives, besides the first (bound services).

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { ISSUE_TITLE, badgeMarkdown, composeIssue, missingImages, notTold, projectRepo, standInImages } from './issue.ts';
+import { ISSUE_TITLE, badgeMarkdown, composeIssue, isScored, missingImages, newestRelease, nextScoreRun, notTold, projectRepo, releaseWindowStart, scorePage, scoreTips, standInImages } from './issue.ts';
 import { SITE_URL } from './tweet.ts';
 
 describe('the project to tell', () => {
@@ -85,5 +85,115 @@ describe('the issue', () => {
 		const { body } = composeIssue({ kind: 'app', entry: { slug: 'a', name: 'Hi @someone' } });
 		expect(body).not.toMatch(/@someone/);
 		expect(body).toContain('@\u200bsomeone');
+	});
+});
+
+describe('the score', () => {
+	// A Thursday: the score counts releases from 12 weeks before Monday 2026-11-02, 2026-08-10, up to the run.
+	const now = Date.parse('2026-11-05T12:00:00Z');
+
+	it('counts releases from 12 weeks before the Monday of the week, whatever the day', () => {
+		const start = Date.parse('2026-08-10T00:00:00Z');
+		expect(releaseWindowStart(now)).toBe(start);
+		expect(releaseWindowStart(Date.parse('2026-11-02T00:00:00Z'))).toBe(start);
+		expect(releaseWindowStart(Date.parse('2026-11-08T23:59:59Z'))).toBe(start);
+		expect(releaseWindowStart(Date.parse('2026-11-09T00:00:00Z'))).toBe(start + 7 * 86_400_000);
+	});
+
+	it('takes the window of the score run that next measures the entry: the next daily run at 03:41 UTC, or the next week\'s first for one with a record', () => {
+		const at = (iso: string, measured = false) => releaseWindowStart(nextScoreRun(Date.parse(iso), measured));
+		// Announced on Sunday evening, measured on Monday, whose window starts a week later than Sunday's.
+		expect(at('2026-11-08T20:00:00Z')).toBe(Date.parse('2026-08-17T00:00:00Z'));
+		// Monday before that day's run, which measures it.
+		expect(at('2026-11-09T02:00:00Z')).toBe(Date.parse('2026-08-17T00:00:00Z'));
+		// Sunday before Sunday's run, which measures it in the week of Monday 2026-11-02.
+		expect(at('2026-11-08T03:00:00Z')).toBe(Date.parse('2026-08-10T00:00:00Z'));
+		// An entry already measured keeps its record until the first run of the next week.
+		expect(at('2026-11-05T12:00:00Z', true)).toBe(Date.parse('2026-08-17T00:00:00Z'));
+		expect(at('2026-11-09T02:00:00Z', true)).toBe(Date.parse('2026-08-17T00:00:00Z'));
+		expect(at('2026-11-09T04:00:00Z', true)).toBe(Date.parse('2026-08-24T00:00:00Z'));
+	});
+
+	it('suggests a release by the window of the run that next measures the entry', () => {
+		// The only release is on 2026-08-12: in Sunday's window, not in Monday's.
+		const released = Date.parse('2026-08-12T00:00:00Z');
+		expect(scoreTips({ repo: 'a/b', released }, Date.parse('2026-11-08T20:00:00Z')).map((t) => t.tip)).toEqual(['release']);
+		expect(scoreTips({ repo: 'a/b', released }, Date.parse('2026-11-08T03:00:00Z'))).toEqual([]);
+		expect(scoreTips({ repo: 'a/b', released }, Date.parse('2026-11-05T12:00:00Z'))).toEqual([]);
+		expect(scoreTips({ repo: 'a/b', released }, Date.parse('2026-11-05T12:00:00Z'), true).map((t) => t.tip)).toEqual(['release']);
+	});
+
+	it('takes the newest release or tag, and leaves out one dated after the run', () => {
+		expect(newestRelease([null, '2026-09-01T00:00:00Z', undefined, '2026-10-01T08:00:00Z', '2099-01-01T00:00:00Z'], now)).toBe(Date.parse('2026-10-01T08:00:00Z'));
+		expect(newestRelease(['2099-01-01T00:00:00Z', null], now)).toBeNull();
+		expect(newestRelease([], now)).toBeNull();
+	});
+
+	it('suggests a standard open-source license for a repository with none or one GitHub cannot name', () => {
+		expect(scoreTips({ repo: 'a/b', license: null }, now)).toEqual([{ tip: 'license', unnamed: false, points: 14 }]);
+		expect(scoreTips({ repo: 'a/b', license: 'NOASSERTION' }, now)).toEqual([{ tip: 'license', unnamed: true, points: 8 }]);
+		expect(scoreTips({ repo: 'a/b', license: 'MIT' }, now)).toEqual([]);
+		expect(scoreTips({ repo: 'a/b', license: 'CC-BY-NC-4.0' }, now)).toEqual([]);
+		expect(scoreTips({ repo: 'a/b' }, now)).toEqual([]);
+	});
+
+	it('suggests a release for a repository with none in the counted weeks, and none when GitHub did not say', () => {
+		expect(scoreTips({ repo: 'a/b', released: null }, now)).toEqual([{ tip: 'release', never: true, points: 2.7, max: 10 }]);
+		expect(scoreTips({ repo: 'a/b', released: Date.parse('2026-08-09T23:59:59Z') }, now)).toEqual([{ tip: 'release', never: false, points: 2.7, max: 10 }]);
+		expect(scoreTips({ repo: 'a/b', released: Date.parse('2026-08-10T00:00:00Z') }, now)).toEqual([]);
+		expect(scoreTips({ repo: 'a/b', released: undefined }, now)).toEqual([]);
+	});
+
+	it('gives every tip that applies, in order', () => {
+		expect(scoreTips({ repo: 'a/b', license: null, released: null }, now).map((t) => t.tip)).toEqual(['license', 'release']);
+	});
+
+	it("links where the score shows: an app's score section, a library's category page; a community plugin has none", () => {
+		expect(scorePage('app', { slug: 'kumo' })).toBe(`${SITE_URL}/apps/kumo#score`);
+		expect(scorePage('ui', { slug: 'uix' })).toBe(`${SITE_URL}/ui`);
+		expect(scorePage('state', { slug: 's' })).toBe(`${SITE_URL}/state`);
+		expect(isScored('app', { slug: 'a' })).toBe(true);
+		expect(isScored('plugin', { slug: 'p', official: true })).toBe(true);
+		expect(isScored('plugin', { slug: 'p', official: false })).toBe(false);
+	});
+
+	it('says where the score will show and how to raise it, in English and Chinese', () => {
+		const tips = scoreTips({ repo: 'a/kumo', license: null, released: null }, now);
+		const { body } = composeIssue({ kind: 'app', entry: { slug: 'kumo', name: 'Kumo' }, tips });
+		expect(body).toContain(`Kumo's score shows at ${SITE_URL}/apps/kumo#score from the next daily measurement, and is updated weekly.`);
+		expect(body).toContain('To raise it:\n- The repository has no license. An open-source license, as a LICENSE file GitHub recognizes such as MIT or Apache-2.0, is worth 14 points.\n');
+		expect(body).toContain('- The repository has no release or tag yet. A release or version tag now is worth 2.7 points, and regular releases up to 10.');
+		expect(body).toContain(`下次每日测量后会显示分数，之后每周更新：${SITE_URL}/apps/kumo#score\n`);
+		expect(body).toContain('提高分数的方法：\n- 仓库还没有许可证，加上开源许可证（GitHub 能识别的 LICENSE 文件，如 MIT 或 Apache-2.0）：+14 分。');
+		expect(body).toContain('- 仓库还没有 release 或 tag，现在发布一个版本或打一个版本 tag：+2.7 分，定期发布最多可得 10 分。');
+		expect(body.indexOf('To raise it:')).toBeLessThan(body.indexOf('---'));
+		expect(body.indexOf('提高分数的方法')).toBeGreaterThan(body.indexOf('---'));
+		const late = composeIssue({ kind: 'ui', entry: { slug: 'uix', name: 'uix' }, tips: scoreTips({ repo: 'a/uix', license: 'NOASSERTION', released: Date.parse('2026-01-01T00:00:00Z') }, now) }).body;
+		expect(late).toContain(`uix's score shows at ${SITE_URL}/ui from`);
+		expect(late).toContain('- GitHub cannot name the repository\'s license. A standard open-source license, as a LICENSE file GitHub recognizes such as MIT or Apache-2.0, is worth 8 points.');
+		expect(late).toContain('- The repository has no release or tag in the last 12 weeks.');
+		expect(late).toContain('- GitHub 无法识别仓库的许可证，换成标准的开源许可证');
+		expect(late).toContain('- 仓库近 12 周没有 release 或 tag');
+	});
+
+	it('says the score shows now, without the next daily measurement, for an entry scores.json has a record of', () => {
+		const later = composeIssue({ kind: 'app', entry: { slug: 'kumo', name: 'Kumo' }, tips: [] }).body;
+		expect(later).toContain(`Kumo's score shows at ${SITE_URL}/apps/kumo#score from the next daily measurement, and is updated weekly.`);
+		expect(later).toContain(`本站按 Star 数、近期提交、许可证、站内点赞和发布情况给每个项目打分（满分 100）。下次每日测量后会显示分数，之后每周更新：${SITE_URL}/apps/kumo#score\n`);
+		const now = composeIssue({ kind: 'app', entry: { slug: 'kumo', name: 'Kumo' }, tips: [], measured: true }).body;
+		expect(now).toContain(`Kumo's score shows at ${SITE_URL}/apps/kumo#score and is updated weekly.`);
+		expect(now).toContain(`本站按 Star 数、近期提交、许可证、站内点赞和发布情况给每个项目打分（满分 100），每周更新：${SITE_URL}/apps/kumo#score\n`);
+		expect(now).not.toContain('next daily measurement');
+		expect(now).not.toContain('下次每日测量');
+	});
+
+	it('gives no tips when none apply, and no score to a community plugin', () => {
+		const none = composeIssue({ kind: 'app', entry: { slug: 'm', name: 'M' }, tips: [] }).body;
+		expect(none).toContain('is updated weekly');
+		expect(none).not.toContain('To raise it');
+		expect(none).not.toContain('提高分数');
+		const plugin = composeIssue({ kind: 'plugin', entry: { slug: 'untie', name: 'untie', official: false }, tips: scoreTips({ repo: 'a/b', license: null }, now) }).body;
+		expect(plugin).not.toContain('score');
+		expect(plugin).not.toContain('分数');
 	});
 });

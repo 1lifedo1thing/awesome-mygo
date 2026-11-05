@@ -2,12 +2,13 @@ import { appendFile, readFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { TwitterApi } from 'twitter-api-v2';
-import { composeIssue, ISSUE_TITLE, notTold, projectRepo } from './issue.ts';
+import { composeIssue, ISSUE_TITLE, isScored, newestRelease, notTold, projectRepo, type RepoFacts, type ScoreTip, scoreTips } from './issue.ts';
 import { type Counts, ENTRY_DIRS, type Entry, type EntryKind, composePost, githubUrl, sitePage } from './tweet.ts';
+import { scoreKey } from '../../catalog/src/score.ts';
 
-// Run by .github/workflows/announce.yml once for each entry a push to main adds: node src/main.ts <dir>/<slug>.json, the path under packages/catalog/data (apps/, ui/, state/ or plugins/). It waits until the site lists the entry, so the links work, then posts it to X and opens an issue on the project's repository saying it was listed, with its page, the post and the README badge (issue.ts).
+// Run by .github/workflows/announce.yml once for each entry a push to main adds: node src/main.ts <dir>/<slug>.json, the path under packages/catalog/data (apps/, ui/, state/ or plugins/). It waits until the site lists the entry, so the links work, then posts it to X and opens an issue on the project's repository saying it was listed, with its page, the post, the README badge, and where its score will show with what would raise it (issue.ts).
 //
-// Environment: X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN and X_ACCESS_SECRET (the posting account's OAuth 1.0a keys; without them nothing is posted, and the issue goes without a post); NOTIFY_GITHUB_TOKEN (a classic personal access token with the public_repo scope of the account that opens the issues, as neither the workflow's token nor a GitHub App's can open one on a repository they are not installed on; without it the issue is only printed); DRY_RUN=true to only print both anyway; ISSUE_ONLY=true to open the issue without posting, for an entry announced before issues were opened (the argument may then end in =<its post on X>, which the issue links to); WAIT_SECONDS (how long to wait for the site, default 900; 0 skips the check); GITHUB_TOKEN for the repository's stars and its owner's X account; GITHUB_REPOSITORY_OWNER, whose own repositories are not told; and GITHUB_STEP_SUMMARY.
+// Environment: X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN and X_ACCESS_SECRET (the posting account's OAuth 1.0a keys; without them nothing is posted, and the issue goes without a post); NOTIFY_GITHUB_TOKEN (a classic personal access token with the public_repo scope of the account that opens the issues, as neither the workflow's token nor a GitHub App's can open one on a repository they are not installed on; without it the issue is only printed); DRY_RUN=true to only print both anyway; ISSUE_ONLY=true to open the issue without posting, for an entry announced before issues were opened (the argument may then end in =<its post on X>, which the issue links to); WAIT_SECONDS (how long to wait for the site, default 900; 0 skips the check); GITHUB_TOKEN for the repository's stars, license and releases (the last of which GraphQL answers only with a token) and its owner's X account; GITHUB_REPOSITORY_OWNER, whose own repositories are not told; and GITHUB_STEP_SUMMARY.
 
 const ROOT = join(import.meta.dirname, '../../..');
 const DATA_DIR = join(ROOT, 'packages/catalog/data');
@@ -24,14 +25,51 @@ async function counts(): Promise<Counts> {
 	return { app: await n('app'), ui: await n('ui'), state: await n('state'), plugin: await n('plugin') };
 }
 
-// GitHub's answer for path, or undefined, with a warning, when it gives none: what the post takes from GitHub is not worth holding it back.
+// Whether data/scores.json has a record of the entry under the key the site reads its score by (scoreKey), so the site shows its score already. A file that cannot be read gives false, with a warning: the issue then says the score shows from the next measurement, which is not worth holding it back.
+async function hasScore(kind: EntryKind, entry: Entry): Promise<boolean> {
+	const key = scoreKey(kind, { slug: String(entry.slug), repo: typeof entry.repo === 'string' ? entry.repo : undefined });
+	try {
+		const file = JSON.parse(await readFile(join(DATA_DIR, 'scores.json'), 'utf8')) as { entries?: unknown };
+		return typeof file.entries === 'object' && file.entries !== null && Object.hasOwn(file.entries, key);
+	} catch (err) {
+		console.log(`::warning::packages/catalog/data/scores.json could not be read (${err instanceof Error ? err.message : String(err)}); the issue says ${key}'s score shows from the next daily measurement.`);
+		return false;
+	}
+}
+
+// GitHub's answer for path, or undefined, with a warning, when it gives none: what the post and the issue take from GitHub is not worth holding them back.
 async function github<T>(path: string): Promise<T | undefined> {
 	const res = await fetch(`https://api.github.com${path}`, {
 		headers: { accept: 'application/vnd.github+json', 'x-github-api-version': '2022-11-28', ...(env.GITHUB_TOKEN ? { authorization: `Bearer ${env.GITHUB_TOKEN}` } : {}) },
 		signal: AbortSignal.timeout(30_000),
 	}).catch(() => undefined);
-	if (!res?.ok) return void console.log(`::warning::GitHub did not answer for ${path} (${res?.status ?? 'no response'}); the post leaves out what it would have taken from it.`);
+	if (!res?.ok) return void console.log(`::warning::GitHub did not answer for ${path} (${res?.status ?? 'no response'}); the post and the issue leave out what they would have taken from it.`);
 	return (await res.json()) as T;
+}
+
+// A repository's releases and tags, as the score run reads them (REPO_FIELDS in packages/enrich/src/signals.ts): GitHub's latest release, the newest releases, prereleases included, and the newest tags by their commits' dates, so that one dated in the future does not hide the real ones.
+const RELEASES = 'query($owner: String!, $name: String!) { repository(owner: $owner, name: $name) { latestRelease { publishedAt } releases(first: 100, orderBy: { field: CREATED_AT, direction: DESC }) { nodes { publishedAt } } refs(refPrefix: "refs/tags/", first: 100, orderBy: { field: TAG_COMMIT_DATE, direction: DESC }) { nodes { target { ... on Commit { committedDate } ... on Tag { tagger { date } } } } } } }';
+
+interface GqlReleases {
+	latestRelease?: { publishedAt: string | null } | null;
+	releases?: { nodes: { publishedAt: string | null }[] } | null;
+	refs?: { nodes: { target: { committedDate?: string; tagger?: { date: string | null } | null } | null }[] } | null;
+}
+
+// The newest release or tag of repo not after now (newestRelease), null when it has none, or undefined, with a warning, when GitHub gives no full answer: the issue then gives no tip on releasing.
+async function newestReleaseOf(repo: string, now: number): Promise<number | null | undefined> {
+	if (!env.GITHUB_TOKEN) return void console.log(`::warning::GITHUB_TOKEN is not set, so GitHub's GraphQL cannot be asked about ${repo}'s releases; the issue gives no tip on releasing.`);
+	const [owner, name] = repo.split('/');
+	const res = await fetch('https://api.github.com/graphql', {
+		method: 'POST',
+		headers: { authorization: `Bearer ${env.GITHUB_TOKEN}`, 'content-type': 'application/json' },
+		body: JSON.stringify({ query: RELEASES, variables: { owner, name } }),
+		signal: AbortSignal.timeout(30_000),
+	}).catch(() => undefined);
+	const answer = res?.ok ? ((await res.json()) as { data?: { repository?: GqlReleases | null } | null; errors?: unknown[] }) : undefined;
+	const r = answer?.errors?.length ? undefined : answer?.data?.repository;
+	if (!r) return void console.log(`::warning::GitHub did not answer about ${repo}'s releases (${res ? res.status : 'no response'}); the issue gives no tip on releasing.`);
+	return newestRelease([r.latestRelease?.publishedAt, ...(r.releases?.nodes ?? []).map((n) => n.publishedAt), ...(r.refs?.nodes ?? []).map((n) => n.target?.committedDate ?? n.target?.tagger?.date)], now);
 }
 
 const escapeHtml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;');
@@ -89,7 +127,7 @@ async function main(): Promise<void> {
 	const entry = JSON.parse(await readFile(join(DATA_DIR, path), 'utf8')) as Entry;
 	const name = typeof entry.name === 'string' ? entry.name : String(entry.slug);
 	const repo = githubUrl(entry)?.slice('https://github.com/'.length);
-	const info = repo ? await github<{ stargazers_count?: number; owner?: { login?: string } }>(`/repos/${repo}`) : undefined;
+	const info = repo ? await github<{ stargazers_count?: number; owner?: { login?: string }; license?: { spdx_id?: string | null } | null }>(`/repos/${repo}`) : undefined;
 	const owner = info?.owner?.login ? await github<{ twitter_username?: string | null }>(`/users/${encodeURIComponent(info.owner.login)}`) : undefined;
 	const text = composePost({ kind, entry, stars: info?.stargazers_count, handle: owner?.twitter_username ?? undefined, counts: await counts() });
 	console.log(`---- post ----\n${text}\n--------------`);
@@ -103,9 +141,18 @@ async function main(): Promise<void> {
 		return `\n\n${fence}\n${t}\n${fence}\n`;
 	};
 	const repoToTell = projectRepo(kind, entry);
+	// How the project can raise its score, from what GitHub says of its repository now; the license as the score run reads it, NOASSERTION for one GitHub cannot name. An entry scores.json has a record of already shows its score, and is measured next by the next week's run.
+	const now = Date.now();
+	const measured = repoToTell && isScored(kind, entry) ? await hasScore(kind, entry) : false;
+	let tips: ScoreTip[] = [];
+	if (repo && repoToTell && isScored(kind, entry)) {
+		const facts: RepoFacts = { repo, released: await newestReleaseOf(repo, now) };
+		if (info && info.license !== undefined) facts.license = info.license ? (info.license.spdx_id ?? 'NOASSERTION') : null;
+		tips = scoreTips(facts, now, measured);
+	}
 	const printIssue = (postUrl?: string) => {
 		if (!repoToTell) return undefined;
-		const issue = composeIssue({ kind, entry, postUrl });
+		const issue = composeIssue({ kind, entry, postUrl, tips, measured });
 		console.log(`---- issue on ${repoToTell} ----\n${issue.body}--------------`);
 		return issue;
 	};

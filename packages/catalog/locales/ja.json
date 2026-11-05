@@ -224,6 +224,7 @@
 	"score_v_likes": "いいね：{n}（{x} 時点）",
 	"score_v_rel": "最新：{x}",
 	"score_v_rel_none": "リリースなし",
+	"score_v_rel_days": "直近 {x} 週のうち {n} 日にリリース",
 	"score_lic_osi": "{x}（OSI 承認のオープンソースライセンス）",
 	"score_lic_other": "{x}（OSI 未承認のライセンス）",
 	"score_lic_unknown": "ライセンスを自動で判別できませんでした",

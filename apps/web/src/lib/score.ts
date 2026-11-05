@@ -1,4 +1,4 @@
-import { ARCHIVED_FACTOR, type LangCode, SITE_REPO, type Score, type ScoreSignal, type ScoreSignals, type Translations, fill } from '@awesome-mygo/catalog';
+import { ACTIVITY_WEEKS, ARCHIVED_FACTOR, type LangCode, SITE_REPO, type Score, type ScoreSignal, type ScoreSignals, type Translations, fill } from '@awesome-mygo/catalog';
 
 // An entry's score as both looks show it (components/Score.tsx): the total, and each signal's line in the breakdown with what was measured, or why it could not be, in the page's language. The looks only lay these out.
 
@@ -58,6 +58,13 @@ function license(s: ScoreSignals, t: Translations): string {
 	return fill(s.osi ? t.score_lic_osi : t.score_lic_other, { x: s.license });
 }
 
+// The release row: on how many days of the counted weeks it was released or tagged, or for a record written before those were counted, its latest release, as the score counts it then (knownReleaseDays).
+function release(s: ScoreSignals, t: Translations, lang: LangCode, num: Intl.NumberFormat): string {
+	if (s.releaseDays === undefined) return s.released ? fill(t.score_v_rel, { x: dayOf(s.released, lang) }) : t.score_v_rel_none;
+	if (s.releaseDays === 0 && !s.released) return t.score_v_rel_none;
+	return fill(t.score_v_rel_days, { x: num.format(ACTIVITY_WEEKS), n: num.format(s.releaseDays) });
+}
+
 // Why a signal counted at NEUTRAL could not be measured: the source is closed, the stars of the repository an entry lives in are not its own, or there is no week of history to judge the activity on yet. day is the week's, as the page writes it.
 function neutralReason(signal: ScoreSignal, s: ScoreSignals, t: Translations, day: string): string {
 	if (!s.repo) return t.score_na_closed;
@@ -75,7 +82,7 @@ export function scoreRows(score: Score, signals: ScoreSignals, asOf: string, t: 
 		openness: () => license(signals, t),
 		// As of the week's start, like every signal: the heart beside the name counts likes as they come, so the row says which day its count is from.
 		likes: () => fill(t.score_v_likes, { n: num.format(signals.likes), x: day }),
-		release: () => (signals.released ? fill(t.score_v_rel, { x: dayOf(signals.released, lang) }) : t.score_v_rel_none),
+		release: () => release(signals, t, lang, num),
 	};
 	const rows = score.parts.map(
 		(p): ScoreRow => ({
