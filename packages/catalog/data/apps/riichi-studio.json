@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "riichi-studio",
+	"name": "Riichi Studio",
+	"author": "Ahdeyyy",
+	"kind": "native",
+	"group": "game",
+	"url": "https://github.com/Ahdeyyy/riichi-studio",
+	"repo": "Ahdeyyy/riichi-studio",
+	"summary": {
+		"en": "Learn riichi mahjong on Windows with lessons, a solo practice table, exercises and a scoring lab.",
+		"zh-CN": "在 Windows 上学立直麻将：课程、单人练习桌、练习题与计分实验室。",
+		"zh-TW": "在 Windows 上學立直麻將：課程、單人練習桌、練習題與計分實驗室。",
+		"ja": "Windows でリーチ麻雀を学ぶアプリ。レッスン、一人用練習卓、練習問題、点数計算ラボ付き。",
+		"ko": "Windows에서 리치 마작을 배우는 앱. 레슨, 1인 연습 테이블, 연습 문제, 점수 계산 랩."
+	},
+	"description": {
+		"en": "A Windows app for learning Japanese riichi mahjong, drawn with MyGo's native UI and running offline. It goes from recognizing tiles to table decisions through 28 lessons, exercises on waits, discards, yaku and payments, and a solo draw-and-discard table with hints; a scoring lab works out han, fu, yaku and payment for a closed hand. The practice table does not simulate opponents or full matches.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 日本立直麻将学习应用，可离线使用。28 节课程从认牌讲到牌桌决策，另有听牌、舍牌、役种与点数支付等练习，以及带提示的单人摸打练习桌；计分实验室可算出门清手牌的番、符、役与点数。练习桌不模拟对手，也不进行完整对局。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows 日本立直麻將學習應用程式，可離線使用。28 堂課程從認牌講到牌桌決策，另有聽牌、捨牌、役種與點數支付等練習，以及附提示的單人摸打練習桌；計分實驗室可算出門清手牌的番、符、役與點數。練習桌不模擬對手，也不進行完整對局。",
+		"ja": "MyGo のネイティブ UI で描かれた、日本のリーチ麻雀を学ぶための Windows アプリで、オフラインで動きます。牌の見分け方から卓上での判断までを 28 のレッスンで学べ、待ち・打牌・役・支払いの練習問題や、ヒント付きの一人用ツモ・打牌練習卓もあります。点数計算ラボでは門前の手牌の翻・符・役・支払いを確認できます。練習卓では対戦相手や対局全体は再現しません。",
+		"ko": "MyGo의 네이티브 UI로 그린 일본 리치 마작 학습용 Windows 앱으로, 오프라인에서 동작합니다. 패 구분부터 실전 판단까지 28개 레슨으로 배우고, 대기·버림패·역·점수 지불 연습 문제와 힌트가 있는 1인용 쯔모·버림 연습 테이블도 제공합니다. 점수 계산 랩에서는 멘젠 손패의 판, 부, 역, 지불액을 확인할 수 있습니다. 연습 테이블은 상대나 전체 대국을 재현하지 않습니다."
+	},
+	"icon": {
+		"file": "riichi-studio.webp"
+	},
+	"screenshot": "riichi-studio.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T23:30:36Z"
+}
