@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "voxi",
+	"name": "有听有记Voxi",
+	"author": "Beeta",
+	"kind": "native",
+	"category": "BusinessApplication",
+	"url": "https://github.com/Beeta/voxi",
+	"repo": "Beeta/voxi",
+	"summary": {
+		"en": "A macOS meeting recorder that transcribes audio and builds summaries, mind maps and Q&A with AI.",
+		"zh-CN": "macOS 会议录音助手：录音转写成文字，再用大模型生成摘要、脑图和问答。",
+		"zh-TW": "macOS 會議錄音助手：錄音轉寫成文字，再用大型語言模型產生摘要、心智圖和問答。",
+		"ja": "macOS 用の会議録音アプリ。文字起こしし、AI で要約・マインドマップ・Q&A を作成。",
+		"ko": "macOS 회의 녹음 앱. 녹음을 받아쓰고 AI로 요약, 마인드맵, 문답을 만듭니다."
+	},
+	"description": {
+		"en": "A macOS meeting assistant drawn with MyGo's native UI. It records the microphone and system audio into a library of AAC files, transcribes them with timestamps through Doubao Speech (Volcengine), which needs an API key and cloudflared, and uses any OpenAI-compatible endpoint to write summaries, mind maps and Q&A over the transcript. Recording, playback and notes work without either service.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 会议助手。它录制麦克风和系统声音，存成 AAC 录音库，通过火山引擎豆包语音转写成带时间戳的文字（需要 API Key 和 cloudflared），再用任意 OpenAI 兼容接入点在转写之上生成摘要、脑图和问答。录音、播放和笔记不依赖这些服务。",
+		"zh-TW": "以 MyGo 原生 UI 繪製的 macOS 會議助手。它錄製麥克風與系統聲音，存成 AAC 錄音庫，透過火山引擎豆包語音轉寫成附時間戳記的文字（需要 API Key 與 cloudflared），再用任何相容 OpenAI 的端點，根據逐字稿產生摘要、心智圖與問答。錄音、播放與筆記不需要這些服務。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS 用の会議アシスタント。マイクとシステム音声を録音して AAC のライブラリにまとめ、火山引擎の豆包語音でタイムスタンプ付きの文字起こしをします（API Key と cloudflared が必要）。OpenAI 互換のエンドポイントを設定すれば、文字起こしから要約、マインドマップ、Q&A を生成できます。録音、再生、メモはこれらのサービスなしで使えます。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS 회의 도우미입니다. 마이크와 시스템 오디오를 녹음해 AAC 녹음 라이브러리로 관리하고, Volcengine의 Doubao 음성 인식으로 타임스탬프가 붙은 텍스트로 받아씁니다(API Key와 cloudflared 필요). OpenAI 호환 엔드포인트를 연결하면 받아쓴 내용으로 요약, 마인드맵, 문답을 만듭니다. 녹음, 재생, 메모는 이 서비스 없이도 쓸 수 있습니다."
+	},
+	"icon": {
+		"file": "voxi.webp"
+	},
+	"screenshot": "voxi.webp",
+	"added": "2026-11-05T05:57:31Z"
+}
