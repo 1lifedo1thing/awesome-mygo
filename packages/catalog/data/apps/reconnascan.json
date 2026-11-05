@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "reconnascan",
+	"name": "ReconnaScan",
+	"author": "thepearson",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/thepearson/reconnascan",
+	"repo": "thepearson/reconnascan",
+	"summary": {
+		"en": "Native desktop app for domain and IP recon: DNS, email, TLS, WAF, reputation and port scans.",
+		"zh-CN": "原生桌面域名与 IP 侦察工具：DNS、邮件、TLS、WAF、信誉与端口扫描。",
+		"zh-TW": "原生桌面網域與 IP 偵察工具：DNS、郵件、TLS、WAF、信譽與連接埠掃描。",
+		"ja": "ドメインと IP を調べるネイティブアプリ。DNS、メール、TLS、WAF、評判、ポートをスキャン。",
+		"ko": "도메인과 IP를 조사하는 네이티브 앱. DNS, 메일, TLS, WAF, 평판, 포트 스캔."
+	},
+	"description": {
+		"en": "A domain and IP reconnaissance tool whose desktop app, rscan-ui, is drawn with MyGo's native UI; the rscan command-line tool in the same project is built without MyGo. It checks WHOIS, DNS and DNSSEC, SPF, DMARC and DKIM, TLS certificates, WAFs, blacklists and open ports, keeps every scan in a local SQLite history, and scans any discovered domain or IP in one click.",
+		"zh-CN": "域名与 IP 侦察工具，其桌面版 rscan-ui 由 MyGo 原生 UI 绘制，同一项目中的命令行工具 rscan 则不使用 MyGo。它检查 WHOIS、DNS 与 DNSSEC、SPF、DMARC 与 DKIM、TLS 证书、WAF、黑名单和开放端口，所有扫描都保存在本地 SQLite 历史中，发现的任何域名或 IP 都能一键继续扫描。",
+		"zh-TW": "網域與 IP 偵察工具，其桌面版 rscan-ui 由 MyGo 原生 UI 繪製，同一專案中的命令列工具 rscan 則不使用 MyGo。它檢查 WHOIS、DNS 與 DNSSEC、SPF、DMARC 與 DKIM、TLS 憑證、WAF、黑名單和開放的連接埠，所有掃描都保存在本機 SQLite 歷史紀錄中，發現的任何網域或 IP 都能一鍵繼續掃描。",
+		"ja": "ドメインと IP の偵察ツールで、デスクトップ版の rscan-ui は MyGo のネイティブ UI で描かれています。同じプロジェクトのコマンドラインツール rscan は MyGo を使わずに作られています。WHOIS、DNS と DNSSEC、SPF・DMARC・DKIM、TLS 証明書、WAF、ブラックリスト、開いているポートを調べ、すべてのスキャンをローカルの SQLite に履歴として残し、見つかったドメインや IP はワンクリックでさらにスキャンできます。",
+		"ko": "도메인과 IP 정찰 도구로, 데스크톱 앱 rscan-ui는 MyGo의 네이티브 UI로 그렸고 같은 프로젝트의 명령줄 도구 rscan은 MyGo 없이 만들어졌습니다. WHOIS, DNS와 DNSSEC, SPF·DMARC·DKIM, TLS 인증서, WAF, 블랙리스트, 열린 포트를 확인하고, 모든 스캔을 로컬 SQLite 기록에 저장하며, 발견한 도메인이나 IP를 클릭 한 번으로 이어서 스캔합니다."
+	},
+	"icon": {
+		"file": "reconnascan.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "reconnascan.webp",
+	"added": "2026-11-05T13:45:02Z"
+}
