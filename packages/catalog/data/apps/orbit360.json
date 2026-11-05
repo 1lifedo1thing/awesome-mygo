@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "orbit360",
+	"name": "Orbit360",
+	"author": "owocc",
+	"kind": "native",
+	"category": "MultimediaApplication",
+	"url": "https://orbit360.owocc.website",
+	"repo": "owocc/orbit360",
+	"summary": {
+		"en": "A native window for Orbit360 that turns a 360° orbit video into an .orb scene for its web player.",
+		"zh-CN": "把 360° 环绕视频转成 .orb 场景文件的 Orbit360 原生桌面工具。",
+		"zh-TW": "把 360° 環繞影片轉成 .orb 場景檔的 Orbit360 原生桌面工具。",
+		"ja": "360° 周回動画を .orb シーンファイルに変換する、Orbit360 のネイティブ GUI。",
+		"ko": "360° 회전 촬영 영상을 .orb 장면 파일로 바꾸는 Orbit360의 네이티브 데스크톱 도구."
+	},
+	"description": {
+		"en": "The desktop GUI of Orbit360, drawn with MyGo's native UI: a form over scripts/bundle.py that turns a 360° orbit video into one .orb file, setting frame rate, WebP, AVIF or JPEG frames, rotation axis and angle limits, with a live log and a browser preview. It needs Python 3 and ffmpeg and can fetch ffmpeg on macOS and Windows. The web player itself is built with Vite and React.",
+		"zh-CN": "Orbit360 的桌面 GUI，用 MyGo 原生 UI 绘制，给 scripts/bundle.py 套了一层表单，把 360° 环绕视频生成单个 .orb 文件；可设帧率、帧编码（WebP、AVIF、JPEG）、旋转轴与角度范围，实时显示日志，并在浏览器中预览。需要 Python 3 和 ffmpeg。网页播放器由 Vite 与 React 构建。",
+		"zh-TW": "Orbit360 的桌面 GUI，以 MyGo 原生 UI 繪製，為 scripts/bundle.py 套上一層表單，把 360° 環繞影片產生為單一 .orb 檔案；可設影格率、影格編碼（WebP、AVIF、JPEG）、旋轉軸與角度範圍，即時顯示日誌，並在瀏覽器中預覽。需要 Python 3 與 ffmpeg。網頁播放器以 Vite 與 React 建置。",
+		"ja": "Orbit360 のデスクトップ GUI。MyGo のネイティブ UI で scripts/bundle.py にフォームをかぶせ、360° 周回動画を 1 つの .orb ファイルに変換します。フレームレート、WebP・AVIF・JPEG の形式、回転軸、角度範囲を設定でき、ログの表示とブラウザーでのプレビューもできます。Python 3 と ffmpeg が必要です。Web プレーヤーは Vite と React で作られています。",
+		"ko": "Orbit360의 데스크톱 GUI로, MyGo의 네이티브 UI로 scripts/bundle.py에 폼을 씌워 360° 회전 촬영 영상을 하나의 .orb 파일로 만듭니다. 프레임 레이트, WebP·AVIF·JPEG 프레임 형식, 회전축, 각도 범위를 정할 수 있고 로그를 실시간으로 보며 브라우저에서 미리 볼 수 있습니다. Python 3와 ffmpeg가 필요합니다. 웹 플레이어는 Vite와 React로 만들었습니다."
+	},
+	"icon": {
+		"file": "orbit360.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "orbit360.webp",
+	"added": "2026-11-05T05:19:24Z"
+}
