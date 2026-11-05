@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "tolk",
+	"name": "Tolk",
+	"author": "Achordchan",
+	"kind": "web",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/Achordchan/tolk",
+	"repo": "Achordchan/tolk",
+	"summary": {
+		"en": "A Windows and macOS translator with several engines that opens when you copy text twice.",
+		"zh-CN": "Windows 与 macOS 翻译工具，支持多种引擎，复制两次即可呼出翻译。",
+		"zh-TW": "Windows 與 macOS 翻譯工具，支援多種引擎，複製兩次即可叫出翻譯。",
+		"ja": "Windows・macOS 向けの翻訳ツール。複数エンジン対応、2 回コピーで翻訳を呼び出せる。",
+		"ko": "여러 번역 엔진을 지원하는 Windows·macOS 번역 도구. 두 번 복사하면 번역이 뜹니다."
+	},
+	"description": {
+		"en": "A Windows and macOS translator built with MyGo and a web frontend. It uses Google, Microsoft, DeepL, OpenAI-compatible AI and a built-in engine, plus Apple's local translation on macOS. Copying text twice brings up a translation, and a hotkey swaps selected text for one of several translations. Screenshot translation on macOS comes from a separate Swift helper.",
+		"zh-CN": "基于 MyGo 与 Web 前端构建的 Windows 和 macOS 翻译工具。支持 Google、微软、DeepL、OpenAI 兼容的 AI 翻译和内置引擎，macOS 上还可用 Apple 本地翻译。复制两次即可呼出翻译；输入助手可在选中文字后按快捷键，从多语言候选中挑一个替换原文。macOS 上的截图翻译由单独的 Swift 小助手提供。",
+		"zh-TW": "以 MyGo 與 Web 前端打造的 Windows 和 macOS 翻譯工具。支援 Google、微軟、DeepL、OpenAI 相容的 AI 翻譯與內建引擎，macOS 上還能使用 Apple 本機翻譯。複製兩次即可叫出翻譯；輸入助手可在選取文字後按快速鍵，從多語言候選中挑一個取代原文。macOS 上的截圖翻譯由獨立的 Swift 小幫手提供。",
+		"ja": "MyGo と Web フロントエンドで作られた Windows・macOS 向けの翻訳ツール。Google、Microsoft、DeepL、OpenAI 互換の AI 翻訳、内蔵エンジンに対応し、macOS では Apple のローカル翻訳も使えます。テキストを 2 回コピーすると翻訳が表示され、入力アシスタントでは選択した文字をショートカットキーで多言語の候補から選んだ訳文に置き換えられます。macOS のスクリーンショット翻訳は別の Swift 製ヘルパーが担います。",
+		"ko": "MyGo와 웹 프런트엔드로 만든 Windows·macOS 번역 도구입니다. Google, Microsoft, DeepL, OpenAI 호환 AI 번역과 내장 엔진을 지원하며, macOS에서는 Apple 로컬 번역도 쓸 수 있습니다. 텍스트를 두 번 복사하면 번역이 뜨고, 입력 도우미는 선택한 텍스트를 단축키 하나로 여러 언어 후보 중 고른 번역으로 바꿔 줍니다. macOS의 스크린샷 번역은 별도의 Swift 도우미가 맡습니다."
+	},
+	"icon": {
+		"file": "tolk.webp"
+	},
+	"screenshot": "tolk.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T05:57:31Z"
+}
