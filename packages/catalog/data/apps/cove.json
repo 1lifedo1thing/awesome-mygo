@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "cove",
+	"name": "Cove",
+	"author": "foyoodo",
+	"kind": "native",
+	"group": "ai",
+	"url": "https://github.com/foyoodo/Cove",
+	"repo": "foyoodo/Cove",
+	"summary": {
+		"en": "Native macOS chat client for OpenAI-compatible APIs, with streaming Markdown and local chats.",
+		"zh-CN": "原生 macOS AI 聊天客户端，支持兼容 OpenAI 的 API，聊天存于本机。",
+		"zh-TW": "原生 macOS AI 聊天用戶端，支援相容 OpenAI 的 API，聊天存於本機。",
+		"ja": "OpenAI 互換 API 用のネイティブ macOS チャットクライアント。履歴は Mac 内に保存。",
+		"ko": "OpenAI 호환 API용 네이티브 macOS 채팅 클라이언트. 대화는 Mac에 저장됩니다."
+	},
+	"description": {
+		"en": "A macOS chat client for macOS 13 or newer, drawn with MyGo's native UI rather than a web view. It talks to OpenAI-compatible endpoints, with presets for OpenAI, Anthropic, DeepSeek, OpenRouter, xAI and Ollama, and renders replies as Markdown as they stream in. Chats stay on the Mac as JSONL files, and API keys go in the login keychain.",
+		"zh-CN": "用 MyGo 原生 UI 绘制、不用 Web 视图的 macOS 聊天客户端，需要 macOS 13 或更新版本。它连接兼容 OpenAI 的接口，内置 OpenAI、Anthropic、DeepSeek、OpenRouter、xAI 和 Ollama 预设，回复以 Markdown 实时呈现。聊天以 JSONL 保存在本机，API 密钥存入登录钥匙串。",
+		"zh-TW": "以 MyGo 原生 UI 繪製、不用 Web 視圖的 macOS 聊天用戶端，需 macOS 13 以上。可連接相容 OpenAI 的 API，內建 OpenAI、Anthropic、DeepSeek、OpenRouter、xAI 與 Ollama 預設，回覆以 Markdown 即時呈現。聊天以 JSONL 存於本機，API 金鑰存於登入鑰匙圈。",
+		"ja": "MyGo のネイティブ UI で描かれ、Web ビューを使わない macOS 13 以降向けのチャットクライアント。OpenAI 互換のエンドポイントにつながり、OpenAI・Anthropic・DeepSeek・OpenRouter・xAI・Ollama のプリセットを備え、返信は届くそばから Markdown として表示されます。チャットは JSONL で Mac 内に保存され、API キーはログインキーチェーンに保管されます。",
+		"ko": "MyGo의 네이티브 UI로 그린, 웹 뷰를 쓰지 않는 macOS 13 이상용 채팅 클라이언트입니다. OpenAI 호환 엔드포인트에 연결하고 OpenAI, Anthropic, DeepSeek, OpenRouter, xAI, Ollama 프리셋을 갖추었으며, 답변은 도착하는 대로 Markdown으로 표시됩니다. 대화는 Mac에 JSONL로 저장되고 API 키는 로그인 키체인에 보관됩니다."
+	},
+	"icon": {
+		"file": "cove.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "cove.webp",
+	"added": "2026-11-05T08:28:47Z"
+}
