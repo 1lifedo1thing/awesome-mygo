@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "bucketeer",
+	"name": "Bucketeer",
+	"author": "zachzhao1984",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/zachzhao1984/bucketeer",
+	"repo": "zachzhao1984/bucketeer",
+	"summary": {
+		"en": "A native desktop client for Cloudflare R2, Amazon S3 and other S3-compatible storage.",
+		"zh-CN": "Cloudflare R2、Amazon S3 等兼容 S3 存储的原生桌面客户端。",
+		"zh-TW": "Cloudflare R2、Amazon S3 等相容 S3 儲存的原生桌面用戶端。",
+		"ja": "Cloudflare R2・Amazon S3 など S3 互換ストレージのネイティブクライアント。",
+		"ko": "Cloudflare R2, Amazon S3 등 S3 호환 스토리지용 네이티브 클라이언트."
+	},
+	"description": {
+		"en": "A macOS and Windows client for Cloudflare R2, Amazon S3 and other S3-compatible storage, drawn with MyGo's native UI with no web view. It browses buckets like folders, uploads and downloads with live progress, previews files, breaks down storage use and shares files through expiring links. It can also act as a PicGo-compatible image host for Obsidian and Typora.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 与 Windows 客户端，没有 Web 视图，支持 Cloudflare R2、Amazon S3 及其他兼容 S3 的对象存储。可以像文件夹一样浏览存储桶，上传下载实时显示进度，预览文件，查看存储用量分布，并生成会过期的分享链接；还能充当兼容 PicGo 的图床，供 Obsidian 和 Typora 上传图片。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS 與 Windows 用戶端，沒有 Web 視圖，支援 Cloudflare R2、Amazon S3 及其他相容 S3 的物件儲存。可以像資料夾一樣瀏覽儲存桶，上傳下載即時顯示進度，預覽檔案，查看儲存用量分布，並產生會過期的分享連結；還能充當相容 PicGo 的圖床，供 Obsidian 和 Typora 上傳圖片。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS・Windows 向けのクライアントで、Web ビューは使いません。Cloudflare R2、Amazon S3 などの S3 互換ストレージに対応します。バケットをフォルダーのように閲覧し、進捗を見ながらアップロード・ダウンロードし、ファイルをプレビューし、容量の内訳を確認して、期限付きリンクで共有できます。PicGo 互換の画像アップロード先として Obsidian や Typora から使うこともできます。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS·Windows용 클라이언트로, 웹 뷰를 쓰지 않습니다. Cloudflare R2, Amazon S3 등 S3 호환 스토리지를 지원합니다. 버킷을 폴더처럼 탐색하고, 진행 상황을 보며 업로드·다운로드하고, 파일을 미리 보고, 저장 공간 사용량을 나눠 보며, 만료되는 링크로 공유합니다. PicGo 호환 이미지 호스팅으로 Obsidian과 Typora에서 이미지를 올릴 수도 있습니다."
+	},
+	"icon": {
+		"file": "bucketeer.webp"
+	},
+	"screenshot": "bucketeer.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T14:05:27Z"
+}
