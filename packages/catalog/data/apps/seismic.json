@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "seismic",
+	"name": "Seismic",
+	"author": "bernylinville",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/bernylinville/seismic",
+	"repo": "bernylinville/seismic",
+	"summary": {
+		"en": "A native macOS client for Elasticsearch and OpenSearch, rewritten from elasticvue.",
+		"zh-CN": "macOS 原生 Elasticsearch 与 OpenSearch 客户端。",
+		"zh-TW": "macOS 原生 Elasticsearch 與 OpenSearch 用戶端。",
+		"ja": "macOS ネイティブの Elasticsearch・OpenSearch クライアント。",
+		"ko": "elasticvue를 다시 만든 macOS 네이티브 Elasticsearch·OpenSearch 클라이언트."
+	},
+	"description": {
+		"en": "A native macOS rewrite of elasticvue with the same 13 modules, drawn with MyGo's native UI in pure Go, with no web view. It connects directly to Elasticsearch 7, 8 and 9, OpenSearch and serverless, with no CORS, using basic auth, an API key or AWS IAM. Credentials stay in the macOS Keychain, REST history and saved queries in SQLite, and the JSON editor completes from the index mapping.",
+		"zh-CN": "elasticvue 的 macOS 原生重写版，13 个模块功能对等，用纯 Go 由 MyGo 原生 UI 绘制，没有 Web 视图。直连 Elasticsearch 7/8/9、OpenSearch 与 serverless，支持 basic、API key 与 AWS IAM 认证。凭据存入 macOS 钥匙串，REST 历史与保存的查询存入 SQLite。",
+		"zh-TW": "elasticvue 的 macOS 原生重寫版，13 個模組功能對等，以純 Go 由 MyGo 原生 UI 繪製，沒有 Web 視圖。直接連線 Elasticsearch 7/8/9、OpenSearch 與 serverless，支援 basic、API key 與 AWS IAM 驗證。憑證存入 macOS 鑰匙圈，REST 歷史與儲存的查詢存入 SQLite。",
+		"ja": "elasticvue を macOS ネイティブで書き直したアプリで、13 のモジュールを同等に備え、純粋な Go と MyGo のネイティブ UI で描かれています。Web ビューはありません。Elasticsearch 7・8・9、OpenSearch、serverless に直接つなぐので CORS の制約がなく、basic 認証、API キー、AWS IAM に対応します。認証情報は macOS のキーチェーンに、REST の履歴と保存したクエリは SQLite に保存され、JSON エディターはマッピングから補完します。",
+		"ko": "elasticvue를 macOS 네이티브로 다시 만든 앱으로, 13개 모듈을 그대로 갖추고 순수 Go와 MyGo의 네이티브 UI로 그렸으며 웹 뷰가 없습니다. Elasticsearch 7·8·9, OpenSearch, serverless에 직접 연결해 CORS 제약이 없고, basic 인증, API 키, AWS IAM을 지원합니다. 자격 증명은 macOS 키체인에, REST 기록과 저장한 쿼리는 SQLite에 보관하며, JSON 편집기는 매핑을 바탕으로 자동 완성합니다."
+	},
+	"icon": {
+		"file": "seismic.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "seismic.webp",
+	"added": "2026-11-05T16:49:05Z"
+}
