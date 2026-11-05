@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "glint",
+	"name": "Glint",
+	"author": "wobsoriano",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/wobsoriano/glint",
+	"repo": "wobsoriano/glint",
+	"summary": {
+		"en": "Windows screenshots and screen recordings you can annotate, redact, search and edit afterwards.",
+		"zh-CN": "Windows 截图与录屏工具，截完还能标注、打码、搜索和剪辑。",
+		"zh-TW": "Windows 截圖與螢幕錄影工具，擷取後還能標註、遮蔽、搜尋與剪輯。",
+		"ja": "Windows のスクリーンショットと画面録画。撮った後に注釈、伏せ字、検索、編集ができる。",
+		"ko": "Windows 스크린샷·화면 녹화 도구. 찍은 뒤 주석, 가리기, 검색, 편집까지 합니다."
+	},
+	"description": {
+		"en": "A Snipping Tool alternative for Windows 10 and 11, written in Go with MyGo's native UI. Screenshots get editable arrows, text, blur and styled backgrounds, with emails, card numbers and API keys hidden automatically. Recordings open in a Studio with auto zoom, on-device captions and cuts made by deleting words from the transcript. Everything lands in a searchable Library and stays on your PC.",
+		"zh-CN": "Windows 10 与 11 上的 Snipping Tool 替代品，用 Go 编写、由 MyGo 原生 UI 绘制。截图可加箭头、文字、模糊和样式背景，之后仍能再改，邮箱、卡号、API 密钥等可自动遮盖。录屏在 Studio 中自动跟随点击缩放，在本机生成字幕，删掉转录里的词就能剪掉对应片段。所有截图与录屏都存进可搜索的资料库，不离开你的电脑。",
+		"zh-TW": "Windows 10 與 11 上的 Snipping Tool 替代品，用 Go 撰寫、由 MyGo 原生 UI 繪製。截圖可加上箭頭、文字、模糊和樣式背景，之後仍能再修改，電子郵件、卡號、API 金鑰等可自動遮蔽。錄影在 Studio 中自動跟隨點擊縮放，在本機產生字幕，刪掉逐字稿裡的字詞就能剪掉對應片段。所有截圖與錄影都存進可搜尋的資料庫，不會離開你的電腦。",
+		"ja": "Windows 10・11 向けの Snipping Tool の代わりになるアプリで、Go で書かれ MyGo のネイティブ UI で描かれています。スクリーンショットには矢印、テキスト、ぼかし、背景スタイルを後から編集できる形で加えられ、メールアドレスやカード番号、API キーは自動で隠せます。録画は Studio でクリックに合わせて自動ズームし、端末上で字幕を作り、文字起こしの単語を消すとその部分を切り取れます。すべて検索できるライブラリに保存され、PC の外には出ません。",
+		"ko": "Windows 10과 11용 Snipping Tool 대안으로, Go로 작성하고 MyGo의 네이티브 UI로 그렸습니다. 스크린샷에 화살표, 텍스트, 흐림, 배경 스타일을 나중에도 고칠 수 있게 넣고, 이메일, 카드 번호, API 키는 자동으로 가릴 수 있습니다. 녹화는 Studio에서 클릭을 따라 자동 확대되고, 기기에서 자막을 만들며, 전사문에서 단어를 지우면 그 부분이 잘립니다. 모든 캡처는 검색 가능한 라이브러리에 저장되고 PC 밖으로 나가지 않습니다."
+	},
+	"icon": {
+		"file": "glint.webp"
+	},
+	"screenshot": "glint.webp",
+	"added": "2026-11-05T14:57:25Z"
+}
