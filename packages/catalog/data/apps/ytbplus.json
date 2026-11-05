@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "ytbplus",
+	"name": "ytbplus",
+	"author": "latiefahmad",
+	"kind": "native",
+	"category": "MultimediaApplication",
+	"url": "https://github.com/latiefahmad/ytbplus",
+	"repo": "latiefahmad/ytbplus",
+	"summary": {
+		"en": "A lightweight YouTube Music player with synced lyrics, Last.fm scrobbling and an equaliser.",
+		"zh-CN": "轻量 YouTube Music 桌面播放器，带同步歌词、Last.fm 记录与均衡器。",
+		"zh-TW": "輕量 YouTube Music 桌面播放器，有同步歌詞、Last.fm 紀錄與等化器。",
+		"ja": "軽量な YouTube Music プレーヤー。同期歌詞、Last.fm への記録、イコライザー付き。",
+		"ko": "가벼운 YouTube Music 플레이어. 싱크 가사, Last.fm 스크로블, 이퀄라이저."
+	},
+	"description": {
+		"en": "An unofficial YouTube Music player for macOS, Linux and Windows, drawn with MyGo's native UI rather than the web page, using about 100 MB of memory. It plays music and podcasts with or without a Google sign-in, shows synced lyrics, scrobbles to Last.fm and has an equaliser. It relies on yt-dlp and ffmpeg, and the Windows build is untested.",
+		"zh-CN": "非官方的 YouTube Music 播放器，支持 macOS、Linux 与 Windows，界面由 MyGo 原生 UI 绘制，不加载网页，内存占用约 100 MB。无论是否登录 Google 账号都能播放音乐和播客，提供同步歌词、Last.fm 听歌记录与均衡器。播放依赖 yt-dlp 和 ffmpeg，Windows 版尚未经过测试。",
+		"zh-TW": "非官方的 YouTube Music 播放器，支援 macOS、Linux 與 Windows，介面由 MyGo 原生 UI 繪製，不載入網頁，記憶體佔用約 100 MB。不論是否登入 Google 帳號都能播放音樂與 Podcast，提供同步歌詞、Last.fm 收聽紀錄與等化器。播放仰賴 yt-dlp 和 ffmpeg，Windows 版尚未經過測試。",
+		"ja": "macOS・Linux・Windows 向けの非公式 YouTube Music プレーヤー。Web ページを読み込まず MyGo のネイティブ UI で描かれ、メモリ使用量は約 100 MB です。Google アカウントにログインしてもしなくても音楽とポッドキャストを再生でき、同期歌詞、Last.fm へのスクロブル、イコライザーを備えます。再生には yt-dlp と ffmpeg を使い、Windows 版は未検証です。",
+		"ko": "macOS, Linux, Windows용 비공식 YouTube Music 플레이어로, 웹 페이지를 띄우지 않고 MyGo의 네이티브 UI로 그려 메모리를 약 100MB 사용합니다. Google 계정 로그인 여부와 관계없이 음악과 팟캐스트를 재생하며, 싱크 가사, Last.fm 스크로블, 이퀄라이저를 갖췄습니다. 재생에는 yt-dlp와 ffmpeg를 쓰며, Windows 빌드는 아직 테스트되지 않았습니다."
+	},
+	"icon": {
+		"file": "ytbplus.webp"
+	},
+	"screenshot": "ytbplus.webp",
+	"added": "2026-11-05T05:19:24Z"
+}
