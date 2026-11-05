@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "unipac",
+	"name": "UniPac",
+	"author": "RUBisco0211",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/RUBisco0211/unipac",
+	"repo": "RUBisco0211/unipac",
+	"summary": {
+		"en": "One window to see and manage packages from Homebrew, npm, pip, pipx, Cargo and uv tool.",
+		"zh-CN": "在一个窗口里查看和管理 Homebrew、npm、pip 等的包。",
+		"zh-TW": "在一個視窗裡查看和管理 Homebrew、npm、pip 等的套件。",
+		"ja": "Homebrew、npm、pip などのパッケージを一つの画面で確認・管理できるアプリ。",
+		"ko": "Homebrew, npm, pip 등의 패키지를 한곳에서 보고 관리하는 앱."
+	},
+	"description": {
+		"en": "A desktop front end for the package managers on your machine, drawn with MyGo's native UI and Onevra controls, with no web view. It finds Homebrew, npm, pip, pipx, Cargo and uv tool, lists installed and outdated packages, and disables actions a manager does not support. Still a work in progress with uneven support; releases ship only for macOS arm64.",
+		"zh-CN": "面向本机已有包管理器的桌面前端，由 MyGo 原生 UI 与 Onevra 控件绘制，没有 Web 视图。它会找出 Homebrew、npm、pip、pipx、Cargo 和 uv tool，列出已安装和可更新的包，并禁用管理器不支持的操作。项目仍在开发中，各管理器的支持程度不一，发布版本只提供 macOS arm64。",
+		"zh-TW": "整合本機既有套件管理器的桌面前端，由 MyGo 原生 UI 與 Onevra 控制項繪製，沒有 Web 視圖。它會找出 Homebrew、npm、pip、pipx、Cargo 和 uv tool，列出已安裝與可更新的套件，並停用管理器不支援的操作。專案仍在開發中，各管理器的支援程度不一，發行版本只提供 macOS arm64。",
+		"ja": "手元のパッケージマネージャーをまとめて扱うデスクトップアプリで、MyGo のネイティブ UI と Onevra のコントロールで描かれ、Web ビューはありません。Homebrew・npm・pip・pipx・Cargo・uv tool を見つけ、インストール済みと更新可能なパッケージを一覧にし、マネージャーが対応しない操作は無効にします。開発途中で対応状況にはばらつきがあり、リリースは macOS arm64 向けのみです。",
+		"ko": "내 컴퓨터의 패키지 관리자들을 한데 모은 데스크톱 앱으로, MyGo의 네이티브 UI와 Onevra 컨트롤로 그렸으며 웹 뷰가 없습니다. Homebrew, npm, pip, pipx, Cargo, uv tool을 찾아 설치된 패키지와 업데이트할 패키지를 보여 주고, 관리자가 지원하지 않는 작업은 비활성화합니다. 아직 개발 중이라 관리자별 지원 수준이 다르며, 릴리스는 macOS arm64용만 제공됩니다."
+	},
+	"icon": {
+		"file": "unipac.webp"
+	},
+	"screenshot": "unipac.webp",
+	"added": "2026-11-05T02:29:36Z"
+}
