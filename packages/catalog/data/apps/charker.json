@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "charker",
+	"name": "Charker",
+	"author": "qzz0518",
+	"kind": "web",
+	"category": "UtilitiesApplication",
+	"url": "https://qzz0518.github.io/Charker/",
+	"repo": "qzz0518/Charker",
+	"summary": {
+		"en": "Unofficial app to monitor and control Anker Prime 160W and 250W chargers on Mac and Windows.",
+		"zh-CN": "非官方 Anker Prime 160W 与 250W 充电器查看与控制工具。",
+		"zh-TW": "非官方 Anker Prime 160W 與 250W 充電器監看與控制工具。",
+		"ja": "Anker Prime 160W・250W 充電器を監視・操作する非公式アプリ。",
+		"ko": "Anker Prime 160W·250W 충전기를 확인하고 제어하는 비공식 앱."
+	},
+	"description": {
+		"en": "An unofficial app for the Anker Prime 160W, over Bluetooth, and the 250W, through the Anker cloud. It shows each port's voltage, current and power, tracks energy use and cost, switches ports and sets charging modes, and can add ports to Apple Home. The Windows version, still in beta, is built with MyGo and a web frontend; the macOS version is written in Swift.",
+		"zh-CN": "Anker Prime 160W 与 250W 的非官方应用：160W 通过蓝牙直连，250W 用 Anker 账号经云端连接。可查看各端口的电压、电流和功率，统计用电量与电费，开关端口、调整充电模式，还能把端口接入 Apple 家庭。Windows 版为测试版，由 MyGo 搭配 Web 前端构建；macOS 版用 Swift 编写。",
+		"zh-TW": "Anker Prime 160W 與 250W 的非官方應用程式：160W 透過藍牙直連，250W 以 Anker 帳號經雲端連線。可查看各連接埠的電壓、電流與功率，統計用電量與電費，開關連接埠、調整充電模式，還能把連接埠加入 Apple 家庭。Windows 版為測試版，以 MyGo 搭配 Web 前端打造；macOS 版以 Swift 撰寫。",
+		"ja": "Anker Prime 160W と 250W 向けの非公式アプリ。160W には Bluetooth で直接、250W には Anker アカウントでクラウド経由で接続します。各ポートの電圧・電流・電力の表示、電力量と電気代の集計、ポートのオン・オフや充電モードの変更ができ、ポートを Apple のホームに追加することもできます。Windows 版はベータ版で、MyGo と Web フロントエンドで作られています。macOS 版は Swift 製です。",
+		"ko": "Anker Prime 160W와 250W용 비공식 앱으로, 160W는 Bluetooth로 직접, 250W는 Anker 계정으로 클라우드를 거쳐 연결합니다. 포트별 전압·전류·전력을 보여 주고 전력 사용량과 전기 요금을 집계하며, 포트를 켜고 끄거나 충전 모드를 바꾸고 포트를 Apple 홈에 추가할 수 있습니다. Windows 버전은 베타로 MyGo와 웹 프런트엔드로 만들었고, macOS 버전은 Swift로 작성했습니다."
+	},
+	"icon": {
+		"file": "charker.webp"
+	},
+	"screenshot": "charker.webp",
+	"added": "2026-11-05T01:50:45Z"
+}
