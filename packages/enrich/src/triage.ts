@@ -28,7 +28,7 @@ verdict, one of:
 - ui: a UI component library, theme or icon set for MyGo apps.
 - state: a state management library for MyGo apps.
 - plugin: a MyGo plugin, a Go package that adds a capability to MyGo apps (often with a frontend package beside it).
-- skip: anything else. Skip MyGo itself and copies of it; examples, templates, starters, tutorials, benchmarks and tests; projects that are little more than what mygo init creates or whose README does not say what they do; libraries of a kind the site has no section for; and projects whose main purpose is plainly to harm others or break the law.
+- skip: anything else. Skip MyGo itself and copies of it; mirrors, copies and renamed forks of another project that add nothing of their own, whose description says so (an unofficial or read-only mirror) or whose README sends you to another home for the code or the install; examples, templates, starters, tutorials, benchmarks and tests; projects that are little more than what mygo init creates or whose README does not say what they do; libraries of a kind the site has no section for; and projects whose main purpose is plainly to harm others or break the law.
 
 For a fit, also give:
 - name: the project's name as it writes it (mygo.json's name, the README's title), not its repository's name in lower case unless that is how it writes itself.
