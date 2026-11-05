@@ -7,6 +7,7 @@
 	"category": "GameApplication",
 	"group": "game",
 	"url": "https://github.com/egoist/2048",
+	"repo": "egoist/2048",
 	"summary": {
 		"en": "The 2048 puzzle; its WebAssembly build also runs in the browser.",
 		"zh-CN": "2048 益智游戏，WebAssembly 版本也能在浏览器运行。",

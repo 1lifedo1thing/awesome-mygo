@@ -7,6 +7,7 @@
 	"category": "DeveloperApplication",
 	"group": "dev",
 	"url": "https://github.com/pteich/us3ui",
+	"repo": "pteich/us3ui",
 	"summary": {
 		"en": "A lightweight storage browser for S3-compatible services, SFTP and FTP/FTPS.",
 		"zh-CN": "轻量存储浏览器，支持 S3 兼容服务、SFTP 与 FTP/FTPS。",

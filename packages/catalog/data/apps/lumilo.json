@@ -7,6 +7,7 @@
 	"category": "DeveloperApplication",
 	"group": "ai",
 	"url": "https://github.com/kotuke/lumilo",
+	"repo": "kotuke/lumilo",
 	"summary": {
 		"en": "A macOS menu-bar panel for local LLM engines.",
 		"zh-CN": "macOS 菜单栏面板，管理本地 LLM 引擎。",

@@ -7,6 +7,7 @@
 	"category": "DeveloperApplication",
 	"group": "dev",
 	"url": "https://github.com/egoist/godiff",
+	"repo": "egoist/godiff",
 	"summary": {
 		"en": "A minimal Git diff viewer and committer.",
 		"zh-CN": "极简的 Git diff 查看与提交工具。",

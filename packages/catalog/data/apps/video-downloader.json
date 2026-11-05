@@ -7,6 +7,7 @@
 	"category": "MultimediaApplication",
 	"group": "media",
 	"url": "https://github.com/fazi-gondal/video-downloader-mygo",
+	"repo": "fazi-gondal/video-downloader-mygo",
 	"summary": {
 		"en": "A desktop video downloader built with Go, MyGo, yt-dlp and FFmpeg.",
 		"zh-CN": "基于 Go、MyGo、yt-dlp 与 FFmpeg 的视频下载器。",

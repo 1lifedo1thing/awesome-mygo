@@ -7,6 +7,7 @@
 	"category": "DeveloperApplication",
 	"group": "dev",
 	"url": "https://github.com/egoist/gorex",
+	"repo": "egoist/gorex",
 	"summary": {
 		"en": "A replica of Superlogical’s Rex terminal.",
 		"zh-CN": "Superlogical Rex 终端的复刻。",
