@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "yolomcl",
+	"name": "YoloMCL",
+	"author": "Viking602",
+	"kind": "native",
+	"category": "GameApplication",
+	"url": "https://github.com/Viking602/YoloMCL",
+	"repo": "Viking602/YoloMCL",
+	"summary": {
+		"en": "A native Minecraft: Java Edition launcher that manages instances, modpacks, mods and accounts.",
+		"zh-CN": "原生 Minecraft: Java Edition 启动器，管理实例、整合包和模组。",
+		"zh-TW": "原生 Minecraft: Java Edition 啟動器，管理實例、模組包和模組。",
+		"ja": "ネイティブな Minecraft: Java Edition ランチャー。インスタンスと Mod を管理。",
+		"ko": "네이티브 Minecraft: Java Edition 런처. 인스턴스, 모드팩, 모드를 관리합니다."
+	},
+	"description": {
+		"en": "A Minecraft: Java Edition launcher for Windows, macOS and Linux, drawn with MyGo's native UI. It installs vanilla, Fabric, Quilt, Forge and NeoForge instances, imports and exports Modrinth and CurseForge modpacks, and installs mods, resource packs and shaders from both with dependencies resolved. For now, Microsoft and third-party account sign-ins are kept only on Windows.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Minecraft: Java Edition 启动器，支持 Windows、macOS 和 Linux。可安装原版、Fabric、Quilt、Forge 与 NeoForge 实例，导入导出 Modrinth 和 CurseForge 整合包，并从这两个平台安装模组、资源包和光影，自动解决依赖。目前只有 Windows 能保存 Microsoft 和第三方账号的登录状态。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Minecraft: Java Edition 啟動器，支援 Windows、macOS 和 Linux。可安裝原版、Fabric、Quilt、Forge 與 NeoForge 實例，匯入匯出 Modrinth 和 CurseForge 模組包，並從這兩個平台安裝模組、資源包和光影，自動處理相依性。目前只有 Windows 能保存 Microsoft 與第三方帳號的登入狀態。",
+		"ja": "MyGo のネイティブ UI で描かれた Minecraft: Java Edition 用ランチャーで、Windows・macOS・Linux に対応します。バニラ、Fabric、Quilt、Forge、NeoForge のインスタンスを導入し、Modrinth と CurseForge の Modpack を読み込み・書き出しでき、両サービスから Mod、リソースパック、シェーダーを依存関係ごと入れられます。Microsoft やサードパーティのアカウントのログイン保存は、今のところ Windows のみです。",
+		"ko": "MyGo의 네이티브 UI로 그린 Minecraft: Java Edition 런처로, Windows, macOS, Linux를 지원합니다. 바닐라, Fabric, Quilt, Forge, NeoForge 인스턴스를 설치하고 Modrinth와 CurseForge 모드팩을 가져오고 내보내며, 두 서비스에서 모드, 리소스 팩, 셰이더를 의존성까지 함께 설치합니다. Microsoft 및 서드파티 계정 로그인 유지는 현재 Windows에서만 됩니다."
+	},
+	"icon": {
+		"file": "yolomcl.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "yolomcl.webp",
+	"added": "2026-11-05T03:22:12Z"
+}
