@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "keyboard-lock",
+	"name": "Keyboard Lock",
+	"author": "uxuz",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/uxuz/keyboardlock",
+	"repo": "uxuz/keyboardlock",
+	"summary": {
+		"en": "A tiny macOS app that turns the keyboard off with one click so you can clean it.",
+		"zh-CN": "一键关闭键盘按键、方便擦拭的 macOS 小工具，触控板和鼠标照常可用。",
+		"zh-TW": "一鍵關閉鍵盤按鍵、方便擦拭的 macOS 小工具，觸控板和滑鼠照常可用。",
+		"ja": "ワンクリックでキーボードを無効にして掃除できる、小さな macOS アプリ。",
+		"ko": "클릭 한 번으로 키보드를 꺼 두고 닦을 수 있는 작은 macOS 앱."
+	},
+	"description": {
+		"en": "A macOS app that turns the keyboard's keys off with one click and back on with another, so you can wipe the keyboard while the trackpad and mouse keep working. Its window is MyGo's native UI, written in Go alone, and follows the system's light or dark appearance. It needs the Accessibility permission, does not block Touch ID, the power button or password fields, and is a toy project signed ad hoc.",
+		"zh-CN": "一款 macOS 小工具，点一下关掉键盘按键，再点一下恢复，方便擦拭键盘，触控板和鼠标照常可用。窗口是纯 Go 编写的 MyGo 原生 UI，跟随系统的浅色或深色外观。首次使用需授予辅助功能权限；Touch ID、电源键和密码输入框不会被屏蔽。这是一个练手项目，仅做了临时签名。",
+		"zh-TW": "一款 macOS 小工具，按一下關掉鍵盤按鍵，再按一下恢復，方便擦拭鍵盤，觸控板和滑鼠照常可用。視窗是純 Go 撰寫的 MyGo 原生 UI，跟隨系統的淺色或深色外觀。首次使用需授予輔助使用權限；Touch ID、電源鍵和密碼輸入欄位不會被擋下。這是一個練手專案，僅做了臨時簽署。",
+		"ja": "ワンクリックでキーボードのキーを無効にし、もう一度押すと元に戻す macOS アプリ。トラックパッドとマウスはそのまま使えるので、キーボードを拭いても文字が入力されません。ウィンドウは Go だけで書かれた MyGo のネイティブ UI で、システムのライト／ダークの外観に合わせて表示されます。初回はアクセシビリティの許可が必要で、Touch ID と電源ボタン、パスワード欄への入力は止められません。アドホック署名の試作的なプロジェクトです。",
+		"ko": "클릭 한 번으로 키보드 키를 끄고 다시 누르면 켜는 macOS 앱으로, 트랙패드와 마우스는 그대로 쓸 수 있어 입력 걱정 없이 키보드를 닦을 수 있습니다. 창은 Go만으로 작성한 MyGo의 네이티브 UI이며 시스템의 라이트·다크 모드를 따릅니다. 처음 사용할 때 손쉬운 사용 권한이 필요하고, Touch ID와 전원 버튼, 암호 입력란은 막지 않습니다. 애드혹 서명된 실험용 프로젝트입니다."
+	},
+	"icon": {
+		"file": "keyboard-lock.webp"
+	},
+	"screenshot": "keyboard-lock.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T16:49:05Z"
+}
