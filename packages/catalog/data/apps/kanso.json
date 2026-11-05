@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "kanso",
+	"name": "Kanso",
+	"author": "zephyr-qu",
+	"kind": "web",
+	"group": "notes",
+	"url": "https://github.com/zephyr-qu/kanso",
+	"repo": "zephyr-qu/kanso",
+	"summary": {
+		"en": "Windows desktop client for Kanso, a lightweight personal kanban project manager.",
+		"zh-CN": "轻量看板项目管理工具 Kanso 的 Windows 桌面客户端。",
+		"zh-TW": "輕量看板專案管理工具 Kanso 的 Windows 桌面用戶端。",
+		"ja": "軽量なかんばん型プロジェクト管理ツール Kanso の Windows 用デスクトップクライアント。",
+		"ko": "가벼운 칸반 프로젝트 관리 도구 Kanso의 Windows 데스크톱 클라이언트."
+	},
+	"description": {
+		"en": "The Windows desktop client of Kanso, a lightweight kanban project manager built on Go, React and SQLite. MyGo wraps the React frontend in a WebView2 window, while the server, CLI, MCP server and Docker image are built separately. A first-run wizard picks personal or team mode and keeps the access key in Windows Credential Manager. Windows 10 needs WebView2 installed first.",
+		"zh-CN": "轻量看板项目管理工具 Kanso 的 Windows 桌面客户端，Kanso 基于 Go、React 与 SQLite。MyGo 用 WebView2 窗口承载 React 前端，服务端、命令行、MCP 与 Docker 镜像则另行构建。首次启动时由向导选择个人或团队模式，访问密钥存入 Windows 凭据管理器。Windows 10 需先安装 WebView2。",
+		"zh-TW": "輕量看板專案管理工具 Kanso 的 Windows 桌面用戶端，Kanso 以 Go、React 與 SQLite 打造。MyGo 以 WebView2 視窗承載 React 前端，伺服器端、命令列、MCP 與 Docker 映像檔則另行建置。首次啟動時由精靈選擇個人或團隊模式，存取金鑰存入 Windows 認證管理員。Windows 10 需先安裝 WebView2。",
+		"ja": "Go・React・SQLite で作られた軽量なかんばん型プロジェクト管理ツール Kanso の Windows 用デスクトップクライアント。MyGo が React のフロントエンドを WebView2 のウィンドウに収め、サーバー、CLI、MCP、Docker イメージは別途ビルドされます。初回起動時のウィザードで個人モードかチームモードを選び、アクセスキーは Windows 資格情報マネージャーに保存されます。Windows 10 では先に WebView2 のインストールが必要です。",
+		"ko": "Go, React, SQLite로 만든 가벼운 칸반 프로젝트 관리 도구 Kanso의 Windows 데스크톱 클라이언트입니다. MyGo가 React 프런트엔드를 WebView2 창에 담고, 서버, CLI, MCP, Docker 이미지는 따로 빌드됩니다. 첫 실행 마법사에서 개인 또는 팀 모드를 고르고, 액세스 키는 Windows 자격 증명 관리자에 저장됩니다. Windows 10에서는 먼저 WebView2를 설치해야 합니다."
+	},
+	"icon": {
+		"file": "kanso.webp"
+	},
+	"screenshot": "kanso.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T09:41:01Z"
+}
