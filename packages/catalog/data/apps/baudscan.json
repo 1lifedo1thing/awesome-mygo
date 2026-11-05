@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "baudscan",
+	"name": "BaudScan",
+	"author": "j4ckzh0u",
+	"kind": "native",
+	"group": "devices",
+	"url": "https://github.com/j4ckzh0u/BaudScan",
+	"repo": "j4ckzh0u/BaudScan",
+	"summary": {
+		"en": "Finds a serial device's baud rate by listening at 37 standard rates and ranking the results.",
+		"zh-CN": "只读的串口波特率识别工具：逐一监听 37 档标准速率，按可信度排出最可能的一档。",
+		"zh-TW": "唯讀的序列埠鮑率識別工具：逐一監聽 37 檔標準速率，依可信度排出最可能的一檔。",
+		"ja": "シリアル機器のボーレートを、37 種類の標準速度で受信だけして判定し、候補を順位付け。",
+		"ko": "37개 표준 속도로 수신만 해 보고 시리얼 장치의 보드레이트를 추정해 순위를 매깁니다."
+	},
+	"description": {
+		"en": "A baud rate finder for serial devices on macOS, Windows and Linux, drawn with MyGo's native UI with no web view. It opens the port once, steps through all 37 standard rates and any custom ones you add, scores what it receives and ranks the likely rate with a confidence level and the raw bytes in hex and ASCII. It only reads and never sends a byte to the device.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的串口波特率识别工具，支持 macOS、Windows 与 Linux，没有 Web 视图。它只打开串口一次，依次切换全部 37 档标准速率和你补充的自定义速率，为收到的数据打分，按可信度排出最可能的波特率，并附上十六进制与 ASCII 原始字节。它只读取，从不向设备发送任何字节。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的序列埠鮑率識別工具，支援 macOS、Windows 與 Linux，沒有 Web 視圖。它只開啟序列埠一次，依序切換全部 37 檔標準速率和你補充的自訂速率，為收到的資料評分，依可信度排出最可能的鮑率，並附上十六進位與 ASCII 原始位元組。它只讀取，從不向裝置傳送任何位元組。",
+		"ja": "MyGo のネイティブ UI で描かれた、macOS・Windows・Linux 向けのシリアル機器用ボーレート判定ツール。Web ビューはありません。ポートを一度だけ開き、37 種類の標準速度と追加したカスタム速度を順に切り替えて受信データを採点し、最も可能性の高い速度を信頼度とともに順位付けして、生のバイトを 16 進と ASCII で表示します。読み取るだけで、機器には 1 バイトも送信しません。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS·Windows·Linux용 시리얼 장치 보드레이트 판별 도구로, 웹 뷰가 없습니다. 포트를 한 번만 열고 37개 표준 속도와 직접 추가한 속도를 차례로 바꿔 가며 받은 데이터에 점수를 매기고, 가장 가능성 높은 속도를 신뢰도와 함께 순위로 보여 주며 원시 바이트를 16진수와 ASCII로 표시합니다. 읽기만 하고 장치에는 한 바이트도 보내지 않습니다."
+	},
+	"icon": {
+		"file": "baudscan.webp"
+	},
+	"screenshot": "baudscan.webp",
+	"added": "2026-11-05T14:05:27Z"
+}
