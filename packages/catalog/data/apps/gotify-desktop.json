@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "gotify-desktop",
+	"name": "Gotify Desktop",
+	"author": "RedwindA",
+	"kind": "web",
+	"category": "CommunicationApplication",
+	"url": "https://github.com/RedwindA/gotify-desktop",
+	"repo": "RedwindA/gotify-desktop",
+	"summary": {
+		"en": "A tray client that shows messages from one or more Gotify servers as native notifications.",
+		"zh-CN": "常驻托盘的 Gotify 客户端，把一台或多台服务器的消息显示为原生通知。",
+		"zh-TW": "常駐系統匣的 Gotify 用戶端，將一台或多台伺服器的訊息顯示為原生通知。",
+		"ja": "トレイに常駐し、複数の Gotify サーバーのメッセージをネイティブ通知で表示するクライアント。",
+		"ko": "트레이에 상주하며 여러 Gotify 서버의 메시지를 네이티브 알림으로 보여 주는 클라이언트."
+	},
+	"description": {
+		"en": "A receive-only Gotify client for Windows, macOS and Linux, built with MyGo and a web frontend. It stays in the tray, connects to several servers at once, catches up on missed messages after a reconnect and shows them as native notifications that follow Gotify priorities, with do-not-disturb hours. History is kept in a local SQLite database, and managing the server is left to Gotify's web UI.",
+		"zh-CN": "只接收消息的 Gotify 客户端，支持 Windows、macOS 与 Linux，由 MyGo 搭配 Web 前端构建。它常驻托盘，可同时连接多台服务器，断线重连后补回错过的消息，并按 Gotify 优先级弹出原生通知，还可设置免打扰时段。消息历史保存在本地 SQLite 数据库中，服务器管理仍交给 Gotify 的网页界面。",
+		"zh-TW": "只接收訊息的 Gotify 用戶端，支援 Windows、macOS 與 Linux，由 MyGo 搭配 Web 前端打造。它常駐系統匣，可同時連線多台伺服器，斷線重連後補回錯過的訊息，並依 Gotify 優先順序跳出原生通知，也能設定勿擾時段。訊息紀錄存放在本機 SQLite 資料庫，伺服器管理則仍交給 Gotify 的網頁介面。",
+		"ja": "受信専用の Gotify クライアントで、Windows・macOS・Linux に対応し、MyGo と Web フロントエンドで作られています。トレイに常駐して複数のサーバーに同時に接続し、再接続後は取りこぼしたメッセージを取得して、Gotify の優先度に従ったネイティブ通知で知らせます。通知を止める時間帯も設定できます。履歴はローカルの SQLite データベースに保存され、サーバーの管理は Gotify の Web UI に任せます。",
+		"ko": "수신 전용 Gotify 클라이언트로 Windows, macOS, Linux를 지원하며 MyGo와 웹 프런트엔드로 만들었습니다. 트레이에 상주하며 여러 서버에 동시에 연결하고, 다시 연결되면 놓친 메시지를 가져와 Gotify 우선순위에 따른 네이티브 알림으로 보여 주며 방해 금지 시간도 설정할 수 있습니다. 기록은 로컬 SQLite 데이터베이스에 저장되고, 서버 관리는 Gotify 웹 UI에 맡깁니다."
+	},
+	"icon": {
+		"file": "gotify-desktop.webp"
+	},
+	"screenshot": "gotify-desktop.webp",
+	"added": "2026-11-05T02:29:36Z"
+}
