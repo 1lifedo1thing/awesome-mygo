@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "hop",
+	"name": "Hop",
+	"author": "marukolibro",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://marukolibro.github.io/Hop/",
+	"repo": "marukolibro/Hop",
+	"summary": {
+		"en": "A native macOS and Windows proxy client for mihomo, built in Go with MyGo and no webview.",
+		"zh-CN": "原生 macOS / Windows 的 mihomo 代理客户端，使用 Go 和 MyGo 构建，无 WebView。",
+		"zh-TW": "原生 macOS / Windows 的 mihomo 代理用戶端，以 Go 和 MyGo 打造，不使用 WebView。",
+		"ja": "macOS・Windows 向けのネイティブな mihomo プロキシクライアント。Go と MyGo で作られ、WebView を使いません。",
+		"ko": "macOS·Windows용 네이티브 mihomo 프록시 클라이언트. Go와 MyGo로 만들었으며 WebView를 쓰지 않습니다."
+	},
+	"description": {
+		"en": "Hop is a native desktop client for the mihomo core on macOS and Windows. It supports subscriptions and local profiles, custom routing rules, system proxy and TUN modes, menu bar or tray controls, connection inspection, and traffic statistics. The interface is drawn natively with MyGo and is available in English and Simplified Chinese.",
+		"zh-CN": "Hop 是适用于 macOS 和 Windows 的原生 mihomo 桌面客户端，支持订阅与本地配置、自定义分流规则、系统代理、TUN、菜单栏或托盘控制、连接查看和流量统计。界面由 MyGo 原生绘制，支持英文和简体中文。",
+		"zh-TW": "Hop 是適用於 macOS 和 Windows 的原生 mihomo 桌面用戶端，支援訂閱與本機設定檔、自訂分流規則、系統代理、TUN、選單列或系統匣控制、連線檢視和流量統計。介面由 MyGo 原生繪製，提供英文和簡體中文。",
+		"ja": "Hop は macOS と Windows 向けの、mihomo コアを使うネイティブなデスクトップクライアントです。サブスクリプションとローカルのプロファイル、独自の振り分けルール、システムプロキシと TUN モード、メニューバーやトレイからの操作、接続の確認、通信量の統計に対応します。画面は MyGo でネイティブに描かれ、英語と簡体字中国語で使えます。",
+		"ko": "Hop은 macOS와 Windows용 mihomo 코어 기반 네이티브 데스크톱 클라이언트입니다. 구독과 로컬 프로필, 사용자 지정 라우팅 규칙, 시스템 프록시와 TUN 모드, 메뉴 막대나 트레이에서의 조작, 연결 확인, 트래픽 통계를 지원합니다. 화면은 MyGo로 네이티브하게 그리며 영어와 간체 중국어로 제공됩니다."
+	},
+	"icon": {
+		"file": "hop.webp"
+	},
+	"screenshot": "hop.webp",
+	"added": "2026-11-05T05:19:08Z"
+}
