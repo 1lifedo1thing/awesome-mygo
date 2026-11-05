@@ -1,11 +1,13 @@
-import { NATIVE_UI_DOCS, type Surface, UI_KEYS, UI_LIBS, type UiLib, type UiLibKey, fill, likeKey, pick } from '@awesome-mygo/catalog';
+import { HAS_SCORES, NATIVE_UI_DOCS, type Surface, UI_KEYS, UI_LIBS, type UiLib, type UiLibKey, fill, likeKey, pick } from '@awesome-mygo/catalog';
 import { useNavigate, useSearch } from '@tanstack/react-router';
 import { LikeButton } from '../../components/Like';
 import { ScoreButton } from '../../components/Score';
 import { useLang, useT } from '../../lib/lang';
+import { useLikes } from '../../lib/likes';
 import { useSite } from '../../lib/site';
+import { UI_DEFAULT_SORT, type UiSort, shownUiSort, sortUiLibs } from '../../lib/ui';
 import { DesktopIcons } from '../DesktopIcons';
-import { Note, StatusBar, Win, btnGo, btnSm, seg, field, likeBtn, lnk, well } from '../ui';
+import { Note, StatusBar, Win, btnGo, btnSm, seg, field, likeBtn, lnk, select, well } from '../ui';
 
 const TAG: Record<UiLibKey, 'tag_theme' | 'tag_retro' | 'tag_icons'> = { theme: 'tag_theme', retro: 'tag_retro', icons: 'tag_icons' };
 // The kind of window as the plugins page marks it: native in ink, web in yellow, both in sky.
@@ -16,9 +18,11 @@ const SURF: Record<Surface, 'surf_native' | 'surf_web' | 'surf_both'> = { native
 export function Ui() {
 	const t = useT();
 	// ?tag= and ?surface= keep the filters in the address, as in the original look.
-	const { tag, surface } = useSearch({ from: '/ui' });
+	const { tag, surface, sort: sortParam } = useSearch({ from: '/ui' });
+	const { status: likes, counts } = useLikes();
+	const sort = shownUiSort(sortParam, likes);
 	const navigate = useNavigate({ from: '/ui' });
-	const setFilter = (next: { tag?: UiLibKey; surface?: 'web' | 'native' }) => void navigate({ search: (prev) => ({ ...prev, ...next }), replace: true, resetScroll: false });
+	const setFilter = (next: { tag?: UiLibKey; surface?: 'web' | 'native'; sort?: UiSort }) => void navigate({ search: (prev) => ({ ...prev, ...next }), replace: true, resetScroll: false });
 	// A library for both kinds of window shows under either. The tags count the libraries of the chosen window, as in the original look.
 	const ofSurface = UI_LIBS.filter((l) => !surface || l.surface === surface || l.surface === 'both');
 	const chips = [{ key: undefined, n: ofSurface.length, label: t.all }, ...UI_KEYS.map((k) => ({ key: k, n: ofSurface.filter((l) => l.key === k).length, label: t[TAG[k]] }))].filter((c) => c.key === undefined || c.n > 0 || c.key === tag);
@@ -27,7 +31,7 @@ export function Ui() {
 		{ key: 'native' as const, n: UI_LIBS.filter((l) => l.surface !== 'web').length, label: t.surf_native },
 		{ key: 'web' as const, n: UI_LIBS.filter((l) => l.surface !== 'native').length, label: t.surf_web },
 	];
-	const libs = ofSurface.filter((l) => !tag || l.key === tag);
+	const libs = sortUiLibs(ofSurface.filter((l) => !tag || l.key === tag), sort, counts);
 	return (
 		<div className='relative mx-auto flex max-w-[1440px] flex-col gap-[26px] px-3.5 pt-3.5 desk:block desk:pt-[26px] desk:pr-10 desk:pl-[136px] min-[1261px]:grid min-[1261px]:grid-cols-[minmax(0,1fr)_260px] min-[1261px]:items-start min-[1261px]:gap-x-10 min-[1261px]:pr-6'>
 			<DesktopIcons className='hidden desk:absolute desk:top-[26px] desk:left-[18px] desk:grid desk:grid-cols-1 desk:gap-4' />
@@ -48,6 +52,15 @@ export function Ui() {
 						))}
 					</div>
 					<span className='flex-1' />
+					<label className='flex items-center gap-1.5 whitespace-nowrap'>
+						{t.sort}
+						<select value={sort} onChange={(e) => setFilter({ sort: e.target.value === UI_DEFAULT_SORT ? undefined : (e.target.value as UiSort) })} className={select}>
+							{HAS_SCORES && <option value='score'>{t.sort_score}</option>}
+							<option value='newest'>{t.sort_new}</option>
+							<option value='natural'>{t.sort_natural}</option>
+							{likes !== 'off' && <option value='likes'>{t.sort_likes}</option>}
+						</select>
+					</label>
 					<span className={`${field} font-mono`} lang='en'>
 						~/ui
 					</span>

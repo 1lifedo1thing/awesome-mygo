@@ -1,4 +1,4 @@
-import { NATIVE_UI_DOCS, type Surface, UI_KEYS, UI_LIBS, type UiLibKey, likeKey, pick } from '@awesome-mygo/catalog';
+import { HAS_SCORES, NATIVE_UI_DOCS, type Surface, UI_KEYS, UI_LIBS, type UiLibKey, likeKey, pick } from '@awesome-mygo/catalog';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { WinBar } from '../components/bits';
 import { LikeButton } from '../components/Like';
@@ -7,9 +7,11 @@ import { useLang, useT } from '../lib/lang';
 import { validateUiSearch } from '../lib/page-search';
 import { pageHead } from '../lib/seo';
 import { useSite } from '../lib/site';
+import { useLikes } from '../lib/likes';
+import { UI_DEFAULT_SORT, type UiSort, shownUiSort, sortUiLibs } from '../lib/ui';
 
 export const Route = createFileRoute('/ui')({
-	// ?tag= and ?surface= keep the filters in the address, so a link reproduces the view.
+	// ?tag=, ?surface= and ?sort= keep the filters and the order in the address, so a link reproduces the view.
 	validateSearch: validateUiSearch,
 	head: ({ match }) => pageHead({ lang: match.search.lang, path: '/ui', title: 'title_ui', desc: 'desc_ui', name: 'cat_ui_name' }),
 	component: UiPage,
@@ -21,16 +23,18 @@ function UiPage() {
 	const t = useT();
 	const lang = useLang();
 	const { openSubmit } = useSite();
-	const { tag, surface } = Route.useSearch();
+	const { tag, surface, sort: sortParam } = Route.useSearch();
 	const navigate = useNavigate({ from: '/ui' });
-	const setFilter = (next: { tag?: UiLibKey; surface?: 'web' | 'native' }) => void navigate({ search: (prev) => ({ ...prev, ...next }), replace: true, resetScroll: false });
+	const setFilter = (next: { tag?: UiLibKey; surface?: 'web' | 'native'; sort?: UiSort }) => void navigate({ search: (prev) => ({ ...prev, ...next }), replace: true, resetScroll: false });
+	const { status: likes, counts } = useLikes();
+	const sort = shownUiSort(sortParam, likes);
 	const surfLabel: Record<Surface, string> = { web: t.surf_web, native: t.surf_native, both: t.surf_both };
 	// A library for both kinds of window shows under either. The tags count the libraries of the chosen window, so a chip never leads to an empty list; the one picked stays, and an empty list says so.
 	const ofSurface = UI_LIBS.filter((l) => !surface || l.surface === surface || l.surface === 'both');
 	const nNative = UI_LIBS.filter((l) => l.surface !== 'web').length;
 	const nWeb = UI_LIBS.filter((l) => l.surface !== 'native').length;
 	const chips = [{ key: undefined, n: ofSurface.length, label: t.all }, ...UI_KEYS.map((k) => ({ key: k, n: ofSurface.filter((l) => l.key === k).length, label: t[TAG[k]] }))].filter((c) => c.key === undefined || c.n > 0 || c.key === tag);
-	const libs = ofSurface.filter((l) => !tag || l.key === tag);
+	const libs = sortUiLibs(ofSurface.filter((l) => !tag || l.key === tag), sort, counts);
 
 	return (
 		<section className='page enter gap-36'>
@@ -58,6 +62,17 @@ function UiPage() {
 						<option value='all'>{`${t.all} · ${UI_LIBS.length}`}</option>
 						<option value='native'>{`${t.surf_native} · ${nNative}`}</option>
 						<option value='web'>{`${t.surf_web} · ${nWeb}`}</option>
+					</select>
+				</div>
+				<div className='sort'>
+					<label htmlFor='sort' className='sort-label'>
+						{t.sort}
+					</label>
+					<select id='sort' value={sort} onChange={(e) => setFilter({ sort: e.target.value === UI_DEFAULT_SORT ? undefined : (e.target.value as UiSort) })} className='sort-select'>
+						{HAS_SCORES && <option value='score'>{t.sort_score}</option>}
+						<option value='newest'>{t.sort_new}</option>
+						<option value='natural'>{t.sort_natural}</option>
+						{likes !== 'off' && <option value='likes'>{t.sort_likes}</option>}
 					</select>
 				</div>
 			</div>
