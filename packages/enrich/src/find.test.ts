@@ -126,8 +126,9 @@ describe('proposals', () => {
 	});
 
 	it('writes library and plugin entries with the fields their schemas require', () => {
-		expect(entryFor(verdict({ verdict: 'ui', tag: 'theme' }), info, 'x')).toMatchObject({ kind: 'ui', entry: { tag: 'theme', repo: info.repo, url: info.htmlUrl } });
-		expect(entryFor(verdict({ verdict: 'ui', tag: 'dark' }), info, 'x')).toEqual({ error: 'the model gave no UI tag (dark)' });
+		expect(entryFor(verdict({ verdict: 'ui', tag: 'theme', surface: 'Native' }), info, 'x')).toMatchObject({ kind: 'ui', entry: { tag: 'theme', surface: 'native', repo: info.repo, url: info.htmlUrl } });
+		expect(entryFor(verdict({ verdict: 'ui', tag: 'dark', surface: 'native' }), info, 'x')).toEqual({ error: 'the model gave no UI tag (dark)' });
+		expect(entryFor(verdict({ verdict: 'ui', tag: 'icons' }), info, 'x')).toEqual({ error: 'the model gave no UI surface (empty)' });
 		expect(entryFor(verdict({ verdict: 'state', tags: ['Store', 'store', 'Reactive State'] }), { ...info, module: 'github.com/yldm-tech/nodra' }, 'x')).toMatchObject({
 			kind: 'state',
 			entry: { install: 'go get github.com/yldm-tech/nodra@latest', tags: ['store', 'reactive-state'] },

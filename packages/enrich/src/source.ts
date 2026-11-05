@@ -151,21 +151,22 @@ export type ChoiceField = 'category' | 'tag' | 'surface';
 export const CHOICE_HINTS: Record<ChoiceField, string> = {
 	category: 'the one that best says what the app is for',
 	tag: 'theme for a component library or theme, retro for one in a retro style, icons for an icon set',
-	surface: 'web when it serves web pages, native when it works with the native UI, both when both',
+	surface: 'web when it serves web pages (a JavaScript package), native when it works with the native UI (Go), both when it has a part for each',
 };
 
-// What the model picks along with the copy: the fields the site's form fills in without asking (buildEntry in packages/catalog), as long as they still hold its default. An app's category, which the form leaves out unless its author picked a group; a UI library's tag, which it sets to theme; a plugin's surface, which it sets to web; and the tags of a state management library (just state) and of a plugin (none). An entry the discover workflow adds was triaged with these already, and one still at the default is only picked again.
-export function formDefaults(kind: EntryKind, entry: Entry): { choice?: ChoiceField; tags: boolean } {
+// What the model picks along with the copy: the fields the site's form fills in without asking (buildEntry in packages/catalog), as long as they still hold its default. An app's category, which the form leaves out unless its author picked a group; a UI library's tag and surface, which it sets to theme and native; a plugin's surface, which it sets to web; and the tags of a state management library (just state) and of a plugin (none). An entry the discover workflow adds was triaged with these already, and one still at the default is only picked again.
+export function formDefaults(kind: EntryKind, entry: Entry): { choices: ChoiceField[]; tags: boolean } {
 	const tags = Array.isArray(entry.tags) ? entry.tags : [];
+	const at = (field: ChoiceField, def?: string) => (entry[field] === undefined || entry[field] === def ? [field] : []);
 	switch (kind) {
 		case 'app':
-			return { choice: entry.category === undefined ? 'category' : undefined, tags: false };
+			return { choices: at('category'), tags: false };
 		case 'ui':
-			return { choice: entry.tag === undefined || entry.tag === 'theme' ? 'tag' : undefined, tags: false };
+			return { choices: [...at('tag', 'theme'), ...at('surface', 'native')], tags: false };
 		case 'state':
-			return { tags: tags.length === 0 || (tags.length === 1 && tags[0] === 'state') };
+			return { choices: [], tags: tags.length === 0 || (tags.length === 1 && tags[0] === 'state') };
 		case 'plugin':
-			return { choice: entry.surface === undefined || entry.surface === 'web' ? 'surface' : undefined, tags: tags.length === 0 };
+			return { choices: at('surface', 'web'), tags: tags.length === 0 };
 	}
 }
 

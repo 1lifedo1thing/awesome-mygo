@@ -7,7 +7,7 @@ import { github, rawFile, rawUrl as rawRepoUrl } from './github.ts';
 import { downloadImage, fetchImage, isDefaultIcon, writeCard, writeIcon, writeShot } from './image.ts';
 import { type ChoiceField, ENTRY_DIRS, type Entry, type EntryKind, addedFiles, appNameFrom, formDefaults, hasAllLanguages, homepageOf, iconOf, isArtwork, parseMygoConfig, pickMygoConfig, readmeImages, repoIcons, repoOfEntry, repoScreenshots, resolveImage, schemaEnum, setCategory, submittedScreenshot } from './source.ts';
 
-// Run by .github/workflows/enrich-submission.yml on a pull request the submission bot opened, and by discover.ts on each entry it proposes. It finds the entries the branch adds, then for each fills in what the form cannot ask for: an app's icon (from its mygo.json); the screenshot of an app, a UI library or a state management library (the first landscape one in its README, or else in a screenshot folder of the repository); a UI library's or state management library's homepage (from the repository's settings); what the form fills in with a default (an app's category, a UI library's tag, a plugin's surface, the tags of state management and plugins), picked by the model; and the copy in every site language. An entry with a repository is never left without an image: an app without an icon of its own gets its owner's GitHub avatar, and an entry without a screenshot gets the repository's social preview, or else a card drawn here from the owner's avatar, and the report says so. It changes files in the working tree and writes a Markdown report for the pull request; the workflow runs the catalog checks and commits.
+// Run by .github/workflows/enrich-submission.yml on a pull request the submission bot opened, and by discover.ts on each entry it proposes. It finds the entries the branch adds, then for each fills in what the form cannot ask for: an app's icon (from its mygo.json); the screenshot of an app, a UI library or a state management library (the first landscape one in its README, or else in a screenshot folder of the repository); a UI library's or state management library's homepage (from the repository's settings); what the form fills in with a default (an app's category, a UI library's tag and surface, a plugin's surface, the tags of state management and plugins), picked by the model; and the copy in every site language. An entry with a repository is never left without an image: an app without an icon of its own gets its owner's GitHub avatar, and an entry without a screenshot gets the repository's social preview, or else a card drawn here from the owner's avatar, and the report says so. It changes files in the working tree and writes a Markdown report for the pull request; the workflow runs the catalog checks and commits.
 //
 // Environment: BASE_REF (the branch the entries are compared with, default origin/main), REPORT_FILE (where the report goes), GITHUB_TOKEN (for the GitHub API), and LLM_API_KEY with optional LLM_BASE_URL and LLM_MODEL for the copy; without LLM_API_KEY the copy is left as submitted.
 
@@ -174,11 +174,11 @@ function unpicked(field: ChoiceField | 'tags', entry: Entry, why: string): strin
 	return `- ${FIELD_NAMES[field]}: left at the form's default, ${JSON.stringify(entry[field])}, ${why}. Check it before merging.`;
 }
 
-// The copy, and with it what the form fills in with a default rather than asking (formDefaults): an app needs a category, as without one it is the only app in the showcase's other group, which the catalog checks reject; a UI library's tag, a plugin's surface and the tags pass the checks at their defaults but put the entry under the wrong filter. An app's category is picked from the ones the apps on the site already have: a group of a single app reads as a mistake, and the checks reject that too (godraw's Design was such a group).
+// The copy, and with it what the form fills in with a default rather than asking (formDefaults): an app needs a category, as without one it is the only app in the showcase's other group, which the catalog checks reject; a UI library's tag and surface, a plugin's surface and the tags pass the checks at their defaults but put the entry under the wrong filter. An app's category is picked from the ones the apps on the site already have: a group of a single app reads as a mistake, and the checks reject that too (godraw's Design was such a group).
 // used: the categories of the apps on the site.
 async function addCopy(cfg: LlmConfig | undefined, kind: EntryKind, entry: Entry, facts: RepoFacts | undefined, examples: Entry[], used: ReadonlySet<string>): Promise<void> {
 	const picks = formDefaults(kind, entry);
-	const left = (why: string) => [...(picks.choice ? [unpicked(picks.choice, entry, why)] : []), ...(picks.tags ? [unpicked('tags', entry, why)] : [])];
+	const left = (why: string) => [...picks.choices.map((f) => unpicked(f, entry, why)), ...(picks.tags ? [unpicked('tags', entry, why)] : [])];
 	if (hasAllLanguages(entry.summary) && (kind !== 'app' || hasAllLanguages(entry.description))) {
 		say('- Copy: kept, as it is already in every site language.');
 		return left('as the copy was kept').forEach(say);
@@ -189,19 +189,25 @@ async function addCopy(cfg: LlmConfig | undefined, kind: EntryKind, entry: Entry
 	}
 	if (facts?.readme && facts.readme.text.length > README_LIMIT) say(`- The README is ${facts.readme.text.length} characters long; the copy was written from its first ${README_LIMIT}.`);
 	try {
-		const allowed = picks.choice ? schemaEnum(JSON.parse(await readFile(join(ROOT, DATA_DIR, `schema/${kind}.schema.json`), 'utf8')), picks.choice) : [];
-		const values = picks.choice === 'category' ? allowed.filter((c) => used.has(c)) : allowed;
-		const choice = picks.choice ? { field: picks.choice, values } : undefined;
-		const copy = await writeCopy(cfg, { kind, entry, readme: facts?.readme?.text, mygoConfig: facts?.mygo ? { path: facts.mygo.path, text: facts.mygo.text } : undefined, examples, choice, tags: picks.tags });
+		const schema: unknown = picks.choices.length ? JSON.parse(await readFile(join(ROOT, DATA_DIR, `schema/${kind}.schema.json`), 'utf8')) : undefined;
+		const choices = picks.choices.map((field) => {
+			const allowed = schemaEnum(schema, field);
+			return { field, values: field === 'category' ? allowed.filter((c) => used.has(c)) : allowed };
+		});
+		const copy = await writeCopy(cfg, { kind, entry, readme: facts?.readme?.text, mygoConfig: facts?.mygo ? { path: facts.mygo.path, text: facts.mygo.text } : undefined, examples, choices, tags: picks.tags });
 		entry.summary = copy.summary;
 		if (kind === 'app' && copy.description) entry.description = copy.description;
 		say(`- Copy: written by ${cfg.model} in all five languages from the submission${facts?.readme ? ' and the README' : ''}. Read it before merging.`);
-		if (picks.choice && copy.choice) {
-			const was = entry[picks.choice];
-			if (picks.choice === 'category') setCategory(entry, copy.choice);
-			else entry[picks.choice] = copy.choice;
-			say(`- ${FIELD_NAMES[picks.choice]}: ${copy.choice}, picked by the model, as the form ${was === undefined ? 'leaves it out' : `left it at ${JSON.stringify(was)}`}. Check it.`);
-		} else if (picks.choice) say(unpicked(picks.choice, entry, `as the model's pick${copy.badChoice ? ` (${copy.badChoice})` : ''} is not one ${picks.choice === 'category' ? 'the apps on the site have' : 'the schema allows'}`));
+		for (const field of picks.choices) {
+			const pick = copy.choices[field];
+			const bad = copy.badChoices[field];
+			if (pick) {
+				const was = entry[field];
+				if (field === 'category') setCategory(entry, pick);
+				else entry[field] = pick;
+				say(`- ${FIELD_NAMES[field]}: ${pick}, picked by the model, as the form ${was === undefined ? 'leaves it out' : `left it at ${JSON.stringify(was)}`}. Check it.`);
+			} else say(unpicked(field, entry, `as the model's pick${bad ? ` (${bad})` : ''} is not one ${field === 'category' ? 'the apps on the site have' : 'the schema allows'}`));
+		}
 		if (picks.tags && copy.tags) {
 			entry.tags = copy.tags;
 			say(`- Tags: ${copy.tags.join(', ')}, written by the model, as the form leaves them at a default. Check them.`);

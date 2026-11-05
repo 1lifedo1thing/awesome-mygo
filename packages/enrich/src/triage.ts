@@ -17,7 +17,7 @@ const verdictSchema = z.object({
 	summary: z.string(),
 	kind: z.string().describe('For an app: native or web. Otherwise an empty string.'),
 	tag: z.string().describe('For ui: theme, retro or icons. Otherwise an empty string.'),
-	surface: z.string().describe('For a plugin: web, native or both. Otherwise an empty string.'),
+	surface: z.string().describe('For ui or a plugin: web, native or both. Otherwise an empty string.'),
 	tags: z.array(z.string()).describe('For state or plugin: one to four short lowercase tags. Otherwise empty.'),
 });
 
@@ -35,7 +35,7 @@ For a fit, also give:
 - summary: one plain English line of at most 120 characters for the site's cards that says what it does. No marketing language, no Markdown, no emoji.
 - kind (app): web when its windows show a web frontend (its configuration has devUrl, devCommand, buildCommand or frontendDist, or the app loads pages it builds with a JavaScript framework); native when they draw MyGo's native UI (mygo.json without those fields, Go code that builds the UI).
 - tag (ui): theme for a component library or theme, retro for one in a retro style, icons for an icon set.
-- surface (plugin): web when it serves web pages, native when it works with the native UI, both when both.
+- surface (ui, plugin): web when it serves web pages (a JavaScript package), native when it works with the native UI (Go), both when it has a part for each.
 - tags (state, plugin): one to four short lowercase words.
 
 reason: for the maintainer reviewing the pull request, in English, one or two sentences: what shows the project is built with MyGo, and why it fits or is skipped. Mention doubts here too, such as a project that looks unfinished or a kind that is hard to tell.

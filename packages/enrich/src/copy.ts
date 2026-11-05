@@ -25,10 +25,10 @@ const lineCopy = z.object({ summary: text, notes: z.string() });
 export interface Copy {
 	summary: Text;
 	description?: Text;
-	// The value the model picked for the field it was asked to pick (CopyInput.choice), when it is one the schema allows; undefined when it was not asked to.
-	choice?: string;
-	// A pick outside the schema's values, dropped, for the report.
-	badChoice?: string;
+	// The value the model picked for each field it was asked to pick (CopyInput.choices), when it is one the schema allows.
+	choices: Partial<Record<ChoiceField, string>>;
+	// Picks outside the schema's values, dropped, for the report.
+	badChoices: Partial<Record<ChoiceField, string>>;
 	// The tags the model gave, when it was asked for them and gave any.
 	tags?: string[];
 	// For the maintainer reviewing the pull request: doubts about the entry, or empty.
@@ -44,7 +44,7 @@ You get one entry submitted through the site's form, the project's README and, f
 Write:
 - summary: one line for cards and search results that says what the thing does, in plain words.
 - description (apps only): two or three sentences for the app's page, from what the README states: what it does, what it works with, and how it is built (MyGo's native UI or a web frontend, as the entry's kind says). Pick what matters to someone deciding whether to try it rather than listing every feature. Never add a feature, number or platform the README does not state.
-- choice (only when the prompt asks for it): for the field the prompt names, the one value from the list given that fits best, as the prompt says what the values mean.
+- choices (only when the prompt asks for them): for each field the prompt names, the one value from the list given that fits best, as the prompt says what the values mean.
 - tags (only when the prompt asks for them): one to four short lowercase words that say what kind of library or plugin it is, such as store, reactive, sqlite or shaders.
 - notes: for the maintainer reviewing the pull request, in English, one or two short sentences, or an empty string. Say whether the README or the MyGo configuration shows the project is built with MyGo, whether the entry's kind (native or web), category, tag or surface look right, and anything else that looks wrong. Do not repeat the copy.
 
@@ -59,8 +59,8 @@ export interface CopyInput {
 	// The app's MyGo configuration, mygo.json or mygo.config.ts.
 	mygoConfig?: { path: string; text: string };
 	examples: Entry[];
-	// A field the site's form filled in with a default rather than asking (formDefaults), and the values its schema allows, one of which the model picks.
-	choice?: { field: ChoiceField; values: readonly string[] };
+	// The fields the site's form filled in with a default rather than asking (formDefaults), each with the values its schema allows, one of which the model picks.
+	choices?: readonly { field: ChoiceField; values: readonly string[] }[];
 	// Whether the model writes the entry's tags, which the form left at a default.
 	tags?: boolean;
 }
@@ -75,7 +75,7 @@ const capsLine = (field: string, caps: Caps) => `${field}: ${Object.entries(caps
 
 export async function writeCopy(cfg: LlmConfig, input: CopyInput): Promise<Copy> {
 	const isApp = input.kind === 'app';
-	const choice = input.choice?.values.length ? input.choice : undefined;
+	const choices = (input.choices ?? []).filter((c) => c.values.length);
 	const client = new Anthropic({ apiKey: cfg.apiKey, baseURL: cfg.baseURL ?? null });
 	const readme = input.readme === undefined ? '(none found)' : input.readme.slice(0, README_LIMIT);
 	const caps = { summary: lengthCaps(input.examples, 'summary'), description: lengthCaps(input.examples, 'description') };
@@ -87,25 +87,27 @@ export async function writeCopy(cfg: LlmConfig, input: CopyInput): Promise<Copy>
 		...(isApp ? [input.mygoConfig ? `<mygo_config path="${input.mygoConfig.path}">\n${input.mygoConfig.text}\n</mygo_config>` : '<mygo_config>(none found)</mygo_config>'] : []),
 		`<readme>\n${readme}\n</readme>`,
 		`Length limits in characters, the longest example in each language; keep every text within its limit, choosing what to leave out rather than compressing the wording:\n${limits.join('\n')}`,
-		...(choice ? [`The submission's ${choice.field} is not its author's pick: the form leaves it ${choice.field === 'category' ? 'out' : 'at a default'}. As choice, pick its ${choice.field} from: ${choice.values.join(', ')}; ${CHOICE_HINTS[choice.field]}.`] : []),
+		...choices.map((c) => `The submission's ${c.field} is not its author's pick: the form leaves it ${c.field === 'category' ? 'out' : 'at a default'}. As choices.${c.field}, pick its ${c.field} from: ${c.values.join(', ')}; ${CHOICE_HINTS[c.field]}.`),
 		...(input.tags ? ["The submission's tags are the form's default, not its author's. Write its tags."] : []),
-		`Write the summary${isApp ? ', description' : ''}${choice ? ', choice' : ''}${input.tags ? ', tags' : ''} and notes for this ${isApp ? 'app' : 'entry'}.`,
+		`Write the summary${isApp ? ', description' : ''}${choices.length ? ', choices' : ''}${input.tags ? ', tags' : ''} and notes for this ${isApp ? 'app' : 'entry'}.`,
 	];
 	// A plain string rather than z.enum: structured outputs carry an enum only as a hint, and a value outside it would fail parsing and lose the copy with it. A pick that is not one of the values is dropped below instead.
 	const base = isApp ? appCopy : lineCopy;
-	const format = zodOutputFormat(base.extend({ ...(choice ? { choice: z.string().describe(`One of: ${choice.values.join(', ')}`) } : {}), ...(input.tags ? { tags: z.array(z.string()).describe('One to four short lowercase words') } : {}) }));
+	const choiceShape = Object.fromEntries(choices.map((c) => [c.field, z.string().describe(`One of: ${c.values.join(', ')}`)]));
+	const format = zodOutputFormat(base.extend({ ...(choices.length ? { choices: z.object(choiceShape) } : {}), ...(input.tags ? { tags: z.array(z.string()).describe('One to four short lowercase words') } : {}) }));
 	const messages: Anthropic.MessageParam[] = [{ role: 'user', content: parts.join('\n\n') }];
 	const ask = () => client.messages.parse({ model: cfg.model, max_tokens: 16000, system: SYSTEM, messages, output_config: { format } });
 	const tooLong = (out: { summary: Text; description?: Text }) => [...overCaps(out.summary, caps.summary).map((x) => `summary ${x}`), ...(out.description ? overCaps(out.description, caps.description).map((x) => `description ${x}`) : [])];
 
 	let res = await ask();
-	let out = checked(res) as { summary: Text; description?: Text; choice?: string; tags?: string[]; notes: string };
+	let out = checked(res) as { summary: Text; description?: Text; choices?: Partial<Record<ChoiceField, string>>; tags?: string[]; notes: string };
+	const pickOf = (o: typeof out, field: ChoiceField) => o.choices?.[field]?.trim() ?? '';
 	// What the first answer must fix: a text past its limit, or a pick outside its list.
 	const problems = (o: typeof out) => {
 		const long = tooLong(o);
 		return [
 			...(long.length ? [`These texts are longer than their limits (length/limit): ${long.join(', ')}. Rewrite all the copy so every text is within its limit, keeping only facts from the README.`] : []),
-			...(choice && !choice.values.includes(o.choice?.trim() ?? '') ? [`The choice, its ${choice.field}, must be one of: ${choice.values.join(', ')}.`] : []),
+			...choices.filter((c) => !c.values.includes(pickOf(o, c.field))).map((c) => `choices.${c.field}, its ${c.field}, must be one of: ${c.values.join(', ')}.`),
 		];
 	};
 	// One rewrite when there is anything to fix, with the first answer kept in the conversation as it came back.
@@ -115,10 +117,15 @@ export async function writeCopy(cfg: LlmConfig, input: CopyInput): Promise<Copy>
 		res = await ask();
 		out = checked(res) as typeof out;
 	}
-	const pick = choice ? out.choice?.trim() : undefined;
-	const valid = pick !== undefined && choice?.values.includes(pick);
+	const picked: Copy['choices'] = {};
+	const bad: Copy['badChoices'] = {};
+	for (const c of choices) {
+		const pick = pickOf(out, c.field);
+		if (c.values.includes(pick)) picked[c.field] = pick;
+		else if (pick) bad[c.field] = pick;
+	}
 	const tags = input.tags && out.tags ? cleanTags(out.tags) : [];
-	return { summary: out.summary, description: isApp ? out.description : undefined, choice: valid ? pick : undefined, badChoice: pick !== undefined && !valid ? pick : undefined, tags: tags.length ? tags : undefined, notes: out.notes.trim(), tooLong: tooLong(out) };
+	return { summary: out.summary, description: isApp ? out.description : undefined, choices: picked, badChoices: bad, tags: tags.length ? tags : undefined, notes: out.notes.trim(), tooLong: tooLong(out) };
 }
 
 // The parsed copy of a finished response; a refusal or a cut-off answer is an error the report shows.

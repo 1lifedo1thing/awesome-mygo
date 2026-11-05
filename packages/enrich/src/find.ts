@@ -187,7 +187,9 @@ export function entryFor(v: Verdict, info: RepoInfo, slug: string): { kind: Entr
 		case 'ui': {
 			const tag = v.tag.trim().toLowerCase();
 			if (!['theme', 'retro', 'icons'].includes(tag)) return { error: `the model gave no UI tag (${v.tag || 'empty'})` };
-			return { kind: 'ui', entry: { slug, name, author, tag, summary, repo: info.repo, url: info.htmlUrl, ...(homepage ? { homepage } : {}) } };
+			const surface = v.surface.trim().toLowerCase();
+			if (!['web', 'native', 'both'].includes(surface)) return { error: `the model gave no UI surface (${v.surface || 'empty'})` };
+			return { kind: 'ui', entry: { slug, name, author, tag, surface, summary, repo: info.repo, url: info.htmlUrl, ...(homepage ? { homepage } : {}) } };
 		}
 		case 'state': {
 			const tags = cleanTags(v.tags);
