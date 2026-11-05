@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "xiangqi-go",
+	"name": "象棋残局",
+	"author": "ch1y1z1",
+	"kind": "native",
+	"group": "game",
+	"url": "https://github.com/ch1y1z1/xiangqi_go",
+	"repo": "ch1y1z1/xiangqi_go",
+	"summary": {
+		"en": "Study Chinese chess endgames: set up positions, branch lines and ask an offline Pikafish engine.",
+		"zh-CN": "研究象棋残局：摆棋、分支推演，并由离线 Pikafish 引擎给出建议。",
+		"zh-TW": "研究象棋殘局：擺棋、分支推演，並由離線 Pikafish 引擎給出建議。",
+		"ja": "シャンチーの残局を研究。局面を並べ、変化を分岐させ、オフラインの Pikafish に手を聞ける。",
+		"ko": "샹치(중국 장기) 엔드게임 연구: 국면 배치, 변화 분기, 오프라인 Pikafish 엔진 추천."
+	},
+	"description": {
+		"en": "The desktop edition of xiangqi_app for studying Chinese chess endgames on macOS, Windows and Linux, drawn with MyGo's native UI. Set up positions from a piece inventory, explore lines with branches kept and scored, and get suggestions from a bundled offline Pikafish engine or let it play one side. Board photos can be read by DeepSeek or a service you configure and imported.",
+		"zh-CN": "xiangqi_app 的桌面版，用 MyGo 原生 UI 绘制，支持 macOS、Windows 与 Linux，专门用来研究象棋残局。可从棋子库存摆出局面，推演时保留各个分支并给出评分，也可以让随附的离线 Pikafish 引擎给出建议或执一方。棋盘照片可交给 DeepSeek 或自定义服务识别后导入。",
+		"zh-TW": "xiangqi_app 的桌面版，以 MyGo 原生 UI 繪製，支援 macOS、Windows 與 Linux，專門用來研究象棋殘局。可從棋子庫存擺出局面，推演時保留各個分支並給出評分，也可以讓隨附的離線 Pikafish 引擎給出建議或執一方。棋盤照片可交給 DeepSeek 或自訂服務辨識後匯入。",
+		"ja": "xiangqi_app のデスクトップ版で、MyGo のネイティブ UI で描かれた macOS・Windows・Linux 向けのシャンチー残局研究アプリです。駒の在庫から局面を並べ、分岐を残して評価しながら変化を調べ、同梱のオフライン Pikafish エンジンに手を提案させたり、片方の手番を任せたりできます。盤面の写真は DeepSeek や自分で設定したサービスで読み取って取り込めます。",
+		"ko": "xiangqi_app의 데스크톱 버전으로, MyGo의 네이티브 UI로 그린 macOS·Windows·Linux용 샹치 엔드게임 연구 앱입니다. 기물 목록에서 국면을 배치하고, 분기를 남기고 평가하며 변화를 살피고, 함께 들어 있는 오프라인 Pikafish 엔진에게 추천 수를 받거나 한쪽을 맡길 수 있습니다. 판 사진은 DeepSeek이나 직접 설정한 서비스로 인식해 가져올 수 있습니다."
+	},
+	"icon": {
+		"file": "xiangqi-go.webp"
+	},
+	"screenshot": "xiangqi-go.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T14:57:25Z"
+}
