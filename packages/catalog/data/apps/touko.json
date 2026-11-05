@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "touko",
+	"name": "TOUKO",
+	"author": "Eurekaimer",
+	"kind": "web",
+	"category": "MultimediaApplication",
+	"url": "https://github.com/Eurekaimer/TOUKO",
+	"repo": "Eurekaimer/TOUKO",
+	"summary": {
+		"en": "An image library kept in your own Git repository, served via jsDelivr or an optional R2 mirror.",
+		"zh-CN": "存在自己 Git 仓库里的图库，经 jsDelivr 或可选的 R2 镜像分发。",
+		"zh-TW": "存在自己 Git 儲存庫裡的圖庫，經 jsDelivr 或可選的 R2 鏡像分發。",
+		"ja": "自分の Git リポジトリに置く画像ライブラリ。jsDelivr か任意の R2 ミラーで配信。",
+		"ko": "내 Git 저장소에 보관하는 이미지 라이브러리. jsDelivr나 선택적 R2 미러로 배포합니다."
+	},
+	"description": {
+		"en": "The desktop client of TOUKO, an image library that keeps images and metadata in your own Git repository on GitHub and serves them via jsDelivr or an optional Cloudflare R2 mirror. Images are staged, then published in one Git commit, and you can search, filter by tag or collection and copy Markdown. MyGo puts its web frontend in a desktop window; the touko CLI and browser version are built without it.",
+		"zh-CN": "TOUKO 图库的桌面客户端。图片与元数据都存进你自己托管在 GitHub 上的 Git 仓库，默认经 jsDelivr 分发，也可开启 Cloudflare R2 镜像。图片先进暂存区，提交时写成一次 Git 提交；可以搜索、按标签或分类筛选，一键复制 Markdown。MyGo 为它的网页前端提供桌面窗口，touko 命令行和浏览器界面则不经 MyGo。",
+		"zh-TW": "TOUKO 圖庫的桌面用戶端。圖片與中繼資料都存進你自己託管在 GitHub 上的 Git 儲存庫，預設經 jsDelivr 分發，也可開啟 Cloudflare R2 鏡像。圖片先進暫存區，提交時寫成一次 Git 提交；可以搜尋、依標籤或分類篩選，一鍵複製 Markdown。MyGo 為它的網頁前端提供桌面視窗，touko 命令列與瀏覽器介面則不經 MyGo。",
+		"ja": "TOUKO のデスクトップクライアント。画像とメタデータを GitHub 上の自分の Git リポジトリに保存し、jsDelivr、または任意の Cloudflare R2 ミラーから配信する画像ライブラリです。画像はステージングを経て一度の Git コミットで公開され、検索、タグや分類での絞り込み、Markdown のコピーができます。MyGo は Web フロントエンドをデスクトップウィンドウに収める部分を担い、touko CLI とブラウザ版は MyGo を使っていません。",
+		"ko": "TOUKO의 데스크톱 클라이언트입니다. 이미지와 메타데이터를 GitHub에 있는 내 Git 저장소에 저장하고 jsDelivr나 선택적인 Cloudflare R2 미러로 배포하는 이미지 라이브러리입니다. 이미지는 스테이징을 거쳐 한 번의 Git 커밋으로 게시되며, 검색, 태그나 분류별 필터링, Markdown 복사를 할 수 있습니다. MyGo는 웹 프런트엔드를 데스크톱 창에 담는 역할을 하고, touko CLI와 브라우저 버전은 MyGo 없이 만들어졌습니다."
+	},
+	"icon": {
+		"file": "touko.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "touko.webp",
+	"added": "2026-11-05T04:32:09Z"
+}
