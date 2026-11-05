@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "easytier-mygo",
+	"name": "EasyTier MyGo",
+	"author": "YuanZhe-99",
+	"kind": "native",
+	"group": "network",
+	"url": "https://github.com/YuanZhe-99/Easytier-MyGo",
+	"repo": "YuanZhe-99/Easytier-MyGo",
+	"summary": {
+		"en": "A native desktop client for EasyTier that runs several mesh networks and shows their peers.",
+		"zh-CN": "原生 EasyTier 桌面客户端，可同时管理多个组网网络及其节点。",
+		"zh-TW": "原生 EasyTier 桌面用戶端，可同時管理多個組網網路及其節點。",
+		"ja": "EasyTier のネイティブなデスクトップクライアント。複数のメッシュネットワークとピアを管理。",
+		"ko": "EasyTier용 네이티브 데스크톱 클라이언트. 여러 메시 네트워크와 피어를 관리합니다."
+	},
+	"description": {
+		"en": "A desktop client for EasyTier mesh networks, drawn with MyGo's native UI, for Linux, Windows and macOS. It runs several networks side by side with live traffic and a peer list of friendly names and vendor logos, runs them without privileges, while the app runs or as a boot service, and lets you pick the bundled EasyTier core, another release or your own build.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 EasyTier 组网桌面客户端，支持 Linux、Windows 和 macOS。可同时运行多个网络并显示实时流量，节点列表以易读的名称和厂商标志呈现；网络可以无需权限运行、随应用运行，或作为开机启动的后台服务运行，EasyTier 核心可选内置稳定版、其他官方版本或自行构建的版本。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 EasyTier 組網桌面用戶端，支援 Linux、Windows 和 macOS。可同時執行多個網路並顯示即時流量，節點列表以易讀的名稱和廠商標誌呈現；網路可以免權限執行、隨應用程式執行，或作為開機啟動的背景服務執行，EasyTier 核心可選內建穩定版、其他官方版本或自行建置的版本。",
+		"ja": "MyGo のネイティブ UI で描かれた、EasyTier メッシュネットワーク用のデスクトップクライアントで、Linux・Windows・macOS に対応します。複数のネットワークを並べてリアルタイムの通信量を表示し、ピア一覧はわかりやすい名前とメーカーのロゴで示します。ネットワークは権限なし、アプリ起動中のみ、起動時からのバックグラウンドサービスの3つのモードで動かせ、EasyTier コアは同梱の安定版、ほかの公式リリース、自分でビルドしたものから選べます。",
+		"ko": "MyGo의 네이티브 UI로 그린 EasyTier 메시 네트워크용 데스크톱 클라이언트로, Linux, Windows, macOS를 지원합니다. 여러 네트워크를 나란히 실행하며 실시간 트래픽을 보여 주고, 피어 목록은 알아보기 쉬운 이름과 제조사 로고로 표시합니다. 네트워크는 권한 없이, 앱이 실행되는 동안, 또는 부팅 시 시작되는 백그라운드 서비스로 실행할 수 있고, EasyTier 코어는 번들된 안정 버전, 다른 공식 릴리스, 직접 빌드한 버전 중에서 고를 수 있습니다."
+	},
+	"icon": {
+		"file": "easytier-mygo.webp"
+	},
+	"screenshot": "easytier-mygo.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T13:45:02Z"
+}
