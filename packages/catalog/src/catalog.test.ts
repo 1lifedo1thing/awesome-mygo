@@ -1,36 +1,36 @@
 import { describe, expect, it } from 'vitest';
-import articles from '../data/articles.json';
-import docs from '../data/docs.json';
-import plugins from '../data/plugins.json';
 import appSchema from '../data/schema/app.schema.json';
-import articlesSchema from '../data/schema/articles.schema.json';
-import docsSchema from '../data/schema/docs.schema.json';
-import pluginsSchema from '../data/schema/plugins.schema.json';
+import articleSchema from '../data/schema/article.schema.json';
+import docSchema from '../data/schema/doc.schema.json';
+import pluginSchema from '../data/schema/plugin.schema.json';
 import stateSchema from '../data/schema/state.schema.json';
 import uiSchema from '../data/schema/ui.schema.json';
-import state from '../data/state.json';
-import ui from '../data/ui.json';
-import { AILOGO_CDN, APP_CATEGORIES, APP_GROUPS, APPS, GROUP_CATEGORY, appGroup, appSource, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, authorProfile, byName, byNewest, hostOf, readAppEntry, readAppFile, readApps, readPlugins } from './catalog';
-import { LIST_FILES, type ListCat, SUBMIT_CATS, appFileText, appendEntry, buildEntry, codeFence, descMax, editUrl, entryCats, entryPath, entryProblem, guessFromLink, isBadShot, isBadUrl, isEntryComplete, issueUrl, jsonEntry, missingFields, parseEntryJson, pastedEntryProblem, pastedName, slugify, withScheme } from './entry';
+import { AILOGO_CDN, APP_CATEGORIES, APP_GROUPS, APP_KIND, APPS, ARTICLE_KIND, DOC_KIND, GROUP_CATEGORY, PLUGIN_KIND, STATE_KIND, UI_KIND, appGroup, appSource, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, authorProfile, byAdded, byName, byNewest, hostOf, readAppEntry, readAppFile, readApps, readDocs, readEntryFile, readPlugins, readUiLibs } from './catalog';
+import { SUBMIT_CATS, SUBMIT_KINDS, type SubmitCat, alreadyListed, buildEntry, codeFence, descMax, editUrl, entryCats, entryFileText, entryPath, entryProblem, guessFromLink, isBadShot, isBadUrl, isEntryComplete, issueUrl, jsonEntry, missingFields, parseEntryJson, pastedEntryProblem, pastedName, slugify, withScheme } from './entry';
 import { LANGS, type LangCode, type Text, fill, langRedirectScript, negotiateLang, pick, validateRootSearch } from './lang';
 import { buildSearchIndex, searchCatalog } from './search';
 import { LIKE_KEYS, likeKey } from './likes';
 import { LOCALES } from './strings';
 import { appDescription, t } from './translate';
-import { CatalogError, readList, unique } from './validate';
+import { CatalogError, Reader, unique } from './validate';
 
 // The tests run on Node 24; this package has no Node type definitions, so the one function needed is declared here.
-declare const process: { getBuiltinModule(id: 'node:fs'): { existsSync(path: URL): boolean; readFileSync(path: URL, encoding: 'utf8'): string } };
-const { existsSync, readFileSync } = process.getBuiltinModule('node:fs');
-const dataText = (file: string) => readFileSync(new URL(`../data/${file}`, import.meta.url), 'utf8');
+declare const process: { getBuiltinModule(id: 'node:fs'): { existsSync(path: URL): boolean } };
+const { existsSync } = process.getBuiltinModule('node:fs');
 
 const PUBLIC = new URL('../../../apps/web/public/', import.meta.url);
-type Schema = { $id: string; properties: Record<string, { items: { required: string[]; properties: Record<string, unknown> } }> };
 type ItemSchema = { $id: string; required: string[]; properties: Record<string, unknown> };
 const APP_SCHEMA = appSchema as unknown as ItemSchema & { properties: { category: { enum: string[] } } };
-const LIST_CATS = SUBMIT_CATS.filter((c): c is ListCat => c !== 'showcase');
-const SCHEMAS: Record<string, Schema> = { 'ui.json': uiSchema, 'state.json': stateSchema, 'plugins.json': pluginsSchema, 'docs.json': docsSchema, 'articles.json': articlesSchema } as unknown as Record<string, Schema>;
-const FILES: Record<string, { $schema: string }> = { 'ui.json': ui, 'state.json': state, 'plugins.json': plugins, 'docs.json': docs, 'articles.json': articles };
+// Each category's files and the schema they point at.
+const KINDS = [
+	[APP_KIND, appSchema],
+	[UI_KIND, uiSchema],
+	[STATE_KIND, stateSchema],
+	[PLUGIN_KIND, pluginSchema],
+	[ARTICLE_KIND, articleSchema],
+	[DOC_KIND, docSchema],
+] as unknown as [typeof APP_KIND, ItemSchema][];
+const SCHEMA_OF: Record<SubmitCat, ItemSchema> = { showcase: APP_SCHEMA, ui: uiSchema, state: stateSchema, plugin: pluginSchema, article: articleSchema } as unknown as Record<SubmitCat, ItemSchema>;
 const texts = (): Text[] => [...APPS.flatMap((a) => [a.desc, a.about]), ...UI_LIBS.map((l) => l.desc), ...STATE_SOLUTIONS.map((s) => s.desc), ...PLUGINS.map((p) => p.desc), ...COMMUNITY_PLUGINS.map((p) => p.desc), ...DOCS.map((d) => d.desc)];
 
 describe('catalog data', () => {
@@ -63,10 +63,10 @@ describe('catalog data', () => {
 	});
 
 	it('rejects a malformed Go import path or npm package name', () => {
-		const plugin = { slug: 'kit', name: 'Kit', mark: 'Kt', official: false, surface: 'web', tags: [], docs: 'https://x.dev', summary: { en: 'A kit.' } };
-		expect(() => readPlugins({ plugins: [{ ...plugin, import: 'github.com/you/kit', npm: '@you/kit' }] })).not.toThrow();
-		expect(() => readPlugins({ plugins: [{ ...plugin, import: 'go get github.com/you/kit' }] })).toThrow(/import must be a Go import path/);
-		expect(() => readPlugins({ plugins: [{ ...plugin, npm: 'bun add @you/kit' }] })).toThrow(/npm must be an npm package name/);
+		const plugin = { $schema: '../schema/plugin.schema.json', slug: 'kit', name: 'Kit', mark: 'Kt', official: false, surface: 'web', tags: [], docs: 'https://x.dev', summary: { en: 'A kit.' }, added: '2026-11-04T12:00:00Z' };
+		expect(() => readPlugins({ 'kit.json': { ...plugin, import: 'github.com/you/kit', npm: '@you/kit' } })).not.toThrow();
+		expect(() => readPlugins({ 'kit.json': { ...plugin, import: 'go get github.com/you/kit' } })).toThrow(/plugins\/kit.json \(Kit\): import must be a Go import path/);
+		expect(() => readPlugins({ 'kit.json': { ...plugin, npm: 'bun add @you/kit' } })).toThrow(/npm must be an npm package name/);
 	});
 
 	it('falls back to English for a missing language', () => {
@@ -101,9 +101,39 @@ describe('catalog data', () => {
 		for (const f of files) if (f) expect(existsSync(new URL(f.slice(1), PUBLIC)), f).toBe(true);
 	});
 
-	it('points every data file at its schema', () => {
-		for (const [file, json] of Object.entries(FILES)) expect(json.$schema, file).toBe(`./schema/${SCHEMAS[file].$id}`);
-		expect(APP_SCHEMA.$id).toBe('app.schema.json');
+	it('points every category at its schema, which names the file fields', () => {
+		for (const [kind, schema] of KINDS) {
+			expect(kind.schema, kind.dir).toBe(`../schema/${schema.$id}`);
+			expect(Object.keys(schema.properties), kind.dir).toEqual(expect.arrayContaining(['$schema', 'slug']));
+			expect(schema.required.includes('added'), kind.dir).toBe(kind.dated);
+		}
+	});
+
+	// Every category is one file per entry, so that submissions arriving together never edit the same file.
+	it('keeps every entry in a file named after its slug, dated where it can be submitted', () => {
+		const lib = { $schema: '../schema/ui.schema.json', slug: 'kit', name: 'Kit', author: 'someone', tag: 'theme', summary: { en: 'A kit.' }, repo: 'someone/kit', url: 'https://github.com/someone/kit', added: '2026-11-04T12:00:00Z' };
+		expect(readEntryFile(UI_KIND, 'kit.json', lib).slug).toBe('kit');
+		expect(() => readEntryFile(UI_KIND, 'other.json', lib)).toThrow(/ui\/other.json \(Kit\): slug must match the file name/);
+		expect(() => readEntryFile(UI_KIND, 'kit.json', { ...lib, added: undefined })).toThrow(/added is required/);
+		expect(() => readEntryFile(UI_KIND, 'kit.json', { ...lib, $schema: './schema/ui.schema.json' })).toThrow(/\$schema must be/);
+		expect(() => readUiLibs({ 'kit.json': lib, 'kit-2.json': { ...lib, slug: 'kit-2' } })).toThrow(/ui\/: two entries have repo "someone\/kit"/);
+		const doc = { $schema: '../schema/doc.schema.json', slug: 'cli', title: 'The mygo CLI', file: 'cli.md', summary: { en: 'The CLI.' } };
+		expect(readDocs({ 'cli.json': doc })[0].url).toMatch(/\/docs\/cli\.md$/);
+		expect(() => readDocs({ 'cli.json': { ...doc, added: '2026-11-04T12:00:00Z' } })).toThrow(/added is not a known field/);
+	});
+
+	it('lists libraries, state management, articles and community plugins oldest first, official plugins and guides by name', () => {
+		for (const list of [UI_LIBS, STATE_SOLUTIONS, ARTICLES, COMMUNITY_PLUGINS]) for (let i = 1; i < list.length; i++) expect(byAdded(list[i - 1], list[i]), list[i].slug).toBeLessThan(0);
+		for (let i = 1; i < PLUGINS.length; i++) expect(byName(PLUGINS[i - 1], PLUGINS[i]), PLUGINS[i].slug).toBeLessThan(0);
+		for (let i = 1; i < DOCS.length; i++) expect(DOCS[i - 1].title.localeCompare(DOCS[i].title, 'en', { sensitivity: 'base' }), DOCS[i].slug).toBeLessThan(0);
+		const plugin = { $schema: '../schema/plugin.schema.json', mark: 'Kt', surface: 'web', tags: [], docs: 'https://x.dev', summary: { en: 'A kit.' } };
+		const files = {
+			'b.json': { ...plugin, slug: 'b', name: 'Beta', official: true, added: '2026-11-05T00:00:00Z' },
+			'a.json': { ...plugin, slug: 'a', name: 'Alpha', official: true, added: '2026-11-06T00:00:00Z' },
+			'new.json': { ...plugin, slug: 'new', name: 'Aardvark', official: false, added: '2026-11-07T00:00:00Z' },
+			'old.json': { ...plugin, slug: 'old', name: 'Zebra', official: false, added: '2026-11-01T00:00:00Z' },
+		};
+		expect(readPlugins(files).map((p) => p.slug)).toEqual(['a', 'b', 'old', 'new']);
 	});
 
 	// Apps are one file each so that submissions arriving together never edit the same file; their order comes from when each was added.
@@ -171,19 +201,19 @@ describe('like keys', () => {
 });
 
 describe('validation of contributed entries', () => {
-	const read = (entry: Record<string, unknown>) => () =>
-		readList('apps.json', { apps: [entry] }, 'apps', (r) => {
-			r.only(['name', 'url', 'kind', 'summary']);
-			return [r.str('name'), r.url('url'), r.oneOf('kind', ['native', 'web']), r.text('summary')];
-		});
+	const read = (entry: Record<string, unknown>) => () => {
+		const r = new Reader('apps/kit.json', entry);
+		r.only(['name', 'url', 'kind', 'summary']);
+		return [r.str('name'), r.url('url'), r.oneOf('kind', ['native', 'web']), r.text('summary')];
+	};
 	const ok = { name: 'Kit', url: 'https://x.dev', kind: 'native', summary: { en: 'A kit.' } };
 
 	it('accepts a well-formed entry', () => {
 		expect(read(ok)).not.toThrow();
 	});
 
-	it('names the file, entry and field of each mistake', () => {
-		expect(read({ ...ok, summary: { 'zh-CN': '工具' } })).toThrow(/apps.json entry 1 \(Kit\): summary.en is required/);
+	it('names the file and field of each mistake', () => {
+		expect(read({ ...ok, summary: { 'zh-CN': '工具' } })).toThrow(/apps\/kit.json \(Kit\): summary.en is required/);
 		expect(read({ ...ok, summary: { en: 'A kit.', fr: 'Un kit.' } })).toThrow(/summary.fr is not a site language/);
 		expect(read({ ...ok, url: 'http://x.dev' })).toThrow(/url must be an https link/);
 		expect(read({ ...ok, kind: 'electron' })).toThrow(/kind must be one of native, web/);
@@ -192,7 +222,7 @@ describe('validation of contributed entries', () => {
 	});
 
 	it('rejects duplicates', () => {
-		expect(() => unique('apps.json', [{ slug: 'a' }, { slug: 'a' }], 'slug', (x) => x.slug)).toThrow(/two entries have slug "a"/);
+		expect(() => unique('apps', [{ slug: 'a' }, { slug: 'a' }], 'slug', (x) => x.slug)).toThrow(/apps\/: two entries have slug "a"/);
 	});
 });
 
@@ -459,10 +489,10 @@ describe('submission entry', () => {
 
 	it('writes, for every category, an entry with the fields its schema requires and no others', () => {
 		for (const cat of SUBMIT_CATS) {
-			// An app's file adds $schema and added, which the bot writes when it files the entry.
-			const item = cat === 'showcase' ? { required: APP_SCHEMA.required.filter((f) => f !== 'added'), properties: APP_SCHEMA.properties } : SCHEMAS[LIST_FILES[cat].file].properties[LIST_FILES[cat].list].items;
+			// The file adds $schema and added, which the bot writes when it files the entry.
+			const item = SCHEMA_OF[cat];
 			const entry = JSON.parse(jsonEntry(cat, draft, 'native', ph));
-			for (const field of item.required) expect(entry, `${cat} ${field}`).toHaveProperty(field);
+			for (const field of item.required.filter((f) => f !== 'added')) expect(entry, `${cat} ${field}`).toHaveProperty(field);
 			for (const field of Object.keys(entry)) expect(Object.keys(item.properties), `${cat} ${field}`).toContain(field);
 		}
 	});
@@ -472,22 +502,28 @@ describe('submission entry', () => {
 		expect(app).toMatchObject({ slug: 'my-kit', name: 'My "Kit"', kind: 'web', summary: { en: 'Widgets for MyGo.' } });
 		expect(JSON.parse(jsonEntry('ui', draft, 'native', ph)).repo).toBe('someone/my-kit');
 		expect(slugify('留白 Liubai')).toBe('liubai');
+		// A name with no Latin letter or digit takes its slug from the link rather than becoming my-app, which a second such entry could not be filed as.
+		expect(buildEntry('ui', { ...draft, name: '留白' }, 'native', ph).slug).toBe('my-kit');
+		expect(buildEntry('article', { ...draft, name: '用桌面应用', url: 'https://zhuanlan.zhihu.com/p/123' }, 'native', ph).slug).toBe('zhuanlan-zhihu-com-p-123');
 	});
 
-	it('opens a prefilled issue, or the data file in GitHub\'s editor', () => {
+	it('opens a prefilled issue, or the entry\'s new file in GitHub\'s editor', () => {
 		const entry = jsonEntry('ui', draft, 'native', ph);
 		const u = new URL(issueUrl('https://github.com/yldm-tech/awesome-mygo', 'ui', 'UI', draft, entry, ph));
 		expect(u.origin + u.pathname).toBe('https://github.com/yldm-tech/awesome-mygo/issues/new');
 		expect(u.searchParams.get('title')).toBe('Add My "Kit" (UI)');
-		expect(u.searchParams.get('body')).toBe(`UI: \`packages/catalog/data/ui.json\`\n\n\`\`\`json\n${entry}\n\`\`\`\n`);
-		expect(editUrl('https://github.com/yldm-tech/awesome-mygo', 'ui', JSON.parse(entry))).toBe('https://github.com/yldm-tech/awesome-mygo/edit/main/packages/catalog/data/ui.json');
-		// An app is a new file: GitHub's new-file page, named after the slug and filled in.
+		expect(u.searchParams.get('body')).toBe(`UI: \`packages/catalog/data/ui/my-kit.json\`\n\n\`\`\`json\n${entry}\n\`\`\`\n`);
+		// Every category is a new file: GitHub's new-file page in its directory, named after the slug and filled in.
+		for (const cat of SUBMIT_CATS) {
+			const e = buildEntry(cat, draft, 'native', ph);
+			const n = new URL(editUrl('https://github.com/yldm-tech/awesome-mygo', cat, e));
+			expect(n.origin + n.pathname, cat).toBe(`https://github.com/yldm-tech/awesome-mygo/new/main/packages/catalog/data/${SUBMIT_KINDS[cat].dir}`);
+			expect(n.searchParams.get('filename'), cat).toBe('my-kit.json');
+			const filed = JSON.parse(n.searchParams.get('value') ?? '');
+			expect(() => readEntryFile(SUBMIT_KINDS[cat], 'my-kit.json', filed), cat).not.toThrow();
+		}
 		const app = buildEntry('showcase', draft, 'native', ph);
-		const n = new URL(editUrl('https://github.com/yldm-tech/awesome-mygo', 'showcase', app));
-		expect(n.origin + n.pathname).toBe('https://github.com/yldm-tech/awesome-mygo/new/main/packages/catalog/data/apps');
-		expect(n.searchParams.get('filename')).toBe('my-kit.json');
-		const filed = JSON.parse(n.searchParams.get('value') ?? '');
-		expect(() => readAppFile('my-kit.json', filed)).not.toThrow();
+		expect(() => readAppFile('my-kit.json', JSON.parse(new URL(editUrl('https://github.com/yldm-tech/awesome-mygo', 'showcase', app)).searchParams.get('value') ?? ''))).not.toThrow();
 		expect(new URL(issueUrl('https://github.com/yldm-tech/awesome-mygo', 'showcase', 'App', draft, JSON.stringify(app), ph)).searchParams.get('body')).toMatch(/^App: `packages\/catalog\/data\/apps\/my-kit.json`/);
 	});
 
@@ -533,17 +569,16 @@ describe('bot submission', () => {
 		expect(entryProblem('showcase', { ...draft, url: 'https://x.dev/a b' })).toMatch(/spaces/);
 	});
 
-	it('appends the entry to every list file, keeping the rest of the file byte for byte', () => {
-		for (const cat of LIST_CATS) {
-			const { file, list } = LIST_FILES[cat];
-			const before = dataText(file);
+	it('files every category\'s entry as a file of its own, with its schema and the time it was added', () => {
+		for (const cat of SUBMIT_CATS) {
 			const entry = buildEntry(cat, draft, 'native', ph);
-			const after = appendEntry(cat, before, entry);
-			expect(JSON.parse(after)[list].at(-1), cat).toEqual(entry);
-			const [b, a] = [before.split('\n'), after.split('\n')];
-			// Only the old last entry's closing brace gains a comma; everything above it is untouched.
-			expect(a.slice(0, b.length - 4), cat).toEqual(b.slice(0, b.length - 4));
-			expect(a.length - b.length, cat).toBe(JSON.stringify(entry, null, '\t').split('\n').length);
+			const path = entryPath(cat, entry);
+			expect(path, cat).toBe(`${SUBMIT_KINDS[cat].dir}/brand-new-kit.json`);
+			const text = entryFileText(cat, entry, '2026-11-04T12:00:00Z');
+			const file = JSON.parse(text);
+			expect(Object.keys(file)[0], cat).toBe('$schema');
+			expect(file, cat).toMatchObject({ ...entry, added: '2026-11-04T12:00:00Z' });
+			expect(() => readEntryFile(SUBMIT_KINDS[cat], 'brand-new-kit.json', file), cat).not.toThrow();
 		}
 	});
 
@@ -617,25 +652,23 @@ describe('bot submission', () => {
 		expect(pastedName({ title: ' An article ' })).toBe('An article');
 	});
 
-	it('rejects an entry the file already has, or one that breaks its check, naming the field', () => {
-		const text = dataText('ui.json');
-		const first = JSON.parse(text).libraries[0];
-		expect(() => appendEntry('ui', text, first)).toThrow(/two entries have/);
-		expect(() => appendEntry('ui', text, { ...first, name: 'Fresh', summary: { ja: 'x' } })).toThrow(CatalogError);
-		expect(() => appendEntry('ui', text, { ...first, name: 'Fresh', summary: { ja: 'x' } })).toThrow(/summary\.en/);
+	it('says which entry on the site a submission repeats, by the field its category keeps unique', () => {
+		const lib = UI_LIBS[0];
+		expect(alreadyListed('ui', { ...buildEntry('ui', draft, 'native', ph), repo: lib.repo })).toBe(lib.name);
+		expect(alreadyListed('state', { repo: STATE_SOLUTIONS[0].repo })).toBe(STATE_SOLUTIONS[0].name);
+		expect(alreadyListed('plugin', { slug: PLUGINS[0].slug })).toBe(PLUGINS[0].name);
+		expect(alreadyListed('article', { url: ARTICLES[0].url })).toBe(ARTICLES[0].title);
+		expect(alreadyListed('showcase', { slug: APPS[0].slug })).toBe(APPS[0].name);
+		for (const cat of SUBMIT_CATS) expect(alreadyListed(cat, buildEntry(cat, draft, 'native', ph)), cat).toBeUndefined();
 	});
 
-	it('files an app as a file of its own, with its schema and the time it was added', () => {
+	it('writes an entry\'s file with the time given, now otherwise, and refuses one that breaks its check', () => {
 		const app = buildEntry('showcase', draft, 'native', ph);
-		expect(entryPath('showcase', app)).toBe(`apps/${app.slug}.json`);
-		expect(entryPath('ui', app)).toBe('ui.json');
-		const text = appFileText(app, '2026-11-04T12:00:00Z');
-		const file = JSON.parse(text);
-		expect(Object.keys(file)[0]).toBe('$schema');
-		expect(file).toMatchObject({ ...app, added: '2026-11-04T12:00:00Z' });
+		const text = entryFileText('showcase', app, '2026-11-04T12:00:00Z');
 		expect(text.endsWith('}\n')).toBe(true);
-		expect(appFileText({ ...app, added: '1999-01-01T00:00:00Z' }, '2026-11-04T12:00:00Z')).toBe(text);
-		expect(JSON.parse(appFileText(app)).added).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/);
-		expect(() => appFileText({ ...app, summary: { ja: 'x' } })).toThrow(/summary\.en/);
+		expect(entryFileText('showcase', { ...app, added: '1999-01-01T00:00:00Z' }, '2026-11-04T12:00:00Z')).toBe(text);
+		expect(JSON.parse(entryFileText('ui', buildEntry('ui', draft, 'native', ph))).added).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/);
+		expect(() => entryFileText('showcase', { ...app, summary: { ja: 'x' } })).toThrow(CatalogError);
+		expect(() => entryFileText('ui', { ...buildEntry('ui', draft, 'native', ph), summary: { ja: 'x' } })).toThrow(/summary\.en/);
 	});
 });

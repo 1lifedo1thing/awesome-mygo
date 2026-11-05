@@ -1,32 +1,21 @@
 // What can be learned about a submitted entry from the catalog files and the project's repository, without touching the network: pure functions, so they are tested on their own.
 
-// The list files the submission bot appends to, with the list each keeps its entries in. Articles have no copy to complete. Apps are not here: each is a file of its own under APP_DIR.
-export const DATA_FILES = {
-	'ui.json': { list: 'libraries' },
-	'state.json': { list: 'solutions' },
-	'plugins.json': { list: 'plugins' },
-} as const;
-export type DataFile = keyof typeof DATA_FILES;
+// What an entry is, for its copy: an app, which also has a description besides the one-line summary, or an entry of another category the submission bot files. Articles have no copy to complete.
+export type EntryKind = 'app' | 'ui' | 'state' | 'plugin';
 
-// What an entry is, for its copy: an app, which also has a description besides the one-line summary, or an entry of a list file.
-export type EntryKind = 'app' | DataFile;
+// The directory under the catalog's data that holds each kind's files, one per entry, named after its slug.
+export const ENTRY_DIRS: Record<EntryKind, string> = { app: 'apps', ui: 'ui', state: 'state', plugin: 'plugins' };
 
-// The directory under the catalog's data that holds one file per app, named after its slug.
-export const APP_DIR = 'apps';
+// What each kind is, for the model writing its copy.
+export const KIND_NAMES: Record<EntryKind, string> = { app: 'an app in the showcase', ui: 'a UI component library, theme or icon set', state: 'a state management library', plugin: 'a MyGo plugin' };
 
-// The app files in head that base does not have: the apps a branch adds.
-export function addedAppFiles(base: readonly string[], head: readonly string[]): string[] {
+// The files in head that base does not have: the entries a branch adds to a directory.
+export function addedFiles(base: readonly string[], head: readonly string[]): string[] {
 	const known = new Set(base);
 	return head.filter((name) => name.endsWith('.json') && !known.has(name)).sort();
 }
 
 export type Entry = Record<string, unknown>;
-
-// Indices of the entries in head that base does not have, compared by their whole content, so a reordered or untouched entry is never taken for a new one.
-export function addedEntries(base: readonly unknown[], head: readonly unknown[]): number[] {
-	const known = new Set(base.map((e) => JSON.stringify(e)));
-	return head.flatMap((e, i) => (known.has(JSON.stringify(e)) ? [] : [i]));
-}
 
 // owner/name of the entry's GitHub repository: its `repo` field, or else its link when that is a repository.
 export function repoOfEntry(entry: Entry): string | undefined {

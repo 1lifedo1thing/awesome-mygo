@@ -1,13 +1,8 @@
-import articlesJson from '../data/articles.json';
-import docsJson from '../data/docs.json';
-import pluginsJson from '../data/plugins.json';
-import stateJson from '../data/state.json';
-import uiJson from '../data/ui.json';
 import type { Text } from './lang';
 import type { StringKey } from './strings';
-import { CatalogError, Reader, readList, unique } from './validate';
+import { CatalogError, Reader, unique } from './validate';
 
-// The entries live in packages/catalog/data: apps one file each under apps/, named after the slug, so submissions that arrive together never touch the same file; every other category one *.json file of its own. data/schema/ describes their fields. Data sources: egoist/mygo (website/src/showcase.ts, docs/) and each project's own README.
+// The entries live in packages/catalog/data, one file each in their category's directory (apps/, ui/, state/, plugins/, articles/, docs/), named after the entry's slug, so submissions that arrive together never touch the same file. data/schema/ describes their fields. Data sources: egoist/mygo (website/src/showcase.ts, docs/) and each project's own README.
 
 export const SITE_URL = 'https://mygodock.dev';
 export const MYGO_SITE = 'https://mygo.egoist.dev';
@@ -35,8 +30,58 @@ const SLUG = /^[a-z0-9-]+$/;
 const SHOT = /^[a-z0-9-]+\.(webp|svg)$/;
 const REPO = /^[^/\s]+\/[^/\s]+$/;
 const shot = (file: string | undefined) => (file ? `/shots/${file}` : undefined);
+const ADDED = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/;
 
-// Each read* function checks a whole data file, the bundled one at load or a contributor's version of it, and throws a CatalogError naming the entry and field of the first mistake.
+// Each read* function checks an entry, a file or a whole directory of them, the bundled ones at load or a contributor's version, and throws a CatalogError naming the file and field of the first mistake.
+
+// ---- one file per entry ----
+
+// A category's files: data/<dir>/<slug>.json, each pointing at schema. A dated category's files also say when the entry was added (UTC, e.g. 2026-11-04T12:00:00Z): the submission bot sets it, and the category's page can list entries by it. An entry read on its own, as the form writes it or a visitor pastes it, may leave out $schema and added, which its file adds.
+export interface Kind<T> {
+	dir: string;
+	schema: string;
+	dated: boolean;
+	read: (r: Reader) => T;
+}
+
+const readSlug = (r: Reader) => r.match('slug', SLUG, 'lowercase letters, digits and hyphens');
+const readAdded = (r: Reader) => (r.raw.added === undefined ? undefined : r.match('added', ADDED, 'a UTC time like 2026-11-04T12:00:00Z'));
+
+// One entry as entered in the form or pasted, before it has a file: the same checks as its file, less the file's own fields.
+export function readEntry<T>(kind: Kind<T>, json: unknown): T {
+	if (!json || typeof json !== 'object' || Array.isArray(json)) throw new CatalogError('the entry must be an object');
+	return kind.read(new Reader('entry', json as Record<string, unknown>));
+}
+
+// One entry's file, data/<dir>/<name>: its entry, named after its slug, pointing at its schema and, in a dated category, saying when it was added.
+export function readEntryFile<T extends { slug: string; added?: string }>(kind: Kind<T>, name: string, json: unknown): T {
+	const file = `${kind.dir}/${name}`;
+	if (!json || typeof json !== 'object' || Array.isArray(json)) throw new CatalogError(`${file}: must be an object`);
+	const r = new Reader(file, json as Record<string, unknown>);
+	const entry = kind.read(r);
+	if (name !== `${entry.slug}.json`) r.fail('slug', `must match the file name, ${name}`);
+	if (r.raw.$schema !== kind.schema) r.fail('$schema', `must be "${kind.schema}"`);
+	if (kind.dated && !entry.added) r.fail('added', 'is required: the site lists entries by when they were added');
+	return entry;
+}
+
+// The entries of a category's directory, keyed by file name, in file name order (the caller sorts them as its page lists them).
+function readEntryFiles<T extends { slug: string; added?: string }>(kind: Kind<T>, files: Record<string, unknown>): T[] {
+	return Object.entries(files)
+		.sort(([a], [b]) => a.localeCompare(b))
+		.map(([name, json]) => readEntryFile(kind, name, json));
+}
+
+// import.meta.glob's result keyed by file name rather than path.
+const byFileName = (files: Record<string, unknown>) => Object.fromEntries(Object.entries(files).map(([path, json]) => [path.slice(path.lastIndexOf('/') + 1), json]));
+
+// Names in natural order: letter case aside, and numbers by their value, so 2048 comes before apigo and App 9 before App 10.
+const NATURAL = new Intl.Collator('en', { numeric: true, sensitivity: 'base' });
+
+// The oldest entry first, by when it was added; entries added at the same second go by slug.
+export function byAdded(a: { slug: string; added?: string }, b: { slug: string; added?: string }): number {
+	return (a.added ?? '').localeCompare(b.added ?? '') || NATURAL.compare(a.slug, b.slug);
+}
 
 // ---- apps (data/apps/<slug>.json) ----
 
@@ -121,7 +166,7 @@ const readApp = (r: Reader): App => {
 		else r.fail('icon', 'must be { "ailogo": "<id>" } or { "file": "<name>.webp" }');
 	}
 	return {
-		slug: r.match('slug', SLUG, 'lowercase letters, digits and hyphens'),
+		slug: readSlug(r),
 		name: r.str('name'),
 		author: r.str('author'),
 		kind: r.oneOf('kind', ['native', 'web'] as const),
@@ -132,37 +177,22 @@ const readApp = (r: Reader): App => {
 		about: r.text('description'),
 		image: shot(r.raw.screenshot === undefined ? undefined : r.match('screenshot', SHOT, 'a .webp or .svg file name')),
 		icon: iconUrl,
-		added: r.raw.added === undefined ? undefined : r.match('added', ADDED, 'a UTC time like 2026-11-04T12:00:00Z'),
+		added: readAdded(r),
 	};
 };
 
-const ADDED = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/;
-export const APP_DIR = 'apps';
-export const APP_SCHEMA = '../schema/app.schema.json';
+export const APP_KIND: Kind<App> = { dir: 'apps', schema: '../schema/app.schema.json', dated: true, read: readApp };
 
-// One app as entered in the form or pasted, before it has a file: the same checks as its file, less the file's own fields.
 export function readAppEntry(json: unknown): App {
-	if (!json || typeof json !== 'object' || Array.isArray(json)) throw new CatalogError('the app must be an object');
-	return readApp(new Reader('app', undefined, json as Record<string, unknown>));
+	return readEntry(APP_KIND, json);
 }
 
-// One app's file, data/apps/<name>: its entry, named after its slug, pointing at its schema and saying when it was added.
 export function readAppFile(name: string, json: unknown): App {
-	const file = `${APP_DIR}/${name}`;
-	if (!json || typeof json !== 'object' || Array.isArray(json)) throw new CatalogError(`${file}: must be an object`);
-	const r = new Reader(file, undefined, json as Record<string, unknown>);
-	const app = readApp(r);
-	if (name !== `${app.slug}.json`) r.fail('slug', `must match the file name, ${name}`);
-	if (r.raw.$schema !== APP_SCHEMA) r.fail('$schema', `must be "${APP_SCHEMA}"`);
-	if (!app.added) r.fail('added', 'is required: the showcase can list apps newest first by it');
-	return app;
+	return readEntryFile(APP_KIND, name, json);
 }
 
-// Names in natural order: letter case aside, and numbers by their value, so 2048 comes before apigo and App 9 before App 10.
-const NATURAL = new Intl.Collator('en', { numeric: true, sensitivity: 'base' });
-
-// The showcase's default order, and the order APPS is in: by name, naturally; the same name goes by slug.
-export function byName(a: App, b: App): number {
+// The showcase's default order, the order APPS is in, and the official plugins': by name, naturally; the same name goes by slug.
+export function byName(a: { name: string; slug: string }, b: { name: string; slug: string }): number {
 	return NATURAL.compare(a.name, b.name) || a.slug.localeCompare(b.slug);
 }
 
@@ -173,12 +203,11 @@ export function byNewest(a: App, b: App): number {
 
 // The apps of data/apps/, keyed by file name, by name in natural order.
 export function readApps(files: Record<string, unknown>): App[] {
-	return Object.entries(files).map(([name, json]) => readAppFile(name, json)).sort(byName);
+	return readEntryFiles(APP_KIND, files).sort(byName);
 }
 
-// Every file in data/apps/, through Vite (the site's build and the tests both run on it), keyed by its file name.
-const appFiles = import.meta.glob<unknown>('../data/apps/*.json', { eager: true, import: 'default' });
-export const APPS: readonly App[] = readApps(Object.fromEntries(Object.entries(appFiles).map(([path, json]) => [path.slice(path.lastIndexOf('/') + 1), json])));
+// Every file in data/apps/, through Vite (the site's build and the tests both run on it). Vite needs each glob written out, so every category has its own.
+export const APPS: readonly App[] = readApps(byFileName(import.meta.glob<unknown>('../data/apps/*.json', { eager: true, import: 'default' })));
 
 // The app's GitHub repository link, unless its homepage is that repository already.
 export function appSource(app: { url: string; repo?: string }): string | undefined {
@@ -198,12 +227,13 @@ export function authorProfile(author: string): string | undefined {
 	return owns ? `https://github.com/${author}` : undefined;
 }
 
-// ---- UI component libraries (data/ui.json) ----
+// ---- UI component libraries (data/ui/<slug>.json) ----
 
 export const UI_KEYS = ['theme', 'retro', 'icons'] as const;
 export type UiLibKey = (typeof UI_KEYS)[number];
 
 export interface UiLib {
+	slug: string;
 	name: string;
 	author: string;
 	key: UiLibKey;
@@ -212,11 +242,13 @@ export interface UiLib {
 	url: string;
 	homepage?: string;
 	image?: string;
+	added?: string;
 }
 
 const readUiLib = (r: Reader): UiLib => {
-	r.only(['name', 'author', 'tag', 'summary', 'repo', 'url', 'homepage', 'screenshot']);
+	r.only(['$schema', 'slug', 'name', 'author', 'tag', 'summary', 'repo', 'url', 'homepage', 'screenshot', 'added']);
 	return {
+		slug: readSlug(r),
 		name: r.str('name'),
 		author: r.str('author'),
 		key: r.oneOf('tag', UI_KEYS),
@@ -225,20 +257,25 @@ const readUiLib = (r: Reader): UiLib => {
 		url: r.url('url'),
 		homepage: r.optUrl('homepage'),
 		image: shot(r.raw.screenshot === undefined ? undefined : r.match('screenshot', SHOT, 'a .webp or .svg file name')),
+		added: readAdded(r),
 	};
 };
 
-export function readUiLibs(json: unknown): UiLib[] {
-	const libs = readList('ui.json', json, 'libraries', readUiLib);
-	unique('ui.json', libs, 'repo', (l) => l.repo);
+export const UI_KIND: Kind<UiLib> = { dir: 'ui', schema: '../schema/ui.schema.json', dated: true, read: readUiLib };
+
+// The libraries of data/ui/, keyed by file name, the oldest first.
+export function readUiLibs(files: Record<string, unknown>): UiLib[] {
+	const libs = readEntryFiles(UI_KIND, files).sort(byAdded);
+	unique(UI_KIND.dir, libs, 'repo', (l) => l.repo);
 	return libs;
 }
 
-export const UI_LIBS: readonly UiLib[] = readUiLibs(uiJson);
+export const UI_LIBS: readonly UiLib[] = readUiLibs(byFileName(import.meta.glob<unknown>('../data/ui/*.json', { eager: true, import: 'default' })));
 
-// ---- state management (data/state.json) ----
+// ---- state management (data/state/<slug>.json) ----
 
 export interface StateSolution {
+	slug: string;
 	name: string;
 	author: string;
 	desc: Text;
@@ -248,11 +285,13 @@ export interface StateSolution {
 	install: string;
 	tags: readonly string[];
 	image?: string;
+	added?: string;
 }
 
 const readStateSolution = (r: Reader): StateSolution => {
-	r.only(['name', 'author', 'summary', 'repo', 'url', 'homepage', 'install', 'tags', 'screenshot']);
+	r.only(['$schema', 'slug', 'name', 'author', 'summary', 'repo', 'url', 'homepage', 'install', 'tags', 'screenshot', 'added']);
 	return {
+		slug: readSlug(r),
 		name: r.str('name'),
 		author: r.str('author'),
 		desc: r.text('summary'),
@@ -262,18 +301,22 @@ const readStateSolution = (r: Reader): StateSolution => {
 		install: r.str('install'),
 		tags: r.strings('tags', 1),
 		image: shot(r.raw.screenshot === undefined ? undefined : r.match('screenshot', SHOT, 'a .webp or .svg file name')),
+		added: readAdded(r),
 	};
 };
 
-export function readStateSolutions(json: unknown): StateSolution[] {
-	const solutions = readList('state.json', json, 'solutions', readStateSolution);
-	unique('state.json', solutions, 'repo', (x) => x.repo);
+export const STATE_KIND: Kind<StateSolution> = { dir: 'state', schema: '../schema/state.schema.json', dated: true, read: readStateSolution };
+
+// The solutions of data/state/, keyed by file name, the oldest first.
+export function readStateSolutions(files: Record<string, unknown>): StateSolution[] {
+	const solutions = readEntryFiles(STATE_KIND, files).sort(byAdded);
+	unique(STATE_KIND.dir, solutions, 'repo', (x) => x.repo);
 	return solutions;
 }
 
-export const STATE_SOLUTIONS: readonly StateSolution[] = readStateSolutions(stateJson);
+export const STATE_SOLUTIONS: readonly StateSolution[] = readStateSolutions(byFileName(import.meta.glob<unknown>('../data/state/*.json', { eager: true, import: 'default' })));
 
-// ---- plugins (data/plugins.json) ----
+// ---- plugins (data/plugins/<slug>.json) ----
 
 export type PluginSurface = 'web' | 'native' | 'both';
 
@@ -290,15 +333,16 @@ export interface Plugin {
 	npm?: string;
 	tags: readonly string[];
 	url: string;
+	added?: string;
 }
 
 const GO_IMPORT = /^[a-z0-9.-]+(\/[A-Za-z0-9._~-]+)+$/;
 const NPM_NAME = /^(@[a-z0-9-]+\/)?[a-z0-9][a-z0-9._-]*$/;
 
 const readPlugin = (r: Reader): Plugin => {
-	r.only(['slug', 'name', 'mark', 'official', 'surface', 'import', 'npm', 'tags', 'docs', 'summary']);
+	r.only(['$schema', 'slug', 'name', 'mark', 'official', 'surface', 'import', 'npm', 'tags', 'docs', 'summary', 'added']);
 	return {
-		slug: r.match('slug', SLUG, 'lowercase letters, digits and hyphens'),
+		slug: readSlug(r),
 		name: r.str('name'),
 		mark: r.match('mark', /^\S{1,2}$/, 'one or two characters'),
 		official: r.bool('official'),
@@ -308,53 +352,73 @@ const readPlugin = (r: Reader): Plugin => {
 		tags: r.strings('tags'),
 		url: r.url('docs'),
 		desc: r.text('summary'),
+		added: readAdded(r),
 	};
 };
 
-export function readPlugins(json: unknown): Plugin[] {
-	const plugins = readList('plugins.json', json, 'plugins', readPlugin);
-	unique('plugins.json', plugins, 'slug', (p) => p.slug);
-	return plugins;
+export const PLUGIN_KIND: Kind<Plugin> = { dir: 'plugins', schema: '../schema/plugin.schema.json', dated: true, read: readPlugin };
+
+// The plugins of data/plugins/, keyed by file name: the official ones by name, then the community's, the oldest first.
+export function readPlugins(files: Record<string, unknown>): Plugin[] {
+	const plugins = readEntryFiles(PLUGIN_KIND, files);
+	const official = plugins.filter((p) => p.official).sort(byName);
+	return [...official, ...plugins.filter((p) => !p.official).sort(byAdded)];
 }
 
-const ALL_PLUGINS: readonly Plugin[] = readPlugins(pluginsJson);
+const ALL_PLUGINS: readonly Plugin[] = readPlugins(byFileName(import.meta.glob<unknown>('../data/plugins/*.json', { eager: true, import: 'default' })));
 
-// Official plugins, in the order of docs/plugins.md.
 export const PLUGINS: readonly Plugin[] = ALL_PLUGINS.filter((p) => p.official);
 export const COMMUNITY_PLUGINS: readonly Plugin[] = ALL_PLUGINS.filter((p) => !p.official);
 
-// ---- guides (data/docs.json) and articles (data/articles.json) ----
+// ---- guides (data/docs/<slug>.json) and articles (data/articles/<slug>.json) ----
 
 export interface Doc {
+	slug: string;
 	title: string;
 	url: string;
 	desc: Text;
 }
 
-// The guides of docs/README.md, in its order.
-export const DOCS: readonly Doc[] = readList('docs.json', docsJson, 'guides', (r) => {
-	r.only(['title', 'file', 'summary']);
-	return { title: r.str('title'), url: DOCS_BASE + r.str('file'), desc: r.text('summary') };
-});
+const readDoc = (r: Reader): Doc => {
+	r.only(['$schema', 'slug', 'title', 'file', 'summary']);
+	return { slug: readSlug(r), title: r.str('title'), url: DOCS_BASE + r.str('file'), desc: r.text('summary') };
+};
+
+// The guides are MyGo's own, so they are not submitted and have no date.
+export const DOC_KIND: Kind<Doc> = { dir: 'docs', schema: '../schema/doc.schema.json', dated: false, read: readDoc };
+
+// The guides of data/docs/, keyed by file name, by title.
+export function readDocs(files: Record<string, unknown>): Doc[] {
+	const docs = readEntryFiles(DOC_KIND, files).sort((a, b) => NATURAL.compare(a.title, b.title) || a.slug.localeCompare(b.slug));
+	unique(DOC_KIND.dir, docs, 'url', (d) => d.url);
+	return docs;
+}
+
+export const DOCS: readonly Doc[] = readDocs(byFileName(import.meta.glob<unknown>('../data/docs/*.json', { eager: true, import: 'default' })));
 
 export interface Article {
+	slug: string;
 	title: string;
 	site: string;
 	url: string;
+	added?: string;
 }
 
 const readArticle = (r: Reader): Article => {
-	r.only(['title', 'site', 'url']);
-	return { title: r.str('title'), site: r.str('site'), url: r.url('url') };
+	r.only(['$schema', 'slug', 'title', 'site', 'url', 'added']);
+	return { slug: readSlug(r), title: r.str('title'), site: r.str('site'), url: r.url('url'), added: readAdded(r) };
 };
 
-export function readArticles(json: unknown): Article[] {
-	const articles = readList('articles.json', json, 'articles', readArticle);
-	unique('articles.json', articles, 'url', (a) => a.url);
+export const ARTICLE_KIND: Kind<Article> = { dir: 'articles', schema: '../schema/article.schema.json', dated: true, read: readArticle };
+
+// The articles of data/articles/, keyed by file name, the oldest first.
+export function readArticles(files: Record<string, unknown>): Article[] {
+	const articles = readEntryFiles(ARTICLE_KIND, files).sort(byAdded);
+	unique(ARTICLE_KIND.dir, articles, 'url', (a) => a.url);
 	return articles;
 }
 
-export const ARTICLES: readonly Article[] = readArticles(articlesJson);
+export const ARTICLES: readonly Article[] = readArticles(byFileName(import.meta.glob<unknown>('../data/articles/*.json', { eager: true, import: 'default' })));
 
 // ---- install commands ----
 

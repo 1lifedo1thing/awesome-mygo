@@ -1,0 +1,22 @@
+{
+	"$schema": "../schema/plugin.schema.json",
+	"slug": "updater",
+	"name": "Updater",
+	"mark": "Up",
+	"official": true,
+	"surface": "both",
+	"import": "github.com/egoist/mygo/plugins/updater",
+	"tags": [
+		"auto-update",
+		"sparkle"
+	],
+	"docs": "https://github.com/egoist/mygo/blob/main/docs/plugins/updater.md",
+	"summary": {
+		"en": "A Sparkle-style update window that checks for updates and offers to install them.",
+		"zh-CN": "Sparkle 风格的更新窗口：检查更新并提示用户安装。",
+		"zh-TW": "Sparkle 風格的更新視窗：檢查更新並提示使用者安裝。",
+		"ja": "Sparkle 風のアップデートウィンドウ。更新を確認してインストールを促します。",
+		"ko": "Sparkle 스타일 업데이트 창: 업데이트를 확인하고 설치를 안내합니다."
+	},
+	"added": "2026-11-03T16:09:40Z"
+}

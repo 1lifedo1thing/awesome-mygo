@@ -1,0 +1,13 @@
+{
+	"$schema": "../schema/doc.schema.json",
+	"slug": "configuration",
+	"title": "Configuration",
+	"file": "configuration.md",
+	"summary": {
+		"en": "mygo.config.ts or mygo.json",
+		"zh-CN": "mygo.config.ts 或 mygo.json",
+		"zh-TW": "mygo.config.ts 或 mygo.json",
+		"ja": "mygo.config.ts または mygo.json",
+		"ko": "mygo.config.ts 또는 mygo.json"
+	}
+}

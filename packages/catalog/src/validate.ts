@@ -7,17 +7,15 @@ export class CatalogError extends Error {}
 type Raw = Record<string, unknown>;
 
 export class Reader {
-	// index is the entry's place in its file's list, or undefined for a file that holds a single entry (an app).
+	// file names where the entry comes from: its data file, or `entry` for one not filed yet.
 	constructor(
 		readonly file: string,
-		readonly index: number | undefined,
 		readonly raw: Raw,
 	) {}
 
 	fail(field: string, why: string): never {
 		const name = typeof this.raw.name === 'string' ? ` (${this.raw.name})` : typeof this.raw.title === 'string' ? ` (${this.raw.title})` : '';
-		const where = this.index === undefined ? this.file : `${this.file} entry ${this.index + 1}`;
-		throw new CatalogError(`${where}${name}: ${field} ${why}`);
+		throw new CatalogError(`${this.file}${name}: ${field} ${why}`);
 	}
 
 	str(field: string): string {
@@ -79,22 +77,12 @@ export class Reader {
 	}
 }
 
-// Reads `key` from a data file's JSON as a list of entries, each through `read`.
-export function readList<T>(file: string, json: unknown, key: string, read: (r: Reader) => T): T[] {
-	const list = (json as Raw | null)?.[key];
-	if (!Array.isArray(list)) throw new CatalogError(`${file}: "${key}" must be a list`);
-	return list.map((raw, i) => {
-		if (!raw || typeof raw !== 'object' || Array.isArray(raw)) throw new CatalogError(`${file} entry ${i + 1}: must be an object`);
-		return read(new Reader(file, i, raw as Raw));
-	});
-}
-
-// Fails on two entries with the same value of `field`.
-export function unique<T>(file: string, items: readonly T[], field: string, value: (t: T) => string): void {
+// Fails on two entries of a category's directory with the same value of `field`.
+export function unique<T>(dir: string, items: readonly T[], field: string, value: (t: T) => string): void {
 	const seen = new Set<string>();
 	for (const it of items) {
 		const v = value(it);
-		if (seen.has(v)) throw new CatalogError(`${file}: two entries have ${field} "${v}"`);
+		if (seen.has(v)) throw new CatalogError(`${dir}/: two entries have ${field} "${v}"`);
 		seen.add(v);
 	}
 }

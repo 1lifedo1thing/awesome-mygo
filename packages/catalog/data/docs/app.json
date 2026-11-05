@@ -1,0 +1,13 @@
+{
+	"$schema": "../schema/doc.schema.json",
+	"slug": "app",
+	"title": "The application",
+	"file": "app.md",
+	"summary": {
+		"en": "Lifecycle, single instance, deep links, file associations, starting at login",
+		"zh-CN": "生命周期、单实例、深链接、文件关联、开机启动",
+		"zh-TW": "生命週期、單一實例、深層連結、檔案關聯、開機啟動",
+		"ja": "ライフサイクル、単一インスタンス、ディープリンク、ファイル関連付け、ログイン時起動",
+		"ko": "라이프사이클, 단일 인스턴스, 딥 링크, 파일 연결, 로그인 시 실행"
+	}
+}

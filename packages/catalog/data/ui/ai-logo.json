@@ -1,0 +1,19 @@
+{
+	"$schema": "../schema/ui.schema.json",
+	"slug": "ai-logo",
+	"name": "AI Logo",
+	"author": "yldm-tech",
+	"tag": "icons",
+	"summary": {
+		"en": "Over a thousand AI and LLM brand marks, parsed on demand as SVG in MyGo native UI, with a React package and a CDN too.",
+		"zh-CN": "上千个 AI / LLM 品牌标志，MyGo 原生 UI 可按需解析 SVG 使用，另有 React 包与 CDN。",
+		"zh-TW": "上千個 AI / LLM 品牌標誌，MyGo 原生 UI 可按需解析 SVG 使用，另有 React 套件與 CDN。",
+		"ja": "1000 を超える AI・LLM ブランドのロゴ。MyGo のネイティブ UI で SVG を必要な分だけ読み込めます。React パッケージと CDN も。",
+		"ko": "천 개가 넘는 AI·LLM 브랜드 마크를 MyGo 네이티브 UI에서 SVG로 필요할 때 불러 씁니다. React 패키지와 CDN도 제공합니다."
+	},
+	"repo": "yldm-tech/ai-logo",
+	"url": "https://github.com/yldm-tech/ai-logo",
+	"homepage": "https://ailogo.yldm.ai",
+	"screenshot": "ailogo.webp",
+	"added": "2026-11-03T18:58:18Z"
+}

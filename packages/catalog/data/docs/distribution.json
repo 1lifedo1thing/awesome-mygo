@@ -1,0 +1,13 @@
+{
+	"$schema": "../schema/doc.schema.json",
+	"slug": "distribution",
+	"title": "Building and distributing",
+	"file": "distribution.md",
+	"summary": {
+		"en": "Packaging, signing, installers and disk images",
+		"zh-CN": "打包、签名、安装器与磁盘镜像",
+		"zh-TW": "打包、簽章、安裝程式與磁碟映像",
+		"ja": "パッケージ、署名、インストーラ、ディスクイメージ",
+		"ko": "패키징, 서명, 설치 프로그램, 디스크 이미지"
+	}
+}

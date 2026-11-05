@@ -101,19 +101,19 @@ export function useSubmit() {
 	const withAuthor = needsAuthor(form.cat);
 	// The fields only an app has are dropped for the other categories, also when they were filled in before the category changed.
 	const draft = isShow ? form : { ...form, category: undefined, repo: undefined, screenshot: undefined };
-	// The entry as it will be filed: the pasted one, or the one the form builds. An app's file is named after its slug.
+	// The entry as it will be filed: the pasted one, or the one the form builds. Its file is named after its slug.
 	const entryObj = pastedEntry ?? buildEntry(form.cat, draft, form.mode, ph);
 	const file = entryPath(form.cat, entryObj);
 	// The shape of the category's entry, shown in the empty JSON field.
 	const example = jsonEntry(form.cat, { name: '', author: '', url: '', desc: '' }, form.mode, ph);
 	const entry = pastedEntry ? JSON.stringify(pastedEntry, null, 2) : jsonEntry(form.cat, draft, form.mode, ph);
-	// Every category ends up as an entry in a JSON file here: either an issue prefilled with the entry, or GitHub's editor (a new file for an app, the category's file otherwise) for a pull request.
+	// Every category ends up as an entry in a JSON file here: either an issue prefilled with the entry, or GitHub's editor with the entry's new file filled in, for a pull request.
 	const issue = issueUrl(SITE_REPO, form.cat, catLabel[form.cat], pastedEntry ? { ...draft, name: pastedName(pastedEntry) } : draft, entry, ph);
 	const edit = editUrl(SITE_REPO, form.cat, entryObj);
 	const repoMissing = urlTouched && needsRepo(form.cat) && form.url.length > 0 && !isBadUrl(form.url) && !repoOf(form.url);
 	const canSend = bot.enabled && (viaJson ? ok : !entryProblem(form.cat, draft)) && token !== '' && status.kind !== 'sending';
 
-	// Pasting an entry that only one category's file takes picks that category.
+	// Pasting an entry that only one category takes picks that category.
 	const onJsonChange = (text: string) => {
 		setFormField('json', text);
 		const p = text.trim() ? parseEntryJson(text) : undefined;

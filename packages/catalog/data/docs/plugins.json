@@ -1,0 +1,13 @@
+{
+	"$schema": "../schema/doc.schema.json",
+	"slug": "plugins",
+	"title": "Plugins",
+	"file": "plugins.md",
+	"summary": {
+		"en": "Official plugins and writing your own",
+		"zh-CN": "官方插件与编写自己的插件",
+		"zh-TW": "官方外掛與撰寫自己的外掛",
+		"ja": "公式プラグインと自作プラグイン",
+		"ko": "공식 플러그인과 직접 만들기"
+	}
+}

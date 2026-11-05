@@ -1,0 +1,22 @@
+{
+	"$schema": "../schema/plugin.schema.json",
+	"slug": "glass",
+	"name": "Glass",
+	"mark": "Gl",
+	"official": true,
+	"surface": "native",
+	"import": "github.com/egoist/mygo/plugins/glass",
+	"tags": [
+		"liquid-glass",
+		"shaders"
+	],
+	"docs": "https://github.com/egoist/mygo/blob/main/docs/plugins/glass.md",
+	"summary": {
+		"en": "Liquid Glass for native UI as macOS draws it, on every platform, with scroll edges and backdrop blurs.",
+		"zh-CN": "为原生 UI 带来 macOS 式 Liquid Glass，各平台一致，含滚动边缘与背景模糊。",
+		"zh-TW": "為原生 UI 帶來 macOS 式 Liquid Glass，各平台一致，含捲動邊緣與背景模糊。",
+		"ja": "macOS と同じ Liquid Glass をすべてのプラットフォームのネイティブ UI に。スクロールエッジと背景ぼかしも。",
+		"ko": "macOS식 Liquid Glass를 모든 플랫폼의 네이티브 UI에. 스크롤 가장자리와 배경 블러 포함."
+	},
+	"added": "2026-11-03T18:58:18Z"
+}

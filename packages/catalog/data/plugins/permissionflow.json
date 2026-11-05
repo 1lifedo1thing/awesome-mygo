@@ -1,0 +1,22 @@
+{
+	"$schema": "../schema/plugin.schema.json",
+	"slug": "permissionflow",
+	"name": "PermissionFlow",
+	"mark": "Pf",
+	"official": true,
+	"surface": "both",
+	"import": "github.com/egoist/mygo/plugins/permissionflow",
+	"tags": [
+		"permissions",
+		"macos"
+	],
+	"docs": "https://github.com/egoist/mygo/blob/main/docs/plugins/permissionflow.md",
+	"summary": {
+		"en": "System permissions such as Accessibility and Screen Recording, checked, asked for, and guided through System Settings.",
+		"zh-CN": "检查并申请辅助功能、屏幕录制等系统权限，并引导用户在系统设置中完成授权。",
+		"zh-TW": "檢查並申請輔助使用、螢幕錄製等系統權限，並引導使用者在系統設定中完成授權。",
+		"ja": "アクセシビリティや画面収録などのシステム権限を確認・要求し、システム設定での許可を案内します。",
+		"ko": "손쉬운 사용, 화면 기록 같은 시스템 권한을 확인·요청하고 시스템 설정에서의 허용을 안내합니다."
+	},
+	"added": "2026-11-03T18:58:18Z"
+}

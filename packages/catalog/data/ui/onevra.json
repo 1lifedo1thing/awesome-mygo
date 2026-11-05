@@ -1,0 +1,19 @@
+{
+	"$schema": "../schema/ui.schema.json",
+	"slug": "onevra",
+	"name": "Onevra",
+	"author": "ONEO",
+	"tag": "theme",
+	"summary": {
+		"en": "Native desktop UI components for Go: themed controls, window shells, Lucide icons, plus chat, Markdown, code highlighting, charts and a command palette, and a packager for macOS, Windows and Linux.",
+		"zh-CN": "原生桌面 UI 组件：主题化控件、窗口外壳、Lucide 图标，以及聊天、Markdown、代码高亮、图表和命令面板，另附跨平台打包器。",
+		"zh-TW": "原生桌面 UI 元件：主題化控制項、視窗外殼、Lucide 圖示，以及聊天、Markdown、程式碼高亮、圖表與命令面板，另附跨平台打包器。",
+		"ja": "Go 向けのネイティブデスクトップ UI コンポーネント。テーマ付きコントロール、ウィンドウシェル、Lucide アイコンに加え、チャット、Markdown、コードハイライト、チャート、コマンドパレット、各 OS 向けパッケージャも。",
+		"ko": "Go용 네이티브 데스크톱 UI 컴포넌트: 테마형 컨트롤, 창 셸, Lucide 아이콘에 채팅, Markdown, 코드 하이라이트, 차트, 명령 팔레트와 macOS·Windows·Linux 패키저까지."
+	},
+	"repo": "oneo-me/onevra",
+	"url": "https://github.com/oneo-me/onevra",
+	"homepage": "https://oneo-me.github.io/onevra/",
+	"screenshot": "onevra.webp",
+	"added": "2026-11-03T16:09:40Z"
+}

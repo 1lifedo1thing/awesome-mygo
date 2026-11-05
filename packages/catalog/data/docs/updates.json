@@ -1,0 +1,13 @@
+{
+	"$schema": "../schema/doc.schema.json",
+	"slug": "updates",
+	"title": "Auto-updates",
+	"file": "updates.md",
+	"summary": {
+		"en": "Signed updates, delta updates and an update window",
+		"zh-CN": "签名更新、增量更新与更新窗口",
+		"zh-TW": "簽章更新、增量更新與更新視窗",
+		"ja": "署名付き更新、差分更新、更新ウィンドウ",
+		"ko": "서명된 업데이트, 델타 업데이트, 업데이트 창"
+	}
+}

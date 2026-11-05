@@ -1,7 +1,7 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { zodOutputFormat } from '@anthropic-ai/sdk/helpers/zod';
 import { z } from 'zod';
-import { type Caps, type Entry, type EntryKind, lengthCaps, overCaps } from './source.ts';
+import { type Caps, type Entry, type EntryKind, KIND_NAMES, lengthCaps, overCaps } from './source.ts';
 
 // The entry's copy in the five site languages, written by Claude from what the visitor typed and the project's README. The README and the submission are written by strangers, so they go in as data the model is told not to obey, and what comes back is only ever text fields that the catalog's checks and a maintainer's review still stand between and the site.
 
@@ -75,7 +75,7 @@ export async function writeCopy(cfg: LlmConfig, input: CopyInput): Promise<Copy>
 	const caps = { summary: lengthCaps(input.examples, 'summary'), description: lengthCaps(input.examples, 'description') };
 	const limits = [capsLine('summary', caps.summary), ...(isApp ? [capsLine('description', caps.description)] : [])];
 	const parts = [
-		`Entry: ${isApp ? 'an app in the showcase' : `an entry of ${input.kind}`}`,
+		`Entry: ${KIND_NAMES[input.kind]}`,
 		`<examples>\n${JSON.stringify(input.examples, null, 2)}\n</examples>`,
 		`<submission>\n${JSON.stringify(input.entry, null, 2)}\n</submission>`,
 		...(isApp ? [`<mygo_json>\n${input.mygoJson ?? '(none found)'}\n</mygo_json>`] : []),

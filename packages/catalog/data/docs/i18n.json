@@ -1,0 +1,13 @@
+{
+	"$schema": "../schema/doc.schema.json",
+	"slug": "i18n",
+	"title": "Languages",
+	"file": "i18n.md",
+	"summary": {
+		"en": "The app’s languages: ICU message catalogs, typed Go and TS functions, plural forms",
+		"zh-CN": "应用的多语言：ICU 消息目录、类型化的 Go 与 TS 函数、复数形式",
+		"zh-TW": "應用的多語言：ICU 訊息目錄、型別化的 Go 與 TS 函式、複數形式",
+		"ja": "アプリの多言語化：ICU メッセージカタログ、型付きの Go と TS 関数、複数形",
+		"ko": "앱 다국어: ICU 메시지 카탈로그, 타입이 있는 Go·TS 함수, 복수형"
+	}
+}

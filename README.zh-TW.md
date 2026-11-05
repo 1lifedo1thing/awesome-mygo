@@ -56,21 +56,21 @@ bot 開出 PR 後，*Complete submission* workflow 會補上表單問不到的�
 
 ## 收錄專案
 
-所有條目都在 [`packages/catalog/data`](packages/catalog/data) 下的 JSON 檔案裡，每個類別一個檔案，應用除外，每個應用一個檔案：
+每個條目都是 [`packages/catalog/data`](packages/catalog/data) 下單獨的一個 JSON 檔案，放在所屬類別的目錄裡，以 `slug` 命名：
 
 | 檔案 | 內容 |
 |---|---|
-| `apps/<slug>.json` | 用 MyGo 做的應用，每個應用一個檔案，以 slug 命名 |
-| `ui.json` | UI 元件庫 |
-| `state.json` | 狀態管理 |
-| `plugins.json` | 外掛 |
-| `articles.json` | 文章 |
-| `docs.json` | MyGo 官方指南 |
+| `apps/<slug>.json` | 用 MyGo 做的應用 |
+| `ui/<slug>.json` | UI 元件庫 |
+| `state/<slug>.json` | 狀態管理 |
+| `plugins/<slug>.json` | 外掛 |
+| `articles/<slug>.json` | 文章 |
+| `docs/<slug>.json` | MyGo 官方指南 |
 
 新增方式有兩種：
 
-- **在網站上：** 點「提交」填表，或者直接貼上整條 JSON 條目，然後提交：不需要 GitHub 帳號，網站的 bot 會替你開 PR。有 GitHub 帳號的話，也可以把產生的條目提交為 Issue，或在 GitHub 編輯器裡開啟對應的 JSON 檔案自己加上。
-- **在倉庫裡：** 應用就在 `apps/` 下加一個檔案，其他類別在對應檔案的清單裡加一個物件，然後提 PR。
+- **在網站上：** 點「提交」填表，或者直接貼上整條 JSON 條目，然後提交：不需要 GitHub 帳號，網站的 bot 會替你開 PR。有 GitHub 帳號的話，也可以把產生的條目提交為 Issue，或在 GitHub 編輯器裡開啟為這個條目新建的檔案自己加上。
+- **在倉庫裡：** 在所屬類別的目錄下加一個檔案，然後提 PR。
 
 一個應用的檔案 `apps/my-app.json` 長這樣：
 
@@ -89,7 +89,8 @@ bot 開出 PR 後，*Complete submission* workflow 會補上表單問不到的�
 }
 ```
 
-- 檔名與 `slug` 相同。`added` 是應用加入作品集的時間（UTC），網站 bot 會自動填寫，手動新增時寫目前時間。每個應用一個檔案，所以同時新增應用的多個 PR 不會互相衝突。
+- 檔名與 `slug` 相同。`added` 是條目加入網站的時間（UTC），網站 bot 會自動填寫，手動新增時寫目前時間。除官方指南外每個類別都有這個欄位：作品集可以依它把最新的應用排在前面，UI 元件庫、狀態管理、文章和社群外掛依它從早到晚排列；官方外掛和官方指南依名稱排列。每個條目一個檔案，所以同時新增條目的多個 PR 不會互相衝突。
+- 其他類別的檔案同樣在欄位外帶 `$schema`、`slug` 和 `added`（官方指南沒有 `added`），具體欄位見 `data/schema/` 裡對應的 schema。
 - `url` 是應用首頁：官網，沒有官網就填倉庫網址，不要求在 GitHub 上。開源應用再用 `repo` 填 GitHub 倉庫（`owner/name`），閉源應用不填。
 - 文字欄位依語言各寫一份。`en` 必填；`zh-CN`、`zh-TW`、`ja`、`ko` 可選，缺少的語言顯示英文。
 - 每個檔案都在 `$schema` 裡指向自己的 JSON Schema（在 `data/schema/`），VS Code 等編輯器會在你輸入時補全並檢查欄位。

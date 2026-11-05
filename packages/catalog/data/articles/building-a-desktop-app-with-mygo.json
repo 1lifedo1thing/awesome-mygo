@@ -1,0 +1,8 @@
+{
+	"$schema": "../schema/article.schema.json",
+	"slug": "building-a-desktop-app-with-mygo",
+	"title": "Building a Desktop App with MyGo",
+	"site": "azukiazusa.dev",
+	"url": "https://azukiazusa.dev/en/blog/mygo-desktop-app/",
+	"added": "2026-11-03T16:09:40Z"
+}

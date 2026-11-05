@@ -1,0 +1,13 @@
+{
+	"$schema": "../schema/doc.schema.json",
+	"slug": "audio",
+	"title": "Audio",
+	"file": "audio.md",
+	"summary": {
+		"en": "Sound effects, streamed music and sound the app makes itself, mixed in Go",
+		"zh-CN": "音效、流式音乐与应用自生成的声音，在 Go 中混音",
+		"zh-TW": "音效、串流音樂與應用自產生的聲音，在 Go 中混音",
+		"ja": "効果音、ストリーミング音楽、アプリが生成する音を Go でミックス",
+		"ko": "효과음, 스트리밍 음악, 앱이 만드는 소리를 Go에서 믹싱"
+	}
+}

@@ -1,0 +1,13 @@
+{
+	"$schema": "../schema/doc.schema.json",
+	"slug": "frontend",
+	"title": "The frontend",
+	"file": "frontend.md",
+	"summary": {
+		"en": "Page loading, mygo-runtime, custom protocols and title bars",
+		"zh-CN": "页面加载、mygo-runtime、自定义协议与标题栏",
+		"zh-TW": "頁面載入、mygo-runtime、自訂協定與標題列",
+		"ja": "ページ読み込み、mygo-runtime、カスタムプロトコル、タイトルバー",
+		"ko": "페이지 로딩, mygo-runtime, 커스텀 프로토콜, 타이틀 바"
+	}
+}

@@ -1,0 +1,13 @@
+{
+	"$schema": "../schema/doc.schema.json",
+	"slug": "architecture",
+	"title": "Architecture",
+	"file": "architecture.md",
+	"summary": {
+		"en": "How MyGo works inside, for contributors, with platform differences",
+		"zh-CN": "MyGo 的内部实现与平台差异，面向贡献者",
+		"zh-TW": "MyGo 的內部實作與平台差異，面向貢獻者",
+		"ja": "貢献者向けの MyGo の内部構造とプラットフォーム差",
+		"ko": "기여자를 위한 MyGo 내부 구조와 플랫폼별 차이"
+	}
+}

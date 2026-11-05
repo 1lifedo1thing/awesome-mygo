@@ -1,0 +1,13 @@
+{
+	"$schema": "../schema/doc.schema.json",
+	"slug": "data-transfer",
+	"title": "Clipboard and drag data",
+	"file": "data-transfer.md",
+	"summary": {
+		"en": "Multiple representations, file lists, custom formats and lazy providers",
+		"zh-CN": "多种表示、文件列表、自定义格式与延迟提供的数据",
+		"zh-TW": "多種表示、檔案清單、自訂格式與延遲提供的資料",
+		"ja": "複数の表現、ファイルリスト、独自形式、遅延プロバイダ",
+		"ko": "여러 표현, 파일 목록, 사용자 정의 형식, 지연 제공자"
+	}
+}

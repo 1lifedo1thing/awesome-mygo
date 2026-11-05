@@ -1,0 +1,13 @@
+{
+	"$schema": "../schema/doc.schema.json",
+	"slug": "menus",
+	"title": "Menus and the tray",
+	"file": "menus.md",
+	"summary": {
+		"en": "Application, context and Dock menus, keyboard shortcuts and tray icons",
+		"zh-CN": "应用、右键与 Dock 菜单，快捷键与托盘图标",
+		"zh-TW": "應用、右鍵與 Dock 選單，快捷鍵與系統匣圖示",
+		"ja": "アプリ・コンテキスト・Dock のメニュー、ショートカット、トレイアイコン",
+		"ko": "앱·컨텍스트·Dock 메뉴, 단축키, 트레이 아이콘"
+	}
+}

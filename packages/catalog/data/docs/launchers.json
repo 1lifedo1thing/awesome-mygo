@@ -1,0 +1,13 @@
+{
+	"$schema": "../schema/doc.schema.json",
+	"slug": "launchers",
+	"title": "Launchers",
+	"file": "launchers.md",
+	"summary": {
+		"en": "Apps in the manner of Spotlight and Raycast, summoned by a shortcut",
+		"zh-CN": "Spotlight、Raycast 式的启动器应用",
+		"zh-TW": "Spotlight、Raycast 式的啟動器應用",
+		"ja": "Spotlight や Raycast のような、ショートカットで呼び出すランチャー",
+		"ko": "Spotlight, Raycast처럼 단축키로 불러내는 런처 앱"
+	}
+}

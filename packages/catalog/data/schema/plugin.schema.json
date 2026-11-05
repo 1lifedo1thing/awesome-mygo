@@ -1,0 +1,73 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "plugin.schema.json",
+	"title": "A MyGo plugin, one file per plugin named after its slug",
+	"type": "object",
+	"additionalProperties": false,
+	"required": [
+		"slug",
+		"name",
+		"mark",
+		"official",
+		"surface",
+		"tags",
+		"docs",
+		"summary",
+		"added"
+	],
+	"properties": {
+		"$schema": {
+			"type": "string"
+		},
+		"slug": {
+			"$ref": "common.schema.json#/$defs/slug"
+		},
+		"name": {
+			"type": "string",
+			"minLength": 1
+		},
+		"mark": {
+			"type": "string",
+			"minLength": 1,
+			"maxLength": 2,
+			"description": "One or two letters for the card."
+		},
+		"official": {
+			"type": "boolean",
+			"description": "true for egoist/mygo plugins; community plugins are false."
+		},
+		"surface": {
+			"enum": [
+				"web",
+				"native",
+				"both"
+			],
+			"description": "The kind of window it serves."
+		},
+		"import": {
+			"type": "string",
+			"pattern": "^[a-z0-9.-]+(/[A-Za-z0-9._~-]+)+$",
+			"description": "The Go package the app imports, such as github.com/egoist/mygo/plugins/fetch."
+		},
+		"npm": {
+			"type": "string",
+			"pattern": "^(@[a-z0-9-]+/)?[a-z0-9][a-z0-9._-]*$",
+			"description": "The frontend package, for a plugin with a JavaScript half."
+		},
+		"tags": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			}
+		},
+		"docs": {
+			"$ref": "common.schema.json#/$defs/url"
+		},
+		"summary": {
+			"$ref": "common.schema.json#/$defs/text"
+		},
+		"added": {
+			"$ref": "common.schema.json#/$defs/added"
+		}
+	}
+}

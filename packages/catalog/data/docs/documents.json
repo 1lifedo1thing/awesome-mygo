@@ -1,0 +1,13 @@
+{
+	"$schema": "../schema/doc.schema.json",
+	"slug": "documents",
+	"title": "Documents",
+	"file": "documents.md",
+	"summary": {
+		"en": "Document-based apps: a window per file, the File menu, autosave and crash recovery",
+		"zh-CN": "基于文档的应用：每个文件一个窗口、文件菜单、自动保存与崩溃恢复",
+		"zh-TW": "基於文件的應用：每個檔案一個視窗、檔案選單、自動儲存與當機復原",
+		"ja": "ドキュメントベースのアプリ：ファイルごとのウィンドウ、ファイルメニュー、自動保存、クラッシュからの復旧",
+		"ko": "문서 기반 앱: 파일마다 창, 파일 메뉴, 자동 저장, 충돌 복구"
+	}
+}

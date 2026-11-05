@@ -1,0 +1,22 @@
+{
+	"$schema": "../schema/plugin.schema.json",
+	"slug": "loading",
+	"name": "Loading",
+	"mark": "Ld",
+	"official": true,
+	"surface": "native",
+	"import": "github.com/egoist/mygo/plugins/loading",
+	"tags": [
+		"spinners",
+		"animation"
+	],
+	"docs": "https://github.com/egoist/mygo/blob/main/docs/plugins/loading.md",
+	"summary": {
+		"en": "loading.dev’s 29 loading indicators for native UI, looking and moving as they do in browsers.",
+		"zh-CN": "loading.dev 的 29 种加载指示器，原生 UI 版，外观与动效和浏览器中一致。",
+		"zh-TW": "loading.dev 的 29 種載入指示器，原生 UI 版，外觀與動態和瀏覽器中一致。",
+		"ja": "loading.dev の 29 種類のローディング表示をネイティブ UI で。見た目も動きもブラウザと同じ。",
+		"ko": "loading.dev의 로딩 인디케이터 29종을 네이티브 UI로, 브라우저와 같은 모양과 움직임으로."
+	},
+	"added": "2026-11-03T18:58:18Z"
+}

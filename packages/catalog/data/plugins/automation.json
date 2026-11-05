@@ -1,0 +1,22 @@
+{
+	"$schema": "../schema/plugin.schema.json",
+	"slug": "automation",
+	"name": "Automation",
+	"mark": "Au",
+	"official": true,
+	"surface": "both",
+	"import": "github.com/egoist/mygo/plugins/automation",
+	"tags": [
+		"e2e",
+		"agents"
+	],
+	"docs": "https://github.com/egoist/mygo/blob/main/docs/plugins/automation.md",
+	"summary": {
+		"en": "Drive a running app from another process, as test runners and agents do: windows, elements, input, menus and screenshots.",
+		"zh-CN": "供端到端测试和 Agent 使用：从另一个进程驱动运行中的应用，包括窗口、元素、输入、菜单与截图。",
+		"zh-TW": "供端對端測試與 Agent 使用：從另一個行程驅動執行中的應用，包括視窗、元素、輸入、選單與截圖。",
+		"ja": "E2E テストやエージェント向けに、別プロセスから実行中のアプリを操作。ウィンドウ、要素、入力、メニュー、スクリーンショット。",
+		"ko": "E2E 테스트와 에이전트처럼 다른 프로세스에서 실행 중인 앱을 조작: 창, 요소, 입력, 메뉴, 스크린샷."
+	},
+	"added": "2026-11-03T18:58:18Z"
+}

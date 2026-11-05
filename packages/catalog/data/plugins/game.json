@@ -1,0 +1,22 @@
+{
+	"$schema": "../schema/plugin.schema.json",
+	"slug": "game",
+	"name": "Game",
+	"mark": "Gm",
+	"official": true,
+	"surface": "native",
+	"import": "github.com/egoist/mygo/plugins/game",
+	"tags": [
+		"game-loop",
+		"gamepad"
+	],
+	"docs": "https://github.com/egoist/mygo/blob/main/docs/plugins/game.md",
+	"summary": {
+		"en": "What games need beyond apps, opt-in: a fixed-step game loop with input, a camera, and gamepads in one layout.",
+		"zh-CN": "游戏需要的额外能力（按需启用）：固定步长的游戏循环与输入、相机、统一布局的手柄。",
+		"zh-TW": "遊戲需要的額外能力（按需啟用）：固定步長的遊戲迴圈與輸入、攝影機、統一配置的手把。",
+		"ja": "ゲームに必要な追加機能（任意）：固定ステップのゲームループと入力、カメラ、統一レイアウトのゲームパッド。",
+		"ko": "게임에 필요한 추가 기능(선택): 고정 스텝 게임 루프와 입력, 카메라, 통일된 배치의 게임패드."
+	},
+	"added": "2026-11-03T18:58:18Z"
+}
