@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "herdrup-desktop",
+	"name": "Herdrup Desktop",
+	"author": "jerryfane",
+	"kind": "web",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/jerryfane/herdrup-desktop",
+	"repo": "jerryfane/herdrup-desktop",
+	"summary": {
+		"en": "Desktop client for herdr coding agents over SSH: agent board, live terminal, chat and Gram.",
+		"zh-CN": "herdr 编程代理的桌面客户端：代理面板、实时终端、聊天与 Gram。",
+		"zh-TW": "herdr 編碼代理的桌面用戶端：代理面板、即時終端機、聊天與 Gram。",
+		"ja": "herdr のコーディングエージェント用デスクトップ版。ボード、ターミナル、チャット、Gram。",
+		"ko": "herdr 코딩 에이전트용 데스크톱 클라이언트. 에이전트 보드, 실시간 터미널, 채팅, Gram."
+	},
+	"description": {
+		"en": "The desktop version of the herdrup iOS app for macOS, Linux and Windows, built with MyGo and a web frontend in the system webview; the iOS app is made separately. It logs in to your machine over SSH and runs herdr's bridge to show the agent board, a live terminal per agent, Chat for omp agents and Gram, and notifies you when an agent needs you. It is still a preview.",
+		"zh-CN": "herdrup iOS 应用的桌面版，支持 macOS、Linux 和 Windows，用 MyGo 搭配在系统 WebView 中运行的 Web 前端构建；iOS 应用另行开发。它通过 SSH 登录你的机器并运行 herdr 的桥接程序，显示代理面板、每个代理的实时终端、omp 代理的聊天和 Gram，有代理需要你处理时会发出通知。目前仍是预览版。",
+		"zh-TW": "herdrup iOS App 的桌面版，支援 macOS、Linux 與 Windows，以 MyGo 搭配在系統 WebView 中執行的 Web 前端打造；iOS App 另行開發。它透過 SSH 登入你的電腦並執行 herdr 的橋接程式，顯示代理面板、每個代理的即時終端機、omp 代理的聊天與 Gram，有代理需要你處理時會發出通知。目前仍是預覽版。",
+		"ja": "herdrup iOS アプリのデスクトップ版で、macOS・Linux・Windows に対応し、MyGo とシステムの WebView で動く Web フロントエンドで作られています。iOS アプリは別に作られています。SSH で自分のマシンにログインして herdr のブリッジを動かし、エージェントボード、エージェントごとのライブターミナル、omp エージェントのチャット、Gram を表示し、対応が必要なエージェントがあれば通知します。現在はプレビュー版です。",
+		"ko": "herdrup iOS 앱의 데스크톱 버전으로 macOS, Linux, Windows를 지원하며, MyGo와 시스템 WebView에서 실행되는 웹 프런트엔드로 만들었습니다. iOS 앱은 따로 만들어집니다. SSH로 내 컴퓨터에 로그인해 herdr의 브리지를 실행하고 에이전트 보드, 에이전트별 실시간 터미널, omp 에이전트 채팅, Gram을 보여 주며, 처리가 필요한 에이전트가 생기면 알립니다. 아직 프리뷰 버전입니다."
+	},
+	"icon": {
+		"file": "herdrup-desktop.webp"
+	},
+	"screenshot": "herdrup-desktop.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T03:08:54Z"
+}
