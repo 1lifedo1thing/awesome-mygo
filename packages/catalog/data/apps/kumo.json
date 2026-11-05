@@ -1,0 +1,28 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "kumo",
+	"name": "Kumo",
+	"author": "AstraFoundry",
+	"kind": "web",
+	"category": "UtilitiesApplication",
+	"url": "https://usekumo.app",
+	"repo": "AstraFoundry/KumoApp",
+	"summary": {
+		"en": "A desktop client for the Mihomo proxy core, with a kumo command for scripts and coding agents.",
+		"zh-CN": "Mihomo 代理内核的桌面客户端，附带供脚本和编程智能体使用的 kumo 命令行。",
+		"zh-TW": "Mihomo 代理核心的桌面用戶端，附帶供腳本與程式開發代理使用的 kumo 命令列。",
+		"ja": "Mihomo プロキシコアのデスクトップクライアント。スクリプトやエージェント向けの CLI 付き。",
+		"ko": "Mihomo 프록시 코어용 데스크톱 클라이언트. 스크립트와 코딩 에이전트용 kumo 명령 포함."
+	},
+	"description": {
+		"en": "A desktop client for the Mihomo proxy core: one Go binary built with MyGo, with a React frontend in a native window. It manages profiles, proxies, rules, DNS and TUN, draws the routing from entry to rules, groups and nodes, and stops the core and clears the system proxy when you quit or it crashes. The same executable is a kumo command with JSON output. Releases are for macOS 13 and later.",
+		"zh-CN": "Mihomo 代理内核的桌面客户端，是一个用 MyGo 构建的单一 Go 程序，在原生窗口中运行 React 前端。可管理配置、代理、规则、DNS 与 TUN，以拓扑图展示从入口到规则、策略组和节点的路由；退出或崩溃时会停止内核并清除系统代理。同一个可执行文件也是 kumo 命令，可输出 JSON。发布版本支持 macOS 13 及以上。",
+		"zh-TW": "Mihomo 代理核心的桌面用戶端，是以 MyGo 建構的單一 Go 執行檔，在原生視窗中執行 React 前端。可管理設定檔、代理、規則、DNS 與 TUN，以拓撲圖呈現從入口到規則、策略群組與節點的路由；結束或當機時會停止核心並清除系統代理。同一個執行檔也是 kumo 命令，可輸出 JSON。發行版本支援 macOS 13 以上。",
+		"ja": "Mihomo プロキシコアのデスクトップクライアント。MyGo で作られた単一の Go バイナリで、ネイティブウィンドウに React のフロントエンドを表示します。プロファイル、プロキシ、ルール、DNS、TUN を管理し、エントリーからルール、グループ、ノードまでの経路をトポロジーで描きます。終了時やクラッシュ時にはコアを止めてシステムプロキシを解除します。同じ実行ファイルは JSON を出力できる kumo コマンドとしても使え、リリースは macOS 13 以降向けです。",
+		"ko": "Mihomo 프록시 코어용 데스크톱 클라이언트로, MyGo로 만든 단일 Go 바이너리가 네이티브 창에 React 프런트엔드를 띄웁니다. 프로필, 프록시, 규칙, DNS, TUN을 관리하고 진입점에서 규칙, 그룹, 노드까지의 경로를 토폴로지로 보여 주며, 종료하거나 비정상 종료되면 코어를 멈추고 시스템 프록시를 해제합니다. 같은 실행 파일은 JSON을 출력하는 kumo 명령으로도 쓰이며, 릴리스는 macOS 13 이상용입니다."
+	},
+	"added": "2026-11-05T00:46:09Z",
+	"icon": {
+		"file": "kumo.webp"
+	}
+}
