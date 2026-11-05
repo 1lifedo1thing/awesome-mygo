@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "trae",
+	"name": "trae",
+	"author": "frei-l",
+	"kind": "web",
+	"group": "dev",
+	"url": "https://github.com/frei-l/trae",
+	"repo": "frei-l/trae",
+	"summary": {
+		"en": "A local viewer for AI app traces from OpenTelemetry and Langfuse: model calls, tokens and cost.",
+		"zh-CN": "在本机查看 AI 应用的追踪：模型调用、token 用量与成本。",
+		"zh-TW": "在本機檢視 AI 應用程式的追蹤：模型呼叫、token 用量與成本。",
+		"ja": "AI アプリのトレースをローカルで見るビューア。モデル呼び出し、トークン、コストを表示。",
+		"ko": "AI 앱의 트레이스를 로컬에서 보는 뷰어. 모델 호출, 토큰, 비용을 보여 줍니다."
+	},
+	"description": {
+		"en": "A trace viewer for AI apps that runs on your machine, with no account, cloud or Docker. It receives OpenTelemetry traces on a local port, also from Langfuse SDKs, and shows model calls with their messages, tool calls, tokens, cost and time to first token on a span tree with a waterfall. Built with MyGo, its HTML, CSS and JavaScript frontend runs in the system webview.",
+		"zh-CN": "在本机运行的 AI 应用追踪查看器，无需账号、云服务或 Docker。它在本地端口接收 OpenTelemetry 追踪，也能接收 Langfuse SDK 发送的数据，用带瀑布图的 span 树展示模型调用及其消息、工具调用、token、成本与首 token 时间。基于 MyGo 构建，HTML、CSS 与 JavaScript 前端运行在系统 WebView 中。",
+		"zh-TW": "在本機執行的 AI 應用程式追蹤檢視器，不需帳號、雲端或 Docker。它在本機連接埠接收 OpenTelemetry 追蹤，也能接收 Langfuse SDK 送來的資料，以帶瀑布圖的 span 樹呈現模型呼叫及其訊息、工具呼叫、token、成本與首個 token 時間。以 MyGo 打造，HTML、CSS 與 JavaScript 前端在系統 WebView 中執行。",
+		"ja": "手元のマシンで動く AI アプリ向けのトレースビューア。アカウントもクラウドも Docker も要りません。ローカルのポートで OpenTelemetry のトレースを受け取り、Langfuse SDK からの送信にも対応し、モデル呼び出しとそのメッセージ、ツール呼び出し、トークン、コスト、最初のトークンまでの時間を、ウォーターフォール付きの span ツリーで表示します。MyGo で作られ、HTML・CSS・JavaScript のフロントエンドがシステムの WebView で動きます。",
+		"ko": "내 컴퓨터에서 실행되는 AI 앱용 트레이스 뷰어로, 계정도 클라우드도 Docker도 필요 없습니다. 로컬 포트로 OpenTelemetry 트레이스를 받고 Langfuse SDK에서 보내는 데이터도 받으며, 모델 호출과 메시지, 도구 호출, 토큰, 비용, 첫 토큰까지의 시간을 워터폴이 있는 span 트리로 보여 줍니다. MyGo로 만들었고 HTML, CSS, JavaScript 프런트엔드가 시스템 웹뷰에서 동작합니다."
+	},
+	"icon": {
+		"file": "trae.webp"
+	},
+	"screenshot": "trae.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T17:38:35Z"
+}
