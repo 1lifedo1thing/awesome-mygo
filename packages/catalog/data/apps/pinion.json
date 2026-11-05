@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "pinion",
+	"name": "Pinion",
+	"author": "DanielZhangyc",
+	"kind": "native",
+	"category": "GameApplication",
+	"url": "https://github.com/DanielZhangyc/Pinion",
+	"repo": "DanielZhangyc/Pinion",
+	"summary": {
+		"en": "Unofficial Mac launcher that downloads, updates and runs Arknights and Arknights: Endfield.",
+		"zh-CN": "非官方 Mac 启动器，下载、更新并运行《明日方舟》与《明日方舟：终末地》。",
+		"zh-TW": "非官方 Mac 啟動器，下載、更新並執行《明日方舟》與《明日方舟：終末地》。",
+		"ja": "非公式の Mac 用ランチャー。『アークナイツ』と『アークナイツ：エンドフィールド』を導入・更新・起動。",
+		"ko": "명일방주와 명일방주: 엔드필드를 내려받고 업데이트하고 실행하는 비공식 Mac 런처."
+	},
+	"description": {
+		"en": "An unofficial launcher for Apple Silicon Macs, drawn with MyGo's native UI, that runs the official China-server Windows clients of Arknights and Arknights: Endfield through a bundled FineWine runtime. It downloads full game packages with resume and verification, and checks for and installs game updates. It needs macOS 15 or later and Rosetta 2.",
+		"zh-CN": "面向 Apple Silicon Mac 的非官方启动器，由 MyGo 原生 UI 绘制，借助内置的 FineWine 运行环境运行《明日方舟》与《明日方舟：终末地》的国服官方 Windows 客户端。支持全量包下载、断点续传与解压校验，也能检查并安装游戏更新。需要 macOS 15 或更新版本以及 Rosetta 2。",
+		"zh-TW": "專為 Apple Silicon Mac 設計的非官方啟動器，由 MyGo 原生 UI 繪製，透過內建的 FineWine 執行環境運行《明日方舟》與《明日方舟：終末地》的中國伺服器官方 Windows 用戶端。支援完整安裝包下載、續傳與解壓縮驗證，也能檢查並安裝遊戲更新。需要 macOS 15 以上版本及 Rosetta 2。",
+		"ja": "Apple Silicon Mac 向けの非公式ランチャーで、MyGo のネイティブ UI で描かれています。同梱の FineWine 実行環境を使い、『アークナイツ』と『アークナイツ：エンドフィールド』の中国版公式 Windows クライアントを動かします。ゲーム本体のダウンロードは中断からの再開と検証に対応し、ゲームの更新を確認してインストールすることもできます。macOS 15 以降と Rosetta 2 が必要です。",
+		"ko": "Apple Silicon Mac용 비공식 런처로, MyGo의 네이티브 UI로 그렸습니다. 내장 FineWine 실행 환경으로 명일방주와 명일방주: 엔드필드의 중국 서버 공식 Windows 클라이언트를 실행합니다. 게임 전체 패키지를 이어받기와 검증을 거쳐 내려받고, 게임 업데이트를 확인해 설치합니다. macOS 15 이상과 Rosetta 2가 필요합니다."
+	},
+	"icon": {
+		"file": "pinion.webp"
+	},
+	"screenshot": "pinion.webp",
+	"added": "2026-11-05T04:16:52Z"
+}
