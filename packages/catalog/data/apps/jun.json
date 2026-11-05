@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "jun",
+	"name": "Jun",
+	"author": "bencode",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/bencode/jun",
+	"repo": "bencode/jun",
+	"summary": {
+		"en": "A native macOS workspace for running Claude Code, Codex and Pi side by side across projects.",
+		"zh-CN": "原生 macOS 工作区，跨项目并排运行 Claude Code、Codex 和 Pi。",
+		"zh-TW": "原生 macOS 工作區，跨專案並排執行 Claude Code、Codex 和 Pi。",
+		"ja": "Claude Code、Codex、Pi を複数プロジェクトで並べて動かすネイティブ macOS アプリ。",
+		"ko": "Claude Code, Codex, Pi를 여러 프로젝트에서 나란히 돌리는 네이티브 macOS 앱."
+	},
+	"description": {
+		"en": "A workspace for terminal coding agents on Apple Silicon Macs with macOS 13 or later, drawn with MyGo's native UI and Ghostty terminals on the GPU, with no web view. It runs the Claude Code, Codex and Pi CLIs you already have in many projects at once, lists every agent as waiting, working or idle, reads and resumes past sessions, and shows a branch's diff to review an agent's work.",
+		"zh-CN": "面向终端编程代理的工作区，适用于 macOS 13 及以上的 Apple Silicon Mac，由 MyGo 原生 UI 绘制，终端由 Ghostty 在 GPU 上渲染，没有 Web 视图。它在多个项目中同时运行你已安装的 Claude Code、Codex 和 Pi 命令行工具，把所有代理按等待、工作、空闲列出，可查看并恢复过往会话，并以 diff 审阅代理对分支的改动。",
+		"zh-TW": "終端機程式設計代理的工作區，適用於 macOS 13 以上的 Apple Silicon Mac，以 MyGo 原生 UI 繪製，終端機由 Ghostty 以 GPU 算繪，沒有 Web 視圖。它在多個專案中同時執行你已安裝的 Claude Code、Codex 與 Pi 命令列工具，將所有代理依等待、工作中、閒置列出，可閱讀並接續過往工作階段，也能以 diff 審閱代理對分支的變更。",
+		"ja": "ターミナルで動くコーディングエージェントのためのワークスペース。macOS 13 以降の Apple Silicon Mac 向けで、MyGo のネイティブ UI で描かれ、ターミナルは Ghostty が GPU で描画し、Web ビューはありません。手元の Claude Code、Codex、Pi の CLI を複数のプロジェクトで同時に動かし、全エージェントを待機中・作業中・アイドルで一覧できます。過去のセッションの閲覧と再開、ブランチの差分でのレビューにも対応します。",
+		"ko": "macOS 13 이상의 Apple Silicon Mac에서 쓰는 터미널 코딩 에이전트용 작업 공간으로, MyGo의 네이티브 UI로 그리고 터미널은 Ghostty가 GPU로 렌더링하며 웹 뷰는 없습니다. 이미 설치된 Claude Code, Codex, Pi CLI를 여러 프로젝트에서 동시에 실행하고, 모든 에이전트를 대기, 작업 중, 유휴 상태로 보여 주며, 지난 세션을 읽고 이어 가거나 브랜치 diff로 에이전트의 작업을 검토할 수 있습니다."
+	},
+	"icon": {
+		"file": "jun.webp"
+	},
+	"screenshot": "jun.webp",
+	"added": "2026-11-05T04:00:52Z"
+}
