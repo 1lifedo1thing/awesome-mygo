@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "disklens",
+	"name": "Disklens",
+	"author": "andrewtdiz",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/andrewtdiz/Disklens",
+	"repo": "andrewtdiz/Disklens",
+	"summary": {
+		"en": "Shows what takes up disk space on Windows and macOS, and what grew or shrank since the last scan.",
+		"zh-CN": "查看 Windows 与 macOS 上磁盘空间被谁占用，以及自上次扫描以来的增减。",
+		"zh-TW": "查看 Windows 與 macOS 上磁碟空間被誰佔用，以及自上次掃描以來的增減。",
+		"ja": "Windows・macOS で何がディスクを使っているか、前回のスキャンから何が増減したかを表示。",
+		"ko": "Windows·macOS 디스크 사용량과 지난 스캔 이후 늘고 줄어든 폴더를 보여 줍니다."
+	},
+	"description": {
+		"en": "A disk usage explorer for Windows and macOS drawn with MyGo's native UI. It shows allocated space as a directory tree and a treemap, keeps a baseline scan and marks what grew or shrank on each refresh, and can permanently delete folders from a right-click menu. Nothing is uploaded, and a disklens CLI uses the same scanner for scans, diffs and JSON output.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 与 macOS 磁盘占用浏览器。它以目录树和矩形树图展示已分配的空间，保存一次基准扫描，每次刷新时标出哪些变大、哪些变小，还能通过右键菜单永久删除文件夹。数据不会上传，附带的 disklens 命令行工具使用同一扫描器，可执行扫描、对比并输出 JSON。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows 與 macOS 磁碟使用量瀏覽器。它以目錄樹和矩形樹狀圖呈現已配置的空間，保存一次基準掃描，每次重新整理時標出哪些變大、哪些變小，還能透過右鍵選單永久刪除資料夾。資料不會上傳，附帶的 disklens 命令列工具使用同一套掃描器，可執行掃描、比較並輸出 JSON。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows・macOS 向けのディスク使用量ビューアー。割り当て済みの容量をディレクトリツリーとツリーマップで表示し、基準となるスキャンを保存して、更新のたびに何が増え何が減ったかを示します。右クリックからフォルダーを完全に削除することもできます。データはアップロードされず、同じスキャナーを使う disklens CLI でスキャン、差分、JSON 出力も行えます。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows·macOS용 디스크 사용량 탐색기입니다. 할당된 공간을 디렉터리 트리와 트리맵으로 보여 주고, 기준 스캔을 저장해 새로 고칠 때마다 무엇이 늘고 줄었는지 표시하며, 오른쪽 클릭으로 폴더를 영구 삭제할 수도 있습니다. 데이터는 업로드되지 않으며, 같은 스캐너를 쓰는 disklens CLI로 스캔, 비교, JSON 출력도 할 수 있습니다."
+	},
+	"icon": {
+		"file": "disklens.webp"
+	},
+	"screenshot": "disklens.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T09:41:01Z"
+}
