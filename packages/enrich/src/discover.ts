@@ -13,7 +13,7 @@ import { triage } from './triage.ts';
 //
 // The script works in the repository's working tree, checked out at main and clean, with origin/main fetched: for each proposal it checks out a branch of its own from origin/main, commits and pushes it, and leaves the tree detached at origin/main.
 //
-// Environment: GITHUB_TOKEN (the site's GitHub App, which pushes the branches and opens the pull requests, so CI runs on them; an installation token can search all public code), LLM_API_KEY with optional LLM_BASE_URL and LLM_MODEL, SEEN_FILE (where it remembers the repositories it looked at and did not propose), REPORT_FILE (a Markdown summary of the run), MAX_PRS (pull requests to open in a run, default 3), MAX_TRIAGE (repositories to ask the model about in a run, default 10), MAX_OPEN (no new pull request while this many of its own are open, default 10), and DRY_RUN=true to report what it would propose without pushing, opening or remembering anything. Without LLM_API_KEY it only lists the repositories it would ask about.
+// Environment: GITHUB_TOKEN (the site's GitHub App, which pushes the branches and opens the pull requests, so CI runs on them; an installation token can search all public code), LLM_API_KEY with optional LLM_BASE_URL and LLM_MODEL, SEEN_FILE (where it remembers the repositories it looked at and did not propose), REPORT_FILE (a Markdown summary of the run), MAX_PRS (pull requests to open in a run, default 10), MAX_TRIAGE (repositories to ask the model about in a run, default 30), MAX_OPEN (no new pull request while this many of its own are open, default 20), and DRY_RUN=true to report what it would propose without pushing, opening or remembering anything. Without LLM_API_KEY it only lists the repositories it would ask about.
 
 const run = promisify(execFile);
 const ROOT = join(import.meta.dirname, '../../..');
@@ -24,9 +24,9 @@ const BASE = 'main';
 const env = process.env;
 const SITE = env.GITHUB_REPOSITORY || 'yldm-tech/awesome-mygo';
 const count = (v: string | undefined, fallback: number) => (v && /^\d+$/.test(v) ? Number(v) : fallback);
-const MAX_PRS = count(env.MAX_PRS, 3);
-const MAX_TRIAGE = count(env.MAX_TRIAGE, 10);
-const MAX_OPEN = count(env.MAX_OPEN, 10);
+const MAX_PRS = count(env.MAX_PRS, 10);
+const MAX_TRIAGE = count(env.MAX_TRIAGE, 30);
+const MAX_OPEN = count(env.MAX_OPEN, 20);
 const DRY_RUN = env.DRY_RUN === 'true';
 const now = new Date();
 
