@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "dgopher",
+	"name": "DGopher",
+	"author": "saanuregh",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/saanuregh/dgopher",
+	"repo": "saanuregh/dgopher",
+	"summary": {
+		"en": "A database client for PostgreSQL, MySQL, SQL Server, Oracle, SQLite, DuckDB, Redis and more.",
+		"zh-CN": "数据库客户端，支持 PostgreSQL、MySQL、SQLite、Redis 等。",
+		"zh-TW": "資料庫用戶端，支援 PostgreSQL、MySQL、SQLite、Redis 等。",
+		"ja": "PostgreSQL、MySQL、SQLite、Redis などに対応するデータベースクライアント。",
+		"ko": "PostgreSQL, MySQL, SQLite, Redis 등을 지원하는 데이터베이스 클라이언트."
+	},
+	"description": {
+		"en": "A database client for Linux, macOS and Windows, built as one Go binary drawn with MyGo's native UI, with no webview, JVM or Electron. It queries PostgreSQL, MySQL, Oracle, SQLite and other SQL databases, browses and edits Redis, and queries CSV, Parquet or JSON files with DuckDB. Writes on a connection marked as production ask first.",
+		"zh-CN": "适用于 Linux、macOS 与 Windows 的数据库客户端，是由 MyGo 原生 UI 绘制的单个 Go 程序，没有 Web 视图、JVM 或 Electron。可查询 PostgreSQL、MySQL、Oracle、SQLite 等 SQL 数据库，浏览和编辑 Redis，并用 DuckDB 查询 CSV、Parquet 或 JSON 文件。写入标记为生产环境的连接前会先确认。",
+		"zh-TW": "適用於 Linux、macOS 與 Windows 的資料庫用戶端，是由 MyGo 原生 UI 繪製的單一 Go 程式，沒有 Web 視圖、JVM 或 Electron。可查詢 PostgreSQL、MySQL、Oracle、SQLite 等 SQL 資料庫，瀏覽與編輯 Redis，並用 DuckDB 查詢 CSV、Parquet 或 JSON 檔案。寫入標記為正式環境的連線前會先確認。",
+		"ja": "Linux・macOS・Windows 向けのデータベースクライアント。MyGo のネイティブ UI で描かれた単一の Go バイナリで、Web ビューも JVM も Electron もありません。PostgreSQL、MySQL、Oracle、SQLite などの SQL データベースを扱い、Redis の閲覧と編集もでき、CSV・Parquet・JSON ファイルは DuckDB でクエリできます。本番として指定した接続への書き込みは、実行前に確認されます。",
+		"ko": "Linux, macOS, Windows용 데이터베이스 클라이언트로, MyGo의 네이티브 UI로 그린 단일 Go 바이너리이며 웹 뷰도 JVM도 Electron도 없습니다. PostgreSQL, MySQL, Oracle, SQLite 등의 SQL 데이터베이스를 쿼리하고, Redis를 탐색하고 편집하며, CSV, Parquet, JSON 파일은 DuckDB로 쿼리합니다. 운영용으로 지정한 연결에 쓰기 전에는 먼저 확인을 받습니다."
+	},
+	"icon": {
+		"file": "dgopher.webp"
+	},
+	"screenshot": "dgopher.webp",
+	"added": "2026-11-05T02:55:41Z"
+}
