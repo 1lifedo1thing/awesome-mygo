@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "nanoapi",
+	"name": "NanoAPI",
+	"author": "geeker-xiao",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/geeker-xiao/NanoAPI",
+	"repo": "geeker-xiao/NanoAPI",
+	"summary": {
+		"en": "A native HTTP API client with tabs, saved requests, auth, history and response previews.",
+		"zh-CN": "原生 HTTP API 客户端：多标签页、保存请求、鉴权、历史记录与响应预览。",
+		"zh-TW": "原生 HTTP API 用戶端：多分頁、儲存請求、驗證、歷史紀錄與回應預覽。",
+		"ja": "ネイティブ HTTP API クライアント。タブ、保存、認証、履歴、レスポンスのプレビューに対応。",
+		"ko": "탭, 요청 저장, 인증, 기록, 응답 미리보기를 갖춘 네이티브 HTTP API 클라이언트."
+	},
+	"description": {
+		"en": "An HTTP API client for Windows, macOS and Linux, written in pure Go and drawn with MyGo's native UI. Each tab is its own request with query parameters, headers, Bearer, Basic or API key auth and JSON, form or multipart bodies; requests can be saved, grouped and searched in history. Responses can be previewed as images or HTML, JSON is formatted and SSE streams can be cancelled.",
+		"zh-CN": "适用于 Windows、macOS 与 Linux 的 HTTP API 客户端，纯 Go 编写，由 MyGo 原生 UI 绘制。每个标签页是一个独立请求，可设置 Query 参数、Header、Bearer、Basic 或 API key 鉴权，以及 JSON、表单或 multipart Body；请求可保存、分组，历史记录可搜索。响应支持图片与 HTML 预览，JSON 自动格式化，SSE 流式响应可随时取消。",
+		"zh-TW": "適用於 Windows、macOS 與 Linux 的 HTTP API 用戶端，以純 Go 撰寫，由 MyGo 原生 UI 繪製。每個分頁是一個獨立請求，可設定 Query 參數、Header、Bearer、Basic 或 API key 驗證，以及 JSON、表單或 multipart Body；請求可儲存、分組，歷史紀錄可搜尋。回應支援圖片與 HTML 預覽，JSON 自動格式化，SSE 串流回應可隨時取消。",
+		"ja": "Windows・macOS・Linux 向けの HTTP API クライアント。純粋な Go で書かれ、MyGo のネイティブ UI で描かれています。タブごとに独立したリクエストを持ち、Query パラメーター、Header、Bearer・Basic・API key の認証、JSON・フォーム・multipart の Body を設定できます。リクエストは保存とグループ分けができ、履歴は検索できます。レスポンスは画像や HTML をプレビューでき、JSON は自動で整形され、SSE のストリームはいつでも止められます。",
+		"ko": "Windows, macOS, Linux용 HTTP API 클라이언트로, 순수 Go로 작성하고 MyGo의 네이티브 UI로 그렸습니다. 탭마다 독립된 요청에 Query 파라미터, Header, Bearer·Basic·API key 인증, JSON·폼·multipart Body를 설정하고, 요청을 저장·그룹화하며 기록을 검색합니다. 응답은 이미지와 HTML로 미리 보고, JSON은 자동 정리되며, SSE 스트림은 취소할 수 있습니다."
+	},
+	"icon": {
+		"file": "nanoapi.webp"
+	},
+	"screenshot": "nanoapi.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T17:06:44Z"
+}
