@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "omaterm",
+	"name": "omaterm",
+	"author": "fachrihawari",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://fachrihawari.github.io/omaterm/",
+	"repo": "fachrihawari/omaterm",
+	"summary": {
+		"en": "A terminal workspace that runs coding agents side by side and shows which one needs you.",
+		"zh-CN": "并排运行编程智能体的终端工作区，一眼看出哪个在等你。",
+		"zh-TW": "並排執行程式代理的終端機工作區，一眼看出哪個在等你。",
+		"ja": "コーディングエージェントを並べて動かし、どれが待っているかわかるターミナル。",
+		"ko": "코딩 에이전트를 나란히 실행하고 어느 쪽이 기다리는지 보여 주는 터미널 작업 공간."
+	},
+	"description": {
+		"en": "A terminal workspace for Linux, macOS and Windows, drawn with MyGo's native UI, that runs Claude Code, Codex, Gemini, OpenCode and Pi in split panes. It shows which agent needs you and what each changed in its last turn, starts agents on git worktrees of their own, and runs a project's dev servers. Git, an editor and browser panes sit beside the shells.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的终端工作区，支持 Linux、macOS 与 Windows，可在分屏中同时运行 Claude Code、Codex、Gemini、OpenCode 和 Pi。它会显示哪个智能体在等你、每个智能体上一轮改了什么，能让智能体在各自的 git worktree 中工作，并替项目运行开发服务器。Git 面板、编辑器和浏览器窗格就在终端旁边。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的終端機工作區，支援 Linux、macOS 與 Windows，可在分割窗格中同時執行 Claude Code、Codex、Gemini、OpenCode 和 Pi。它會顯示哪個代理在等你、每個代理上一輪改了什麼，能讓代理在各自的 git worktree 中工作，並替專案執行開發伺服器。Git 面板、編輯器和瀏覽器窗格就在終端機旁邊。",
+		"ja": "MyGo のネイティブ UI で描かれた、Linux・macOS・Windows 向けのターミナルワークスペース。Claude Code、Codex、Gemini、OpenCode、Pi を分割ペインで並べて動かせます。どのエージェントが応答を待っているか、直前のターンで何を変えたかを示し、エージェントをそれぞれの git worktree で作業させ、プロジェクトの開発サーバーも動かします。Git パネル、エディター、ブラウザーペインもターミナルの隣にあります。",
+		"ko": "MyGo의 네이티브 UI로 그린 Linux·macOS·Windows용 터미널 작업 공간으로, Claude Code, Codex, Gemini, OpenCode, Pi를 분할 창에 나란히 실행합니다. 어떤 에이전트가 응답을 기다리는지, 직전 턴에 무엇을 바꿨는지 보여 주고, 에이전트를 각자의 git worktree에서 작업시키며 프로젝트의 개발 서버도 실행합니다. Git 패널, 편집기, 브라우저 창도 터미널 옆에 있습니다."
+	},
+	"icon": {
+		"file": "omaterm.webp"
+	},
+	"screenshot": "omaterm.webp",
+	"added": "2026-11-05T02:43:19Z"
+}
