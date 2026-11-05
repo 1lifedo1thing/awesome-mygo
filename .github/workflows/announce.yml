@@ -22,9 +22,7 @@ on:
         type: boolean
         default: true
 
-concurrency:
-  group: announce-on-x
-  cancel-in-progress: false
+# No concurrency group: GitHub keeps one pending run per group and cancels the one before, so of three merges in a row the middle one's entries would never be posted. Runs of different pushes post side by side; a run's own entries still go one at a time.
 
 permissions:
   contents: read
