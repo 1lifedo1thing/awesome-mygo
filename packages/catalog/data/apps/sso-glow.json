@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "sso-glow",
+	"name": "sso-glow",
+	"author": "junga12",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/junga12/sso-glow",
+	"repo": "junga12/sso-glow",
+	"summary": {
+		"en": "A macOS app that checks your AWS SSO sessions and logs expired profiles back in with one button.",
+		"zh-CN": "检查 AWS SSO 会话是否有效，过期时一键重新登录的 macOS 应用。",
+		"zh-TW": "檢查 AWS SSO 工作階段是否有效，過期時一鍵重新登入的 macOS 應用程式。",
+		"ja": "AWS SSO のセッションを確認し、期限切れならボタン一つで再ログインする macOS アプリ。",
+		"ko": "AWS SSO 세션이 살아 있는지 확인하고, 만료되면 버튼 하나로 다시 로그인하는 macOS 앱."
+	},
+	"description": {
+		"en": "A macOS app drawn with MyGo's native UI, running as a single Go binary with no web view. It reads the SSO sessions and profiles in ~/.aws/config, checks each session and each profile's role credentials, and marks the expired ones. One button runs aws sso login once per expired session, then checks again. It needs AWS CLI v2.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 应用，单个 Go 二进制文件即可运行，没有 Web 视图。它读取 ~/.aws/config 中的 SSO 会话和配置文件，检查每个会话及各配置文件的角色凭证，并标出已过期的。按下按钮后，会为每个过期会话各执行一次 aws sso login，完成后自动重新检查。需要 AWS CLI v2。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS 應用程式，單一 Go 執行檔即可運作，沒有 Web 視圖。它讀取 ~/.aws/config 中的 SSO 工作階段與設定檔，檢查每個工作階段及各設定檔的角色憑證，並標出已過期者。按下按鈕後，會為每個過期的工作階段各執行一次 aws sso login，完成後自動重新檢查。需要 AWS CLI v2。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS アプリで、Web ビューのない Go バイナリひとつで動きます。~/.aws/config の SSO セッションとプロファイルを読み込み、セッションごとの状態と各プロファイルのロール認証情報を確認して、期限切れのものを示します。ボタンを押すと期限切れのセッションごとに aws sso login を一度だけ実行し、終わると自動で再確認します。AWS CLI v2 が必要です。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS 앱으로, 웹 뷰 없이 Go 바이너리 하나로 동작합니다. ~/.aws/config의 SSO 세션과 프로필을 읽어 세션마다 로그인 상태와 각 프로필의 역할 자격 증명을 확인하고 만료된 것을 표시합니다. 버튼을 누르면 만료된 세션마다 aws sso login을 한 번씩 실행하고, 끝나면 자동으로 다시 검사합니다. AWS CLI v2가 필요합니다."
+	},
+	"icon": {
+		"file": "sso-glow.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "sso-glow.webp",
+	"added": "2026-11-05T08:28:47Z"
+}
