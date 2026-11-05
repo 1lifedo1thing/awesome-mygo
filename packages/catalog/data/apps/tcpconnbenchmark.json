@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "tcpconnbenchmark",
+	"name": "tcpconnbenchmark",
+	"author": "lxlonion",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/lxlonion/tcpconnbenchmark",
+	"repo": "lxlonion/tcpconnbenchmark",
+	"summary": {
+		"en": "Concurrent TCP connection tester: live stats, source interface or address choice, CSV export.",
+		"zh-CN": "TCP 并发连接测试工具：实时统计，可选出口网卡或源地址，结果导出 CSV。",
+		"zh-TW": "TCP 並行連線測試工具：即時統計，可選出口網卡或來源位址，結果匯出 CSV。",
+		"ja": "TCP 同時接続テストツール。リアルタイム統計、送信元 NIC・アドレスの指定、CSV 出力に対応。",
+		"ko": "TCP 동시 연결 테스트 도구. 실시간 통계, 출발지 인터페이스·주소 선택, CSV 내보내기 지원."
+	},
+	"description": {
+		"en": "A TCP concurrent connection tester for macOS, Windows and Linux, drawn with MyGo's native UI, with a command-line mode too. It only resolves DNS and opens TCP connections to port 80, 443 or both, without HTTP or TLS, and shows stats live. You pick the outgoing interface or an IPv4 or IPv6 source address, set duration, rate and a failure limit, and can save the results as CSV.",
+		"zh-CN": "用 Go 编写、由 MyGo 原生 UI 绘制的 TCP 并发连接测试工具，支持 macOS、Windows 与 Linux，也可用命令行运行。它只做 DNS 解析和 TCP 连接，测试 80、443 或两个端口，不发 HTTP 请求也不做 TLS 握手，并实时显示统计。可选择出口网卡或 IPv4/IPv6 源地址，设置时长、连接速率和失败停止阈值，结果可保存为 CSV。",
+		"zh-TW": "以 Go 撰寫、由 MyGo 原生 UI 繪製的 TCP 並行連線測試工具，支援 macOS、Windows 與 Linux，也能以命令列執行。它只做 DNS 解析與 TCP 連線，測試 80、443 或兩個連接埠，不送出 HTTP 請求也不做 TLS 交握，並即時顯示統計。可選擇出口網卡或 IPv4/IPv6 來源位址，設定時長、連線速率與失敗停止門檻，結果可存成 CSV。",
+		"ja": "Go で書かれ、MyGo のネイティブ UI で描かれた TCP 同時接続テストツール。macOS・Windows・Linux に対応し、コマンドラインでも動きます。DNS 解決と TCP 接続だけを行って 80・443 番ポートまたは両方を試し、HTTP リクエストや TLS ハンドシェイクはせず、統計をリアルタイムに表示します。送信元のインターフェースか IPv4/IPv6 アドレスを選び、テスト時間、接続レート、失敗時の停止しきい値を設定でき、結果は CSV で保存できます。",
+		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 TCP 동시 연결 테스트 도구로, macOS, Windows, Linux를 지원하며 명령줄로도 실행할 수 있습니다. DNS 조회와 TCP 연결만 수행해 80, 443 또는 두 포트를 시험하고, HTTP 요청이나 TLS 핸드셰이크는 하지 않으며 통계를 실시간으로 보여 줍니다. 송신 인터페이스나 IPv4/IPv6 출발지 주소를 고르고 테스트 시간, 연결 속도, 실패 중단 기준을 정할 수 있으며 결과는 CSV로 저장됩니다."
+	},
+	"icon": {
+		"file": "tcpconnbenchmark.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "tcpconnbenchmark.webp",
+	"added": "2026-11-05T11:28:55Z"
+}
