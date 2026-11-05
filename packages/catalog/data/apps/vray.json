@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "vray",
+	"name": "vRay",
+	"author": "sbgayhub",
+	"kind": "native",
+	"group": "network",
+	"url": "https://github.com/sbgayhub/vRay",
+	"repo": "sbgayhub/vRay",
+	"summary": {
+		"en": "A native desktop proxy client with Xray-core built in: subscriptions, routing rules and TUN mode.",
+		"zh-CN": "内嵌 Xray-core 的原生桌面代理客户端，支持订阅、路由规则与 TUN 模式。",
+		"zh-TW": "內嵌 Xray-core 的原生桌面代理用戶端，支援訂閱、路由規則與 TUN 模式。",
+		"ja": "Xray-core を内蔵したネイティブなプロキシクライアント。購読、ルーティング、TUN に対応。",
+		"ko": "Xray-core를 내장한 네이티브 프록시 클라이언트. 구독, 라우팅 규칙, TUN 모드 지원."
+	},
+	"description": {
+		"en": "A proxy client for Windows, macOS and Linux drawn with MyGo's native UI, with Xray-core running inside the app's own process. It supports VLESS, VMess, Trojan, Shadowsocks and Hysteria2, imports share links and Base64 or Clash subscriptions, routes by rules and policy groups, and runs as a system proxy or in TUN mode. Nodes, subscriptions and credentials stay on the machine, with no telemetry.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows、macOS 与 Linux 代理客户端，Xray-core 直接嵌入应用进程运行。支持 VLESS、VMess、Trojan、Shadowsocks 与 Hysteria2，可导入分享链接、Base64 和 Clash 订阅，按规则与策略组分流，以系统代理或 TUN 模式工作。节点、订阅与凭据都保存在本机，默认零遥测。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows、macOS 與 Linux 代理用戶端，Xray-core 直接嵌入應用程式行程執行。支援 VLESS、VMess、Trojan、Shadowsocks 與 Hysteria2，可匯入分享連結、Base64 與 Clash 訂閱，依規則與策略群組分流，以系統代理或 TUN 模式運作。節點、訂閱與憑證都存在本機，預設零遙測。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows・macOS・Linux 向けのプロキシクライアントで、Xray-core をアプリのプロセス内で動かします。VLESS、VMess、Trojan、Shadowsocks、Hysteria2 に対応。共有リンクと Base64・Clash 形式の購読を読み込み、ルールとポリシーグループで振り分けて、システムプロキシか TUN モードで動きます。ノード、購読、認証情報はローカルに保存され、テレメトリーはありません。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows, macOS, Linux용 프록시 클라이언트로, Xray-core를 앱 프로세스 안에서 실행합니다. VLESS, VMess, Trojan, Shadowsocks, Hysteria2를 지원하고 공유 링크와 Base64, Clash 구독을 가져오며, 규칙과 정책 그룹으로 나누고 시스템 프록시나 TUN 모드로 동작합니다. 노드, 구독, 자격 증명은 로컬에 저장되며 텔레메트리는 없습니다."
+	},
+	"icon": {
+		"file": "vray.webp"
+	},
+	"screenshot": "vray.webp",
+	"added": "2026-11-05T11:50:47Z"
+}
