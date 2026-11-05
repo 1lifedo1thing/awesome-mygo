@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "kivrix",
+	"name": "Kivrix",
+	"author": "cuikaipeng",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/cuikaipeng/kivrix",
+	"repo": "cuikaipeng/kivrix",
+	"summary": {
+		"en": "A native Redis desktop client for browsing and managing Redis, Sentinel and Cluster servers.",
+		"zh-CN": "原生 Redis 桌面客户端，管理单机、Sentinel 与 Cluster 服务器。",
+		"zh-TW": "原生 Redis 桌面用戶端，管理單機、Sentinel 與 Cluster 伺服器。",
+		"ja": "単体・Sentinel・Cluster の Redis を閲覧・管理するネイティブクライアント。",
+		"ko": "단독, Sentinel, Cluster Redis 서버를 탐색하고 관리하는 네이티브 클라이언트."
+	},
+	"description": {
+		"en": "A Redis desktop client for macOS, Windows and Linux, drawn with MyGo's native UI, with no Electron or WebView. It connects to standalone, Sentinel and Cluster servers directly or through TLS, proxies and SSH tunnels, browses keys in a namespace tree, edits strings, hashes, lists, sets, sorted sets, streams and RedisJSON, and includes a CLI, slow log, Monitor and Pub/Sub.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Redis 桌面客户端，支持 macOS、Windows 与 Linux，没有 Electron，也没有 WebView。可直连或经 TLS、代理、SSH 隧道连接单机、Sentinel 与 Cluster 服务器，以命名空间树浏览键，编辑字符串、哈希、列表、集合、有序集合、Stream 与 RedisJSON，并内置 CLI、慢日志、Monitor 与 Pub/Sub。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Redis 桌面用戶端，支援 macOS、Windows 與 Linux，沒有 Electron，也沒有 WebView。可直連或透過 TLS、代理、SSH 通道連線單機、Sentinel 與 Cluster 伺服器，以命名空間樹瀏覽鍵，編輯字串、雜湊、串列、集合、有序集合、Stream 與 RedisJSON，並內建 CLI、慢查詢日誌、Monitor 與 Pub/Sub。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS・Windows・Linux 向けの Redis デスクトップクライアント。Electron も WebView も使いません。単体、Sentinel、Cluster の各サーバーに直接、または TLS・プロキシ・SSH トンネル経由で接続し、キーを名前空間ツリーで閲覧して、文字列、ハッシュ、リスト、セット、ソート済みセット、ストリーム、RedisJSON を編集できます。CLI、スローログ、Monitor、Pub/Sub も備えています。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS·Windows·Linux용 Redis 데스크톱 클라이언트로, Electron도 WebView도 쓰지 않습니다. 단독, Sentinel, Cluster 서버에 직접 또는 TLS, 프록시, SSH 터널로 접속해 네임스페이스 트리로 키를 탐색하고, 문자열, 해시, 리스트, 셋, 정렬된 셋, 스트림, RedisJSON을 편집하며, CLI, 슬로 로그, Monitor, Pub/Sub도 제공합니다."
+	},
+	"icon": {
+		"file": "kivrix.webp"
+	},
+	"screenshot": "kivrix.webp",
+	"added": "2026-11-05T03:47:54Z"
+}
