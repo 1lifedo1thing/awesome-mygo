@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "png",
+	"name": "双面 PNG",
+	"author": "SinarPandora",
+	"kind": "native",
+	"group": "media",
+	"url": "https://github.com/SinarPandora/dual-png",
+	"repo": "SinarPandora/dual-png",
+	"summary": {
+		"en": "Makes a PNG that shows one picture as a thumbnail and another when opened in an APNG viewer.",
+		"zh-CN": "生成“双面” PNG：缩略图显示一张图，在支持 APNG 的查看器里点开显示另一张。",
+		"zh-TW": "產生「雙面」PNG：縮圖顯示一張圖，在支援 APNG 的檢視器中點開則顯示另一張。",
+		"ja": "サムネイルでは一枚の画像、APNG 対応ビューアーで開くと別の画像を表示する PNG を作成。",
+		"ko": "썸네일에서는 한 장, APNG 지원 뷰어에서 열면 다른 이미지가 보이는 PNG를 만듭니다."
+	},
+	"description": {
+		"en": "Makes a PNG that shows picture A wherever only plain PNG is read, such as chat lists, photo thumbnails and file managers, and picture B when opened in an APNG viewer such as a browser or Photos on iOS and macOS. Drawn with MyGo's native UI, with a dualpng command line too, in pure Go for Windows, macOS and Linux. WeChat and QQ recompress images, which removes the effect.",
+		"zh-CN": "生成一种“双面” PNG：在聊天列表、相册缩略图、文件管理器等只认普通 PNG 的地方显示图片 A，在浏览器、iOS 与 macOS 照片等 APNG 查看器里点开后显示图片 B。基于 MyGo 原生 UI，另有 dualpng 命令行，纯 Go 编写，支持 Windows、macOS 与 Linux，输入可为 PNG 或 JPEG。微信、QQ 会重新压缩图片，转发后效果会消失。",
+		"zh-TW": "產生一種「雙面」PNG：在聊天列表、相簿縮圖、檔案總管等只認一般 PNG 的地方顯示圖片 A，在瀏覽器、iOS 與 macOS 照片等 APNG 檢視器中點開後顯示圖片 B。以 MyGo 原生 UI 打造，另有 dualpng 命令列，純 Go 撰寫，支援 Windows、macOS 與 Linux，輸入可為 PNG 或 JPEG。微信、QQ 會重新壓縮圖片，轉傳後效果會消失。",
+		"ja": "チャット一覧やアルバムのサムネイル、ファイルマネージャーなど通常の PNG しか読まない場所では画像 A を、ブラウザーや iOS・macOS の写真など APNG 対応ビューアーで開くと画像 B を表示する「両面」PNG を作ります。MyGo のネイティブ UI で描かれ、dualpng コマンドラインも備えた純 Go 製で、Windows・macOS・Linux 向けです。入力は PNG と JPEG。WeChat や QQ では画像が再圧縮されるため、効果は消えます。",
+		"ko": "채팅 목록, 앨범 썸네일, 파일 관리자처럼 일반 PNG만 읽는 곳에서는 이미지 A를, 브라우저나 iOS·macOS 사진 같은 APNG 뷰어에서 열면 이미지 B를 보여 주는 '양면' PNG를 만듭니다. MyGo의 네이티브 UI로 그렸고 dualpng 명령줄도 있으며, 순수 Go로 Windows, macOS, Linux용으로 빌드됩니다. 입력은 PNG와 JPEG이며, WeChat과 QQ는 이미지를 다시 압축해 효과가 사라집니다."
+	},
+	"icon": {
+		"file": "png.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "png.webp",
+	"added": "2026-11-05T23:30:36Z"
+}
