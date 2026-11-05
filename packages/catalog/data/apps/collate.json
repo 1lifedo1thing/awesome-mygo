@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "collate",
+	"name": "Collate",
+	"author": "iamwent",
+	"kind": "web",
+	"category": "UtilitiesApplication",
+	"url": "https://iamwent.github.io/collate/",
+	"repo": "iamwent/collate",
+	"summary": {
+		"en": "A local PDF page editor: merge, split, delete, rotate, reorder and replace pages.",
+		"zh-CN": "本地 PDF 页面编辑器：合并、拆分、删除、旋转、重排和替换页面。",
+		"zh-TW": "本機 PDF 頁面編輯器：合併、分割、刪除、旋轉、重排與替換頁面。",
+		"ja": "ローカルで動く PDF ページエディター。結合、分割、削除、回転、並べ替え、差し替えに対応。",
+		"ko": "로컬 PDF 페이지 편집기. 병합, 분할, 삭제, 회전, 순서 변경, 교체를 지원합니다."
+	},
+	"description": {
+		"en": "A PDF page editor that merges, splits, deletes, rotates, reorders and replaces pages, with page thumbnails, batch selection, and undo and redo. Files stay on your device, with no accounts, uploads or telemetry. MyGo builds the desktop app for macOS 15+ and Windows x64 around a web frontend; the same frontend also runs in the browser from GitHub Pages.",
+		"zh-CN": "PDF 页面编辑器，可合并、拆分、删除、旋转、重排和替换页面，并提供页面缩略图、批量选择以及撤销与重做。文件始终留在本机，没有账号、上传或遥测。MyGo 以 Web 前端构建 macOS 15 及以上与 Windows x64 桌面版；同一前端也可通过 GitHub Pages 在浏览器中使用。",
+		"zh-TW": "PDF 頁面編輯器，可合併、分割、刪除、旋轉、重排與替換頁面，並提供頁面縮圖、批次選取以及復原與重做。檔案始終留在本機，沒有帳號、上傳或遙測。MyGo 以 Web 前端建置 macOS 15 以上與 Windows x64 桌面版；同一前端也可透過 GitHub Pages 在瀏覽器中使用。",
+		"ja": "ページの結合、分割、削除、回転、並べ替え、差し替えができる PDF ページエディター。サムネイル表示、まとめての選択、元に戻す・やり直しにも対応します。ファイルは端末の外に出ず、アカウントもアップロードもテレメトリもありません。MyGo が Web フロントエンドから macOS 15 以降と Windows x64 のデスクトップ版をビルドし、同じフロントエンドは GitHub Pages からブラウザでも使えます。",
+		"ko": "페이지 병합, 분할, 삭제, 회전, 순서 변경, 교체를 할 수 있는 PDF 페이지 편집기로, 썸네일 미리보기, 일괄 선택, 실행 취소와 다시 실행을 지원합니다. 파일은 기기 밖으로 나가지 않으며 계정, 업로드, 원격 측정도 없습니다. MyGo가 웹 프런트엔드로 macOS 15 이상과 Windows x64용 데스크톱 앱을 빌드하고, 같은 프런트엔드는 GitHub Pages에서 브라우저로도 쓸 수 있습니다."
+	},
+	"icon": {
+		"file": "collate.webp"
+	},
+	"screenshot": "collate.webp",
+	"added": "2026-11-05T03:40:00Z"
+}
