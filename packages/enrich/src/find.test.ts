@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { type Verdict, branchFor, configNear, entryFor, goModsIn, groupHits, isDue, isSamplePath, listedAs, listedFrom, moduleOf, normalizeLink, quiet, remember, reposInImportedBy, reposOfEntry, requiresMygo, uniqueSlug, withoutFailed } from './find.ts';
+import { NEW_REPO_DAYS, type Verdict, branchFor, configNear, entryFor, goModsIn, groupHits, isDue, isSamplePath, isYoung, listedAs, listedFrom, moduleOf, normalizeLink, quiet, remember, reposInImportedBy, reposOfEntry, requiresMygo, tooNewToJudge, uniqueSlug, withoutFailed } from './find.ts';
 
 describe('what the site lists', () => {
 	it('takes every repository an entry points at, in lower case', () => {
@@ -156,6 +156,23 @@ describe('proposals', () => {
 		const now = new Date('2026-11-05T00:00:00Z');
 		const seen = { 'a/skip': remember('skip', 'a template', now), 'b/failed': remember('failed', 'the catalog checks failed', now) };
 		expect(withoutFailed(seen)).toEqual({ 'a/skip': seen['a/skip'] });
+	});
+
+	it('puts off a repository made this week with commits on one day and no release, and judges it a week later whatever it shows', () => {
+		const now = new Date('2026-11-05T12:00:00Z');
+		const today = '2026-11-05T08:00:00Z';
+		expect(isYoung(today, now)).toBe(true);
+		expect(isYoung('2026-10-29T12:00:00Z', now)).toBe(false);
+		expect(tooNewToJudge({ createdAt: today, released: false, commitDays: 1 }, now)).toBe(true);
+		expect(tooNewToJudge({ createdAt: today, released: false, commitDays: 0 }, now)).toBe(true);
+		// Worked on two days, or released: judged now, stars or not.
+		expect(tooNewToJudge({ createdAt: today, released: false, commitDays: 2 }, now)).toBe(false);
+		expect(tooNewToJudge({ createdAt: today, released: true, commitDays: 1 }, now)).toBe(false);
+		// A finished project imported in one commit is judged once it is a week old.
+		expect(tooNewToJudge({ createdAt: '2026-10-29T11:59:59Z', released: false, commitDays: 1 }, now)).toBe(false);
+		const deferred = remember('defer', 'too new', now);
+		expect(Date.parse(deferred.until) - now.getTime()).toBe(NEW_REPO_DAYS * 86_400_000);
+		expect(isDue(deferred, new Date(Date.parse(deferred.until)))).toBe(true);
 	});
 
 	it('keeps text from a repository from mentioning anyone', () => {

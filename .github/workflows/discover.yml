@@ -2,7 +2,7 @@ name: Discover projects
 
 # Once a day this looks on GitHub for projects built with MyGo (a go.mod that requires github.com/egoist/mygo) that the site does not list yet, found through code search for such go.mod files and, for repositories code search has not indexed, through MyGo configurations, READMEs and names that mention MyGo, and pkg.go.dev's importers, asks the model whether each belongs on the site and as what (an app, UI components, state management or a plugin), and opens a pull request for each one that does with packages/enrich (discover.ts). Each pull request is completed as a submission is (icon, screenshot, category and copy in every site language), has passed the catalog checks, and comes from the site's GitHub App so CI runs on it. Close one to keep the project off the site: a repository is not proposed again once a pull request of its branch (discover/<owner>/<name>) exists.
 #
-# It opens at most MAX_PRS pull requests a run, asks the model about at most MAX_TRIAGE repositories, looks for the go.mod of at most MAX_CHECK repositories found without one, and opens none while MAX_OPEN of its own are open. The repositories the model skipped are kept in the Actions cache and looked at again after 90 days (14 for one whose entry failed the checks, or at once in a run with retry_failed); a push or pull request that GitHub refused is not remembered, so the next run tries again. Losing the cache only means asking again.
+# It opens at most MAX_PRS pull requests a run, asks the model about at most MAX_TRIAGE repositories, looks for the go.mod of at most MAX_CHECK repositories found without one, and opens none while MAX_OPEN of its own are open. The repositories the model skipped are kept in the Actions cache and looked at again after 90 days (14 for one whose entry failed the checks, or at once in a run with retry_failed); a push or pull request that GitHub refused is not remembered, so the next run tries again. Losing the cache only means asking again. A repository made in the last week with commits on one day and no release or tag is not judged yet: it is looked at again a week later, whatever it shows then (tooNewToJudge in packages/enrich/src/find.ts); stars play no part. Each pull request it opens requests a review from REVIEWER (the repository variable, houko by default).
 #
 # Secrets: SUBMIT_APP_PRIVATE_KEY, LLM_API_KEY and optionally LLM_BASE_URL, as for the Complete submission workflow; the app's token also does the code search, which needs no permission. Variables: SUBMIT_APP_CLIENT_ID, and LLM_MODEL, default claude-opus-5-5.
 
@@ -92,6 +92,8 @@ jobs:
           MAX_CHECK: '150'
           DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
           RETRY_FAILED: ${{ inputs.retry_failed && 'true' || 'false' }}
+          # Who reviews what the bot proposes: the bot triages, a person decides.
+          REVIEWER: ${{ vars.REVIEWER || 'houko' }}
         run: pnpm --filter @awesome-mygo/enrich discover
 
       - id: summary

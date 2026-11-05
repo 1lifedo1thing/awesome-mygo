@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { promisify } from 'node:util';
 import { DEFAULT_MODEL, type LlmConfig } from './copy.ts';
-import { BRANCH_PREFIX, type CodeHit, KIND_LABELS, type Listed, MYGO_MODULE, RECHECK_DAYS, type Seen, branchFor, configNear, entryFor, goModsIn, groupHits, isDue, isSamplePath, listedAs, listedFrom, moduleOf, quiet, remember, reposInImportedBy, requiresMygo, uniqueSlug, withoutFailed } from './find.ts';
+import { BRANCH_PREFIX, type CodeHit, KIND_LABELS, type Listed, MYGO_MODULE, RECHECK_DAYS, type Seen, branchFor, configNear, entryFor, goModsIn, groupHits, isDue, isYoung, isSamplePath, listedAs, listedFrom, moduleOf, quiet, remember, reposInImportedBy, requiresMygo, tooNewToJudge, uniqueSlug, withoutFailed } from './find.ts';
 import { github, rawFile } from './github.ts';
 import { ENTRY_DIRS, type Entry, type EntryKind } from './source.ts';
 import { triage } from './triage.ts';
@@ -13,7 +13,7 @@ import { triage } from './triage.ts';
 //
 // The script works in the repository's working tree, checked out at main and clean, with origin/main fetched: for each proposal it checks out a branch of its own from origin/main, commits and pushes it, and leaves the tree detached at origin/main.
 //
-// Environment: GITHUB_TOKEN (the site's GitHub App, which pushes the branches and opens the pull requests, so CI runs on them; an installation token can search all public code), LLM_API_KEY with optional LLM_BASE_URL and LLM_MODEL, SEEN_FILE (where it remembers the repositories it looked at and did not propose), REPORT_FILE (a Markdown summary of the run), MAX_PRS (pull requests to open in a run, default 10), MAX_TRIAGE (repositories to ask the model about in a run, default 30), MAX_OPEN (no new pull request while this many of its own are open, default 20), MAX_CHECK (repositories found without a go.mod hit whose go.mod it looks for in a run, default 150), DRY_RUN=true to report what it would propose without pushing, opening or remembering anything, and RETRY_FAILED=true to ask again about the repositories whose entry failed before. Without LLM_API_KEY it only lists the repositories it would ask about.
+// Environment: GITHUB_TOKEN (the site's GitHub App, which pushes the branches and opens the pull requests, so CI runs on them; an installation token can search all public code), LLM_API_KEY with optional LLM_BASE_URL and LLM_MODEL, SEEN_FILE (where it remembers the repositories it looked at and did not propose), REPORT_FILE (a Markdown summary of the run), MAX_PRS (pull requests to open in a run, default 10), MAX_TRIAGE (repositories to ask the model about in a run, default 30), MAX_OPEN (no new pull request while this many of its own are open, default 20), MAX_CHECK (repositories found without a go.mod hit whose go.mod it looks for in a run, default 150), DRY_RUN=true to report what it would propose without pushing, opening or remembering anything, RETRY_FAILED=true to ask again about the repositories whose entry failed before, and REVIEWER (a GitHub login) to request a review of each pull request from, as the bot triages and a person decides. Without LLM_API_KEY it only lists the repositories it would ask about.
 
 const run = promisify(execFile);
 const ROOT = join(import.meta.dirname, '../../..');
@@ -29,6 +29,7 @@ const MAX_TRIAGE = count(env.MAX_TRIAGE, 30);
 const MAX_OPEN = count(env.MAX_OPEN, 20);
 const MAX_CHECK = count(env.MAX_CHECK, 150);
 const DRY_RUN = env.DRY_RUN === 'true';
+const REVIEWER = env.REVIEWER?.trim() || undefined;
 const now = new Date();
 
 // Where a repository can be found, as the report names them.
@@ -157,6 +158,9 @@ interface RepoMeta {
 	homepage: string | null;
 	stargazers_count: number;
 	pushed_at: string;
+	created_at: string;
+	// Whether it has a release or a tag.
+	released: boolean;
 	default_branch: string;
 	fork: boolean;
 	archived: boolean;
@@ -173,6 +177,9 @@ interface GqlRepo {
 	homepageUrl: string | null;
 	stargazerCount: number;
 	pushedAt: string | null;
+	createdAt: string;
+	releases: { totalCount: number };
+	refs: { totalCount: number } | null;
 	isFork: boolean;
 	isArchived: boolean;
 	isDisabled: boolean;
@@ -182,7 +189,7 @@ interface GqlRepo {
 	repositoryTopics: { nodes: { topic: { name: string } }[] };
 }
 
-const REPO_FIELDS = 'fragment F on Repository { nameWithOwner url description homepageUrl stargazerCount pushedAt isFork isArchived isDisabled isPrivate defaultBranchRef { name } licenseInfo { spdxId } repositoryTopics(first: 10) { nodes { topic { name } } } }';
+const REPO_FIELDS = 'fragment F on Repository { nameWithOwner url description homepageUrl stargazerCount pushedAt createdAt releases { totalCount } refs(refPrefix: "refs/tags/") { totalCount } isFork isArchived isDisabled isPrivate defaultBranchRef { name } licenseInfo { spdxId } repositoryTopics(first: 10) { nodes { topic { name } } } }';
 
 // The metadata of many repositories, 50 to a GraphQL request rather than one request each. A repository GitHub does not find is left out; a batch that cannot be read counts as unread and waits for the next run.
 async function repoMetas(repos: readonly string[]): Promise<{ metas: Map<string, RepoMeta>; unread: number }> {
@@ -209,6 +216,8 @@ async function repoMetas(repos: readonly string[]): Promise<{ metas: Map<string,
 				homepage: v.homepageUrl,
 				stargazers_count: v.stargazerCount,
 				pushed_at: v.pushedAt ?? '',
+				created_at: v.createdAt,
+				released: v.releases.totalCount > 0 || (v.refs?.totalCount ?? 0) > 0,
 				default_branch: v.defaultBranchRef?.name ?? '',
 				fork: v.isFork,
 				archived: v.isArchived,
@@ -230,6 +239,14 @@ interface Candidate {
 	goMods: string[];
 	// Where the repository was found, for the report and the pull request.
 	sources: string[];
+}
+
+// On how many days its latest 100 commits on the default branch were made: one for a project pushed in a day. Only read for a repository too young to judge otherwise (tooNewToJudge).
+async function commitDays(repo: string): Promise<number> {
+	const [owner, name] = repo.split('/');
+	const res = await github<{ data?: { repository?: { defaultBranchRef?: { target?: { history?: { nodes: { committedDate: string }[] } } } | null } | null } }>('/graphql', { method: 'POST', body: { query: `query { repository(owner: ${JSON.stringify(owner)}, name: ${JSON.stringify(name)}) { defaultBranchRef { target { ... on Commit { history(first: 100) { nodes { committedDate } } } } } } }` } });
+	const nodes = res?.data?.repository?.defaultBranchRef?.target?.history?.nodes ?? [];
+	return new Set(nodes.map((n) => n.committedDate.slice(0, 10))).size;
 }
 
 async function triageInput(c: Candidate) {
@@ -314,10 +331,12 @@ async function propose(c: Candidate, kind: EntryKind, entry: Entry, goModPath: s
 			`## Completed from the repository\n\n${quiet(enrichReport.trim())}`,
 			'The catalog checks passed on this entry before it was pushed, and CI runs them again. Before merging, check that the project is built with MyGo and worth listing, read the generated copy, and look at the icon and screenshot. To keep the project off the site, close this pull request: the workflow does not propose a repository again once a pull request of its branch exists.',
 		].join('\n\n');
-		const pr = await github<{ html_url: string }>(`/repos/${SITE}/pulls`, { method: 'POST', body: { title: `Add ${name} (${KIND_LABELS[kind]})`, head: branch, base: BASE, body } }).catch((err: unknown) => {
+		const pr = await github<{ html_url: string; number: number }>(`/repos/${SITE}/pulls`, { method: 'POST', body: { title: `Add ${name} (${KIND_LABELS[kind]})`, head: branch, base: BASE, body } }).catch((err: unknown) => {
 			throw new PublishError(`opening the pull request failed: ${err instanceof Error ? err.message : String(err)}`);
 		});
 		if (!pr) throw new PublishError('GitHub did not open the pull request');
+		// The bot has triaged it; a person decides. A review that cannot be requested (the reviewer has no access) leaves the pull request open all the same.
+		if (REVIEWER) await github(`/repos/${SITE}/pulls/${pr.number}/requested_reviewers`, { method: 'POST', body: { reviewers: [REVIEWER] } }).catch((err: unknown) => console.log(`::warning::requesting a review of ${pr.html_url} from ${REVIEWER} failed: ${err instanceof Error ? err.message : String(err)}`));
 		return pr.html_url;
 	} catch (err) {
 		if (pushed) await github(`/repos/${SITE}/git/refs/heads/${branch}`, { method: 'DELETE' }).catch(() => undefined);
@@ -396,7 +415,7 @@ async function main(): Promise<void> {
 		return;
 	}
 
-	const lines = { proposed: [] as string[], skipped: [] as string[], failed: [] as string[] };
+	const lines = { proposed: [] as string[], deferred: [] as string[], skipped: [] as string[], failed: [] as string[] };
 	let triaged = 0;
 	let proposed = 0;
 	// Repositories found without a go.mod hit whose go.mod was looked for, and those of them built with no MyGo, which are counted rather than listed.
@@ -415,6 +434,16 @@ async function main(): Promise<void> {
 				seen[repo.toLowerCase()] = remember('skip', `proposed before in ${pr}`, now);
 				lines.skipped.push(`- ${link}: proposed before in ${pr}`);
 				continue;
+			}
+			// A repository pushed in a day and made this week waits a week before it is judged at all (tooNewToJudge); the model is not asked about it yet.
+			if (isYoung(c.meta.created_at, now) && !c.meta.released) {
+				const days = await commitDays(repo);
+				if (tooNewToJudge({ createdAt: c.meta.created_at, released: c.meta.released, commitDays: days }, now)) {
+					const why = `made ${c.meta.created_at.slice(0, 10)}, with commits on ${days} day${days === 1 ? '' : 's'} and no release or tag: looked at again in ${RECHECK_DAYS.defer} days`;
+					seen[repo.toLowerCase()] = remember('defer', why, now);
+					lines.deferred.push(`- ${link}: ${why}`);
+					continue;
+				}
 			}
 			if (!fromGoMod(c)) checked++;
 			const input = await triageInput(c);
@@ -458,6 +487,7 @@ async function main(): Promise<void> {
 	}
 
 	say(`### ${DRY_RUN ? 'Would propose' : 'Proposed'} (${lines.proposed.length})\n\n${lines.proposed.join('\n') || 'None.'}\n`);
+	say(`### Deferred, too new to judge (${lines.deferred.length})\n\n${lines.deferred.join('\n') || 'None.'}\n`);
 	say(`### Skipped (${lines.skipped.length})\n\n${lines.skipped.join('\n') || 'None.'}\n`);
 	say(`### Failed (${lines.failed.length})\n\n${lines.failed.join('\n') || 'None.'}\n`);
 	if (checked) say(`Looked for a go.mod in ${checked} repositories found another way (at most ${MAX_CHECK}); ${notMygo} of them have none that requires MyGo and are not looked at again for ${RECHECK_DAYS.skip} days.\n`);

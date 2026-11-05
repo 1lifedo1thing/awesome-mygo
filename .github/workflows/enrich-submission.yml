@@ -1,6 +1,6 @@
 name: Complete submission
 
-# A pull request the submission bot opens holds only what the site's form asks for. This job fills in the rest with packages/enrich (an app's icon from its repository; the screenshot of an app, a UI library or a state management library, from the form's link in the pull request or else from the repository; a library's homepage from the repository's settings; the copy in every site language; and, picked by the model, the fields the form leaves at a default: an app's category, a UI library's tag, a plugin's surface, the tags of state management and plugins), runs the catalog checks, pushes the result to the same branch as the bot so CI runs on it, and comments what it did. It runs once, when the bot opens the pull request; run it by hand with the pull request's number to try again.
+# A pull request the submission bot opens holds only what the site's form asks for. This job fills in the rest with packages/enrich (an app's icon from its repository; the screenshot of an app, a UI library or a state management library, from the form's link in the pull request or else from the repository; a library's homepage from the repository's settings; the copy in every site language; and, picked by the model, the fields the form leaves at a default: an app's category, a UI library's tag, a plugin's surface, the tags of state management and plugins), runs the catalog checks, pushes the result to the same branch as the bot so CI runs on it, and comments what it did. It runs once, when the bot opens the pull request; run it by hand with the pull request's number to try again. Once the checks pass, it requests a review from REVIEWER (the repository variable, houko by default).
 #
 # Secrets: SUBMIT_APP_PRIVATE_KEY (the site's GitHub App's key, as for the Worker), LLM_API_KEY and optionally LLM_BASE_URL for an Anthropic Messages API endpoint. Variables: SUBMIT_APP_CLIENT_ID (the app's client ID, shown on its settings page), and LLM_MODEL, default claude-opus-5-5.
 
@@ -125,3 +125,12 @@ jobs:
             fi
           } > "$body"
           gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body-file "$body"
+
+      # The bot has completed and checked the entry; a person decides. A review that cannot be requested leaves the pull request as it is.
+      - name: Request a review
+        if: steps.check.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          REVIEWER: ${{ vars.REVIEWER || 'houko' }}
+        run: |
+          gh api -X POST "repos/$GITHUB_REPOSITORY/pulls/$PR/requested_reviewers" -f "reviewers[]=$REVIEWER" > /dev/null || echo "::warning::could not request a review from $REVIEWER"
