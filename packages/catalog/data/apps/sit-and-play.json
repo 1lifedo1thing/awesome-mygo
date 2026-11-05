@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "sit-and-play",
+	"name": "Sit and Play",
+	"author": "qepo17",
+	"kind": "web",
+	"group": "game",
+	"url": "https://github.com/qepo17/sit-and-play",
+	"repo": "qepo17/sit-and-play",
+	"summary": {
+		"en": "A controller-friendly Steam library launcher: browse, install and start games with a gamepad.",
+		"zh-CN": "适合手柄操作的 Steam 游戏库启动器：浏览、安装并启动游戏。",
+		"zh-TW": "適合手把操作的 Steam 遊戲庫啟動器：瀏覽、安裝並啟動遊戲。",
+		"ja": "コントローラーで操作できる Steam ライブラリ用ランチャー。ゲームを探し、インストールして起動。",
+		"ko": "컨트롤러로 조작하는 Steam 라이브러리 런처. 게임을 둘러보고 설치하고 실행합니다."
+	},
+	"description": {
+		"en": "A Steam library launcher for Windows and Linux, built with MyGo and a TypeScript web frontend, that you drive with a keyboard, mouse or controller. It reads your local Steam library without an API key, shows each game's artwork, description, price and playtime, and plays or installs games through the Steam client. A Steam Web API key adds owned games and achievements.",
+		"zh-CN": "适用于 Windows 与 Linux 的 Steam 游戏库启动器，以 MyGo 搭配 TypeScript Web 前端构建，可用键盘、鼠标或手柄操作。无需 API 密钥即可读取本机 Steam 游戏库，显示每款游戏的封面、介绍、价格与游戏时长，并通过 Steam 客户端启动或安装游戏。填入 Steam Web API 密钥后，还能补上已拥有的游戏并查看成就。",
+		"zh-TW": "適用於 Windows 與 Linux 的 Steam 遊戲庫啟動器，以 MyGo 搭配 TypeScript Web 前端打造，可用鍵盤、滑鼠或手把操作。不需 API 金鑰就能讀取本機 Steam 遊戲庫，顯示每款遊戲的封面、介紹、價格與遊戲時數，並透過 Steam 用戶端啟動或安裝遊戲。填入 Steam Web API 金鑰後，還能補上已擁有的遊戲並查看成就。",
+		"ja": "MyGo と TypeScript の Web フロントエンドで作られた、Windows・Linux 向けの Steam ライブラリランチャー。キーボード、マウス、コントローラーで操作できます。API キーなしでローカルの Steam ライブラリを読み込み、各ゲームのアートワーク、説明、価格、プレイ時間を表示し、Steam クライアント経由でプレイやインストールを行います。Steam Web API キーを設定すると、所有ゲームの追加と実績の表示にも対応します。",
+		"ko": "MyGo와 TypeScript 웹 프런트엔드로 만든 Windows·Linux용 Steam 라이브러리 런처로, 키보드, 마우스, 컨트롤러로 조작합니다. API 키 없이 로컬 Steam 라이브러리를 읽어 각 게임의 아트워크, 설명, 가격, 플레이 시간을 보여 주고, Steam 클라이언트를 통해 게임을 실행하거나 설치합니다. Steam Web API 키를 넣으면 보유한 게임을 더하고 업적도 볼 수 있습니다."
+	},
+	"icon": {
+		"file": "sit-and-play.webp"
+	},
+	"screenshot": "sit-and-play.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T12:11:10Z"
+}
