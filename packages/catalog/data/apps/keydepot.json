@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "keydepot",
+	"name": "KeyDepot",
+	"author": "tbdsux",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/tbdsux/keydepot",
+	"repo": "tbdsux/keydepot",
+	"summary": {
+		"en": "Keeps SSH, PGP and other private keys in an encrypted local vault, grouped by project.",
+		"zh-CN": "把 SSH、PGP 等私钥加密保存在本地，按项目分组管理。",
+		"zh-TW": "把 SSH、PGP 等私鑰加密保存在本機，依專案分組管理。",
+		"ja": "SSH や PGP などの秘密鍵を、暗号化したローカルの金庫にプロジェクト別で保管。",
+		"ko": "SSH, PGP 등 개인 키를 암호화된 로컬 금고에 프로젝트별로 보관합니다."
+	},
+	"description": {
+		"en": "A desktop vault for SSH, PGP and other private keys, drawn with MyGo's native UI, with builds for macOS, Windows and Linux. Keys are sealed with AES-256-GCM in one local file and grouped by project, unlocked with a password or, on macOS, Touch ID, with no account or cloud sync. It is a beta without an independent security review, and the Windows and Linux builds are untested so far.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的桌面密钥保险库，用来存放 SSH、PGP 等私钥，提供 macOS、Windows 与 Linux 版本。密钥以 AES-256-GCM 加密后存进一个本地文件，按项目分组，可用密码解锁，在 macOS 上也可用 Touch ID；不需要账号，也没有云同步。目前仍是 beta 版，未经独立安全审计，Windows 与 Linux 版本尚未经过测试。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的桌面金鑰保險庫，用來存放 SSH、PGP 等私鑰，提供 macOS、Windows 與 Linux 版本。金鑰以 AES-256-GCM 加密後存進一個本機檔案，依專案分組，可用密碼解鎖，在 macOS 上也可用 Touch ID；不需要帳號，也沒有雲端同步。目前仍是 beta 版，未經獨立資安審查，Windows 與 Linux 版本尚未經過測試。",
+		"ja": "SSH や PGP などの秘密鍵を保管するデスクトップ用の金庫アプリで、MyGo のネイティブ UI で描かれ、macOS・Windows・Linux 向けのビルドがあります。鍵は AES-256-GCM で暗号化して一つのローカルファイルに収め、プロジェクトごとにまとめます。パスワードか、macOS では Touch ID で開き、アカウントもクラウド同期もありません。現在はベータ版で、第三者によるセキュリティ監査は受けておらず、Windows 版と Linux 版はまだ検証されていません。",
+		"ko": "SSH, PGP 등 개인 키를 보관하는 데스크톱 금고 앱으로, MyGo의 네이티브 UI로 그렸으며 macOS, Windows, Linux용 빌드가 있습니다. 키는 AES-256-GCM으로 암호화해 로컬 파일 하나에 담고 프로젝트별로 묶으며, 비밀번호나 macOS에서는 Touch ID로 잠금을 풉니다. 계정도 클라우드 동기화도 없습니다. 아직 베타 버전으로 독립적인 보안 검토를 거치지 않았고, Windows와 Linux 빌드는 아직 테스트되지 않았습니다."
+	},
+	"icon": {
+		"file": "keydepot.webp"
+	},
+	"screenshot": "keydepot.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T12:11:10Z"
+}
