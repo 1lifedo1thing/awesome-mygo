@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "kata",
+	"name": "Kata",
+	"author": "yaffalhakim1",
+	"kind": "native",
+	"group": "notes",
+	"url": "https://github.com/yaffalhakim1/kata",
+	"repo": "yaffalhakim1/kata",
+	"summary": {
+		"en": "A native app teaching Japanese in Indonesian: basics, words, hiragana with mnemonics, quizzes.",
+		"zh-CN": "用印尼语学日语的原生应用：基础概念、词汇、带记忆图的平假名和测验。",
+		"zh-TW": "用印尼語學日語的原生應用程式：基礎概念、詞彙、附記憶圖的平假名與測驗。",
+		"ja": "インドネシア語で日本語を学ぶネイティブアプリ。基礎、単語、絵で覚えるひらがな、クイズ。",
+		"ko": "인도네시아어로 일본어를 배우는 네이티브 앱. 기초, 단어, 그림 연상 히라가나, 퀴즈."
+	},
+	"description": {
+		"en": "A Windows app for learning Japanese in Indonesian, drawn with MyGo's native UI with no webview. Six short lessons explain the scripts, particles and politeness, then it teaches the 46 hiragana row by row with a picture mnemonic each, and 48 common words with romaji, the Indonesian meaning, an example sentence and a usage note. Quizzes show the reading after every answer.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 应用，用印尼语学日语，没有 Web 视图。先用六张短卡片讲解三种文字、助词和敬语，再按行教授全部 46 个平假名，每个都配一幅记忆图，以及 48 个常用词，附罗马字、印尼语释义、例句和用法说明。测验每答一题都会显示读音。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows 應用程式，以印尼語學日語，沒有 Web 視圖。先用六張短卡片講解三種文字、助詞和敬語，再按行教授全部 46 個平假名，每個都附一幅記憶圖，以及 48 個常用詞，附羅馬字、印尼語釋義、例句和用法說明。測驗每答一題都會顯示讀音。",
+		"ja": "MyGo のネイティブ UI で描かれた、インドネシア語で日本語を学ぶ Windows アプリ。Web ビューはありません。まず 6 枚の短いカードで三つの文字、助詞、丁寧さを説明し、続いてひらがな 46 字を行ごとに絵の連想つきで、よく使う 48 語をローマ字、インドネシア語の意味、例文、使い方のメモつきで教えます。クイズは答えるたびに読みを表示します。",
+		"ko": "MyGo의 네이티브 UI로 그린, 인도네시아어로 일본어를 배우는 Windows 앱으로 웹 뷰가 없습니다. 먼저 짧은 카드 여섯 장으로 세 가지 문자, 조사, 존댓말을 설명한 뒤, 히라가나 46자를 행별로 그림 연상과 함께, 자주 쓰는 단어 48개를 로마자, 인도네시아어 뜻, 예문, 용법 메모와 함께 가르칩니다. 퀴즈는 답할 때마다 읽는 법을 보여 줍니다."
+	},
+	"icon": {
+		"file": "kata.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "kata.webp",
+	"added": "2026-11-05T17:38:35Z"
+}
