@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "twintrail",
+	"name": "Twintrail",
+	"author": "zachzhao1984",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/zachzhao1984/twintrail",
+	"repo": "zachzhao1984/twintrail",
+	"summary": {
+		"en": "A native dual-pane macOS file manager with tabs, saved workspaces and a terminal in each tab.",
+		"zh-CN": "原生 macOS 双栏文件管理器，支持标签页、工作区，每个标签页自带终端。",
+		"zh-TW": "原生 macOS 雙欄檔案管理器，支援分頁、工作區，每個分頁自帶終端機。",
+		"ja": "タブとワークスペースを備え、タブごとにターミナルを開けるネイティブな macOS 2 ペインファイラー。",
+		"ko": "탭과 작업 공간을 갖추고 탭마다 터미널을 여는 네이티브 macOS 듀얼 패널 파일 관리자."
+	},
+	"description": {
+		"en": "A macOS dual-pane file manager drawn with MyGo's native UI, no WebView, following Marta's navigation and shortcuts. Each pane holds tabs, a sidebar keeps saved workspace layouts, favorites and recent folders, and each tab can open its own zsh terminal that follows the folder you browse. File operations run in the background, with Quick Look and Open With.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 双栏文件管理器，没有 WebView，沿用 Marta 的导航与快捷键习惯。每个窗格可开多个标签页，侧边栏保存工作区布局、收藏和最近访问的文件夹；每个标签页还能打开自己的 zsh 终端，并随浏览的目录同步切换。文件操作在后台进行，支持快速查看和“打开方式”。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS 雙欄檔案管理器，沒有 WebView，沿用 Marta 的導覽與快捷鍵習慣。每個窗格可開多個分頁，側邊欄保存工作區版面、常用項目與最近造訪的資料夾；每個分頁還能開啟自己的 zsh 終端機，並隨瀏覽的資料夾同步切換。檔案操作在背景執行，支援快速查看與「打開方式」。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS 用の 2 ペイン型ファイルマネージャー。WebView は使わず、Marta のナビゲーションとショートカットの流儀に沿っています。各ペインはタブを持ち、サイドバーにはワークスペースのレイアウト、よく使う項目、最近のフォルダーを保存できます。タブごとに専用の zsh ターミナルを開け、閲覧中のフォルダーに追従します。ファイル操作はバックグラウンドで行い、Quick Look と「このアプリケーションで開く」にも対応します。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS용 듀얼 패널 파일 관리자로, WebView 없이 Marta의 탐색 방식과 단축키를 따릅니다. 패널마다 탭을 열 수 있고, 사이드바에 작업 공간 레이아웃, 즐겨찾기, 최근 폴더를 저장합니다. 탭마다 자체 zsh 터미널을 열 수 있으며 탐색 중인 폴더를 따라갑니다. 파일 작업은 백그라운드에서 실행되고 훑어보기와 '다음으로 열기'를 지원합니다."
+	},
+	"icon": {
+		"file": "twintrail.webp"
+	},
+	"screenshot": "twintrail.webp",
+	"added": "2026-11-05T08:08:34Z"
+}
