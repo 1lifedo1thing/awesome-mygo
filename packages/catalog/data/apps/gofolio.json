@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "gofolio",
+	"name": "GoFolio",
+	"author": "agnogad",
+	"kind": "native",
+	"group": "notes",
+	"url": "https://github.com/agnogad/GoFolio",
+	"repo": "agnogad/GoFolio",
+	"summary": {
+		"en": "A local-first Markdown workspace over plain files on disk, with wikilinks and a link graph.",
+		"zh-CN": "本地优先的 Markdown 工作区，笔记就是磁盘上的普通文件，支持维基链接与关系图谱。",
+		"zh-TW": "本機優先的 Markdown 工作區，筆記就是磁碟上的一般檔案，支援維基連結與關係圖譜。",
+		"ja": "ノートを普通のファイルのまま扱う、ローカルファーストの Markdown ワークスペース。",
+		"ko": "노트를 일반 파일로 두는 로컬 우선 Markdown 작업 공간. 위키링크와 링크 그래프 지원."
+	},
+	"description": {
+		"en": "A Markdown notes workspace for Linux, macOS and Windows, drawn with MyGo's native UI and no webview. It opens any folder of .md files, such as an Obsidian vault or a Git repo, in Source, Live or Read mode, and keeps a note in Source when Live could not save it unchanged. It adds wikilinks, backlinks, full-text search, .tldr sketches and an Obsidian-style link graph.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Markdown 笔记工作区，支持 Linux、macOS 与 Windows。可打开 Obsidian 资料库、Git 仓库等任何 .md 文件夹，提供 Source、Live、Read 三种模式，Live 无法原样保存的笔记改用 Source 打开。另有维基链接、反向链接、全文搜索、.tldr 手绘草图和 Obsidian 风格的链接图谱。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Markdown 筆記工作區，支援 Linux、macOS 與 Windows。可開啟 Obsidian 資料庫、Git 儲存庫等任何 .md 資料夾，提供 Source、Live、Read 三種模式，Live 無法原樣儲存的筆記改用 Source 開啟。另有維基連結、反向連結、全文搜尋、.tldr 手繪草圖和 Obsidian 風格的連結圖譜。",
+		"ja": "MyGo のネイティブ UI で描かれた Linux・macOS・Windows 向けの Markdown ノートアプリで、Web ビューは使いません。Obsidian の保管庫や Git リポジトリなど、.md ファイルのあるフォルダーをそのまま開き、Source・Live・Read の3つのモードで編集できます。Live で元どおりに保存できないノートは Source で開きます。ウィキリンクとバックリンク、全文検索、.tldr ファイルの手描きスケッチ、Obsidian 風のリンクグラフも備えています。",
+		"ko": "MyGo의 네이티브 UI로 그린 Linux·macOS·Windows용 Markdown 노트 앱으로, 웹 뷰를 쓰지 않습니다. Obsidian 보관소나 Git 저장소처럼 .md 파일이 있는 폴더를 그대로 열어 Source, Live, Read 세 가지 모드로 다루며, Live에서 원래대로 저장할 수 없는 노트는 Source로 엽니다. 위키링크와 백링크, 전체 텍스트 검색, .tldr 파일로 저장하는 스케치, Obsidian 스타일의 링크 그래프도 갖췄습니다."
+	},
+	"icon": {
+		"file": "gofolio.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "gofolio.webp",
+	"added": "2026-11-05T15:28:05Z"
+}
