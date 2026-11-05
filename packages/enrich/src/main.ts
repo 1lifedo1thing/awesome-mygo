@@ -5,7 +5,7 @@ import { promisify } from 'node:util';
 import { DEFAULT_MODEL, README_LIMIT, type LlmConfig, writeCopy } from './copy.ts';
 import { github, rawFile, rawUrl as rawRepoUrl } from './github.ts';
 import { downloadImage, isDefaultIcon, writeIcon, writeShot } from './image.ts';
-import { ENTRY_DIRS, type Entry, type EntryKind, addedFiles, appCategories, appNameFrom, hasAllLanguages, iconOf, pickMygoJson, readmeImages, repoOfEntry, repoScreenshots, resolveImage, setCategory, submittedScreenshot } from './source.ts';
+import { ENTRY_DIRS, type Entry, type EntryKind, addedFiles, appCategories, appNameFrom, hasAllLanguages, iconOf, isArtwork, parseMygoConfig, pickMygoConfig, readmeImages, repoOfEntry, repoScreenshots, resolveImage, setCategory, submittedScreenshot } from './source.ts';
 
 // Run by .github/workflows/enrich-submission.yml on a pull request the submission bot opened, and by discover.ts on each entry it proposes. It finds the entries the branch adds, then for each fills in what the form cannot ask for: an app's icon (from its mygo.json) and screenshot (the first landscape one in its README, or else in a screenshot folder of the repository), its category when the submission names none, and the copy in every site language. It changes files in the working tree and writes a Markdown report for the pull request; the workflow runs the catalog checks and commits.
 //
@@ -30,6 +30,7 @@ interface RepoFacts {
 	branch: string;
 	paths: string[];
 	readme?: { path: string; text: string };
+	// The MyGo configuration, mygo.json or mygo.config.ts, with the fields read from it.
 	mygo?: { path: string; text: string; json: unknown };
 }
 
@@ -42,12 +43,12 @@ async function repoFacts(repo: string): Promise<RepoFacts | undefined> {
 	const facts: RepoFacts = { repo, branch, paths };
 	const readme = await github<{ path: string; content: string; encoding: string }>(`/repos/${repo}/readme`);
 	if (readme?.encoding === 'base64') facts.readme = { path: readme.path, text: Buffer.from(readme.content, 'base64').toString('utf8') };
-	const mygoPath = pickMygoJson(paths);
+	const mygoPath = pickMygoConfig(paths);
 	if (mygoPath) {
 		const text = await rawFile(repo, branch, mygoPath);
 		if (text !== undefined) {
 			try {
-				facts.mygo = { path: mygoPath, text, json: JSON.parse(text) };
+				facts.mygo = { path: mygoPath, text, json: parseMygoConfig(mygoPath, text) };
 			} catch {
 				say(`- \`${mygoPath}\` is not valid JSON, so its icon could not be read.`);
 			}
@@ -61,7 +62,7 @@ const rawUrl = (facts: RepoFacts, path: string) => rawRepoUrl(facts.repo, facts.
 // Adds the app's icon and returns where it was taken from, so the screenshot search can pass over the same image.
 async function addIcon(entry: Entry, slug: string, facts: RepoFacts): Promise<string | undefined> {
 	if (entry.icon !== undefined) return void say('- Icon: kept the one submitted.');
-	if (!facts.mygo) return void say('- Icon: none added, as the repository has no mygo.json; the app shows a letter tile.');
+	if (!facts.mygo) return void say('- Icon: none added, as the repository has no MyGo configuration (mygo.json or mygo.config.ts); the app shows a letter tile.');
 	const src = iconOf(facts.mygo.path, facts.mygo.json, facts.paths);
 	if (!src) return void say(`- Icon: none added, as neither \`${facts.mygo.path}\` nor resources/ beside it has one; the app shows a letter tile.`);
 	if ('macOnly' in src) return void say(`- Icon: the app's only icon is \`${src.macOnly}\` (macos.icon), which cannot be converted here. Add a 256 px WebP to \`${PUBLIC}/icons/${slug}.webp\` by hand and set \`"icon": { "file": "${slug}.webp" }\`.`);
@@ -86,10 +87,11 @@ async function addScreenshot(entry: Entry, slug: string, facts: RepoFacts | unde
 	if (entry.screenshot !== undefined) return say('- Screenshot: kept the one submitted.');
 	if (!facts && !submitted) return;
 	const readme = facts?.readme;
-	const sources: { from: string; urls: string[]; tries: number }[] = [
-		{ from: 'the link given in the form', urls: submitted ? [submitted] : [], tries: 1 },
-		{ from: 'the README', urls: facts && readme ? readmeImages(readme.text).map((src) => resolveImage(src, facts.repo, facts.branch, readme.path)).filter((u): u is string => !!u) : [], tries: 8 },
-		{ from: 'a screenshot folder in the repository', urls: facts ? repoScreenshots(facts.paths).map((p) => rawUrl(facts, p)) : [], tries: 6 },
+	// picked: the visitor chose the image, so it is taken as it is; the repository's images may be artwork.
+	const sources: { from: string; urls: string[]; tries: number; picked: boolean }[] = [
+		{ from: 'the link given in the form', urls: submitted ? [submitted] : [], tries: 1, picked: true },
+		{ from: 'the README', urls: facts && readme ? readmeImages(readme.text).map((src) => resolveImage(src, facts.repo, facts.branch, readme.path)).filter((u): u is string => !!u) : [], tries: 8, picked: false },
+		{ from: 'a screenshot folder in the repository', urls: facts ? repoScreenshots(facts.paths).map((p) => rawUrl(facts, p)) : [], tries: 6, picked: false },
 	];
 	const tried: string[] = [];
 	const skipped: string[] = [];
@@ -102,6 +104,10 @@ async function addScreenshot(entry: Entry, slug: string, facts: RepoFacts | unde
 				skipped.push(`${url} (the app icon)`);
 				continue;
 			}
+			if (!source.picked && isArtwork(url)) {
+				skipped.push(`${url} (named as artwork, not a screenshot)`);
+				continue;
+			}
 			const img = await downloadImage(url);
 			const result = img ? await writeShot(img, join(ROOT, PUBLIC, 'shots', `${slug}.webp`)) : 'unreadable';
 			if (result === 'ok') {
@@ -109,7 +115,7 @@ async function addScreenshot(entry: Entry, slug: string, facts: RepoFacts | unde
 				const passed = skipped.length ? ` It passed over ${skipped.join(', ')}.` : '';
 				return say(`- Screenshot: ${url} from ${source.from}, saved as \`${PUBLIC}/shots/${slug}.webp\`. Check that it shows the app.${passed}`);
 			}
-			skipped.push(`${url} (${result === 'square' ? 'square, likely a logo' : result === 'narrow' ? 'under 600 px wide' : result === 'portrait' ? 'taller than wide' : 'not a PNG, JPEG or WebP under 10 MB'})`);
+			skipped.push(`${url} (${result === 'square' ? 'square, likely a logo' : result === 'narrow' ? 'under 600 px wide' : result === 'portrait' ? 'taller than wide' : result === 'banner' ? 'a banner, far wider than a window' : 'not a PNG, JPEG or WebP under 10 MB'})`);
 			if (++n >= source.tries) break;
 		}
 	}
@@ -129,7 +135,7 @@ async function addCopy(cfg: LlmConfig | undefined, kind: EntryKind, entry: Entry
 	if (facts?.readme && facts.readme.text.length > README_LIMIT) say(`- The README is ${facts.readme.text.length} characters long; the copy was written from its first ${README_LIMIT}.`);
 	try {
 		const categories = needsCategory ? appCategories(JSON.parse(await readFile(join(ROOT, DATA_DIR, 'schema/app.schema.json'), 'utf8'))) : undefined;
-		const copy = await writeCopy(cfg, { kind, entry, readme: facts?.readme?.text, mygoJson: facts?.mygo?.text, examples, categories });
+		const copy = await writeCopy(cfg, { kind, entry, readme: facts?.readme?.text, mygoConfig: facts?.mygo ? { path: facts.mygo.path, text: facts.mygo.text } : undefined, examples, categories });
 		entry.summary = copy.summary;
 		if (kind === 'app' && copy.description) entry.description = copy.description;
 		say(`- Copy: written by ${cfg.model} in all five languages from the submission${facts?.readme ? ' and the README' : ''}. Read it before merging.`);
