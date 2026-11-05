@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "bootease",
+	"name": "BootEase",
+	"author": "voidksa",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://loaderly.app/",
+	"repo": "voidksa/BootEase",
+	"summary": {
+		"en": "A small Windows utility that restarts into BIOS/UEFI or recovery and shows system information.",
+		"zh-CN": "小巧的 Windows 工具：重启进入 BIOS/UEFI 或恢复环境，查看系统信息。",
+		"zh-TW": "小巧的 Windows 工具：重開機進入 BIOS/UEFI 或復原環境，檢視系統資訊。",
+		"ja": "Windows 用の小さなツール。BIOS/UEFI や回復環境への再起動とシステム情報の表示ができます。",
+		"ko": "BIOS/UEFI나 복구 환경으로 재시작하고 시스템 정보를 보는 작은 Windows 도구."
+	},
+	"description": {
+		"en": "A Windows utility drawn with MyGo's native UI that restarts into BIOS/UEFI settings or Windows Recovery after a confirmation, or restarts Windows or Windows Explorer. It shows device, motherboard, BIOS, Secure Boot and Windows details to copy or save as a text report, in English or Arabic with right-to-left layout. It needs Windows 10 or 11 on x64.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 工具，确认后可重启进入 BIOS/UEFI 设置或 Windows 恢复环境，也能重启 Windows 或 Windows 资源管理器。它显示设备、主板、BIOS、安全启动和 Windows 信息，可复制或保存为文本报告，界面支持英语和阿拉伯语（含从右到左布局）。需要 x64 的 Windows 10 或 11。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows 工具，確認後可重新開機進入 BIOS/UEFI 設定或 Windows 復原環境，也能重新啟動 Windows 或檔案總管。它顯示裝置、主機板、BIOS、安全開機與 Windows 資訊，可複製或存成文字報告，介面支援英文與阿拉伯文（含由右至左版面）。需要 x64 的 Windows 10 或 11。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows 用ユーティリティ。確認のうえで BIOS/UEFI 設定や Windows 回復環境へ再起動でき、Windows やエクスプローラーの再起動もできます。デバイス、マザーボード、BIOS、セキュアブート、Windows の情報を表示し、コピーやテキストレポートへの保存ができます。表示は英語とアラビア語（右から左のレイアウト）に対応。x64 版の Windows 10 または 11 が必要です。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows 유틸리티로, 확인 후 BIOS/UEFI 설정이나 Windows 복구 환경으로 재시작하고 Windows나 탐색기를 다시 시작할 수 있습니다. 장치, 메인보드, BIOS, 보안 부팅, Windows 정보를 보여 주며 복사하거나 텍스트 보고서로 저장할 수 있고, 영어와 아랍어(오른쪽에서 왼쪽 레이아웃 포함)를 지원합니다. x64용 Windows 10 또는 11이 필요합니다."
+	},
+	"added": "2026-11-05T00:56:43Z",
+	"icon": {
+		"file": "bootease.webp"
+	},
+	"screenshot": "bootease.webp"
+}

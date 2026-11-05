@@ -205,6 +205,11 @@ export function remember(verdict: Seen['verdict'], reason: string, now: Date): S
 	return { verdict, reason, at: now.toISOString(), until: until.toISOString() };
 }
 
+// The repositories remembered, less those whose entry failed: for a run asked to try them again (RETRY_FAILED), once what made them fail is fixed.
+export function withoutFailed(seen: Record<string, Seen>): Record<string, Seen> {
+	return Object.fromEntries(Object.entries(seen).filter(([, s]) => s.verdict !== 'failed'));
+}
+
 // Whether a repository is due for a look: never seen, or its time is up.
 export function isDue(seen: Seen | undefined, now: Date): boolean {
 	return !seen || Date.parse(seen.until) <= now.getTime();

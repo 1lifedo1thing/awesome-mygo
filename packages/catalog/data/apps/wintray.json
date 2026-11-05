@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "wintray",
+	"name": "WinTray",
+	"author": "OUBIGFA",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/OUBIGFA/WinTray",
+	"repo": "OUBIGFA/WinTray",
+	"summary": {
+		"en": "Starts programs and scripts at Windows login, tucked into the tray or hidden in the background.",
+		"zh-CN": "登录 Windows 后启动指定程序和脚本，收进托盘或在后台隐藏运行。",
+		"zh-TW": "登入 Windows 後啟動指定的程式和指令碼，縮到系統匣或在背景隱藏執行。",
+		"ja": "Windows ログイン後にプログラムやスクリプトを起動し、トレイに収めるかバックグラウンドで実行。",
+		"ko": "Windows 로그인 후 프로그램과 스크립트를 실행해 트레이로 숨기거나 백그라운드에서 돌립니다."
+	},
+	"description": {
+		"en": "A Windows 10 and 11 tool drawn with MyGo's native UI that starts chosen programs and scripts after you sign in, then minimizes them to the tray or runs them hidden in the background. It handles .exe, batch, PowerShell, Python and AutoHotkey files, can delay startup or quit a program after a set time, and on Windows 11 moves other programs' tray icons into its own menu. Portable, no installer.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 10/11 工具，登录后启动指定的程序和脚本，把窗口收进托盘或在后台隐藏运行。支持 .exe、批处理、PowerShell、Python 和 AutoHotkey 文件，可延后启动，或在运行一段时间后自动退出；在 Windows 11 上还能把其他程序的托盘图标收进自己的菜单。仅提供便携版，无需安装。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows 10/11 工具，登入後啟動指定的程式和指令碼，把視窗縮到系統匣或在背景隱藏執行。支援 .exe、批次檔、PowerShell、Python 和 AutoHotkey 檔案，可延後啟動，或在執行一段時間後自動結束；在 Windows 11 上還能把其他程式的系統匣圖示收進自己的選單。僅提供免安裝的可攜版。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows 10・11 向けツール。サインイン後に指定したプログラムやスクリプトを起動し、ウィンドウをトレイに収めるか、バックグラウンドで非表示のまま実行します。.exe、バッチ、PowerShell、Python、AutoHotkey のファイルに対応し、起動の遅延や一定時間後の自動終了も設定できます。Windows 11 では他のプログラムのトレイアイコンを自分のメニューにまとめられます。インストール不要のポータブル版のみの提供です。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows 10·11용 도구입니다. 로그인 후 지정한 프로그램과 스크립트를 실행해 창을 트레이로 숨기거나 백그라운드에서 보이지 않게 돌립니다. .exe, 배치, PowerShell, Python, AutoHotkey 파일을 지원하고, 시작 지연과 일정 시간 후 자동 종료를 설정할 수 있으며, Windows 11에서는 다른 프로그램의 트레이 아이콘을 자체 메뉴로 모읍니다. 설치 없는 포터블 버전으로만 제공됩니다."
+	},
+	"added": "2026-11-05T00:50:09Z",
+	"icon": {
+		"file": "wintray.webp"
+	},
+	"screenshot": "wintray.webp"
+}

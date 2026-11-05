@@ -92,7 +92,7 @@ export async function openSubmission(cfg: BotConfig, cat: SubmitCat, name: strin
 			codeFence(JSON.stringify(entry, null, 2), 'json'),
 			// In a code span, so the visitor's link does not become a link here; the workflow downloads it and the report says whether it was used.
 			...(screenshot ? [`Screenshot from the form: \`${screenshot}\`\n${shotMarker(screenshot)}`] : []),
-			'The entry passed the catalog checks before it was submitted, and CI runs them again. The *Complete submission* workflow then adds what the form cannot ask for (an app\'s icon, its screenshot from the form\'s link or the project\'s repository, and the copy in every site language) and comments what it did. Before merging, check that the project exists and is built with MyGo, read the generated copy, and fill in what the form leaves at a default (such as `tag`, `tags` or `surface`).',
+			'The entry passed the catalog checks before it was submitted, and CI runs them again. The *Complete submission* workflow then adds what the form cannot ask for (an app\'s icon, the screenshot from the form\'s link or the project\'s repository, a library\'s homepage, the copy in every site language, and a value for each field the form leaves at a default, such as `tag`, `tags` or `surface`) and comments what it did. Before merging, check that the project exists and is built with MyGo, and read the generated copy and the values it picked.',
 		].join('\n\n');
 		const { data: pr } = await gh.request('POST /repos/{owner}/{repo}/pulls', { ...repo, title: `Add ${plainName} (${label})`, head: branch, base: BASE, body });
 		return { url: pr.html_url, number: pr.number };

@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "ally",
+	"name": "Ally",
+	"author": "Bronya0",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://bronya0.github.io/ally-agent/",
+	"repo": "Bronya0/ally-agent",
+	"summary": {
+		"en": "A desktop AI coding assistant that reads, edits and searches local or SSH workspaces through chat.",
+		"zh-CN": "桌面 AI 编程助手：通过对话读取、搜索和编辑本地或 SSH 远程工作区。",
+		"zh-TW": "桌面 AI 程式設計助理：透過對話讀取、搜尋和編輯本機或 SSH 遠端工作區。",
+		"ja": "ローカルや SSH 先のコードをチャットで読み書き・検索するデスクトップ AI コーディング助手。",
+		"ko": "채팅으로 로컬이나 SSH 작업 공간을 읽고 검색하고 편집하는 데스크톱 AI 코딩 도우미."
+	},
+	"description": {
+		"en": "A desktop AI coding assistant whose interface is drawn with MyGo's native UI, built for low resource use, for Windows, macOS and Linux. Through chat it reads, searches and edits files in local projects or on remote hosts over SSH, runs commands, and shows diffs and tool output inline. It works with OpenAI, Anthropic and compatible model services, and supports MCP, parallel subagents and zip plugins.",
+		"zh-CN": "用 Go 与 MyGo 原生 UI 绘制界面的桌面 AI 编程助手，主打低资源占用，支持 Windows、macOS 和 Linux。通过对话读取、搜索和编辑本地项目或 SSH 远程主机上的文件，执行命令，并在聊天中直接查看 Diff 和工具输出。支持 OpenAI、Anthropic 及兼容的模型服务，还支持 MCP、并行子代理和 zip 插件。",
+		"zh-TW": "用 Go 與 MyGo 原生 UI 繪製介面的桌面 AI 程式設計助理，主打低資源佔用，支援 Windows、macOS 和 Linux。透過對話讀取、搜尋和編輯本機專案或 SSH 遠端主機上的檔案，執行指令，並在聊天中直接檢視 Diff 與工具輸出。支援 OpenAI、Anthropic 及相容的模型服務，也支援 MCP、平行子代理和 zip 外掛。",
+		"ja": "Go と MyGo のネイティブ UI で画面を描いた、デスクトップ向けの AI コーディングアシスタントです。リソース消費の少なさを重視し、Windows・macOS・Linux に対応しています。チャットを通じてローカルのプロジェクトや SSH 先のリモートホストのファイルを読み、検索し、編集できます。コマンドを実行し、差分やツールの出力もチャット内に表示します。OpenAI、Anthropic と互換のモデルサービスに対応し、MCP、並列サブエージェント、zip プラグインも使えます。",
+		"ko": "Go와 MyGo의 네이티브 UI로 화면을 그린 데스크톱 AI 코딩 도우미로, 적은 리소스 사용을 내세우며 Windows, macOS, Linux를 지원합니다. 채팅으로 로컬 프로젝트나 SSH로 연결한 원격 호스트의 파일을 읽고 검색하고 편집하며, 명령을 실행하고 Diff와 도구 출력을 채팅 안에서 보여 줍니다. OpenAI, Anthropic 및 호환 모델 서비스와 함께 쓸 수 있고 MCP, 병렬 서브에이전트, zip 플러그인도 지원합니다."
+	},
+	"added": "2026-11-05T00:48:55Z",
+	"icon": {
+		"file": "ally.webp"
+	},
+	"screenshot": "ally.webp"
+}

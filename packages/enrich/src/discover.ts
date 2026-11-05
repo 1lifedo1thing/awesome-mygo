@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { promisify } from 'node:util';
 import { DEFAULT_MODEL, type LlmConfig } from './copy.ts';
-import { BRANCH_PREFIX, type CodeHit, KIND_LABELS, type Listed, MYGO_MODULE, type Seen, branchFor, configNear, entryFor, groupHits, isDue, listedAs, listedFrom, moduleOf, quiet, remember, requiresMygo, uniqueSlug } from './find.ts';
+import { BRANCH_PREFIX, type CodeHit, KIND_LABELS, type Listed, MYGO_MODULE, type Seen, branchFor, configNear, entryFor, groupHits, isDue, listedAs, listedFrom, moduleOf, quiet, remember, requiresMygo, uniqueSlug, withoutFailed } from './find.ts';
 import { github, rawFile } from './github.ts';
 import { ENTRY_DIRS, type Entry, type EntryKind } from './source.ts';
 import { triage } from './triage.ts';
@@ -13,7 +13,7 @@ import { triage } from './triage.ts';
 //
 // The script works in the repository's working tree, checked out at main and clean, with origin/main fetched: for each proposal it checks out a branch of its own from origin/main, commits and pushes it, and leaves the tree detached at origin/main.
 //
-// Environment: GITHUB_TOKEN (the site's GitHub App, which pushes the branches and opens the pull requests, so CI runs on them; an installation token can search all public code), LLM_API_KEY with optional LLM_BASE_URL and LLM_MODEL, SEEN_FILE (where it remembers the repositories it looked at and did not propose), REPORT_FILE (a Markdown summary of the run), MAX_PRS (pull requests to open in a run, default 10), MAX_TRIAGE (repositories to ask the model about in a run, default 30), MAX_OPEN (no new pull request while this many of its own are open, default 20), and DRY_RUN=true to report what it would propose without pushing, opening or remembering anything. Without LLM_API_KEY it only lists the repositories it would ask about.
+// Environment: GITHUB_TOKEN (the site's GitHub App, which pushes the branches and opens the pull requests, so CI runs on them; an installation token can search all public code), LLM_API_KEY with optional LLM_BASE_URL and LLM_MODEL, SEEN_FILE (where it remembers the repositories it looked at and did not propose), REPORT_FILE (a Markdown summary of the run), MAX_PRS (pull requests to open in a run, default 10), MAX_TRIAGE (repositories to ask the model about in a run, default 30), MAX_OPEN (no new pull request while this many of its own are open, default 20), DRY_RUN=true to report what it would propose without pushing, opening or remembering anything, and RETRY_FAILED=true to ask again about the repositories whose entry failed before. Without LLM_API_KEY it only lists the repositories it would ask about.
 
 const run = promisify(execFile);
 const ROOT = join(import.meta.dirname, '../../..');
@@ -68,7 +68,11 @@ async function proposedBefore(repo: string): Promise<string | undefined> {
 async function loadSeen(): Promise<Record<string, Seen>> {
 	if (!env.SEEN_FILE) return {};
 	try {
-		return JSON.parse(await readFile(env.SEEN_FILE, 'utf8')) as Record<string, Seen>;
+		const seen = JSON.parse(await readFile(env.SEEN_FILE, 'utf8')) as Record<string, Seen>;
+		if (env.RETRY_FAILED !== 'true') return seen;
+		const kept = withoutFailed(seen);
+		say(`Asked to try the failed repositories again, so ${Object.keys(seen).length - Object.keys(kept).length} are due again.\n`);
+		return kept;
 	} catch {
 		return {};
 	}
@@ -155,6 +159,12 @@ async function triageInput(c: Candidate) {
 	};
 }
 
+// Pushing the branch or opening the pull request failed: a fault on GitHub's side or in this workflow, not in the repository, so it is not remembered and the next run tries again.
+class PublishError extends Error {}
+
+// Where main as it is now is fetched to, apart from origin/main, which keeps the commit the run began on.
+const LATEST = 'refs/discover/latest';
+
 const tail = (text: string, n: number) => (text.length > n ? `…${text.slice(-n)}` : text);
 const codeBlock = (text: string) => `\`\`\`\`\n${text.replace(/````/g, '```')}\n\`\`\`\``;
 
@@ -187,7 +197,14 @@ async function propose(c: Candidate, kind: EntryKind, entry: Entry, goModPath: s
 		const name = String(done.name).replace(/@/g, '');
 		await git('add', '-A', '--', DATA_DIR, PUBLIC);
 		await git('commit', '-q', '-m', `feat(catalog): add ${name}`, '-m', `Found by the discover workflow in ${repo}, and completed from its repository: icon, screenshot and copy in every site language.`);
-		await git('push', '-q', '--force', 'origin', `HEAD:refs/heads/${branch}`);
+		// The checkout stays at main as the run found it, so every entry is completed by the same code. A branch cut from it carries main's workflow files as they were then, and once a pull request that changes one is merged during the run GitHub refuses the push, as the app has no workflows permission and the branch's workflow files differ from main's. So the entry's one commit is moved onto main as it is now before it is pushed.
+		try {
+			await git('fetch', '-q', 'origin', `+refs/heads/${BASE}:${LATEST}`);
+			await git('rebase', '-q', LATEST);
+			await git('push', '-q', '--force', 'origin', `HEAD:refs/heads/${branch}`);
+		} catch (err) {
+			throw new PublishError(`pushing the branch failed: ${err instanceof Error ? err.message : String(err)}`);
+		}
 		pushed = true;
 
 		const body = [
@@ -197,13 +214,17 @@ async function propose(c: Candidate, kind: EntryKind, entry: Entry, goModPath: s
 			`## Completed from the repository\n\n${quiet(enrichReport.trim())}`,
 			'The catalog checks passed on this entry before it was pushed, and CI runs them again. Before merging, check that the project is built with MyGo and worth listing, read the generated copy, and look at the icon and screenshot. To keep the project off the site, close this pull request: the workflow does not propose a repository again once a pull request of its branch exists.',
 		].join('\n\n');
-		const pr = await github<{ html_url: string }>(`/repos/${SITE}/pulls`, { method: 'POST', body: { title: `Add ${name} (${KIND_LABELS[kind]})`, head: branch, base: BASE, body } });
-		if (!pr) throw new Error('GitHub did not open the pull request');
+		const pr = await github<{ html_url: string }>(`/repos/${SITE}/pulls`, { method: 'POST', body: { title: `Add ${name} (${KIND_LABELS[kind]})`, head: branch, base: BASE, body } }).catch((err: unknown) => {
+			throw new PublishError(`opening the pull request failed: ${err instanceof Error ? err.message : String(err)}`);
+		});
+		if (!pr) throw new PublishError('GitHub did not open the pull request');
 		return pr.html_url;
 	} catch (err) {
 		if (pushed) await github(`/repos/${SITE}/git/refs/heads/${branch}`, { method: 'DELETE' }).catch(() => undefined);
 		throw err;
 	} finally {
+		// A rebase that stopped on a conflict, as when main added the same entry meanwhile, is undone before the tree goes back.
+		await git('rebase', '--abort').catch(() => undefined);
 		await git('reset', '-q', '--hard', `origin/${BASE}`);
 		await git('clean', '-qfd', '--', DATA_DIR, PUBLIC);
 		await git('switch', '-q', '--detach', `origin/${BASE}`);
@@ -256,7 +277,7 @@ async function main(): Promise<void> {
 		if (triaged >= MAX_TRIAGE || proposed >= room) break;
 		const repo = c.meta.full_name;
 		const link = `[${repo}](${c.meta.html_url})`;
-		// Set once the model has been asked: only then is a failure remembered, so a passing GitHub error costs a day, not two weeks.
+		// Set once the model has been asked: only then is a failure remembered, so a passing GitHub error costs a day, not two weeks. A failure to push or open the pull request is never remembered (PublishError).
 		let asked = false;
 		try {
 			const before = await proposedBefore(repo);
@@ -292,7 +313,7 @@ async function main(): Promise<void> {
 			proposed++;
 		} catch (err) {
 			const why = err instanceof Error ? err.message : String(err);
-			if (asked) seen[repo.toLowerCase()] = remember('failed', why, now);
+			if (asked && !(err instanceof PublishError)) seen[repo.toLowerCase()] = remember('failed', why, now);
 			lines.failed.push(`- ${link}: ${quiet(why)}`);
 		}
 	}

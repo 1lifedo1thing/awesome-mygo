@@ -6,9 +6,6 @@ export type EntryKind = 'app' | 'ui' | 'state' | 'plugin';
 // The directory under the catalog's data that holds each kind's files, one per entry, named after its slug.
 export const ENTRY_DIRS: Record<EntryKind, string> = { app: 'apps', ui: 'ui', state: 'state', plugin: 'plugins' };
 
-// The kinds whose entries show a screenshot (their schemas have the field); a plugin's card has none.
-export const SHOT_KINDS: readonly EntryKind[] = ['app', 'ui', 'state'];
-
 // What each kind is, for the model writing its copy.
 export const KIND_NAMES: Record<EntryKind, string> = { app: 'an app in the showcase', ui: 'a UI component library, theme or icon set', state: 'a state management library', plugin: 'a MyGo plugin' };
 
@@ -126,15 +123,53 @@ export function repoScreenshots(paths: readonly string[]): string[] {
 	return paths.filter((p) => inFolder.test(p) && image.test(p) && !p.includes('node_modules/')).sort((a, b) => english(a) - english(b) || a.localeCompare(b));
 }
 
-// The values a catalog schema allows for a field (properties.<field>.enum), such as an app's categories or a UI library's tags.
+// The values a field may take in one of the catalog's schemas (properties.<field>.enum), such as an app's categories in app.schema.json.
 export function schemaEnum(schema: unknown, field: string): string[] {
-	const values = (schema as { properties?: Record<string, { enum?: unknown }> })?.properties?.[field]?.enum;
+	const values = (schema as { properties?: Record<string, { enum?: unknown } | undefined> })?.properties?.[field]?.enum;
 	return Array.isArray(values) ? values.filter((v): v is string => typeof v === 'string') : [];
 }
 
-// The app categories the catalog's schema allows (app.schema.json).
-export function appCategories(schema: unknown): string[] {
-	return schemaEnum(schema, 'category');
+// A field the model picks from the values its schema allows.
+export type ChoiceField = 'category' | 'tag' | 'surface';
+
+// What the values of each field mean, for the model picking one; the same words as the discover workflow's triage.
+export const CHOICE_HINTS: Record<ChoiceField, string> = {
+	category: 'the one that best says what the app is for',
+	tag: 'theme for a component library or theme, retro for one in a retro style, icons for an icon set',
+	surface: 'web when it serves web pages, native when it works with the native UI, both when both',
+};
+
+// What the model picks along with the copy: the fields the site's form fills in without asking (buildEntry in packages/catalog), as long as they still hold its default. An app's category, which the form leaves out unless its author picked a group; a UI library's tag, which it sets to theme; a plugin's surface, which it sets to web; and the tags of a state management library (just state) and of a plugin (none). An entry the discover workflow adds was triaged with these already, and one still at the default is only picked again.
+export function formDefaults(kind: EntryKind, entry: Entry): { choice?: ChoiceField; tags: boolean } {
+	const tags = Array.isArray(entry.tags) ? entry.tags : [];
+	switch (kind) {
+		case 'app':
+			return { choice: entry.category === undefined ? 'category' : undefined, tags: false };
+		case 'ui':
+			return { choice: entry.tag === undefined || entry.tag === 'theme' ? 'tag' : undefined, tags: false };
+		case 'state':
+			return { tags: tags.length === 0 || (tags.length === 1 && tags[0] === 'state') };
+		case 'plugin':
+			return { choice: entry.surface === undefined || entry.surface === 'web' ? 'surface' : undefined, tags: tags.length === 0 };
+	}
+}
+
+// Up to four tags as the site keeps them: lowercase words, each once.
+export function cleanTags(tags: readonly string[]): string[] {
+	return [...new Set(tags.map((t) => t.trim().toLowerCase()).filter(Boolean))].slice(0, 4);
+}
+
+// The homepage a repository's settings give, as an entry's homepage: an https link that is not the repository itself.
+export function homepageOf(homepage: string | null | undefined, repo: string): string | undefined {
+	const h = homepage?.trim();
+	if (!h?.startsWith('https://')) return undefined;
+	try {
+		const u = new URL(h);
+		if (u.hostname === 'github.com' && u.pathname.replace(/\/+$/, '').toLowerCase() === `/${repo.toLowerCase()}`) return undefined;
+	} catch {
+		return undefined;
+	}
+	return h;
 }
 
 // Sets the entry's category in place, right after kind as in the files written by hand, since the entry is written back in its key order.

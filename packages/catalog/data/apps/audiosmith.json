@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "audiosmith",
+	"name": "AudioSmith",
+	"author": "hehehai",
+	"kind": "native",
+	"category": "MultimediaApplication",
+	"url": "https://actnow.dev/audiosmith",
+	"repo": "hehehai/AudioSmith",
+	"summary": {
+		"en": "A voice studio on your Mac: text to speech, voice cloning, audiobooks, dubbing and transcription.",
+		"zh-CN": "在 Mac 本机运行的语音工作室：文字转语音、声音克隆、有声书、配音与转写。",
+		"zh-TW": "在 Mac 本機執行的語音工作室：文字轉語音、聲音複製、有聲書、配音與語音轉文字。",
+		"ja": "Mac 上で動く音声スタジオ。読み上げ、声のクローン、オーディオブック、吹き替え、文字起こし。",
+		"ko": "Mac에서 돌아가는 보이스 스튜디오. 음성 합성, 음성 복제, 오디오북, 더빙, 받아쓰기."
+	},
+	"description": {
+		"en": "A voice studio for Apple silicon Macs running macOS 15 or later that turns text into speech, clones and designs voices, reads books into M4B audiobooks, dubs videos into other languages and transcribes recordings with speaker labels. Its models run on the Mac's GPU with MLX and work offline once downloaded; the interface is drawn with MyGo's native UI. It is currently in beta.",
+		"zh-CN": "面向 macOS 15 及以上、Apple 芯片 Mac 的语音工作室：文字转语音、克隆和设计声音、把书读成 M4B 有声书、将视频配成其他语言，还能转写录音并区分说话人。模型借助 MLX 在 Mac 的 GPU 上运行，下载后即可离线使用；界面由 MyGo 原生 UI 绘制。目前仍是测试版。",
+		"zh-TW": "適用於 macOS 15 以上、Apple 晶片 Mac 的語音工作室：文字轉語音、複製與設計聲音、把書朗讀成 M4B 有聲書、將影片配音成其他語言，還能轉寫錄音並區分說話者。模型透過 MLX 在 Mac 的 GPU 上執行，下載後即可離線使用；介面由 MyGo 原生 UI 繪製。目前仍是測試版。",
+		"ja": "macOS 15 以降の Apple シリコン搭載 Mac 向けの音声スタジオ。テキストの読み上げ、声のクローンと設計、書籍の M4B オーディオブック化、動画の他言語への吹き替え、話者を区別した文字起こしができます。モデルは MLX で Mac の GPU 上で動き、ダウンロード後はオフラインで使えます。画面は MyGo のネイティブ UI で描かれています。現在はベータ版です。",
+		"ko": "macOS 15 이상 Apple 실리콘 Mac용 보이스 스튜디오입니다. 텍스트 음성 변환, 음성 복제와 디자인, 책을 M4B 오디오북으로 낭독, 동영상의 다른 언어 더빙, 화자를 구분한 받아쓰기를 지원합니다. 모델은 MLX로 Mac의 GPU에서 실행되고 내려받은 뒤에는 오프라인으로 동작하며, 화면은 MyGo의 네이티브 UI로 그립니다. 현재 베타 버전입니다."
+	},
+	"added": "2026-11-05T00:47:49Z",
+	"icon": {
+		"file": "audiosmith.webp"
+	},
+	"screenshot": "audiosmith.webp"
+}

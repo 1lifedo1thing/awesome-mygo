@@ -1,4 +1,4 @@
-// The post announcing one entry, in Simplified Chinese, the site's default language: what was listed and by whom, its page on the site, its summary, its stars, and how much the site lists now. The site's page is the post's only link: X shows a card for the first link in a post, and the post is there to bring readers to the site, not to the project, which the site's page links to. It is a post of its own rather than a quote of the site's launch post, as X shows no link card in a post that quotes another.
+// The post announcing one entry, in Simplified Chinese, the site's default language: what was listed and by whom, its page on the site, its summary, its stars, and how much the site lists now. The site's page is the post's first link, as X shows a card for the first link in a post and the post is there to bring readers to the site; the project's GitHub repository follows, with its stars. It is a post of its own rather than a quote of the site's launch post, as X shows no link card in a post that quotes another.
 
 export const SITE_URL = 'https://mygodock.dev';
 
@@ -65,6 +65,13 @@ export function sitePage(kind: EntryKind, entry: Entry): string {
 	return kind === 'app' ? `${SITE_URL}/apps/${String(entry.slug)}` : `${SITE_URL}/${kind === 'plugin' ? 'plugins' : kind}`;
 }
 
+// The entry's GitHub repository: its repo field, or else its link when that is a repository.
+export function githubUrl(entry: Entry): string | undefined {
+	if (typeof entry.repo === 'string' && /^[\w.-]+\/[\w.-]+$/.test(entry.repo)) return `https://github.com/${entry.repo}`;
+	const m = typeof entry.url === 'string' ? /^https:\/\/github\.com\/([\w.-]+)\/([\w.-]+?)(?:\.git)?(?:[/#?]|$)/.exec(entry.url) : null;
+	return m ? `https://github.com/${m[1]}/${m[2]}` : undefined;
+}
+
 // What X accepts as a username: letters, digits and underscores, at most 15.
 const X_HANDLE = /^[A-Za-z0-9_]{1,15}$/;
 
@@ -89,12 +96,13 @@ export function composePost({ kind, entry, stars, handle, counts }: PostInput): 
 	const name = str(entry.name) ?? String(entry.slug);
 	const author = handle && X_HANDLE.test(handle) ? `@${handle}` : str(entry.author);
 	const page = sitePage(kind, entry);
-	const urls = [page];
+	const github = githubUrl(entry);
+	const urls = [page, ...(github ? [github] : [])];
 	const summary = zh(entry.summary) ?? '';
 	const label = kindLabel(kind, entry);
 	const head = `Awesome MyGo 新收录${/^[A-Za-z]/.test(label) ? ' ' : ''}${label}：${name}${author ? ` by ${author}` : ''}\n${page}`;
-	const stats = [...(stars !== undefined ? [`GitHub ${stars} star`] : []), statsLine(counts)].join('\n');
-	// Paragraphs: what was listed and where on the site, its summary when there is room, the numbers.
+	const stats = [...(github ? [`GitHub：${github}${stars !== undefined ? `（${stars} star）` : ''}`] : []), statsLine(counts)].join('\n');
+	// Paragraphs: what was listed and where on the site, its summary when there is room, its repository and the numbers.
 	const build = (desc: string) => [head, desc, stats].filter(Boolean).join('\n\n');
 
 	const full = build(summary);

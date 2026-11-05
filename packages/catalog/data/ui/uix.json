@@ -1,0 +1,18 @@
+{
+	"$schema": "../schema/ui.schema.json",
+	"slug": "uix",
+	"name": "uix",
+	"author": "smallnest",
+	"tag": "theme",
+	"summary": {
+		"en": "A shadcn/ui-style component library for MyGo native UI, each component its own Go package: from buttons and forms to chat, charts, Markdown and Lucide icons, on light and dark design tokens mapped to shadcn's.",
+		"zh-CN": "shadcn/ui 风格的 MyGo 原生 UI 组件库，从按钮、表单到聊天、图表、Markdown 与 Lucide 图标，配有浅色与深色设计令牌。",
+		"zh-TW": "shadcn/ui 風格的 MyGo 原生 UI 元件庫，從按鈕、表單到聊天、圖表、Markdown 與 Lucide 圖示，附淺色與深色設計 token。",
+		"ja": "shadcn/ui 風の MyGo ネイティブ UI 向けコンポーネントライブラリ。ボタンやフォームからチャット、グラフ、Markdown、Lucide アイコンまで揃い、ライトとダークのデザイントークンが付きます。",
+		"ko": "shadcn/ui 스타일의 MyGo 네이티브 UI 컴포넌트 라이브러리. 버튼과 폼부터 채팅, 차트, Markdown, Lucide 아이콘까지 갖추고 라이트와 다크 디자인 토큰을 제공합니다."
+	},
+	"repo": "smallnest/uix",
+	"url": "https://github.com/smallnest/uix",
+	"screenshot": "uix.webp",
+	"added": "2026-11-05T00:57:39Z"
+}

@@ -1,0 +1,23 @@
+{
+	"$schema": "../schema/plugin.schema.json",
+	"slug": "untie",
+	"name": "Untie",
+	"mark": "Ut",
+	"official": false,
+	"surface": "native",
+	"import": "github.com/caelyreth/untie/contrib/mygo",
+	"tags": [
+		"math",
+		"tex",
+		"typst"
+	],
+	"docs": "https://github.com/caelyreth/untie/tree/main/contrib/mygo",
+	"summary": {
+		"en": "TeX and Typst math in native UI, as MyGo elements or inside Markdown views, laid out in pure Go with a font the app supplies.",
+		"zh-CN": "在原生 UI 中显示 TeX 与 Typst 数学公式，作为 MyGo 元素或用于 Markdown 视图，纯 Go 排版。",
+		"zh-TW": "在原生 UI 中顯示 TeX 與 Typst 數學公式，可作為 MyGo 元素或用於 Markdown 檢視，純 Go 排版。",
+		"ja": "TeX と Typst の数式をネイティブ UI に表示。MyGo の要素として、または Markdown ビュー内で使え、レイアウトは純 Go で行います。",
+		"ko": "TeX와 Typst 수식을 네이티브 UI에 표시합니다. MyGo 요소나 Markdown 뷰 안에서 쓰며, 순수 Go로 조판합니다."
+	},
+	"added": "2026-11-05T00:52:58Z"
+}

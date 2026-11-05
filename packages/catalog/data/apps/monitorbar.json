@@ -1,0 +1,28 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "monitorbar",
+	"name": "MonitorBar",
+	"author": "Binaryify",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/Binaryify/MonitorBar",
+	"repo": "Binaryify/MonitorBar",
+	"summary": {
+		"en": "Controls a monitor's input, volume, brightness and resolution from the menu bar or tray.",
+		"zh-CN": "在菜单栏或托盘里控制显示器的输入源、音量、亮度和分辨率。",
+		"zh-TW": "在選單列或系統匣中控制螢幕的輸入來源、音量、亮度和解析度。",
+		"ja": "メニューバーやトレイから、モニターの入力、音量、明るさ、解像度を操作。",
+		"ko": "메뉴 막대나 트레이에서 모니터 입력, 음량, 밝기, 해상도를 조절합니다."
+	},
+	"description": {
+		"en": "A macOS menu bar and Windows tray app drawn with MyGo's native UI, with no web view. It switches inputs and sets volume on Xiaomi HyperOS monitors over their LAN remote API, and uses DDC/CI for backlight and picture settings where supported. On any monitor it dims the picture and shifts color temperature, switches resolution and refresh rate, and tracks screen time.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 菜单栏与 Windows 托盘应用，没有 Web 视图。它通过澎湃 OS 显示器的局域网遥控接口切换输入源、调节音量，不依赖 DDC/CI；显示器支持 DDC/CI 时还能调硬件背光和画面设置。任何显示器都能用它软件调光、调色温、切换分辨率与刷新率，并统计屏幕时间。",
+		"zh-TW": "以 MyGo 原生 UI 繪製的 macOS 選單列與 Windows 系統匣應用程式，沒有 Web 視圖。它透過澎湃 OS 螢幕的區域網路遙控介面切換輸入來源、調整音量，不需要 DDC/CI；螢幕支援 DDC/CI 時還能調整硬體背光與畫面設定。任何螢幕都能用它軟體調光、調整色溫、切換解析度與更新率，並統計螢幕使用時間。",
+		"ja": "MyGo のネイティブ UI で描かれた、macOS のメニューバーと Windows のトレイで動くアプリ。Web ビューはありません。Xiaomi HyperOS 搭載モニターでは LAN リモート API で入力切り替えと音量調整を行い、DDC/CI 対応モニターではハードウェアのバックライトや画質設定も操作できます。どのモニターでも、ソフトウェア調光、色温度の調整、解像度とリフレッシュレートの切り替え、スクリーンタイムの記録ができます。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS 메뉴 막대·Windows 트레이 앱으로, 웹 뷰가 없습니다. Xiaomi HyperOS 모니터에서는 LAN 원격 API로 입력 전환과 음량 조절을 하고, DDC/CI를 지원하는 모니터에서는 하드웨어 백라이트와 화면 설정도 다룹니다. 어떤 모니터에서든 소프트웨어 디밍, 색온도 조절, 해상도·주사율 전환, 화면 시간 기록을 할 수 있습니다."
+	},
+	"added": "2026-11-05T00:48:23Z",
+	"icon": {
+		"file": "monitorbar.webp"
+	}
+}
