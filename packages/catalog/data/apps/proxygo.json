@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "proxygo",
+	"name": "ProxyGo",
+	"author": "tacshi",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/tacshi/ProxyGo",
+	"repo": "tacshi/ProxyGo",
+	"summary": {
+		"en": "A macOS debugging proxy: capture, decrypt, replay and mock HTTP, HTTPS and WebSocket traffic.",
+		"zh-CN": "原生 macOS 调试代理：抓包、解密 HTTPS，重放与模拟请求。",
+		"zh-TW": "原生 macOS 除錯代理：擷取封包、解密 HTTPS，重送與模擬請求。",
+		"ja": "ネイティブな macOS 用デバッグプロキシ。通信を記録し、HTTPS を復号、リクエストを再送・モック。",
+		"ko": "네이티브 macOS 디버깅 프록시. HTTPS를 복호화하고 요청을 재전송·모킹합니다."
+	},
+	"description": {
+		"en": "A native macOS debugging proxy written in Go and drawn with MyGo's native UI. It captures HTTP/1.1, HTTP/2 and WebSocket traffic from your Mac, phones and other devices, decrypts the HTTPS hosts you choose, and lets you replay, break on, map, script, throttle or block requests. It can also be driven from a terminal with proxygo-cli and from AI assistants over MCP.",
+		"zh-CN": "用 Go 编写、由 MyGo 原生 UI 绘制的 macOS 调试代理。它抓取 Mac、手机和其他设备的 HTTP/1.1、HTTP/2 与 WebSocket 流量，按你选择的主机解密 HTTPS，可以重放请求、在断点处修改、映射、用脚本改写、限速或拦截。也可以在终端用 proxygo-cli 操作，或让 AI 助手通过 MCP 使用。",
+		"zh-TW": "用 Go 撰寫、由 MyGo 原生 UI 繪製的 macOS 除錯代理。它擷取 Mac、手機和其他裝置的 HTTP/1.1、HTTP/2 與 WebSocket 流量，依你選擇的主機解密 HTTPS，可以重送請求、在中斷點修改、對應、用指令碼改寫、限速或封鎖。也可以在終端機用 proxygo-cli 操作，或讓 AI 助理透過 MCP 使用。",
+		"ja": "Go で書かれ、MyGo のネイティブ UI で描かれた macOS 用デバッグプロキシ。Mac やスマートフォン、その他のデバイスの HTTP/1.1・HTTP/2・WebSocket 通信を記録し、選んだホストの HTTPS を復号して、リクエストの再送、ブレークポイントでの編集、マッピング、スクリプトでの書き換え、帯域制限、ブロックができます。ターミナルから proxygo-cli で、AI アシスタントから MCP 経由でも操作できます。",
+		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 macOS용 디버깅 프록시입니다. Mac과 휴대폰, 다른 기기의 HTTP/1.1, HTTP/2, WebSocket 트래픽을 기록하고 선택한 호스트의 HTTPS를 복호화하며, 요청을 재전송하거나 중단점에서 수정하고 매핑, 스크립트 변경, 속도 제한, 차단을 할 수 있습니다. 터미널의 proxygo-cli나 MCP를 통해 AI 어시스턴트로도 조작할 수 있습니다."
+	},
+	"icon": {
+		"file": "proxygo.webp"
+	},
+	"screenshot": "proxygo.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T10:51:28Z"
+}
