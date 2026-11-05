@@ -1,4 +1,5 @@
 import { execFile } from 'node:child_process';
+import { existsSync } from 'node:fs';
 import { mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -63,13 +64,41 @@ export interface Downloaded {
 
 // The file at url when it is a PNG, JPEG or WebP no larger than 10 MB, judged by its bytes; undefined otherwise.
 export async function downloadImage(url: string): Promise<Downloaded | undefined> {
-	const res = await fetch(url, { redirect: 'follow', signal: AbortSignal.timeout(30_000) });
-	if (!res.ok) return undefined;
-	if (Number(res.headers.get('content-length') ?? 0) > MAX_BYTES) return undefined;
+	const img = await fetchImage(url);
+	return typeof img === 'string' ? undefined : img;
+}
+
+// An image, or why it could not be had, for the report. A server that asks to be asked again within a minute (429 with Retry-After, as GitHub's social preview cards do) is, once.
+export async function fetchImage(url: string): Promise<Downloaded | string> {
+	let res = await fetch(url, { redirect: 'follow', signal: AbortSignal.timeout(30_000) });
+	const wait = Number(res.headers.get('retry-after'));
+	if (res.status === 429 && wait > 0 && wait <= 60) {
+		await new Promise((r) => setTimeout(r, wait * 1000));
+		res = await fetch(url, { redirect: 'follow', signal: AbortSignal.timeout(30_000) });
+	}
+	if (!res.ok) return `HTTP ${res.status}`;
+	if (Number(res.headers.get('content-length') ?? 0) > MAX_BYTES) return 'over 10 MB';
 	const bytes = new Uint8Array(await res.arrayBuffer());
-	if (bytes.length > MAX_BYTES) return undefined;
+	if (bytes.length > MAX_BYTES) return 'over 10 MB';
 	const format = sniffImage(bytes);
-	return format ? { bytes, format } : undefined;
+	return format ? { bytes, format } : 'not a PNG, JPEG or WebP';
+}
+
+// The fonts a drawn card's text can use, the first that exists: DejaVu on the Ubuntu runners, Helvetica or Arial on a Mac.
+const CARD_FONTS = ['/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', '/System/Library/Fonts/Helvetica.ttc', '/Library/Fonts/Arial.ttf'];
+
+// A screenshot of last resort, drawn here when a project has no image of its own and GitHub's card cannot be had: the owner's avatar over owner/name on a dark ground, at the size of a social preview (1200 × 630), so a card on the site is never blank. Without any of the fonts the label is left out.
+export async function writeCard(avatar: Downloaded, label: string, out: string): Promise<void> {
+	const font = CARD_FONTS.find((f) => existsSync(f));
+	await withInput(avatar, (input) =>
+		magick([
+			'-size', '1200x630', 'xc:#0b1220',
+			'(', input, '-resize', '240x240^', '-gravity', 'center', '-extent', '240x240', ')',
+			'-gravity', 'center', '-geometry', '+0-50', '-composite',
+			...(font ? ['-font', font, '-fill', '#e6edf3', '-pointsize', '46', '-gravity', 'center', '-annotate', '+0+140', label] : []),
+			'-strip', '-quality', '82', '-define', 'webp:method=6', `webp:${out}`,
+		]),
+	);
 }
 
 // Runs fn on the image written to a temporary file, named with its real format so ImageMagick reads it as nothing else, in a directory fn may also write to.

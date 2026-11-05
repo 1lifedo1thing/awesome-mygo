@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { addedFiles, appCategories, appNameFrom, hasAllLanguages, iconCut, iconOf, isArtwork, isBanner, isPortrait, isSquarish, lengthCaps, overCaps, joinRepoPath, scriptConfig, parseMygoConfig, pickMygoConfig, readmeImages, repoOfEntry, repoScreenshots, resolveImage, setCategory, sniffImage, submittedScreenshot } from './source.ts';
+import { addedFiles, appCategories, appNameFrom, schemaEnum, hasAllLanguages, iconCut, iconOf, isArtwork, isBanner, isPortrait, isSquarish, lengthCaps, overCaps, joinRepoPath, scriptConfig, parseMygoConfig, pickMygoConfig, readmeImages, repoOfEntry, repoScreenshots, resolveImage, setCategory, sniffImage, submittedScreenshot } from './source.ts';
 
 describe('app names', () => {
 	it('takes mygo.json’s spelling of the same name only', () => {
@@ -25,6 +25,16 @@ describe('app names', () => {
 		expect(hasAllLanguages({ en: 'a', 'zh-CN': 'b', 'zh-TW': 'c', ja: 'd', ko: ' ' })).toBe(false);
 		expect(hasAllLanguages({ en: '本地 agent skills 库管理工具' })).toBe(false);
 		expect(hasAllLanguages(undefined)).toBe(false);
+	});
+});
+
+describe('schemas', () => {
+	it('reads the values a schema allows for a field', () => {
+		const schema = { properties: { tag: { enum: ['theme', 'retro', 'icons'] }, category: { enum: ['GameApplication', 7] }, name: { type: 'string' } } };
+		expect(schemaEnum(schema, 'tag')).toEqual(['theme', 'retro', 'icons']);
+		expect(appCategories(schema)).toEqual(['GameApplication']);
+		expect(schemaEnum(schema, 'name')).toEqual([]);
+		expect(schemaEnum(undefined, 'tag')).toEqual([]);
 	});
 });
 

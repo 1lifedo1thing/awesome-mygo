@@ -6,6 +6,9 @@ export type EntryKind = 'app' | 'ui' | 'state' | 'plugin';
 // The directory under the catalog's data that holds each kind's files, one per entry, named after its slug.
 export const ENTRY_DIRS: Record<EntryKind, string> = { app: 'apps', ui: 'ui', state: 'state', plugin: 'plugins' };
 
+// The kinds whose entries show a screenshot (their schemas have the field); a plugin's card has none.
+export const SHOT_KINDS: readonly EntryKind[] = ['app', 'ui', 'state'];
+
 // What each kind is, for the model writing its copy.
 export const KIND_NAMES: Record<EntryKind, string> = { app: 'an app in the showcase', ui: 'a UI component library, theme or icon set', state: 'a state management library', plugin: 'a MyGo plugin' };
 
@@ -123,10 +126,15 @@ export function repoScreenshots(paths: readonly string[]): string[] {
 	return paths.filter((p) => inFolder.test(p) && image.test(p) && !p.includes('node_modules/')).sort((a, b) => english(a) - english(b) || a.localeCompare(b));
 }
 
-// The app categories the catalog's schema allows (app.schema.json, properties.category.enum).
-export function appCategories(schema: unknown): string[] {
-	const values = (schema as { properties?: { category?: { enum?: unknown } } })?.properties?.category?.enum;
+// The values a catalog schema allows for a field (properties.<field>.enum), such as an app's categories or a UI library's tags.
+export function schemaEnum(schema: unknown, field: string): string[] {
+	const values = (schema as { properties?: Record<string, { enum?: unknown }> })?.properties?.[field]?.enum;
 	return Array.isArray(values) ? values.filter((v): v is string => typeof v === 'string') : [];
+}
+
+// The app categories the catalog's schema allows (app.schema.json).
+export function appCategories(schema: unknown): string[] {
+	return schemaEnum(schema, 'category');
 }
 
 // Sets the entry's category in place, right after kind as in the files written by hand, since the entry is written back in its key order.
