@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "cyrene-terminal",
+	"name": "Cyrene Terminal",
+	"author": "YanChenBai",
+	"kind": "native",
+	"group": "agents",
+	"url": "https://github.com/YanChenBai/cyrene-terminal",
+	"repo": "YanChenBai/cyrene-terminal",
+	"summary": {
+		"en": "A native terminal for coding agents with folder-grouped sessions, a file tree and a glass window.",
+		"zh-CN": "面向 coding agent 的原生终端，按文件夹分组，带文件树与毛玻璃外观。",
+		"zh-TW": "為 coding agent 打造的原生終端機，依資料夾分組，附檔案樹與毛玻璃外觀。",
+		"ja": "コーディングエージェント向けのネイティブターミナル。フォルダー別セッション、ファイルツリー、すりガラス風。",
+		"ko": "코딩 에이전트용 네이티브 터미널. 폴더별 세션 그룹, 파일 트리, 반투명 유리 느낌의 창."
+	},
+	"description": {
+		"en": "A terminal for coding agents drawn with MyGo's native UI and no web view, with the terminal run by MyGo's Ghostty plugin. It starts Codex, Claude, Pi, OMP, OpenCode or a plain shell, groups sessions into folders bound to a working directory, shows a read-only file tree of the current directory, and keeps running in the tray when the window closes. It is tested mainly on Windows.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 coding agent 终端，没有 WebView，终端由 MyGo 的 Ghostty 插件驱动。可快速启动 Codex、Claude、Pi、OMP、OpenCode 或普通 shell，会话按绑定了工作目录的文件夹分组，侧栏以只读文件树显示当前目录；关闭窗口后收进托盘继续运行。目前主要在 Windows 上验证。",
+		"zh-TW": "以 MyGo 原生 UI 繪製的 coding agent 終端機，沒有 WebView，終端由 MyGo 的 Ghostty 外掛驅動。可快速啟動 Codex、Claude、Pi、OMP、OpenCode 或一般 shell，工作階段依綁定工作目錄的資料夾分組，側欄以唯讀檔案樹顯示目前目錄；關閉視窗後收進系統匣繼續執行。目前主要在 Windows 上驗證。",
+		"ja": "MyGo のネイティブ UI で描かれたコーディングエージェント向けターミナル。WebView はなく、端末部分は MyGo の Ghostty プラグインで動きます。Codex、Claude、Pi、OMP、OpenCode や通常のシェルをすぐに起動でき、セッションは作業ディレクトリに結びつけたフォルダーでまとめ、サイドバーには現在のディレクトリを読み取り専用のファイルツリーで表示します。ウィンドウを閉じてもトレイで動き続けます。主な検証環境は Windows です。",
+		"ko": "MyGo의 네이티브 UI로 그린 코딩 에이전트용 터미널로, WebView 없이 MyGo의 Ghostty 플러그인으로 터미널을 구동합니다. Codex, Claude, Pi, OMP, OpenCode나 일반 셸을 바로 실행하고, 세션을 작업 디렉터리에 연결된 폴더로 묶으며, 사이드바에 현재 디렉터리를 읽기 전용 파일 트리로 보여 줍니다. 창을 닫아도 트레이에서 계속 실행됩니다. 주로 Windows에서 검증되었습니다."
+	},
+	"icon": {
+		"file": "cyrene-terminal.webp"
+	},
+	"screenshot": "cyrene-terminal.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T10:51:28Z"
+}
