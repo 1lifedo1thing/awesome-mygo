@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "clashx-go",
+	"name": "ClashX Go",
+	"author": "Sakurasan",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/Sakurasan/ClashX-Go",
+	"repo": "Sakurasan/ClashX-Go",
+	"summary": {
+		"en": "A macOS menu bar proxy client in the style of ClashX, running the mihomo core.",
+		"zh-CN": "仿 ClashX 的 macOS 菜单栏代理客户端，基于 mihomo 内核。",
+		"zh-TW": "仿 ClashX 的 macOS 選單列代理用戶端，採用 mihomo 核心。",
+		"ja": "ClashX 風の macOS メニューバー用プロキシクライアント。mihomo コアで動作。",
+		"ko": "ClashX를 본뜬 macOS 메뉴 막대 프록시 클라이언트. mihomo 코어로 동작합니다."
+	},
+	"description": {
+		"en": "A macOS menu bar proxy client modeled on ClashX and ClashX Meta, drawn with MyGo's native UI and running the mihomo core, which ships inside a single .app with nothing downloaded at runtime. It switches policy groups and nodes with latency badges, toggles system proxy or TUN mode, manages subscriptions with live reload and routes chosen apps direct or through the proxy.",
+		"zh-CN": "仿照 ClashX 与 ClashX Meta 的 macOS 菜单栏代理客户端，由 MyGo 原生 UI 绘制，使用 mihomo 内核；内核随 .app 一起打包，运行时无需额外下载。可以查看延迟并切换策略组与节点，开关系统代理或 TUN 模式，管理订阅并免重启重载配置，还能指定应用直连或走代理。",
+		"zh-TW": "仿照 ClashX 與 ClashX Meta 的 macOS 選單列代理用戶端，由 MyGo 原生 UI 繪製，使用 mihomo 核心；核心隨 .app 一起打包，執行時不需額外下載。可以查看延遲並切換策略群組與節點，開關系統代理或 TUN 模式，管理訂閱並免重啟重新載入設定，還能指定應用程式直連或走代理。",
+		"ja": "ClashX と ClashX Meta を手本にした、macOS のメニューバー常駐プロキシクライアント。MyGo のネイティブ UI で描かれ、mihomo コアを .app に同梱しているため、実行時のダウンロードはありません。ポリシーグループとノードを遅延表示つきで切り替え、システムプロキシや TUN モードをオン・オフし、サブスクリプションを管理して設定を再起動なしで再読み込みできます。指定したアプリを直結かプロキシ経由に振り分けることもできます。",
+		"ko": "ClashX와 ClashX Meta를 본뜬 macOS 메뉴 막대 프록시 클라이언트로, MyGo의 네이티브 UI로 그렸고 mihomo 코어를 .app에 함께 담아 실행 중에 따로 내려받지 않습니다. 지연 시간을 보며 정책 그룹과 노드를 바꾸고, 시스템 프록시나 TUN 모드를 켜고 끄며, 구독을 관리하고 설정을 재시작 없이 다시 불러옵니다. 지정한 앱을 직접 연결하거나 프록시로 보낼 수도 있습니다."
+	},
+	"icon": {
+		"file": "clashx-go.webp"
+	},
+	"screenshot": "clashx-go.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T03:22:12Z"
+}
