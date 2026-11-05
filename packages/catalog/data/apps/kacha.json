@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "kacha",
+	"name": "Kacha",
+	"author": "douglarek",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/douglarek/kacha",
+	"repo": "douglarek/kacha",
+	"summary": {
+		"en": "Screenshot tool for Linux, macOS and Windows: capture, annotate and copy to the clipboard.",
+		"zh-CN": "支持 Linux、macOS 和 Windows 的截图工具：截图、标注、复制到剪贴板。",
+		"zh-TW": "支援 Linux、macOS 和 Windows 的截圖工具：截圖、標註、複製到剪貼簿。",
+		"ja": "Linux・macOS・Windows 用のスクリーンショットツール。撮って注釈を付け、クリップボードへ。",
+		"ko": "Linux·macOS·Windows용 스크린샷 도구. 캡처하고 주석을 달아 클립보드에 복사합니다."
+	},
+	"description": {
+		"en": "A screenshot tool for Linux, macOS and Windows, written in Go and drawn with MyGo's native UI. You frame a window on screen, annotate the capture and copy it to the clipboard. On Linux it relies on xdg-desktop-portal and wl-clipboard; the name comes from the sound of a camera shutter, kacha.",
+		"zh-CN": "用 Go 编写、由 MyGo 原生 UI 绘制的截图工具，支持 Linux、macOS 和 Windows。在屏幕上框选窗口截图，加上标注后复制到剪贴板。在 Linux 上依赖 xdg-desktop-portal 和 wl-clipboard；名字取自快门的声音“咔嚓”。",
+		"zh-TW": "用 Go 撰寫、由 MyGo 原生 UI 繪製的截圖工具，支援 Linux、macOS 和 Windows。在螢幕上框選視窗截圖，加上標註後複製到剪貼簿。在 Linux 上需要 xdg-desktop-portal 和 wl-clipboard；名字取自快門的聲音「咔嚓」。",
+		"ja": "Go で書かれ、MyGo のネイティブ UI で描かれた Linux・macOS・Windows 向けのスクリーンショットツール。画面上のウィンドウを囲んで撮り、注釈を書き込んでクリップボードにコピーできます。Linux では xdg-desktop-portal と wl-clipboard を使います。名前はシャッター音の「カシャ」に由来します。",
+		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 Linux·macOS·Windows용 스크린샷 도구입니다. 화면에서 창을 골라 캡처하고 주석을 단 뒤 클립보드에 복사합니다. Linux에서는 xdg-desktop-portal과 wl-clipboard를 사용하며, 이름은 카메라 셔터 소리 '찰칵'에서 따왔습니다."
+	},
+	"icon": {
+		"file": "kacha.webp"
+	},
+	"screenshot": "kacha.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T05:19:24Z"
+}
