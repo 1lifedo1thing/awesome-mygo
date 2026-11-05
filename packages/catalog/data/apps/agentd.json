@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "agentd",
+	"name": "agentd",
+	"author": "nguyenvanduocit",
+	"kind": "native",
+	"group": "agents",
+	"url": "https://github.com/nguyenvanduocit/agentd",
+	"repo": "nguyenvanduocit/agentd",
+	"summary": {
+		"en": "Mac menu bar app that runs Claude Code, Codex and Grok locally for the web apps you allow.",
+		"zh-CN": "Mac 菜单栏应用，在本机为授权的网页应用运行 Claude Code 与 Codex。",
+		"zh-TW": "Mac 選單列工具，在本機為授權的網頁應用執行 Claude Code 與 Codex。",
+		"ja": "許可した Web アプリのために Claude Code などを Mac 上で動かすメニューバーアプリ。",
+		"ko": "허용한 웹 앱을 위해 Claude Code 등을 로컬에서 실행하는 Mac 메뉴 막대 앱."
+	},
+	"description": {
+		"en": "A Mac menu bar app drawn with MyGo's native UI that runs coding agents such as Claude Code, Codex and Grok on your own computer for the web apps you allow. It asks before an app or page gets access, shows the engine's state in the menu bar and a window, and opens at login. MyGo builds only the Mac app; the web and Go SDKs that apps use to connect to it are made separately.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Mac 菜单栏应用，在你自己的电脑上为你允许的网页应用运行 Claude Code、Codex、Grok 等编程智能体。应用或页面获得访问权限前会先征求你的同意，引擎状态显示在菜单栏和窗口中，并随登录启动。MyGo 只构建这个 Mac 应用，供应用接入的网页与 Go SDK 另行开发。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Mac 選單列 App，在你自己的電腦上為你允許的網頁應用程式執行 Claude Code、Codex、Grok 等程式設計代理。應用程式或頁面取得存取權限前會先徵求你的同意，引擎狀態顯示在選單列與視窗中，並於登入時啟動。MyGo 只建置這個 Mac App，供應用程式接入的網頁與 Go SDK 另行開發。",
+		"ja": "MyGo のネイティブ UI で描かれた Mac のメニューバーアプリ。許可した Web アプリのために、Claude Code、Codex、Grok などのコーディングエージェントを自分のコンピューター上で動かします。アプリやページにアクセスを許す前に確認を求め、エンジンの状態をメニューバーとウィンドウに表示し、ログイン時に起動します。MyGo でビルドされるのは Mac アプリだけで、アプリが接続に使う Web 用と Go 用の SDK は別に作られています。",
+		"ko": "MyGo의 네이티브 UI로 그린 Mac 메뉴 막대 앱으로, 사용자가 허용한 웹 앱을 위해 Claude Code, Codex, Grok 같은 코딩 에이전트를 자신의 컴퓨터에서 실행합니다. 앱이나 페이지가 접근하기 전에 먼저 확인을 받고, 엔진 상태를 메뉴 막대와 창에 보여 주며, 로그인할 때 실행됩니다. MyGo로 빌드하는 것은 Mac 앱뿐이며, 앱이 연결에 쓰는 웹용·Go용 SDK는 따로 만들어집니다."
+	},
+	"icon": {
+		"file": "agentd.webp"
+	},
+	"screenshot": "agentd.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T16:30:17Z"
+}
