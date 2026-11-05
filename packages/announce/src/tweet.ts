@@ -1,8 +1,6 @@
-// The post announcing one entry, in Simplified Chinese, the site's default language: what was listed and by whom, its summary, its links, and how much the site lists now. It quotes the site's launch post, which the post's text does not count.
+// The post announcing one entry, in Simplified Chinese, the site's default language: what was listed and by whom, its page on the site, its summary, its stars, and how much the site lists now. The site's page is the post's only link: X shows a card for the first link in a post, and the post is there to bring readers to the site, not to the project, which the site's page links to. It is a post of its own rather than a quote of the site's launch post, as X shows no link card in a post that quotes another.
 
 export const SITE_URL = 'https://mygodock.dev';
-// The launch post every announcement quotes: https://x.com/suzukaze_haduki/status/2117891721086599212
-export const QUOTE_TWEET_ID = '2117891721086599212';
 
 export type EntryKind = 'app' | 'ui' | 'state' | 'plugin';
 export const ENTRY_DIRS: Record<EntryKind, string> = { app: 'apps', ui: 'ui', state: 'state', plugin: 'plugins' };
@@ -67,18 +65,16 @@ export function sitePage(kind: EntryKind, entry: Entry): string {
 	return kind === 'app' ? `${SITE_URL}/apps/${String(entry.slug)}` : `${SITE_URL}/${kind === 'plugin' ? 'plugins' : kind}`;
 }
 
-// The project's own link: an app's homepage, a library's homepage or else its repository, a plugin's docs.
-export function projectLink(kind: EntryKind, entry: Entry): string | undefined {
-	if (kind === 'app') return str(entry.url);
-	if (kind === 'plugin') return str(entry.docs);
-	return str(entry.homepage) ?? str(entry.url);
-}
+// What X accepts as a username: letters, digits and underscores, at most 15.
+const X_HANDLE = /^[A-Za-z0-9_]{1,15}$/;
 
 export interface PostInput {
 	kind: EntryKind;
 	entry: Entry;
 	// The repository's stars on GitHub, when it has one and they could be read.
 	stars?: number;
+	// The X account of the repository's owner, from their GitHub profile, which the post mentions so they can share it.
+	handle?: string;
 	// How many entries of each kind the site lists, this one included.
 	counts: Counts;
 }
@@ -89,18 +85,17 @@ export function statsLine(counts: Counts): string {
 }
 
 // The post's text, its summary cut short with … when the whole would weigh more than X allows. Throws when even without a summary it would.
-export function composePost({ kind, entry, stars, counts }: PostInput): string {
+export function composePost({ kind, entry, stars, handle, counts }: PostInput): string {
 	const name = str(entry.name) ?? String(entry.slug);
-	const author = str(entry.author);
-	const project = projectLink(kind, entry);
+	const author = handle && X_HANDLE.test(handle) ? `@${handle}` : str(entry.author);
 	const page = sitePage(kind, entry);
-	const urls = [project, page].filter((u): u is string => !!u);
+	const urls = [page];
 	const summary = zh(entry.summary) ?? '';
-
-	const links = [...(project && project !== page ? [`${kind === 'plugin' ? '文档' : '项目'}：${project}${stars !== undefined ? `（GitHub ${stars} star）` : ''}`] : []), `详情：${page}`].join('\n');
-	// Paragraphs: what was listed, its summary when there is room, its links, the site's counts.
 	const label = kindLabel(kind, entry);
-	const build = (desc: string) => [`Awesome MyGo 新收录${/^[A-Za-z]/.test(label) ? ' ' : ''}${label}：${name}${author ? ` by ${author}` : ''}`, desc, links, statsLine(counts)].filter(Boolean).join('\n\n');
+	const head = `Awesome MyGo 新收录${/^[A-Za-z]/.test(label) ? ' ' : ''}${label}：${name}${author ? ` by ${author}` : ''}\n${page}`;
+	const stats = [...(stars !== undefined ? [`GitHub ${stars} star`] : []), statsLine(counts)].join('\n');
+	// Paragraphs: what was listed and where on the site, its summary when there is room, the numbers.
+	const build = (desc: string) => [head, desc, stats].filter(Boolean).join('\n\n');
 
 	const full = build(summary);
 	if (weightedLength(full, urls) <= MAX_WEIGHT) return full;
