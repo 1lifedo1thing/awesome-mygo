@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "withdo",
+	"name": "Withdo",
+	"author": "QingYunA",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://qingyuna.github.io/withdo/",
+	"repo": "QingYunA/withdo",
+	"summary": {
+		"en": "A todo app that shows what your coding agents are working on, beside your own tasks.",
+		"zh-CN": "待办应用：在你的任务旁显示编程代理正在做什么。",
+		"zh-TW": "待辦應用程式：在你的任務旁顯示程式設計代理正在做什麼。",
+		"ja": "自分のタスクの横に、コーディングエージェントの作業状況を並べて表示する ToDo アプリ。",
+		"ko": "내 할 일 옆에 코딩 에이전트가 하고 있는 작업을 함께 보여 주는 할 일 앱."
+	},
+	"description": {
+		"en": "A todo app for macOS and Windows where coding agents such as Claude Code and Codex report, over a local MCP server, the repo, branch and PR they work on, shown beside your own tasks. Tasks stay in a local SQLite file; signing in syncs them with other computers and the Android app. MyGo's native UI draws the desktop app; the Android app and the command line are built separately.",
+		"zh-CN": "适用于 macOS 与 Windows 的待办应用。Claude Code、Codex 等编程代理通过本地 MCP 服务器报告正在处理的仓库、分支和 PR，显示在你自己的任务旁。任务保存在本机的 SQLite 文件中，登录后可与其他电脑及 Android 应用同步。桌面版由 MyGo 原生 UI 绘制，Android 应用和命令行工具另行构建。",
+		"zh-TW": "適用於 macOS 與 Windows 的待辦應用程式。Claude Code、Codex 等程式設計代理透過本機 MCP 伺服器回報正在處理的儲存庫、分支與 PR，顯示在你自己的任務旁。任務存放在本機的 SQLite 檔案中，登入後可與其他電腦及 Android 應用程式同步。桌面版由 MyGo 原生 UI 繪製，Android 應用程式與命令列工具另行建置。",
+		"ja": "macOS・Windows 向けの ToDo アプリ。Claude Code や Codex などのコーディングエージェントがローカルの MCP サーバー経由で作業中のリポジトリ、ブランチ、PR を報告し、自分のタスクの横に表示します。タスクは手元の SQLite ファイルに保存され、サインインすると他のコンピューターや Android アプリと同期します。デスクトップ版は MyGo のネイティブ UI で描かれ、Android アプリとコマンドラインは別に作られています。",
+		"ko": "macOS와 Windows용 할 일 앱입니다. Claude Code, Codex 같은 코딩 에이전트가 로컬 MCP 서버를 통해 작업 중인 저장소, 브랜치, PR을 알려 주면 내 할 일 옆에 표시됩니다. 할 일은 내 컴퓨터의 SQLite 파일에 저장되고, 로그인하면 다른 컴퓨터 및 Android 앱과 동기화됩니다. 데스크톱 앱은 MyGo의 네이티브 UI로 그렸고, Android 앱과 명령줄 도구는 따로 만듭니다."
+	},
+	"icon": {
+		"file": "withdo.webp"
+	},
+	"screenshot": "withdo.webp",
+	"added": "2026-11-05T05:38:23Z"
+}
