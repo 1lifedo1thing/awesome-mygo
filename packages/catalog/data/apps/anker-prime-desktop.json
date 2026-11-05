@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "anker-prime-desktop",
+	"name": "Anker Prime Desktop",
+	"author": "LYJW131",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/LYJW131/anker-prime-desktop",
+	"repo": "LYJW131/anker-prime-desktop",
+	"summary": {
+		"en": "Shows and controls Anker Prime chargers and power banks over Bluetooth, with no cloud needed.",
+		"zh-CN": "通过蓝牙查看和控制 Anker Prime 充电器与充电宝，无需云端。",
+		"zh-TW": "透過藍牙查看與控制 Anker Prime 充電器和行動電源，無需雲端。",
+		"ja": "Anker Prime の充電器とモバイルバッテリーを Bluetooth で確認・操作。クラウド不要。",
+		"ko": "Anker Prime 충전기와 보조배터리를 클라우드 없이 Bluetooth로 제어합니다."
+	},
+	"description": {
+		"en": "A menu bar and window app for macOS, Windows and Linux, drawn with MyGo's native UI, that talks to Anker Prime devices directly over Bluetooth with no cloud needed. It shows live ports, battery and power for the Prime Charger (160W) and the Prime Power Bank (20K, 220W), and can push your own pictures to the charger's screen.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的菜单栏与窗口应用，支持 macOS、Windows 和 Linux，通过蓝牙直接连接 Anker Prime 设备，无需云端。可实时查看 Prime 充电器（160W）和 Prime 充电宝（20K，220W）的各端口状态、电量与功率，还能把自己的图片推送到充电器屏幕上。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的選單列與視窗應用程式，支援 macOS、Windows 和 Linux，透過藍牙直接連接 Anker Prime 裝置，無需雲端。可即時查看 Prime 充電器（160W）與 Prime 行動電源（20K，220W）的各連接埠狀態、電量與功率，還能把自己的圖片傳到充電器螢幕上。",
+		"ja": "MyGo のネイティブ UI で描かれた、メニューバーとウィンドウで使うアプリ。macOS・Windows・Linux に対応し、Anker Prime の機器と Bluetooth で直接つながるため、クラウドは不要です。Prime Charger（160W）と Prime Power Bank（20K、220W）のポートごとの状態、バッテリー、電力をリアルタイムで表示し、充電器の画面に自分の画像を送ることもできます。",
+		"ko": "MyGo의 네이티브 UI로 그린 메뉴 막대·창 앱으로, macOS, Windows, Linux에서 동작하며 Anker Prime 기기와 Bluetooth로 직접 연결되어 클라우드가 필요 없습니다. Prime Charger(160W)와 Prime Power Bank(20K, 220W)의 포트별 상태, 배터리, 전력을 실시간으로 보여 주고, 충전기 화면에 직접 고른 이미지를 보낼 수도 있습니다."
+	},
+	"icon": {
+		"file": "anker-prime-desktop.webp"
+	},
+	"screenshot": "anker-prime-desktop.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T02:55:41Z"
+}
