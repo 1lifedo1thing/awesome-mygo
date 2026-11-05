@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "sift",
+	"name": "Sift",
+	"author": "jinghaihan",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/jinghaihan/sift",
+	"repo": "jinghaihan/sift",
+	"summary": {
+		"en": "Reviews a Git feature branch's own changes, leaving out work merged in from other branches.",
+		"zh-CN": "审查 Git 功能分支自身的改动，排除从其他分支合并进来的代码。",
+		"zh-TW": "審查 Git 功能分支本身的變更，排除從其他分支合併進來的程式碼。",
+		"ja": "Git のフィーチャーブランチ自身の変更だけを、他ブランチからのマージを除いてレビュー。",
+		"ko": "다른 브랜치에서 병합된 변경을 빼고 Git 기능 브랜치 자체의 변경만 리뷰합니다."
+	},
+	"description": {
+		"en": "A Git review app based on Godiff and drawn with MyGo's native UI. Pick a repository and feature branch and Sift works out the review range, showing only the feature's own changes without work merged in from the integration branch, as split or unified diffs. Inline comments are saved locally and export as Markdown, and the repository's branch, working files and index are left untouched.",
+		"zh-CN": "基于 Godiff、用 MyGo 原生 UI 绘制的 Git 代码审查工具。选好仓库和功能分支后，Sift 会自动判断审查范围，只显示该功能自身的改动，排除从集成分支合并进来的无关代码，支持分栏与统一 diff。行内评论保存在本地，可导出为 Markdown；审查不会改动仓库当前的分支、工作区文件和索引。",
+		"zh-TW": "基於 Godiff、以 MyGo 原生 UI 繪製的 Git 程式碼審查工具。選好儲存庫與功能分支後，Sift 會自動判斷審查範圍，只顯示該功能本身的變更，排除從整合分支合併進來的無關程式碼，支援並排與統一 diff。行內評論存在本機，可匯出為 Markdown；審查不會動到儲存庫目前的分支、工作目錄檔案與索引。",
+		"ja": "Godiff をベースに、MyGo のネイティブ UI で描かれた Git レビューアプリ。リポジトリとフィーチャーブランチを選ぶとレビュー範囲を自動で判定し、統合ブランチからマージされた無関係な変更を除いて、そのフィーチャー自身の変更だけをスプリットまたはユニファイド形式の diff で表示します。インラインコメントはローカルに保存され、Markdown で書き出せます。リポジトリの現在のブランチ、作業ファイル、インデックスには手を加えません。",
+		"ko": "Godiff를 기반으로 MyGo의 네이티브 UI로 그린 Git 리뷰 앱입니다. 저장소와 기능 브랜치를 고르면 리뷰 범위를 알아서 찾아, 통합 브랜치에서 병합된 관련 없는 변경을 빼고 그 기능 자체의 변경만 분할 또는 통합 diff로 보여 줍니다. 인라인 코멘트는 로컬에 저장되고 Markdown으로 내보낼 수 있으며, 저장소의 현재 브랜치, 작업 파일, 인덱스는 건드리지 않습니다."
+	},
+	"icon": {
+		"file": "sift.webp"
+	},
+	"screenshot": "sift.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T15:37:24Z"
+}
