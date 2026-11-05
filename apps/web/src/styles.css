@@ -334,7 +334,7 @@ html:lang(ko) .site {
 	display: flex;
 	gap: 56px;
 	width: max-content;
-	/* 1.2 s an app, the pace the strip had at 40 apps in 48 s: a fixed duration made it run faster with every app listed, until at 175 it moved too fast to read. --marq-n is the number of apps (routes/index.tsx). */
+	/* 1.2 s an app, the pace the strip had at 40 apps in 48 s: a fixed duration made it run faster with every app listed, until at 175 it moved too fast to read. --marq-n is the number of apps on the strip (routes/index.tsx). */
 	animation: marq calc(var(--marq-n, 40) * 1.2s) linear infinite;
 }
 .marq:hover {
@@ -418,46 +418,54 @@ html:lang(ko) .site {
 	pointer-events: none;
 	overflow: hidden;
 }
+/* Each blob is a disc softened as if blurred by 100px, drawn as a radial gradient instead of with filter: blur(100px). A blur that large over a backdrop that changes every frame is redone every frame (Firefox's software renderer drops to a few frames a second); a gradient is painted once and only moves. The box is 200px wider on every side than the disc, for the fade the blur gave it: solid to where the blurred disc started to fade, half at the disc's edge, clear at the box's edge. */
 .blob {
 	position: absolute;
-	border-radius: 50%;
-	filter: blur(100px);
+	background: radial-gradient(closest-side, var(--blob) var(--core), color-mix(in srgb, var(--blob) 50%, transparent) var(--edge), transparent 100%);
 	will-change: transform;
 }
 .b1 {
-	width: 680px;
-	height: 680px;
-	background: #1fa9cc;
+	--blob: #1fa9cc;
+	--core: 44%;
+	--edge: 63%;
+	width: 1080px;
+	height: 1080px;
 	opacity: 0.3;
-	left: -180px;
-	top: -200px;
+	left: -380px;
+	top: -400px;
 	animation: d1 26s ease-in-out infinite alternate;
 }
 .b2 {
-	width: 560px;
-	height: 560px;
-	background: #6e4bd8;
+	--blob: #6e4bd8;
+	--core: 37%;
+	--edge: 58%;
+	width: 960px;
+	height: 960px;
 	opacity: 0.2;
-	right: -160px;
-	top: 18%;
+	right: -360px;
+	top: calc(18% - 200px);
 	animation: d2 34s ease-in-out infinite alternate;
 }
 .b3 {
-	width: 520px;
-	height: 520px;
-	background: #ffb547;
+	--blob: #ffb547;
+	--core: 35%;
+	--edge: 57%;
+	width: 920px;
+	height: 920px;
 	opacity: 0.1;
-	left: 32%;
-	bottom: -260px;
+	left: calc(32% - 200px);
+	bottom: -460px;
 	animation: d3 40s ease-in-out infinite alternate;
 }
 .b4 {
-	width: 380px;
-	height: 380px;
-	background: #3fd3f5;
+	--blob: #3fd3f5;
+	--core: 23%;
+	--edge: 49%;
+	width: 780px;
+	height: 780px;
 	opacity: 0.12;
-	left: 55%;
-	top: 40%;
+	left: calc(55% - 200px);
+	top: calc(40% - 200px);
 	animation: d4 22s ease-in-out infinite alternate;
 }
 @keyframes d1 {
@@ -506,13 +514,19 @@ html:lang(ko) .site {
 	width: 100%;
 	height: 100%;
 }
+/* The dot spotlight is a 560px box that the pointer moves with a transform (Background.tsx sets --mx and --my), its circular mask fixed to the box, rather than a full-screen layer whose mask moved: that made the browser repaint and re-mask the whole screen on every pointer move. The dots stay on the screen's 22px grid as the box moves, by moving the pattern back by as much. */
 .spot {
 	position: absolute;
-	inset: 0;
+	left: -280px;
+	top: -280px;
+	width: 560px;
+	height: 560px;
+	transform: translate(var(--mx, 70vw), var(--my, 25vh));
 	background-image: radial-gradient(rgba(63, 211, 245, 0.6) 1px, transparent 1.3px);
 	background-size: 22px 22px;
-	-webkit-mask-image: radial-gradient(280px circle at var(--mx, 70%) var(--my, 25%), #000, transparent 72%);
-	mask-image: radial-gradient(280px circle at var(--mx, 70%) var(--my, 25%), #000, transparent 72%);
+	background-position: calc(280px - var(--mx, 70vw)) calc(280px - var(--my, 25vh));
+	-webkit-mask-image: radial-gradient(closest-side, #000, transparent 72%);
+	mask-image: radial-gradient(closest-side, #000, transparent 72%);
 }
 .vig {
 	position: absolute;
@@ -1117,13 +1131,13 @@ html:lang(ko) .site {
 	position: absolute;
 	left: 50%;
 	top: 120px;
-	width: 560px;
-	height: 160px;
-	margin-left: -280px;
-	border-radius: 50%;
-	background: var(--cyan);
+	/* The 560x160 ellipse softened as if blurred by 90px, drawn as a gradient for the same reason as the backdrop's blobs: the box is 180px larger on every side, and the centre is 62% of the colour, as the blur, wider than the ellipse is tall, never reached the whole of it. */
+	width: 920px;
+	height: 520px;
+	margin-left: -460px;
+	margin-top: -180px;
+	background: radial-gradient(closest-side, color-mix(in srgb, var(--cyan) 62%, transparent) 0%, color-mix(in srgb, var(--cyan) 55%, transparent) 30%, transparent 100%);
 	opacity: 0.22;
-	filter: blur(90px);
 }
 .wall {
 	position: absolute;
