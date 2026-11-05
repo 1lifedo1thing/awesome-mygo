@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "renew",
+	"name": "明镜高悬 Renew",
+	"author": "stevessr",
+	"kind": "native",
+	"group": "agents",
+	"url": "https://github.com/stevessr/agent-ebpf-filter/tree/master/desktop/renew",
+	"repo": "stevessr/agent-ebpf-filter",
+	"summary": {
+		"en": "A Linux desktop monitor that watches AI agents' and CLIs' commands, files and connections through eBPF.",
+		"zh-CN": "用 eBPF 监控 AI 智能体和 CLI 的命令、文件与网络连接的 Linux 桌面应用。",
+		"zh-TW": "用 eBPF 監控 AI 代理和 CLI 的指令、檔案與網路連線的 Linux 桌面應用程式。",
+		"ja": "eBPF で AI エージェントや CLI のコマンド、ファイル、通信を監視する Linux 向けデスクトップアプリ。",
+		"ko": "eBPF로 AI 에이전트와 CLI의 명령, 파일, 네트워크 연결을 모니터링하는 Linux 데스크톱 앱."
+	},
+	"description": {
+		"en": "明镜高悬 (Renew) is the Linux desktop app of Agent eBPF Filter, drawn entirely with MyGo's native UI, with no web view. Through eBPF it watches what AI agents and developer CLIs such as Codex, Claude Code and Gemini CLI do: the commands they run, the files they touch and the connections they open, tied to each agent's session. It lists risk events, the domains each agent reaches and path access, can stay in the tray, and starts its bundled backend itself.",
+		"zh-CN": "明镜高悬（Renew）是 Agent eBPF Filter 的 Linux 桌面应用，界面完全由 MyGo 原生 UI 绘制，不用 WebView。它借助 eBPF 观察 Codex、Claude Code、Gemini CLI 等 AI 智能体和开发者 CLI 的行为：执行了哪些命令、动了哪些文件、建立了哪些连接，并对应到各自的智能体会话。它会列出风险事件、每个智能体访问的域名和路径访问情况，可以常驻托盘，并自行启动随附的后端。",
+		"zh-TW": "明镜高悬（Renew）是 Agent eBPF Filter 的 Linux 桌面應用程式，介面完全由 MyGo 原生 UI 繪製，不使用 WebView。它藉由 eBPF 觀察 Codex、Claude Code、Gemini CLI 等 AI 代理和開發者 CLI 的行為：執行了哪些指令、動了哪些檔案、建立了哪些連線，並對應到各自的代理工作階段。它會列出風險事件、每個代理存取的網域和路徑存取情形，可以常駐系統匣，並自行啟動隨附的後端。",
+		"ja": "明镜高悬（Renew）は Agent eBPF Filter の Linux 向けデスクトップアプリで、画面はすべて MyGo のネイティブ UI で描かれ、WebView は使いません。eBPF で Codex、Claude Code、Gemini CLI などの AI エージェントや開発者向け CLI の動きを観察し、実行したコマンド、触れたファイル、張った接続をそれぞれのエージェントのセッションに結び付けて示します。リスクのあるイベント、エージェントごとの接続先ドメイン、パスへのアクセスを確認でき、トレイに常駐でき、同梱のバックエンドも自分で起動します。",
+		"ko": "明镜高悬(Renew)은 Agent eBPF Filter의 Linux 데스크톱 앱으로, 화면 전체를 MyGo 네이티브 UI로 그리며 WebView를 쓰지 않습니다. eBPF로 Codex, Claude Code, Gemini CLI 같은 AI 에이전트와 개발자 CLI가 실행한 명령, 건드린 파일, 연 네트워크 연결을 관찰해 각 에이전트의 세션에 연결해 보여 줍니다. 위험 이벤트, 에이전트별 접속 도메인과 경로 접근을 살펴볼 수 있고, 트레이에 상주할 수 있으며, 함께 들어 있는 백엔드를 직접 시작합니다."
+	},
+	"icon": {
+		"file": "renew.webp"
+	},
+	"screenshot": "renew.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T11:28:55Z"
+}
