@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "grove",
+	"name": "Grove",
+	"author": "lemoeade",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/lemoeade/grove",
+	"repo": "lemoeade/grove",
+	"summary": {
+		"en": "A macOS workbench for several Git repos: files, editor, Git history and terminals in one window.",
+		"zh-CN": "macOS 多仓库工作台：文件、编辑器、Git 与终端集中在一个窗口。",
+		"zh-TW": "macOS 多儲存庫工作台：檔案、編輯器、Git 與終端機集中在一個視窗。",
+		"ja": "macOS 用の複数リポジトリ向けワークベンチ。ファイル、エディター、Git、ターミナルを一画面に。",
+		"ko": "여러 Git 저장소를 위한 macOS 워크벤치. 파일, 편집기, Git, 터미널을 한 창에."
+	},
+	"description": {
+		"en": "A macOS workbench for several Git repositories, written in Go and drawn with MyGo's native UI, using about 79 MiB idle with five repositories open. All repositories share one file tree and Git bar, beside a split editor, line-level staging, rebase and worktrees, and Ghostty-based terminals that flag a waiting agent. It needs an Apple Silicon Mac, is built from source and has no LSP.",
+		"zh-CN": "用 Go 编写、由 MyGo 原生 UI 绘制的 macOS 多仓库工作台，打开五个仓库时空闲内存约 79 MiB。所有仓库共用一个文件树和 Git 栏，配有可分屏的编辑器、按行暂存、变基与工作树操作，以及基于 Ghostty 的终端，会标出正在等你的 agent。需要 Apple Silicon 芯片的 Mac，目前要自行构建，也没有 LSP。",
+		"zh-TW": "用 Go 撰寫、由 MyGo 原生 UI 繪製的 macOS 多儲存庫工作台，開啟五個儲存庫時閒置記憶體約 79 MiB。所有儲存庫共用一個檔案樹與 Git 欄，搭配可分割的編輯器、逐行暫存、rebase 與工作樹操作，以及以 Ghostty 為基礎的終端機，會標出正在等你的 agent。需要 Apple Silicon 的 Mac，目前須自行建置，也沒有 LSP。",
+		"ja": "Go で書かれ、MyGo のネイティブ UI で描かれた macOS 用の複数リポジトリ向けワークベンチ。5 つのリポジトリを開いてもアイドル時のメモリは約 79 MiB です。すべてのリポジトリを一つのファイルツリーと Git バーに並べ、分割できるエディター、行単位のステージ、リベースやワークツリーの操作、入力待ちのエージェントを知らせる Ghostty ベースのターミナルを備えます。Apple Silicon の Mac が必要で、今はソースからビルドします。LSP はありません。",
+		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 macOS용 다중 저장소 워크벤치로, 저장소 다섯 개를 열어도 유휴 메모리는 약 79MiB입니다. 모든 저장소를 하나의 파일 트리와 Git 바에 보여 주며, 분할 편집기, 줄 단위 스테이징, 리베이스와 워크트리 작업, 입력을 기다리는 에이전트를 표시하는 Ghostty 기반 터미널을 갖췄습니다. Apple Silicon Mac이 필요하고 지금은 소스에서 직접 빌드해야 하며 LSP는 없습니다."
+	},
+	"icon": {
+		"file": "grove.webp"
+	},
+	"screenshot": "grove.webp",
+	"added": "2026-11-05T08:08:34Z"
+}
