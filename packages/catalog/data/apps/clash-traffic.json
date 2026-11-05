@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "clash-traffic",
+	"name": "Clash Traffic",
+	"author": "lufficc",
+	"kind": "web",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/lufficc/clash-traffic",
+	"repo": "lufficc/clash-traffic",
+	"summary": {
+		"en": "Shows where your Clash Verge traffic goes, by app, site, proxy node, subscription and device.",
+		"zh-CN": "按应用、网站、代理节点、订阅和设备，查看 Clash Verge 流量去向。",
+		"zh-TW": "依應用程式、網站、代理節點、訂閱與裝置，查看 Clash Verge 流量去向。",
+		"ja": "Clash Verge の通信量をアプリ、サイト、ノード、サブスクリプション、デバイス別に表示。",
+		"ko": "Clash Verge 트래픽을 앱, 사이트, 프록시 노드, 구독, 기기별로 보여 줍니다."
+	},
+	"description": {
+		"en": "A menu bar app for Clash Verge Rev, FlClash and other mihomo cores, built with MyGo and a web frontend. It shows upload, download and connections per app and site, with a switch for proxied traffic only, each subscription's traffic beside its provider's reported usage, an access log and a live view. Copies on one Tailscale tailnet, or sharing a folder or WebDAV, merge their numbers.",
+		"zh-CN": "适用于 Clash Verge Rev、FlClash 及其他 mihomo 内核的菜单栏应用，基于 MyGo 与 Web 前端构建。按应用和网站统计上传、下载与连接数，可一键只看走代理的流量；列出每个订阅的用量，并与服务商报告的数据并排对照，另有访问日志和实时视图。同一 Tailscale 网络中的多台电脑，或共享文件夹、WebDAV 的副本，会合并统计。",
+		"zh-TW": "適用於 Clash Verge Rev、FlClash 及其他 mihomo 核心的選單列應用程式，以 MyGo 與 Web 前端打造。依應用程式和網站統計上傳、下載與連線數，可一鍵只看走代理的流量；列出每個訂閱的用量，並與服務商回報的數據並列對照，另有存取紀錄與即時檢視。同一 Tailscale 網路中的多台電腦，或共用資料夾、WebDAV 的副本，會合併統計。",
+		"ja": "Clash Verge Rev、FlClash などの mihomo コアに対応したメニューバーアプリ。MyGo と Web フロントエンドで作られています。アプリやサイトごとの送受信量と接続数を表示し、プロキシ経由の通信だけに絞り込めます。サブスクリプションごとの通信量をプロバイダー報告の使用量と並べて示し、アクセスログとライブビューも備えます。同じ Tailscale ネットワーク、または共有フォルダーや WebDAV でつながったコピー同士は数値を統合します。",
+		"ko": "Clash Verge Rev, FlClash 등 mihomo 코어와 함께 쓰는 메뉴 막대 앱으로, MyGo와 웹 프런트엔드로 만들었습니다. 앱과 사이트별 업로드, 다운로드, 연결 수를 보여 주고 프록시 트래픽만 따로 볼 수 있습니다. 구독별 사용량을 제공자 집계와 나란히 보여 주며, 접근 로그와 실시간 보기도 있습니다. 같은 Tailscale 네트워크에 있거나 폴더나 WebDAV를 공유하는 사본끼리는 수치를 합칩니다."
+	},
+	"added": "2026-11-05T00:51:08Z",
+	"icon": {
+		"file": "clash-traffic.webp"
+	},
+	"screenshot": "clash-traffic.webp"
+}
