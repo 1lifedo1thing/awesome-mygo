@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "lilt",
+	"name": "Lilt",
+	"author": "tangqiu0205",
+	"kind": "native",
+	"group": "media",
+	"url": "https://github.com/tangqiu0205/mygo-qyin",
+	"repo": "tangqiu0205/mygo-qyin",
+	"summary": {
+		"en": "A third-party QQ Music desktop client with QR login, recommendations, search and synced lyrics.",
+		"zh-CN": "第三方 QQ 音乐桌面客户端，支持扫码登录、推荐、搜索与同步歌词。",
+		"zh-TW": "第三方 QQ 音樂桌面用戶端，支援掃碼登入、推薦、搜尋與同步歌詞。",
+		"ja": "非公式の QQ 音楽デスクトップクライアント。QR ログイン、おすすめ、検索、同期歌詞に対応。",
+		"ko": "서드파티 QQ 뮤직 데스크톱 클라이언트. QR 로그인, 추천, 검색, 동기화 가사를 지원합니다."
+	},
+	"description": {
+		"en": "A third-party QQ Music client adapted from mygo-cloudmusic, with a native UI and player drawn with MyGo that talk to QQ Music's services directly in pure Go. It logs in by scanning a QR code with QQ or WeChat, offers daily recommendations, playlists, charts and search, shows LRC lyrics with synced translations, and on macOS adds a mini player in the notch. It is not affiliated with QQ Music.",
+		"zh-CN": "基于 mygo-cloudmusic 改造的第三方 QQ 音乐客户端，界面与播放器均由 MyGo 原生 UI 实现，以纯 Go 直连 QQ 音乐服务。支持 QQ 或微信扫码登录，提供每日推荐、歌单、排行榜和搜索，LRC 歌词可同步显示翻译；在 macOS 上还能在刘海处显示迷你播放器。本项目与 QQ 音乐官方无关。",
+		"zh-TW": "以 mygo-cloudmusic 改造而成的第三方 QQ 音樂用戶端，介面與播放器皆由 MyGo 原生 UI 實作，以純 Go 直接連線 QQ 音樂服務。支援 QQ 或微信掃碼登入，提供每日推薦、歌單、排行榜與搜尋，LRC 歌詞可同步顯示翻譯；在 macOS 上還能在瀏海處顯示迷你播放器。本專案與 QQ 音樂官方無關。",
+		"ja": "mygo-cloudmusic をもとに作られたサードパーティ製の QQ 音楽クライアント。画面とプレーヤーは MyGo のネイティブ UI で作られ、純粋な Go で QQ 音楽のサービスに直接接続します。QQ か WeChat の QR コードでログインでき、毎日のおすすめ、プレイリスト、ランキング、検索を備え、LRC 歌詞は翻訳と同期して表示します。macOS ではノッチにミニプレーヤーを表示します。QQ 音楽の公式とは関係ありません。",
+		"ko": "mygo-cloudmusic을 바탕으로 만든 서드파티 QQ 뮤직 클라이언트로, 화면과 플레이어는 MyGo의 네이티브 UI로 만들었고 순수 Go로 QQ 뮤직 서비스에 직접 연결합니다. QQ나 WeChat으로 QR 코드를 스캔해 로그인하며, 매일 추천, 플레이리스트, 차트, 검색을 제공하고 LRC 가사를 번역과 함께 동기화해 보여 줍니다. macOS에서는 노치에 미니 플레이어를 띄웁니다. QQ 뮤직 공식과는 관련이 없습니다."
+	},
+	"icon": {
+		"file": "lilt.webp"
+	},
+	"screenshot": "lilt.webp",
+	"added": "2026-11-05T15:55:15Z"
+}
