@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "stockfloat-native",
+	"name": "StockFloat Native",
+	"author": "lesenelir",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/lesenelir/stock-float-mygo-native",
+	"repo": "lesenelir/stock-float-mygo-native",
+	"summary": {
+		"en": "An always-on-top macOS panel with live US, Hong Kong and A-share prices and price alerts.",
+		"zh-CN": "置顶显示美股、港股与 A 股实时行情的 macOS 浮动面板，支持到价提醒。",
+		"zh-TW": "置頂顯示美股、港股與 A 股即時報價的 macOS 浮動面板，支援到價提醒。",
+		"ja": "米国株・香港株・A 株の株価を常に最前面で表示する macOS パネル。価格アラート付き。",
+		"ko": "미국·홍콩·A주 시세를 항상 위에 띄워 보여 주는 macOS 패널. 가격 알림도 지원합니다."
+	},
+	"description": {
+		"en": "An always-on-top macOS panel drawn with MyGo's native UI, with no webview, showing live prices and daily change for US, Hong Kong and A-share stocks; it stays over full-screen apps and never takes focus. Quotes come from Tencent, or Longbridge or Finnhub for US stocks, and price alerts arrive as macOS notifications. Its sibling stock-float-mygo is the same app in web pages.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 置顶浮动面板，不使用 WebView，实时显示美股、港股和 A 股的价格与当日涨跌，能停留在全屏应用之上，也不会抢走焦点。行情默认来自腾讯，美股还可改用 Longbridge 或 Finnhub；到价提醒以 macOS 通知送达。同一应用的网页版是 stock-float-mygo。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS 置頂浮動面板，不使用 WebView，即時顯示美股、港股和 A 股的價格與當日漲跌，能停留在全螢幕 App 之上，也不會搶走焦點。報價預設來自騰訊，美股還可改用 Longbridge 或 Finnhub；到價提醒以 macOS 通知送達。同一 App 的網頁版是 stock-float-mygo。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS 用の最前面パネルで、Web ビューは使いません。米国株、香港株、A 株の現在値と前日比をリアルタイムに表示し、フルスクリーンのアプリの上にも表示され、フォーカスを奪いません。株価は Tencent から取得し、米国株は Longbridge や Finnhub も使えます。価格アラートは macOS の通知で届きます。同じアプリを Web ページで作った版が stock-float-mygo です。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS용 항상 위 패널로, 웹 뷰를 쓰지 않습니다. 미국 주식, 홍콩 주식, A주의 실시간 가격과 당일 등락을 보여 주며, 전체 화면 앱 위에도 떠 있고 포커스를 빼앗지 않습니다. 시세는 Tencent에서 받고 미국 주식은 Longbridge나 Finnhub도 쓸 수 있으며, 가격 알림은 macOS 알림으로 옵니다. 같은 앱을 웹 페이지로 만든 버전은 stock-float-mygo입니다."
+	},
+	"icon": {
+		"file": "stockfloat-native.webp"
+	},
+	"screenshot": "stockfloat-native.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T16:30:17Z"
+}
