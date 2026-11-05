@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "candle",
+	"name": "Candle",
+	"author": "margbug01",
+	"kind": "native",
+	"category": "BusinessApplication",
+	"url": "https://github.com/margbug01/Candle",
+	"repo": "margbug01/Candle",
+	"summary": {
+		"en": "TradingView-style candlestick charts for crypto, CME futures and US, A-share and HK stocks.",
+		"zh-CN": "仿 TradingView 的 K 线图：加密货币、CME 期货、美股、A 股与港股。",
+		"zh-TW": "仿 TradingView 的 K 線圖：加密貨幣、CME 期貨、美股、A 股與港股。",
+		"ja": "TradingView 風のローソク足チャート。暗号資産、CME 先物、米国株、A 株、香港株に対応。",
+		"ko": "암호화폐, CME 선물, 미국·A주·홍콩 주식용 TradingView 스타일 캔들 차트."
+	},
+	"description": {
+		"en": "A candlestick chart app for Windows and macOS drawn with MyGo's native UI, built to feel like TradingView. It shows Binance spot and perpetuals, CME futures, US, A-share and HK stocks from public market data, with no account or API key. It has 28 indicators, Pine Script import, drawing tools with a risk/reward calculator and layouts of up to 8 charts.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 与 macOS K 线图程序，操作手感照着 TradingView 做。可看 Binance 现货和永续、CME 期货、美股、A 股和港股，只用公开行情，不用账号和 API Key；内置 28 个指标，可导入 Pine Script 指标，有画线工具和盈亏比计算，一个窗口最多放 8 个图表。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows 與 macOS K 線圖程式，操作手感照著 TradingView 打造。可看 Binance 現貨與永續合約、CME 期貨、美股、A 股和港股，只用公開行情，不需帳號或 API Key；內建 28 個指標，可匯入 Pine Script 指標，附畫線工具與盈虧比計算，一個視窗最多放 8 張圖表。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows・macOS 向けのローソク足チャートアプリで、操作感は TradingView に合わせています。Binance の現物と無期限先物、CME 先物、米国株、A 株、香港株を公開相場データで表示し、アカウントも API キーも不要です。28 種類のインジケーター、Pine Script の取り込み、損益比計算付きの描画ツールを備え、1 つのウィンドウに最大 8 つのチャートを並べられます。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows·macOS용 캔들 차트 앱으로, 조작감을 TradingView에 맞췄습니다. Binance 현물과 무기한 선물, CME 선물, 미국·A주·홍콩 주식을 공개 시세로 보여 주며 계정도 API 키도 필요 없습니다. 지표 28종, Pine Script 가져오기, 손익비 계산이 있는 그리기 도구를 갖췄고, 한 창에 차트를 최대 8개까지 띄울 수 있습니다."
+	},
+	"icon": {
+		"file": "candle.webp"
+	},
+	"screenshot": "candle.webp",
+	"added": "2026-11-05T05:57:31Z"
+}
