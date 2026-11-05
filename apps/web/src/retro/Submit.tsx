@@ -47,7 +47,66 @@ function Dialog() {
 	const { closeSubmit, form, setFormField, copy, copied } = useSite();
 	const t = useT();
 	const ref = useDialog<HTMLDivElement>();
-	const { bot, lang, round, setToken, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint, viaJson, jsonError, onJsonChange, example, repoBad, onRepoBlur, shotBad, onShotBlur, urlLabel } = useSubmit();
+	const { bot, lang, round, setToken, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint, viaJson, jsonError, onJsonChange, example, repoBad, onRepoBlur, shotBad, onShotBlur, urlLabel, withShot, shotFile, onShotFile, shotRequired, shotNote } = useSubmit();
+
+	// The screenshot: an image to upload, when the bot can take one, and in the form a link instead; under it what the bot found in the repository.
+	const shotField = (withLink: boolean) => (
+		<div>
+			<span id='f-shot-label' className='mb-1 block text-muted'>
+				{t.m_shot} <span className='text-faint'>({shotRequired ? t.m_shot_req : t.m_opt})</span>
+			</span>
+			{bot.enabled && (
+				<div className='mb-1 flex flex-wrap items-center gap-2'>
+					{shotFile ? (
+						<>
+							<img src={shotFile.preview} alt='' className='h-12 w-auto max-w-24 rounded border border-line object-cover' />
+							<span className='max-w-48 truncate text-muted'>{shotFile.file.name}</span>
+							<button type='button' className={btn} onClick={() => onShotFile(undefined)}>
+								{t.m_shot_remove}
+							</button>
+						</>
+					) : (
+						<label className={`${btn} relative cursor-pointer focus-within:outline-2 focus-within:outline-pur`}>
+							{t.m_shot_up}
+							<input
+								type='file'
+								accept='image/png,image/jpeg,image/webp'
+								aria-labelledby='f-shot-label'
+								className='absolute size-px overflow-hidden whitespace-nowrap [clip-path:inset(50%)]'
+								onChange={(e) => {
+									onShotFile(e.target.files?.[0]);
+									e.target.value = '';
+								}}
+							/>
+						</label>
+					)}
+				</div>
+			)}
+			{shotFile?.problem && <Err>{shotFile.problem}</Err>}
+			{withLink && (
+				<input
+					id='f-shot'
+					type='url'
+					value={form.screenshot ?? ''}
+					onChange={(e) => setFormField('screenshot', e.target.value)}
+					onBlur={onShotBlur}
+					placeholder={bot.enabled ? `${t.m_shot_link}: https://…/screenshot.png` : 'https://…/screenshot.png'}
+					aria-label={bot.enabled ? t.m_shot_link : t.m_shot}
+					className={input}
+					aria-invalid={shotBad}
+					aria-describedby={shotBad ? 'f-shot-err' : 'f-shot-tip'}
+				/>
+			)}
+			{shotNote && (
+				<p className={`m-0 mt-1 ${shotRequired && !shotFile && !form.screenshot?.trim() ? 'font-medium' : 'text-muted'}`} aria-live='polite'>
+					{shotNote}
+				</p>
+			)}
+			<p id='f-shot-tip' className='m-0 mt-1 text-muted'>
+				{t.m_shot_tip}
+			</p>
+		</div>
+	);
 
 	const copyBtn = (
 		<button type='button' className={`${btn} ${off}`} onClick={() => ok && copy(entry, 'line')} disabled={!ok}>
@@ -113,6 +172,7 @@ function Dialog() {
 								)}
 							</div>
 						)}
+						{viaJson && withShot && bot.enabled && shotField(false)}
 
 						{!viaJson && isShow && (
 							<div>
@@ -177,17 +237,7 @@ function Dialog() {
 									</div>
 								)}
 								{isShow && <p className='m-0 text-muted'>{t.m_home_tip}</p>}
-								{isShow && (
-									<div>
-										<label htmlFor='f-shot' className='mb-1 block text-muted'>
-											{t.m_shot} <span className='text-faint'>({t.m_opt})</span>
-										</label>
-										<input id='f-shot' type='url' value={form.screenshot ?? ''} onChange={(e) => setFormField('screenshot', e.target.value)} onBlur={onShotBlur} placeholder='https://…/screenshot.png' className={input} aria-invalid={shotBad} aria-describedby={shotBad ? 'f-shot-err' : 'f-shot-tip'} />
-										<p id='f-shot-tip' className='m-0 mt-1 text-muted'>
-											{t.m_shot_tip}
-										</p>
-									</div>
-								)}
+								{withShot && shotField(true)}
 
 								{urlBad && <Err id='f-url-err'>{t.m_bad}</Err>}
 								{repoBad && <Err id='f-repo-err'>{t.m_repo_bad}</Err>}

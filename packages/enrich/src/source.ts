@@ -123,6 +123,48 @@ export function isPortrait(width: number, height: number): boolean {
 	return width > 0 && height > width;
 }
 
+// ---- screenshots ----
+
+// A file of a repository's branch as raw.githubusercontent.com serves it.
+export const rawUrl = (repo: string, branch: string, path: string) => `https://raw.githubusercontent.com/${repo}/${branch}/${path.split('/').map(encodeURIComponent).join('/')}`;
+
+// The narrowest image taken as a screenshot of a desktop window.
+export const SHOT_MIN_WIDTH = 600;
+
+export type ShotProblem = 'narrow' | 'square' | 'portrait' | 'banner';
+
+// Why an image of this size is not a screenshot of a desktop window, or undefined when it can be one: under SHOT_MIN_WIDTH wide, square (an icon or a logo), taller than wide (a tray panel or a phone), or a banner. The submission workflow, the site's form and its Worker all judge by this.
+export function shotProblem(width: number, height: number): ShotProblem | undefined {
+	if (width < SHOT_MIN_WIDTH) return 'narrow';
+	if (isSquarish(width, height)) return 'square';
+	if (isPortrait(width, height)) return 'portrait';
+	if (isBanner(width, height)) return 'banner';
+	return undefined;
+}
+
+// What an image the form takes may be: a PNG, JPEG or WebP of at most this many bytes.
+export const UPLOAD_MAX_BYTES = 5 * 1024 * 1024;
+
+// Where the site's bot puts a screenshot a visitor uploaded with the form, on the pull request's branch: the submission workflow turns it into the site's WebP in apps/web/public/shots and removes it.
+export const STAGED_SHOTS = 'submissions';
+export const stagedShot = (slug: string, format: 'png' | 'jpeg' | 'webp') => `${STAGED_SHOTS}/${slug}.${format === 'jpeg' ? 'jpg' : format}`;
+
+// The staged screenshot of slug among the files of STAGED_SHOTS, if there is one.
+export function stagedShotOf(files: readonly string[], slug: string): string | undefined {
+	const file = files.find((f) => new RegExp(`^${slug.replace(/[^a-z0-9-]/g, '')}\\.(png|jpg|webp)$`).test(f));
+	return file ? `${STAGED_SHOTS}/${file}` : undefined;
+}
+
+// Where a repository's screenshots may be, in the order they are tried, each source with how many of its images are tried: the README's images, as the project picked them to show itself, then the images in its screenshot folders, which a project with none in its README often keeps for its website. An image is listed once; the caller passes over those named as artwork (isArtwork).
+export function repoShotSources(r: { repo: string; branch: string; paths: readonly string[]; readme?: { path: string; text: string } }): { from: string; urls: string[]; tries: number }[] {
+	const seen = new Set<string>();
+	const keep = (u: string | undefined): u is string => !!u && !seen.has(u) && !!seen.add(u);
+	return [
+		{ from: 'the README', urls: r.readme ? readmeImages(r.readme.text).map((src) => resolveImage(src, r.repo, r.branch, (r.readme as { path: string }).path)).filter(keep) : [], tries: 8 },
+		{ from: 'a screenshot folder in the repository', urls: repoScreenshots(r.paths).map((p) => rawUrl(r.repo, r.branch, p)).filter(keep), tries: 6 },
+	];
+}
+
 // The screenshot link a visitor gave in the site's form, from the pull request the bot opened: apps/web/src/server/submit.ts writes it as <!-- submitted-screenshot: URL -->. The link is checked again with the form's rule (https, no space, quote, backtick or angle bracket), as the body could have been edited since.
 export function submittedScreenshot(body: string | null | undefined): string | undefined {
 	const m = /<!-- submitted-screenshot: (\S+) -->/.exec(body ?? '');

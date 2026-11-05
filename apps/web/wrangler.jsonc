@@ -14,10 +14,11 @@
 	"observability": { "enabled": true },
 	// Keep Preview URLs on (wrangler disables them when this is missing) so each pull request gets its own preview link.
 	"preview_urls": true,
-	// Anonymous submissions (/api/submit): at most 3 a minute from one IP. namespace_id only has to be unique within the Cloudflare account. The GitHub App and Turnstile keys are secrets (GITHUB_APP_ID, GITHUB_APP_PRIVATE_KEY, TURNSTILE_SITE_KEY, TURNSTILE_SECRET_KEY); without them the form keeps to GitHub links.
+	// Anonymous submissions (/api/submit): at most 3 a minute from one IP; the form's screenshot check (/api/shot), at most 20. namespace_id only has to be unique within the Cloudflare account. The GitHub App and Turnstile keys are secrets (GITHUB_APP_ID, GITHUB_APP_PRIVATE_KEY, TURNSTILE_SITE_KEY, TURNSTILE_SECRET_KEY); without them the form keeps to GitHub links.
 	"ratelimits": [
 		{ "name": "SUBMIT_LIMIT", "namespace_id": "4170", "simple": { "limit": 3, "period": 60 } },
-		{ "name": "LIKE_LIMIT", "namespace_id": "4172", "simple": { "limit": 30, "period": 60 } }
+		{ "name": "LIKE_LIMIT", "namespace_id": "4172", "simple": { "limit": 30, "period": 60 } },
+		{ "name": "SHOT_LIMIT", "namespace_id": "4174", "simple": { "limit": 20, "period": 60 } }
 	],
 	// Likes: one row per entry and visitor (migrations/), at most 30 likes or unlikes a minute from one visitor. The salt that hashes a visitor's IP is the LIKE_SALT secret.
 	"d1_databases": [{ "binding": "DB", "database_name": "awesome-mygo", "database_id": "78813521-ece3-4b59-a62d-499b92cd0f5e", "migrations_dir": "migrations" }],
@@ -25,7 +26,8 @@
 	"previews": {
 		"ratelimits": [
 			{ "name": "SUBMIT_LIMIT", "namespace_id": "4171", "simple": { "limit": 3, "period": 60 } },
-			{ "name": "LIKE_LIMIT", "namespace_id": "4173", "simple": { "limit": 30, "period": 60 } }
+			{ "name": "LIKE_LIMIT", "namespace_id": "4173", "simple": { "limit": 30, "period": 60 } },
+			{ "name": "SHOT_LIMIT", "namespace_id": "4175", "simple": { "limit": 20, "period": 60 } }
 		]
 	}
 }

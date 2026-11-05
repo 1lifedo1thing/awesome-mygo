@@ -17,6 +17,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as StateRouteImport } from './routes/state'
 import { Route as UiRouteImport } from './routes/ui'
 import { Route as ApiLikesRouteImport } from './routes/api/likes'
+import { Route as ApiShotRouteImport } from './routes/api/shot'
 import { Route as ApiSubmitRouteImport } from './routes/api/submit'
 import { Route as AppsSlugRouteImport } from './routes/apps/$slug'
 
@@ -60,6 +61,11 @@ const ApiLikesRoute = ApiLikesRouteImport.update({
   path: '/api/likes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiShotRoute = ApiShotRouteImport.update({
+  id: '/api/shot',
+  path: '/api/shot',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiSubmitRoute = ApiSubmitRouteImport.update({
   id: '/api/submit',
   path: '/api/submit',
@@ -80,6 +86,7 @@ export interface FileRoutesByFullPath {
   '/state': typeof StateRoute
   '/ui': typeof UiRoute
   '/api/likes': typeof ApiLikesRoute
+  '/api/shot': typeof ApiShotRoute
   '/api/submit': typeof ApiSubmitRoute
   '/apps/$slug': typeof AppsSlugRoute
 }
@@ -92,6 +99,7 @@ export interface FileRoutesByTo {
   '/state': typeof StateRoute
   '/ui': typeof UiRoute
   '/api/likes': typeof ApiLikesRoute
+  '/api/shot': typeof ApiShotRoute
   '/api/submit': typeof ApiSubmitRoute
   '/apps/$slug': typeof AppsSlugRoute
 }
@@ -105,6 +113,7 @@ export interface FileRoutesById {
   '/state': typeof StateRoute
   '/ui': typeof UiRoute
   '/api/likes': typeof ApiLikesRoute
+  '/api/shot': typeof ApiShotRoute
   '/api/submit': typeof ApiSubmitRoute
   '/apps/$slug': typeof AppsSlugRoute
 }
@@ -119,6 +128,7 @@ export interface FileRouteTypes {
     | '/state'
     | '/ui'
     | '/api/likes'
+    | '/api/shot'
     | '/api/submit'
     | '/apps/$slug'
   fileRoutesByTo: FileRoutesByTo
@@ -131,6 +141,7 @@ export interface FileRouteTypes {
     | '/state'
     | '/ui'
     | '/api/likes'
+    | '/api/shot'
     | '/api/submit'
     | '/apps/$slug'
   id:
@@ -143,6 +154,7 @@ export interface FileRouteTypes {
     | '/state'
     | '/ui'
     | '/api/likes'
+    | '/api/shot'
     | '/api/submit'
     | '/apps/$slug'
   fileRoutesById: FileRoutesById
@@ -156,6 +168,7 @@ export interface RootRouteChildren {
   StateRoute: typeof StateRoute
   UiRoute: typeof UiRoute
   ApiLikesRoute: typeof ApiLikesRoute
+  ApiShotRoute: typeof ApiShotRoute
   ApiSubmitRoute: typeof ApiSubmitRoute
   AppsSlugRoute: typeof AppsSlugRoute
 }
@@ -218,6 +231,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiLikesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/shot': {
+      id: '/api/shot'
+      path: '/api/shot'
+      fullPath: '/api/shot'
+      preLoaderRoute: typeof ApiShotRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/submit': {
       id: '/api/submit'
       path: '/api/submit'
@@ -244,6 +264,7 @@ const rootRouteChildren: RootRouteChildren = {
   StateRoute: StateRoute,
   UiRoute: UiRoute,
   ApiLikesRoute: ApiLikesRoute,
+  ApiShotRoute: ApiShotRoute,
   ApiSubmitRoute: ApiSubmitRoute,
   AppsSlugRoute: AppsSlugRoute,
 }

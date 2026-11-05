@@ -16,8 +16,76 @@ function Modal() {
 	const { closeSubmit, form, setFormField, copy, copied } = useSite();
 	const t = useT();
 	const ref = useDialog<HTMLDivElement>();
-	const { bot, lang, round, setToken, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint, viaJson, jsonError, onJsonChange, example, repoBad, onRepoBlur, shotBad, onShotBlur, urlLabel } = useSubmit();
+	const { bot, lang, round, setToken, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint, viaJson, jsonError, onJsonChange, example, repoBad, onRepoBlur, shotBad, onShotBlur, urlLabel, withShot, shotFile, onShotFile, shotRequired, shotNote } = useSubmit();
 	const urlNote = urlBad ? 'f-url-err' : repoMissing ? 'f-url-repo' : isShow || withAuthor ? 'f-url-tip' : undefined;
+	// The screenshot: an image to upload, when the bot can take one, and in the form a link instead; under it what the bot found in the repository.
+	const shotField = (withLink: boolean) => (
+		<div className='stack-8'>
+			<span id='f-shot-label' className='field-label'>
+				{t.m_shot} <span className='field-count'>{shotRequired ? t.m_shot_req : t.m_opt}</span>
+			</span>
+			{bot.enabled && (
+				<div className='shot-pick'>
+					{shotFile ? (
+						<>
+							<img src={shotFile.preview} alt='' className='shot-preview' />
+							<span className='shot-name'>{shotFile.file.name}</span>
+							<button type='button' className='btn-g btn-copy-line' onClick={() => onShotFile(undefined)}>
+								{t.m_shot_remove}
+							</button>
+						</>
+					) : (
+						<label className='btn-g btn-copy-line shot-btn'>
+							{t.m_shot_up}
+							<input
+								type='file'
+								accept='image/png,image/jpeg,image/webp'
+								aria-labelledby='f-shot-label'
+								onChange={(e) => {
+									onShotFile(e.target.files?.[0]);
+									e.target.value = '';
+								}}
+							/>
+						</label>
+					)}
+				</div>
+			)}
+			{shotFile?.problem && (
+				<p role='alert' className='field-err'>
+					{shotFile.problem}
+				</p>
+			)}
+			{withLink && (
+				<input
+					id='f-shot'
+					type='url'
+					inputMode='url'
+					value={form.screenshot ?? ''}
+					onChange={(e) => setFormField('screenshot', e.target.value)}
+					onBlur={onShotBlur}
+					placeholder={bot.enabled ? `${t.m_shot_link}: https://…/screenshot.png` : 'https://…/screenshot.png'}
+					aria-label={bot.enabled ? t.m_shot_link : t.m_shot}
+					className='field'
+					data-bad={shotBad}
+					aria-invalid={shotBad}
+					aria-describedby={shotBad ? 'f-shot-err' : 'f-shot-tip'}
+				/>
+			)}
+			{withLink && shotBad && (
+				<p id='f-shot-err' role='alert' className='field-err'>
+					{t.m_shot_bad}
+				</p>
+			)}
+			{shotNote && (
+				<p className='field-tip' aria-live='polite' data-need={shotRequired && !shotFile && !form.screenshot?.trim()}>
+					{shotNote}
+				</p>
+			)}
+			<p id='f-shot-tip' className='field-tip'>
+				{t.m_shot_tip}
+			</p>
+		</div>
+	);
 
 	// The form scrolls; the footer with the submit button stays in view, saying what is still missing.
 	return (
@@ -101,6 +169,7 @@ function Modal() {
 							</div>
 						</div>
 					)}
+					{viaJson && withShot && bot.enabled && shotField(false)}
 					{!viaJson && isShow && (
 						<div className='stack-8'>
 							<span className='field-label'>{t.a_kind}</span>
@@ -190,35 +259,7 @@ function Modal() {
 									)}
 								</div>
 							)}
-							{isShow && (
-								<div className='stack-8'>
-									<label htmlFor='f-shot' className='field-label'>
-										{t.m_shot} <span className='field-count'>{t.m_opt}</span>
-									</label>
-									<input
-										id='f-shot'
-										type='url'
-										inputMode='url'
-										value={form.screenshot ?? ''}
-										onChange={(e) => setFormField('screenshot', e.target.value)}
-										onBlur={onShotBlur}
-										placeholder='https://…/screenshot.png'
-										className='field'
-										data-bad={shotBad}
-										aria-invalid={shotBad}
-										aria-describedby={shotBad ? 'f-shot-err' : 'f-shot-tip'}
-									/>
-									{shotBad ? (
-										<p id='f-shot-err' role='alert' className='field-err'>
-											{t.m_shot_bad}
-										</p>
-									) : (
-										<p id='f-shot-tip' className='field-tip'>
-											{t.m_shot_tip}
-										</p>
-									)}
-								</div>
-							)}
+							{withShot && shotField(true)}
 							<div className='field-grid'>
 								<div className='stack-8'>
 									<label htmlFor='f-name' className='field-label'>

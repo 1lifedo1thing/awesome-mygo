@@ -29,7 +29,7 @@ pnpm monorepo，由 [TanStack Start](https://tanstack.com/start) 執行在 [Clou
 |---|---|
 | `apps/web` | 網站：React 19、TanStack Start（伺服器端渲染），以及帶 `@cloudflare/vite-plugin` 的 Vite。`wrangler.jsonc` 把它部署到 `mygodock.dev`。 |
 | `packages/catalog` | 資料：`data/*.json`（應用、UI 元件、狀態方案、外掛、文章、指南）及其 JSON Schema，五種語言的介面文案，搜尋與提交表單的條目。測試會驗證每個條目。 |
-| `packages/enrich` | 補全提交 bot 開的 PR：從專案倉庫取應用圖示，截圖優先用表單裡填的連結、否則從倉庫取，並用 Claude 寫五種語言的文案。由 `.github/workflows/enrich-submission.yml` 執行。 |
+| `packages/enrich` | 補全提交 bot 開的 PR：從專案倉庫取應用圖示，截圖優先用表單裡上傳的圖片或填的連結、否則從倉庫取，並用 Claude 寫五種語言的文案。由 `.github/workflows/enrich-submission.yml` 執行。 |
 
 應用圖示來自 [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo)，由它的 CDN 提供；它未收錄的少數應用使用 `apps/web/public/icons/` 裡的官方圖示。
 
@@ -51,6 +51,8 @@ pnpm preview      # 在 Workers 執行環境中執行正式建置
 `pnpm deploy` 會用 Wrangler 建置並部署，需要一個包含 `apps/web/wrangler.jsonc` 中網域 zone 的 Cloudflare 帳戶。
 
 表單的直接提交透過安裝在本倉庫上的 GitHub App 完成，前面有 Cloudflare Turnstile 人機驗證和依 IP 的限流。給這個 App 開 *Contents* 和 *Pull requests* 的讀寫權限，把它的私鑰轉成 PKCS#8（`openssl pkcs8 -topk8 -nocrypt -in key.pem -out key-pkcs8.pem`），然後在 `apps/web` 下用 `wrangler secret put` 設定四個 secret：`GITHUB_APP_ID`、`GITHUB_APP_PRIVATE_KEY`（PKCS#8 檔案）、`TURNSTILE_SITE_KEY` 和 `TURNSTILE_SECRET_KEY`。四個都設好之前，表單只提供 GitHub 連結。本機測試時，把 Turnstile 的[測試金鑰](https://developers.cloudflare.com/turnstile/troubleshooting/testing/)寫進 `apps/web/.dev.vars`。
+
+作品、UI 元件和狀態管理都需要截圖。訪客填好倉庫連結後，表單會請 Worker（`/api/shot`）依 submission workflow 自己的規則（`packages/enrich/src/source.ts`）檢查倉庫裡有沒有它會採用的截圖；沒有，或者作品沒有倉庫時，表單會要求提供一張，Worker 也會拒絕沒有截圖的提交。訪客可以上傳圖片（PNG、JPEG 或 WebP，5 MB 以內，橫向且寬度至少 600 像素），也可以填圖片連結。上傳的圖片會以 `submissions/<slug>.<ext>` 提交到 PR 的分支上並顯示在 PR 裡，workflow 把它轉成站點用的 WebP 後刪除。這項檢查依 IP 限流，每分鐘 20 次。
 
 bot 開出 PR 後，*Complete submission* workflow 會補上表單問不到的內容：應用圖示，依 MyGo 的查找方式取（`mygo.json` 的 `icon`，沒有則用 `resources/icon.png`；如果是 `mygo init` 產生的 MyGo 預設圖示就不加）、README 裡第一張不是圖示或其他方形 logo 的截圖，以及五種語言的簡介和介紹。UI 元件和狀態管理也會照同樣的方式補截圖，並從倉庫設定裡補 homepage；表單填了預設值的欄位（應用的分類、UI 元件的 `tag` 和 `surface`、外掛的 `surface`、狀態管理和外掛的 `tags`）由模型在寫文案時一併選定。它會跑 catalog 檢查，以 bot 身分推到同一分支，並在 PR 裡留言說明做了什麼；合併前仍需維護者審核。需要在倉庫的 Actions 設定裡配置 secret：`SUBMIT_APP_PRIVATE_KEY`（App 的 PKCS#8 私鑰，與 Worker 用的相同）、`LLM_API_KEY`（Anthropic Messages API 的金鑰），走閘道時再加 `LLM_BASE_URL`；以及變數 `SUBMIT_APP_CLIENT_ID`（App 的 Client ID）。變數 `LLM_MODEL` 可以換模型（預設 `claude-opus-5-5`）。沒有 `LLM_API_KEY` 時文案維持提交時的樣子。
 

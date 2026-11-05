@@ -14,10 +14,12 @@
 	},
 	"dependencies": {
 		"@awesome-mygo/catalog": "workspace:*",
+		"@awesome-mygo/enrich": "workspace:*",
 		"@octokit/auth-app": "^8.3.1",
 		"@octokit/core": "^7.0.8",
 		"@tanstack/react-router": "^1.170.46",
 		"@tanstack/react-start": "^1.169.4",
+		"image-size": "^2.0.4",
 		"react": "^19.3.1",
 		"react-dom": "^19.3.1"
 	},

@@ -70,7 +70,7 @@ export interface EntryDraft {
 	repo?: string;
 	// Showcase only: the app's schema.org category, from the group its author picked. Left out when none was picked.
 	category?: AppCategory;
-	// Showcase only: a link to a screenshot of the app, for a project whose README shows none. Not part of the entry: the bot passes it to the submission workflow in the pull request, which downloads it into apps/web/public/shots.
+	// An app, UI components or state management (takesShot): a link to a screenshot, for a project whose README and repository show none. Not part of the entry: the bot passes it to the submission workflow in the pull request, which downloads it into apps/web/public/shots. The form can upload an image instead, which the bot puts on the pull request's branch.
 	screenshot?: string;
 }
 
@@ -164,7 +164,7 @@ export function jsonEntry(cat: SubmitCat, d: EntryDraft, mode: 'native' | 'web',
 // A screenshot link the form accepts: https, at most 300 characters, and none of the characters that could break out of where the bot quotes it in the pull request (an HTML comment and a code span).
 const SHOT_URL = /^https:\/\/[^\s<>"'`]+$/;
 
-// A showcase app's optional screenshot link that is filled in but is not one the form accepts.
+// A screenshot link that is filled in but is not one the form accepts.
 export function isBadShot(link: string): boolean {
 	const v = link.trim();
 	return v.length > 0 && (v.length > 300 || !SHOT_URL.test(v));
@@ -180,6 +180,24 @@ export function needsRepo(cat: SubmitCat): boolean {
 	return cat === 'ui' || cat === 'state';
 }
 
+// The categories whose cards show a screenshot, which the form asks for when the project's repository has none to take.
+export function takesShot(cat: SubmitCat): boolean {
+	return cat === 'showcase' || needsRepo(cat);
+}
+
+// The GitHub repository (owner/name) the screenshot is looked for in: an app's repository, or its link when that is one; a library's link. undefined for an app without one, which then needs a screenshot from the form.
+export function shotRepo(cat: SubmitCat, d: { url: string; repo?: string }): string | undefined {
+	if (!takesShot(cat)) return undefined;
+	return (cat === 'showcase' ? repoOf(d.repo ?? '') : undefined) ?? repoOf(d.url);
+}
+
+// The same for an entry pasted whole: its repo field, or its link when that is a repository.
+export function pastedShotRepo(cat: SubmitCat, entry: Record<string, unknown>): string | undefined {
+	if (!takesShot(cat)) return undefined;
+	if (typeof entry.repo === 'string' && /^[^/\s]+\/[^/\s]+$/.test(entry.repo)) return entry.repo;
+	return typeof entry.url === 'string' ? repoOf(entry.url) : undefined;
+}
+
 // Why the bot cannot submit this draft as it stands, or undefined when it can. The form shows the same rules; this is the server's copy of them for requests that skip the form.
 export function entryProblem(cat: SubmitCat, d: EntryDraft): string | undefined {
 	if (!isEntryComplete(cat, d)) return 'name, link, description and author are required, and the link must be https';
@@ -189,7 +207,7 @@ export function entryProblem(cat: SubmitCat, d: EntryDraft): string | undefined 
 	if (/\s/.test(d.url.trim())) return 'the link must not contain spaces';
 	if (needsRepo(cat) && !repoOf(d.url)) return 'UI components and state management need a GitHub repository link';
 	if (cat === 'showcase' && d.repo?.trim() && (isBadRepo(d.repo) || d.repo.length > 300)) return 'the GitHub repository must be a link like https://github.com/owner/name';
-	if (d.screenshot?.trim() && (cat !== 'showcase' || isBadShot(d.screenshot))) return 'the screenshot must be an https link to an image, for an app';
+	if (d.screenshot?.trim() && (!takesShot(cat) || isBadShot(d.screenshot))) return 'the screenshot must be an https link to an image, for an app, UI components or state management';
 	return undefined;
 }
 
@@ -247,7 +265,7 @@ export function codeFence(text: string, lang = ''): string {
 export function issueUrl(repo: string, cat: SubmitCat, catLabel: string, d: EntryDraft, entry: string, placeholders: { name: string }): string {
 	const parsed = parseEntryJson(entry);
 	const path = entryPath(cat, 'entry' in parsed ? parsed.entry : {});
-	const shot = cat === 'showcase' && d.screenshot?.trim() && !isBadShot(d.screenshot) ? `\nScreenshot: ${d.screenshot.trim()}\n` : '';
+	const shot = takesShot(cat) && d.screenshot?.trim() && !isBadShot(d.screenshot) ? `\nScreenshot: ${d.screenshot.trim()}\n` : '';
 	const q = new URLSearchParams({ title: `Add ${d.name.trim() || placeholders.name} (${catLabel})`, body: `${catLabel}: \`${DATA_DIR}/${path}\`\n\n${codeFence(entry, 'json')}\n${shot}` });
 	return `${repo}/issues/new?${q}`;
 }

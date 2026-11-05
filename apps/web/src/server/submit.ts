@@ -1,6 +1,8 @@
 import { CatalogError, DATA_DIR, SITE_REPO, SITE_URL, SUBMIT_LABELS, type SubmitCat, alreadyListed, codeFence, entryFileText, entryPath, slugify } from '@awesome-mygo/catalog';
+import { stagedShot } from '@awesome-mygo/enrich/source';
 import { createAppAuth } from '@octokit/auth-app';
 import { Octokit } from '@octokit/core';
+import { env } from 'cloudflare:workers';
 
 // Submissions from visitors without a GitHub account: the site's GitHub App adds the entry's file on a new branch and opens a pull request, which CI checks and a maintainer merges.
 
@@ -20,6 +22,20 @@ export interface BotConfig {
 // Raised when too many submissions are waiting for review.
 export class SubmissionsBusy extends Error {}
 
+// The bot is off until all four secrets are set, so the site works the same before the GitHub App exists.
+export function botConfig(): BotConfig | undefined {
+	const { GITHUB_APP_ID, GITHUB_APP_PRIVATE_KEY, TURNSTILE_SITE_KEY, TURNSTILE_SECRET_KEY } = env;
+	if (!GITHUB_APP_ID || !GITHUB_APP_PRIVATE_KEY || !TURNSTILE_SITE_KEY || !TURNSTILE_SECRET_KEY) return undefined;
+	// A key pasted with literal \n (as some secret stores keep it) is turned back into lines.
+	const privateKey = GITHUB_APP_PRIVATE_KEY.replace(/\\n/g, '\n');
+	// GitHub hands out PKCS#1 keys, but the Workers runtime's WebCrypto only imports PKCS#8.
+	if (privateKey.includes('BEGIN RSA PRIVATE KEY')) {
+		console.error('GITHUB_APP_PRIVATE_KEY is PKCS#1; convert it with `openssl pkcs8 -topk8 -nocrypt -in key.pem` and set the secret again');
+		return undefined;
+	}
+	return { appId: GITHUB_APP_ID, privateKey, siteKey: TURNSTILE_SITE_KEY, turnstileSecret: TURNSTILE_SECRET_KEY };
+}
+
 let cached: { appId: string; octokit: Octokit } | undefined;
 
 // An Octokit acting as the app's installation on this repository; the app token is looked up once per isolate and refreshed by auth-app.
@@ -33,9 +49,17 @@ async function installation(cfg: BotConfig): Promise<Octokit> {
 	return octokit;
 }
 
-function toBase64(text: string): string {
+// The installation's token, for reading repositories outside Octokit (findRepoShot).
+export async function installationToken(cfg: BotConfig): Promise<string> {
+	const gh = await installation(cfg);
+	const { token } = (await gh.auth({ type: 'installation' })) as { token: string };
+	return token;
+}
+
+// Base64 of bytes, a chunk at a time so a screenshot of a few megabytes does not overflow the call stack.
+function toBase64(bytes: Uint8Array): string {
 	let bin = '';
-	for (const b of new TextEncoder().encode(text)) bin += String.fromCharCode(b);
+	for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
 	return btoa(bin);
 }
 
@@ -62,8 +86,14 @@ export async function verifyTurnstile(secret: string, token: string, ip: string)
 // The marker the submission workflow reads an app's screenshot link from (packages/enrich, submittedScreenshot). The link has passed isBadShot, so it holds no space, quote, backtick or angle bracket and cannot end the comment.
 const shotMarker = (url: string) => `<!-- submitted-screenshot: ${url} -->`;
 
-// Opens the pull request and returns it. Throws a CatalogError when the entry is already listed or would not pass its file's check, and SubmissionsBusy when too many are open. screenshot is an app's screenshot link from the form, which is not part of the entry: the pull request carries it for the submission workflow.
-export async function openSubmission(cfg: BotConfig, cat: SubmitCat, name: string, entry: Record<string, unknown>, screenshot?: string): Promise<{ url: string; number: number }> {
+// An image a visitor uploaded with the form, checked by checkUpload (server/shots.ts).
+export interface Upload {
+	bytes: Uint8Array;
+	format: 'png' | 'jpeg' | 'webp';
+}
+
+// Opens the pull request and returns it. Throws a CatalogError when the entry is already listed or would not pass its file's check, and SubmissionsBusy when too many are open. screenshot is the screenshot link from the form, which is not part of the entry: the pull request carries it for the submission workflow. upload is an image uploaded with the form instead, which goes on the branch under submissions/ (stagedShot) and shows in the pull request; the workflow turns it into the site's WebP.
+export async function openSubmission(cfg: BotConfig, cat: SubmitCat, name: string, entry: Record<string, unknown>, screenshot?: string, upload?: Upload): Promise<{ url: string; number: number }> {
 	const gh = await installation(cfg);
 	const repo = { owner: OWNER, repo: REPO };
 
@@ -85,14 +115,19 @@ export async function openSubmission(cfg: BotConfig, cat: SubmitCat, name: strin
 	const branch = `${BRANCH_PREFIX}${cat}-${slugify(plainName)}-${crypto.randomUUID().slice(0, 8)}`;
 	await gh.request('POST /repos/{owner}/{repo}/git/refs', { ...repo, ref: `refs/heads/${branch}`, sha: ref.object.sha });
 	try {
-		await gh.request('PUT /repos/{owner}/{repo}/contents/{path}', { ...repo, path, branch, message: `feat(catalog): add ${plainName}`, content: toBase64(next) });
+		await gh.request('PUT /repos/{owner}/{repo}/contents/{path}', { ...repo, path, branch, message: `feat(catalog): add ${plainName}`, content: toBase64(new TextEncoder().encode(next)) });
+		const slug = file.slice(file.lastIndexOf('/') + 1, -'.json'.length);
+		const staged = upload ? stagedShot(slug, upload.format) : undefined;
+		// Shown from the commit that added it, which stays when the workflow removes the file from the branch.
+		const shown = upload && staged ? (await gh.request('PUT /repos/{owner}/{repo}/contents/{path}', { ...repo, path: staged, branch, message: `chore(catalog): stage the screenshot uploaded for ${plainName}`, content: toBase64(upload.bytes) })).data.commit.sha : undefined;
 		const body = [
 			`Submitted through the form on ${SITE_URL} by a visitor without a GitHub account, so the site's bot opened this pull request.`,
 			`Category: ${label} (\`${path}\`)`,
 			codeFence(JSON.stringify(entry, null, 2), 'json'),
 			// In a code span, so the visitor's link does not become a link here; the workflow downloads it and the report says whether it was used.
 			...(screenshot ? [`Screenshot from the form: \`${screenshot}\`\n${shotMarker(screenshot)}`] : []),
-			'The entry passed the catalog checks before it was submitted, and CI runs them again. The *Complete submission* workflow then adds what the form cannot ask for (an app\'s icon, the screenshot from the form\'s link or the project\'s repository, a library\'s homepage, the copy in every site language, and a value for each field the form leaves at a default, such as `tag`, `tags` or `surface`) and comments what it did. Before merging, check that the project exists and is built with MyGo, and read the generated copy and the values it picked.',
+			...(staged && shown ? [`Screenshot uploaded with the form, staged as \`${staged}\`; the workflow turns it into the site's WebP and removes it:\n\n![Screenshot of ${plainName.replace(/[[\]]/g, '')}](https://raw.githubusercontent.com/${OWNER}/${REPO}/${shown}/${staged})`] : []),
+			'The entry passed the catalog checks before it was submitted, and CI runs them again. The *Complete submission* workflow then adds what the form cannot ask for (an app\'s icon, the screenshot uploaded with the form, from its link or from the project\'s repository, a library\'s homepage, the copy in every site language, and a value for each field the form leaves at a default, such as `tag`, `tags` or `surface`) and comments what it did. Before merging, check that the project exists and is built with MyGo, and read the generated copy and the values it picked.',
 		].join('\n\n');
 		const { data: pr } = await gh.request('POST /repos/{owner}/{repo}/pulls', { ...repo, title: `Add ${plainName} (${label})`, head: branch, base: BASE, body });
 		return { url: pr.html_url, number: pr.number };
