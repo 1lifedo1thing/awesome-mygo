@@ -1,0 +1,22 @@
+{
+	"$schema": "../schema/ui.schema.json",
+	"slug": "mayu",
+	"name": "Mayu",
+	"author": "harukizmoe",
+	"tag": "theme",
+	"surface": "native",
+	"summary": {
+		"en": "Material Design 3 components for MyGo native UI, with dynamic color from a seed color, three density levels and Material Symbols icons.",
+		"zh-CN": "MyGo 原生 UI 的 Material Design 3 组件库，可由种子色生成动态配色，并提供三档密度。",
+		"zh-TW": "MyGo 原生 UI 的 Material Design 3 元件庫，可由種子色生成動態配色，並提供三檔密度。",
+		"ja": "MyGo ネイティブ UI 向けの Material Design 3 コンポーネント集。シードカラーからの動的配色、3 段階の密度、Material Symbols アイコン付き。",
+		"ko": "MyGo 네이티브 UI용 Material Design 3 컴포넌트로, 시드 색상 기반 동적 색상과 3단계 밀도, Material Symbols 아이콘을 지원합니다."
+	},
+	"repo": "harukizmoe/mayu",
+	"url": "https://github.com/harukizmoe/mayu",
+	"screenshot": "mayu.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T15:15:40Z"
+}
