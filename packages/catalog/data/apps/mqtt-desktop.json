@@ -1,0 +1,26 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mqtt-desktop",
+	"name": "MQTT Desktop",
+	"author": "zhengchalei",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/zhengchalei/MQTT-Desktop",
+	"repo": "zhengchalei/MQTT-Desktop",
+	"summary": {
+		"en": "A native MQTT client for device debugging: subscribe to topics, watch and publish messages.",
+		"zh-CN": "用于设备调试的原生 MQTT 客户端：订阅 Topic，实时查看和发布消息。",
+		"zh-TW": "用於裝置除錯的原生 MQTT 用戶端：訂閱 Topic，即時查看與發布訊息。",
+		"ja": "デバイスのデバッグ向けネイティブ MQTT クライアント。Topic を購読し、メッセージを確認・送信。",
+		"ko": "기기 디버깅용 네이티브 MQTT 클라이언트. Topic을 구독하고 메시지를 보고 발행합니다."
+	},
+	"description": {
+		"en": "A Windows x64 MQTT client for device debugging, drawn with MyGo's native UI, with no Electron or Node.js. It connects to several brokers over MQTT 3.1.1 or 5.0 via TCP, TLS, WebSocket or WSS, lists subscriptions under each connection, publishes Text, JSON, Hex or Base64, and searches and filters live messages. History can be saved to SQLite; passwords go to the system credential store.",
+		"zh-CN": "用于设备调试的 Windows x64 MQTT 客户端，由 MyGo 原生 UI 绘制，无需 Electron 或 Node.js。可同时连接多个 Broker，支持 MQTT 3.1.1 与 5.0 及 TCP、TLS、WebSocket、WSS，订阅按连接分组，消息可用 Text、JSON、Hex、Base64 发布，并按关键词和 Topic 筛选。",
+		"zh-TW": "用於裝置除錯的 Windows x64 MQTT 用戶端，由 MyGo 原生 UI 繪製，無需 Electron 或 Node.js。可同時連線多個 Broker，支援 MQTT 3.1.1 與 5.0 及 TCP、TLS、WebSocket、WSS，訂閱依連線分組，訊息可用 Text、JSON、Hex、Base64 發布，並依關鍵字和 Topic 篩選。",
+		"ja": "日常のデバイスデバッグ向けの Windows x64 用 MQTT クライアント。MyGo のネイティブ UI で描かれ、Electron も Node.js も不要です。複数の Broker に同時接続でき、MQTT 3.1.1 と 5.0、TCP・TLS・WebSocket・WSS に対応します。購読は接続ごとに並び、Text・JSON・Hex・Base64 で発行でき、メッセージはキーワードや Topic で絞り込めます。履歴は任意で SQLite に保存し、パスワードはシステムの資格情報ストアに置きます。",
+		"ko": "기기 디버깅용 Windows x64 MQTT 클라이언트로, MyGo의 네이티브 UI로 그렸고 Electron이나 Node.js가 필요 없습니다. 여러 Broker에 동시에 연결하며 MQTT 3.1.1·5.0과 TCP, TLS, WebSocket, WSS를 지원합니다. 구독은 연결별로 묶어 보여 주고, Text, JSON, Hex, Base64로 발행하며, 메시지를 키워드와 Topic으로 걸러 봅니다. 비밀번호는 시스템 자격 증명 저장소에 저장합니다."
+	},
+	"screenshot": "mqtt-desktop.webp",
+	"added": "2026-11-05T17:38:35Z"
+}
