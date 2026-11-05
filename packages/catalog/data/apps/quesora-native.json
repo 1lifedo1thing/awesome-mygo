@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "quesora-native",
+	"name": "Quesora Native",
+	"author": "ispacewang",
+	"kind": "native",
+	"category": "ReferenceApplication",
+	"url": "https://github.com/ispacewang/quesora-native",
+	"repo": "ispacewang/quesora-native",
+	"summary": {
+		"en": "The native Windows build of Quesora, for offline quiz practice and timed exams from Excel or CSV.",
+		"zh-CN": "Quesora 原生 Windows 版：用 Excel、CSV 题库离线刷题考试。",
+		"zh-TW": "Quesora 原生 Windows 版：用 Excel、CSV 題庫離線練題與考試。",
+		"ja": "Quesora のネイティブ Windows 版。Excel・CSV の問題集でオフライン演習と試験。",
+		"ko": "Quesora의 네이티브 Windows 버전. Excel·CSV 문제로 오프라인 연습과 시험."
+	},
+	"description": {
+		"en": "The native Windows build of Quesora, written in Go and drawn with MyGo's native UI; the original Quesora is an Electron and Vue 3 app. It imports question banks from XLSX, XLS or CSV, keeps its data offline in SQLite, and runs daily practice, timed exams and a wrong-answer book. It is a preview: formulas, geometry and AI grading are not ported yet.",
+		"zh-CN": "Quesora 的原生 Windows 版本，用 Go 编写、由 MyGo 原生 UI 绘制；原版 Quesora 是基于 Electron 和 Vue 3 的应用。可导入 XLSX、XLS 或 CSV 题库，数据离线存放在 SQLite 中，支持日常刷题、计时考试和错题本。目前为预览版，公式、几何和 AI 判题尚未移植。",
+		"zh-TW": "Quesora 的原生 Windows 版本，以 Go 撰寫、由 MyGo 原生 UI 繪製；原版 Quesora 是以 Electron 與 Vue 3 打造的應用程式。可匯入 XLSX、XLS 或 CSV 題庫，資料離線儲存在 SQLite，支援日常練習、計時考試與錯題本。目前為預覽版，公式、幾何與 AI 判題尚未移植。",
+		"ja": "Quesora のネイティブ Windows 版で、Go で書かれ MyGo のネイティブ UI で描かれています。元の Quesora は Electron と Vue 3 のアプリです。XLSX・XLS・CSV の問題集を読み込み、データはオフラインで SQLite に保存し、日々の演習、時間制限つきの試験、間違えた問題の復習ができます。現在はプレビュー版で、数式、図形、AI 採点はまだ移植されていません。",
+		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 Quesora의 Windows 네이티브 버전입니다. 원래 Quesora는 Electron과 Vue 3로 만든 앱입니다. XLSX, XLS, CSV 문제집을 가져와 데이터를 SQLite에 오프라인으로 저장하고, 평소 문제 풀이와 시간제한 시험, 오답 노트를 지원합니다. 현재 프리뷰 버전이며 수식, 기하, AI 채점은 아직 옮겨지지 않았습니다."
+	},
+	"icon": {
+		"file": "quesora-native.webp"
+	},
+	"screenshot": "quesora-native.webp",
+	"added": "2026-11-05T03:08:54Z"
+}
