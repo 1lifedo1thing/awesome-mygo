@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "clarity",
+	"name": "Clarity",
+	"author": "mcxen",
+	"kind": "native",
+	"group": "media",
+	"url": "https://github.com/mcxen/clarity",
+	"repo": "mcxen/clarity",
+	"summary": {
+		"en": "Batch image sharpening and upscaling with a local offline engine or a Magpie AI service.",
+		"zh-CN": "批量清晰化与放大图片，可用本地引擎离线处理或接入 Magpie AI 服务。",
+		"zh-TW": "批次清晰化與放大圖片，可用本機引擎離線處理或串接 Magpie AI 服務。",
+		"ja": "画像を一括で鮮明化・拡大。ローカルでオフライン処理するか、Magpie の AI サービスを使う。",
+		"ko": "이미지 일괄 선명화·확대 앱. 로컬 엔진으로 오프라인 처리하거나 Magpie AI 서비스 사용."
+	},
+	"description": {
+		"en": "A desktop client drawn with MyGo's native UI for sharpening and upscaling images in batches. The default engine works offline, resizing 2× or 4× with Lanczos or Catmull-Rom and light sharpening; the Magpie engine sends images to a Magpie server you set up, with presets such as watermark removal and old photo restoration. Each image keeps a git-style tree of versions you can branch from.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的桌面客户端，批量为图片做清晰化与放大。默认的演示引擎完全离线，以 Lanczos 或 Catmull-Rom 放大 2 倍或 4 倍并轻度锐化；Magpie 引擎则把图片发送到你配置的 Magpie 服务，提供去水印、老照片修复等预设。每张图都有 git 风格的版本树，可从任一版本继续产出。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的桌面用戶端，批次為圖片做清晰化與放大。預設的示範引擎完全離線，以 Lanczos 或 Catmull-Rom 放大 2 倍或 4 倍並輕度銳化；Magpie 引擎則把圖片送到你設定的 Magpie 服務，提供去浮水印、老照片修復等預設。每張圖都有 git 風格的版本樹，可從任一版本繼續產出。",
+		"ja": "MyGo のネイティブ UI で描かれた、画像を一括で鮮明化・拡大するデスクトップクライアント。既定のデモエンジンは完全オフラインで、Lanczos または Catmull-Rom で 2 倍か 4 倍に拡大し、軽くシャープ化します。Magpie エンジンは設定した Magpie サーバーに画像を送り、透かし除去や古い写真の修復などのプリセットを使えます。各画像には git 風のバージョンツリーがあり、どの版からでも続きを生成できます。",
+		"ko": "MyGo의 네이티브 UI로 그린, 이미지를 일괄로 선명하게 하고 확대하는 데스크톱 클라이언트입니다. 기본 데모 엔진은 완전히 오프라인으로 Lanczos나 Catmull-Rom으로 2배 또는 4배 확대하고 가볍게 샤프닝합니다. Magpie 엔진은 설정한 Magpie 서버로 이미지를 보내며 워터마크 제거, 오래된 사진 복원 같은 프리셋을 씁니다. 이미지마다 git 스타일 버전 트리가 있어 어느 버전에서든 이어서 생성할 수 있습니다."
+	},
+	"icon": {
+		"file": "clarity.webp"
+	},
+	"screenshot": "clarity.webp",
+	"added": "2026-11-05T13:45:02Z"
+}
