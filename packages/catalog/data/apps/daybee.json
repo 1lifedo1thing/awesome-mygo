@@ -1,0 +1,26 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "daybee",
+	"name": "DayBee",
+	"author": "nexmoe",
+	"kind": "web",
+	"category": "MultimediaApplication",
+	"url": "https://daybee.co",
+	"repo": "nexmoe/DayBee",
+	"summary": {
+		"en": "A tray microphone recorder that transcribes speech on-device and makes it searchable over MCP.",
+		"zh-CN": "常驻托盘的麦克风录音工具，在本机实时转写，并可通过 MCP 搜索转写内容。",
+		"zh-TW": "常駐系統匣的麥克風錄音工具，在本機即時轉寫，並可透過 MCP 搜尋逐字稿。",
+		"ja": "トレイ常駐のマイク録音アプリ。端末上でリアルタイムに文字起こしし、MCP で検索できます。",
+		"ko": "트레이에 상주하는 마이크 녹음기. 기기에서 실시간으로 받아쓰고 MCP로 검색할 수 있습니다."
+	},
+	"description": {
+		"en": "A tray recorder for macOS and Windows, built with Go and MyGo with a web frontend. It records the microphone for long sessions, splits the audio into files and transcribes it on the device with Apple SpeechAnalyzer or sherpa-onnx models such as Whisper and SenseVoice. A built-in MCP server lets AI assistants search and read the saved transcripts.",
+		"zh-CN": "常驻托盘的 macOS 与 Windows 录音工具，用 Go 和 MyGo 构建，界面为 Web 前端。它可长时间录制麦克风，自动分段保存，并在本机用 Apple SpeechAnalyzer 或 Whisper、SenseVoice 等 sherpa-onnx 模型转写。内置的 MCP 服务器让 AI 助手可以搜索和读取已保存的转写内容。",
+		"zh-TW": "常駐系統匣的 macOS 與 Windows 錄音工具，以 Go 和 MyGo 打造，介面採用 Web 前端。它能長時間錄製麥克風，自動分段儲存，並在本機以 Apple SpeechAnalyzer 或 Whisper、SenseVoice 等 sherpa-onnx 模型轉寫。內建的 MCP 伺服器讓 AI 助理能搜尋並讀取已儲存的逐字稿。",
+		"ja": "Go と MyGo で作られ、Web フロントエンドで画面を描く、macOS・Windows 向けのトレイ常駐レコーダー。マイクを長時間録音して自動でファイルを分割し、Apple SpeechAnalyzer や Whisper、SenseVoice などの sherpa-onnx モデルで端末上で文字起こしします。内蔵の MCP サーバーを通じて、AI アシスタントから保存済みの文字起こしを検索・閲覧できます。",
+		"ko": "Go와 MyGo로 만들고 웹 프런트엔드로 화면을 구성한 macOS·Windows용 트레이 녹음기입니다. 마이크를 장시간 녹음하며 파일을 자동으로 나누고, Apple SpeechAnalyzer나 Whisper, SenseVoice 같은 sherpa-onnx 모델로 기기에서 받아씁니다. 내장 MCP 서버로 AI 어시스턴트가 저장된 전사 내용을 검색하고 읽을 수 있습니다."
+	},
+	"screenshot": "daybee.webp",
+	"added": "2026-11-05T00:46:37Z"
+}
