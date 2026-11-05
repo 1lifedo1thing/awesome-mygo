@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "lom-dx2metal",
+	"name": "lom-dx2metal",
+	"author": "li-yifei",
+	"kind": "native",
+	"group": "game",
+	"url": "https://github.com/li-yifei/lom-dx2metal",
+	"repo": "li-yifei/lom-dx2metal",
+	"summary": {
+		"en": "Converts a Unity 2020.3 Windows game's D3D11 shaders to Metal for the Apple Silicon Mac player.",
+		"zh-CN": "把 Unity 2020.3 Windows 游戏的 D3D11 着色器转成 Metal",
+		"zh-TW": "把 Unity 2020.3 Windows 遊戲的 D3D11 著色器轉成 Metal",
+		"ja": "Unity 2020.3 Windows 版ゲームの D3D11 シェーダーを Metal に変換。",
+		"ko": "Unity 2020.3 Windows 게임의 D3D11 셰이더를 Mac용 Metal로 변환합니다."
+	},
+	"description": {
+		"en": "Converts the D3D11 shaders in a Unity 2020.3 Windows game's data to Metal offline, so Unity's official macOS Apple Silicon Player can run it. Drag a *_Data folder into the window and the changed assets land in a *_Data.metal folder beside it. Made first for 活侠传; the window is drawn with MyGo's native UI, and a command-line shell over the same engine is built separately.",
+		"zh-CN": "把 Unity 2020.3 Windows 版游戏数据里的 D3D11 着色器离线转成 Metal，让 Unity 官方的 macOS Apple Silicon Player 直接运行。把游戏的 *_Data 文件夹拖进窗口，改好的资产文件会写到旁边的 *_Data.metal 目录。最初为《活侠传》而做；拖放窗口用 MyGo 原生 UI 绘制，同一引擎的命令行外壳另行构建。",
+		"zh-TW": "把 Unity 2020.3 Windows 版遊戲資料裡的 D3D11 著色器離線轉成 Metal，讓 Unity 官方的 macOS Apple Silicon Player 直接執行。把遊戲的 *_Data 資料夾拖進視窗，改好的資源檔會寫到旁邊的 *_Data.metal 目錄。最初為《活俠傳》而做；拖放視窗以 MyGo 原生 UI 繪製，同一引擎的命令列外殼另行建置。",
+		"ja": "Unity 2020.3 の Windows 版ゲームデータに含まれる D3D11 シェーダーをオフラインで Metal に変換し、Unity 公式の macOS Apple Silicon Player でそのまま動かせるようにします。ゲームの *_Data フォルダーをウィンドウにドラッグすると、変更したアセットが隣の *_Data.metal フォルダーに書き出されます。もとは《活侠传》のために作られたもので、ウィンドウは MyGo のネイティブ UI で描かれ、同じエンジンのコマンドライン版は別にビルドします。",
+		"ko": "Unity 2020.3 Windows 게임 데이터에 든 D3D11 셰이더를 오프라인으로 Metal로 변환해, Unity 공식 macOS Apple Silicon Player가 그대로 실행할 수 있게 합니다. 게임의 *_Data 폴더를 창에 끌어다 놓으면 바뀐 에셋 파일이 옆의 *_Data.metal 폴더에 저장됩니다. 처음에는 《活侠传》을 위해 만들어졌으며, 창은 MyGo의 네이티브 UI로 그리고 같은 엔진의 명령줄 버전은 따로 빌드합니다."
+	},
+	"icon": {
+		"file": "lom-dx2metal.webp"
+	},
+	"screenshot": "lom-dx2metal.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T14:40:59Z"
+}
