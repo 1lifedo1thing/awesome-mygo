@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "ccmail",
+	"name": "ccmail",
+	"author": "CarlOpenLab",
+	"kind": "native",
+	"group": "chat",
+	"url": "https://carlopenlab.github.io/ccmail/",
+	"repo": "CarlOpenLab/ccmail",
+	"summary": {
+		"en": "A native multi-account email client that brings any IMAP/SMTP mailbox into one inbox.",
+		"zh-CN": "原生多账户邮件客户端，把任意 IMAP/SMTP 邮箱汇入同一个收件箱。",
+		"zh-TW": "原生多帳號郵件用戶端，把任何 IMAP/SMTP 信箱匯入同一個收件匣。",
+		"ja": "IMAP/SMTP のメールを一つの受信トレイにまとめるネイティブなメールクライアント。",
+		"ko": "모든 IMAP/SMTP 메일함을 하나의 받은편지함으로 모으는 네이티브 메일 클라이언트."
+	},
+	"description": {
+		"en": "A multi-account email client drawn with MyGo's native UI, with HTML message bodies shown in the system WebView. It works with Gmail, Outlook, QQ Mail, 163 and any other IMAP/SMTP service, gathers them into one inbox with IDLE push, sanitizes HTML mail, blocks remote images by default and stores credentials encrypted locally. Installers are available for macOS, Windows and Linux.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的多账户邮件客户端，HTML 正文在系统 WebView 中显示。支持 Gmail、Outlook、QQ 邮箱、163 等任意 IMAP/SMTP 服务，汇入统一收件箱并通过 IDLE 实时推送；HTML 邮件经过白名单过滤，远程图片默认屏蔽，账户凭据在本地加密保存。提供 macOS、Windows 与 Linux 安装包。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的多帳號郵件用戶端，HTML 內文在系統 WebView 中顯示。支援 Gmail、Outlook、QQ 郵箱、163 等任何 IMAP/SMTP 服務，匯入統一收件匣並透過 IDLE 即時推送；HTML 郵件經白名單過濾，遠端圖片預設封鎖，帳號憑證在本機加密儲存。提供 macOS、Windows 與 Linux 安裝檔。",
+		"ja": "MyGo のネイティブ UI で描かれた複数アカウント対応のメールクライアント。HTML 本文はシステムの WebView で表示します。Gmail、Outlook、QQ メール、163 など任意の IMAP/SMTP サービスを一つの受信トレイにまとめ、IDLE でリアルタイムに受信します。HTML メールはホワイトリストで無害化され、リモート画像は既定でブロック、認証情報はローカルで暗号化して保存します。macOS・Windows・Linux 向けのインストーラーがあります。",
+		"ko": "MyGo의 네이티브 UI로 그린 다중 계정 메일 클라이언트로, HTML 본문은 시스템 WebView에서 표시합니다. Gmail, Outlook, QQ 메일, 163 등 모든 IMAP/SMTP 서비스를 하나의 받은편지함으로 모으고 IDLE로 실시간 수신합니다. HTML 메일은 화이트리스트로 정리하고 원격 이미지는 기본 차단하며, 계정 정보는 로컬에 암호화해 저장합니다. macOS, Windows, Linux용 설치 파일을 제공합니다."
+	},
+	"icon": {
+		"file": "ccmail.webp"
+	},
+	"screenshot": "ccmail.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T14:23:33Z"
+}
