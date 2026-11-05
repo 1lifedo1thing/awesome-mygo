@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "he-music",
+	"name": "HE-Music",
+	"author": "he-music",
+	"kind": "web",
+	"category": "MultimediaApplication",
+	"url": "https://github.com/he-music/HE-Music",
+	"repo": "he-music/HE-Music",
+	"summary": {
+		"en": "A music player with desktop lyrics, local library, downloads and tag editing; needs a backend.",
+		"zh-CN": "音乐播放器，支持桌面歌词、本地曲库、下载与标签编辑，需搭配后端服务。",
+		"zh-TW": "音樂播放器，支援桌面歌詞、本機曲庫、下載與標籤編輯，需搭配後端服務。",
+		"ja": "デスクトップ歌詞、ローカルライブラリ、ダウンロード、タグ編集に対応した音楽プレーヤー。バックエンドが必要。",
+		"ko": "데스크톱 가사, 로컬 라이브러리, 다운로드, 태그 편집을 지원하는 음악 플레이어. 백엔드 필요."
+	},
+	"description": {
+		"en": "A music player based on SPlayer, with a Vue 3 interface shown in MyGo's system WebView on macOS, Windows and Linux. It is frontend only and needs a matching backend service, but can switch to a local player mode with no network access. It offers desktop lyrics, local library management with tag and cover editing, song downloads, word-by-word lyrics and MV playback.",
+		"zh-CN": "基于 SPlayer 修改的音乐播放器，Vue 3 界面通过 MyGo 的系统 WebView 运行在 macOS、Windows 和 Linux 上。它是纯前端项目，需要搭配对应的后端服务，也可切换为不联网的本地播放器模式。支持桌面歌词、本地歌曲管理与标签、封面编辑、歌曲下载、逐字歌词和 MV 播放。",
+		"zh-TW": "基於 SPlayer 修改的音樂播放器，Vue 3 介面透過 MyGo 的系統 WebView 在 macOS、Windows 和 Linux 上執行。它是純前端專案，需要搭配對應的後端服務，也可切換為不連網的本機播放器模式。支援桌面歌詞、本機歌曲管理與標籤、封面編輯、歌曲下載、逐字歌詞和 MV 播放。",
+		"ja": "SPlayer をもとにした音楽プレーヤー。Vue 3 の UI を MyGo のシステム WebView で表示し、macOS・Windows・Linux で動きます。フロントエンドのみのため対応するバックエンドサービスが必要ですが、ネットワークに接続しないローカルプレーヤーモードにも切り替えられます。デスクトップ歌詞、ローカル曲の管理とタグ・カバーの編集、ダウンロード、文字単位の歌詞表示、MV 再生に対応します。",
+		"ko": "SPlayer를 바탕으로 만든 음악 플레이어로, Vue 3 화면을 MyGo의 시스템 WebView로 띄워 macOS, Windows, Linux에서 실행됩니다. 프런트엔드만 있어 맞는 백엔드 서비스가 필요하지만, 네트워크에 연결하지 않는 로컬 플레이어 모드로 전환할 수도 있습니다. 데스크톱 가사, 로컬 음악 관리와 태그·커버 편집, 다운로드, 글자 단위 가사, MV 재생을 지원합니다."
+	},
+	"icon": {
+		"file": "he-music.webp"
+	},
+	"screenshot": "he-music.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T02:29:36Z"
+}
