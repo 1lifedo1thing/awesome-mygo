@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mygo-launcher",
+	"name": "MyGo Launcher",
+	"author": "canwdev",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/canwdev/mygo-launcher",
+	"repo": "canwdev/mygo-launcher",
+	"summary": {
+		"en": "A portable Windows launcher for apps, files and folders, in tabs, with run-time tracking.",
+		"zh-CN": "便携式 Windows 启动器：把程序、文件和文件夹放进标签页，并记录运行时长。",
+		"zh-TW": "可攜式 Windows 啟動器：把程式、檔案和資料夾放進分頁，並記錄執行時間。",
+		"ja": "ポータブルな Windows ランチャー。プログラムやファイル、フォルダーをタブで並べ、実行時間を記録。",
+		"ko": "휴대용 Windows 런처. 프로그램, 파일, 폴더를 탭에 모아 두고 실행 시간을 기록합니다."
+	},
+	"description": {
+		"en": "A portable Windows launcher drawn with MyGo's native UI, with no WebView, HTML or JavaScript. It keeps programs, files and folders in tabs, adds them by drag and drop, starts and stops them, can run one as administrator and tracks each program's run time. By default closing the window leaves it in the tray, and its data lives in a JSON file beside the app that reloads when edited by hand.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的便携式 Windows 启动器，没有 WebView、HTML 或 JavaScript。程序、文件和文件夹按标签页排列，可拖放添加、启动和停止，也能以管理员身份运行，并自动累计每个程序的运行时长。默认关闭窗口后留在系统托盘；数据保存在程序旁的 JSON 文件里，手工修改后会自动重新加载。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的可攜式 Windows 啟動器，沒有 WebView、HTML 或 JavaScript。程式、檔案和資料夾依分頁排列，可拖放加入、啟動與停止，也能以系統管理員身分執行，並自動累計每個程式的執行時間。預設關閉視窗後會留在系統匣；資料存放在程式旁的 JSON 檔案中，手動修改後會自動重新載入。",
+		"ja": "MyGo のネイティブ UI で描かれたポータブルな Windows ランチャー。WebView も HTML も JavaScript も使いません。プログラム、ファイル、フォルダーをタブに並べ、ドラッグ＆ドロップで追加して起動・停止でき、管理者として実行することもできます。プログラムごとの実行時間は自動で記録されます。ウィンドウを閉じても標準ではシステムトレイに残り、データはアプリの隣の JSON ファイルに保存され、手で編集すると自動で再読み込みされます。",
+		"ko": "MyGo의 네이티브 UI로 그린 휴대용 Windows 런처로, WebView도 HTML도 JavaScript도 쓰지 않습니다. 프로그램, 파일, 폴더를 탭에 정리하고 끌어다 놓아 추가하며, 실행과 중지, 관리자 권한 실행을 지원하고 프로그램별 실행 시간을 자동으로 기록합니다. 기본적으로 창을 닫아도 시스템 트레이에 남고, 데이터는 앱 옆의 JSON 파일에 저장되며 직접 수정하면 자동으로 다시 불러옵니다."
+	},
+	"icon": {
+		"file": "mygo-launcher.webp"
+	},
+	"screenshot": "mygo-launcher.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T14:05:27Z"
+}
