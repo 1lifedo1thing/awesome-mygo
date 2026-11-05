@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "aurora",
+	"name": "Aurora",
+	"author": "pplmx",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/pplmx/aurora",
+	"repo": "pplmx/aurora",
+	"summary": {
+		"en": "Desktop app for a blockchain toolkit: VRF lotteries, signed voting, oracles, NFTs and tokens.",
+		"zh-CN": "区块链工具套件的桌面端：VRF 抽奖、签名投票、预言机、NFT 与代币。",
+		"zh-TW": "區塊鏈工具套件的桌面版：VRF 抽獎、簽章投票、預言機、NFT 與代幣。",
+		"ja": "ブロックチェーンツールキットのデスクトップ版。VRF 抽選、署名投票、オラクル、NFT、トークン。",
+		"ko": "블록체인 툴킷의 데스크톱 앱. VRF 추첨, 서명 투표, 오라클, NFT, 토큰."
+	},
+	"description": {
+		"en": "The desktop client of Aurora, a Go blockchain toolkit for VRF lotteries anyone can re-verify, Ed25519-signed voting, HTTP data oracles, NFTs and ERC-20 style tokens. MyGo builds only this client, drawn with its native UI for Linux, macOS and Windows. The CLI and REST API are built separately with go build and share its SQLite database, so the CLI reads what the window creates.",
+		"zh-CN": "Aurora 区块链工具套件的桌面端，涵盖人人可复验的 VRF 抽奖、Ed25519 签名投票、HTTP 数据预言机、NFT 与 ERC-20 风格代币。MyGo 只构建这个桌面端，以原生 UI 绘制，支持 Linux、macOS 与 Windows；CLI 和 REST API 另用 go build 构建，与它共用同一个 SQLite 数据库，窗口里创建的记录 CLI 立刻能读到。",
+		"zh-TW": "Aurora 區塊鏈工具套件的桌面版，涵蓋人人可重新驗證的 VRF 抽獎、Ed25519 簽章投票、HTTP 資料預言機、NFT 與 ERC-20 風格代幣。MyGo 只建置這個桌面版，以原生 UI 繪製，支援 Linux、macOS 與 Windows；CLI 和 REST API 另以 go build 建置，與它共用同一個 SQLite 資料庫，視窗裡建立的紀錄 CLI 立刻讀得到。",
+		"ja": "Go 製ブロックチェーンツールキット Aurora のデスクトップ版。誰でも検証し直せる VRF 抽選、Ed25519 署名の投票、HTTP データオラクル、NFT、ERC-20 風トークンを扱えます。MyGo がビルドするのはこのデスクトップ版だけで、ネイティブ UI で描かれ、Linux・macOS・Windows で動きます。CLI と REST API は go build で別にビルドされ、同じ SQLite データベースを共有します。",
+		"ko": "Go로 만든 블록체인 툴킷 Aurora의 데스크톱 클라이언트로, 누구나 다시 검증할 수 있는 VRF 추첨, Ed25519 서명 투표, HTTP 데이터 오라클, NFT, ERC-20 방식 토큰을 다룹니다. MyGo는 이 데스크톱 앱만 빌드하며, 네이티브 UI로 그려 Linux, macOS, Windows에서 실행됩니다. CLI와 REST API는 go build로 따로 빌드하고 같은 SQLite 데이터베이스를 공유합니다."
+	},
+	"icon": {
+		"file": "aurora.webp"
+	},
+	"screenshot": "aurora.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T02:43:19Z"
+}
