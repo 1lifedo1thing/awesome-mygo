@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "byop",
+	"name": "BYOP",
+	"author": "lexleizou",
+	"kind": "native",
+	"group": "agents",
+	"url": "https://github.com/lexleizou/byop",
+	"repo": "lexleizou/byop",
+	"summary": {
+		"en": "A native desktop workbench for the Pi coding agent: chat sessions, plugins and automations.",
+		"zh-CN": "Pi 编程代理 CLI 的原生桌面工作台，提供会话聊天、插件与自动化。",
+		"zh-TW": "Pi 程式代理 CLI 的原生桌面工作台，提供對話、外掛與自動化。",
+		"ja": "Pi コーディングエージェントのネイティブなデスクトップ作業台。チャット、プラグイン、自動化。",
+		"ko": "Pi 코딩 에이전트 CLI를 위한 네이티브 데스크톱 작업대. 채팅 세션, 플러그인, 자동화."
+	},
+	"description": {
+		"en": "A desktop workbench for the Pi coding agent, drawn with MyGo's native UI and built for macOS Apple Silicon. It drives a separately installed Pi CLI over JSONL RPC, with chat sessions, live tool activity, model and thinking-level pickers and session history, while Pi keeps models, credentials and session files. A plugin host runs native, Node and WebView plugins, with automations you run by hand.",
+		"zh-CN": "用 MyGo 原生 UI 绘制、面向 macOS Apple Silicon 的 Pi 编程代理桌面工作台。它通过 JSONL RPC 调用单独安装的 Pi CLI，提供会话聊天、实时工具活动、模型与思考等级选择和会话历史；模型、凭据与会话文件仍由 Pi 管理。内置插件宿主可运行原生、Node 与 WebView 插件，并支持手动运行的自动化。",
+		"zh-TW": "用 MyGo 原生 UI 繪製、針對 macOS Apple Silicon 的 Pi 程式代理桌面工作台。它透過 JSONL RPC 呼叫另外安裝的 Pi CLI，提供對話、即時工具活動、模型與思考等級選擇和對話紀錄；模型、憑證與對話檔案仍由 Pi 管理。內建外掛宿主可執行原生、Node 與 WebView 外掛，並支援手動執行的自動化。",
+		"ja": "MyGo のネイティブ UI で描かれた、macOS Apple Silicon 向けの Pi コーディングエージェント用デスクトップ作業台。別途インストールした Pi CLI を JSONL RPC で呼び出し、チャットセッション、リアルタイムのツール実行表示、モデルと思考レベルの選択、セッション履歴を扱います。モデル、認証情報、セッションファイルは Pi が管理します。プラグインホストはネイティブ、Node、WebView のプラグインを動かし、手動で実行する自動化も備えます。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS Apple Silicon용 Pi 코딩 에이전트 데스크톱 작업대입니다. 별도로 설치한 Pi CLI를 JSONL RPC로 호출해 채팅 세션, 실시간 도구 실행 표시, 모델과 사고 수준 선택, 세션 기록을 제공하며, 모델과 자격 증명, 세션 파일은 Pi가 관리합니다. 플러그인 호스트는 네이티브, Node, WebView 플러그인을 실행하고 수동으로 실행하는 자동화도 지원합니다."
+	},
+	"icon": {
+		"file": "byop.webp"
+	},
+	"screenshot": "byop.webp",
+	"added": "2026-11-05T09:41:01Z"
+}
