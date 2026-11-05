@@ -1,0 +1,19 @@
+{
+	"$schema": "../schema/ui.schema.json",
+	"slug": "8bitmygoui",
+	"name": "8bitMyGoUI",
+	"author": "ELY Open Source",
+	"tag": "retro",
+	"summary": {
+		"en": "500 pixel-art components for MyGo native UI in the manner of 16-bit consoles: every dot on the grid, no anti-aliasing, and colors from a sixteen-slot palette, with eight palettes for the four seasons by day and night.",
+		"zh-CN": "16 位游戏机风格的 MyGo 原生 UI 像素组件，22 类共 500 个：每个点都落在点阵上，没有抗锯齿，颜色只取自 16 格调色板，另有四季昼夜八套调色板。",
+		"zh-TW": "16 位元遊戲機風格的 MyGo 原生 UI 像素元件，22 類共 500 個：每個點都落在點陣上，沒有反鋸齒，顏色只取自 16 格調色盤，另有四季晝夜八套調色盤。",
+		"ja": "16 ビットゲーム機風の、MyGo ネイティブ UI 向けピクセルアートコンポーネント。22 カテゴリ 500 個で、すべての点がグリッドに乗り、アンチエイリアスはなく、色は 16 色のパレットから。四季の昼と夜で 8 つのパレットがあります。",
+		"ko": "16비트 게임기 풍의 MyGo 네이티브 UI 픽셀 아트 컴포넌트, 22개 분류 500개. 모든 점이 격자 위에 놓이고 안티앨리어싱 없이 16칸 팔레트의 색만 쓰며, 사계절 낮과 밤의 팔레트 8가지를 갖췄습니다."
+	},
+	"repo": "ELY-Open-Source/8bitMyGoUI",
+	"url": "https://github.com/ELY-Open-Source/8bitMyGoUI",
+	"homepage": "https://8bitmygoui.zhangyanghaha0407.workers.dev",
+	"screenshot": "8bitmygoui.webp",
+	"added": "2026-11-05T00:16:16Z"
+}
