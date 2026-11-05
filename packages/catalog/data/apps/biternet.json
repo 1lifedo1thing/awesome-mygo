@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "biternet",
+	"name": "BITERNET",
+	"author": "bitoolkit",
+	"kind": "native",
+	"group": "network",
+	"url": "https://bitoolkit.github.io/biternet-go/",
+	"repo": "bitoolkit/biternet-go",
+	"summary": {
+		"en": "A Beijing Institute of Technology campus network client: login, auto-login, usage stats and tray.",
+		"zh-CN": "北京理工大学校园网客户端：登录、自动登录、流量统计，可在托盘运行。",
+		"zh-TW": "北京理工大學校園網路用戶端：登入、自動登入、流量統計，可在系統匣執行。",
+		"ja": "北京理工大学の学内ネットワーク用クライアント。ログイン、自動ログイン、使用量表示、トレイ常駐に対応。",
+		"ko": "베이징이공대학 캠퍼스 네트워크 클라이언트. 로그인, 자동 로그인, 사용량 확인, 트레이 실행 지원."
+	},
+	"description": {
+		"en": "A campus network client for Beijing Institute of Technology on Windows, macOS and Linux, drawn with MyGo's native UI. It logs in with your student ID and unified authentication password, logs back in when it detects you are offline, and shows used traffic, online time, IP address and account balance. It can start at login and run from the tray.",
+		"zh-CN": "北京理工大学校园网客户端，支持 Windows、macOS 和 Linux，界面由 MyGo 原生 UI 绘制。输入学号和统一认证密码即可登录，检测到离线时会自动重新登录，并可查看已用流量、在线时长、IP 地址和账户余额。可设为开机启动，在托盘中运行。",
+		"zh-TW": "北京理工大學校園網路用戶端，支援 Windows、macOS 與 Linux，介面由 MyGo 原生 UI 繪製。輸入學號與統一認證密碼即可登入，偵測到離線時會自動重新登入，並可查看已用流量、上線時間、IP 位址與帳戶餘額。可設為開機啟動，在系統匣中執行。",
+		"ja": "北京理工大学の学内ネットワーク用クライアントで、Windows・macOS・Linux に対応し、MyGo のネイティブ UI で描かれています。学籍番号と統合認証のパスワードでログインし、オフラインを検知すると自動で再ログインします。使用済みのデータ量、接続時間、IP アドレス、アカウント残高を確認でき、OS 起動時の自動起動とトレイ常駐にも対応します。",
+		"ko": "베이징이공대학 캠퍼스 네트워크 클라이언트로, Windows, macOS, Linux를 지원하며 MyGo의 네이티브 UI로 그렸습니다. 학번과 통합 인증 비밀번호로 로그인하고, 오프라인을 감지하면 자동으로 다시 로그인하며, 사용한 트래픽, 접속 시간, IP 주소, 계정 잔액을 보여 줍니다. 부팅 시 자동 실행과 트레이 실행도 지원합니다."
+	},
+	"icon": {
+		"file": "biternet.webp"
+	},
+	"screenshot": "biternet.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T11:50:47Z"
+}
