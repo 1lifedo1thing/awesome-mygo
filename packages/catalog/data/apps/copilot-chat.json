@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "copilot-chat",
+	"name": "Copilot Chat",
+	"author": "fondoger",
+	"kind": "native",
+	"group": "ai",
+	"url": "https://github.com/fondoger/copilotchat",
+	"repo": "fondoger/copilotchat",
+	"summary": {
+		"en": "A native chat client for GitHub Copilot, Microsoft 365 Copilot and AI web chats, with MCP tools.",
+		"zh-CN": "原生 AI 聊天客户端，可用 Copilot 与豆包、DeepSeek 等网页聊天。",
+		"zh-TW": "原生 AI 聊天用戶端，可用 Copilot 與豆包、DeepSeek 等網頁聊天。",
+		"ja": "GitHub Copilot や各社の Web チャットを使えるネイティブ AI チャットクライアント。",
+		"ko": "GitHub Copilot과 여러 웹 채팅을 쓰는 네이티브 AI 채팅 클라이언트."
+	},
+	"description": {
+		"en": "A native AI chat client for Windows and macOS, drawn with MyGo's native UI. It talks to GitHub Copilot and Microsoft 365 Copilot with several accounts, and to the web chats of Doubao, DeepSeek, Claude, Gemini and ChatGPT. Replies stream as Markdown with code highlighting and HTML/SVG previews, and it takes image and file attachments, MCP tools and conversation search and export.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 与 macOS AI 聊天客户端。支持多账号登录 GitHub Copilot 和 Microsoft 365 Copilot，也可用豆包、DeepSeek、Claude、Gemini 和 ChatGPT 的网页聊天。回复以流式 Markdown 呈现，带代码高亮和 HTML/SVG 预览，并支持图片与文件附件和 MCP 工具。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows 與 macOS AI 聊天用戶端。支援多帳號登入 GitHub Copilot 和 Microsoft 365 Copilot，也可用豆包、DeepSeek、Claude、Gemini 和 ChatGPT 的網頁聊天。回覆以串流 Markdown 呈現，附程式碼高亮和 HTML/SVG 預覽，並支援圖片與檔案附件和 MCP 工具。",
+		"ja": "MyGo のネイティブ UI で描かれた、Windows・macOS 向けの AI チャットクライアント。GitHub Copilot と Microsoft 365 Copilot を複数アカウントで使え、豆包、DeepSeek、Claude、Gemini、ChatGPT の Web チャットにも対応します。返答は Markdown でストリーミング表示し、コードハイライト、HTML/SVG プレビュー、画像・ファイル添付、MCP ツールを備えます。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows·macOS용 AI 채팅 클라이언트입니다. GitHub Copilot, Microsoft 365 Copilot을 여러 계정으로 쓰고 Doubao, DeepSeek, Claude, Gemini, ChatGPT 웹 채팅도 지원합니다. 답변은 Markdown으로 스트리밍되며 코드 하이라이트, HTML/SVG 미리보기, 이미지·파일 첨부, MCP 도구를 갖췄습니다."
+	},
+	"icon": {
+		"file": "copilot-chat.webp"
+	},
+	"screenshot": "copilot-chat.webp",
+	"added": "2026-11-05T08:45:51Z"
+}
