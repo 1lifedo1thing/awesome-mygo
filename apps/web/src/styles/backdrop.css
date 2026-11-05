@@ -1,10 +1,4 @@
-.bg {
-	position: fixed;
-	inset: 0;
-	z-index: 0;
-	pointer-events: none;
-	overflow: hidden;
-}
+/* The fixed backdrop behind every page (components/Background.tsx): the drifting blobs, the moving grid and the dot spotlight that follows the pointer. They stay CSS because each is a drawing (gradients, masks, a pattern kept on the screen's grid) with its own keyframes; the box, the canvas and the vignette are utilities in the component. */
 /* Each blob is a disc softened as if blurred by 100px, drawn as a radial gradient instead of with filter: blur(100px). A blur that large over a backdrop that changes every frame is redone every frame (Firefox's software renderer drops to a few frames a second); a gradient is painted once and only moves. The box is 200px wider on every side than the disc, for the fade the blur gave it: solid to where the blurred disc started to fade, half at the disc's edge, clear at the box's edge. */
 .blob {
 	position: absolute;
@@ -95,12 +89,6 @@
 		background-position: 0 88px, 0 0;
 	}
 }
-.bg-canvas {
-	position: absolute;
-	inset: 0;
-	width: 100%;
-	height: 100%;
-}
 /* The dot spotlight is a 560px box that the pointer moves with a transform (Background.tsx sets --mx and --my), its circular mask fixed to the box, rather than a full-screen layer whose mask moved: that made the browser repaint and re-mask the whole screen on every pointer move. The dots stay on the screen's 22px grid as the box moves, by moving the pattern back by as much. */
 .spot {
 	position: absolute;
@@ -114,9 +102,4 @@
 	background-position: calc(280px - var(--mx, 70vw)) calc(280px - var(--my, 25vh));
 	-webkit-mask-image: radial-gradient(closest-side, #000, transparent 72%);
 	mask-image: radial-gradient(closest-side, #000, transparent 72%);
-}
-.vig {
-	position: absolute;
-	inset: 0;
-	background: radial-gradient(ellipse 120% 90% at 50% 40%, transparent 55%, rgba(11, 13, 16, 0.85) 100%);
 }

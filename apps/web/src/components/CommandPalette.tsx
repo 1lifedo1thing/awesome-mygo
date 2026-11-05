@@ -75,11 +75,12 @@ function Palette({ onClose, onApp, onSubmit }: { onClose: () => void; onApp: (sl
 	};
 
 	return (
-		<div className='overlay overlay-top fade'>
-			<div ref={ref} role='dialog' aria-modal='true' aria-label={t.search} className='palette enter'>
-				<div className='palette-head'>
+		// Below md the palette is a full-width sheet at the top of the screen, as tall as the dynamic viewport at most, so the input and the first results stay above the on-screen keyboard.
+		<div className='fade fixed inset-0 z-50 flex items-start justify-center bg-[rgba(5,7,9,0.7)] px-4 pt-[12vh] pb-4 backdrop-blur-[6px] max-md:p-0 max-md:pt-[env(safe-area-inset-top)]'>
+			<div ref={ref} role='dialog' aria-modal='true' aria-label={t.search} className='enter flex max-h-[70vh] w-full max-w-[640px] flex-col overflow-hidden rounded-[18px] border border-line-3 bg-panel shadow-[0_40px_120px_rgba(0,0,0,0.6)] max-md:max-h-[calc(100dvh-env(safe-area-inset-top))] max-md:max-w-none max-md:rounded-t-none max-md:border-x-0 max-md:border-t-0'>
+				<div className='flex items-center gap-3 border-b border-line-2 pr-3 pl-5 max-md:px-6 max-sm:px-4'>
 					<SearchIcon size={20} stroke='#3FD3F5' />
-					<label htmlFor='q' className='sr'>
+					<label htmlFor='q' className='sr-only'>
 						{t.search_label}
 					</label>
 					<input
@@ -94,23 +95,23 @@ function Palette({ onClose, onApp, onSubmit }: { onClose: () => void; onApp: (sl
 						onKeyDown={onKeyDown}
 						placeholder={t.search_ph}
 						autoComplete='off'
-						className='palette-input'
+						className='h-15 min-w-0 flex-auto border-0 bg-transparent font-[family-name:inherit] text-[18px] text-fg outline-none'
 						role='combobox'
 						aria-expanded='true'
 						aria-controls='palette-list'
 						aria-activedescendant={count > 0 ? `pi-${active}` : undefined}
 					/>
-					<button type='button' onClick={onClose} aria-label={t.close} className='kbd-btn'>
+					<button type='button' onClick={onClose} aria-label={t.close} className='min-h-8 rounded-md border border-line-3 bg-transparent px-2.5 py-0 text-[12px] text-fg-2 max-md:min-h-10'>
 						{t.close}
 					</button>
 				</div>
-				<div id='palette-list' role='listbox' aria-label={t.search} className='palette-body' ref={listRef}>
+				<div id='palette-list' role='listbox' aria-label={t.search} className='overflow-y-auto p-2 max-md:overscroll-contain max-md:px-3 max-md:pb-[calc(8px+env(safe-area-inset-bottom))] max-sm:px-1' ref={listRef}>
 					{!hasQuery && (
 						<>
-							<span className='palette-kicker'>{t.jump}</span>
+							<span className='block px-3 pt-2.5 pb-1.5 font-mono text-[11px] tracking-[0.1em] text-fg-3'>{t.jump}</span>
 							{JUMPS.map((j, i) => (
-								<button key={j.to} id={`pi-${i}`} data-i={i} role='option' aria-selected={i === active} type='button' className='row jump' onClick={() => go(j.to)} onPointerMove={() => setActive(i)}>
-									<span className='jump-num'>{pad2(i + 1)}</span>
+								<button key={j.to} id={`pi-${i}`} data-i={i} role='option' aria-selected={i === active} type='button' className='row flex min-h-12 w-full items-center gap-3.5 rounded-[10px] border-0 bg-transparent px-3 py-0 text-left text-[15px] text-fg hover:bg-cyan/7 aria-selected:bg-cyan/7' onClick={() => go(j.to)} onPointerMove={() => setActive(i)}>
+									<span className='w-7 font-mono text-[12px] text-cyan'>{pad2(i + 1)}</span>
 									{t[j.key]}
 								</button>
 							))}
@@ -118,23 +119,23 @@ function Palette({ onClose, onApp, onSubmit }: { onClose: () => void; onApp: (sl
 					)}
 					{hasQuery && (
 						<>
-							<span className='palette-kicker'>{fill(t.results, { x: String(results.length) })}</span>
+							<span className='block px-3 pt-2.5 pb-1.5 font-mono text-[11px] tracking-[0.1em] text-fg-3'>{fill(t.results, { x: String(results.length) })}</span>
 							{results.map((r, i) => (
-								<button key={`${r.cat}:${r.name}`} id={`pi-${i}`} data-i={i} role='option' aria-selected={i === active} type='button' className='row result' onClick={() => open(r)} onPointerMove={() => setActive(i)}>
-									<span className='result-cat'>{catLabel[r.cat]}</span>
-									<span className='result-text'>
-										<span className='result-name'>{r.name}</span>
-										<span className='result-desc'>{r.desc}</span>
+								<button key={`${r.cat}:${r.name}`} id={`pi-${i}`} data-i={i} role='option' aria-selected={i === active} type='button' className='row flex w-full items-center gap-3.5 rounded-[10px] border-0 bg-transparent p-3 text-left text-fg hover:bg-cyan/7 aria-selected:bg-cyan/7' onClick={() => open(r)} onPointerMove={() => setActive(i)}>
+									<span className='min-w-14 rounded-md border border-line-3 px-2 py-[3px] text-center text-[11px] text-fg-2'>{catLabel[r.cat]}</span>
+									<span className='flex min-w-0 flex-auto flex-col gap-0.5'>
+										<span className='text-[15px] font-bold max-md:wrap-break-word'>{r.name}</span>
+										<span className='truncate text-[13px] text-fg-3'>{r.desc}</span>
 									</span>
-									<span aria-hidden='true' className='c-cyan'>
+									<span aria-hidden='true' className='text-cyan'>
 										{r.target.type === 'url' ? '↗' : '→'}
 									</span>
 								</button>
 							))}
 							{results.length === 0 && (
-								<div className='no-res'>
+								<div className='flex flex-col items-center gap-3.5 px-4 py-8 text-center'>
 									<Docky variant='sleepy' />
-									<p>{t.no_res}</p>
+									<p className='m-0 text-[15px] text-fg-2'>{t.no_res}</p>
 									<button type='button' className='btn-c btn-44' onClick={onSubmit}>
 										{t.submit_it}
 									</button>
@@ -143,7 +144,8 @@ function Palette({ onClose, onApp, onSubmit }: { onClose: () => void; onApp: (sl
 						</>
 					)}
 				</div>
-				<div className='palette-foot' aria-hidden='true'>
+				{/* The keyboard hint; phones have no arrow keys, so below md it is left out and the list reaches the bottom of the sheet. */}
+				<div className='border-t border-line-2 px-5 py-2.5 font-mono text-[11px] text-fg-3 max-md:hidden' aria-hidden='true'>
 					{t.kbd_hint}
 				</div>
 			</div>

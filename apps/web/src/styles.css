@@ -1,6 +1,6 @@
 /* The original look. Tailwind scans the original look's components (not src/retro, which has its own stylesheet), and the site's colours, fonts and breakpoints are its theme, so components style themselves with utilities: `bg-panel`, `text-fg-3`, `font-mono`, `max-md:`.
 
-What utilities cannot say is kept in the files under styles/, in the components layer below the utilities: rules on other elements (body, links, focus rings), pseudo-elements, keyframes, descendants of rendered Markdown, and the parts of components shared with the retro look (Score, Like), which each look's stylesheet draws under the same class names. */
+What utilities cannot say, or what many pages share and adjust by class, is kept in the files under styles/, in the components layer below the utilities: rules on bare elements (body, links, focus rings), pseudo-elements, keyframes, the look's primitives (window chrome, tiles, buttons), and the parts of components shared with the retro look (Score, Like), which each look's stylesheet draws under the same class names. */
 @layer theme, base, components, utilities;
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/utilities.css' layer(utilities) source(none);
@@ -19,27 +19,12 @@ What utilities cannot say is kept in the files under styles/, in the components 
 @source './routes';
 @source './lib';
 
+/* In cascade order: the bare elements and the page layout, the primitives (feedback, windows, tiles, cards, buttons), the like and score classes both looks share, the backdrop, and the motion, whose reduced-motion block turns off rules in the files before it. */
 @import './styles/base.css' layer(components);
-@import './styles/utilities.css' layer(components);
-@import './styles/interaction.css' layer(components);
-@import './styles/animations.css' layer(components);
+@import './styles/primitives.css' layer(components);
+@import './styles/score.css' layer(components);
 @import './styles/backdrop.css' layer(components);
-@import './styles/layout.css' layer(components);
-@import './styles/header.css' layer(components);
-@import './styles/window.css' layer(components);
-@import './styles/cards.css' layer(components);
-@import './styles/buttons.css' layer(components);
-@import './styles/hero.css' layer(components);
-@import './styles/marquee.css' layer(components);
-@import './styles/home.css' layer(components);
-@import './styles/pages.css' layer(components);
-@import './styles/footer.css' layer(components);
-@import './styles/app-details.css' layer(components);
-@import './styles/overlays.css' layer(components);
-@import './styles/responsive.css' layer(components);
-@import './styles/additions.css' layer(components);
-@import './styles/app-links.css' layer(components);
-@import './styles/app-page.css' layer(components);
+@import './styles/motion.css' layer(components);
 
 /* Only the site's own palette: Tailwind's default colours are cleared so every colour in a component is one of these. Static, as the stylesheets under styles/ read them as variables too. */
 @theme static {

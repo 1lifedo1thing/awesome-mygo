@@ -3,7 +3,7 @@ import { useId } from 'react';
 import { useLang, useT } from '../lib/lang';
 import { SCORE_FORMULA_URL, SCORE_HISTORY_URL, scoreLabel, scoreRows, scoreTier, scoreTotal } from '../lib/score';
 
-// An entry's score (lib/score.ts) in both looks. Each part has its own score-* class, which each look's stylesheet draws (styles.css, retro/retro.css); `className` is where the caller places it, as with LikeButton. Each renders nothing for an entry without a score, so the site shows none of this until the Update scores workflow first records the signals.
+// An entry's score (lib/score.ts) in both looks. Each part has its own score-* class, which each look's stylesheet draws (styles/score.css, retro/retro.css); `className` is where the caller places it, as with LikeButton. Each renders nothing for an entry without a score, so the site shows none of this until the Update scores workflow first records the signals.
 
 // The total as a filled badge coloured by its band (scoreTier), ≈ when part of it could not be measured, with the word for score before it where the look shows it (the original look, where the badge sits beside a card's number): no star, which would read as GitHub's, and no red, which would read as a warning about the project.
 export function ScoreChip({ item, name, className = '' }: { item: string; name: string; className?: string }) {

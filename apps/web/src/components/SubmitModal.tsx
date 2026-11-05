@@ -7,6 +7,22 @@ import { CloseIcon } from './bits';
 
 const GROUPS = ENTRY_GROUPS;
 
+// The form's repeated pieces. Text fields keep the page's face and, below md, a 16px size, under which iOS zooms the page into a focused field.
+const LABEL = 'text-[14px] font-bold';
+const COUNT = 'font-mono text-[12px] font-normal text-fg-3';
+const OPTS = 'flex flex-wrap gap-1.5';
+const OPT = 'min-h-10 rounded-[10px] border border-line-3 bg-transparent px-3.5 py-0 text-[14px] font-semibold text-fg-2 aria-checked:border-cyan aria-checked:bg-cyan aria-checked:text-bg';
+const FIELD = 'rounded-[10px] border border-line-3 bg-bg text-fg data-[bad=true]:border-err max-md:text-[16px]';
+const INPUT = `${FIELD} h-[46px] px-3.5 py-0 font-[family-name:inherit] text-[15px]`;
+const AREA = `${FIELD} resize-y px-3.5 py-3`;
+const ERR = '-mt-1.5 mb-0 text-[13px] text-err';
+const TIP = 'm-0 text-[13px] text-fg-3';
+// A bordered secondary button; with .btn-g its hover is restated here, as these utilities outrank .btn-g's hover rule.
+const LINE_BTN = 'btn-g min-h-[46px] rounded-[10px] border border-line-3 bg-transparent px-[18px] py-0 text-[14px] font-bold text-fg hover:not-disabled:border-fg hover:not-disabled:bg-white/4 hover:not-disabled:text-fg disabled:cursor-not-allowed disabled:text-fg-3';
+// The footer's buttons; below md they share the row under the hint and fill it.
+const FOOT_BTN = 'inline-flex min-h-[46px] items-center rounded-[10px] px-5 py-0 text-[14px] no-underline max-md:flex-auto max-md:justify-center max-md:text-center max-md:wrap-anywhere';
+const HINT = 'm-0 min-w-0 flex-[1_1_200px] text-[13px] leading-[1.5] max-md:basis-full';
+
 // Keyed by the WebMCP fills (lib/webmcp.ts), so each one opens a fresh dialog.
 export function SubmitModal() {
 	const { modal, filled } = useSite();
@@ -21,27 +37,28 @@ function Modal() {
 	const urlNote = urlBad ? 'f-url-err' : repoMissing ? 'f-url-repo' : isShow || withAuthor ? 'f-url-tip' : undefined;
 	// The screenshot: an image to upload, when the bot can take one, and in the form a link instead; under it what the bot found in the repository.
 	const shotField = (withLink: boolean) => (
-		<div className='stack-8'>
-			<span id='f-shot-label' className='field-label'>
-				{t.m_shot} <span className='field-count'>{shotRequired ? t.m_shot_req : t.m_opt}</span>
+		<div className='flex flex-col gap-2'>
+			<span id='f-shot-label' className={LABEL}>
+				{t.m_shot} <span className={COUNT}>{shotRequired ? t.m_shot_req : t.m_opt}</span>
 			</span>
 			{bot.enabled && (
-				<div className='shot-pick'>
+				<div className='flex flex-wrap items-center gap-3'>
 					{shotFile ? (
 						<>
-							<img src={shotFile.preview} alt='' className='shot-preview' />
-							<span className='shot-name'>{shotFile.file.name}</span>
-							<button type='button' className='btn-g btn-copy-line' onClick={() => onShotFile(undefined)}>
+							<img src={shotFile.preview} alt='' className='h-[72px] w-auto max-w-[128px] rounded-lg border border-line-3 object-cover' />
+							<span className='max-w-[240px] truncate text-[13px] text-fg-2'>{shotFile.file.name}</span>
+							<button type='button' className={LINE_BTN} onClick={() => onShotFile(undefined)}>
 								{t.m_shot_remove}
 							</button>
 						</>
 					) : (
-						<label className='btn-g btn-copy-line shot-btn'>
+						<label className={`${LINE_BTN} relative inline-flex cursor-pointer items-center focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-cyan`}>
 							{t.m_shot_up}
 							<input
 								type='file'
 								accept='image/png,image/jpeg,image/webp'
 								aria-labelledby='f-shot-label'
+								className='absolute size-px overflow-hidden whitespace-nowrap [clip-path:inset(50%)]'
 								onChange={(e) => {
 									onShotFile(e.target.files?.[0]);
 									e.target.value = '';
@@ -52,7 +69,7 @@ function Modal() {
 				</div>
 			)}
 			{shotFile?.problem && (
-				<p role='alert' className='field-err'>
+				<p role='alert' className={ERR}>
 					{shotFile.problem}
 				</p>
 			)}
@@ -66,68 +83,73 @@ function Modal() {
 					onBlur={onShotBlur}
 					placeholder={bot.enabled ? `${t.m_shot_link}: https://…/screenshot.png` : 'https://…/screenshot.png'}
 					aria-label={bot.enabled ? t.m_shot_link : t.m_shot}
-					className='field'
+					className={INPUT}
 					data-bad={shotBad}
 					aria-invalid={shotBad}
 					aria-describedby={shotBad ? 'f-shot-err' : 'f-shot-tip'}
 				/>
 			)}
 			{withLink && shotBad && (
-				<p id='f-shot-err' role='alert' className='field-err'>
+				<p id='f-shot-err' role='alert' className={ERR}>
 					{t.m_shot_bad}
 				</p>
 			)}
 			{shotNote && (
-				<p className='field-tip' aria-live='polite' data-need={shotRequired && !shotFile && !form.screenshot?.trim()}>
+				<p className={`${TIP} data-[need=true]:text-amber`} aria-live='polite' data-need={shotRequired && !shotFile && !form.screenshot?.trim()}>
 					{shotNote}
 				</p>
 			)}
-			<p id='f-shot-tip' className='field-tip'>
+			<p id='f-shot-tip' className={TIP}>
 				{t.m_shot_tip}
 			</p>
 		</div>
 	);
 
-	// The form scrolls; the footer with the submit button stays in view, saying what is still missing.
+	// The form scrolls inside the dialog; the footer with the submit button stays in view below it, saying what is still missing. Below md the dialog is a full-width sheet from the bottom of the screen, its footer clear of the home indicator.
 	return (
-		<div className='overlay overlay-center fade'>
-			<div ref={ref} role='dialog' aria-modal='true' aria-labelledby='dlg' aria-describedby={agentFilled ? 'sub-agent' : undefined} className='modal enter'>
-				<div className='modal-scroll'>
-					<div className='modal-head'>
-						<div className='stack-6'>
-							<h2 id='dlg' className='modal-title'>
+		<div className='fade fixed inset-0 z-50 flex items-center justify-center bg-[rgba(5,7,9,0.7)] p-4 backdrop-blur-[6px] max-md:items-end max-md:p-0 max-md:pt-[calc(12px+env(safe-area-inset-top))]'>
+			<div ref={ref} role='dialog' aria-modal='true' aria-labelledby='dlg' aria-describedby={agentFilled ? 'sub-agent' : undefined} className='enter box-border flex max-h-[calc(100dvh-32px)] w-full max-w-[580px] flex-col overflow-hidden rounded-[20px] border border-line-3 bg-panel shadow-[0_40px_120px_rgba(0,0,0,0.6)] max-md:max-h-[calc(100dvh-12px-env(safe-area-inset-top))] max-md:max-w-none max-md:rounded-b-none max-md:border-x-0 max-md:border-b-0'>
+				<div className='flex min-h-0 flex-auto flex-col gap-[18px] overflow-auto px-[30px] pt-[30px] pb-[22px] max-md:overscroll-contain max-md:px-6 max-md:wrap-anywhere max-sm:px-4 max-xs:pt-[22px] max-xs:pb-[18px]'>
+					<div className='flex items-start justify-between gap-3'>
+						<div className='flex flex-col gap-1.5'>
+							<h2 id='dlg' className='m-0 text-[26px] font-black tracking-[-0.02em]'>
 								{t.m_title}
 							</h2>
-							<p className='modal-sub'>{bot.enabled ? t.m_desc_bot : t.m_desc}</p>
+							<p className='m-0 text-[14px] text-fg-2'>{bot.enabled ? t.m_desc_bot : t.m_desc}</p>
 						</div>
-						<button type='button' className='btn-g icon-btn icon-44' onClick={closeSubmit} aria-label={t.close}>
+						<button type='button' className='btn-g flex size-11 flex-[0_0_44px] items-center justify-center rounded-[10px] border border-line-3 bg-transparent p-0 text-fg hover:border-fg hover:bg-white/4' onClick={closeSubmit} aria-label={t.close}>
 							<CloseIcon size={18} />
 						</button>
 					</div>
-					{agentFilled && <p id='sub-agent' className='sub-agent'>{t.sub_agent}</p>}
-					<div className='stack-8'>
-						<span className='field-label'>{t.a_cats}</span>
-						<div className='cat-opts' role='radiogroup' aria-label={t.a_cats}>
+					{/* Said when a WebMCP tool filled the form in, so the visitor checks what an AI agent wrote before sending it. */}
+					{agentFilled && (
+						<p id='sub-agent' className='m-0 rounded-[10px] border border-amber/45 bg-amber/10 px-3.5 py-2.5 text-[14px] text-amber'>
+							{t.sub_agent}
+						</p>
+					)}
+					<div className='flex flex-col gap-2'>
+						<span className={LABEL}>{t.a_cats}</span>
+						<div className={OPTS} role='radiogroup' aria-label={t.a_cats}>
 							{SUBMIT_CATS.map((c) => (
-								<button key={c} type='button' role='radio' aria-checked={form.cat === c} className='cat-opt' onClick={() => setFormField('cat', c)}>
+								<button key={c} type='button' role='radio' aria-checked={form.cat === c} className={OPT} onClick={() => setFormField('cat', c)}>
 									{catLabel[c]}
 								</button>
 							))}
 						</div>
 					</div>
-					<div className='stack-8'>
-						<span className='field-label'>{t.m_via}</span>
-						<div className='cat-opts' role='radiogroup' aria-label={t.m_via}>
+					<div className='flex flex-col gap-2'>
+						<span className={LABEL}>{t.m_via}</span>
+						<div className={OPTS} role='radiogroup' aria-label={t.m_via}>
 							{(['form', 'json'] as const).map((v) => (
-								<button key={v} type='button' role='radio' aria-checked={form.via === v} className='cat-opt' onClick={() => setFormField('via', v)}>
+								<button key={v} type='button' role='radio' aria-checked={form.via === v} className={OPT} onClick={() => setFormField('via', v)}>
 									{v === 'form' ? t.m_via_form : t.m_via_json}
 								</button>
 							))}
 						</div>
 					</div>
 					{viaJson && (
-						<div className='stack-8'>
-							<label htmlFor='f-json' className='field-label'>
+						<div className='flex flex-col gap-2'>
+							<label htmlFor='f-json' className={LABEL}>
 								{t.m_json} · <span lang='en'>{`${DATA_DIR}/${file}`}</span>
 							</label>
 							<textarea
@@ -137,27 +159,27 @@ function Modal() {
 								value={form.json}
 								onChange={(e) => onJsonChange(e.target.value)}
 								placeholder={example}
-								className='field field-area field-code'
+								className={`${AREA} font-mono text-[13px] leading-[1.7]`}
 								lang='en'
 								data-bad={Boolean(jsonError)}
 								aria-invalid={Boolean(jsonError)}
 								aria-describedby={jsonError ? 'f-json-err' : 'f-json-tip'}
 							/>
 							{jsonError ? (
-								<p id='f-json-err' role='alert' className='field-err'>
+								<p id='f-json-err' role='alert' className={ERR}>
 									{jsonError}
 								</p>
 							) : (
-								<p id='f-json-tip' className='field-tip'>
+								<p id='f-json-tip' className={TIP}>
 									{t.m_json_tip}
 								</p>
 							)}
-							<div className='md-details-acts'>
-								<button type='button' className='btn-g btn-copy-line' onClick={() => ok && copy(entry, 'line')} disabled={!ok}>
+							<div className='mt-2.5 flex flex-wrap items-center gap-x-3.5 gap-y-2.5'>
+								<button type='button' className={LINE_BTN} onClick={() => ok && copy(entry, 'line')} disabled={!ok}>
 									{copied === 'line' ? t.copied : t.copy_entry}
 								</button>
 								{bot.enabled && (
-									<span className='modal-alt'>
+									<span className='m-0 text-left text-[13px] text-fg-3 [&_a]:text-cyan'>
 										{t.sub_gh}{' '}
 										<a href={edit} target='_blank' rel='noopener'>
 											{fill(t.go_edit, { x: file })}
@@ -173,11 +195,11 @@ function Modal() {
 					)}
 					{viaJson && withShot && bot.enabled && shotField(false)}
 					{!viaJson && isShow && (
-						<div className='stack-8'>
-							<span className='field-label'>{t.a_kind}</span>
-							<div className='cat-opts' role='radiogroup' aria-label={t.a_kind}>
+						<div className='flex flex-col gap-2'>
+							<span className={LABEL}>{t.a_kind}</span>
+							<div className={OPTS} role='radiogroup' aria-label={t.a_kind}>
 								{(['native', 'web'] as const).map((m) => (
-									<button key={m} type='button' role='radio' aria-checked={form.mode === m} className='cat-opt' onClick={() => setFormField('mode', m)}>
+									<button key={m} type='button' role='radio' aria-checked={form.mode === m} className={OPT} onClick={() => setFormField('mode', m)}>
 										{m === 'native' ? t.surf_native : t.web_fe}
 									</button>
 								))}
@@ -185,12 +207,12 @@ function Modal() {
 						</div>
 					)}
 					{!viaJson && isShow && (
-						<div className='stack-8'>
-							<span className='field-label'>{t.m_group}</span>
+						<div className='flex flex-col gap-2'>
+							<span className={LABEL}>{t.m_group}</span>
 							{/* Optional: a second press clears it, and the entry then names no group, which the submission workflow picks. */}
-							<div className='cat-opts' role='radiogroup' aria-label={t.m_group}>
+							<div className={OPTS} role='radiogroup' aria-label={t.m_group}>
 								{GROUPS.map((g) => (
-									<button key={g} type='button' role='radio' aria-checked={form.group === g} className='cat-opt' onClick={() => setFormField('group', form.group === g ? undefined : g)}>
+									<button key={g} type='button' role='radio' aria-checked={form.group === g} className={OPT} onClick={() => setFormField('group', form.group === g ? undefined : g)}>
 										{t[`grp_${g}`]}
 									</button>
 								))}
@@ -199,8 +221,8 @@ function Modal() {
 					)}
 					{!viaJson && (
 						<>
-							<div className='stack-8'>
-								<label htmlFor='f-url' className='field-label'>
+							<div className='flex flex-col gap-2'>
+								<label htmlFor='f-url' className={LABEL}>
 									{urlLabel}
 								</label>
 								<input
@@ -211,31 +233,31 @@ function Modal() {
 									onChange={(e) => setFormField('url', e.target.value)}
 									onBlur={onUrlBlur}
 									placeholder={isShow ? 'https://…' : 'https://github.com/…'}
-									className='field'
+									className={INPUT}
 									data-bad={urlBad || repoMissing}
 									aria-invalid={urlBad || repoMissing}
 									aria-describedby={urlNote}
 								/>
 								{urlBad ? (
-									<p id='f-url-err' role='alert' className='field-err'>
+									<p id='f-url-err' role='alert' className={ERR}>
 										{t.m_bad}
 									</p>
 								) : repoMissing ? (
-									<p id='f-url-repo' role='alert' className='field-err'>
+									<p id='f-url-repo' role='alert' className={ERR}>
 										{t.m_repo}
 									</p>
 								) : (
 									(isShow || withAuthor) && (
-										<p id='f-url-tip' className='field-tip'>
+										<p id='f-url-tip' className={TIP}>
 											{isShow ? t.m_home_tip : t.m_link_tip}
 										</p>
 									)
 								)}
 							</div>
 							{isShow && (
-								<div className='stack-8'>
-									<label htmlFor='f-repo' className='field-label'>
-										{t.m_gh} <span className='field-count'>{t.m_opt}</span>
+								<div className='flex flex-col gap-2'>
+									<label htmlFor='f-repo' className={LABEL}>
+										{t.m_gh} <span className={COUNT}>{t.m_opt}</span>
 									</label>
 									<input
 										id='f-repo'
@@ -245,62 +267,62 @@ function Modal() {
 										onChange={(e) => setFormField('repo', e.target.value)}
 										onBlur={onRepoBlur}
 										placeholder='https://github.com/owner/name'
-										className='field'
+										className={INPUT}
 										data-bad={repoBad}
 										aria-invalid={repoBad}
 										aria-describedby={repoBad ? 'f-repo-err' : 'f-repo-tip'}
 									/>
 									{repoBad ? (
-										<p id='f-repo-err' role='alert' className='field-err'>
+										<p id='f-repo-err' role='alert' className={ERR}>
 											{t.m_repo_bad}
 										</p>
 									) : (
-										<p id='f-repo-tip' className='field-tip'>
+										<p id='f-repo-tip' className={TIP}>
 											{t.m_link_tip}
 										</p>
 									)}
 								</div>
 							)}
 							{withShot && shotField(true)}
-							<div className='field-grid'>
-								<div className='stack-8'>
-									<label htmlFor='f-name' className='field-label'>
+							<div className='grid grid-cols-[repeat(auto-fit,minmax(min(100%,200px),1fr))] gap-3.5'>
+								<div className='flex flex-col gap-2'>
+									<label htmlFor='f-name' className={LABEL}>
 										{t.m_name}
 									</label>
-									<input id='f-name' type='text' value={form.name} onChange={(e) => setFormField('name', e.target.value)} placeholder={t.m_name_ph} className='field' />
+									<input id='f-name' type='text' value={form.name} onChange={(e) => setFormField('name', e.target.value)} placeholder={t.m_name_ph} className={INPUT} />
 								</div>
 								{withAuthor && (
-									<div className='stack-8'>
-										<label htmlFor='f-author' className='field-label'>
+									<div className='flex flex-col gap-2'>
+										<label htmlFor='f-author' className={LABEL}>
 											{t.m_author}
 										</label>
-										<input id='f-author' type='text' value={form.author} onChange={(e) => setFormField('author', e.target.value)} placeholder={t.m_author_ph} className='field' autoComplete='username' />
+										<input id='f-author' type='text' value={form.author} onChange={(e) => setFormField('author', e.target.value)} placeholder={t.m_author_ph} className={INPUT} autoComplete='username' />
 									</div>
 								)}
 							</div>
-							<div className='stack-8'>
-								<label htmlFor='f-desc' className='field-label'>
+							<div className='flex flex-col gap-2'>
+								<label htmlFor='f-desc' className={LABEL}>
 									{t.m_desc_l}{' '}
-									<span className='field-count'>
+									<span className={COUNT}>
 										{form.desc.length}/{max}
 									</span>
 								</label>
-								<textarea id='f-desc' rows={isShow ? 3 : 2} maxLength={max} value={form.desc} onChange={(e) => setFormField('desc', e.target.value.slice(0, max))} placeholder={t.m_desc_ph} className='field field-area' />
+								<textarea id='f-desc' rows={isShow ? 3 : 2} maxLength={max} value={form.desc} onChange={(e) => setFormField('desc', e.target.value.slice(0, max))} placeholder={t.m_desc_ph} className={`${AREA} font-[family-name:inherit] text-[15px]`} />
 							</div>
 							{/* The entry as it will land in the repository, for those who want to check it or take it to GitHub themselves. */}
-							<details className='md-details'>
-								<summary>
+							<details className='group'>
+								<summary className='w-fit cursor-pointer text-[14px] font-bold text-fg-2 group-open:mb-2.5 hover:text-fg max-md:py-2.5'>
 									{t.m_preview} · <span lang='en'>{`${DATA_DIR}/${file}`}</span>
 								</summary>
-								<pre className='md-preview' lang='en'>
+								<pre className='m-0 max-h-[260px] overflow-auto rounded-[10px] border border-line-2 bg-bg px-4 py-3.5 font-mono text-[13px] leading-[1.7] break-all whitespace-pre-wrap text-fg' lang='en'>
 									{entry}
 								</pre>
-								<div className='md-details-acts'>
-									<button type='button' className='btn-g btn-copy-line' onClick={() => ok && copy(entry, 'line')} disabled={!ok}>
+								<div className='mt-2.5 flex flex-wrap items-center gap-x-3.5 gap-y-2.5'>
+									<button type='button' className={LINE_BTN} onClick={() => ok && copy(entry, 'line')} disabled={!ok}>
 										{copied === 'line' ? t.copied : t.copy_entry}
 									</button>
 									{bot.enabled && (
-										<span className='modal-alt'>
+										<span className='m-0 text-left text-[13px] text-fg-3 [&_a]:text-cyan'>
 											{t.sub_gh}{' '}
 											<a href={edit} target='_blank' rel='noopener'>
 												{fill(t.go_edit, { x: file })}
@@ -315,42 +337,42 @@ function Modal() {
 							</details>
 						</>
 					)}
-					{bot.enabled && status.kind !== 'done' && <Captcha siteKey={bot.siteKey} lang={lang} round={round} onToken={setToken} onFail={() => setStatus({ kind: 'error', message: t.sub_failed })} />}
+					{bot.enabled && status.kind !== 'done' && <Captcha className='empty:hidden' siteKey={bot.siteKey} lang={lang} round={round} onToken={setToken} onFail={() => setStatus({ kind: 'error', message: t.sub_failed })} />}
 				</div>
-				<div className='modal-foot'>
+				<div className='flex flex-none flex-wrap items-center justify-end gap-x-3 gap-y-2.5 border-t border-line-2 bg-panel px-[30px] py-3.5 max-md:px-6 max-md:pb-[calc(14px+env(safe-area-inset-bottom))] max-sm:px-4 max-xs:pt-3 max-xs:pb-[calc(12px+env(safe-area-inset-bottom))]'>
 					{bot.enabled ? (
 						status.kind === 'done' ? (
-							<div role='status' className='sub-done'>
+							<div role='status' className='flex flex-auto flex-wrap items-center justify-between gap-3 rounded-[10px] border border-line-2 py-3 pr-3 pl-4 text-[14px] text-fg'>
 								<span>{t.sub_done}</span>
-								<a className='btn-c btn-pr' href={status.url} target='_blank' rel='noopener'>
+								<a className={`btn-c ${FOOT_BTN}`} href={status.url} target='_blank' rel='noopener'>
 									{fill(t.sub_view, { n: status.number })}
 								</a>
 							</div>
 						) : (
 							<>
 								{status.kind === 'error' ? (
-									<p role='alert' className='field-err modal-hint'>
+									<p role='alert' className={`${HINT} text-err`}>
 										{status.message}
 									</p>
 								) : (
-									<p className='modal-hint' aria-live='polite'>
+									<p className={`${HINT} text-fg-3`} aria-live='polite'>
 										{hint}
 									</p>
 								)}
-								<button type='button' className='btn-c btn-pr' onClick={send} disabled={!canSend}>
+								<button type='button' className={`btn-c ${FOOT_BTN} disabled:cursor-not-allowed disabled:opacity-45`} onClick={send} disabled={!canSend}>
 									{status.kind === 'sending' ? t.sub_sending : t.sub_send}
 								</button>
 							</>
 						)
 					) : (
 						<>
-							<p className='modal-hint' aria-live='polite'>
+							<p className={`${HINT} text-fg-3`} aria-live='polite'>
 								{hint}
 							</p>
-							<a className='btn-copy-line btn-pr' href={edit} target='_blank' rel='noopener'>
+							<a className={`${FOOT_BTN} border border-line-3 bg-transparent font-bold text-fg hover:text-cyan-2`} href={edit} target='_blank' rel='noopener'>
 								{fill(t.go_edit, { x: file })}
 							</a>
-							<a className='btn-c btn-pr' href={issue} target='_blank' rel='noopener'>
+							<a className={`btn-c ${FOOT_BTN}`} href={issue} target='_blank' rel='noopener'>
 								{t.go_pr}
 							</a>
 						</>

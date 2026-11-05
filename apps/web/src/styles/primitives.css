@@ -1,0 +1,233 @@
+/* The look's primitives, kept as named classes: hover and press feedback, the window chrome, the app tile, the platform tag and the card box, the button sizes, the listing filters' select, and a dialog action row. Each section says why its rules are classes. Their order matters where two meet on one element: a button's size and outline come after its feedback class, and the official icon's corner after the tile sizes and before the 96px tile's. */
+
+/* Hover and press feedback shared across pages, as named classes because many pages and lib/motion.ts (the tilt and glare on .tile) use them: the window lift (.win, and the tile inside it turning), the tilting tile and its glare, the arrow that nudges on hover, the cyan and ghost buttons (.btn-c, .btn-g; pair them with a size from the button sizes below), and the list row highlight (.row). Each class sets only its transition and hover state, so an element's utilities draw the rest; a utility that sets a property a hover rule here changes (background, border colour, colour, transform) needs the hover restated as a hover: utility. */
+.win {
+	transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.win:hover {
+	transform: translateY(-6px);
+	border-color: var(--color-cyan);
+	box-shadow: 0 0 0 1px var(--color-cyan), 0 28px 70px rgba(63, 211, 245, 0.16);
+}
+.win:hover .mono-tile {
+	transform: rotate(-6deg) scale(1.06);
+}
+.mono-tile {
+	transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.tile {
+	transition: border-color 0.2s, transform 0.2s ease-out;
+	transform-style: preserve-3d;
+}
+.tile,
+.tile:hover {
+	color: var(--color-fg);
+	text-decoration: none;
+}
+.tile:hover {
+	border-color: var(--color-cyan);
+}
+.tile:hover .arrow {
+	transform: translateX(4px);
+}
+.glare {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.25s;
+	background: radial-gradient(420px circle at var(--gx, 50%) var(--gy, 50%), rgba(63, 211, 245, 0.14), transparent 60%);
+}
+.tile:hover .glare {
+	opacity: 1;
+}
+.arrow {
+	transition: transform 0.2s;
+	display: inline-block;
+}
+.btn-c {
+	transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
+	border: 0;
+	background: var(--color-cyan);
+	color: var(--color-bg);
+	font-weight: 700;
+	text-decoration: none;
+}
+.btn-c:hover {
+	background: var(--color-cyan-2);
+	color: var(--color-bg);
+	transform: translateY(-1px);
+	box-shadow: 0 10px 30px rgba(63, 211, 245, 0.25);
+}
+.btn-g {
+	transition: border-color 0.15s, background 0.15s;
+	text-decoration: none;
+}
+.btn-g:hover:not(:disabled) {
+	border-color: var(--color-fg);
+	background: rgba(255, 255, 255, 0.04);
+	color: var(--color-fg);
+}
+.row {
+	transition: background 0.12s;
+}
+.row:hover {
+	background: rgba(63, 211, 245, 0.07);
+}
+
+/* Window chrome, the look's signature: the title bar of every card, panel and code window (WinBar in components/bits.tsx draws its traffic lights and label with utilities), the sizes the cards and panels give it (the home hero's code window sizes its bar with utilities), and the code view inside a window. Named classes because every page repeats them. */
+.winbar {
+	display: flex;
+	align-items: center;
+	gap: 7px;
+	width: 100%;
+	box-sizing: border-box;
+	flex: none;
+	background: var(--color-bar);
+	border-bottom: 1px solid var(--color-line-2);
+}
+.card-bar {
+	height: 32px;
+	padding: 0 12px;
+}
+.panel-bar {
+	height: 36px;
+	padding: 0 14px;
+}
+.code {
+	padding: 18px 20px;
+	font-family: var(--font-mono);
+	font-size: 13px;
+	line-height: 1.85;
+	color: var(--color-fg);
+	white-space: pre;
+	overflow-x: auto;
+	text-align: left;
+}
+
+/* The app tile (MonoTile in components/bits.tsx: .mono-tile with a size .mono-44/52/56/96 and a colour .tone-0/1/2, or the app's icon as .app-icon, after the sizes below), the platform tag (.kind-tag with .kind-native, .kind-web or .kind-both) and the card box (.card). Named classes because the home page, the listings and the app page all draw them, and pages adjust them by class (the showcase's [&_.kind-tag] utilities, the app page's [&_.mono-tile] utilities, .win:hover .mono-tile). */
+.mono-tile {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex: none;
+	font-family: var(--font-display);
+	font-weight: 800;
+}
+.mono-44 {
+	width: 44px;
+	height: 44px;
+	border-radius: 12px;
+	font-size: 20px;
+}
+.mono-52 {
+	width: 52px;
+	height: 52px;
+	border-radius: 14px;
+	font-size: 24px;
+}
+.mono-56 {
+	width: 56px;
+	height: 56px;
+	border-radius: 15px;
+	font-size: 26px;
+}
+.tone-0 {
+	background: var(--color-cyan);
+	color: var(--color-bg);
+}
+.tone-1 {
+	background: var(--color-fg);
+	color: var(--color-bg);
+}
+.tone-2 {
+	background: var(--color-line);
+	color: var(--color-cyan);
+}
+.kind-tag {
+	align-self: flex-start;
+	font-family: var(--font-mono);
+	font-size: 11px;
+	padding: 3px 9px;
+	border-radius: 999px;
+	border: 1px solid currentColor;
+}
+.kind-native {
+	color: var(--color-fg-2);
+}
+.kind-web {
+	color: var(--color-amber);
+}
+.kind-both {
+	color: var(--color-fg-2);
+}
+.card {
+	flex: 1 1 auto;
+	padding: 0;
+	text-align: left;
+	display: flex;
+	flex-direction: column;
+	border: 1px solid var(--color-line-2);
+	border-radius: 14px;
+	background: var(--color-panel);
+	overflow: hidden;
+	color: var(--color-fg);
+}
+
+/* Button sizes and outlines, combined with .btn-c or .btn-g from the feedback above: .btn-44 (the standard 44px button) and .btn-outline, shared by several pages. .icon-40 is a dialog icon-button size no component uses at the moment (the submit dialog's close button draws itself with utilities). */
+.btn-44 {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.28em;
+	min-height: 44px;
+	padding: 0 18px;
+	border-radius: 10px;
+	font-size: 14px;
+	box-sizing: border-box;
+}
+.btn-outline {
+	border: 1px solid var(--color-line-3);
+	background: transparent;
+	color: var(--color-fg);
+	font-weight: 600;
+}
+.icon-40 {
+	width: 40px;
+	height: 40px;
+	border-radius: 10px;
+}
+
+/* The listing filters' select (components/FilterBar.tsx) takes the page's font rather than the browser's control font (its size is a utility, which comes after this), and draws its own chevron: the browser's own arrow sits wherever the widest option leaves it, against the text or the next label; ours keeps 12 px from the edge and 10 px from the text. */
+.sort-select {
+	font: inherit;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a3afba' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 12px center;
+	background-size: 12px 12px;
+}
+
+/* A dialog action row that no component renders at the moment: the command palette and the submit dialog style themselves with utilities (components/CommandPalette.tsx, components/SubmitModal.tsx). */
+.modal-acts {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	justify-content: flex-end;
+}
+
+/* Official app icons (MonoTile, and the small icons on the home page's marquee and the app page's more-by list beside their utilities): the files already carry a 22.5% corner, so the box matches it (and its shadow follows the same curve) instead of the letter tiles' rounder corner. */
+.app-icon {
+	display: block;
+	object-fit: cover;
+	border-radius: 22.5%;
+	background: none;
+}
+
+/* The app page's 96px tile (routes/apps/$slug.tsx). A class, not utilities, because MonoTile in components/bits.tsx builds it as `mono-${size}` beside .mono-tile; it comes after .app-icon so its corner wins over .app-icon's for an official icon, as before. The page shrinks it on phones from the tile's parent. */
+.mono-96 {
+	width: 96px;
+	height: 96px;
+	border-radius: 26px;
+	font-size: 44px;
+	box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
+}

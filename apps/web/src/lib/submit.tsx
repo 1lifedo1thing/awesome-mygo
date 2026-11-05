@@ -60,7 +60,7 @@ export type ShotFile = { file: File; preview: string; problem?: string };
 const SHOT_TYPES = ['image/png', 'image/jpeg', 'image/webp'];
 
 // The Turnstile widget. A token is good for one submission, so changing `round` renders a fresh widget. It stays out of sight unless Cloudflare needs the visitor to click, so most visitors never see it.
-export function Captcha({ siteKey, lang, round, onToken, onFail, theme = 'dark' }: { siteKey: string; lang: LangCode; round: number; onToken: (token: string) => void; onFail: () => void; theme?: 'dark' | 'light' }) {
+export function Captcha({ siteKey, lang, round, onToken, onFail, theme = 'dark', className }: { siteKey: string; lang: LangCode; round: number; onToken: (token: string) => void; onFail: () => void; theme?: 'dark' | 'light'; className?: string }) {
 	const box = useRef<HTMLDivElement>(null);
 	const handlers = useRef({ onToken, onFail });
 	handlers.current = { onToken, onFail };
@@ -89,7 +89,8 @@ export function Captcha({ siteKey, lang, round, onToken, onFail, theme = 'dark' 
 			remove?.();
 		};
 	}, [siteKey, lang, round, theme]);
-	return <div ref={box} className='captcha' />;
+	// Turnstile renders nothing here unless it needs the visitor to click; then it is 65 px tall. Each look places the box through className: the original look hides it while empty, so it takes no gap in its form.
+	return <div ref={box} className={className} />;
 }
 
 export function useSubmit() {

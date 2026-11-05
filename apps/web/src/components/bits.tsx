@@ -3,14 +3,15 @@ import { Link } from '@tanstack/react-router';
 import type { ReactNode } from 'react';
 import { useSite } from '../lib/site';
 
-// macOS-style title bar: three traffic lights followed by a label (a host, a file name…).
+// macOS-style title bar: three traffic lights followed by a label (a host, a file name…). The bar itself is the winbar class (styles/primitives.css), as each page sizes it with its own class (card-bar, panel-bar) or utilities; the large bar has larger lights.
 export function WinBar({ label, size = 'md', className = '', children }: { label?: ReactNode; size?: 'sm' | 'md' | 'lg'; className?: string; children?: ReactNode }) {
+	const light = `${size === 'lg' ? 'size-[11px]' : 'size-2.5'} flex-none rounded-full`;
 	return (
-		<span className={`winbar winbar-${size} ${className}`}>
-			<span className='tl tl-r' />
-			<span className='tl tl-y' />
-			<span className='tl tl-g' />
-			{label !== undefined && <span className='winbar-label'>{label}</span>}
+		<span className={`winbar ${className}`}>
+			<span className={`${light} bg-[#ff5f57]`} />
+			<span className={`${light} bg-[#febc2e]`} />
+			<span className={`${light} bg-[#28c840]`} />
+			{label !== undefined && <span className='ml-2 min-w-0 flex-auto truncate font-mono text-[11px] text-fg-3'>{label}</span>}
 			{children}
 		</span>
 	);
@@ -78,7 +79,7 @@ export function KindTag({ app, label }: { app: App; label: string }) {
 
 // The 32 px icon on standard screens; high-density screens fall back to the 192 px icon, as there is no 64 px one. fetchPriority='low' keeps React from preloading the image ahead of the stylesheets on every page: the mark is small and never the LCP element.
 export function Logo() {
-	return <img className='brand-mark' src='/icon-32.png' srcSet='/icon-32.png 1x, /icon-64.webp 2x' width={32} height={32} alt='' fetchPriority='low' decoding='async' />;
+	return <img className='block size-8' src='/icon-32.png' srcSet='/icon-32.png 1x, /icon-64.webp 2x' width={32} height={32} alt='' fetchPriority='low' decoding='async' />;
 }
 
 const EAR_STROKE = { stroke: '#B8C1C9', strokeWidth: 1.2 };

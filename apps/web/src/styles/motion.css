@@ -1,3 +1,4 @@
+/* Keyframes and the classes that run them. .enter (a page or dialog arriving) and .fade are used by every area; .rv is the reveal on scroll that lib/motion.ts turns on by setting data-in, with a delay .d1-.d5 picked by the card's position (`d${k % 6}`; d0, the first, has none). .pulse is the live dot on the home and state pages. With reduced motion, the block at the end turns them off. The home page's own animations (pop, marq, blink, chin, bob) are utilities on its elements (routes/index.tsx), which name the keyframes kept here. */
 .enter {
 	animation: up 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
@@ -10,18 +11,6 @@
 		opacity: 1;
 		transform: none;
 	}
-}
-.wi {
-	animation: pop 0.7s cubic-bezier(0.2, 0.9, 0.25, 1.15) both;
-}
-.wi1 {
-	animation-delay: 0.15s;
-}
-.wi2 {
-	animation-delay: 0.35s;
-}
-.wi3 {
-	animation-delay: 0.55s;
 }
 @keyframes pop {
 	from {
@@ -57,16 +46,6 @@
 .d5 {
 	transition-delay: 0.3s;
 }
-.marq {
-	display: flex;
-	gap: 56px;
-	width: max-content;
-	/* 1.2 s an app, the pace the strip had at 40 apps in 48 s: a fixed duration made it run faster with every app listed, until at 175 it moved too fast to read. --marq-n is the number of apps on the strip (routes/index.tsx). */
-	animation: marq calc(var(--marq-n, 40) * 1.2s) linear infinite;
-}
-.marq:hover {
-	animation-play-state: paused;
-}
 @keyframes marq {
 	to {
 		transform: translateX(-50%);
@@ -79,9 +58,6 @@
 	50% {
 		opacity: 0.25;
 	}
-}
-.caret {
-	animation: blink 1s steps(1) infinite;
 }
 @keyframes blink {
 	50% {
@@ -96,14 +72,6 @@
 		opacity: 0;
 	}
 }
-.ch-group {
-	white-space: nowrap;
-}
-.ch {
-	display: inline-block;
-	white-space: pre;
-	animation: chin 1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-}
 @keyframes chin {
 	from {
 		opacity: 0;
@@ -116,23 +84,28 @@
 		filter: none;
 	}
 }
-.bob {
-	animation: bob 7s ease-in-out infinite alternate;
-}
-.bobd1 {
-	animation-delay: -2s;
-}
-.bobd2 {
-	animation-delay: -4s;
-}
-.bobd3 {
-	animation-delay: -1s;
-}
-.bobd4 {
-	animation-delay: -5s;
-}
 @keyframes bob {
 	to {
 		transform: translateY(-16px);
+	}
+}
+
+/* With reduced motion: no animation (the page's and the backdrop's), the reveal shown at once, and no lift or tilt. Last of the stylesheets, so it wins over the rules it turns off in backdrop.css and primitives.css. */
+@media (prefers-reduced-motion: reduce) {
+	.blob,
+	.mesh,
+	.enter,
+	.pulse,
+	.fade {
+		animation: none;
+	}
+	.rv {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+	.win:hover,
+	.tile {
+		transform: none !important;
 	}
 }
