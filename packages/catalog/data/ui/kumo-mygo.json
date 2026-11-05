@@ -1,0 +1,22 @@
+{
+	"$schema": "../schema/ui.schema.json",
+	"slug": "kumo-mygo",
+	"name": "kumo-mygo",
+	"author": "amigoer",
+	"tag": "theme",
+	"surface": "native",
+	"summary": {
+		"en": "Cloudflare's Kumo design system as Go components for MyGo native UI, with light and dark themes that follow the system and Phosphor icons.",
+		"zh-CN": "Cloudflare Kumo 设计系统的 MyGo 原生 UI 组件，明暗主题跟随系统，附带 Phosphor 图标。",
+		"zh-TW": "Cloudflare Kumo 設計系統的 MyGo 原生 UI 元件，明暗主題跟隨系統，附帶 Phosphor 圖示。",
+		"ja": "Cloudflare の Kumo デザインシステムを MyGo ネイティブ UI 向け Go コンポーネントにしたもの。システム連動のライト・ダークテーマと Phosphor アイコン付き。",
+		"ko": "Cloudflare Kumo 디자인 시스템을 MyGo 네이티브 UI용 Go 컴포넌트로 옮겼으며, 시스템을 따르는 라이트·다크 테마와 Phosphor 아이콘을 제공합니다."
+	},
+	"repo": "amigoer/kumo-mygo",
+	"url": "https://github.com/amigoer/kumo-mygo",
+	"screenshot": "kumo-mygo.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T14:23:33Z"
+}
