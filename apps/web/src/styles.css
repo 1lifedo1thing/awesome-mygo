@@ -2457,6 +2457,50 @@ html:lang(ko) .site {
 	font-size: 13px;
 	color: var(--fg-3);
 }
+/* The submit form's screenshot: the image to upload, with its preview, and what the bot found in the repository. */
+.shot-pick {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 12px;
+}
+.shot-btn {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	cursor: pointer;
+}
+.shot-btn:focus-within {
+	outline: 2px solid var(--cyan);
+	outline-offset: 2px;
+}
+.shot-btn input {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+.shot-preview {
+	width: auto;
+	max-width: 128px;
+	height: 72px;
+	object-fit: cover;
+	border: 1px solid var(--line-3);
+	border-radius: 8px;
+}
+.shot-name {
+	max-width: 240px;
+	overflow: hidden;
+	font-size: 13px;
+	color: var(--fg-2);
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.field-tip[data-need='true'] {
+	color: var(--amber);
+}
 .field-count {
 	font-weight: 400;
 	color: var(--fg-3);
