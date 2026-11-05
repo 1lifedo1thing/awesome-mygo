@@ -1,0 +1,28 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "quickcleaner",
+	"name": "QuickCleaner",
+	"author": "meimingqi222",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/meimingqi222/quick-cleaner",
+	"repo": "meimingqi222/quick-cleaner",
+	"summary": {
+		"en": "Windows and macOS disk analyzer and cleaner: finds large files, clears junk, uninstalls apps.",
+		"zh-CN": "Windows 与 macOS 磁盘分析与清理工具：找出大文件、清理垃圾、卸载应用。",
+		"zh-TW": "Windows 與 macOS 磁碟分析與清理工具：找出大檔案、清理垃圾、移除程式。",
+		"ja": "Windows・macOS 用ディスク分析・掃除ツール。大きなファイル探し、不要ファイル削除、アプリ削除。",
+		"ko": "Windows·macOS용 디스크 분석·정리 도구. 큰 파일 찾기, 정크 정리, 앱 제거."
+	},
+	"description": {
+		"en": "A disk space analyzer and system cleaner for Windows and macOS, drawn with MyGo's native UI with no WebView or Electron. On Windows it reads the NTFS $MFT directly to index a whole drive in seconds, clears temp files and browser, package manager and AI tool caches, and finds the files an app leaves behind after uninstalling. Deleted files skip the Recycle Bin and cannot be recovered.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 与 macOS 磁盘分析和系统清理工具，不用 WebView，也不用 Electron。在 Windows 上它直接读取 NTFS $MFT，几秒内为整个磁盘建立索引；可清理临时文件以及浏览器、包管理器和 AI 工具的缓存，并在卸载应用后找出残留文件。删除的文件不进回收站，无法恢复。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows 與 macOS 磁碟分析與系統清理工具，不用 WebView，也不用 Electron。在 Windows 上它直接讀取 NTFS $MFT，幾秒內為整個磁碟建立索引；可清理暫存檔以及瀏覽器、套件管理工具和 AI 工具的快取，並在解除安裝應用程式後找出殘留檔案。刪除的檔案不會進入資源回收筒，無法復原。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows・macOS 向けのディスク分析・システムクリーナー。WebView も Electron も使いません。Windows では NTFS の $MFT を直接読んでドライブ全体を数秒で索引化し、一時ファイルやブラウザー、パッケージマネージャー、AI ツールのキャッシュを削除し、アプリのアンインストール後に残ったファイルも探し出します。削除したファイルはごみ箱に入らず、元に戻せません。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows·macOS용 디스크 분석 및 시스템 정리 도구로, WebView도 Electron도 쓰지 않습니다. Windows에서는 NTFS $MFT를 직접 읽어 드라이브 전체를 몇 초 만에 색인하고, 임시 파일과 브라우저, 패키지 관리자, AI 도구의 캐시를 지우며, 앱을 제거한 뒤 남은 파일도 찾아 줍니다. 삭제한 파일은 휴지통에 들어가지 않아 되돌릴 수 없습니다."
+	},
+	"icon": {
+		"file": "quickcleaner.webp"
+	},
+	"added": "2026-11-05T04:16:52Z"
+}
