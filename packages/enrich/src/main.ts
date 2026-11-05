@@ -5,7 +5,7 @@ import { promisify } from 'node:util';
 import { DEFAULT_MODEL, README_LIMIT, type LlmConfig, writeCopy } from './copy.ts';
 import { github, rawFile, rawUrl as rawRepoUrl } from './github.ts';
 import { downloadImage, isDefaultIcon, writeIcon, writeShot } from './image.ts';
-import { type ChoiceField, ENTRY_DIRS, type Entry, type EntryKind, addedFiles, appNameFrom, formDefaults, hasAllLanguages, homepageOf, iconOf, isArtwork, parseMygoConfig, pickMygoConfig, readmeImages, repoOfEntry, repoScreenshots, resolveImage, schemaEnum, setCategory, submittedScreenshot } from './source.ts';
+import { type ChoiceField, ENTRY_DIRS, type Entry, type EntryKind, addedFiles, appNameFrom, formDefaults, hasAllLanguages, homepageOf, iconOf, isArtwork, parseMygoConfig, pickMygoConfig, readmeImages, repoIcons, repoOfEntry, repoScreenshots, resolveImage, schemaEnum, setCategory, submittedScreenshot } from './source.ts';
 
 // Run by .github/workflows/enrich-submission.yml on a pull request the submission bot opened, and by discover.ts on each entry it proposes. It finds the entries the branch adds, then for each fills in what the form cannot ask for: an app's icon (from its mygo.json); the screenshot of an app, a UI library or a state management library (the first landscape one in its README, or else in a screenshot folder of the repository); a UI library's or state management library's homepage (from the repository's settings); what the form fills in with a default (an app's category, a UI library's tag, a plugin's surface, the tags of state management and plugins), picked by the model; and the copy in every site language. It changes files in the working tree and writes a Markdown report for the pull request; the workflow runs the catalog checks and commits.
 //
@@ -64,9 +64,12 @@ const rawUrl = (facts: RepoFacts, path: string) => rawRepoUrl(facts.repo, facts.
 // Adds the app's icon and returns where it was taken from, so the screenshot search can pass over the same image.
 async function addIcon(entry: Entry, slug: string, facts: RepoFacts): Promise<string | undefined> {
 	if (entry.icon !== undefined) return void say('- Icon: kept the one submitted.');
-	if (!facts.mygo) return void say('- Icon: none added, as the repository has no MyGo configuration (mygo.json or mygo.config.ts); the app shows a letter tile.');
-	const src = iconOf(facts.mygo.path, facts.mygo.json, facts.paths);
-	if (!src) return void say(`- Icon: none added, as neither \`${facts.mygo.path}\` nor resources/ beside it has one; the app shows a letter tile.`);
+	// Without a MyGo configuration to name the icon, as in a repository that keeps MyGo as a submodule, an icon file where projects usually keep one.
+	const found = facts.mygo ? undefined : repoIcons(facts.paths)[0];
+	if (!facts.mygo && !found) return void say('- Icon: none added, as the repository has neither a MyGo configuration (mygo.json or mygo.config.ts) nor an icon file where projects usually keep one; the app shows a letter tile.');
+	const src = facts.mygo ? iconOf(facts.mygo.path, facts.mygo.json, facts.paths) : { path: found as string };
+	if (!src) return void say(`- Icon: none added, as neither \`${facts.mygo?.path}\` nor resources/ beside it has one; the app shows a letter tile.`);
+	if (found) say(`- The repository has no MyGo configuration, so the icon is \`${found}\`, the likeliest icon file in it.`);
 	if ('macOnly' in src) return void say(`- Icon: the app's only icon is \`${src.macOnly}\` (macos.icon), which cannot be converted here. Add a 256 px WebP to \`${PUBLIC}/icons/${slug}.webp\` by hand and set \`"icon": { "file": "${slug}.webp" }\`.`);
 	const url = rawUrl(facts, src.path);
 	const img = await downloadImage(url);
