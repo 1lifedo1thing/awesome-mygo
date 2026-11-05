@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "hyperai",
+	"name": "HyperAI",
+	"author": "lesenelir",
+	"kind": "native",
+	"group": "ai",
+	"url": "https://github.com/lesenelir/hyperai-desktop",
+	"repo": "lesenelir/hyperai-desktop",
+	"summary": {
+		"en": "Unofficial HyperAI desktop chat client for OpenAI, Anthropic, Ollama, Copilot and other models.",
+		"zh-CN": "非官方 HyperAI 桌面 AI 聊天客户端，可接入多家模型服务。",
+		"zh-TW": "非官方 HyperAI 桌面 AI 聊天用戶端，可接入多家模型服務。",
+		"ja": "HyperAI の非公式デスクトップ版 AI チャットクライアント。複数のモデル提供元に対応。",
+		"ko": "HyperAI의 비공식 데스크톱 AI 채팅 클라이언트. 여러 모델 제공자에 연결합니다."
+	},
+	"description": {
+		"en": "An unofficial, still-in-development desktop app for HyperAI, the AI/ML resource site, drawn with MyGo's native UI rather than a web view. For now it is a chat client that talks to OpenAI, Anthropic, DeepSeek and other services with your own key, to Ollama and LM Studio on your computer, and to GitHub Copilot through the Copilot CLI. API keys are kept in the system's credential store.",
+		"zh-CN": "为 AI/ML 资源网站 HyperAI 打造的非官方桌面应用，仍在开发中，由 MyGo 原生 UI 绘制，不使用 Web 视图。目前它是一个聊天客户端：可以用自己的密钥连接 OpenAI、Anthropic、DeepSeek 等服务，连接本机运行的 Ollama 和 LM Studio，也可以通过 Copilot CLI 使用 GitHub Copilot。API 密钥保存在系统的凭据存储中。",
+		"zh-TW": "為 AI/ML 資源網站 HyperAI 打造的非官方桌面應用程式，仍在開發中，由 MyGo 原生 UI 繪製，不使用 Web 視圖。目前它是一個聊天用戶端：可以用自己的金鑰連接 OpenAI、Anthropic、DeepSeek 等服務，連接本機執行的 Ollama 和 LM Studio，也可以透過 Copilot CLI 使用 GitHub Copilot。API 金鑰儲存在系統的憑證儲存區中。",
+		"ja": "AI/ML リソースサイト HyperAI のための非公式デスクトップアプリで、まだ開発中です。Web ビューではなく MyGo のネイティブ UI で描かれています。現時点ではチャットクライアントとして、自分の API キーで OpenAI、Anthropic、DeepSeek などのサービスに、ローカルで動く Ollama や LM Studio に、Copilot CLI 経由で GitHub Copilot につなげます。API キーはシステムの資格情報ストアに保存されます。",
+		"ko": "AI/ML 리소스 사이트 HyperAI를 위한 비공식 데스크톱 앱으로, 아직 개발 중입니다. 웹 뷰가 아닌 MyGo의 네이티브 UI로 그렸습니다. 지금은 채팅 클라이언트로, 자신의 API 키로 OpenAI, Anthropic, DeepSeek 등의 서비스에, 내 컴퓨터에서 실행되는 Ollama와 LM Studio에, Copilot CLI를 통해 GitHub Copilot에 연결합니다. API 키는 시스템 자격 증명 저장소에 보관됩니다."
+	},
+	"icon": {
+		"file": "hyperai.webp"
+	},
+	"screenshot": "hyperai.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T11:50:47Z"
+}
