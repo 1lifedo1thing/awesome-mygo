@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "tingyu",
+	"name": "听宇 Tingyu",
+	"author": "renyijiu",
+	"kind": "native",
+	"group": "media",
+	"url": "https://github.com/renyijiu/tingyu",
+	"repo": "renyijiu/tingyu",
+	"summary": {
+		"en": "A macOS podcast client that searches Podcast Index and iTunes and remembers where you stopped.",
+		"zh-CN": "macOS 播客客户端：搜索 Podcast Index 和 iTunes，记住进度。",
+		"zh-TW": "macOS 播客用戶端：搜尋 Podcast Index 和 iTunes，記住進度。",
+		"ja": "macOS 用ポッドキャストアプリ。Podcast Index と iTunes で探し、続きから再生。",
+		"ko": "macOS 팟캐스트 앱. Podcast Index와 iTunes에서 찾고 이어 듣기 지원."
+	},
+	"description": {
+		"en": "A macOS podcast client written in Go and drawn with MyGo's native UI, with no embedded web page; the app is in Chinese. It searches iTunes, and Podcast Index as well once you add a free API key, plays MP3 and M4A episodes from their RSS feeds, remembers where you stopped, and answers the media keys and Control Center. The background is a night sky whose nebula takes the color of the show playing.",
+		"zh-CN": "用纯 Go 编写、由 MyGo 原生 UI 绘制的 macOS 播客客户端，不嵌网页，界面为中文。默认用 iTunes 搜索，填入免费的 Podcast Index 密钥后两边同时搜索；可播放 RSS 中的 MP3 和 M4A 单集，记住每集听到哪里，并响应媒体键和控制中心。背景是一片夜空，星云随正在播放的节目变色。",
+		"zh-TW": "用純 Go 撰寫、由 MyGo 原生 UI 繪製的 macOS 播客用戶端，不嵌網頁，介面為中文。預設以 iTunes 搜尋，填入免費的 Podcast Index 金鑰後兩邊同時搜尋；可播放 RSS 中的 MP3 與 M4A 單集，記住每集聽到哪裡，並回應媒體鍵與控制中心。背景是一片夜空，星雲隨正在播放的節目變色。",
+		"ja": "Go だけで書かれ、MyGo のネイティブ UI で描かれた macOS 用ポッドキャストクライアント。Web ページは埋め込まず、画面は中国語です。iTunes で検索し、無料の Podcast Index のキーを設定すると両方をまとめて検索します。RSS の MP3・M4A エピソードを再生して続きの位置を覚え、メディアキーとコントロールセンターにも対応します。背景の夜空の星雲は、再生中の番組の色に染まります。",
+		"ko": "순수 Go로 작성하고 MyGo의 네이티브 UI로 그린 macOS 팟캐스트 클라이언트로, 웹 페이지를 내장하지 않으며 화면은 중국어입니다. iTunes로 검색하고, 무료 Podcast Index 키를 넣으면 두 곳을 함께 검색합니다. RSS의 MP3·M4A 에피소드를 재생하고 들은 위치를 기억하며, 미디어 키와 제어 센터로도 조작할 수 있습니다. 배경의 밤하늘 성운은 재생 중인 프로그램의 색으로 물듭니다."
+	},
+	"icon": {
+		"file": "tingyu.webp"
+	},
+	"screenshot": "tingyu.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T11:28:55Z"
+}
