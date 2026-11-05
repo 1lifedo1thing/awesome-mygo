@@ -1,0 +1,22 @@
+{
+	"$schema": "../schema/ui.schema.json",
+	"slug": "mygoicons",
+	"name": "mygoicons",
+	"author": "Cyenoch",
+	"tag": "icons",
+	"surface": "native",
+	"summary": {
+		"en": "Lucide and Twemoji icons as typed Go functions for MyGo native UI, with editor completion and a generator that adds other Iconify collections to your app.",
+		"zh-CN": "MyGo 原生 UI 的 Lucide 与 Twemoji 图标，以 Go 函数调用，可用生成器导入其他 Iconify 图标集。",
+		"zh-TW": "MyGo 原生 UI 的 Lucide 與 Twemoji 圖示，以 Go 函式呼叫，可用產生器匯入其他 Iconify 圖示集。",
+		"ja": "MyGo ネイティブ UI 向けの Lucide と Twemoji アイコン。型付きの Go 関数で使え、ほかの Iconify コレクションを取り込むジェネレーターも付属。",
+		"ko": "MyGo 네이티브 UI용 Lucide·Twemoji 아이콘을 타입이 있는 Go 함수로 제공하며, 다른 Iconify 컬렉션을 가져오는 생성기도 포함합니다."
+	},
+	"repo": "Cyenoch/mygoicons",
+	"url": "https://github.com/Cyenoch/mygoicons",
+	"screenshot": "mygoicons.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T11:50:47Z"
+}
