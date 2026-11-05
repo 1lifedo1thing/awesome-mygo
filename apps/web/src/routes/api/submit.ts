@@ -1,16 +1,17 @@
-import { ENTRY_GROUPS, SUBMIT_CATS, CatalogError, type EntryDraft, type SubmitCat, buildEntry, entryProblem, pastedEntryProblem, pastedName, pastedShotRepo, shotRepo, takesShot } from '@awesome-mygo/catalog';
+import { ENTRY_GROUPS, MAX_SUBMISSION, SUBMIT_CATS, CatalogError, type EntryDraft, type SubmitCat, buildEntry, entryProblem, pastedEntryProblem, pastedName, pastedShotRepo, placeholderProblem, shotRepo, takesShot } from '@awesome-mygo/catalog';
 import { UPLOAD_MAX_BYTES } from '@awesome-mygo/enrich/source';
 import { createFileRoute } from '@tanstack/react-router';
 import { env } from 'cloudflare:workers';
-import { checkUpload, findRepoShot } from '../../server/shots';
-import { SubmissionsBusy, type Upload, botConfig, installationToken, openSubmission, verifyTurnstile } from '../../server/submit';
+import { SubmissionsBusy, type Upload, openSubmission } from '../../server/pull';
+import { checkUpload, repoLacksShot } from '../../server/shots';
+import { botConfig, installation, installationToken, verifyTurnstile } from '../../server/submit';
 
 // GET says whether the bot is set up (and gives the Turnstile site key); POST submits an entry, as JSON, or as multipart/form-data with the JSON in payload and an uploaded screenshot in shot. Error codes: invalid, shot (an app, UI components or state management with no screenshot to show: none given and none in its repository), limited, captcha, busy, disabled, github.
 
 // Either the form's fields, from which the entry is built, or an entry pasted whole, which goes in as written; with the screenshot uploaded with it, if any.
 type Submission = { cat: SubmitCat; token: string; shot?: Uint8Array } & ({ kind: 'form'; draft: EntryDraft; mode: 'native' | 'web' } | { kind: 'entry'; entry: Record<string, unknown> });
 
-const MAX_BODY = 16 * 1024;
+const MAX_BODY = MAX_SUBMISSION;
 // A multipart body: the JSON, the screenshot and the parts' headers.
 const MAX_MULTIPART = UPLOAD_MAX_BYTES + MAX_BODY + 4 * 1024;
 
@@ -71,17 +72,12 @@ function parseSubmission(text: string): Submission | undefined {
 	return { cat, token, kind: 'form', mode, draft: { name, author, url, desc, group, repo, screenshot } };
 }
 
-// The screenshot of what is submitted, when it needs one: an app, UI components or state management with neither a link nor an upload from the form. undefined when the repository has one the submission workflow will take, 'shot' when nothing would show. A GitHub failure here does not hold the submission back: the workflow looks again.
+// The screenshot of what is submitted, when it needs one: an app, UI components or state management with neither a link nor an upload from the form. undefined when the repository has one the submission workflow will take, or GitHub could not say (repoLacksShot), 'shot' when nothing would show.
 async function missingShot(cfg: NonNullable<ReturnType<typeof botConfig>>, sub: Submission): Promise<'shot' | undefined> {
 	if (!takesShot(sub.cat) || sub.shot || (sub.kind === 'form' && sub.draft.screenshot?.trim())) return undefined;
 	const repo = sub.kind === 'form' ? shotRepo(sub.cat, sub.draft) : pastedShotRepo(sub.cat, sub.entry);
 	if (!repo) return 'shot';
-	try {
-		return (await findRepoShot(repo, await installationToken(cfg))).found ? undefined : 'shot';
-	} catch (err) {
-		console.error('looking for a screenshot failed', err);
-		return undefined;
-	}
+	return (await repoLacksShot(repo, installationToken(cfg))) ? 'shot' : undefined;
 }
 
 export const Route = createFileRoute('/api/submit')({
@@ -98,7 +94,7 @@ export const Route = createFileRoute('/api/submit')({
 				if (!(await env.SUBMIT_LIMIT.limit({ key: ip || 'unknown' })).success) return json({ error: 'limited' }, 429);
 				const sub = await readSubmission(request);
 				if (!sub) return json({ error: 'invalid', message: `expected a JSON object with cat, token and either entry (a whole entry) or name, url, desc, author, an optional screenshot link for an app, UI components or state management, and for the showcase an optional category and repo; with an uploaded screenshot, multipart/form-data with the JSON in payload and the image (at most ${UPLOAD_MAX_BYTES / 1024 / 1024} MB) in shot` }, 400);
-				const problem = sub.kind === 'entry' ? pastedEntryProblem(sub.cat, sub.entry) : entryProblem(sub.cat, sub.draft);
+				const problem = sub.kind === 'entry' ? (pastedEntryProblem(sub.cat, sub.entry) ?? placeholderProblem(sub.entry)) : entryProblem(sub.cat, sub.draft);
 				if (problem) return json({ error: 'invalid', message: problem }, 400);
 				if (sub.shot && !takesShot(sub.cat)) return json({ error: 'invalid', message: 'only an app, UI components or state management take a screenshot' }, 400);
 				const checked = sub.shot ? checkUpload(sub.shot) : undefined;
@@ -109,7 +105,7 @@ export const Route = createFileRoute('/api/submit')({
 				const [entry, name] = sub.kind === 'entry' ? [sub.entry, pastedName(sub.entry)] : [buildEntry(sub.cat, sub.draft, sub.mode, { name: '', desc: '' }), sub.draft.name.trim()];
 				try {
 					const screenshot = sub.kind === 'form' ? sub.draft.screenshot?.trim() || undefined : undefined;
-					return json(await openSubmission(cfg, sub.cat, name, entry, screenshot, upload));
+					return json(await openSubmission(await installation(cfg), sub.cat, name, entry, { screenshot, upload }));
 				} catch (err) {
 					if (err instanceof CatalogError) return json({ error: 'invalid', message: err.message }, 409);
 					if (err instanceof SubmissionsBusy) return json({ error: 'busy' }, 503);

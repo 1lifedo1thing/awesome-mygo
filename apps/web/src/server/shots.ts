@@ -73,6 +73,16 @@ export async function findRepoShot(repo: string, token: string): Promise<RepoSho
 	return { found: false, reason: 'none' };
 }
 
+// Whether the repository (owner/name) has no screenshot the submission workflow could use, for a submission that gives none (missingShot in routes/api/submit.ts and in server/issue.ts). A GitHub failure, getting the token included, counts as a screenshot found: it does not hold the submission back, as the workflow looks again.
+export async function repoLacksShot(repo: string, token: string | Promise<string>): Promise<boolean> {
+	try {
+		return !(await findRepoShot(repo, await token)).found;
+	} catch (err) {
+		console.error('looking for a screenshot failed', err);
+		return false;
+	}
+}
+
 const PROBLEM_TEXT: Record<ShotProblem, string> = {
 	narrow: 'is under 600 pixels wide',
 	square: 'is square, like an icon or a logo',

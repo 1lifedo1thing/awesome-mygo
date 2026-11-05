@@ -1,5 +1,6 @@
 import { CatalogError } from './validate';
-import { APP_KIND, APPS, ARTICLE_KIND, ARTICLES, COMMUNITY_PLUGINS, DATA_DIR, type EntryGroup, type Kind, PLUGIN_KIND, PLUGINS, STATE_KIND, STATE_SOLUTIONS, UI_KIND, UI_LIBS, hostOf, readEntry, readEntryFile } from './catalog';
+import { APP_KIND, APPS, ARTICLE_KIND, ARTICLES, COMMUNITY_PLUGINS, DATA_DIR, type EntryGroup, type Kind, PLUGIN_KIND, PLUGINS, SITE_REPO, SITE_URL, STATE_KIND, STATE_SOLUTIONS, UI_KIND, UI_LIBS, hostOf, readEntry, readEntryFile } from './catalog';
+import { LOCALES } from './strings';
 
 // Submission form: it writes the JSON entry for the category. The site's bot opens a pull request with it, or a contributor with a GitHub account sends it as an issue or adds it themselves. Every entry gets a file of its own, data/<dir>/<slug>.json, so entries submitted together never conflict.
 
@@ -136,20 +137,23 @@ export function missingFields(cat: SubmitCat, d: EntryDraft): DraftField[] {
 	return out;
 }
 
+// What buildEntry writes for a field the form left empty, besides the name and description it is given in the visitor's language. The form's issue link is there before the form is complete, so an issue can still hold them (placeholderProblem).
+export const ENTRY_PLACEHOLDERS = { author: 'your-github-login', url: 'https://…', repo: 'owner/name', install: 'go get …' } as const;
+
 // The entry as it goes into its data file. Missing fields show as placeholders, so the preview always has the final shape.
 export function buildEntry(cat: SubmitCat, d: EntryDraft, mode: 'native' | 'web', placeholders: { name: string; desc: string }): Record<string, unknown> {
 	const name = d.name.trim() || placeholders.name;
-	const author = d.author.trim() || 'your-github-login';
-	const url = d.url.trim() || 'https://…';
+	const author = d.author.trim() || ENTRY_PLACEHOLDERS.author;
+	const url = d.url.trim() || ENTRY_PLACEHOLDERS.url;
 	const summary = { en: d.desc.trim() || placeholders.desc };
 	const repo = repoOf(url);
 	switch (cat) {
 		case 'showcase':
 			return { slug: entrySlug(name, url), name, author, kind: mode, ...(d.group ? { group: d.group } : {}), url, ...(repoOf(d.repo ?? '') ? { repo: repoOf(d.repo ?? '') } : {}), summary, description: summary };
 		case 'ui':
-			return { slug: entrySlug(name, url), name, author, tag: 'theme', surface: 'native', summary, repo: repo ?? 'owner/name', url };
+			return { slug: entrySlug(name, url), name, author, tag: 'theme', surface: 'native', summary, repo: repo ?? ENTRY_PLACEHOLDERS.repo, url };
 		case 'state':
-			return { slug: entrySlug(name, url), name, author, summary, repo: repo ?? 'owner/name', url, install: repo ? `go get github.com/${repo}` : 'go get …', tags: ['state'] };
+			return { slug: entrySlug(name, url), name, author, summary, repo: repo ?? ENTRY_PLACEHOLDERS.repo, url, install: repo ? `go get github.com/${repo}` : ENTRY_PLACEHOLDERS.install, tags: ['state'] };
 		case 'plugin':
 			return { slug: entrySlug(name, url), name, mark: name.replace(/\s/g, '').slice(0, 2), official: false, surface: 'web', tags: [], docs: url, summary };
 		case 'article':
@@ -215,6 +219,9 @@ export function entryProblem(cat: SubmitCat, d: EntryDraft): string | undefined 
 
 // A contributor may paste a whole entry instead of filling in the form: it then goes into its data file as written, translations and all, once it passes the same check the file does.
 
+// The most text the bot takes for one submission, in characters: the request the site's form sends the Worker (routes/api/submit.ts, which also holds its length in bytes to it), and the json code block of an issue sent from the form (submissionFromIssue).
+export const MAX_SUBMISSION = 16 * 1024;
+
 // The pasted text as one entry, or why it is not one.
 export function parseEntryJson(text: string): { entry: Record<string, unknown> } | { error: 'json' | 'object' } {
 	let v: unknown;
@@ -240,6 +247,18 @@ export function pastedEntryProblem(cat: SubmitCat, entry: Record<string, unknown
 	if (name.length > 80 || /[\u0000-\u001f\u007f]/.test(name)) return 'the name must be a single line of at most 80 characters';
 	const url = String(entry.url ?? entry.docs ?? '');
 	if (url.length > 300) return 'the link is longer than 300 characters';
+	return undefined;
+}
+
+// Why entry still holds what the form writes for a field left empty, or undefined: a placeholder link, author, repository or install command, or the name or one-line description the form shows in any of the site's languages. pastedEntryProblem lets them through, as they are well-formed, and the paste box's category detection relies on that.
+export function placeholderProblem(entry: Record<string, unknown>): string | undefined {
+	const held = new Set<unknown>(Object.values(ENTRY_PLACEHOLDERS));
+	const field = Object.keys(entry).find((k) => held.has(entry[k]));
+	if (field) return `${field} is still the form's placeholder ${JSON.stringify(entry[field])}; fill it in`;
+	const locales = Object.values(LOCALES);
+	if (locales.some((l) => l.m_name === pastedName(entry))) return "the name is still the form's placeholder; fill it in";
+	const summary = (entry.summary as { en?: unknown } | undefined)?.en;
+	if (locales.some((l) => l.md_desc === summary)) return "the summary is still the form's placeholder; fill it in";
 	return undefined;
 }
 
@@ -278,3 +297,63 @@ export function editUrl(repo: string, cat: SubmitCat, entry: Record<string, unkn
 	return `${repo}/new/main/${DATA_DIR}/${dir}?${q}`;
 }
 
+// ---- the bot's pull request ----
+
+// The marker the submission workflow reads an app's screenshot link from (packages/enrich, submittedScreenshot), on a line of its own: the entry's JSON above it cannot start a line with it, as every line of it starts with a space or a brace. The link has passed isBadShot, so it holds no space, quote, backtick or angle bracket and cannot end the comment.
+const shotMarker = (url: string) => `<!-- submitted-screenshot: ${url} -->`;
+
+// The marker of the issue a pull request was opened from, on the line under the first, by which the issue workflow finds the pull request it opened.
+export const issueMarker = (n: number) => `<!-- submitted-issue: ${n} -->`;
+
+// The body of the pull request the site's bot opens for a submission (apps/web/src/server/pull.ts). name is the entry's name as the title has it. screenshot is the link from the form or the issue, which is not part of the entry; staged is where an image uploaded with the form went on the branch, and the commit that put it there. issue is the issue the entry was sent as, and its author's login, which is linked rather than mentioned so nobody is notified.
+export function submissionBody(s: { cat: SubmitCat; name: string; entry: Record<string, unknown>; screenshot?: string; staged?: { path: string; commit: string }; issue?: { number: number; author: string } }): string {
+	return [
+		s.issue ? `Sent as issue #${s.issue.number} by [${s.issue.author}](https://github.com/${s.issue.author}) through the issue link of the form on ${SITE_URL}, so the site's bot opened this pull request.\n${issueMarker(s.issue.number)}` : `Submitted through the form on ${SITE_URL} by a visitor without a GitHub account, so the site's bot opened this pull request.`,
+		`Category: ${SUBMIT_LABELS[s.cat]} (\`${DATA_DIR}/${entryPath(s.cat, s.entry)}\`)`,
+		codeFence(JSON.stringify(s.entry, null, 2), 'json'),
+		// In a code span, so the visitor's link does not become a link here; the workflow downloads it and the report says whether it was used.
+		...(s.screenshot ? [`Screenshot from the ${s.issue ? 'issue' : 'form'}: \`${s.screenshot}\`\n${shotMarker(s.screenshot)}`] : []),
+		...(s.staged ? [`Screenshot uploaded with the form, staged as \`${s.staged.path}\`; the workflow turns it into the site's WebP and removes it:\n\n![Screenshot of ${s.name.replace(/[[\]]/g, '')}](${SITE_REPO.replace('https://github.com/', 'https://raw.githubusercontent.com/')}/${s.staged.commit}/${s.staged.path})`] : []),
+		'The entry passed the catalog checks before it was submitted, and CI runs them again. The *Complete submission* workflow then adds what the form cannot ask for (an app\'s icon, the screenshot uploaded with the form, from its link or from the project\'s repository, a library\'s homepage, the copy in every site language, and a value for each field the form leaves at a default, such as `tag`, `tags` or `surface`) and comments what it did. Before merging, check that the project exists and is built with MyGo, and read the generated copy and the values it picked.',
+	].join('\n\n');
+}
+
+// The issue a pull request's body says it was opened from, and the issue's author, or undefined for one from the form. Only the body's first two lines are read, which submissionBody writes above the entry, so nothing in the entry can pass for them; a body edited in the browser has \r\n line ends.
+export function submittedIssue(body: string | null | undefined): { number: number; author: string } | undefined {
+	const m = /^Sent as issue #(\d+) by \[([A-Za-z0-9-]+)\]\(https:\/\/github\.com\/\2\) [^\n]*\n<!-- submitted-issue: \1 -->\n/.exec((body ?? '').replace(/\r\n/g, '\n'));
+	return m ? { number: Number(m[1]), author: m[2] } : undefined;
+}
+
+// ---- an entry sent as an issue ----
+
+// The line issueUrl starts an issue with: the category's name in the sender's language, then the path of the entry's file. It is looked for on any line, so a sentence the sender put above it does not hide the submission.
+const ISSUE_PATH = new RegExp(`^[^\\n\`]*: \`${DATA_DIR}/([^\`\\n]+)\`[ \\t]*$`, 'm');
+// The json code block under it, fenced with as many backticks as codeFence needed.
+const ISSUE_FENCE = /^(`{3,})(?:json)?[ \t]*\n([\s\S]*?)\n\1(?!`)[ \t]*$/im;
+// The screenshot link issueUrl writes under the code block.
+const ISSUE_SHOT = /^Screenshot: (\S+)[ \t]*$/m;
+
+// What an issue written by issueUrl submits: the category, from the directory its path line names (the name before it is in the sender's language), the entry, from its json code block, and the link of its Screenshot line. undefined when the issue is not one issueUrl wrote, so other issues are left alone; a problem, saying what to fix, when it is one that cannot be submitted as it stands. The checks are the ones the site's form applies to a pasted entry; whether the site lists it already is checked against the repository when the pull request is opened.
+export function submissionFromIssue(body: string): { cat: SubmitCat; entry: Record<string, unknown>; screenshot?: string } | { problem: string } | undefined {
+	const text = body.replace(/\r\n?/g, '\n');
+	const line = ISSUE_PATH.exec(text);
+	if (!line) return undefined;
+	// Any file name: whether the slug is a valid one is the entry's check to say. A path without a directory is the single file per category the catalog had before (data/apps.json).
+	// The code block is what makes it an entry sent from the form: an issue that only names an entry's file, such as a report about a listed app, is left alone.
+	const rest = text.slice(line.index + line[0].length);
+	const fence = ISSUE_FENCE.exec(rest);
+	if (!fence) return undefined;
+	const dir = /^([^/]+)\/[^/]+\.json$/.exec(line[1])?.[1];
+	const cat = SUBMIT_CATS.find((c) => SUBMIT_KINDS[c].dir === dir);
+	if (!cat) return { problem: `the issue names \`${DATA_DIR}/${line[1]}\`, but every entry goes in a file of its own, \`${DATA_DIR}/<${SUBMIT_CATS.map((c) => SUBMIT_KINDS[c].dir).join('|')}>/<slug>.json\`; send the entry again from the form on ${SITE_URL}` };
+	if (fence[2].length > MAX_SUBMISSION) return { problem: `the entry is longer than ${MAX_SUBMISSION / 1024} KB` };
+	const parsed = parseEntryJson(fence[2]);
+	if ('error' in parsed) return { problem: parsed.error === 'json' ? 'the json code block does not parse as JSON' : 'the json code block must hold one JSON object, the entry' };
+	const shot = ISSUE_SHOT.exec(rest.slice(fence.index + fence[0].length))?.[1];
+	if (shot !== undefined && (!takesShot(cat) || isBadShot(shot))) return { problem: 'the screenshot must be an https link to an image, for an app, UI components or state management' };
+	// The bot's comment asking for a screenshot shows the line with the form's placeholder link, which passes isBadShot.
+	if (shot === ENTRY_PLACEHOLDERS.url) return { problem: `the Screenshot line still holds the example link ${shot}; put the link to the image in its place` };
+	const problem = pastedEntryProblem(cat, parsed.entry) ?? placeholderProblem(parsed.entry);
+	if (problem) return { problem };
+	return { cat, entry: parsed.entry, ...(shot !== undefined ? { screenshot: shot } : {}) };
+}

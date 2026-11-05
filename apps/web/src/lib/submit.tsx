@@ -1,4 +1,4 @@
-import { type DraftField, type LangCode, SITE_REPO, type SubmitCat, buildEntry, descMax, editUrl, entryCats, entryPath, entryProblem, fill, guessFromLink, isBadRepo, isBadShot, isBadUrl, isEntryComplete, issueUrl, jsonEntry, missingFields, needsAuthor, needsRepo, parseEntryJson, pastedEntryProblem, pastedName, pastedShotRepo, repoOf, shotRepo, takesShot, withScheme } from '@awesome-mygo/catalog';
+import { type DraftField, type LangCode, SITE_REPO, type SubmitCat, buildEntry, descMax, editUrl, entryCats, entryPath, entryProblem, fill, guessFromLink, isBadRepo, isBadShot, isBadUrl, isEntryComplete, issueUrl, jsonEntry, missingFields, needsAuthor, needsRepo, parseEntryJson, pastedEntryProblem, pastedName, pastedShotRepo, placeholderProblem, repoOf, shotRepo, takesShot, withScheme } from '@awesome-mygo/catalog';
 import { UPLOAD_MAX_BYTES, shotProblem } from '@awesome-mygo/enrich/source';
 import { useEffect, useRef, useState } from 'react';
 import { useLang, useT } from './lang';
@@ -108,7 +108,7 @@ export function useSubmit() {
 	const viaJson = form.via === 'json';
 	const pasted = viaJson && form.json.trim() ? parseEntryJson(form.json) : undefined;
 	const pastedEntry = pasted && 'entry' in pasted ? pasted.entry : undefined;
-	const jsonError = !pasted ? undefined : 'error' in pasted ? (pasted.error === 'json' ? t.m_json_bad : t.m_json_obj) : pastedEntryProblem(form.cat, pasted.entry);
+	const jsonError = !pasted ? undefined : 'error' in pasted ? (pasted.error === 'json' ? t.m_json_bad : t.m_json_obj) : (pastedEntryProblem(form.cat, pasted.entry) ?? placeholderProblem(pasted.entry));
 	const ok = viaJson ? Boolean(pastedEntry) && !jsonError : isEntryComplete(form.cat, form) && form.desc.length <= max;
 	const ph = { name: t.m_name, desc: t.md_desc };
 	const withAuthor = needsAuthor(form.cat);

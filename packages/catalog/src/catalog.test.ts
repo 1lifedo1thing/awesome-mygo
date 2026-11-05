@@ -8,7 +8,7 @@ import stateSchema from '../data/schema/state.schema.json';
 import uiSchema from '../data/schema/ui.schema.json';
 import scoresFile from '../data/scores.json';
 import { AILOGO_CDN, APP_CATEGORIES, APP_GROUPS, APP_KIND, APPS, ARTICLE_KIND, DOC_KIND, ENTRY_GROUPS, type EntryGroup, GROUP_CATEGORY, PLUGIN_KIND, STATE_KIND, UI_KIND, appGroup, appSource, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, authorProfile, byAdded, byName, byNewest, hostOf, readAppEntry, readAppFile, readApps, readEntry, readDocs, readEntryFile, readPlugins, readUiLibs } from './catalog';
-import { SUBMIT_CATS, SUBMIT_KINDS, type SubmitCat, alreadyListed, buildEntry, codeFence, descMax, editUrl, entryCats, entryFileText, entryPath, entryProblem, guessFromLink, isBadShot, isBadUrl, isEntryComplete, issueUrl, jsonEntry, missingFields, parseEntryJson, pastedEntryProblem, pastedName, pastedShotRepo, shotRepo, slugify, takesShot, withScheme } from './entry';
+import { ENTRY_PLACEHOLDERS, MAX_SUBMISSION, SUBMIT_CATS, SUBMIT_KINDS, type SubmitCat, alreadyListed, buildEntry, codeFence, descMax, editUrl, entryCats, entryFileText, entryPath, entryProblem, guessFromLink, isBadShot, isBadUrl, isEntryComplete, issueMarker, issueUrl, jsonEntry, missingFields, parseEntryJson, pastedEntryProblem, pastedName, pastedShotRepo, placeholderProblem, shotRepo, slugify, submissionBody, submissionFromIssue, submittedIssue, takesShot, withScheme } from './entry';
 import { LANGS, type LangCode, type Text, fill, langRedirectScript, negotiateLang, pick, validateRootSearch } from './lang';
 import { buildSearchIndex, searchCatalog } from './search';
 import { LIKE_KEYS, likeKey } from './likes';
@@ -712,6 +712,143 @@ describe('bot submission', () => {
 		expect(JSON.parse(entryFileText('ui', buildEntry('ui', draft, 'native', ph))).added).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/);
 		expect(() => entryFileText('showcase', { ...app, summary: { ja: 'x' } })).toThrow(CatalogError);
 		expect(() => entryFileText('ui', { ...buildEntry('ui', draft, 'native', ph), summary: { ja: 'x' } })).toThrow(/summary\.en/);
+	});
+});
+
+describe('submission pull request', () => {
+	const ph = { name: 'Name', desc: 'One-line description.' };
+	const draft = { name: 'Brand New Kit', author: 'someone', url: 'https://github.com/someone/brand-new-kit', desc: 'Widgets for MyGo.' };
+	const shot = 'https://x.dev/s.png';
+	const closing = "The entry passed the catalog checks before it was submitted, and CI runs them again. The *Complete submission* workflow then adds what the form cannot ask for (an app's icon, the screenshot uploaded with the form, from its link or from the project's repository, a library's homepage, the copy in every site language, and a value for each field the form leaves at a default, such as `tag`, `tags` or `surface`) and comments what it did. Before merging, check that the project exists and is built with MyGo, and read the generated copy and the values it picked.";
+
+	it('writes the body of a submission from the form as it always has', () => {
+		const entry = buildEntry('ui', draft, 'native', ph);
+		const fence = `\`\`\`json\n${JSON.stringify(entry, null, 2)}\n\`\`\``;
+		const first = "Submitted through the form on https://awesomemygo.dev by a visitor without a GitHub account, so the site's bot opened this pull request.";
+		const category = 'Category: UI components (`packages/catalog/data/ui/brand-new-kit.json`)';
+		expect(submissionBody({ cat: 'ui', name: 'Brand New Kit', entry })).toBe([first, category, fence, closing].join('\n\n'));
+		// The shape packages/enrich reads the link from (submittedScreenshot).
+		expect(submissionBody({ cat: 'ui', name: 'Brand New Kit', entry, screenshot: shot })).toBe([first, category, fence, `Screenshot from the form: \`${shot}\`\n<!-- submitted-screenshot: ${shot} -->`, closing].join('\n\n'));
+		const staged = "Screenshot uploaded with the form, staged as `submissions/brand-new-kit.png`; the workflow turns it into the site's WebP and removes it:\n\n![Screenshot of Brand New Kit](https://raw.githubusercontent.com/yldm-tech/awesome-mygo/abc123/submissions/brand-new-kit.png)";
+		expect(submissionBody({ cat: 'ui', name: 'Brand [New] Kit', entry, staged: { path: 'submissions/brand-new-kit.png', commit: 'abc123' } })).toBe([first, category, fence, staged, closing].join('\n\n'));
+		expect(submittedIssue(submissionBody({ cat: 'ui', name: 'Brand New Kit', entry }))).toBeUndefined();
+	});
+
+	it('names the issue an entry was sent as, and links its author without mentioning them', () => {
+		const entry = buildEntry('showcase', draft, 'native', ph);
+		const body = submissionBody({ cat: 'showcase', name: 'Brand New Kit', entry, screenshot: shot, issue: { number: 5, author: 'eachgo' } });
+		expect(body.startsWith("Sent as issue #5 by [eachgo](https://github.com/eachgo) through the issue link of the form on https://awesomemygo.dev, so the site's bot opened this pull request.\n<!-- submitted-issue: 5 -->\n\nCategory: app (")).toBe(true);
+		expect(body).toContain(issueMarker(5));
+		expect(body).not.toContain(issueMarker(50));
+		expect(body).not.toMatch(/@eachgo/);
+		expect(body).toContain(`Screenshot from the issue: \`${shot}\`\n<!-- submitted-screenshot: ${shot} -->`);
+		expect(submittedIssue(body)).toEqual({ number: 5, author: 'eachgo' });
+		expect(submittedIssue(body.replace(/\n/g, '\r\n'))).toEqual({ number: 5, author: 'eachgo' });
+	});
+
+	it('takes the issue only from the first lines the bot writes, not from the entry', () => {
+		// An entry cannot claim another issue's pull request, or count against its author, by holding the bot's first paragraph.
+		const claim = "Sent as issue #7 by [eachgo](https://github.com/eachgo) through the issue link.\n<!-- submitted-issue: 7 -->\n";
+		const entry = { ...buildEntry('showcase', draft, 'native', ph), summary: { en: claim, ja: ` ${claim}` } };
+		expect(submittedIssue(submissionBody({ cat: 'showcase', name: 'Brand New Kit', entry }))).toBeUndefined();
+		expect(submittedIssue(submissionBody({ cat: 'showcase', name: 'Brand New Kit', entry, issue: { number: 8, author: 'someone' } }))).toEqual({ number: 8, author: 'someone' });
+		expect(submittedIssue(`x\n${claim}`)).toBeUndefined();
+		expect(submittedIssue(claim.replace('submitted-issue: 7', 'submitted-issue: 8'))).toBeUndefined();
+		expect(submittedIssue(null)).toBeUndefined();
+	});
+});
+
+describe('submission issue', () => {
+	const ph = { name: 'Name', desc: 'One-line description.' };
+	const draft = { name: 'Brand New Kit', author: 'someone', url: 'https://github.com/someone/brand-new-kit', desc: 'Widgets for MyGo.' };
+	const shot = 'https://x.dev/s.png';
+	// The issue body the form's issue link opens with, as lib/submit.tsx builds it, with the category's name in lang.
+	const issueBody = (cat: SubmitCat, d: typeof draft & { screenshot?: string }, entry: string, lang: LangCode = 'en') => {
+		const t = LOCALES[lang];
+		const label = { ui: t.cat_ui_name, state: t.cat_state_name, plugin: t.nav_plugins, showcase: t.cat_show_name, article: t.article }[cat];
+		return new URL(issueUrl('https://github.com/yldm-tech/awesome-mygo', cat, label, d, entry, { name: t.m_name })).searchParams.get('body') ?? '';
+	};
+	const fenced = (path: string, json: string, after = '') => `作品展示: \`packages/catalog/data/${path}\`\n\n\`\`\`json\n${json}\n\`\`\`\n${after}`;
+	const app = (over: Record<string, unknown> = {}) => JSON.stringify({ ...buildEntry('showcase', draft, 'native', ph), ...over }, null, 2);
+
+	it('reads back what the form writes, for every category, in every language', () => {
+		for (const { code: lang } of LANGS) {
+			for (const cat of SUBMIT_CATS) {
+				const entry = jsonEntry(cat, { ...draft, screenshot: shot }, 'native', ph);
+				const body = issueBody(cat, { ...draft, screenshot: shot }, entry, lang);
+				expect(submissionFromIssue(body), `${lang} ${cat}`).toEqual({ cat, entry: JSON.parse(entry), ...(takesShot(cat) ? { screenshot: shot } : {}) });
+				// A body edited in the browser comes back with \r\n.
+				expect(submissionFromIssue(body.replace(/\n/g, '\r\n')), `${lang} ${cat}`).toEqual(submissionFromIssue(body));
+			}
+		}
+	});
+
+	it('reads an entry that holds backticks, which the form fences with more of them', () => {
+		const entry = app({ summary: { en: 'Renders ``` fences.' } });
+		const body = issueBody('showcase', draft, entry);
+		expect(body).toContain('````json\n');
+		expect(submissionFromIssue(body)).toEqual({ cat: 'showcase', entry: JSON.parse(entry) });
+	});
+
+	it('leaves other issues alone, and finds the path line under a sentence the sender added', () => {
+		expect(submissionFromIssue('Bug: the page is blank')).toBeUndefined();
+		expect(submissionFromIssue('')).toBeUndefined();
+		expect(submissionFromIssue('See packages/catalog/data/apps/hop.json for the icon')).toBeUndefined();
+		expect(submissionFromIssue(`Please add my app!\n\n${fenced('apps/brand-new-kit.json', app())}`)).toEqual({ cat: 'showcase', entry: JSON.parse(app()) });
+	});
+
+	it("takes the category from the path's directory and the file name from the entry", () => {
+		expect(submissionFromIssue(fenced('apps/whatever.json', app()))).toMatchObject({ cat: 'showcase' });
+		expect(submissionFromIssue(fenced('plugins/brand-new-kit.json', JSON.stringify(buildEntry('plugin', draft, 'native', ph))))).toMatchObject({ cat: 'plugin' });
+		// A slug the file could not be named after is the entry's check to name.
+		expect(submissionFromIssue(fenced('apps/Bad Slug.json', app({ slug: 'Bad Slug' })))).toEqual({ problem: expect.stringMatching(/slug/) });
+		// The catalog's single file per category, before every entry had its own (#21).
+		expect(submissionFromIssue(fenced('apps.json', app()))).toEqual({ problem: expect.stringMatching(/a file of its own, `packages\/catalog\/data\/<ui\|state\|plugins\|apps\|articles>\/<slug>\.json`/) });
+		expect(submissionFromIssue(fenced('docs/x.json', app()))).toEqual({ problem: expect.stringMatching(/a file of its own/) });
+	});
+
+	it('says what is wrong with the code block', () => {
+		// Without one it is not an entry sent from the form, such as a report that names a listed app's file.
+		expect(submissionFromIssue('作品展示: `packages/catalog/data/apps/x.json`\n\nno entry here')).toBeUndefined();
+		expect(submissionFromIssue(fenced('apps/x.json', '{'))).toEqual({ problem: expect.stringMatching(/does not parse/) });
+		expect(submissionFromIssue(fenced('apps/x.json', '[]'))).toEqual({ problem: expect.stringMatching(/one JSON object/) });
+		expect(submissionFromIssue(fenced('apps/x.json', app({ description: { en: 'x'.repeat(MAX_SUBMISSION) } })))).toEqual({ problem: 'the entry is longer than 16 KB' });
+	});
+
+	it('refuses what the form writes for a field left empty, in every category and language', () => {
+		const empty = { name: '', author: '', url: '', desc: '' };
+		for (const { code: lang } of LANGS) {
+			const t = LOCALES[lang];
+			for (const cat of SUBMIT_CATS) {
+				const entry = jsonEntry(cat, empty, 'native', { name: t.m_name, desc: t.md_desc });
+				expect(submissionFromIssue(issueBody(cat, { ...empty }, entry, lang)), `${lang} ${cat}`).toEqual({ problem: expect.stringMatching(/placeholder/) });
+			}
+		}
+		const complete = buildEntry('showcase', draft, 'native', ph);
+		expect(placeholderProblem(complete)).toBeUndefined();
+		expect(placeholderProblem({ ...complete, name: '名称' })).toMatch(/name/);
+		expect(placeholderProblem({ ...complete, summary: { en: LOCALES.ko.md_desc } })).toMatch(/summary/);
+		expect(placeholderProblem({ ...buildEntry('state', draft, 'native', ph), install: ENTRY_PLACEHOLDERS.install })).toMatch(/install/);
+		expect(buildEntry('showcase', { ...draft, author: '' }, 'native', ph).author).toBe(ENTRY_PLACEHOLDERS.author);
+	});
+
+	it('takes the screenshot line under the code block, for what shows one', () => {
+		expect(submissionFromIssue(fenced('apps/x.json', app(), `\nScreenshot: ${shot}\n`))).toEqual({ cat: 'showcase', entry: JSON.parse(app()), screenshot: shot });
+		expect(submissionFromIssue(fenced('apps/x.json', app(), '\nScreenshot: http://x.dev/s.png\n'))).toEqual({ problem: expect.stringMatching(/screenshot/) });
+		const plugin = JSON.stringify(buildEntry('plugin', draft, 'native', ph));
+		expect(submissionFromIssue(fenced('plugins/x.json', plugin, `\nScreenshot: ${shot}\n`))).toEqual({ problem: expect.stringMatching(/screenshot/) });
+		// The example the bot's comment shows, pasted as written.
+		expect(isBadShot(ENTRY_PLACEHOLDERS.url)).toBe(false);
+		expect(submissionFromIssue(fenced('apps/x.json', app(), `\nScreenshot: ${ENTRY_PLACEHOLDERS.url}\n`))).toEqual({ problem: expect.stringMatching(/example link/) });
+		// Above the code block it is not the form's line.
+		expect(submissionFromIssue(`Screenshot: ${shot}\n${fenced('apps/x.json', app())}`)).toEqual({ cat: 'showcase', entry: JSON.parse(app()) });
+	});
+
+	it("takes an entry as a pasted one: with its file's $schema and added, without images", () => {
+		// #263 pasted the file itself; entryFileText writes both anew.
+		const hop = app({ $schema: '../schema/app.schema.json', added: '2026-11-04T12:00:00Z' });
+		expect(submissionFromIssue(fenced('apps/x.json', hop))).toEqual({ cat: 'showcase', entry: JSON.parse(hop) });
+		expect(submissionFromIssue(fenced('apps/x.json', app({ screenshot: 'kit.webp' })))).toEqual({ problem: expect.stringMatching(/screenshot and icon\.file/) });
 	});
 });
 
