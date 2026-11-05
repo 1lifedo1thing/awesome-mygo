@@ -1,14 +1,14 @@
 # Awesome MyGo
 
-[![Website](https://img.shields.io/badge/website-mygodock.dev-3fd3f5)](https://mygodock.dev)
+[![Website](https://img.shields.io/badge/website-awesomemygo.dev-3fd3f5)](https://awesomemygo.dev)
 [![CI](https://github.com/yldm-tech/awesome-mygo/actions/workflows/ci.yml/badge.svg)](https://github.com/yldm-tech/awesome-mygo/actions/workflows/ci.yml)
 [![License](https://img.shields.io/github/license/yldm-tech/awesome-mygo)](LICENSE)
 
-[MyGo](https://github.com/egoist/mygo) 관련 앱, 플러그인, 컴포넌트, 문서를 한 사이트에 모았습니다: **[mygodock.dev](https://mygodock.dev)**. MyGo는 Go로 데스크톱 앱을 만드는 도구로, 화면을 네이티브 UI로도 웹 프런트엔드로도 만들 수 있습니다.
+[MyGo](https://github.com/egoist/mygo) 관련 앱, 플러그인, 컴포넌트, 문서를 한 사이트에 모았습니다: **[awesomemygo.dev](https://awesomemygo.dev)**. MyGo는 Go로 데스크톱 앱을 만드는 도구로, 화면을 네이티브 UI로도 웹 프런트엔드로도 만들 수 있습니다.
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · [日本語](README.ja.md) · 한국어
 
-[![Awesome MyGo](.github/assets/banner.png)](https://mygodock.dev)
+[![Awesome MyGo](.github/assets/banner.png)](https://awesomemygo.dev)
 
 ## 사이트 내용
 
@@ -27,7 +27,7 @@ pnpm 모노레포이며, [TanStack Start](https://tanstack.com/start)가 [Cloudf
 
 | 경로 | 내용 |
 |---|---|
-| `apps/web` | 사이트: React 19, TanStack Start(서버 렌더링), `@cloudflare/vite-plugin`을 쓰는 Vite. `wrangler.jsonc`로 `mygodock.dev`에 배포합니다. |
+| `apps/web` | 사이트: React 19, TanStack Start(서버 렌더링), `@cloudflare/vite-plugin`을 쓰는 Vite. `wrangler.jsonc`로 `awesomemygo.dev`에 배포합니다. |
 | `packages/catalog` | 데이터: `data/*.json`(앱, UI 컴포넌트, 상태 관리 솔루션, 플러그인, 글, 가이드)과 그 JSON Schema, 5개 언어의 UI 문구, 검색, 제출 양식의 항목. 테스트로 모든 항목을 검증합니다. |
 | `packages/enrich` | 제출 bot이 연 풀 리퀘스트를 완성합니다: 프로젝트 저장소에서 앱 아이콘을, 양식에서 업로드한 이미지나 적은 링크(없으면 저장소)에서 스크린샷을 가져오고, 5개 언어 문구를 Claude로 씁니다. `.github/workflows/enrich-submission.yml`이 실행합니다. |
 

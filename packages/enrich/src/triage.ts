@@ -4,7 +4,7 @@ import { z } from 'zod';
 import type { LlmConfig } from './copy.ts';
 import type { Verdict } from './find.ts';
 
-// Whether a repository the discover script found belongs on mygodock.dev, and as what, decided by Claude from the repository's README, go.mod and MyGo configuration. Like the copy, everything from the repository goes in as data the model is told not to obey, and what comes back only fills in an entry that the catalog's checks and a maintainer's review still stand between and the site.
+// Whether a repository the discover script found belongs on awesomemygo.dev, and as what, decided by Claude from the repository's README, go.mod and MyGo configuration. Like the copy, everything from the repository goes in as data the model is told not to obey, and what comes back only fills in an entry that the catalog's checks and a maintainer's review still stand between and the site.
 
 // Past this many characters a README is cut for triage: the start says what a project is.
 const README_LIMIT = 20_000;
@@ -21,7 +21,7 @@ const verdictSchema = z.object({
 	tags: z.array(z.string()).describe('For state or plugin: one to four short lowercase tags. Otherwise empty.'),
 });
 
-const SYSTEM = `You review GitHub repositories for mygodock.dev, a directory of what is built with MyGo (github.com/egoist/mygo), a Go toolkit for desktop apps with a native UI or a web frontend. Each repository you get has a go.mod that requires MyGo and is not listed on the site yet. Decide whether it belongs there, and as what.
+const SYSTEM = `You review GitHub repositories for awesomemygo.dev, a directory of what is built with MyGo (github.com/egoist/mygo), a Go toolkit for desktop apps with a native UI or a web frontend. Each repository you get has a go.mod that requires MyGo and is not listed on the site yet. Decide whether it belongs there, and as what.
 
 verdict, one of:
 - app: an application people can download or build and use: a window, a menu bar or tray app, a launcher.

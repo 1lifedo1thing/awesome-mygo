@@ -1,14 +1,14 @@
 # Awesome MyGo
 
-[![Website](https://img.shields.io/badge/website-mygodock.dev-3fd3f5)](https://mygodock.dev)
+[![Website](https://img.shields.io/badge/website-awesomemygo.dev-3fd3f5)](https://awesomemygo.dev)
 [![CI](https://github.com/yldm-tech/awesome-mygo/actions/workflows/ci.yml/badge.svg)](https://github.com/yldm-tech/awesome-mygo/actions/workflows/ci.yml)
 [![License](https://img.shields.io/github/license/yldm-tech/awesome-mygo)](LICENSE)
 
-把围绕 [MyGo](https://github.com/egoist/mygo) 的应用、插件、组件和文档收集在一个站点里：**[mygodock.dev](https://mygodock.dev)**。MyGo 是用 Go 构建桌面应用的工具包，界面可以是原生 UI，也可以是 Web 前端。
+把围绕 [MyGo](https://github.com/egoist/mygo) 的应用、插件、组件和文档收集在一个站点里：**[awesomemygo.dev](https://awesomemygo.dev)**。MyGo 是用 Go 构建桌面应用的工具包，界面可以是原生 UI，也可以是 Web 前端。
 
 [English](README.md) · 简体中文 · [繁體中文](README.zh-TW.md) · [日本語](README.ja.md) · [한국어](README.ko.md)
 
-[![Awesome MyGo](.github/assets/banner.png)](https://mygodock.dev)
+[![Awesome MyGo](.github/assets/banner.png)](https://awesomemygo.dev)
 
 ## 站点内容
 
@@ -27,7 +27,7 @@ pnpm monorepo，由 [TanStack Start](https://tanstack.com/start) 运行在 [Clou
 
 | 路径 | 内容 |
 |---|---|
-| `apps/web` | 站点：React 19、TanStack Start（服务端渲染），以及带 `@cloudflare/vite-plugin` 的 Vite。`wrangler.jsonc` 把它部署到 `mygodock.dev`。 |
+| `apps/web` | 站点：React 19、TanStack Start（服务端渲染），以及带 `@cloudflare/vite-plugin` 的 Vite。`wrangler.jsonc` 把它部署到 `awesomemygo.dev`。 |
 | `packages/catalog` | 数据：`data/*.json`（应用、UI 组件、状态方案、插件、文章、指南）及其 JSON Schema，五种语言的界面文案，搜索与提交表单的条目。测试会校验每个条目。 |
 | `packages/enrich` | 补全提交 bot 开的 PR：从项目仓库取应用图标，截图优先用表单里上传的图片或填的链接、否则从仓库取，并用 Claude 写五种语言的文案。由 `.github/workflows/enrich-submission.yml` 运行。 |
 

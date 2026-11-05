@@ -42,7 +42,7 @@ describe('the post', () => {
 	const entry: Entry = { slug: 'nodra', name: 'Nodra', author: 'yldm-tech', summary: { en: 'A store.', 'zh-CN': '并发安全的响应式状态库。' }, url: 'https://github.com/yldm-tech/nodra', homepage: 'https://nodra.yldm.ai' };
 
 	it('says what was listed, by whom, where on the site, its repository with its stars and the site’s counts', () => {
-		expect(composePost({ kind: 'state', entry, stars: 42, counts: COUNTS })).toBe(['Awesome MyGo 新收录状态管理：Nodra by yldm-tech\nhttps://mygodock.dev/state', '并发安全的响应式状态库。', `GitHub：https://github.com/yldm-tech/nodra（42 star）\n${statsLine(COUNTS)}`].join('\n\n'));
+		expect(composePost({ kind: 'state', entry, stars: 42, counts: COUNTS })).toBe(['Awesome MyGo 新收录状态管理：Nodra by yldm-tech\nhttps://awesomemygo.dev/state', '并发安全的响应式状态库。', `GitHub：https://github.com/yldm-tech/nodra（42 star）\n${statsLine(COUNTS)}`].join('\n\n'));
 		expect(statsLine(COUNTS)).toBe('已收录 59 项：作品 40 · 插件 12 · UI 组件 6 · 状态管理 1');
 	});
 
@@ -53,14 +53,14 @@ describe('the post', () => {
 
 	it('falls back to English and leaves out what the entry lacks', () => {
 		const text = composePost({ kind: 'plugin', entry: { slug: 'p', name: 'P', official: false, summary: { en: 'Does things.' } }, counts: COUNTS });
-		expect(text).toBe(['Awesome MyGo 新收录社区插件：P\nhttps://mygodock.dev/plugins', 'Does things.', statsLine(COUNTS)].join('\n\n'));
+		expect(text).toBe(['Awesome MyGo 新收录社区插件：P\nhttps://awesomemygo.dev/plugins', 'Does things.', statsLine(COUNTS)].join('\n\n'));
 	});
 
 	it('cuts a long summary short to fit', () => {
 		const text = composePost({ kind: 'state', entry: { ...entry, summary: { en: 'x', 'zh-CN': '很长'.repeat(200) } }, stars: 1, counts: COUNTS });
 		expect(weightedLength(text, urlsIn(text))).toBeLessThanOrEqual(MAX_WEIGHT);
 		expect(text).toContain('很长…');
-		expect(text).toContain('\nhttps://mygodock.dev/state\n');
+		expect(text).toContain('\nhttps://awesomemygo.dev/state\n');
 	});
 
 	it('fits every entry the site lists', async () => {
