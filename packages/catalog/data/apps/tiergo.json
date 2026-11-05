@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "tiergo",
+	"name": "TierGo",
+	"author": "zdyxry",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/zdyxry/TierGo",
+	"repo": "zdyxry/TierGo",
+	"summary": {
+		"en": "An unofficial EasyTier client that runs several networks from the tray.",
+		"zh-CN": "非官方 EasyTier 桌面客户端，可在托盘中同时运行多个网络。",
+		"zh-TW": "非官方 EasyTier 桌面用戶端，可在系統匣同時執行多個網路。",
+		"ja": "非公式の EasyTier デスクトップクライアント。複数のネットワークをトレイから同時に運用。",
+		"ko": "비공식 EasyTier 데스크톱 클라이언트. 여러 네트워크를 트레이에서 동시에 운영합니다."
+	},
+	"description": {
+		"en": "An unofficial EasyTier client for Linux, macOS and Windows, drawn with MyGo's native UI. It bundles the official easytier-core and easytier-cli and runs each network with separate process, config, logs and ports, leaving existing EasyTier services alone. From the tray it runs several networks at once, shows peers, routes and traffic, and edits, imports and exports TOML configs with ACLs.",
+		"zh-CN": "非官方的 EasyTier 客户端，支持 Linux、macOS 和 Windows，由 MyGo 原生 UI 绘制。内嵌官方 easytier-core 与 easytier-cli，每个网络使用独立的进程、配置、日志和端口，不影响已有的 EasyTier 服务。可驻留托盘同时连接多个网络，查看节点、路由和流量，并编辑、导入导出含 ACL 的 TOML 配置。",
+		"zh-TW": "非官方的 EasyTier 用戶端，支援 Linux、macOS 與 Windows，由 MyGo 原生 UI 繪製。內嵌官方 easytier-core 與 easytier-cli，每個網路使用獨立的行程、設定、日誌和連接埠，不影響既有的 EasyTier 服務。可常駐系統匣同時連線多個網路，檢視節點、路由和流量，並編輯、匯入匯出含 ACL 的 TOML 設定。",
+		"ja": "Linux・macOS・Windows 向けの非公式 EasyTier クライアントで、MyGo のネイティブ UI で描かれています。公式の easytier-core と easytier-cli を内蔵し、ネットワークごとにプロセス・設定・ログ・ポートを分けるため、既存の EasyTier サービスには影響しません。トレイに常駐して複数のネットワークに同時に接続し、ノード・ルート・トラフィックを確認でき、ACL を含む TOML 設定の編集・読み込み・書き出しもできます。",
+		"ko": "Linux, macOS, Windows용 비공식 EasyTier 클라이언트로, MyGo의 네이티브 UI로 그렸습니다. 공식 easytier-core와 easytier-cli를 내장하고 네트워크마다 프로세스, 설정, 로그, 포트를 따로 써서 기존 EasyTier 서비스에 영향을 주지 않습니다. 트레이에 상주하며 여러 네트워크에 동시에 연결하고, 노드와 경로, 트래픽을 보며, ACL을 포함한 TOML 설정을 편집하고 가져오거나 내보냅니다."
+	},
+	"icon": {
+		"file": "tiergo.webp"
+	},
+	"screenshot": "tiergo.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T04:00:52Z"
+}
