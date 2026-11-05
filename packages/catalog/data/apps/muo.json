@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "muo",
+	"name": "Muo",
+	"author": "yaffalhakim1",
+	"kind": "native",
+	"group": "notes",
+	"url": "https://yaffalhakim1.github.io/muo/",
+	"repo": "yaffalhakim1/muo",
+	"summary": {
+		"en": "A Markdown and PDF reader that fits type to your screen and distance, 72 characters a line.",
+		"zh-CN": "按屏幕与观看距离计算字号、每行 72 个字符的 Markdown 与 PDF 阅读器。",
+		"zh-TW": "依螢幕與觀看距離計算字級、每行 72 個字元的 Markdown 與 PDF 閱讀器。",
+		"ja": "画面と視距離から文字サイズを決め、1 行 72 文字に保つ Markdown・PDF リーダー。",
+		"ko": "화면과 보는 거리로 글자 크기를 정하고 한 줄을 72자로 맞추는 Markdown·PDF 리더."
+	},
+	"description": {
+		"en": "A Markdown and PDF reader for Windows, macOS and Linux, drawn on the GPU by MyGo's native UI with no webview. It measures your display and your distance from it to choose the type size, and keeps one centred column at 72 characters, with the files and the outline in panels that fold away. Find highlights matches on the page and in PDFs, and it remembers your place in each document.",
+		"zh-CN": "用 MyGo 原生 UI 在 GPU 上绘制的 Markdown 与 PDF 阅读器，支持 Windows、macOS 和 Linux，不使用 Web 视图。它测量显示器以及你与屏幕的距离来决定字号，正文排成居中一栏、每行 72 个字符，两侧的文件列表和大纲面板可以收起。查找会在页面上标出所有匹配，也能搜索 PDF，并记住每份文档读到的位置。",
+		"zh-TW": "用 MyGo 原生 UI 在 GPU 上繪製的 Markdown 與 PDF 閱讀器，支援 Windows、macOS 和 Linux，不使用 Web 視圖。它測量顯示器以及你與螢幕的距離來決定字級，內文排成置中一欄、每行 72 個字元，兩側的檔案列表與大綱面板可以收合。尋找會在頁面上標出所有相符處，也能搜尋 PDF，並記住每份文件讀到的位置。",
+		"ja": "MyGo のネイティブ UI で GPU 描画される Windows・macOS・Linux 向けの Markdown・PDF リーダー。Web ビューは使いません。ディスプレイと画面までの距離を測って文字サイズを決め、本文は中央の 1 段に 1 行 72 文字で組み、両脇のファイル一覧とアウトラインのパネルは折りたためます。検索は一致箇所をページ上に示し、PDF も検索でき、文書ごとに読んでいた位置を覚えています。",
+		"ko": "MyGo의 네이티브 UI로 GPU에서 그리는 Windows·macOS·Linux용 Markdown·PDF 리더로, 웹 뷰를 쓰지 않습니다. 디스플레이와 화면까지의 거리를 재서 글자 크기를 정하고, 본문은 가운데 한 단에 한 줄 72자로 유지하며 양옆의 파일 목록과 개요 패널은 접을 수 있습니다. 찾기는 일치 항목을 페이지 위에 표시하고 PDF에서도 동작하며, 문서마다 읽던 위치를 기억합니다."
+	},
+	"icon": {
+		"file": "muo.webp"
+	},
+	"screenshot": "muo.webp",
+	"added": "2026-11-05T08:28:47Z"
+}
