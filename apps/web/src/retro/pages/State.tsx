@@ -54,7 +54,7 @@ function Solutions() {
 				{STATE_SOLUTIONS.map((s, k) => (
 					<article key={s.repo} className='grid gap-x-4 gap-y-3 py-3.5 min-[480px]:grid-cols-[200px_minmax(0,1fr)]'>
 						{s.image && (
-							<a href={s.url} target='_blank' rel='noopener' className='block self-start overflow-hidden rounded-lg border border-line shadow-sm transition-shadow hover:shadow-pop'>
+							<a href={s.homepage ?? s.url} target='_blank' rel='noopener' className='block self-start overflow-hidden rounded-lg border border-line shadow-sm transition-shadow hover:shadow-pop'>
 								<img src={s.image} alt={`${s.name} ${t.preview_img}`} width={1200} height={630} loading={k === 0 ? 'eager' : 'lazy'} fetchPriority={k === 0 ? 'high' : undefined} decoding='async' className='block aspect-[1200/630] w-full' />
 							</a>
 						)}

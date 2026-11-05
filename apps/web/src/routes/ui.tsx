@@ -45,41 +45,45 @@ function UiPage() {
 				))}
 			</div>
 			<div className='show-grid'>
-				{libs.map((l, k) => (
-					<div key={l.repo} className={`rv d${k % 6} flex`}>
-						<article className='win card plug-card'>
-							<WinBar label={`github.com/${l.repo}`} size='md' className='card-bar'>
-								{l.homepage && (
-									<a className='plug-bar-docs' href={l.homepage} target='_blank' rel='noopener'>
-										{t.visit}
-									</a>
-								)}
-							</WinBar>
-							<a className='card-shot' href={l.url} target='_blank' rel='noopener' tabIndex={-1} aria-hidden='true'>
-								{l.image ? <img src={l.image} alt='' width={1200} height={750} loading={k === 0 ? 'eager' : 'lazy'} fetchPriority={k === 0 ? 'high' : undefined} decoding='async' /> : <span className='card-shot-label'>{l.name}</span>}
-							</a>
-							<div className='plug-body'>
-								<div className='show-id'>
-									<div className='show-id-text'>
-										<h2 className='show-name'>
-											<a className='plug-link' href={l.url} target='_blank' rel='noopener'>
-												{l.name}
-											</a>
-										</h2>
-										<span className='show-meta'>
-											<span className='show-by' title={l.author}>
-												<span lang='en'>by</span> {l.author}
+				{libs.map((l, k) => {
+					// The card opens the library's website when it has one; the bar then links its repository.
+					const site = l.homepage ?? l.url;
+					return (
+						<div key={l.repo} className={`rv d${k % 6} flex`}>
+							<article className='win card plug-card'>
+								<WinBar label={`github.com/${l.repo}`} size='md' className='card-bar'>
+									{l.homepage && (
+										<a className='plug-bar-docs' href={l.url} target='_blank' rel='noopener'>
+											{t.on_github}
+										</a>
+									)}
+								</WinBar>
+								<a className='card-shot' href={site} target='_blank' rel='noopener' tabIndex={-1} aria-hidden='true'>
+									{l.image ? <img src={l.image} alt='' width={1200} height={750} loading={k === 0 ? 'eager' : 'lazy'} fetchPriority={k === 0 ? 'high' : undefined} decoding='async' /> : <span className='card-shot-label'>{l.name}</span>}
+								</a>
+								<div className='plug-body'>
+									<div className='show-id'>
+										<div className='show-id-text'>
+											<h2 className='show-name'>
+												<a className='plug-link' href={site} target='_blank' rel='noopener'>
+													{l.name}
+												</a>
+											</h2>
+											<span className='show-meta'>
+												<span className='show-by' title={l.author}>
+													<span lang='en'>by</span> {l.author}
+												</span>
+												<span className='kind-tag tag-cyan'>{t[TAG[l.key]]}</span>
 											</span>
-											<span className='kind-tag tag-cyan'>{t[TAG[l.key]]}</span>
-										</span>
+										</div>
+										<LikeButton item={likeKey.ui(l)} name={l.name} className='like-btn like-end' />
 									</div>
-									<LikeButton item={likeKey.ui(l)} name={l.name} className='like-btn like-end' />
+									<p className='show-desc'>{pick(l.desc, lang)}</p>
 								</div>
-								<p className='show-desc'>{pick(l.desc, lang)}</p>
-							</div>
-						</article>
-					</div>
-				))}
+							</article>
+						</div>
+					);
+				})}
 			</div>
 			<div className='rv cta-dashed'>
 				<p className='cta-p'>{t.ui_cta}</p>
