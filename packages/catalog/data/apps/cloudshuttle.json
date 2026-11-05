@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "cloudshuttle",
+	"name": "CloudShuttle",
+	"author": "starriv",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/starriv/cloudshuttle",
+	"repo": "starriv/cloudshuttle",
+	"summary": {
+		"en": "Scheduled copy and sync between local folders, SMB NAS and S3-compatible cloud storage.",
+		"zh-CN": "在本机文件夹、SMB NAS 与兼容 S3 的云存储之间按计划复制和同步文件。",
+		"zh-TW": "在本機資料夾、SMB NAS 與相容 S3 的雲端儲存之間依排程複製與同步檔案。",
+		"ja": "ローカルフォルダー、SMB の NAS、S3 互換クラウドストレージ間でファイルを定期的にコピー・同期。",
+		"ko": "로컬 폴더, SMB NAS, S3 호환 클라우드 스토리지 사이에서 파일을 예약해 복사·동기화합니다."
+	},
+	"description": {
+		"en": "A menu bar app for macOS and Windows, drawn with MyGo's native UI, that copies or syncs files between local folders, SMB shares and S3-compatible storage such as Amazon S3, Cloudflare R2 and MinIO, and discovers NAS on the local network. Tasks run by hand or hourly, daily, weekly or monthly; a sync is previewed first and stops for confirmation when the source is empty or many files would be deleted.",
+		"zh-CN": "常驻 macOS 与 Windows 状态栏的文件复制与同步工具，由 MyGo 原生 UI 绘制，可在本机文件夹、SMB 与 Amazon S3、Cloudflare R2、MinIO 等兼容 S3 的存储之间传输，并能发现局域网中的 NAS。任务可手动运行，或按小时、天、周、月定时执行；同步前先预演，来源为空或涉及大量删除时会停下等待确认。",
+		"zh-TW": "常駐 macOS 與 Windows 系統列的檔案複製與同步工具，由 MyGo 原生 UI 繪製，可在本機資料夾、SMB 與 Amazon S3、Cloudflare R2、MinIO 等相容 S3 的儲存空間之間傳輸，並能找出區域網路中的 NAS。任務可手動執行，或依每小時、每天、每週、每月排程；同步前會先預演，來源為空或涉及大量刪除時會暫停等待確認。",
+		"ja": "macOS と Windows のメニューバーに常駐し、MyGo のネイティブ UI で描かれたファイルのコピー・同期ツール。ローカルフォルダー、SMB、Amazon S3・Cloudflare R2・MinIO などの S3 互換ストレージの間で転送し、ローカルネットワーク上の NAS も見つけます。タスクは手動のほか、毎時・毎日・毎週・毎月のスケジュールで実行でき、同期の前には予行を行い、同期元が空のときや大量の削除を伴うときは止まって確認を求めます。",
+		"ko": "macOS와 Windows의 메뉴 막대·알림 영역에 상주하며 MyGo의 네이티브 UI로 그린 파일 복사·동기화 도구입니다. 로컬 폴더, SMB, Amazon S3·Cloudflare R2·MinIO 등 S3 호환 스토리지 사이에서 파일을 옮기고 로컬 네트워크의 NAS도 찾아 줍니다. 작업은 수동으로 또는 매시간·매일·매주·매월 예약해 실행하며, 동기화 전에 미리 점검해 원본이 비어 있거나 대량 삭제가 생기면 멈추고 확인을 요청합니다."
+	},
+	"icon": {
+		"file": "cloudshuttle.webp"
+	},
+	"screenshot": "cloudshuttle.webp",
+	"added": "2026-11-05T08:45:51Z"
+}
