@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "videodown",
+	"name": "VideoDown",
+	"author": "kamiertop",
+	"kind": "native",
+	"category": "MultimediaApplication",
+	"url": "https://github.com/kamiertop/videodown",
+	"repo": "kamiertop/videodown",
+	"summary": {
+		"en": "A native desktop video downloader for Bilibili, Douyin and YouTube.",
+		"zh-CN": "原生桌面视频下载工具，支持哔哩哔哩、抖音和 YouTube。",
+		"zh-TW": "原生桌面影片下載工具，支援嗶哩嗶哩、抖音和 YouTube。",
+		"ja": "Bilibili・Douyin・YouTube に対応したネイティブなデスクトップ動画ダウンローダー。",
+		"ko": "Bilibili, Douyin, YouTube를 지원하는 네이티브 데스크톱 동영상 다운로더."
+	},
+	"description": {
+		"en": "A Bilibili, Douyin and YouTube video downloader for Windows and Linux, written in Go with MyGo's native UI and MujicaUI. It signs in by QR code or cookie, browses followed creators, favorites, collections and play history, and queues downloads with a choice of quality and audio track, including YouTube playlists and audio only. FFmpeg is needed to merge separate streams.",
+		"zh-CN": "面向 Windows 与 Linux 的哔哩哔哩、抖音、YouTube 视频下载工具，用 Go 编写，界面由 MyGo 原生 UI 与 MujicaUI 构建。支持二维码或 Cookie 登录，可浏览关注的 UP 主、收藏夹、合集和播放历史，在下载队列中选择画质和音轨，也支持 YouTube 播放列表和仅音频下载。合并分离的音视频流需要安装 FFmpeg。",
+		"zh-TW": "適用於 Windows 與 Linux 的嗶哩嗶哩、抖音、YouTube 影片下載工具，以 Go 撰寫，介面由 MyGo 原生 UI 與 MujicaUI 打造。支援 QR Code 或 Cookie 登入，可瀏覽追蹤的創作者、收藏夾、合集與觀看紀錄，在下載佇列中選擇畫質與音軌，也支援 YouTube 播放清單與僅音訊下載。合併分離的影音串流需安裝 FFmpeg。",
+		"ja": "Windows・Linux 向けの、Bilibili・Douyin・YouTube 用動画ダウンローダー。Go で書かれ、MyGo のネイティブ UI と MujicaUI で作られています。QR コードか Cookie でログインし、フォロー中のクリエイター、お気に入り、コレクション、再生履歴を閲覧でき、画質と音声トラックを選んでダウンロードキューに追加できます。YouTube の再生リストや音声のみのダウンロードにも対応します。分かれた音声と映像の結合には FFmpeg が必要です。",
+		"ko": "Windows와 Linux용 Bilibili·Douyin·YouTube 동영상 다운로더로, Go로 작성하고 MyGo의 네이티브 UI와 MujicaUI로 만들었습니다. QR 코드나 쿠키로 로그인해 팔로우한 크리에이터, 즐겨찾기, 컬렉션, 시청 기록을 둘러보고, 화질과 오디오 트랙을 골라 다운로드 대기열에 넣을 수 있으며 YouTube 재생목록과 오디오만 받기도 지원합니다. 분리된 오디오와 비디오를 합치려면 FFmpeg가 필요합니다."
+	},
+	"added": "2026-11-05T00:54:53Z",
+	"icon": {
+		"file": "videodown.webp"
+	},
+	"screenshot": "videodown.webp"
+}
