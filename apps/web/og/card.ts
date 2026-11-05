@@ -5,6 +5,7 @@ import type { App } from '@awesome-mygo/catalog';
 import { type CSSProperties, type ReactNode, createElement } from 'react';
 import satori, { type Font, type FontWeight } from 'satori';
 import sharp from 'sharp';
+import { type NotoIndex, WEIGHTS, fetchRetry, googleFace, notoFamily } from './noto';
 
 export const CARD_WIDTH = 1200;
 export const CARD_HEIGHT = 630;
@@ -39,7 +40,7 @@ export async function asPng(input: Buffer, width: number, height: number): Promi
 // An image under public/ (a path such as /shots/x.webp) or on the ai-logo CDN.
 async function imageBytes(src: string, publicDir: string, slug: string): Promise<Buffer> {
 	if (src.startsWith('/')) return readFile(join(publicDir, src));
-	const res = await fetch(src);
+	const res = await fetchRetry(src);
 	if (!res.ok) throw new Error(`share card for ${slug}: ${src} answered ${res.status}`);
 	return Buffer.from(await res.arrayBuffer());
 }
@@ -56,64 +57,28 @@ export function latinFonts(fontDir: string): Promise<Font[]> {
 	return latin;
 }
 
-// The bundled fonts cover Latin only. Text in another script (an app named 留白, an author with a Korean name) is set in the matching Noto family, fetched from Google Fonts subset to just the characters on the card, as the full CJK fonts are about 10 MB a weight. Satori files every Han character under ja-JP, so the family is picked from the characters themselves.
-const NOTO: Record<string, string> = {
-	'ko-KR': 'Noto Sans KR',
-	'zh-TW': 'Noto Sans TC',
-	'zh-HK': 'Noto Sans TC',
-	'th-TH': 'Noto Sans Thai',
-	'bn-IN': 'Noto Sans Bengali',
-	'ar-AR': 'Noto Sans Arabic',
-	'ta-IN': 'Noto Sans Tamil',
-	'ml-IN': 'Noto Sans Malayalam',
-	'he-IL': 'Noto Sans Hebrew',
-	'te-IN': 'Noto Sans Telugu',
-	devanagari: 'Noto Sans Devanagari',
-	kannada: 'Noto Sans Kannada',
-	symbol: 'Noto Sans Symbols 2',
-	math: 'Noto Sans Math',
-};
-
-function notoFamily(code: string, segment: string): string {
-	if (code === 'ko-KR' || /\p{scx=Hangul}/u.test(segment)) return 'Noto Sans KR';
-	if (/\p{scx=Hira}|\p{scx=Kana}/u.test(segment)) return 'Noto Sans JP';
-	if (code === 'ja-JP' || code === 'zh-CN' || /\p{scx=Han}/u.test(segment)) return NOTO[code] ?? 'Noto Sans SC';
-	return NOTO[code] ?? 'Noto Sans';
-}
-
-// Google Fonts answers a client that is not a browser with TrueType, the format satori reads.
-async function googleFont(family: string, weight: FontWeight, text: string): Promise<ArrayBuffer | undefined> {
-	const css = await fetch(`https://fonts.googleapis.com/css2?family=${family.replaceAll(' ', '+')}:wght@${weight}&text=${encodeURIComponent(text)}`);
-	if (!css.ok) return undefined;
-	const url = (await css.text()).match(/src: url\((.+?)\)/)?.[1];
-	if (!url) return undefined;
-	const font = await fetch(url);
-	if (!font.ok) throw new Error(`share card font ${family} ${weight}: ${url} answered ${font.status}`);
-	return font.arrayBuffer();
-}
-
-// Each weight the card sets text in. A family without that weight (most Noto families outside CJK stop short of 800) falls back to its regular face.
-const WEIGHTS: FontWeight[] = [800, 500];
+// The bundled fonts cover Latin only. Text in another script (an app named 留白, an author with a Korean name) is set in the matching Noto family (noto.ts), which the full CJK fonts, about 10 MB a weight, make too large to bundle whole: scripts/og-fonts.ts subsets the families to the characters the catalog holds, into og/fonts with noto.json. A character no subset holds yet, as in an app added since, is fetched from Google Fonts subset to just that text, and the build says to run the script again.
+let index: Promise<NotoIndex> | undefined;
+const notoIndex = (fontDir: string) => (index ??= readFile(join(fontDir, 'noto.json'), 'utf8').then((t) => JSON.parse(t) as NotoIndex));
 
 const extra = new Map<string, Promise<Font[]>>();
-function extraFonts(code: string, segment: string): Promise<Font[]> {
+function extraFonts(fontDir: string, code: string, segment: string): Promise<Font[]> {
 	const key = `${code}\n${segment}`;
 	let fonts = extra.get(key);
-	if (!fonts) extra.set(key, (fonts = fetchExtraFonts(code, segment)));
+	if (!fonts) extra.set(key, (fonts = loadExtraFonts(fontDir, code, segment)));
 	return fonts;
 }
 
-async function fetchExtraFonts(code: string, segment: string): Promise<Font[]> {
+async function loadExtraFonts(fontDir: string, code: string, segment: string): Promise<Font[]> {
 	// Colour emoji need SVG glyph images rather than a font; an emoji in a name is left out of the card.
 	if (code === 'emoji') return [];
 	const family = notoFamily(code, segment);
-	return Promise.all(
-		WEIGHTS.map(async (weight): Promise<Font> => {
-			const data = (await googleFont(family, weight, segment)) ?? (await googleFont(family, 400, segment));
-			if (!data) throw new Error(`share card: Google Fonts has no ${family} for ${JSON.stringify(segment)}`);
-			return { name: family, data, weight };
-		}),
-	);
+	const local = (await notoIndex(fontDir))[family];
+	if (local && [...segment].every((ch) => !ch.trim() || local.text.includes(ch))) {
+		return Promise.all(WEIGHTS.map(async (weight): Promise<Font> => ({ name: family, data: await readFile(join(fontDir, local.files[String(weight)])), weight: weight as FontWeight })));
+	}
+	console.warn(`share card: og/fonts has no ${family} for ${JSON.stringify(segment)}, so it comes from Google Fonts; run node apps/web/scripts/og-fonts.ts to add it.`);
+	return Promise.all(WEIGHTS.map(async (weight): Promise<Font> => ({ name: family, data: await googleFace(family, weight, segment), weight: weight as FontWeight })));
 }
 
 // ---- layout ----
@@ -183,6 +148,6 @@ export async function renderCard(app: App, paths: Paths): Promise<Buffer> {
 		readFile(join(paths.publicDir, 'icon-192.png')).then((b) => asPng(b, 48, 48)),
 		latinFonts(paths.fontDir),
 	]);
-	const svg = await satori(card(app, { icon, shot, site }), { width: CARD_WIDTH, height: CARD_HEIGHT, fonts, loadAdditionalAsset: extraFonts });
+	const svg = await satori(card(app, { icon, shot, site }), { width: CARD_WIDTH, height: CARD_HEIGHT, fonts, loadAdditionalAsset: (code, segment) => extraFonts(paths.fontDir, code, segment) });
 	return sharp(Buffer.from(svg)).png().toBuffer();
 }
