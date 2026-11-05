@@ -37,7 +37,7 @@ function ShowcasePage() {
 	);
 
 	return (
-		<section className='page enter gap-8'>
+		<section className='page enter gap-8 max-sm:gap-5'>
 			<div className='flex flex-wrap items-end justify-between gap-6'>
 				<div className='flex flex-col gap-3.5'>
 					<span className='kicker'>~/SHOWCASE</span>
@@ -73,32 +73,33 @@ function ShowcasePage() {
 			<div className={showGrid}>
 				{list.map((a, k) => {
 					const v = appView(a);
-					// On a showcase card the like button sits over the card's top right, beside its link rather than inside it, and rises with the card on hover; hovering either lifts the card (as .win:hover does for the card alone). The card is a link to the app's page that keeps the look it had as a button instead of the link colour and underline.
+					// On a showcase card the like button sits over the card's top right, beside its link rather than inside it, and rises with the card on hover; below sm the card's body is 14px in from its edges instead of 18px, and the button moves in with it, still level with the tile; hovering either lifts the card (as .win:hover does for the card alone). The card is a link to the app's page that keeps the look it had as a button instead of the link colour and underline.
 					return (
 						<div key={a.slug} className={`rv d${k % 6} group relative flex`}>
 							<AppLink slug={a.slug} className='win card rounded-[14px] text-fg no-underline group-hover:[transform:translateY(-6px)] group-hover:border-cyan group-hover:shadow-[0_0_0_1px_var(--color-cyan),0_28px_70px_rgba(63,211,245,0.16)] motion-reduce:group-hover:[transform:none]' dialog>
 								<WinBar label={v.host} size='md' className='card-bar h-[30px]'>
 									<span className='font-mono text-[11px] text-fg-3'>{v.num}</span>
 								</WinBar>
-								<div className='box-border flex w-full flex-auto flex-col gap-3 p-[18px]'>
+								<div className='box-border flex w-full flex-auto flex-col gap-3 p-[18px] max-sm:gap-2.5 max-sm:p-3.5'>
 									<div className={`${showId} pr-[72px]`}>
 										<MonoTile view={v} size={44} />
 										<div className={showIdText}>
 											<h2 className={showName}>{a.name}</h2>
-											{/* Below sm the author takes the line and the kind tag goes under it: beside the like button's reserve, the tag left a Japanese author no room past "by…". */}
+											{/* Below sm the kind tag goes under the author when the two do not fit on one line: beside the like button's reserve, a tag kept beside a Japanese author left it no room past "by…". A short author keeps the tag on its line, so the card is a line shorter. */}
 											<span className='flex min-w-0 items-center gap-2 max-sm:flex-wrap max-sm:gap-y-1 [&_.kind-tag]:flex-none [&_.kind-tag]:self-auto'>
-												<span className={`${showBy} max-sm:flex-[1_0_100%]`} title={a.author}>
+												<span className={showBy} title={a.author}>
 													<span lang='en'>by</span> {a.author}
 												</span>
 												<KindTag app={a} label={a.kind === 'native' ? t.surf_native : t.web_fe} />
 											</span>
 										</div>
 									</div>
-									<span className={showDesc}>{pick(a.desc, lang)}</span>
+									{/* Below sm the description stops at two lines, so a phone shows more cards per screen; the whole text is on the app's page, which the card opens. */}
+									<span className={`${showDesc} max-sm:line-clamp-2`}>{pick(a.desc, lang)}</span>
 								</div>
 								<ScoreBar item={likeKey.app(a)} name={a.name} />
 							</AppLink>
-							<LikeButton item={likeKey.app(a)} name={a.name} className='like-btn absolute top-[46px] right-4 group-hover:[transform:translateY(-6px)] motion-reduce:group-hover:[transform:none]' />
+							<LikeButton item={likeKey.app(a)} name={a.name} className='like-btn absolute top-[46px] right-4 max-sm:right-3 group-hover:[transform:translateY(-6px)] motion-reduce:group-hover:[transform:none]' />
 						</div>
 					);
 				})}

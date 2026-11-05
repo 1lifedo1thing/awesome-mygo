@@ -37,7 +37,7 @@ function StatePage() {
 	const listed = STATE_SOLUTIONS.length > 0;
 
 	return (
-		<section className='page enter gap-10'>
+		<section className='page enter gap-10 max-sm:gap-6'>
 			<div className='flex flex-col gap-3.5'>
 				<span className='kicker inline-flex items-center gap-2.5 text-amber'>
 					<span className={`size-2 rounded-full bg-amber ${listed ? '' : 'pulse'}`} />
