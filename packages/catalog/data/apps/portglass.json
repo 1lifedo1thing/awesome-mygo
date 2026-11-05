@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "portglass",
+	"name": "PortGlass",
+	"author": "liangzhiyu",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/liangzhiyu/portglass",
+	"repo": "liangzhiyu/portglass",
+	"summary": {
+		"en": "Watch the HTTP requests and responses passing through a port, in a native macOS window.",
+		"zh-CN": "输入端口，在原生 Mac 窗口中查看经过它的 HTTP 请求与响应。",
+		"zh-TW": "輸入連接埠，在原生 Mac 視窗中查看經過它的 HTTP 請求與回應。",
+		"ja": "ポートを通る HTTP のリクエストとレスポンスを、ネイティブな Mac アプリで確認。",
+		"ko": "포트를 지나는 HTTP 요청과 응답을 네이티브 Mac 창에서 확인합니다."
+	},
+	"description": {
+		"en": "A macOS port inspector for Apple Silicon, drawn with MyGo's native UI. Like ngrep, it passively captures traffic on the ports you enter through libpcap, with no proxy, pairs HTTP/1.x requests with their responses and shows body, headers, raw bytes or hex. HTTPS is not decrypted, and captures stay in memory unless you export the session as JSON.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 端口抓包工具，支持 Apple 芯片。它像 ngrep 一样通过 libpcap 被动抓取所输入端口的流量，不建立代理；将 HTTP/1.x 请求与响应配对，提供 Body、Headers、Raw、Hex 视图。HTTPS 不解密，抓包结果只保存在内存中，除非手动导出为 JSON。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS 連接埠封包擷取工具，支援 Apple 晶片。它像 ngrep 一樣透過 libpcap 被動擷取所輸入連接埠的流量，不架設代理；將 HTTP/1.x 請求與回應配對，提供 Body、Headers、Raw、Hex 檢視。HTTPS 不解密，擷取結果只存在記憶體中，除非手動匯出為 JSON。",
+		"ja": "MyGo のネイティブ UI で描かれた、Apple シリコン Mac 向けのポートインスペクター。ngrep のように libpcap で指定ポートの通信を受動的にキャプチャし、プロキシは立てません。HTTP/1.x のリクエストとレスポンスを対にして、Body・Headers・Raw・Hex で表示します。HTTPS は復号せず、キャプチャ結果は JSON で書き出さない限りメモリ上にだけ残ります。",
+		"ko": "MyGo의 네이티브 UI로 그린 Apple Silicon Mac용 포트 인스펙터입니다. ngrep처럼 libpcap으로 지정한 포트의 트래픽을 패시브 방식으로 캡처하며 프록시를 두지 않습니다. HTTP/1.x 요청과 응답을 짝지어 Body, Headers, Raw, Hex로 보여 줍니다. HTTPS는 복호화하지 않으며, 캡처 결과는 JSON으로 내보내지 않는 한 메모리에만 남습니다."
+	},
+	"icon": {
+		"file": "portglass.webp"
+	},
+	"screenshot": "portglass.webp",
+	"added": "2026-11-05T12:35:14Z"
+}
