@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "proxy-bridge",
+	"name": "Proxy Bridge",
+	"author": "Binaryify",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/Binaryify/proxy-bridge",
+	"repo": "Binaryify/proxy-bridge",
+	"summary": {
+		"en": "A macOS menu bar app that sends all or chosen apps through an HTTP, HTTPS or SOCKS5 proxy.",
+		"zh-CN": "Mac 菜单栏工具，让全部或选中应用走 HTTP、HTTPS、SOCKS5 代理。",
+		"zh-TW": "Mac 選單列工具，讓全部或指定的程式走 HTTP、HTTPS、SOCKS5 代理。",
+		"ja": "Mac の全アプリまたは選んだアプリの通信を既存のプロキシに通す、メニューバーアプリ。",
+		"ko": "모든 앱이나 고른 앱을 HTTP·HTTPS·SOCKS5 프록시로 보내는 Mac 메뉴 막대 앱."
+	},
+	"description": {
+		"en": "A macOS menu bar app drawn with MyGo's native UI that turns an existing HTTP, HTTPS or SOCKS5 proxy into a TUN interface, built on sing-box. All apps or only the ones you tick go through it, including programs and command-line tools that ignore the system proxy, while the rest connect directly. It takes a single upstream, with no nodes, rules or subscriptions; builds are for Apple silicon only.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 菜单栏应用，以精简编译的 sing-box 为内核，把现成的 HTTP、HTTPS 或 SOCKS5 代理变成虚拟网卡（TUN）。全部应用或勾选的应用走代理，不认系统代理的程序和命令行工具也能接管，其余直连。只接一个上游，没有节点、规则和订阅；目前只有 Apple 芯片的构建。",
+		"zh-TW": "以 MyGo 原生 UI 繪製的 macOS 選單列 App，以精簡編譯的 sing-box 為核心，把現成的 HTTP、HTTPS 或 SOCKS5 代理變成虛擬網卡（TUN）。全部或勾選的應用程式走代理，不吃系統代理設定的程式和命令列工具也能接管，其餘直連。只接一個上游，沒有節點、規則和訂閱；目前只有 Apple 晶片的版本。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS のメニューバーアプリ。軽量ビルドの sing-box を使い、手元の HTTP・HTTPS・SOCKS5 プロキシを TUN デバイスに変えます。すべてのアプリか、チェックしたアプリだけをプロキシに通し、システムプロキシを無視するアプリやコマンドラインツールも対象にでき、それ以外は直接接続します。上流は一つだけで、ノードやルール、サブスクリプションはありません。ビルドは今のところ Apple シリコン向けのみです。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS 메뉴 막대 앱으로, 경량 빌드한 sing-box로 기존 HTTP·HTTPS·SOCKS5 프록시를 TUN 인터페이스로 바꿉니다. 모든 앱 또는 체크한 앱만 프록시를 거치며, 시스템 프록시를 따르지 않는 프로그램과 명령줄 도구도 잡아내고 나머지는 직접 연결합니다. 업스트림은 하나뿐이고 노드, 규칙, 구독은 없으며, 현재 Apple 실리콘용 빌드만 있습니다."
+	},
+	"icon": {
+		"file": "proxy-bridge.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "proxy-bridge.webp",
+	"added": "2026-11-05T05:02:32Z"
+}
