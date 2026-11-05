@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "smartimage-toolkit",
+	"name": "SmartImage-Toolkit",
+	"author": "Shirolin",
+	"kind": "native",
+	"group": "media",
+	"url": "https://github.com/Shirolin/SmartImage-Toolkit",
+	"repo": "Shirolin/SmartImage-Toolkit",
+	"summary": {
+		"en": "Batch image conversion, resizing, trimming and grid slicing for Windows, run locally.",
+		"zh-CN": "本地运行的 Windows 图片批量工具：格式转换、缩放、去边与网格切图。",
+		"zh-TW": "在本機執行的 Windows 圖片批次工具：格式轉換、縮放、去邊與網格切圖。",
+		"ja": "Windows 向けのローカル画像一括処理ツール。形式変換、リサイズ、余白除去、グリッド分割。",
+		"ko": "Windows용 로컬 이미지 일괄 처리 도구: 형식 변환, 크기 조정, 여백 제거, 격자 분할."
+	},
+	"description": {
+		"en": "A native Windows desktop rewrite, drawn with MyGo's native UI, of a local batch image toolkit whose stable version still runs on Node.js. It queues files for conversion to WebP and other formats, resizing, trimming, cropping, centering and padding to a target aspect ratio, and has a grid slicing editor for up to 500 pieces. Images never leave the machine. AI background removal is not yet in the Go version.",
+		"zh-CN": "一款本地批量图片工具的 Windows 原生桌面重写版，用 MyGo 原生 UI 绘制；稳定版仍是 Node.js 实现。它把文件排入队列，转换为 WebP 等格式，并可缩放、去边、裁剪、主体居中和按目标比例扩边，还有最多 500 片的网格切图编辑器，图片不出本机。AI 抠图尚未移植到 Go 版本。",
+		"zh-TW": "一款本機批次圖片工具的 Windows 原生桌面重寫版，以 MyGo 原生 UI 繪製；穩定版仍是 Node.js 實作。它把檔案排入佇列，轉換為 WebP 等格式，並可縮放、去邊、裁切、主體置中和依目標比例擴邊，還有最多 500 片的網格切圖編輯器，圖片不離開本機。AI 去背尚未移植到 Go 版本。",
+		"ja": "ローカルで動く画像一括処理ツールを Windows 向けのネイティブデスクトップアプリとして書き直したもので、MyGo のネイティブ UI で描かれています。安定版は今も Node.js 実装です。ファイルをキューに入れて WebP などへの形式変換、リサイズ、余白除去、トリミング、被写体の中央寄せ、目標比率へのキャンバス拡張を行え、最大 500 枚まで分割できるグリッド切り出しエディターも備えます。画像は PC の外に出ません。AI による背景除去はまだ Go 版に移されていません。",
+		"ko": "로컬에서 실행되는 이미지 일괄 처리 도구를 Windows용 네이티브 데스크톱 앱으로 다시 작성한 것으로, MyGo의 네이티브 UI로 그립니다. 안정 버전은 여전히 Node.js 구현입니다. 파일을 대기열에 넣어 WebP 등으로 형식을 변환하고, 크기 조정, 여백 제거, 자르기, 피사체 가운데 정렬, 목표 비율로 캔버스 확장을 할 수 있으며, 최대 500조각까지 나누는 격자 분할 편집기도 있습니다. 이미지는 PC 밖으로 나가지 않습니다. AI 배경 제거는 아직 Go 버전에 없습니다."
+	},
+	"icon": {
+		"file": "smartimage-toolkit.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "smartimage-toolkit.webp",
+	"added": "2026-11-05T16:30:17Z"
+}
