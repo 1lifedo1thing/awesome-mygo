@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "voicemore",
+	"name": "Voicemore",
+	"author": "wherexml",
+	"kind": "native",
+	"group": "ai",
+	"url": "https://github.com/wherexml/Voicemore",
+	"repo": "wherexml/Voicemore",
+	"summary": {
+		"en": "Native macOS dictation: press Fn, speak, and the text goes into the app you are using.",
+		"zh-CN": "原生 macOS 听写工具：按下 Fn 说话，文字直接输入当前应用。",
+		"zh-TW": "原生 macOS 聽寫工具：按下 Fn 說話，文字直接輸入目前的應用程式。",
+		"ja": "ネイティブな macOS 音声入力アプリ。Fn を押して話すと、使用中のアプリに文字が入る。",
+		"ko": "네이티브 macOS 받아쓰기 앱. Fn을 누르고 말하면 사용 중인 앱에 글이 입력됩니다."
+	},
+	"description": {
+		"en": "A dictation app for Apple Silicon Macs on macOS 26.2 or later, drawn with MyGo's native UI. Press Fn, speak and press Fn again to insert text into the focused app, recognized on the Mac, offline once the model is downloaded, or by a cloud provider you set up. It can also clean up or translate the text and keeps a history with recordings and a personal dictionary.",
+		"zh-CN": "适用于 macOS 26.2 及以上、Apple Silicon Mac 的听写应用，由 MyGo 原生 UI 绘制。按一下 Fn 开始说话，再按一下即可把文字输入当前聚焦的应用；语音可在本机识别，下载模型后可离线使用，也可交给你配置的云端服务。它还能整理或翻译文字，并保存转写历史、录音和个人词典。",
+		"zh-TW": "適用於 macOS 26.2 以上、Apple Silicon Mac 的聽寫應用程式，由 MyGo 原生 UI 繪製。按一下 Fn 開始說話，再按一下即可把文字輸入目前聚焦的應用程式；語音可在本機辨識，下載模型後可離線使用，也可交給你設定的雲端服務。它還能整理或翻譯文字，並保存轉寫紀錄、錄音和個人詞典。",
+		"ja": "macOS 26.2 以降の Apple Silicon Mac 向け音声入力アプリで、MyGo のネイティブ UI で描かれています。Fn を押して話し、もう一度 Fn を押すと、フォーカス中のアプリに文字が入ります。認識は Mac 上で行え、モデルをダウンロードした後はオフラインでも使えるほか、自分で設定したクラウドサービスも選べます。テキストの整形や翻訳もでき、文字起こしの履歴、録音、個人辞書を残せます。",
+		"ko": "macOS 26.2 이상의 Apple Silicon Mac용 받아쓰기 앱으로, MyGo의 네이티브 UI로 그렸습니다. Fn을 누르고 말한 뒤 다시 Fn을 누르면 포커스된 앱에 텍스트가 입력됩니다. 음성 인식은 Mac에서 직접 할 수 있어 모델을 내려받은 뒤에는 오프라인으로도 쓸 수 있고, 직접 설정한 클라우드 서비스를 쓸 수도 있습니다. 텍스트 정리와 번역도 하며, 받아쓰기 기록, 녹음, 개인 사전을 남깁니다."
+	},
+	"icon": {
+		"file": "voicemore.webp"
+	},
+	"screenshot": "voicemore.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T14:57:25Z"
+}
