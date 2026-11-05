@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "pitstop",
+	"name": "pitstop",
+	"author": "Bush2021",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/Bush2021/pitstop",
+	"repo": "Bush2021/pitstop",
+	"summary": {
+		"en": "Configures Chrome++ Next and sets up, updates and rolls back portable Chrome on Windows.",
+		"zh-CN": "配置 Chrome++ Next，并安装、更新、回滚便携版 Chrome。",
+		"zh-TW": "設定 Chrome++ Next，並安裝、更新、回復可攜版 Chrome。",
+		"ja": "Chrome++ Next の設定とポータブル版 Chrome の導入・更新・ロールバック。",
+		"ko": "Chrome++ Next를 설정하고 포터블 Chrome을 설치·업데이트·롤백하는 Windows 앱."
+	},
+	"description": {
+		"en": "A portable Windows x64 app drawn with MyGo's native UI. It edits Chrome++ Next settings such as tab and mouse behavior, hotkeys and the boss key without hand-editing chrome++.ini, previews the diff before saving and keeps comments and key order. It sets up portable Chrome and updates it and Chrome++ Next manually, after asking or automatically, keeping replaced versions so you can roll back.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的便携 Windows x64 应用。它以图形界面管理 Chrome++ Next 的标签页与鼠标行为、快捷键、老板键等设置，不必手动编辑 chrome++.ini，保存前可预览差异，并保留注释与键的顺序。它还能部署便携版 Chrome，以手动、先询问或自动方式更新 Chrome 与 Chrome++ Next，并保留被替换的版本以便回滚。",
+		"zh-TW": "以 MyGo 原生 UI 繪製的可攜式 Windows x64 應用程式。它以圖形介面管理 Chrome++ Next 的分頁與滑鼠行為、快速鍵、老闆鍵等設定，不必手動編輯 chrome++.ini，儲存前可預覽差異，並保留註解與鍵的順序。它也能安裝可攜版 Chrome，以手動、先詢問或自動方式更新 Chrome 與 Chrome++ Next，並保留被取代的版本以便回復。",
+		"ja": "MyGo のネイティブ UI で描かれた、Windows x64 向けのポータブルアプリ。Chrome++ Next のタブやマウスの動作、ホットキー、ボスキーなどの設定を、chrome++.ini を手で編集せずに変更できます。保存前に差分を確認でき、コメントやキーの順序も保たれます。ポータブル版 Chrome の導入も行い、Chrome と Chrome++ Next を手動、確認後、自動のいずれかで更新し、置き換えた版を残してロールバックできます。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows x64용 포터블 앱입니다. chrome++.ini를 직접 고치지 않고 Chrome++ Next의 탭·마우스 동작, 단축키, 보스 키 등을 설정하며, 저장 전에 변경 사항을 미리 확인하고 주석과 키 순서를 유지합니다. 포터블 Chrome을 설치하고 Chrome과 Chrome++ Next를 수동, 확인 후, 자동 방식으로 업데이트하며, 교체된 버전을 남겨 롤백할 수 있습니다."
+	},
+	"icon": {
+		"file": "pitstop.webp"
+	},
+	"screenshot": "pitstop.webp",
+	"added": "2026-11-05T02:43:19Z"
+}
