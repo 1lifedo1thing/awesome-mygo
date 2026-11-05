@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mytools",
+	"name": "mytools",
+	"author": "yinshuwei",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/yinshuwei/mytools",
+	"repo": "yinshuwei/mytools",
+	"summary": {
+		"en": "Developer toolbox: JSON, encoders, timestamps, QR codes, a calculator, Git repos and screenshots.",
+		"zh-CN": "开发者工具箱：JSON、编解码、时间戳、二维码、计算器、Git 仓库与截图。",
+		"zh-TW": "開發者工具箱：JSON、編解碼、時間戳、QR Code、計算機、Git 儲存庫與截圖。",
+		"ja": "開発ツール集。JSON、エンコード、時刻変換、QR コード、電卓、Git リポジトリ、画面キャプチャ。",
+		"ko": "개발자 도구 모음: JSON, 인코딩, 타임스탬프, QR 코드, 계산기, Git 저장소, 스크린샷."
+	},
+	"description": {
+		"en": "A developer toolbox for Linux, macOS and Windows, drawn with MyGo's native UI. It formats and searches JSON, encodes and decodes Base64, URL and Hex, converts timestamps, makes and reads QR codes, has a calculator that works as you type, and scans a folder for Git repositories to show their status and pull or push. A global shortcut takes screenshots to annotate, and closing the window keeps it in the tray.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的开发者工具箱，支持 Linux、macOS 与 Windows。可以美化并查找 JSON，做 Base64、URL、Hex 编解码，转换时间戳，生成和解码二维码，边打边算，还能扫描文件夹里的 Git 仓库，查看状态并拉取、推送。全局快捷键截图后可直接标注，关掉窗口后它仍留在托盘里。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的開發者工具箱，支援 Linux、macOS 與 Windows。可美化並搜尋 JSON，做 Base64、URL、Hex 編解碼，轉換時間戳記，產生與解碼 QR Code，邊打邊算，還能掃描資料夾裡的 Git 儲存庫，查看狀態並拉取、推送。全域快捷鍵截圖後可直接標註，關掉視窗後仍留在系統匣。",
+		"ja": "MyGo のネイティブ UI で描かれた、Linux・macOS・Windows 向けの開発者ツール集。JSON の整形と検索、Base64・URL・Hex のエンコードとデコード、タイムスタンプ変換、QR コードの生成と読み取り、入力しながら計算する電卓に加え、フォルダー内の Git リポジトリを洗い出して状態を表示し、pull や push もできます。グローバルショートカットで撮ったスクリーンショットにはその場で注釈を入れられ、ウィンドウを閉じてもトレイに残ります。",
+		"ko": "MyGo의 네이티브 UI로 그린 Linux·macOS·Windows용 개발자 도구 모음입니다. JSON 정리와 검색, Base64·URL·Hex 인코딩과 디코딩, 타임스탬프 변환, QR 코드 생성과 해독, 입력하며 바로 계산하는 계산기를 갖췄고, 폴더 안의 Git 저장소를 찾아 상태를 보여 주고 pull과 push도 합니다. 전역 단축키로 찍은 스크린샷에 바로 주석을 달 수 있고, 창을 닫아도 트레이에 남습니다."
+	},
+	"icon": {
+		"file": "mytools.webp"
+	},
+	"screenshot": "mytools.webp",
+	"added": "2026-11-05T14:05:27Z"
+}
