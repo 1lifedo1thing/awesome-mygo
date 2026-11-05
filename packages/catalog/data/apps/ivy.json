@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "ivy",
+	"name": "Ivy",
+	"author": "xwjdsh",
+	"kind": "web",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/xwjdsh/ivy",
+	"repo": "xwjdsh/ivy",
+	"summary": {
+		"en": "The Mac app of Ivy, a personal AI agent that runs on Anthropic- or OpenAI-compatible models.",
+		"zh-CN": "Ivy 的 Mac 版，兼容 Anthropic 与 OpenAI 接口的 AI 助手。",
+		"zh-TW": "Ivy 的 Mac 版，相容 Anthropic 與 OpenAI 介面的 AI 助理。",
+		"ja": "AI エージェント Ivy の Mac アプリ。Anthropic・OpenAI 互換のモデルで動く。",
+		"ko": "개인 AI 에이전트 Ivy의 Mac 앱. Anthropic·OpenAI 호환 모델로 동작."
+	},
+	"description": {
+		"en": "The Mac app of Ivy, a personal AI agent that runs on any model behind Anthropic's Messages API or OpenAI's Chat Completions; you set the provider and its key in config.toml or the app's Settings. The app and its ivy command keep config, sessions and traces in ~/.ivy/. MyGo builds the app around a web frontend; the terminal version is built separately with Bun.",
+		"zh-CN": "个人 AI 助手 Ivy 的 Mac 版。只要模型能通过 Anthropic 的 Messages API 或 OpenAI 的 Chat Completions 调用就能使用，服务商和密钥可在 config.toml 或应用的设置中填写。应用和它的 ivy 命令把配置、会话和追踪记录都存放在 ~/.ivy/。Mac 应用由 MyGo 包装 Web 前端构建，终端版本则用 Bun 另行构建。",
+		"zh-TW": "個人 AI 助理 Ivy 的 Mac 版。只要模型能透過 Anthropic 的 Messages API 或 OpenAI 的 Chat Completions 呼叫就能使用，服務商與金鑰可在 config.toml 或 App 的設定中填寫。App 與它的 ivy 指令會把設定、對話與追蹤紀錄存放在 ~/.ivy/。Mac App 由 MyGo 包裝 Web 前端建置，終端機版本則以 Bun 另行建置。",
+		"ja": "個人向け AI エージェント Ivy の Mac アプリ。Anthropic の Messages API か OpenAI の Chat Completions で使えるモデルならどれでも動き、プロバイダーとキーは config.toml かアプリの設定で指定します。アプリと ivy コマンドは設定、セッション、トレースを ~/.ivy/ に保存します。アプリは MyGo で Web フロントエンドを包んで作られ、ターミナル版は Bun で別にビルドされます。",
+		"ko": "개인 AI 에이전트 Ivy의 Mac 앱입니다. Anthropic의 Messages API나 OpenAI의 Chat Completions로 쓸 수 있는 모델이면 무엇이든 동작하며, 제공자와 키는 config.toml이나 앱의 설정에서 지정합니다. 앱과 ivy 명령은 설정, 세션, 트레이스를 ~/.ivy/에 보관합니다. 앱은 MyGo로 웹 프런트엔드를 감싸 만들었고, 터미널 버전은 Bun으로 따로 빌드합니다."
+	},
+	"icon": {
+		"file": "ivy.webp"
+	},
+	"screenshot": "ivy.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T04:16:52Z"
+}
