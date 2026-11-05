@@ -3,9 +3,10 @@ import { readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { promisify } from 'node:util';
 import { DEFAULT_MODEL, README_LIMIT, type LlmConfig, writeCopy } from './copy.ts';
-import { github, rawFile, rawUrl as rawRepoUrl } from './github.ts';
-import { downloadImage, fetchImage, isDefaultIcon, writeCard, writeIcon, writeShot } from './image.ts';
-import { type ChoiceField, ENTRY_DIRS, STAGED_SHOTS, type Entry, type EntryKind, addedFiles, appNameFrom, formDefaults, hasAllLanguages, homepageOf, iconOf, isArtwork, markProvisional, parseMygoConfig, pickMygoConfig, repoIcons, repoOfEntry, repoShotSources, schemaEnum, setCategory, sniffImage, stagedShotOf, submittedScreenshot } from './source.ts';
+import { github } from './github.ts';
+import { downloadImage, writeCard, writeIcon, writeShot } from './image.ts';
+import { type RepoFacts, type ShotSource, firstShot, ownIcon, repoFacts as readRepoFacts } from './repo.ts';
+import { type ChoiceField, ENTRY_DIRS, STAGED_SHOTS, type Entry, type EntryKind, addedFiles, appNameFrom, formDefaults, hasAllLanguages, homepageOf, markProvisional, repoOfEntry, repoShotSources, schemaEnum, setCategory, sniffImage, stagedShotOf, submittedScreenshot } from './source.ts';
 
 // Run by .github/workflows/enrich-submission.yml on a pull request the submission bot opened, and by discover.ts on each entry it proposes. It finds the entries the branch adds, then for each fills in what the form cannot ask for: an app's icon (from its mygo.json); the screenshot of an app, a UI library or a state management library (the first landscape one in its README, or else in a screenshot folder of the repository); a UI library's or state management library's homepage (from the repository's settings); what the form fills in with a default (an app's category, a UI library's tag and surface, a plugin's surface, the tags of state management and plugins), picked by the model; and the copy in every site language. An entry with a repository is never left without an image: an app without an icon of its own gets its owner's GitHub avatar, and an entry without a screenshot gets the repository's social preview, or else a card drawn here from the owner's avatar, and the report says so. It changes files in the working tree and writes a Markdown report for the pull request; the workflow runs the catalog checks and commits.
 //
@@ -25,61 +26,8 @@ const say = (line: string): void => {
 	report.push(line);
 };
 
-interface RepoFacts {
-	repo: string;
-	branch: string;
-	paths: string[];
-	readme?: { path: string; text: string };
-	// The MyGo configuration, mygo.json or mygo.config.ts, with the fields read from it.
-	mygo?: { path: string; text: string; json: unknown };
-	// The homepage in the repository's settings.
-	homepage?: string | null;
-	// The repository's social preview: the image its owner set, or else the card GitHub draws of its name, description and owner.
-	preview?: { url: string; custom: boolean };
-}
-
-async function repoFacts(repo: string): Promise<RepoFacts | undefined> {
-	const info = await github<{ default_branch: string; private: boolean; homepage: string | null }>(`/repos/${repo}`);
-	if (!info) return undefined;
-	const branch = info.default_branch;
-	const tree = await github<{ tree: { path: string; type: string }[]; truncated: boolean }>(`/repos/${repo}/git/trees/${encodeURIComponent(branch)}?recursive=1`);
-	const paths = (tree?.tree ?? []).filter((t) => t.type === 'blob').map((t) => t.path);
-	const facts: RepoFacts = { repo, branch, paths, homepage: info.homepage };
-	const readme = await github<{ path: string; content: string; encoding: string }>(`/repos/${repo}/readme`);
-	if (readme?.encoding === 'base64') facts.readme = { path: readme.path, text: Buffer.from(readme.content, 'base64').toString('utf8') };
-	const og = await github<{ data?: { repository: { openGraphImageUrl: string; usesCustomOpenGraphImage: boolean } | null } }>('/graphql', { method: 'POST', body: { query: 'query($owner: String!, $name: String!) { repository(owner: $owner, name: $name) { openGraphImageUrl usesCustomOpenGraphImage } }', variables: { owner: repo.split('/')[0], name: repo.split('/')[1] } } }).catch(() => undefined);
-	const preview = og?.data?.repository;
-	if (preview?.openGraphImageUrl) facts.preview = { url: preview.openGraphImageUrl, custom: preview.usesCustomOpenGraphImage };
-	const mygoPath = pickMygoConfig(paths);
-	if (mygoPath) {
-		const text = await rawFile(repo, branch, mygoPath);
-		if (text !== undefined) {
-			try {
-				facts.mygo = { path: mygoPath, text, json: parseMygoConfig(mygoPath, text) };
-			} catch {
-				say(`- \`${mygoPath}\` is not valid JSON, so its icon could not be read.`);
-			}
-		}
-	}
-	return facts;
-}
-
-const rawUrl = (facts: RepoFacts, path: string) => rawRepoUrl(facts.repo, facts.branch, path);
-
-// The app's own icon, where MyGo takes it from, or, without a MyGo configuration to name it (as in a repository that keeps MyGo as a submodule), an icon file where projects usually keep one; written as the app's icon file. Returns the file it came from when there was one, so the screenshot search can pass over the same image, and why there is none otherwise.
-async function ownIcon(slug: string, facts: RepoFacts): Promise<{ path: string; url: string; guessed: boolean } | { why: string; url?: string }> {
-	const found = facts.mygo ? undefined : repoIcons(facts.paths)[0];
-	if (!facts.mygo && !found) return { why: 'the repository has neither a MyGo configuration (mygo.json or mygo.config.ts) nor an icon file where projects usually keep one' };
-	const src = facts.mygo ? iconOf(facts.mygo.path, facts.mygo.json, facts.paths) : { path: found as string };
-	if (!src) return { why: `neither \`${facts.mygo?.path}\` nor resources/ beside it has an icon` };
-	if ('macOnly' in src) return { why: `the app's only icon is \`${src.macOnly}\` (macos.icon), which cannot be converted here` };
-	const url = rawUrl(facts, src.path);
-	const img = await downloadImage(url);
-	if (!img) return { why: `\`${src.path}\` could not be downloaded as a PNG, JPEG or WebP under 10 MB` };
-	if (await isDefaultIcon(img)) return { why: `\`${src.path}\` is MyGo's default icon (as \`mygo init\` leaves it)`, url };
-	if (!(await writeIcon(img, join(ROOT, PUBLIC, 'icons', `${slug}.webp`)))) return { why: `\`${src.path}\` is smaller than 128 px`, url };
-	return { path: src.path, url, guessed: found !== undefined };
-}
+// The repository's facts, with a MyGo configuration that cannot be read noted in the report.
+const repoFacts = (repo: string) => readRepoFacts(repo, say);
 
 // Adds the app's icon: its own, or else its owner's GitHub avatar, so an app with a repository never shows a bare letter tile. Returns where its own icon was taken from, for the screenshot search.
 async function addIcon(entry: Entry, slug: string, facts: RepoFacts): Promise<string | undefined> {
@@ -122,38 +70,21 @@ async function addScreenshot(entry: Entry, slug: string, what: string, facts: Re
 		skipped.push(`\`${staged}\`, uploaded with the form and removed (${result})`);
 	}
 	// picked: the visitor chose the image, so it is taken as it is; the repository's images may be artwork.
-	const sources: { from: string; urls: string[]; tries: number; picked: boolean }[] = [
+	const sources: ShotSource[] = [
 		{ from: 'the link given in the form', urls: submitted ? [submitted] : [], tries: 1, picked: true },
 		...(facts ? repoShotSources(facts).map((s) => ({ ...s, picked: false })) : []),
 		// The last resort, so an entry with a repository is never without an image: the preview its owner set for the repository, or else the card GitHub draws of it.
 		{ from: facts?.preview?.custom ? "the repository's social preview, as no screenshot was found" : "GitHub's card for the repository (its social preview), as no screenshot was found", urls: facts?.preview ? [facts.preview.url] : [], tries: 1, picked: true },
 	];
-	for (const source of sources) {
-		let n = 0;
-		for (const url of source.urls) {
-			if (tried.includes(url)) continue;
-			tried.push(url);
-			if (url === iconUrl) {
-				skipped.push(`${url} (the app icon)`);
-				continue;
-			}
-			if (!source.picked && isArtwork(url)) {
-				skipped.push(`${url} (named as artwork, not a screenshot)`);
-				continue;
-			}
-			const img = await fetchImage(url);
-			const result = typeof img === 'string' ? img : await writeShot(img, out);
-			if (result === 'ok') {
-				entry.screenshot = `${slug}.webp`;
-				// GitHub's own card of the repository stands in; a preview its owner set is the project's image.
-				if (url === facts?.preview?.url && !facts.preview.custom) markProvisional(entry, 'screenshot');
-				const passed = skipped.length ? ` It passed over ${skipped.join(', ')}.` : '';
-				const check = url === facts?.preview?.url ? ' Replace it with a screenshot when there is one.' : ` Check that it shows ${what}.`;
-				return say(`- Screenshot: ${url} from ${source.from}, saved as \`${PUBLIC}/shots/${slug}.webp\`.${check}${passed}`);
-			}
-			skipped.push(`${url} (${result === 'square' ? 'square, likely a logo' : result === 'narrow' ? 'under 600 px wide' : result === 'portrait' ? 'taller than wide' : result === 'banner' ? 'a banner, far wider than a window' : result})`);
-			if (++n >= source.tries) break;
-		}
+	const hit = await firstShot(sources, out, iconUrl, tried, skipped);
+	if (hit) {
+		const { url } = hit;
+		entry.screenshot = `${slug}.webp`;
+		// GitHub's own card of the repository stands in; a preview its owner set is the project's image.
+		if (url === facts?.preview?.url && !facts.preview.custom) markProvisional(entry, 'screenshot');
+		const passed = skipped.length ? ` It passed over ${skipped.join(', ')}.` : '';
+		const check = url === facts?.preview?.url ? ' Replace it with a screenshot when there is one.' : ` Check that it shows ${what}.`;
+		return say(`- Screenshot: ${url} from ${hit.from}, saved as \`${PUBLIC}/shots/${slug}.webp\`.${check}${passed}`);
 	}
 	// Nothing the project has, nor GitHub's card: a card drawn here from the owner's avatar, so the entry is not left without an image.
 	const passed = skipped.length ? ` The images tried: ${skipped.join(', ')}.` : '';
