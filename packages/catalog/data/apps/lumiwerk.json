@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "lumiwerk",
+	"name": "Lumiwerk",
+	"author": "mcxen",
+	"kind": "native",
+	"category": "MultimediaApplication",
+	"url": "https://github.com/mcxen/lumiwerk",
+	"repo": "mcxen/lumiwerk",
+	"summary": {
+		"en": "A native media browser: open a folder and browse its media, with video playback via FFmpeg.",
+		"zh-CN": "原生媒体浏览器：打开文件夹浏览其中的媒体，借助 FFmpeg 播放视频。",
+		"zh-TW": "原生媒體瀏覽器：開啟資料夾瀏覽其中的媒體，透過 FFmpeg 播放影片。",
+		"ja": "ネイティブなメディアブラウザ。フォルダーを開いて中のメディアを閲覧し、FFmpeg で動画も再生。",
+		"ko": "네이티브 미디어 브라우저. 폴더를 열어 미디어를 둘러보고 FFmpeg로 동영상도 재생합니다."
+	},
+	"description": {
+		"en": "A media browser for macOS, Windows and Linux, written in Go and drawn with MyGo's native UI. You open a folder from the menu, with Cmd+O or by dragging it onto the window, and browse its media with thumbnails. Video playback and the video tools need FFmpeg installed separately. A diagnostics panel shows recent warnings, errors and runtime metrics, backed by a rotating log.",
+		"zh-CN": "用 Go 编写、由 MyGo 原生 UI 绘制的媒体浏览器，支持 macOS、Windows 与 Linux。可从菜单或按 Cmd+O 打开文件夹，也可直接把文件夹拖进窗口，以缩略图浏览其中的媒体；视频播放和视频工具需另行安装 FFmpeg。诊断面板可查看最近的警告、错误和运行指标，并有滚动日志留存记录。",
+		"zh-TW": "用 Go 撰寫、由 MyGo 原生 UI 繪製的媒體瀏覽器，支援 macOS、Windows 與 Linux。可從選單或按 Cmd+O 開啟資料夾，也能直接把資料夾拖進視窗，以縮圖瀏覽其中的媒體；影片播放和影片工具需另行安裝 FFmpeg。診斷面板可查看最近的警告、錯誤和執行指標，並有輪替日誌留存紀錄。",
+		"ja": "Go で書かれ、MyGo のネイティブ UI で描かれた macOS・Windows・Linux 向けのメディアブラウザ。フォルダーはメニューか Cmd+O で開くか、ウィンドウにドラッグして読み込み、中のメディアをサムネイルで閲覧できます。動画の再生と動画ツールには別途 FFmpeg のインストールが必要です。診断パネルでは直近の警告やエラー、実行時の指標を確認でき、ローテーションするログにも記録されます。",
+		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 macOS·Windows·Linux용 미디어 브라우저입니다. 메뉴나 Cmd+O로 폴더를 열거나 창에 폴더를 끌어다 놓으면 안의 미디어를 썸네일로 둘러볼 수 있습니다. 동영상 재생과 동영상 도구를 쓰려면 FFmpeg를 따로 설치해야 합니다. 진단 패널에서 최근 경고와 오류, 런타임 지표를 확인할 수 있고, 순환 로그에도 기록됩니다."
+	},
+	"icon": {
+		"file": "lumiwerk.webp"
+	},
+	"screenshot": "lumiwerk.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T05:02:32Z"
+}
