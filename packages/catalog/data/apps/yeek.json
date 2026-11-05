@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "yeek",
+	"name": "Yeek",
+	"author": "tacshi",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/tacshi/Yeek",
+	"repo": "tacshi/Yeek",
+	"summary": {
+		"en": "A native API client for HTTP, GraphQL, gRPC and WebSocket, with environments and Git sync.",
+		"zh-CN": "原生 API 客户端，支持 HTTP、GraphQL、gRPC、WebSocket。",
+		"zh-TW": "原生 API 用戶端，支援 HTTP、GraphQL、gRPC、WebSocket。",
+		"ja": "HTTP・GraphQL・gRPC・WebSocket に対応したネイティブ API クライアント。",
+		"ko": "HTTP, GraphQL, gRPC, WebSocket을 지원하는 네이티브 API 클라이언트."
+	},
+	"description": {
+		"en": "A desktop API client for macOS and Windows, drawn entirely with MyGo's native UI; the system web view is used only for HTML, PDF and media previews and OAuth sign-in. It sends HTTP, GraphQL, gRPC and WebSocket requests with environments, templates and many auth schemes, imports from Postman, Insomnia, OpenAPI, Bruno and cURL, and syncs workspaces to YAML files and Git.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 与 Windows API 客户端，系统 Web 视图仅用于预览 HTML、PDF 与媒体响应及 OAuth 登录。支持 HTTP、GraphQL、gRPC 与 WebSocket 请求，提供环境、模板和多种认证方式；可从 Postman、Insomnia、OpenAPI、Bruno 与 cURL 导入，工作区能同步为 YAML 文件并用 Git 管理。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS 與 Windows API 用戶端，系統 Web 視圖僅用於預覽 HTML、PDF 與媒體回應及 OAuth 登入。支援 HTTP、GraphQL、gRPC 與 WebSocket 請求，提供環境、範本和多種驗證方式；可從 Postman、Insomnia、OpenAPI、Bruno 與 cURL 匯入，工作區能同步為 YAML 檔案並以 Git 管理。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS・Windows 向けの API クライアント。システムの Web ビューは HTML・PDF・メディアのプレビューと OAuth サインインにだけ使います。HTTP・GraphQL・gRPC・WebSocket のリクエストを環境、テンプレート、多様な認証方式とともに扱い、Postman・Insomnia・OpenAPI・Bruno・cURL から読み込めます。ワークスペースは YAML ファイルと Git で同期できます。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS·Windows용 API 클라이언트로, 시스템 웹 뷰는 HTML·PDF·미디어 미리보기와 OAuth 로그인에만 씁니다. HTTP, GraphQL, gRPC, WebSocket 요청을 환경, 템플릿, 다양한 인증 방식과 함께 다루고, Postman, Insomnia, OpenAPI, Bruno, cURL에서 가져올 수 있으며, 워크스페이스를 YAML 파일과 Git으로 동기화합니다."
+	},
+	"icon": {
+		"file": "yeek.webp"
+	},
+	"screenshot": "yeek.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T02:55:41Z"
+}
