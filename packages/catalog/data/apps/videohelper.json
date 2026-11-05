@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "videohelper",
+	"name": "VideoHelper",
+	"author": "realOzine",
+	"kind": "web",
+	"group": "media",
+	"url": "https://github.com/realOzine/videohelper",
+	"repo": "realOzine/videohelper",
+	"summary": {
+		"en": "Searches your local videos by scene, spoken words or sound with on-device models.",
+		"zh-CN": "用本地模型按画面、台词或声音搜索你的视频片段。",
+		"zh-TW": "用本機模型依畫面、台詞或聲音搜尋你的影片片段。",
+		"ja": "ローカルのモデルで、動画を場面・台詞・音から検索して該当シーンへ。",
+		"ko": "로컬 모델로 동영상을 장면, 대사, 소리로 검색합니다."
+	},
+	"description": {
+		"en": "A personal video library for Apple Silicon Macs that finds moments in local files and imported video links by scene, spoken words or sound, then jumps to them for playback. Models run on your computer and are downloaded on first launch; speech search currently covers Chinese. Built with MyGo and a React web frontend; Windows and Linux builds are not yet validated.",
+		"zh-CN": "面向 Apple Silicon Mac 的个人视频库，可按画面、台词或声音，在本地文件和导入的视频链接中找到对应片段并跳转播放。模型在本机运行，首次启动时自动下载；语音搜索目前支持中文。基于 MyGo 与 React Web 前端构建，Windows 与 Linux 版本尚未经过验证。",
+		"zh-TW": "專為 Apple Silicon Mac 打造的個人影片庫，可依畫面、台詞或聲音，在本機檔案與匯入的影片連結中找到對應片段並跳轉播放。模型在本機執行，首次啟動時自動下載；語音搜尋目前支援中文。以 MyGo 與 React Web 前端建置，Windows 與 Linux 版本尚未經過驗證。",
+		"ja": "Apple Silicon Mac 向けの個人用動画ライブラリ。ローカルファイルや取り込んだ動画リンクから、場面・台詞・音で目的のシーンを探し、その位置から再生できます。モデルは手元のコンピューターで動き、初回起動時にダウンロードされます。音声検索は現在中国語に対応しています。MyGo と React の Web フロントエンドで作られており、Windows・Linux 版はまだ検証されていません。",
+		"ko": "Apple Silicon Mac용 개인 동영상 라이브러리로, 로컬 파일과 가져온 동영상 링크에서 장면, 대사, 소리로 원하는 순간을 찾아 바로 재생합니다. 모델은 내 컴퓨터에서 실행되며 첫 실행 때 내려받고, 음성 검색은 현재 중국어를 지원합니다. MyGo와 React 웹 프런트엔드로 만들었으며 Windows·Linux 빌드는 아직 검증되지 않았습니다."
+	},
+	"icon": {
+		"file": "videohelper.webp"
+	},
+	"screenshot": "videohelper.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T12:35:14Z"
+}
