@@ -339,12 +339,13 @@ export function submissionFromIssue(body: string): { cat: SubmitCat; entry: Reco
 	const line = ISSUE_PATH.exec(text);
 	if (!line) return undefined;
 	// Any file name: whether the slug is a valid one is the entry's check to say. A path without a directory is the single file per category the catalog had before (data/apps.json).
+	// The code block is what makes it an entry sent from the form: an issue that only names an entry's file, such as a report about a listed app, is left alone.
+	const rest = text.slice(line.index + line[0].length);
+	const fence = ISSUE_FENCE.exec(rest);
+	if (!fence) return undefined;
 	const dir = /^([^/]+)\/[^/]+\.json$/.exec(line[1])?.[1];
 	const cat = SUBMIT_CATS.find((c) => SUBMIT_KINDS[c].dir === dir);
 	if (!cat) return { problem: `the issue names \`${DATA_DIR}/${line[1]}\`, but every entry goes in a file of its own, \`${DATA_DIR}/<${SUBMIT_CATS.map((c) => SUBMIT_KINDS[c].dir).join('|')}>/<slug>.json\`; send the entry again from the form on ${SITE_URL}` };
-	const rest = text.slice(line.index + line[0].length);
-	const fence = ISSUE_FENCE.exec(rest);
-	if (!fence) return { problem: 'the issue has no ```json code block with the entry under that line' };
 	if (fence[2].length > MAX_SUBMISSION) return { problem: `the entry is longer than ${MAX_SUBMISSION / 1024} KB` };
 	const parsed = parseEntryJson(fence[2]);
 	if ('error' in parsed) return { problem: parsed.error === 'json' ? 'the json code block does not parse as JSON' : 'the json code block must hold one JSON object, the entry' };

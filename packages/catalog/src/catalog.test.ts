@@ -808,7 +808,8 @@ describe('submission issue', () => {
 	});
 
 	it('says what is wrong with the code block', () => {
-		expect(submissionFromIssue('作品展示: `packages/catalog/data/apps/x.json`\n\nno entry here')).toEqual({ problem: expect.stringMatching(/code block/) });
+		// Without one it is not an entry sent from the form, such as a report that names a listed app's file.
+		expect(submissionFromIssue('作品展示: `packages/catalog/data/apps/x.json`\n\nno entry here')).toBeUndefined();
 		expect(submissionFromIssue(fenced('apps/x.json', '{'))).toEqual({ problem: expect.stringMatching(/does not parse/) });
 		expect(submissionFromIssue(fenced('apps/x.json', '[]'))).toEqual({ problem: expect.stringMatching(/one JSON object/) });
 		expect(submissionFromIssue(fenced('apps/x.json', app({ description: { en: 'x'.repeat(MAX_SUBMISSION) } })))).toEqual({ problem: 'the entry is longer than 16 KB' });
