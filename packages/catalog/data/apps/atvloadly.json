@@ -22,5 +22,8 @@
 		"ko": "Impactor를 이용해 Apple TV에 IPA 파일을 사이드로드하는 웹 서비스로, 설치한 앱을 자동으로 갱신해 계속 쓸 수 있게 합니다. Linux와 OpenWrt에서는 Docker로, macOS와 Windows에서는 데스크톱 앱으로 실행되며 페어링과 설치는 웹 페이지에서 합니다. 서명에는 Apple ID나 직접 가진 P12 인증서를 쓸 수 있고, GitHub 릴리스와 AltStore 소스를 추적해 업데이트합니다."
 	},
 	"screenshot": "atvloadly.webp",
+	"icon": {
+		"file": "atvloadly.webp"
+	},
 	"added": "2026-11-05T00:46:37Z"
 }
