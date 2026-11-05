@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "spool",
+	"name": "Spool",
+	"author": "LarchLiu",
+	"kind": "web",
+	"group": "agents",
+	"url": "https://github.com/LarchLiu/spool",
+	"repo": "LarchLiu/spool",
+	"summary": {
+		"en": "Shared Codex and Claude CLI agent chats for local projects, with user chat and a Web/PWA client.",
+		"zh-CN": "Codex 与 Claude CLI 智能体的多人工作区，含 Web/PWA 客户端。",
+		"zh-TW": "Codex 與 Claude CLI 代理的多人工作區，含 Web/PWA 用戶端。",
+		"ja": "Codex と Claude CLI のエージェントを複数人で使うワークスペース。Web/PWA 対応。",
+		"ko": "Codex와 Claude CLI 에이전트를 여럿이 함께 쓰는 워크스페이스, Web/PWA 지원."
+	},
+	"description": {
+		"en": "A shared workspace for Codex and Claude CLI agents: signed-in users chat with the agents in authorized local project folders, message each other privately or in groups, and can schedule agents to work through GitHub issues and open PRs. MyGo builds the desktop app with a React web frontend; the same Go service also runs headless for browsers and as a PWA, and the Android client is built natively.",
+		"zh-CN": "供多人共用的 Codex 与 Claude CLI 智能体工作区：登录用户可在获授权的本地项目目录中与智能体对话，彼此私聊或群聊，还能让智能体定时处理 GitHub issue 并提交 PR。MyGo 构建的是桌面版，前端为 React Web 界面；同一套 Go 服务也能无界面运行，供浏览器和 PWA 使用，Android 客户端则另以原生方式开发。",
+		"zh-TW": "供多人共用的 Codex 與 Claude CLI 代理工作區：登入的使用者可在獲授權的本機專案目錄中與代理對話，彼此私訊或群組聊天，還能讓代理定時處理 GitHub issue 並發出 PR。MyGo 建置的是桌面版，前端為 React Web 介面；同一套 Go 服務也能以無介面方式執行，供瀏覽器與 PWA 使用，Android 用戶端則另以原生方式開發。",
+		"ja": "Codex と Claude CLI のエージェントを複数人で使うワークスペース。ログインしたユーザーは許可されたローカルプロジェクトでエージェントと会話し、ユーザー同士の個別チャットやグループチャットもでき、GitHub の issue をエージェントに定期的に処理させて PR を作らせることもできます。デスクトップ版は MyGo と React の Web フロントエンドで作られ、同じ Go サービスはヘッドレスでも動いてブラウザーや PWA から使えます。Android 版は別のネイティブアプリです。",
+		"ko": "Codex와 Claude CLI 에이전트를 여럿이 함께 쓰는 워크스페이스입니다. 로그인한 사용자는 허가된 로컬 프로젝트에서 에이전트와 대화하고, 서로 1:1 또는 그룹으로 채팅하며, 에이전트가 GitHub 이슈를 정기적으로 처리해 PR을 만들게 할 수 있습니다. MyGo로 만든 것은 React 웹 프런트엔드를 쓰는 데스크톱 앱이고, 같은 Go 서비스는 헤드리스로도 실행되어 브라우저와 PWA에서 쓸 수 있으며, Android 클라이언트는 별도의 네이티브 앱입니다."
+	},
+	"icon": {
+		"file": "spool.webp"
+	},
+	"screenshot": "spool.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T08:45:51Z"
+}
