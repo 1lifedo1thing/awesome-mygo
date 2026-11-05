@@ -1,0 +1,87 @@
+name: Announce on X
+
+# Every app, plugin, UI library or state management solution a push to main adds (a new file in packages/catalog/data/apps, plugins, ui or state; a renamed one is not new) is posted to X with packages/announce, quoting the site's launch post: what was listed and by whom, its summary, its links, its stars and how much the site lists now. Each entry is a job of its own, one at a time, so re-running the failed jobs of a run posts only what was not posted. Each job waits for the site to list the entry before it posts, since Workers Builds deploys main on its own. Run it by hand to post entries again or to see their posts without posting them.
+#
+# Secrets: X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN and X_ACCESS_SECRET, the OAuth 1.0a keys of an X app with read and write permission, the access token generated for the account that posts. Without them the jobs only print the posts.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - packages/catalog/data/apps/*.json
+      - packages/catalog/data/plugins/*.json
+      - packages/catalog/data/ui/*.json
+      - packages/catalog/data/state/*.json
+  workflow_dispatch:
+    inputs:
+      entries:
+        description: Entries to post, space-separated, as paths under packages/catalog/data (e.g. ui/8bitmygoui.json apps/bamboo.json)
+        required: true
+      dry_run:
+        description: Only print the posts
+        type: boolean
+        default: true
+
+concurrency:
+  group: announce-on-x
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  find:
+    runs-on: ubuntu-latest
+    outputs:
+      entries: ${{ steps.find.outputs.entries }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: find
+        env:
+          BEFORE: ${{ github.event.before }}
+          INPUT: ${{ inputs.entries }}
+        run: |
+          if [[ "$GITHUB_EVENT_NAME" == workflow_dispatch ]]; then
+            list=$(tr -s ' \t' '\n' <<< "$INPUT")
+          else
+            list=$(git diff --name-only --diff-filter=A -M "$BEFORE" "$GITHUB_SHA" -- 'packages/catalog/data/apps/*.json' 'packages/catalog/data/plugins/*.json' 'packages/catalog/data/ui/*.json' 'packages/catalog/data/state/*.json' | sed 's#^packages/catalog/data/##')
+          fi
+          entries=$(jq -Rnc '[inputs | select(length > 0)]' <<< "$list")
+          echo "Entries: $entries"
+          # A push that adds more than a handful is a reorganization of the data, like the one that gave every entry a file of its own, not a batch of new listings.
+          if [[ "$GITHUB_EVENT_NAME" == push && $(jq length <<< "$entries") -gt 5 ]]; then
+            echo "::error::This push adds $(jq length <<< "$entries") entries, more than 5, so none is posted. Run the workflow by hand with the ones that are new."
+            exit 1
+          fi
+          echo "entries=$entries" >> "$GITHUB_OUTPUT"
+
+  post:
+    needs: find
+    if: needs.find.outputs.entries != '[]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+      matrix:
+        entry: ${{ fromJSON(needs.find.outputs.entries) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile --filter @awesome-mygo/announce
+      - name: Post ${{ matrix.entry }}
+        env:
+          ENTRY: ${{ matrix.entry }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          GITHUB_TOKEN: ${{ github.token }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+        run: pnpm --filter @awesome-mygo/announce announce "$ENTRY"

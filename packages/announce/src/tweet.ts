@@ -1,0 +1,115 @@
+// The post announcing one entry, in Simplified Chinese, the site's default language: what was listed and by whom, its summary, its links, and how much the site lists now. It quotes the site's launch post, which the post's text does not count.
+
+export const SITE_URL = 'https://mygodock.dev';
+// The launch post every announcement quotes: https://x.com/suzukaze_haduki/status/2117891721086599212
+export const QUOTE_TWEET_ID = '2117891721086599212';
+
+export type EntryKind = 'app' | 'ui' | 'state' | 'plugin';
+export const ENTRY_DIRS: Record<EntryKind, string> = { app: 'apps', ui: 'ui', state: 'state', plugin: 'plugins' };
+
+export type Entry = Record<string, unknown>;
+export type Counts = Record<EntryKind, number>;
+
+// ---- X's weighted length ----
+
+// X counts a post in weights out of 280: a code point in these ranges (Latin, most European scripts, general punctuation) weighs 1, any other (CJK, emoji, ★, …) 2, and every link 23 whatever its length. The ranges are twitter-text's v3 configuration.
+const LIGHT: readonly [number, number][] = [
+	[0, 4351],
+	[8192, 8205],
+	[8208, 8223],
+	[8242, 8247],
+];
+export const MAX_WEIGHT = 280;
+const URL_WEIGHT = 23;
+
+const weightOf = (cp: number) => (LIGHT.some(([lo, hi]) => cp >= lo && cp <= hi) ? 1 : 2);
+
+// The weight of text in which the given links appear; X normalizes a post to NFC before it counts.
+export function weightedLength(text: string, urls: readonly string[] = []): number {
+	let rest = text.normalize('NFC');
+	let weight = 0;
+	for (const url of urls) {
+		const parts = rest.split(url);
+		weight += (parts.length - 1) * URL_WEIGHT;
+		rest = parts.join('');
+	}
+	for (const ch of rest) weight += weightOf(ch.codePointAt(0) ?? 0);
+	return weight;
+}
+
+// ---- the post ----
+
+const str = (v: unknown): string | undefined => (typeof v === 'string' && v.trim() ? v.trim() : undefined);
+
+// The entry's text in Simplified Chinese, or English when it has none.
+function zh(text: unknown): string | undefined {
+	if (!text || typeof text !== 'object') return undefined;
+	const t = text as Record<string, unknown>;
+	return str(t['zh-CN']) ?? str(t.en);
+}
+
+// What kind of entry the post says was listed.
+export function kindLabel(kind: EntryKind, entry: Entry): string {
+	switch (kind) {
+		case 'app':
+			return '作品';
+		case 'ui':
+			return 'UI 组件';
+		case 'state':
+			return '状态管理';
+		case 'plugin':
+			return entry.official === true ? '官方插件' : '社区插件';
+	}
+}
+
+// Where the entry is on the site: an app's own page, or its category's page, which lists the rest.
+export function sitePage(kind: EntryKind, entry: Entry): string {
+	return kind === 'app' ? `${SITE_URL}/apps/${String(entry.slug)}` : `${SITE_URL}/${kind === 'plugin' ? 'plugins' : kind}`;
+}
+
+// The project's own link: an app's homepage, a library's homepage or else its repository, a plugin's docs.
+export function projectLink(kind: EntryKind, entry: Entry): string | undefined {
+	if (kind === 'app') return str(entry.url);
+	if (kind === 'plugin') return str(entry.docs);
+	return str(entry.homepage) ?? str(entry.url);
+}
+
+export interface PostInput {
+	kind: EntryKind;
+	entry: Entry;
+	// The repository's stars on GitHub, when it has one and they could be read.
+	stars?: number;
+	// How many entries of each kind the site lists, this one included.
+	counts: Counts;
+}
+
+export function statsLine(counts: Counts): string {
+	const total = counts.app + counts.plugin + counts.ui + counts.state;
+	return `已收录 ${total} 项：作品 ${counts.app} · 插件 ${counts.plugin} · UI 组件 ${counts.ui} · 状态管理 ${counts.state}`;
+}
+
+// The post's text, its summary cut short with … when the whole would weigh more than X allows. Throws when even without a summary it would.
+export function composePost({ kind, entry, stars, counts }: PostInput): string {
+	const name = str(entry.name) ?? String(entry.slug);
+	const author = str(entry.author);
+	const project = projectLink(kind, entry);
+	const page = sitePage(kind, entry);
+	const urls = [project, page].filter((u): u is string => !!u);
+	const summary = zh(entry.summary) ?? '';
+
+	const links = [...(project && project !== page ? [`${kind === 'plugin' ? '文档' : '项目'}：${project}${stars !== undefined ? `（GitHub ${stars} star）` : ''}`] : []), `详情：${page}`].join('\n');
+	// Paragraphs: what was listed, its summary when there is room, its links, the site's counts.
+	const label = kindLabel(kind, entry);
+	const build = (desc: string) => [`Awesome MyGo 新收录${/^[A-Za-z]/.test(label) ? ' ' : ''}${label}：${name}${author ? ` by ${author}` : ''}`, desc, links, statsLine(counts)].filter(Boolean).join('\n\n');
+
+	const full = build(summary);
+	if (weightedLength(full, urls) <= MAX_WEIGHT) return full;
+	const chars = [...summary];
+	for (let n = chars.length - 1; n > 0; n--) {
+		const text = build(`${chars.slice(0, n).join('').trimEnd()}…`);
+		if (weightedLength(text, urls) <= MAX_WEIGHT) return text;
+	}
+	const bare = build('');
+	if (weightedLength(bare, urls) <= MAX_WEIGHT) return bare;
+	throw new Error(`the post for ${name} weighs ${weightedLength(bare, urls)} without its summary, over X's ${MAX_WEIGHT}`);
+}
