@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "myspotify",
+	"name": "MySpotify",
+	"author": "margbug01",
+	"kind": "native",
+	"category": "MultimediaApplication",
+	"url": "https://github.com/margbug01/MySpotify",
+	"repo": "margbug01/MySpotify",
+	"summary": {
+		"en": "An unofficial Spotify desktop player for Windows and macOS with lyrics, music videos and podcasts.",
+		"zh-CN": "Windows 与 macOS 的非官方 Spotify 播放器，有歌词、MV 和播客。",
+		"zh-TW": "非官方的 Spotify 桌面播放器，支援歌詞、MV 與 Podcast。",
+		"ja": "Windows・macOS 向けの非公式 Spotify プレーヤー。歌詞、MV、ポッドキャストに対応。",
+		"ko": "Windows·macOS용 비공식 Spotify 플레이어. 가사, 뮤직비디오, 팟캐스트 지원."
+	},
+	"description": {
+		"en": "An unofficial Spotify player for Windows and Apple Silicon Macs, drawn with MyGo's native UI. Free accounts play full tracks, and it adds music videos, scrolling lyrics filled in from NetEase Cloud Music and LRCLIB, podcasts with transcripts, and experimental Spotify Connect. It relies on the web player's undocumented APIs, which can break and may breach Spotify's terms.",
+		"zh-CN": "用 MyGo 原生界面绘制的非官方 Spotify 播放器，支持 Windows 与 Apple 芯片的 Mac。免费账号也能整首播放，还能看 MV、听带逐字稿的播客，歌词缺失时从网易云和 LRCLIB 补上并随歌滚动，手机与电脑的 Connect 接力尚在实验。它依赖网页播放器未公开的接口，随时可能失效，也可能违反 Spotify 的用户条款。",
+		"zh-TW": "以 MyGo 原生介面繪製的非官方 Spotify 播放器，支援 Windows 與 Apple 晶片的 Mac。免費帳號也能整首播放，還能看 MV、聽附逐字稿的 Podcast，歌詞缺漏時從網易雲音樂和 LRCLIB 補上並隨歌捲動，手機與電腦的 Connect 接力仍屬實驗功能。它仰賴網頁播放器未公開的介面，隨時可能失效，也可能違反 Spotify 的使用條款。",
+		"ja": "MyGo のネイティブ UI で描かれた、Windows と Apple シリコン搭載 Mac 向けの非公式 Spotify プレーヤー。無料アカウントでも曲を最後まで再生でき、MV の視聴、文字起こし付きのポッドキャスト、網易雲音楽や LRCLIB で補う同期歌詞、試験的な Spotify Connect に対応します。Web プレーヤーの非公開 API を使うため、いつ動かなくなってもおかしくなく、Spotify の利用規約に反する可能性もあります。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows·Apple 실리콘 Mac용 비공식 Spotify 플레이어입니다. 무료 계정으로도 곡 전체를 재생하고, 뮤직비디오, 스크립트가 있는 팟캐스트, 넷이즈 클라우드 뮤직과 LRCLIB에서 보충하는 싱크 가사, 실험적인 Spotify Connect를 지원합니다. 웹 플레이어의 비공개 API를 쓰기 때문에 언제든 작동하지 않을 수 있고 Spotify 이용약관에 어긋날 수도 있습니다."
+	},
+	"icon": {
+		"file": "myspotify.webp"
+	},
+	"screenshot": "myspotify.webp",
+	"added": "2026-11-05T01:50:45Z"
+}
