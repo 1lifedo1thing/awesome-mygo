@@ -84,6 +84,21 @@ export function groupHits(hits: readonly CodeHit[], skip: ReadonlySet<string>): 
 	return out;
 }
 
+// The go.mod files among a repository's paths that could be the project's own, shallowest first: not among examples, tests or vendored code. For a repository found without a go.mod hit, by its MyGo configuration or its README.
+export function goModsIn(paths: readonly string[]): string[] {
+	return paths.filter((p) => (p === 'go.mod' || p.endsWith('/go.mod')) && !isSamplePath(p)).sort((a, b) => a.split('/').length - b.split('/').length || a.localeCompare(b));
+}
+
+// The GitHub repositories pkg.go.dev lists as importing a package, from its importedby page: links such as /github.com/owner/name/sub. MyGo itself is left out.
+export function reposInImportedBy(html: string): string[] {
+	const out = new Map<string, string>();
+	for (const m of html.matchAll(/href="\/github\.com\/([\w.-]+)\/([\w.-]+)[/"?#]/g)) {
+		const repo = `${m[1]}/${m[2]}`;
+		if (repo.toLowerCase() !== MYGO_MODULE.replace('github.com/', '')) out.set(repo.toLowerCase(), repo);
+	}
+	return [...out.values()];
+}
+
 // Whether a go.mod requires MyGo itself, not a module whose path merely starts the same (github.com/egoist/mygo-cli) or a comment that names it.
 export function requiresMygo(gomod: string): boolean {
 	const stripped = gomod.replace(/\/\/.*$/gm, '');

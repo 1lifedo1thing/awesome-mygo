@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { addedFiles, appNameFrom, cleanTags, formDefaults, homepageOf, hasAllLanguages, iconCut, iconOf, isArtwork, isBanner, isPortrait, isSquarish, lengthCaps, overCaps, joinRepoPath, scriptConfig, parseMygoConfig, pickMygoConfig, readmeImages, repoOfEntry, repoScreenshots, resolveImage, schemaEnum, setCategory, sniffImage, submittedScreenshot } from './source.ts';
+import { repoIcons, addedFiles, appNameFrom, cleanTags, formDefaults, homepageOf, hasAllLanguages, iconCut, iconOf, isArtwork, isBanner, isPortrait, isSquarish, lengthCaps, overCaps, joinRepoPath, scriptConfig, parseMygoConfig, pickMygoConfig, readmeImages, repoOfEntry, repoScreenshots, resolveImage, schemaEnum, setCategory, sniffImage, submittedScreenshot } from './source.ts';
 
 describe('app names', () => {
 	it('takes mygo.json’s spelling of the same name only', () => {
@@ -236,5 +236,16 @@ describe('homepages', () => {
 		expect(homepageOf('http://x.dev', 'a/b')).toBeUndefined();
 		expect(homepageOf('', 'a/b')).toBeUndefined();
 		expect(homepageOf(null, 'a/b')).toBeUndefined();
+	});
+});
+
+describe('icons without a MyGo configuration', () => {
+	it('finds the icon file a project keeps in a usual place, largest first', () => {
+		// BunnyBox keeps MyGo as a submodule and has no mygo.json.
+		const bunnybox = ['README.md', 'assets/icon-256.png', 'assets/icon-64.png', 'assets/icon-source.png', 'assets/installer.ico', 'assets/tray-32.png', 'third_party/mygo/resources/icon.png'];
+		expect(repoIcons(bunnybox)).toEqual(['assets/icon-256.png', 'assets/icon-64.png']);
+		expect(repoIcons(['icon.png', 'build/appicon.png', 'build/icon_512x512.png'])).toEqual(['icon.png', 'build/appicon.png', 'build/icon_512x512.png']);
+		expect(repoIcons(['examples/demo/resources/icon.png', 'node_modules/x/icon.png', 'docs/icon.png', 'internal/ui/icon.png'])).toEqual([]);
+		expect(repoIcons(['desktop/assets/icon.png'])).toEqual(['desktop/assets/icon.png']);
 	});
 });

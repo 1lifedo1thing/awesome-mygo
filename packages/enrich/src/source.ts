@@ -86,6 +86,21 @@ export function iconOf(configPath: string, mygo: unknown, paths: readonly string
 	return undefined;
 }
 
+// The app's icon files in a repository with no MyGo configuration to name one (BunnyBox keeps MyGo as a submodule and its icon in assets/icon-256.png), best first: an icon.png, appicon.png or icon-256.png at the root or in a folder of assets, largest first by the size in its name, and one with no size taken as large. Copies of other projects, examples and tests are passed over.
+export function repoIcons(paths: readonly string[]): string[] {
+	const name = /^(?:app[-_]?)?icon(?:[-_](\d+)(?:x\d+)?)?\.(?:png|jpe?g|webp)$/i;
+	const folder = /^(?:assets|resources|build|icons?|images?|img|static|public|res)$/i;
+	const foreign = /(^|\/)(node_modules|third_party|vendor|examples?|testdata|tests?)\//i;
+	const size = (p: string) => Number(name.exec(p.split('/').pop() ?? '')?.[1] ?? 1024);
+	return paths
+		.filter((p) => {
+			const parts = p.split('/');
+			const file = parts.pop() ?? '';
+			return name.test(file) && !foreign.test(p) && parts.every((d) => folder.test(d) || /^(?:app|desktop|src)$/i.test(d));
+		})
+		.sort((a, b) => size(b) - size(a) || a.split('/').length - b.split('/').length || a.localeCompare(b));
+}
+
 // Where to cut an icon, from ImageMagick's box (%@, "WxH+X+Y") around its mostly opaque pixels: a macOS icon's plate inside its transparent margins. An icon with no transparency at all gives an empty box (0x0), and is kept whole, as is one whose box cannot be read. side is the square the icon is centred on.
 export function iconCut(box: string, width: number, height: number): { crop?: string; side: number } {
 	const m = /^(\d+)x(\d+)\+(\d+)\+(\d+)$/.exec(box.trim());
