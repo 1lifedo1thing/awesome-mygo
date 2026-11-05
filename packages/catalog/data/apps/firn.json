@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "firn",
+	"name": "Firn",
+	"author": "frostyard",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/frostyard/firn",
+	"repo": "frostyard/firn",
+	"summary": {
+		"en": "A graphical installer that writes snosi bootc OS images to disk, with LUKS and Secure Boot.",
+		"zh-CN": "图形安装程序：把 snosi bootc 系统镜像装到磁盘，支持 LUKS 与安全启动。",
+		"zh-TW": "圖形安裝程式：將 snosi bootc 系統映像檔裝到磁碟，支援 LUKS 與安全開機。",
+		"ja": "snosi の bootc イメージを LUKS とセキュアブート付きで導入するGUIインストーラー。",
+		"ko": "snosi bootc 이미지를 LUKS와 보안 부팅으로 디스크에 설치하는 그래픽 설치 프로그램."
+	},
+	"description": {
+		"en": "The graphical installer of Firn: it installs snosi bootc images from a container registry to disk, with LUKS (passphrase or TPM2) and UEFI Secure Boot. firn-gui is drawn with MyGo's native UI and writes the same TOML recipe as Firn's terminal wizard, which is built separately with the Charm stack. It runs from snosi's installer ISO, and --demo tries it with nothing written.",
+		"zh-CN": "Firn 的图形安装程序，把 snosi bootc 镜像从容器仓库安装到磁盘，支持 LUKS（密码或 TPM2 解锁）和 UEFI 安全启动。firn-gui 由 MyGo 原生 UI 绘制，生成与 Firn 终端向导相同的 TOML 配方，终端向导则另用 Charm 构建。它从 snosi 安装 ISO 启动运行，加 --demo 可以试用而不写入任何内容。",
+		"zh-TW": "Firn 的圖形安裝程式，將 snosi bootc 映像檔從容器倉庫安裝到磁碟，支援 LUKS（密碼或 TPM2 解鎖）與 UEFI 安全開機。firn-gui 由 MyGo 原生 UI 繪製，產生與 Firn 終端精靈相同的 TOML 配方，終端精靈則另以 Charm 打造。它由 snosi 安裝 ISO 啟動執行，加上 --demo 可試用而不寫入任何資料。",
+		"ja": "Firn のグラフィカルインストーラー。snosi の bootc イメージをコンテナレジストリからディスクへインストールし、LUKS（パスフレーズまたは TPM2 で解錠）と UEFI セキュアブートに対応します。firn-gui は MyGo のネイティブ UI で描かれ、Firn のターミナルウィザードと同じ TOML レシピを書き出します。ターミナルウィザードは Charm で別に作られています。snosi のインストーラー ISO から起動でき、--demo なら何も書き込まずに試せます。",
+		"ko": "Firn의 그래픽 설치 프로그램으로, snosi bootc 이미지를 컨테이너 레지스트리에서 디스크로 설치하며 LUKS(암호 또는 TPM2 잠금 해제)와 UEFI 보안 부팅을 지원합니다. firn-gui는 MyGo의 네이티브 UI로 그렸고 Firn 터미널 마법사와 같은 TOML 레시피를 만들며, 터미널 마법사는 Charm으로 따로 만들어졌습니다. snosi 설치 ISO에서 실행되고, --demo로 아무것도 쓰지 않고 체험할 수 있습니다."
+	},
+	"icon": {
+		"file": "firn.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "firn.webp",
+	"added": "2026-11-05T10:51:28Z"
+}
