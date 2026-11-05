@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "polyfork",
+	"name": "Polyfork",
+	"author": "limboy",
+	"kind": "web",
+	"group": "media",
+	"url": "https://github.com/limboy/polyfork",
+	"repo": "limboy/polyfork",
+	"summary": {
+		"en": "Downloads free low-poly models from polyfork.dev and views them in 3D on your desktop.",
+		"zh-CN": "从 polyfork.dev 下载免费低多边形模型，在桌面上以 3D 查看。",
+		"zh-TW": "從 polyfork.dev 下載免費低多邊形模型，在桌面上以 3D 檢視。",
+		"ja": "polyfork.dev の無料ローポリモデルをダウンロードし、デスクトップで 3D 表示。",
+		"ko": "polyfork.dev의 무료 로우폴리 모델을 내려받아 데스크톱에서 3D로 봅니다."
+	},
+	"description": {
+		"en": "A macOS desktop app with a web frontend on MyGo. It searches the polyfork.dev catalogue of free low-poly models, downloads their GLB files and thumbnails into a local library, and shows them in a three.js viewer. The build produces Polyfork.app for Apple silicon and a .dmg. The iOS version is a separate SwiftUI app that reads the catalogue directly and is not built with MyGo.",
+		"zh-CN": "基于 MyGo、采用 Web 前端的 macOS 桌面应用。它搜索 polyfork.dev 上的免费低多边形模型，把 GLB 文件和缩略图下载到本地资料库，并用 three.js 查看器展示。构建产物为适用于 Apple 芯片的 Polyfork.app 和 .dmg。iOS 版是另一个独立的 SwiftUI 应用，直接读取 polyfork.dev 的目录，不使用 MyGo 构建。",
+		"zh-TW": "以 MyGo 搭配 Web 前端打造的 macOS 桌面應用程式。它搜尋 polyfork.dev 上的免費低多邊形模型，將 GLB 檔案和縮圖下載到本機資料庫，並以 three.js 檢視器呈現。建置後會產生適用於 Apple 晶片的 Polyfork.app 與 .dmg。iOS 版是另一個獨立的 SwiftUI 應用程式，直接讀取 polyfork.dev 的目錄，並非以 MyGo 建置。",
+		"ja": "MyGo 上で Web フロントエンドを使う macOS 向けデスクトップアプリ。polyfork.dev にある無料のローポリモデルを検索し、GLB ファイルとサムネイルをローカルのライブラリにダウンロードして、three.js のビューアーで表示します。ビルドすると Apple シリコン向けの Polyfork.app と .dmg ができます。iOS 版は別の SwiftUI アプリで、カタログを直接読み込み、MyGo は使っていません。",
+		"ko": "MyGo 위에서 웹 프런트엔드로 만든 macOS 데스크톱 앱입니다. polyfork.dev의 무료 로우폴리 모델을 검색해 GLB 파일과 썸네일을 로컬 라이브러리에 내려받고, three.js 뷰어로 보여 줍니다. 빌드하면 Apple 실리콘용 Polyfork.app과 .dmg가 만들어집니다. iOS 버전은 카탈로그를 직접 읽는 별도의 SwiftUI 앱이며 MyGo로 만들지 않았습니다."
+	},
+	"icon": {
+		"file": "polyfork.webp"
+	},
+	"screenshot": "polyfork.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T12:35:14Z"
+}
