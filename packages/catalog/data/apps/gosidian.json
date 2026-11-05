@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "gosidian",
+	"name": "Gosidian",
+	"author": "alvyn16",
+	"kind": "web",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/alvyn16/GOsidian",
+	"repo": "alvyn16/GOsidian",
+	"summary": {
+		"en": "A local-first Markdown notes app modeled on Obsidian, with wiki links, a graph and a canvas.",
+		"zh-CN": "仿 Obsidian 的本地优先 Markdown 笔记应用，支持双链、知识图谱与画布。",
+		"zh-TW": "仿 Obsidian 的本機 Markdown 筆記應用，支援雙向連結、圖譜與畫布。",
+		"ja": "Obsidian 風のローカル Markdown ノートアプリ。リンク、グラフ、キャンバス付き。",
+		"ko": "Obsidian을 본뜬 로컬 우선 Markdown 노트 앱. 위키 링크, 그래프, 캔버스 지원."
+	},
+	"description": {
+		"en": "An Obsidian-style Markdown notes app for Windows, with a Vite and TypeScript interface running in MyGo's web frontend and a Go backend for files, search and snapshots. Notes stay in a local vault folder you choose, linked with wiki links and mapped in a knowledge graph. It also has .canvas boards, KaTeX math, flowcharts and sequence diagrams, and automatic snapshots with diff preview and rollback.",
+		"zh-CN": "仿照 Obsidian 的 Windows Markdown 笔记应用，界面用 Vite 与 TypeScript 编写，运行在 MyGo 的 Web 前端中，文件、搜索与快照由 Go 后端处理。笔记存放在你选定的本地仓库文件夹里，用双链互相连接，并以知识图谱呈现；另有 .canvas 画布、KaTeX 公式、流程图与时序图，以及可预览差异、一键回滚的自动快照。",
+		"zh-TW": "仿照 Obsidian 的 Windows Markdown 筆記應用程式，介面以 Vite 與 TypeScript 撰寫，在 MyGo 的 Web 前端中執行，檔案、搜尋與快照由 Go 後端處理。筆記存放在你選定的本機資料夾裡，以雙向連結互相串接，並以知識圖譜呈現；另有 .canvas 畫布、KaTeX 公式、流程圖與循序圖，以及可預覽差異、一鍵還原的自動快照。",
+		"ja": "Obsidian にならった Windows 向けの Markdown ノートアプリ。Vite と TypeScript で作った画面を MyGo の Web フロントエンドで動かし、ファイル操作、検索、スナップショットは Go のバックエンドが担います。ノートは自分で選んだローカルの保管フォルダーに置かれ、ウィキリンクでつながり、ナレッジグラフで見渡せます。.canvas のキャンバス、KaTeX の数式、フローチャートとシーケンス図、差分を確認してすぐ戻せる自動スナップショットも備えます。",
+		"ko": "Obsidian을 본뜬 Windows용 Markdown 노트 앱입니다. Vite와 TypeScript로 만든 화면을 MyGo의 웹 프런트엔드로 띄우고, 파일, 검색, 스냅숏은 Go 백엔드가 처리합니다. 노트는 직접 고른 로컬 보관함 폴더에 저장되며 위키 링크로 서로 잇고 지식 그래프로 볼 수 있습니다. .canvas 캔버스, KaTeX 수식, 순서도와 시퀀스 다이어그램, 차이를 미리 보고 되돌릴 수 있는 자동 스냅숏도 있습니다."
+	},
+	"icon": {
+		"file": "gosidian.webp"
+	},
+	"screenshot": "gosidian.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T04:32:09Z"
+}
