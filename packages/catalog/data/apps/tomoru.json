@@ -6,6 +6,7 @@
 	"kind": "native",
 	"category": "MultimediaApplication",
 	"url": "https://tomoru.acane.dev",
+	"repo": "ACAne0320/Tomoru",
 	"summary": {
 		"en": "Live bilingual subtitles for anything you watch on macOS and Windows.",
 		"zh-CN": "在 macOS 和 Windows 上为正在播放的任何内容实时显示双语字幕。",

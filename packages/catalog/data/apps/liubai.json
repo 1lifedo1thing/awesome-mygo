@@ -6,6 +6,7 @@
 	"kind": "web",
 	"category": "UtilitiesApplication",
 	"url": "https://liubai.echovic.com",
+	"repo": "echoVic/liubai",
 	"summary": {
 		"en": "An open-source Markdown editor and reader for macOS, with a Windows beta.",
 		"zh-CN": "开源 Markdown 编辑与阅读器，macOS 版，Windows 测试中。",

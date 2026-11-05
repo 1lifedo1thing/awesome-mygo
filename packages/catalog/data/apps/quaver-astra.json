@@ -6,6 +6,7 @@
 	"kind": "native",
 	"category": "MultimediaApplication",
 	"url": "https://quaver.0w0.red",
+	"repo": "Team-Quaver/quaver-astra",
 	"summary": {
 		"en": "A lightweight, native-feeling QQ Music client, rebuilt from Electron on MyGo.",
 		"zh-CN": "轻量、原生手感的 QQ 音乐客户端，从 Electron 迁移到 MyGo。",

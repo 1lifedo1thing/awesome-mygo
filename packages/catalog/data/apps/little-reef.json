@@ -6,6 +6,7 @@
 	"kind": "web",
 	"category": "UtilitiesApplication",
 	"url": "https://reef.echovic.com",
+	"repo": "echoVic/little-reef",
 	"summary": {
 		"en": "An open-source focus timer for Mac.",
 		"zh-CN": "开源 Mac 专注计时器。",

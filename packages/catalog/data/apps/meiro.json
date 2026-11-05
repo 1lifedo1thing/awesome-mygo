@@ -6,6 +6,7 @@
 	"kind": "native",
 	"category": "MultimediaApplication",
 	"url": "https://meiro.elianiva.com",
+	"repo": "elianiva/meiro",
 	"summary": {
 		"en": "YouTube Music without the bloat, in a native Material 3 Expressive player.",
 		"zh-CN": "精简的 YouTube Music 播放器，Material 3 Expressive 原生界面。",
