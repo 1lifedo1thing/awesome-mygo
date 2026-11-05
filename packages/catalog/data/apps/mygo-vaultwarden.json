@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mygo-vaultwarden",
+	"name": "MyGo Vaultwarden",
+	"author": "vfasky",
+	"kind": "native",
+	"group": "system",
+	"url": "https://mygo-vault.vfasky.com",
+	"repo": "vfasky/mygo-vaultwarden",
+	"summary": {
+		"en": "A native macOS client for your Vaultwarden server, with Touch ID unlock and Safari AutoFill.",
+		"zh-CN": "原生 macOS Vaultwarden 客户端，支持 Touch ID 解锁。",
+		"zh-TW": "原生 macOS Vaultwarden 用戶端，支援 Touch ID 解鎖。",
+		"ja": "Vaultwarden の macOS アプリ。Touch ID と Safari 自動入力に対応。",
+		"ko": "Vaultwarden용 네이티브 macOS 앱. Touch ID와 Safari 자동 완성 지원."
+	},
+	"description": {
+		"en": "A macOS client for a self-hosted Vaultwarden server, which you run separately, built with Go, MyGo's native UI and Swift/AppKit, with no WebView in the main window. It browses, searches, edits and syncs the eight personal item types, unlocks with the master password or Touch ID, and fills logins in Safari through the system AutoFill. Organization management is not in this release.",
+		"zh-CN": "自建 Vaultwarden 服务器的 macOS 客户端，服务器需另行部署；以 Go、MyGo 原生 UI 与 Swift/AppKit 构建，主窗口不使用 WebView。可浏览、搜索、编辑和同步八种个人条目，用主密码或 Touch ID 解锁，并通过系统自动填充在 Safari 中填写登录信息。此版本暂不支持组织管理。",
+		"zh-TW": "自架 Vaultwarden 伺服器的 macOS 用戶端，伺服器需另行架設；以 Go、MyGo 原生 UI 與 Swift/AppKit 打造，主視窗不使用 WebView。可瀏覽、搜尋、編輯並同步八種個人項目，以主密碼或 Touch ID 解鎖，並透過系統自動填寫在 Safari 中填入登入資訊。此版本尚未支援組織管理。",
+		"ja": "自前でホストする Vaultwarden サーバー向けの macOS クライアントで、サーバーは別途用意します。Go、MyGo のネイティブ UI、Swift/AppKit で作られ、メインウィンドウに WebView はありません。8 種類の個人アイテムを閲覧・検索・編集・同期でき、マスターパスワードか Touch ID でロックを解除し、システムの自動入力で Safari にログイン情報を入力します。組織の管理はこのリリースには含まれません。",
+		"ko": "직접 운영하는 Vaultwarden 서버용 macOS 클라이언트로, 서버는 따로 마련해야 합니다. Go, MyGo의 네이티브 UI, Swift/AppKit으로 만들었고 메인 창에는 WebView가 없습니다. 개인 항목 8종을 탐색, 검색, 편집, 동기화하고, 마스터 비밀번호나 Touch ID로 잠금을 해제하며, 시스템 자동 완성으로 Safari에 로그인 정보를 채웁니다. 조직 관리는 이번 릴리스에 포함되지 않습니다."
+	},
+	"icon": {
+		"file": "mygo-vaultwarden.webp"
+	},
+	"screenshot": "mygo-vaultwarden.webp",
+	"added": "2026-11-05T15:55:15Z"
+}
