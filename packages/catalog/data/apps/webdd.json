@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "webdd",
+	"name": "WebDD",
+	"author": "jiqing112",
+	"kind": "web",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/jiqing112/webdd-mygo-gui",
+	"repo": "jiqing112/webdd-mygo-gui",
+	"summary": {
+		"en": "A Windows client that backs up and restores whole disks of a remote server with dd.",
+		"zh-CN": "通过 dd 备份和恢复远程服务器整盘的 Windows 客户端。",
+		"zh-TW": "透過 dd 備份與還原遠端伺服器整顆磁碟的 Windows 用戶端。",
+		"ja": "リモートサーバーのディスク全体を dd でバックアップ・復元する Windows クライアント。",
+		"ko": "원격 서버의 디스크 전체를 dd로 백업하고 복원하는 Windows 클라이언트."
+	},
+	"description": {
+		"en": "The Windows desktop client of the disk-cloner CLI, built as a React frontend on MyGo; cloning and local transfer are left to the Linux CLI. Given a server's IP, port and password, it backs up whole disks to gzip images or restores them, after checking that the server runs in Alpine RAM OS and offering to switch it there.",
+		"zh-CN": "配套 CLI 工具 disk-cloner 的 Windows 桌面客户端，前端用 React 写成，基于 MyGo 构建；克隆与本机传输仍需在 Linux 上使用 CLI 版。填入服务器 IP、端口和密码，即可把远程整盘备份为 gzip 镜像或从镜像恢复；它会先检测远程是否已进入 Alpine RAM OS，未进入时可一键切换。",
+		"zh-TW": "配套 CLI 工具 disk-cloner 的 Windows 桌面用戶端，前端以 React 撰寫，基於 MyGo 建置；複製與本機傳輸仍需在 Linux 上使用 CLI 版。填入伺服器 IP、連接埠和密碼，即可將遠端整顆磁碟備份為 gzip 映像檔或從映像檔還原；它會先偵測遠端是否已進入 Alpine RAM OS，未進入時可一鍵切換。",
+		"ja": "CLI ツール disk-cloner に対応する Windows 用デスクトップクライアントで、React のフロントエンドを MyGo で動かしています。クローンとローカル転送は Linux 上の CLI 版で行います。サーバーの IP、ポート、パスワードを入力すると、リモートのディスク全体を gzip イメージにバックアップしたり、イメージから復元したりできます。事前にリモートが Alpine RAM OS で動いているかを確かめ、そうでなければ切り替えも行います。",
+		"ko": "CLI 도구 disk-cloner와 짝을 이루는 Windows 데스크톱 클라이언트로, React 프런트엔드를 MyGo로 빌드했습니다. 클론과 로컬 전송은 Linux에서 CLI 버전으로 해야 합니다. 서버 IP, 포트, 비밀번호를 입력하면 원격 디스크 전체를 gzip 이미지로 백업하거나 이미지에서 복원하며, 먼저 원격 서버가 Alpine RAM OS에서 실행 중인지 확인하고 아니면 전환해 줍니다."
+	},
+	"icon": {
+		"file": "webdd.webp"
+	},
+	"screenshot": "webdd.webp",
+	"added": "2026-11-05T03:54:05Z"
+}
