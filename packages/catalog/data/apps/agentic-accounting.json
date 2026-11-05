@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "agentic-accounting",
+	"name": "Agentic Accounting",
+	"author": "CHEUKFUNGWU",
+	"kind": "web",
+	"group": "ai",
+	"url": "https://github.com/CHEUKFUNGWU/agentic-accounting-system/tree/main/frontend",
+	"repo": "CHEUKFUNGWU/agentic-accounting-system",
+	"summary": {
+		"en": "Desktop client for agent-driven bookkeeping that prepares working papers and financial statements",
+		"zh-CN": "智能体记账系统的桌面客户端，为小型企业编制底稿与财务报表。",
+		"zh-TW": "代理式記帳系統的桌面用戶端，為小型企業編製底稿與財務報表。",
+		"ja": "エージェント型記帳システムのデスクトップクライアント。小規模事業向けに調書と財務諸表を作成。",
+		"ko": "에이전트 기반 회계 시스템의 데스크톱 클라이언트. 소규모 사업자의 조서와 재무제표를 작성합니다."
+	},
+	"description": {
+		"en": "The desktop client of an agent-driven bookkeeping system for small businesses, one-person companies and sole proprietors in six regions, from China and Hong Kong to Europe. It builds working papers and the three financial statements, and splits mixed personal and business expenses. MyGo packages its React web frontend; the Python and PostgreSQL backend runs separately.",
+		"zh-CN": "面向中小企业、一人公司和个体工商户的智能体记账系统桌面客户端，覆盖从中国内地、香港到欧洲的六个地区。它编制工作底稿和三大财务报表，并拆分公私混用的费用。MyGo 负责打包其 React Web 前端，Python 与 PostgreSQL 后端另行运行。",
+		"zh-TW": "為中小企業、一人公司與獨資商號打造的代理式記帳系統桌面用戶端，涵蓋從中國大陸、香港到歐洲的六個地區。它編製工作底稿與三大財務報表，並拆分公私混用的費用。MyGo 負責打包其 React Web 前端，Python 與 PostgreSQL 後端另行執行。",
+		"ja": "中小企業、一人会社、個人事業主向けのエージェント型記帳システムのデスクトップクライアントで、中国本土や香港から欧州まで6地域に対応します。作業調書と財務三表を作成し、私用と事業用が混ざった経費を按分します。MyGo は React の Web フロントエンドをまとめ、Python と PostgreSQL のバックエンドは別に動かします。",
+		"ko": "중소기업, 1인 회사, 개인사업자를 위한 에이전트 기반 회계 시스템의 데스크톱 클라이언트로, 중국 본토와 홍콩부터 유럽까지 6개 지역을 지원합니다. 작업 조서와 3대 재무제표를 작성하고, 개인용과 사업용이 섞인 비용을 나눕니다. MyGo는 React 웹 프런트엔드를 패키징하며, Python과 PostgreSQL 백엔드는 별도로 실행됩니다."
+	},
+	"icon": {
+		"file": "agentic-accounting.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "agentic-accounting.webp",
+	"added": "2026-11-05T12:35:14Z"
+}
