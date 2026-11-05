@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "moko",
+	"name": "Moko",
+	"author": "qzz0518",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://qzz0518.github.io/moko/",
+	"repo": "qzz0518/moko",
+	"summary": {
+		"en": "Watch and control a Sharp KI-SX100 air purifier from the Mac menu bar or the Windows tray.",
+		"zh-CN": "从 Mac 菜单栏或 Windows 托盘查看和控制夏普 KI-SX100 净化器。",
+		"zh-TW": "從 Mac 選單列或 Windows 系統匣查看與控制夏普 KI-SX100 清淨機。",
+		"ja": "シャープの空気清浄機 KI-SX100 を Mac のメニューバーや Windows のトレイから操作。",
+		"ko": "Mac 메뉴 막대나 Windows 트레이에서 샤프 KI-SX100 공기청정기를 확인하고 제어합니다."
+	},
+	"description": {
+		"en": "A menu bar and tray app for Mac and Windows, drawn with MyGo's native UI, that talks to a Sharp KI-SX100 air purifier over the LAN with ECHONET Lite, with no account and no cloud. It shows PM2.5, temperature, humidity and power with up to 30 days of trends, switches power, eight modes and humidification, tracks filter life, and can add the purifier to Apple Home for Siri and automations.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Mac 与 Windows 菜单栏、托盘应用，通过局域网以 ECHONET Lite 直接与夏普 KI-SX100 空气净化器通信，不需要账号，也不经过云。可查看 PM2.5、室温、湿度、功率及最长 30 天的趋势，切换电源、八种模式和加湿，查看滤网寿命，还能把净化器加入 Apple 家庭，用 Siri 和自动化控制。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Mac 與 Windows 選單列、系統匣應用程式，透過區域網路以 ECHONET Lite 直接與夏普 KI-SX100 空氣清淨機通訊，不需要帳號，也不經過雲端。可查看 PM2.5、室溫、濕度、功率及最長 30 天的趨勢，切換電源、八種模式和加濕，查看濾網壽命，還能把清淨機加入 Apple「家庭」，用 Siri 和自動化控制。",
+		"ja": "MyGo のネイティブ UI で描かれた、Mac のメニューバーと Windows のトレイに常駐するアプリ。シャープの空気清浄機 KI-SX100 と LAN 内で ECHONET Lite により直接通信し、アカウントもクラウドも不要です。PM2.5・室温・湿度・消費電力と最長 30 日の推移を表示し、電源、8 つの運転モード、加湿を切り替え、フィルター寿命も確認できます。Apple のホームに追加すれば Siri やオートメーションからも操作できます。",
+		"ko": "MyGo의 네이티브 UI로 그린 Mac 메뉴 막대·Windows 트레이 앱으로, 샤프 KI-SX100 공기청정기와 LAN에서 ECHONET Lite로 직접 통신해 계정도 클라우드도 필요 없습니다. PM2.5, 실내 온도, 습도, 전력과 최대 30일 추이를 보여 주고 전원, 8가지 운전 모드, 가습을 전환하며 필터 수명도 확인합니다. Apple 홈에 추가하면 Siri와 자동화로도 제어할 수 있습니다."
+	},
+	"icon": {
+		"file": "moko.webp"
+	},
+	"screenshot": "moko.webp",
+	"added": "2026-11-05T03:47:54Z"
+}
