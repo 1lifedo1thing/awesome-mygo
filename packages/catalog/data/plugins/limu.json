@@ -1,0 +1,23 @@
+{
+	"$schema": "../schema/plugin.schema.json",
+	"slug": "limu",
+	"name": "limu",
+	"mark": "li",
+	"official": false,
+	"surface": "native",
+	"import": "github.com/firede/limu/limumygo",
+	"tags": [
+		"diagrams",
+		"mermaid",
+		"flowchart"
+	],
+	"docs": "https://limu.firede.com",
+	"summary": {
+		"en": "Mermaid diagram layout engine in Go, with a limumygo module that draws the diagrams in MyGo's native UI.",
+		"zh-CN": "用 Go 实现的 Mermaid 图表布局引擎，通过 limumygo 模块在 MyGo 原生 UI 中绘制图表。",
+		"zh-TW": "以 Go 實作的 Mermaid 圖表排版引擎，透過 limumygo 模組在 MyGo 原生 UI 中繪製圖表。",
+		"ja": "Go で書かれた Mermaid 図のレイアウトエンジン。limumygo モジュールで MyGo のネイティブ UI に図を描画します。",
+		"ko": "Go로 작성된 Mermaid 다이어그램 레이아웃 엔진으로, limumygo 모듈이 MyGo 네이티브 UI에 다이어그램을 그립니다."
+	},
+	"added": "2026-11-05T03:22:12Z"
+}
