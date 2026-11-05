@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "para-term",
+	"name": "Para Term",
+	"author": "pararchy",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/pararchy/para-term",
+	"repo": "pararchy/para-term",
+	"summary": {
+		"en": "A native GPU-rendered terminal that runs Para CLI or your login shell in a real pseudo-terminal.",
+		"zh-CN": "GPU 渲染的原生终端，在真正的伪终端中运行 Para CLI 或登录 shell。",
+		"zh-TW": "GPU 渲染的原生終端機，在真正的虛擬終端中執行 Para CLI 或登入 shell。",
+		"ja": "GPU で描画するネイティブなターミナル。Para CLI かログインシェルを本物の疑似端末で実行。",
+		"ko": "GPU로 렌더링하는 네이티브 터미널. Para CLI나 로그인 셸을 실제 의사 터미널에서 실행합니다."
+	},
+	"description": {
+		"en": "A terminal window drawn with MyGo's native UI and its terminal plugin, which loads Ghostty's libghostty-vt at run time without cgo; there is no Electron and no web view. It runs Para CLI in a real pseudo-terminal, through ConPTY on Windows and a POSIX PTY on Linux and macOS, falls back to your login shell, and the PARA_TERM_COMMAND environment variable sets what it runs instead.",
+		"zh-CN": "用 MyGo 原生 UI 及其终端插件绘制的终端窗口，插件运行时加载 Ghostty 的 libghostty-vt，无需 cgo，没有 Electron 和 Web 视图。它在伪终端中运行 Para CLI（Windows 用 ConPTY，Linux 与 macOS 用 POSIX PTY），否则用登录 shell，可用 PARA_TERM_COMMAND 环境变量指定程序。",
+		"zh-TW": "用 MyGo 原生 UI 及其終端機外掛繪製的終端機視窗，外掛於執行時載入 Ghostty 的 libghostty-vt，不需 cgo，沒有 Electron 和 Web 視圖。它在虛擬終端中執行 Para CLI（Windows 用 ConPTY，Linux 與 macOS 用 POSIX PTY），否則用登入 shell，可用 PARA_TERM_COMMAND 環境變數指定程式。",
+		"ja": "MyGo のネイティブ UI とそのターミナルプラグインで描くターミナルウィンドウ。プラグインは Ghostty の libghostty-vt を実行時に読み込み、cgo を使いません。Electron も Web ビューもありません。Para CLI を本物の疑似端末で動かし、Windows では ConPTY、Linux と macOS では POSIX PTY を使います。Para CLI がなければログインシェルを起動し、環境変数 PARA_TERM_COMMAND で実行するものを変えられます。",
+		"ko": "MyGo의 네이티브 UI와 터미널 플러그인으로 그린 터미널 창입니다. 플러그인은 Ghostty의 libghostty-vt를 실행 시점에 불러오며 cgo가 필요 없고, Electron도 웹 뷰도 없습니다. Para CLI를 실제 의사 터미널에서 실행하며 Windows에서는 ConPTY, Linux와 macOS에서는 POSIX PTY를 씁니다. Para CLI가 없으면 로그인 셸을 띄우고, 환경 변수 PARA_TERM_COMMAND로 실행할 프로그램을 바꿀 수 있습니다."
+	},
+	"icon": {
+		"file": "para-term.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "para-term.webp",
+	"added": "2026-11-05T15:37:24Z"
+}
