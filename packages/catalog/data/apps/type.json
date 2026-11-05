@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "type",
+	"name": "Type",
+	"author": "LeuJasYoh",
+	"kind": "web",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/LeuJasYoh/Type",
+	"repo": "LeuJasYoh/Type",
+	"summary": {
+		"en": "Types your text into any Windows window as simulated keystrokes, for fields that block pasting.",
+		"zh-CN": "倒计时后以模拟按键把文字打进任意 Windows 窗口，适合禁止粘贴的输入框。",
+		"zh-TW": "倒數計時後以模擬按鍵把文字打進任意 Windows 視窗，適合禁止貼上的輸入框。",
+		"ja": "キー入力を模して任意の Windows ウィンドウへ文字を打ち込む。貼り付け禁止の欄向け。",
+		"ko": "키 입력을 흉내 내 아무 Windows 창에나 글자를 쳐 넣습니다. 붙여넣기가 막힌 입력란용."
+	},
+	"description": {
+		"en": "A Windows 10 and 11 tool that types the text you enter into the window in front once a 1 to 9 second countdown ends, for fields that block pasting. English goes in as simulated keystrokes and Chinese through the clipboard, which it restores afterward, and a direct text mode keeps code editors from autocompleting or pairing brackets. Its Vue 3 interface runs in WebView2, hosted by MyGo.",
+		"zh-CN": "适用于 Windows 10 与 11 的小工具：写好文字后，1 到 9 秒倒计时一结束，便自动键入当前前台窗口，专门应对禁止粘贴的输入框。英文以模拟按键逐字输入，含中文时改走剪贴板，完成后恢复原内容；“文本直投”模式可避免在线代码编辑器触发补全与括号配对。界面用 Vue 3 编写，运行在 MyGo 托管的 WebView2 中。",
+		"zh-TW": "適用於 Windows 10 與 11 的小工具：寫好文字後，1 到 9 秒倒數一結束，便自動鍵入目前前景視窗，專門應付禁止貼上的輸入框。英文以模擬按鍵逐字輸入，含中文時改走剪貼簿，完成後還原原本內容；「文字直投」模式可避免線上程式編輯器觸發自動完成與括號配對。介面以 Vue 3 撰寫，執行於 MyGo 託管的 WebView2 中。",
+		"ja": "Windows 10・11 向けのツールで、入力した文字を 1〜9 秒のカウントダウン後に前面のウィンドウへ打ち込みます。貼り付けを禁止した入力欄のためのものです。英語はキー入力を模して送り、中国語を含む場合はクリップボード経由にして元の内容を戻します。「テキスト直投」モードではコードエディターの補完や括弧の自動補完を起こしません。Vue 3 の画面が MyGo の管理する WebView2 で動きます。",
+		"ko": "Windows 10·11용 도구로, 입력한 글자를 1~9초 카운트다운이 끝나면 앞에 있는 창에 쳐 넣습니다. 붙여넣기가 막힌 입력란을 위한 것입니다. 영어는 키 입력을 흉내 내 보내고, 중국어가 섞이면 클립보드를 거친 뒤 원래 내용을 되돌립니다. 텍스트 직투 모드는 코드 편집기의 자동 완성과 괄호 자동 짝 맞춤을 피합니다. Vue 3 화면이 MyGo가 관리하는 WebView2에서 실행됩니다."
+	},
+	"icon": {
+		"file": "type.webp"
+	},
+	"screenshot": "type.webp",
+	"added": "2026-11-05T03:08:54Z"
+}
