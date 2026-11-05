@@ -5,6 +5,7 @@
 	"author": "Beeta",
 	"kind": "native",
 	"category": "BusinessApplication",
+	"group": "ai",
 	"url": "https://github.com/Beeta/voxi",
 	"repo": "Beeta/voxi",
 	"summary": {

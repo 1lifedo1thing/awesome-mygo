@@ -77,7 +77,6 @@
 		"app:lunabox": { "activeWeeks": 12, "license": "AGPL-3.0", "likes": 0, "osi": true, "released": "2026-11-03", "repo": "Saramanda9988/LunaBox", "stars": 388, "weeks": 12 },
 		"app:mac2mqtt": { "activeWeeks": 2, "license": "MIT", "likes": 0, "osi": true, "released": "2026-11-04", "repo": "FaintGhost/mac2mqtt", "stars": 1, "weeks": 2 },
 		"app:marginalia": { "activeWeeks": 1, "license": "MIT", "likes": 0, "osi": true, "released": "2026-10-28", "repo": "cliecy/Marginalia", "stars": 2, "weeks": 1 },
-		"app:masir": { "activeWeeks": 3, "license": null, "likes": 0, "released": "2026-11-04", "repo": "Narixius/masir-go", "stars": 1, "weeks": 3 },
 		"app:mayoi": { "activeWeeks": 4, "license": "MIT", "likes": 0, "osi": true, "released": "2026-11-04", "repo": "sorrycc/Mayoi", "stars": 304, "weeks": 4 },
 		"app:meiro": { "activeWeeks": 4, "license": "GPL-3.0", "likes": 0, "osi": true, "released": "2026-11-03", "repo": "elianiva/meiro", "stars": 296, "weeks": 4 },
 		"app:minicode": { "activeWeeks": 7, "license": "MIT", "likes": 0, "osi": true, "released": "2026-10-28", "repo": "oysterhyd/minicode", "stars": 2, "weeks": 7 },

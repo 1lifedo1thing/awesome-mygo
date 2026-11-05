@@ -5,6 +5,7 @@
 	"author": "preceeder",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "dev",
 	"url": "https://github.com/preceeder/gui-redis",
 	"repo": "preceeder/gui-redis",
 	"summary": {
