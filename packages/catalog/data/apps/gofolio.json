@@ -1,0 +1,17 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "gofolio",
+	"name": "GoFolio",
+	"author": "agnogad",
+	"kind": "native",
+	"group": "notes",
+	"url": "https://github.com/agnogad/GoFolio",
+	"repo": "agnogad/GoFolio",
+	"summary": {
+		"en": "A local-first desktop Markdown workspace. Plain files on disk, three editor modes, wikilinks, a drawing surface and an Obsidian-style link graph — built with MyGo's native UI."
+	},
+	"description": {
+		"en": "A local-first desktop Markdown workspace. Plain files on disk, three editor modes, wikilinks, a drawing surface and an Obsidian-style link graph — built with MyGo's native UI."
+	},
+	"added": "2026-11-05T15:28:05Z"
+}
