@@ -1,7 +1,7 @@
 {
 	"$schema": "../schema/app.schema.json",
 	"slug": "bunnybox",
-	"name": "bunnybox",
+	"name": "BunnyBox",
 	"author": "lesnolie",
 	"kind": "native",
 	"category": "UtilitiesApplication",
@@ -20,6 +20,9 @@
 		"zh-TW": "非官方的 Windows 版 sing-box 用戶端，依官方 macOS 用戶端的功能與版面實作，以 MyGo 原生 UI 繪製。後端是未經修改的官方 sing-box 核心，以 Windows 服務執行，同一份設定檔與 Mac 上效果相同；可匯入 sing-box JSON 設定檔或遠端訂閱（不支援 Clash YAML 與分享連結），能測試延遲、網速與 NAT 類型，並隨官方正式版自動更新。",
 		"ja": "公式 macOS クライアントの機能とレイアウトにならった、非公式の Windows 向け sing-box クライアント。MyGo のネイティブ UI で描かれています。バックエンドは無改変の公式 sing-box コアで、Windows サービスとして動くため、同じ設定が Mac と同じように働きます。sing-box の JSON 設定やリモート購読を読み込め（Clash YAML や共有リンクは非対応）、遅延・速度・NAT タイプを測定でき、公式の正式版リリースに合わせて自動更新されます。",
 		"ko": "공식 macOS 클라이언트의 기능과 레이아웃을 따른 비공식 Windows용 sing-box 클라이언트로, MyGo의 네이티브 UI로 그렸습니다. 수정하지 않은 공식 sing-box 코어를 Windows 서비스로 실행하므로 같은 설정이 Mac에서와 똑같이 동작합니다. sing-box JSON 설정이나 원격 구독을 가져올 수 있고(Clash YAML과 공유 링크는 미지원), 지연·속도·NAT 유형을 측정하며, 공식 정식 버전에 맞춰 자동 업데이트됩니다."
+	},
+	"icon": {
+		"file": "bunnybox.webp"
 	},
 	"added": "2026-11-05T01:33:17Z"
 }
