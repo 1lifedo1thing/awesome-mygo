@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "silverwing",
+	"name": "Silverwing",
+	"author": "javatoai",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/javatoai/silverwing",
+	"repo": "javatoai/silverwing",
+	"summary": {
+		"en": "A native workbench that gathers several repos into one task, with Git worktrees and diff review.",
+		"zh-CN": "原生多仓库研发工作台，用 Git Worktree 把多个仓库组织成一个任务。",
+		"zh-TW": "原生多儲存庫研發工作台，用 Git Worktree 把多個儲存庫組成一個任務。",
+		"ja": "複数リポジトリを Git Worktree で一つのタスクにまとめる、ネイティブな開発ワークベンチ。",
+		"ko": "여러 저장소를 Git Worktree로 하나의 작업에 묶는 네이티브 개발 워크벤치."
+	},
+	"description": {
+		"en": "A multi-repo workbench for Windows and Apple silicon Macs, drawn with MyGo's native UI, without a web view or Electron. It groups the repositories behind one requirement into a task using Git worktrees, reviews diffs side by side, keeps task documents next to the code and opens the workspace in Codex, Cursor or an IDE. Its interface is in Chinese, and creating tasks currently requires Meegle.",
+		"zh-CN": "用 Go 编写、由 MyGo 原生 UI 绘制的多仓库研发工作台，支持 Windows 与 Apple 芯片 Mac，不依赖 WebView 或 Electron。它用 Git Worktree 把一个需求涉及的多个仓库组织成一个任务，左右对比审阅差异，把任务资料放在代码旁边，并可在 Codex、Cursor 或 IDE 中打开工作区。界面目前为中文，创建任务需要连接 Meegle。",
+		"zh-TW": "用 Go 撰寫、由 MyGo 原生 UI 繪製的多儲存庫研發工作台，支援 Windows 與 Apple 晶片 Mac，不依賴 WebView 或 Electron。它用 Git Worktree 把一個需求涉及的多個儲存庫組成一個任務，左右對照審閱差異，把任務資料放在程式碼旁邊，並可在 Codex、Cursor 或 IDE 中開啟工作區。介面目前為簡體中文，建立任務需要連接 Meegle。",
+		"ja": "Go で書かれ、MyGo のネイティブ UI で描かれた複数リポジトリ向けの開発ワークベンチ。Windows と Apple シリコンの Mac に対応し、WebView も Electron も使いません。一つの要件にかかわる複数のリポジトリを Git Worktree で一つのタスクにまとめ、差分を左右に並べてレビューし、タスクの資料をコードのそばに置いて、Codex、Cursor や IDE でワークスペースを開けます。画面は現在中国語のみで、タスクの作成には Meegle との連携が必要です。",
+		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 다중 저장소 개발 워크벤치로, Windows와 Apple 실리콘 Mac을 지원하며 WebView나 Electron을 쓰지 않습니다. 하나의 요구사항에 걸친 여러 저장소를 Git Worktree로 하나의 작업에 묶고, 변경 사항을 좌우로 비교해 리뷰하며, 작업 자료를 코드 옆에 두고 Codex, Cursor 또는 IDE에서 작업 공간을 엽니다. 현재 화면은 중국어로만 제공되고, 작업을 만들려면 Meegle 연동이 필요합니다."
+	},
+	"icon": {
+		"file": "silverwing.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "silverwing.webp",
+	"added": "2026-11-05T02:55:41Z"
+}
