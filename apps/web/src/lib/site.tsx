@@ -23,12 +23,17 @@ interface Site {
 	closeSubmit: () => void;
 	form: SubmitForm;
 	setFormField: <K extends keyof SubmitForm>(key: K, value: SubmitForm[K]) => void;
-	// Replaces the whole form and opens the dialog afresh, for a WebMCP tool (lib/webmcp.ts). filled counts these fills: the dialog is keyed by it, so state the dialog keeps itself (an uploaded image, the screenshot check, which fields were left) cannot carry over from what was there before, and while it is above 0 the dialog says an AI agent filled it in.
+	// Replaces the whole form and opens the dialog afresh, for a WebMCP tool (lib/webmcp.ts). filled counts these fills: the dialog is keyed by it, so state the dialog keeps itself (an uploaded image, the screenshot check, which fields were left, a result it shows) cannot carry over from what was there before.
 	fillSubmit: (form: SubmitForm) => void;
 	filled: number;
-	// Whether the dialog is sending a submission, which a fill must not change under it.
-	sending: boolean;
-	setSending: (sending: boolean) => void;
+	// Whether the form holds what an AI agent filled in, which the dialog says: from a fill until that entry is sent.
+	agentFilled: boolean;
+	// How many submissions are on their way, which a fill must not replace the dialog under: a dialog closed while sending can be opened and send again before the first answers.
+	sending: number;
+	// The pull request of the last submission sent since the last fill, which a fill replaces the dialog that shows it with, so the tool can pass it on.
+	sent: { url: string; number: number } | undefined;
+	sendStarted: () => void;
+	sendEnded: (pr?: { url: string; number: number }) => void;
 	copied: CopyKey | null;
 	copy: (text: string, key: CopyKey) => void;
 	// Whether an app opens in a quick-view window over the page (the retro look) rather than on its own page (the original look).
@@ -58,7 +63,9 @@ export function SiteProvider({ quickView, children }: { quickView: boolean; chil
 	const [modal, setModal] = useState(false);
 	const [form, setForm] = useState<SubmitForm>({ cat: 'showcase', mode: 'native', name: '', author: '', url: '', repo: '', screenshot: '', desc: '', via: 'form', json: '' });
 	const [filled, setFilled] = useState(0);
-	const [sending, setSending] = useState(false);
+	const [agentFilled, setAgentFilled] = useState(false);
+	const [sending, setSending] = useState(0);
+	const [sent, setSent] = useState<{ url: string; number: number }>();
 	const [copied, setCopied] = useState<CopyKey | null>(null);
 	const copyTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 	// True when the open quick view pushed its own history entry, so closing it can step back instead of stacking another entry.
@@ -106,17 +113,20 @@ export function SiteProvider({ quickView, children }: { quickView: boolean; chil
 
 	const openPalette = useCallback(() => setPalette(true), []);
 
-	const value = useMemo<Site>(
-		() => ({
+	const value = useMemo<Site>(() => {
+		const showSubmit = () => {
+			setPalette(false);
+			setModal(true);
+			if (app) closeApp();
+		};
+		return {
 			palette,
 			openPalette,
 			closePalette: () => setPalette(false),
 			modal,
 			openSubmit: (cat) => {
 				if (cat) setForm((f) => ({ ...f, cat }));
-				setPalette(false);
-				setModal(true);
-				if (app) closeApp();
+				showSubmit();
 			},
 			closeSubmit: () => setModal(false),
 			form,
@@ -124,22 +134,30 @@ export function SiteProvider({ quickView, children }: { quickView: boolean; chil
 			fillSubmit: (next) => {
 				setForm(next);
 				setFilled((n) => n + 1);
-				setPalette(false);
-				setModal(true);
-				if (app) closeApp();
+				setAgentFilled(true);
+				setSent(undefined);
+				showSubmit();
 			},
 			filled,
+			agentFilled,
 			sending,
-			setSending,
+			sent,
+			sendStarted: () => setSending((n) => n + 1),
+			// A pull request means the entry the agent filled in has gone, so what the form holds next is the visitor's own.
+			sendEnded: (pr) => {
+				setSending((n) => n - 1);
+				if (!pr) return;
+				setSent(pr);
+				setAgentFilled(false);
+			},
 			copied,
 			copy,
 			quickView,
 			app,
 			openApp,
 			closeApp,
-		}),
-		[palette, openPalette, modal, form, filled, sending, copied, copy, quickView, app, openApp, closeApp],
-	);
+		};
+	}, [palette, openPalette, modal, form, filled, agentFilled, sending, sent, copied, copy, quickView, app, openApp, closeApp]);
 
 	return <SiteContext.Provider value={value}>{children}</SiteContext.Provider>;
 }

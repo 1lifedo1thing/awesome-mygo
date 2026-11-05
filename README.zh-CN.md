@@ -52,7 +52,7 @@ pnpm preview      # 在 Workers 运行时中运行生产构建
 
 表单的直接提交通过安装在本仓库上的 GitHub App 完成，前面有 Cloudflare Turnstile 人机验证和按 IP 的限流。给这个 App 开 *Contents* 和 *Pull requests* 的读写权限，把它的私钥转成 PKCS#8（`openssl pkcs8 -topk8 -nocrypt -in key.pem -out key-pkcs8.pem`），然后在 `apps/web` 下用 `wrangler secret put` 设置四个 secret：`GITHUB_APP_ID`、`GITHUB_APP_PRIVATE_KEY`（PKCS#8 文件）、`TURNSTILE_SITE_KEY` 和 `TURNSTILE_SECRET_KEY`。四个都设好之前，表单只提供 GitHub 链接。本地测试时，把 Turnstile 的[测试密钥](https://developers.cloudflare.com/turnstile/troubleshooting/testing/)写进 `apps/web/.dev.vars`。
 
-Chrome 通过 origin trial 向访客开放提交表单的 WebMCP 工具。在 [developer.chrome.com/origintrials](https://developer.chrome.com/origintrials/) 为正式站点的 origin（`https://awesomemygo.dev`）注册 WebMCP 试用，然后在 `apps/web` 下用 `wrangler secret put WEBMCP_ORIGIN_TRIAL` 设置拿到的 token：此后每个页面都会在 `<meta http-equiv="origin-trial">` 标签里带上它，不设置就不带。token 随试用结束而失效，届时重新注册，或删掉这个 secret。
+稳定版 Chrome 只有通过 origin trial，才会为本站访客开启 WebMCP，提交表单的工具也随之可用。在 [developer.chrome.com/origintrials](https://developer.chrome.com/origintrials/) 为正式站点的 origin（`https://awesomemygo.dev`）注册 WebMCP 试用，然后在 `apps/web` 下用 `wrangler secret put WEBMCP_ORIGIN_TRIAL` 设置拿到的 token：此后每个页面都会在 `<meta http-equiv="origin-trial">` 标签里带上它，不设置就不带。token 随试用结束而失效，届时重新注册，或删掉这个 secret。
 
 作品、UI 组件和状态管理都需要截图。访客填好仓库链接后，表单会请 Worker（`/api/shot`）按 submission workflow 自己的规则（`packages/enrich/src/source.ts`）检查仓库里有没有它会采用的截图；没有，或者作品没有仓库时，表单会要求提供一张，Worker 也会拒绝没有截图的提交。访客可以上传图片（PNG、JPEG 或 WebP，5 MB 以内，横版且宽度至少 600 像素），也可以填图片链接。上传的图片会以 `submissions/<slug>.<ext>` 提交到 PR 的分支上并显示在 PR 里，workflow 把它转成站点用的 WebP 后删除。这项检查按 IP 限流，每分钟 20 次。
 

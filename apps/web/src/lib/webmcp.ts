@@ -39,6 +39,8 @@ interface Answer {
 	entry?: Record<string, unknown>;
 	screenshot?: string;
 	submit?: 'bot' | 'github';
+	// The pull request of a submission the user sent from the form before this fill, whose link the form no longer shows.
+	sent?: string;
 	next: string;
 }
 
@@ -46,13 +48,14 @@ interface Answer {
 const NEXT = {
 	checked: "Ready. Call fill-submission with the same input to put it in the site's submit form; then ask the user to check it and send it themselves.",
 	fix: 'Fix the problems and call the tool again.',
-	sending: 'The form is sending a submission. Call fill-submission again once the form shows the result.',
+	sending: 'The form is sending a submission. Call fill-submission again once the submission in progress has finished.',
+	cancelled: 'The call was cancelled before the form was filled in; the page is as it was.',
 	bot: "The submit form on this page is filled in. Ask the user to check every field and press its Submit button themselves; Cloudflare may ask them to tick a captcha. The site's bot then opens a pull request on GitHub and the form shows its link. Leave the sending to the user.",
 	github: "The submit form on this page is filled in, but the site cannot submit for visitors right now. Ask the user to check it and send it themselves with the form's GitHub issue link or GitHub's editor link; both need a GitHub account.",
-	needs: 'The submit form on this page is open and filled in, and asks for what is still needed. Get it from the user and call fill-submission again with it, or ask the user to complete the form; then ask them to check every field and send it themselves.',
+	needs: 'The submit form on this page is open and filled in, but the problems list what is still needed. Get it from the user and call fill-submission again with it, or ask the user to complete the form; then ask them to check every field and send it themselves.',
 };
 
-// The catalog's checks, then the screenshot, which the form asks for only when the bot is on and the repository it would take one from has none. needs are what the form shows and asks for; problems are what it would not explain, so fill-submission leaves the page alone while there are any.
+// The catalog's checks, then the screenshot, which the form asks for only when the bot is on and the repository it would take one from has none. needs are what is still to be given, which the form leaves room for; problems are what it would not explain, so fill-submission leaves the page alone while there are any. details are the part of the answer both tools give.
 async function judge(sub: AgentSubmission) {
 	const { needs, problems, file, entry } = agentSubmissionReport(sub);
 	const bot = await queryBot();
@@ -65,9 +68,11 @@ async function judge(sub: AgentSubmission) {
 			const why = shot === 'none' ? "its repository's README shows none the site can take" : 'it has no GitHub repository to take one from';
 			needs.push(sub.via === 'form' ? `still needed: a screenshot, as ${why}; pass screenshot, an https link to an image of it, or ask the user to upload one in the form` : `still needed: a screenshot, as ${why}, which a pasted entry cannot carry; ask the user to upload one in the form, or pass the fields with a screenshot link instead`);
 		} else if (shot === 'found') screenshot = 'its repository has one the site will take';
-		else screenshot = "could not check right now whether its repository has one (too many checks, or GitHub did not answer); the site refuses an entry without one, so pass a screenshot link if you know of an image";
+		// A need, so the agent does not tell the user the entry is ready: the form checks again on its own and asks for a screenshot if the repository turns out to have none.
+		else needs.push(`could not check right now whether its repository has a screenshot the site can take (too many checks, or GitHub did not answer); call again in a minute, or ${sub.via === 'form' ? 'pass screenshot, an https link to an image of it, or ' : ''}ask the user to upload one in the form`);
 	}
-	return { needs, problems, file, entry, bot, screenshot };
+	const details = { file, ...(sub.via === 'form' ? { entry } : {}), ...(screenshot ? { screenshot } : {}), submit: bot.enabled ? ('bot' as const) : ('github' as const) };
+	return { needs, problems, file, bot, details };
 }
 
 // The whole form for a submission: every field set, so nothing from what the form held before stays behind, such as a screenshot link that would go into the issue of a pasted entry.
@@ -86,31 +91,34 @@ const checkTool: ModelContextTool = {
 	async execute(input) {
 		const read = readAgentSubmission(input);
 		if ('problems' in read) return { ok: false, problems: read.problems, next: NEXT.fix } satisfies Answer;
-		const sub = read.submission;
-		const j = await judge(sub);
+		const j = await judge(read.submission);
 		const problems = [...j.problems, ...j.needs];
-		return { ok: problems.length === 0, problems, file: j.file, ...(sub.via === 'form' ? { entry: j.entry } : {}), ...(j.screenshot ? { screenshot: j.screenshot } : {}), submit: j.bot.enabled ? 'bot' : 'github', next: problems.length === 0 ? NEXT.checked : NEXT.fix } satisfies Answer;
+		return { ok: problems.length === 0, problems, ...j.details, next: problems.length === 0 ? NEXT.checked : NEXT.fix } satisfies Answer;
 	},
 };
 
-// Reads the site through a ref, which always holds the latest render's value, since the tool is registered once for the page's life.
-function fillTool(site: RefObject<Site>): ModelContextTool {
+// Reads the site through a ref, which always holds the latest render's value, since the tool is registered once for the page's life. stop is aborted when the page drops the tools, which does not cancel a call already running.
+function fillTool(site: RefObject<Site>, stop: AbortSignal): ModelContextTool {
 	return {
 		name: 'fill-submission',
 		title: 'Fill in the submit form',
 		description: "Opens the site's submit form and fills it in with an entry for the Awesome MyGo catalog, replacing what the form held; takes the same input as check-submission. It fills the form only when the form itself can show what is still missing. It does not send: ask the user to check every field and press Submit themselves. Returns ok, filled, the problems and what to tell the user.",
 		inputSchema: AGENT_INPUT_SCHEMA,
 		annotations: { readOnlyHint: false, consequentialHint: false },
-		async execute(input) {
+		async execute(input, options) {
 			const read = readAgentSubmission(input);
 			if ('problems' in read) return { ok: false, filled: false, problems: read.problems, next: NEXT.fix } satisfies Answer;
 			const sub = read.submission;
 			const j = await judge(sub);
+			// The checks take a round trip or two, during which the agent may give up on the call or the page drop the tools; a call nobody waits for any more must not change the page. The signal is read with ?. as the origin trial's builds may not pass one.
+			if (options?.signal?.aborted || stop.aborted) return { ok: false, filled: false, problems: ['the call was cancelled'], next: NEXT.cancelled } satisfies Answer;
 			if (j.problems.length > 0) return { ok: false, filled: false, problems: [...j.problems, ...j.needs], file: j.file, next: NEXT.fix } satisfies Answer;
-			if (site.current.sending) return { ok: false, filled: false, problems: ['the form is sending a submission'], next: NEXT.sending } satisfies Answer;
+			if (site.current.sending > 0) return { ok: false, filled: false, problems: ['the form is sending a submission'], next: NEXT.sending } satisfies Answer;
+			const { sent } = site.current;
 			site.current.fillSubmit(formOf(sub));
 			const ok = j.needs.length === 0;
-			return { ok, filled: true, problems: j.needs, file: j.file, ...(sub.via === 'form' ? { entry: j.entry } : {}), ...(j.screenshot ? { screenshot: j.screenshot } : {}), submit: j.bot.enabled ? 'bot' : 'github', next: !ok ? NEXT.needs : j.bot.enabled ? NEXT.bot : NEXT.github } satisfies Answer;
+			const next = !ok ? NEXT.needs : j.bot.enabled ? NEXT.bot : NEXT.github;
+			return { ok, filled: true, problems: j.needs, ...j.details, ...(sent ? { sent: sent.url, next: `Tell the user the submission they sent before is pull request #${sent.number}, ${sent.url}, as the form no longer shows it. ${next}` } : { next }) } satisfies Answer;
 		},
 	};
 }
@@ -125,7 +133,7 @@ export function SubmitTools(): null {
 		// A page that frames the site could lay its own UI over the form an agent fills in, so only a top-level page offers the tools.
 		if (!mc || window.top !== window) return;
 		const stop = new AbortController();
-		for (const tool of [checkTool, fillTool(latest)]) {
+		for (const tool of [checkTool, fillTool(latest, stop.signal)]) {
 			// The API is an origin trial that still changes: started in a promise, a registerTool that throws, or returns no promise as older builds may, cannot break the page. It rejects when a Permissions-Policy turns tools off, and with the abort reason when the page unmounts first.
 			Promise.resolve()
 				.then(() => mc.registerTool(tool, { signal: stop.signal }))

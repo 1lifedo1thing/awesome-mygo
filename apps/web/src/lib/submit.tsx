@@ -93,7 +93,7 @@ export function Captcha({ siteKey, lang, round, onToken, onFail, theme = 'dark' 
 }
 
 export function useSubmit() {
-	const { form, setFormField, setSending } = useSite();
+	const { form, setFormField, sendStarted, sendEnded } = useSite();
 	const t = useT();
 	const lang = useLang();
 	const bot = useBot();
@@ -243,7 +243,8 @@ export function useSubmit() {
 
 	const send = async () => {
 		setStatus({ kind: 'sending' });
-		setSending(true);
+		sendStarted();
+		let pr: { url: string; number: number } | undefined;
 		try {
 			const payload = JSON.stringify(pastedEntry ? { cat: form.cat, entry: pastedEntry, token } : { cat: form.cat, mode: form.mode, name: form.name, author: withAuthor ? form.author : '', url: form.url, repo: isShow ? form.repo : undefined, screenshot: shotLink, desc: form.desc, group: isShow ? form.group : undefined, token });
 			// With an image, the JSON goes as one part of a multipart body and the image as another.
@@ -256,11 +257,12 @@ export function useSubmit() {
 			}
 			const res = await fetch('/api/submit', { method: 'POST', ...(upload ? {} : { headers: { 'content-type': 'application/json' } }), body: requestBody });
 			const body = (await res.json().catch(() => ({}))) as { url?: string; number?: number; error?: string; message?: string };
-			setStatus(res.ok && body.url && body.number ? { kind: 'done', url: body.url, number: body.number } : { kind: 'error', message: errorText(body) });
+			if (res.ok && body.url && body.number) pr = { url: body.url, number: body.number };
+			setStatus(pr ? { kind: 'done', ...pr } : { kind: 'error', message: errorText(body) });
 		} catch {
 			setStatus({ kind: 'error', message: t.sub_failed });
 		}
-		setSending(false);
+		sendEnded(pr);
 		setToken('');
 		setRound((n) => n + 1);
 	};
