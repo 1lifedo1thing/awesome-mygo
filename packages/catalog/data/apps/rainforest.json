@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "rainforest",
+	"name": "Rainforest",
+	"author": "thedavidweng",
+	"kind": "native",
+	"group": "media",
+	"url": "https://github.com/thedavidweng/rainforest",
+	"repo": "thedavidweng/rainforest",
+	"summary": {
+		"en": "Unofficial Amazon Photos desktop client: uploads, one-way folder backup and verified downloads.",
+		"zh-CN": "非官方 Amazon Photos 桌面客户端：上传、单向文件夹备份与校验下载。",
+		"zh-TW": "非官方 Amazon Photos 桌面用戶端：上傳、單向資料夾備份與驗證下載。",
+		"ja": "非公式の Amazon Photos クライアント。アップロード、一方向バックアップ、検証付き復元。",
+		"ko": "비공식 Amazon Photos 데스크톱 클라이언트. 업로드, 단방향 폴더 백업, 검증된 다운로드."
+	},
+	"description": {
+		"en": "An unofficial Amazon Photos client for macOS, Windows and Linux, drawn with MyGo's native UI. It checks counts, sizes and conflicts before uploading photos and videos, backs up folders one way so local deletions never remove cloud media, keeps a transfer queue you can pause, resume and retry, and downloads originals back with size and MD5 verification.",
+		"zh-CN": "非官方的 Amazon Photos 客户端，支持 macOS、Windows 与 Linux，由 MyGo 原生 UI 绘制。上传照片和视频前会先检查数量、大小与冲突；文件夹单向备份到云端，本地删除不会删掉云端媒体；传输队列可暂停、继续和重试；还能下载原始文件，并校验大小与 MD5。",
+		"zh-TW": "非官方的 Amazon Photos 用戶端，支援 macOS、Windows 與 Linux，由 MyGo 原生 UI 繪製。上傳照片和影片前會先檢查數量、大小與衝突；資料夾單向備份到雲端，本機刪除不會刪掉雲端媒體；傳輸佇列可暫停、繼續和重試；還能下載原始檔案，並驗證大小與 MD5。",
+		"ja": "macOS・Windows・Linux 向けの非公式 Amazon Photos クライアントで、MyGo のネイティブ UI で描かれています。写真や動画のアップロード前に件数、サイズ、競合を確認し、フォルダーを一方向でバックアップするため、ローカルで削除してもクラウドのメディアは消えません。転送キューは一時停止・再開・再試行ができ、元のファイルをサイズと MD5 で検証しながらダウンロードできます。",
+		"ko": "macOS, Windows, Linux용 비공식 Amazon Photos 클라이언트로, MyGo의 네이티브 UI로 그렸습니다. 사진과 동영상을 올리기 전에 개수, 크기, 충돌을 확인하고, 폴더를 한 방향으로만 백업해 로컬에서 지워도 클라우드 미디어는 지워지지 않습니다. 전송 대기열은 일시 정지, 재개, 재시도할 수 있고, 원본 파일을 크기와 MD5로 검증하며 내려받습니다."
+	},
+	"icon": {
+		"file": "rainforest.webp"
+	},
+	"screenshot": "rainforest.webp",
+	"added": "2026-11-05T12:35:14Z"
+}
