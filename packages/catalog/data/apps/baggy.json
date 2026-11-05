@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "baggy",
+	"name": "Baggy",
+	"author": "zucchiniEvader",
+	"kind": "native",
+	"group": "ai",
+	"url": "https://zucchinievader.github.io/baggy/",
+	"repo": "zucchiniEvader/baggy",
+	"summary": {
+		"en": "Desktop AI assistant where bots with their own model and memory chat with you or work as a team.",
+		"zh-CN": "桌面 AI 助手：各有模型与记忆的机器人可单独对话，也能在群聊中协作。",
+		"zh-TW": "桌面 AI 助理：各有模型與記憶的機器人可單獨對話，也能在群組聊天中協作。",
+		"ja": "モデルと記憶を持つボットと一対一で話し、グループでも協働させられるデスクトップ AI アシスタント。",
+		"ko": "모델과 메모리를 가진 봇과 일대일로 대화하거나 그룹으로 협업시키는 데스크톱 AI 비서."
+	},
+	"description": {
+		"en": "A desktop AI assistant for macOS, Windows and Linux, drawn with MyGo's native UI. Each bot has its own model, memory and working folder. In group chats the bots take turns, hand work to each other and report back, and they use files, search and shell commands with your approval. It uses the Anthropic and OpenAI APIs, so it works with DeepSeek, OpenRouter, Ollama and others, and with MCP servers.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的桌面 AI 助手，支持 macOS、Windows 与 Linux。每个机器人都有自己的模型、记忆和工作文件夹；在群聊中它们轮流发言、互相交接工作并汇报结果，经你批准后可以操作文件、搜索和运行 Shell 命令。它支持 Anthropic 与 OpenAI 的 API，因此可以接入 DeepSeek、OpenRouter、Ollama 等服务，也能使用 MCP 服务器。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的桌面 AI 助理，支援 macOS、Windows 與 Linux。每個機器人都有自己的模型、記憶和工作資料夾；在群組聊天中它們輪流發言、互相交接工作並回報結果，經你核准後可以操作檔案、搜尋和執行 Shell 指令。它支援 Anthropic 與 OpenAI 的 API，因此可以串接 DeepSeek、OpenRouter、Ollama 等服務，也能使用 MCP 伺服器。",
+		"ja": "MyGo のネイティブ UI で描かれた、macOS・Windows・Linux 向けのデスクトップ AI アシスタント。ボットはそれぞれ自分のモデル、記憶、作業フォルダーを持ちます。グループチャットでは順番に発言し、仕事を受け渡して結果を報告します。ファイル操作、検索、シェルコマンドは承認を得てから実行します。Anthropic と OpenAI の API に対応しているので、DeepSeek、OpenRouter、Ollama なども使えます。MCP サーバーにも対応しています。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS·Windows·Linux용 데스크톱 AI 비서입니다. 봇마다 자신의 모델, 메모리, 작업 폴더가 있고, 그룹 채팅에서는 차례로 답하고 서로 일을 넘기며 결과를 보고합니다. 파일, 검색, 셸 명령은 승인을 거쳐 실행합니다. Anthropic과 OpenAI API를 지원해 DeepSeek, OpenRouter, Ollama 등도 쓸 수 있고 MCP 서버도 연결됩니다."
+	},
+	"icon": {
+		"file": "baggy.webp"
+	},
+	"screenshot": "baggy.webp",
+	"added": "2026-11-05T13:45:02Z"
+}
