@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "aster",
+	"name": "Aster",
+	"author": "laojianzi",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/laojianzi/aster",
+	"repo": "laojianzi/aster",
+	"summary": {
+		"en": "A native Kubernetes workbench: browse resources, review edits, follow logs and open Pod terminals.",
+		"zh-CN": "原生 Kubernetes 工作台：浏览资源、审阅后编辑、查看日志、打开 Pod 终端。",
+		"zh-TW": "原生 Kubernetes 工作台：瀏覽資源、審閱後編輯、看日誌、開啟 Pod 終端機。",
+		"ja": "ネイティブな Kubernetes ワークベンチ。リソース閲覧、確認付きの編集、ログ、Pod ターミナル。",
+		"ko": "네이티브 Kubernetes 워크벤치. 리소스 탐색, 검토 후 편집, 로그, Pod 터미널."
+	},
+	"description": {
+		"en": "A Kubernetes desktop workbench in development preview, drawn with MyGo's native UI with no browser UI or embedded dashboard. It connects through your kubeconfig contexts to browse resources, follow logs, forward ports and open Pod terminals, and every edit, scale, restart or delete goes through a server dry-run and a typed confirmation. It also renders local Helm charts and shows Pod and Node metrics.",
+		"zh-CN": "仍处于开发预览阶段的 Kubernetes 桌面工作台，由 MyGo 原生 UI 绘制，不用浏览器界面或内嵌仪表盘。通过 kubeconfig 上下文连接集群，可浏览资源、跟踪日志、转发端口、打开 Pod 终端；编辑、扩缩、重启和删除都要先经服务器 dry-run 并输入确认。还能在本地渲染 Helm chart，并查看 Pod 与 Node 指标。",
+		"zh-TW": "仍在開發預覽階段的 Kubernetes 桌面工作台，由 MyGo 原生 UI 繪製，不使用瀏覽器介面或內嵌儀表板。透過 kubeconfig 的 context 連線叢集，可瀏覽資源、追蹤日誌、轉送連接埠、開啟 Pod 終端機；編輯、調整規模、重新啟動與刪除都須先經伺服器 dry-run 並輸入確認。也能在本機算繪 Helm chart，並查看 Pod 與 Node 指標。",
+		"ja": "開発プレビュー段階の Kubernetes デスクトップワークベンチ。MyGo のネイティブ UI で描かれ、ブラウザー UI や埋め込みダッシュボードは使いません。kubeconfig のコンテキストで接続し、リソースの閲覧、ログの追跡、ポートフォワード、Pod ターミナルが使えます。編集・スケール・再起動・削除はすべてサーバーの dry-run と入力による確認を経ます。ローカルの Helm チャートのレンダリングや Pod・Node のメトリクス表示にも対応します。",
+		"ko": "개발 프리뷰 단계의 Kubernetes 데스크톱 워크벤치로, MyGo의 네이티브 UI로 그렸으며 브라우저 UI나 내장 대시보드를 쓰지 않습니다. kubeconfig 컨텍스트로 연결해 리소스를 살펴보고 로그를 따라가며 포트를 포워딩하고 Pod 터미널을 엽니다. 편집, 스케일, 재시작, 삭제는 모두 서버 dry-run과 입력 확인을 거칩니다. 로컬 Helm 차트 렌더링과 Pod·Node 메트릭 보기도 지원합니다."
+	},
+	"icon": {
+		"file": "aster.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "aster.webp",
+	"added": "2026-11-05T04:32:09Z"
+}
