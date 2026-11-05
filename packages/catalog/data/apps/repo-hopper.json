@@ -7,6 +7,7 @@
 	"category": "DeveloperApplication",
 	"group": "dev",
 	"url": "https://github.com/pteich/repo-hopper",
+	"repo": "pteich/repo-hopper",
 	"summary": {
 		"en": "Spotlight for your Git repositories: one shortcut to find and open any local repo.",
 		"zh-CN": "Git 仓库版 Spotlight：一个快捷键搜索并打开本地仓库。",

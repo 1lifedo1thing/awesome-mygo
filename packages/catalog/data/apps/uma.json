@@ -7,6 +7,7 @@
 	"category": "BusinessApplication",
 	"group": "dev",
 	"url": "https://github.com/egoist/uma",
+	"repo": "egoist/uma",
 	"summary": {
 		"en": "A menu bar app showing your Umami websites and visitors.",
 		"zh-CN": "菜单栏应用，展示 Umami 账号下的网站与访客。",

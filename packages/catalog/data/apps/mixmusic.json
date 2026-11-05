@@ -7,6 +7,7 @@
 	"category": "MultimediaApplication",
 	"group": "media",
 	"url": "https://github.com/fzn0x/mixmusic",
+	"repo": "fzn0x/mixmusic",
 	"summary": {
 		"en": "An open-source music player that searches YouTube Music and Spotify.",
 		"zh-CN": "开源音乐播放器，可搜索 YouTube Music 与 Spotify。",
