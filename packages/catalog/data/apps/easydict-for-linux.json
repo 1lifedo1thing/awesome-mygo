@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "easydict-for-linux",
+	"name": "Easydict for Linux",
+	"author": "dddaniel1",
+	"kind": "web",
+	"group": "ai",
+	"url": "https://dddaniel1.github.io/easy-dict-linux/",
+	"repo": "dddaniel1/easy-dict-linux",
+	"summary": {
+		"en": "A Linux dictionary and translator that queries Youdao, Bing, Google, DeepL and AI side by side.",
+		"zh-CN": "Linux 词典翻译工具，同时查询有道、Bing、Google、DeepL 和 AI。",
+		"zh-TW": "Linux 詞典翻譯工具，同時查詢有道、Bing、Google、DeepL 和 AI。",
+		"ja": "有道、Bing、Google、DeepL、AI を同時に引ける Linux 向けの辞書・翻訳ツール。",
+		"ko": "유다오, Bing, Google, DeepL, AI를 동시에 조회하는 Linux용 사전·번역 도구."
+	},
+	"description": {
+		"en": "A dictionary and translator for the Linux desktop, built with MyGo and a React web frontend. It queries Youdao, Bing, Google, DeepL and OpenAI-compatible AI such as a local Ollama side by side, translates selected text in a small popup and screen regions through OCR, on Wayland or X11. It lives in the tray and responds to shortcuts or command-line flags.",
+		"zh-CN": "为 Linux 桌面打造的词典与翻译工具，用 MyGo 搭配 React Web 前端构建。可并行查询有道、Bing、Google、DeepL，以及 DeepSeek、本地 Ollama 等兼容 OpenAI 的 AI 服务，支持划词翻译浮窗和截图 OCR 翻译，适用于 Wayland 与 X11。启动后常驻托盘，可用快捷键或命令行参数调用。",
+		"zh-TW": "為 Linux 桌面打造的詞典與翻譯工具，以 MyGo 搭配 React Web 前端建構。可同時查詢有道、Bing、Google、DeepL，以及 DeepSeek、本機 Ollama 等相容 OpenAI 的 AI 服務，支援劃詞翻譯浮窗與截圖 OCR 翻譯，適用於 Wayland 與 X11。啟動後常駐系統匣，可用快捷鍵或命令列參數呼叫。",
+		"ja": "Linux デスクトップ向けの辞書・翻訳ツールで、MyGo と React の Web フロントエンドで作られています。有道、Bing、Google、DeepL、そして DeepSeek やローカルの Ollama など OpenAI 互換の AI サービスを並行して引き、選択したテキストはポップアップで、画面の範囲は OCR で翻訳します。Wayland と X11 に対応。起動後はトレイに常駐し、ショートカットやコマンドライン引数から呼び出せます。",
+		"ko": "MyGo와 React 웹 프런트엔드로 만든 Linux 데스크톱용 사전·번역 도구입니다. 유다오, Bing, Google, DeepL과 DeepSeek, 로컬 Ollama 같은 OpenAI 호환 AI 서비스를 동시에 조회하고, 선택한 텍스트는 팝업으로, 화면 영역은 OCR로 번역하며 Wayland와 X11을 지원합니다. 트레이에 상주하며 단축키나 명령줄 인수로 불러올 수 있습니다."
+	},
+	"icon": {
+		"file": "easydict-for-linux.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "easydict-for-linux.webp",
+	"added": "2026-11-05T16:30:17Z"
+}
