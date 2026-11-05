@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "locklark",
+	"name": "Locklark",
+	"author": "jihuayu",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/jihuayu/locklark",
+	"repo": "jihuayu/locklark",
+	"summary": {
+		"en": "Native desktop client of Locklark, a local-first password manager with audited field access.",
+		"zh-CN": "本地优先密码管理器 Locklark 的原生桌面客户端，每次取值均留审计。",
+		"zh-TW": "本機優先密碼管理器 Locklark 的原生桌面用戶端，每次取值皆留稽核紀錄。",
+		"ja": "ローカルファーストのパスワードマネージャー Locklark のネイティブデスクトップ版。操作は監査記録付き。",
+		"ko": "로컬 우선 비밀번호 관리자 Locklark의 네이티브 데스크톱 클라이언트. 모든 조회를 감사 기록."
+	},
+	"description": {
+		"en": "Desktop client of Locklark, a local-first password manager for individuals and small teams, drawn with MyGo's native UI; its CLI is built separately. It creates and unlocks a personal vault, searches it, reveals and copies single fields, edits logins, shows the audit log and imports basic 1PUX logins. It is a development build, and the README asks to use test data only.",
+		"zh-CN": "面向个人与小团队的本地优先密码管理器 Locklark 的桌面客户端，由 MyGo 原生 UI 绘制；命令行工具另行构建。可以创建并解锁个人库、搜索标题、逐字段显示与复制、编辑登录、查看审计，并导入基本的 1PUX 登录。目前仍是开发版，README 建议只用测试数据。",
+		"zh-TW": "面向個人與小團隊的本機優先密碼管理器 Locklark 的桌面用戶端，由 MyGo 原生 UI 繪製；命令列工具另行建置。可以建立並解鎖個人資料庫、搜尋標題、逐欄位顯示與複製、編輯登入項目、查看稽核紀錄，並匯入基本的 1PUX 登入資料。目前仍是開發版，README 建議只用測試資料。",
+		"ja": "個人と小規模チーム向けのローカルファーストなパスワードマネージャー Locklark のデスクトップクライアントで、MyGo のネイティブ UI で描かれています。CLI は別に作られています。個人保管庫の作成とロック解除、タイトル検索、フィールド単位の表示とコピー、ログインの編集、監査ログの確認、基本的な 1PUX ログインの取り込みができます。現在は開発版で、README はテストデータでの利用を求めています。",
+		"ko": "개인과 소규모 팀을 위한 로컬 우선 비밀번호 관리자 Locklark의 데스크톱 클라이언트로, MyGo의 네이티브 UI로 그렸고 CLI는 따로 만들어집니다. 개인 보관함 생성과 잠금 해제, 제목 검색, 필드별 표시와 복사, 로그인 편집, 감사 로그 확인, 기본 1PUX 로그인 가져오기를 지원합니다. 아직 개발 버전이며 README는 테스트 데이터로만 써 보라고 합니다."
+	},
+	"icon": {
+		"file": "locklark.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "locklark.webp",
+	"added": "2026-11-05T14:57:25Z"
+}
