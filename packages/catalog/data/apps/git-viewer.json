@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "git-viewer",
+	"name": "Git Viewer",
+	"author": "SinCOS",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/SinCOS/Git-Viewer",
+	"repo": "SinCOS/Git-Viewer",
+	"summary": {
+		"en": "A native Git client for local and SSH repos: diffs, history graph, editor, search and terminal.",
+		"zh-CN": "原生 Git 客户端：本地与 SSH 远程仓库、Diff、提交图、编辑器与终端。",
+		"zh-TW": "原生 Git 用戶端：本機與 SSH 遠端儲存庫、Diff、提交圖、編輯器與終端機。",
+		"ja": "ネイティブ Git クライアント。ローカルと SSH のリポジトリを差分・履歴グラフ・ターミナルで扱う。",
+		"ko": "로컬과 SSH 저장소를 다루는 네이티브 Git 클라이언트. 디프, 히스토리 그래프, 터미널 포함."
+	},
+	"description": {
+		"en": "A Git desktop client for macOS in pure Go, drawn with MyGo's native UI and no web view. It opens local repositories or folders on SSH hosts through the system OpenSSH. It covers status, diffs, a history graph, branches and worktrees, a three-way conflict resolver, an editor, search and replace, and an integrated terminal. The current build is an internal development preview.",
+		"zh-CN": "用纯 Go 编写、由 MyGo 原生 UI 绘制的 macOS Git 桌面客户端，不使用 WebView。它可以打开本地仓库，也能通过系统 OpenSSH 打开 SSH 主机上的文件夹。它提供状态、Diff、提交历史图、分支与 worktree、三路冲突解决、编辑器、全局搜索替换和集成终端。目前的构建仍是内部开发预览版。",
+		"zh-TW": "用純 Go 撰寫、由 MyGo 原生 UI 繪製的 macOS Git 桌面用戶端，不使用 WebView。它可以開啟本機儲存庫，也能透過系統 OpenSSH 開啟 SSH 主機上的資料夾。它提供狀態、Diff、提交歷史圖、分支與 worktree、三方衝突解決、編輯器、全域搜尋取代和整合式終端機。目前的版本仍是內部開發預覽版。",
+		"ja": "純粋な Go で書かれ、MyGo のネイティブ UI で描かれた macOS 用の Git デスクトップクライアント。WebView は使いません。ローカルのリポジトリや、システムの OpenSSH 経由で SSH ホスト上のフォルダーを開けます。ステータス、差分、履歴グラフ、ブランチとワークツリー、3 方向のコンフリクト解決、エディター、全体の検索と置換、統合ターミナルを備えます。現在のビルドは内部向けの開発プレビューです。",
+		"ko": "순수 Go로 작성하고 MyGo의 네이티브 UI로 그린 macOS용 Git 데스크톱 클라이언트로, WebView를 쓰지 않습니다. 로컬 저장소나 시스템 OpenSSH를 통해 SSH 호스트의 폴더를 엽니다. 상태, 디프, 히스토리 그래프, 브랜치와 워크트리, 3방향 충돌 해결, 편집기, 전체 검색·바꾸기, 통합 터미널을 제공합니다. 현재 빌드는 내부 개발 프리뷰입니다."
+	},
+	"icon": {
+		"file": "git-viewer.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "git-viewer.webp",
+	"added": "2026-11-05T09:41:01Z"
+}
