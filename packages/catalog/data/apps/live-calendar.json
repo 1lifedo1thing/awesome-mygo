@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "live-calendar",
+	"name": "Live Calendar",
+	"author": "Lonely0710",
+	"kind": "native",
+	"group": "media",
+	"url": "https://jpop-live-calendar.pages.dev/",
+	"repo": "Lonely0710/jpop-live-calendar",
+	"summary": {
+		"en": "A calendar of Japanese music live shows, ticket lotteries and general sales from official sites.",
+		"zh-CN": "把日本音乐 Live 场次、抽选和一般发售从官方公告整理成一张日历。",
+		"zh-TW": "把日本音樂 Live 場次、抽選和一般發售從官方公告整理成一張行事曆。",
+		"ja": "日本の音楽ライブの公演、抽選受付、一般発売を公式発表から集めたカレンダー。",
+		"ko": "일본 음악 라이브 공연, 추첨 접수, 일반 판매를 공식 공지에서 모아 보여 주는 캘린더."
+	},
+	"description": {
+		"en": "A macOS and Windows calendar drawn with MyGo's native UI that gathers Japanese music live shows, ticket lottery rounds and general sales from official sites, RSS and Sony Music's public JSON, without logging in. It offers month, week, day and list views and a prefecture map, logs postponements and deadline changes, and syncs from the menu bar or tray, alerting three days before a lottery closes.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 与 Windows 日历，从官网、RSS 和 Sony Music 公开 JSON 汇总日本音乐的 Live 场次、抽选受付和一般发售，不登录，也不爬取票务平台。提供月、周、日、列表视图和都道府县地图，延期与截止时间变更都会留痕；常驻菜单栏或系统托盘同步，抽选截止前 3 天提醒。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS 與 Windows 行事曆，從官網、RSS 和 Sony Music 公開 JSON 彙整日本音樂的 Live 場次、抽選受付和一般發售，不登入，也不爬取售票平台。提供月、週、日、列表檢視和都道府縣地圖，延期與截止時間變更都會留下紀錄；常駐選單列或系統匣同步，抽選截止前 3 天提醒。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS・Windows 向けのカレンダー。公式サイト、RSS、Sony Music の公開 JSON から日本の音楽ライブの公演、抽選受付、一般発売を集め、ログインもチケットサイトのクロールもしません。月・週・日・リストの表示と都道府県別の地図があり、延期や締め切りの変更は履歴として残ります。メニューバーまたはシステムトレイに常駐して同期し、抽選締め切りの 3 日前に通知します。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS·Windows용 캘린더입니다. 공식 사이트, RSS, Sony Music 공개 JSON에서 일본 음악 라이브 공연, 추첨 접수, 일반 판매 일정을 모으며, 로그인하거나 티켓 사이트를 크롤링하지 않습니다. 월·주·일·목록 보기와 도도부현별 지도를 제공하고 연기나 마감 변경은 기록으로 남깁니다. 메뉴 막대나 시스템 트레이에 상주하며 동기화하고, 추첨 마감 3일 전에 알려 줍니다."
+	},
+	"icon": {
+		"file": "live-calendar.webp"
+	},
+	"screenshot": "live-calendar.webp",
+	"added": "2026-11-05T09:41:01Z"
+}
