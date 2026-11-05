@@ -25,5 +25,8 @@
 		"file": "wintab.webp"
 	},
 	"screenshot": "wintab.webp",
+	"provisional": [
+		"icon"
+	],
 	"added": "2026-11-05T01:50:45Z"
 }

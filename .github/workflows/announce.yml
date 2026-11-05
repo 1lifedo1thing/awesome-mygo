@@ -1,6 +1,6 @@
 name: Announce on X and to the project
 
-# Every app, plugin, UI library or state management solution a push to main adds (a new file in packages/catalog/data/apps, plugins, ui or state; a renamed one is not new) is posted to X with packages/announce, as a post of its own with the entry's page on the site as its only link, so X shows the page's card: what was listed and by whom (the owner's X account when their GitHub profile names one), its summary, its stars and how much the site lists now. Each entry is a job of its own, one at a time, so re-running the failed jobs of a run posts only what was not posted. Each job waits for the site to list the entry before it posts, since Workers Builds deploys main on its own. After the post, the job opens an issue on the project's own GitHub repository saying it was listed, with its page on the site, the post on X and the README badge's Markdown to link back (packages/announce/src/issue.ts); a repository is told once, and not at all when its issues are off, it is archived or it belongs to this site's owner. Run it by hand to post entries again or to see their posts and issues without posting or opening them.
+# Every app, plugin, UI library or state management solution a push to main adds (a new file in packages/catalog/data/apps, plugins, ui or state; a renamed one is not new) is posted to X with packages/announce, as a post of its own with the entry's page on the site as its only link, so X shows the page's card: what was listed and by whom (the owner's X account when their GitHub profile names one), its summary, its stars and how much the site lists now. Each entry is a job of its own, one at a time, so re-running the failed jobs of a run posts only what was not posted. Each job waits for the site to list the entry before it posts, since Workers Builds deploys main on its own. After the post, the job opens an issue on the project's own GitHub repository saying it was listed, with its page on the site, the post on X and the README badge's Markdown to link back (packages/announce/src/issue.ts); a repository is told once, and not at all when its issues are off, it is archived or it belongs to this site's owner. Run it by hand to post entries again, to see their posts and issues without posting or opening them, or with issue_only to open just the issues of entries announced before the workflow opened any.
 #
 # Secrets: X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN and X_ACCESS_SECRET, the OAuth 1.0a keys of an X app with read and write permission, the access token generated for the account that posts. Without them nothing is posted, and the issue goes without a post. NOTIFY_GITHUB_TOKEN, a classic personal access token with the public_repo scope of the account the issues come from: neither this workflow's token nor a GitHub App's can open an issue on a repository they are not installed on. Without it the issues are only printed.
 
@@ -15,12 +15,16 @@ on:
   workflow_dispatch:
     inputs:
       entries:
-        description: Entries to post, space-separated, as paths under packages/catalog/data (e.g. ui/8bitmygoui.json apps/bamboo.json)
+        description: Entries to post, space-separated, as paths under packages/catalog/data (e.g. ui/8bitmygoui.json apps/bamboo.json); with issue_only, a path may end in =<its post on X> for the issue to link to
         required: true
       dry_run:
         description: Only print the posts and the issues
         type: boolean
         default: true
+      issue_only:
+        description: Open only the issues, without posting, for entries announced before issues were opened
+        type: boolean
+        default: false
 
 # No concurrency group: GitHub keeps one pending run per group and cancels the one before, so of three merges in a row the middle one's entries would never be posted. Runs of different pushes post side by side; a run's own entries still go one at a time.
 
@@ -77,6 +81,7 @@ jobs:
         env:
           ENTRY: ${{ matrix.entry }}
           DRY_RUN: ${{ inputs.dry_run }}
+          ISSUE_ONLY: ${{ inputs.issue_only }}
           GITHUB_TOKEN: ${{ github.token }}
           X_API_KEY: ${{ secrets.X_API_KEY }}
           X_API_SECRET: ${{ secrets.X_API_SECRET }}

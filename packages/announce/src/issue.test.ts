@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { ISSUE_TITLE, badgeMarkdown, composeIssue, missingImages, projectRepo } from './issue.ts';
+import { ISSUE_TITLE, badgeMarkdown, composeIssue, missingImages, projectRepo, standInImages } from './issue.ts';
 import { SITE_URL } from './tweet.ts';
 
 describe('the project to tell', () => {
@@ -19,6 +19,22 @@ describe('missing images', () => {
 		expect(missingImages('app', { slug: 'a', screenshot: 'a.webp', icon: { file: 'a.webp' } })).toEqual({ screenshot: false, icon: false });
 		expect(missingImages('ui', { slug: 'u' })).toEqual({ screenshot: true, icon: false });
 		expect(missingImages('plugin', { slug: 'p' })).toEqual({ screenshot: false, icon: false });
+	});
+
+	it("asks for the project's own images where the page shows stand-ins", () => {
+		const entry = { slug: 'hb', name: 'Handbean', screenshot: 'hb.webp', icon: { file: 'hb.webp' }, provisional: ['icon', 'screenshot'] };
+		expect(standInImages('app', entry)).toEqual({ screenshot: true, icon: true });
+		expect(standInImages('app', { ...entry, provisional: ['screenshot'] })).toEqual({ screenshot: true, icon: false });
+		expect(standInImages('app', { slug: 'x', provisional: ['screenshot'] })).toEqual({ screenshot: false, icon: false });
+		expect(standInImages('plugin', { slug: 'p', screenshot: 'p.webp', provisional: ['screenshot'] })).toEqual({ screenshot: false, icon: false });
+		const body = composeIssue({ kind: 'app', entry }).body;
+		expect(body).toContain("For now the page shows your GitHub avatar as the app's icon and a card of the repository as its screenshot, in place of the project's own.");
+		expect(body).toContain('drops "icon" and "screenshot" from `provisional` in `packages/catalog/data/apps/hb.json`');
+		expect(body).toContain('页面上的图标（你的 GitHub 头像）和截图（仓库的卡片）暂时是替代图');
+		expect(body).not.toContain('The page has no');
+		const own = composeIssue({ kind: 'app', entry: { ...entry, provisional: undefined } }).body;
+		expect(own).not.toContain('For now the page shows');
+		expect(own).not.toContain('替代图');
 	});
 
 	it('suggests adding what the page lacks, and nothing when it lacks nothing', () => {

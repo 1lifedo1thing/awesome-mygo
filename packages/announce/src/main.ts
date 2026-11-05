@@ -7,7 +7,7 @@ import { type Counts, ENTRY_DIRS, type Entry, type EntryKind, composePost, githu
 
 // Run by .github/workflows/announce.yml once for each entry a push to main adds: node src/main.ts <dir>/<slug>.json, the path under packages/catalog/data (apps/, ui/, state/ or plugins/). It waits until the site lists the entry, so the links work, then posts it to X and opens an issue on the project's repository saying it was listed, with its page, the post and the README badge (issue.ts).
 //
-// Environment: X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN and X_ACCESS_SECRET (the posting account's OAuth 1.0a keys; without them nothing is posted, and the issue goes without a post); NOTIFY_GITHUB_TOKEN (a classic personal access token with the public_repo scope of the account that opens the issues, as neither the workflow's token nor a GitHub App's can open one on a repository they are not installed on; without it the issue is only printed); DRY_RUN=true to only print both anyway; WAIT_SECONDS (how long to wait for the site, default 900; 0 skips the check); GITHUB_TOKEN for the repository's stars and its owner's X account; GITHUB_REPOSITORY_OWNER, whose own repositories are not told; and GITHUB_STEP_SUMMARY.
+// Environment: X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN and X_ACCESS_SECRET (the posting account's OAuth 1.0a keys; without them nothing is posted, and the issue goes without a post); NOTIFY_GITHUB_TOKEN (a classic personal access token with the public_repo scope of the account that opens the issues, as neither the workflow's token nor a GitHub App's can open one on a repository they are not installed on; without it the issue is only printed); DRY_RUN=true to only print both anyway; ISSUE_ONLY=true to open the issue without posting, for an entry announced before issues were opened (the argument may then end in =<its post on X>, which the issue links to); WAIT_SECONDS (how long to wait for the site, default 900; 0 skips the check); GITHUB_TOKEN for the repository's stars and its owner's X account; GITHUB_REPOSITORY_OWNER, whose own repositories are not told; and GITHUB_STEP_SUMMARY.
 
 const ROOT = join(import.meta.dirname, '../../..');
 const DATA_DIR = join(ROOT, 'packages/catalog/data');
@@ -78,8 +78,12 @@ async function tellProject(repo: string, title: string, body: string): Promise<s
 }
 
 async function main(): Promise<void> {
-	const path = process.argv[2];
-	if (!path || !/^[a-z]+\/[a-z0-9-]+\.json$/.test(path)) throw new Error('usage: node src/main.ts <dir>/<slug>.json, e.g. ui/8bitmygoui.json');
+	// <dir>/<slug>.json, or, for an entry posted before, <dir>/<slug>.json=<its post on X>, which the issue then links to.
+	const [path, earlierPost] = (process.argv[2] ?? '').split('=');
+	if (!path || !/^[a-z]+\/[a-z0-9-]+\.json$/.test(path)) throw new Error('usage: node src/main.ts <dir>/<slug>.json[=https://x.com/i/status/<id>], e.g. ui/8bitmygoui.json');
+	if (earlierPost !== undefined && !/^https:\/\/x\.com\/[\w/]+\/status\/\d+$/.test(earlierPost)) throw new Error(`${earlierPost} is not a post on X`);
+	// Only the issue, for an entry announced before issues were opened: posting it again would repeat the post.
+	const issueOnly = env.ISSUE_ONLY === 'true';
 	const [dir] = path.split('/');
 	const kind = kindOf(dir);
 	const entry = JSON.parse(await readFile(join(DATA_DIR, path), 'utf8')) as Entry;
@@ -91,7 +95,7 @@ async function main(): Promise<void> {
 	console.log(`---- post ----\n${text}\n--------------`);
 
 	const [appKey, appSecret, accessToken, accessSecret] = [env.X_API_KEY, env.X_API_SECRET, env.X_ACCESS_TOKEN, env.X_ACCESS_SECRET];
-	const canPost = !!(appKey && appSecret && accessToken && accessSecret);
+	const canPost = !issueOnly && !!(appKey && appSecret && accessToken && accessSecret);
 	const summary = (md: string) => (env.GITHUB_STEP_SUMMARY ? appendFile(env.GITHUB_STEP_SUMMARY, `${md}\n`) : Promise.resolve());
 	// A fence one longer than any run of backticks in the text, as the issue's body holds a code block of its own.
 	const block = (t: string) => {
@@ -108,11 +112,16 @@ async function main(): Promise<void> {
 
 	if (env.DRY_RUN === 'true') {
 		console.log(`::notice::${name} was not posted, as this is a dry run.`);
-		const issue = printIssue();
+		const issue = printIssue(earlierPost);
 		await summary(`### ${name}: not posted, as this is a dry run${block(text)}`);
 		return summary(issue ? `Issue on ${repoToTell}, not opened in a dry run:${block(issue.body)}` : 'No GitHub repository to open an issue on.');
 	}
-	if (!canPost && !env.NOTIFY_GITHUB_TOKEN) {
+	if (issueOnly && !env.NOTIFY_GITHUB_TOKEN) {
+		console.log(`::notice::${name}: no issue opened, as NOTIFY_GITHUB_TOKEN is not set.`);
+		printIssue(earlierPost);
+		return summary(`### ${name}: no issue opened, as NOTIFY_GITHUB_TOKEN is not set`);
+	}
+	if (!canPost && !issueOnly && !env.NOTIFY_GITHUB_TOKEN) {
 		const why = 'the X keys are not set (X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_SECRET), nor NOTIFY_GITHUB_TOKEN';
 		console.log(`::notice::${name} was not posted, as ${why}.`);
 		printIssue();
@@ -121,8 +130,11 @@ async function main(): Promise<void> {
 
 	const wait = Number(env.WAIT_SECONDS ?? 900);
 	if (wait > 0) await waitForSite(sitePage(kind, entry), name, wait);
-	let postUrl: string | undefined;
-	if (canPost) {
+	let postUrl: string | undefined = earlierPost;
+	if (issueOnly) {
+		console.log(`::notice::${name} was not posted, as only its issue was asked for.`);
+		await summary(`### ${name}: not posted, as only its issue was asked for${earlierPost ? `; the issue links ${earlierPost}` : ''}`);
+	} else if (canPost) {
 		const client = new TwitterApi({ appKey, appSecret, accessToken, accessSecret });
 		const { data } = await client.v2.tweet(text);
 		postUrl = `https://x.com/i/status/${data.id}`;

@@ -30,6 +30,12 @@ export function missingImages(kind: EntryKind, entry: Entry): { screenshot: bool
 	return { screenshot: kind !== 'plugin' && entry.screenshot === undefined, icon: kind === 'app' && entry.icon === undefined };
 }
 
+// The entry's images that stand in until the project gives its own (the catalog's provisional field, which packages/enrich sets): the owner's GitHub avatar as an app's icon, a card of the repository as a screenshot.
+export function standInImages(kind: EntryKind, entry: Entry): { screenshot: boolean; icon: boolean } {
+	const list = Array.isArray(entry.provisional) ? (entry.provisional as unknown[]) : [];
+	return { screenshot: kind !== 'plugin' && entry.screenshot !== undefined && list.includes('screenshot'), icon: kind === 'app' && entry.icon !== undefined && list.includes('icon') };
+}
+
 export interface IssueInput {
 	kind: EntryKind;
 	entry: Entry;
@@ -47,6 +53,11 @@ export function composeIssue({ kind, entry, postUrl }: IssueInput): { title: str
 	const slug = String(entry.slug);
 	const file = `packages/catalog/data/${ENTRY_DIRS[kind]}/${slug}.json`;
 	const missing = missingImages(kind, entry);
+	const stand = standInImages(kind, entry);
+	const standEn = [...(stand.icon ? ["your GitHub avatar as the app's icon"] : []), ...(stand.screenshot ? ['a card of the repository as its screenshot'] : [])];
+	const standZh = [...(stand.icon ? ['图标（你的 GitHub 头像）'] : []), ...(stand.screenshot ? ['截图（仓库的卡片）'] : [])];
+	const standFiles = [...(stand.screenshot ? [`\`apps/web/public/shots/${slug}.webp\` (WebP, up to 1200 px wide)`] : []), ...(stand.icon ? [`\`apps/web/public/icons/${slug}.webp\` (a 256 px square WebP)`] : [])];
+	const standNames = [...(stand.icon ? ['"icon"'] : []), ...(stand.screenshot ? ['"screenshot"'] : [])];
 	const lacks = [...(missing.screenshot ? ['screenshot'] : []), ...(missing.icon ? ['icon'] : [])];
 	const lacksZh = [...(missing.screenshot ? ['截图'] : []), ...(missing.icon ? ['图标'] : [])];
 	const how = [
@@ -62,11 +73,15 @@ export function composeIssue({ kind, entry, postUrl }: IssueInput): { title: str
 		...(lacks.length
 			? [`The page has no ${lacks.join(' and no ')} yet${missing.icon ? ', so the app shows a letter tile' : ''}. It would look much better with ${lacks.length > 1 ? 'both' : 'one'}: reply here with a link to the image, or send a pull request to https://github.com/yldm-tech/awesome-mygo that adds ${how.join(', and ')} in \`${file}\`.`]
 			: []),
+		...(standEn.length
+			? [`For now the page shows ${standEn.join(' and ')}, in place of the project's own. It would look much better with yours: reply here with a link to the image, or send a pull request to https://github.com/yldm-tech/awesome-mygo that replaces ${standFiles.join(' and ')} and drops ${standNames.join(' and ')} from \`provisional\` in \`${file}\`.`]
+			: []),
 		"If anything on the page is wrong, such as the description, the screenshot or the icon, reply here or open an issue or pull request at https://github.com/yldm-tech/awesome-mygo. If you would rather not be listed, say so and it will be taken down. Feel free to close this issue.",
 		'---',
 		`${name} 已被 ${site} 收录到${KIND_ZH[kind]}：${page}`,
 		...(postUrl ? [`X 上的收录推文：${postUrl}`] : []),
 		...(lacksZh.length ? [`页面上目前还没有${lacksZh.join('和')}${missing.icon ? '（应用暂时显示为字母图块）' : ''}，建议补上：直接在这里回复图片链接，或者给 https://github.com/yldm-tech/awesome-mygo 提 PR，按上面英文说明放好图片文件并在 \`${file}\` 里登记。`] : []),
+		...(standZh.length ? [`页面上的${standZh.join('和')}暂时是替代图，换成项目自己的会好很多：直接在这里回复图片链接，或者给 https://github.com/yldm-tech/awesome-mygo 提 PR，替换上面英文说明里的图片文件，并把 \`${file}\` 里 \`provisional\` 中的对应项删掉。`] : []),
 		'欢迎在 README 里加上上面的 badge 互相链接。页面上的介绍、截图或图标有误，直接在这里回复，或到 https://github.com/yldm-tech/awesome-mygo 提 issue 或 PR；不希望被收录也请告诉我们，会尽快下架。',
 	];
 	return { title: ISSUE_TITLE, body: `${body.join('\n\n')}\n` };
