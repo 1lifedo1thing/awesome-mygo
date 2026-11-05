@@ -8,18 +8,18 @@
 	"url": "https://github.com/qmaru/wgm",
 	"repo": "qmaru/wgm",
 	"summary": {
-		"en": "A native desktop manager for WireGuard, written in Go.",
-		"zh-CN": "用 Go 编写的原生 WireGuard 桌面管理工具。",
-		"zh-TW": "用 Go 撰寫的原生 WireGuard 桌面管理工具。",
-		"ja": "Go で書かれたネイティブな WireGuard 管理デスクトップアプリ。",
-		"ko": "Go로 작성한 네이티브 WireGuard 관리 데스크톱 앱."
+		"en": "Keeps your WireGuard nodes, keys and routes, and builds each node's config with a QR code.",
+		"zh-CN": "管理 WireGuard 节点、密钥和路由，为每个节点生成配置和二维码。",
+		"zh-TW": "管理 WireGuard 節點、金鑰與路由，為每個節點產生設定與 QR 碼。",
+		"ja": "WireGuard のノード、鍵、ルートを管理し、ノードごとの設定と QR コードを作る。",
+		"ko": "WireGuard 노드와 키, 라우트를 관리하고 노드마다 설정과 QR 코드를 만듭니다."
 	},
 	"description": {
-		"en": "A WireGuard manager written in Go and drawn with MyGo's native UI. It can also be installed with go install github.com/qmaru/wgm@latest.",
-		"zh-CN": "用 Go 编写、由 MyGo 原生 UI 绘制的 WireGuard 管理工具。也可以通过 go install github.com/qmaru/wgm@latest 安装。",
-		"zh-TW": "用 Go 撰寫、由 MyGo 原生 UI 繪製的 WireGuard 管理工具。也可以透過 go install github.com/qmaru/wgm@latest 安裝。",
-		"ja": "Go で書かれ、MyGo のネイティブ UI で描かれた WireGuard 管理アプリです。go install github.com/qmaru/wgm@latest でもインストールできます。",
-		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 WireGuard 관리 앱입니다. go install github.com/qmaru/wgm@latest로도 설치할 수 있습니다."
+		"en": "A WireGuard configuration manager drawn with MyGo's native UI. It keeps users, nodes with their LAN and WAN addresses and generated key pairs, and the routes you allow, in a local database. A step-by-step builder picks the local interface, then the peers and the routes each may reach, and writes the full config in blocks you copy with a click, with a QR code for phones. The interface is in Chinese.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 WireGuard 配置管理工具。它在本地数据库里保存用户、带内网和公网地址及自动生成密钥对的节点，以及允许的路由。分步向导先选本地接口，再选对端和各自可访问的路由，生成完整配置，按块点击即可复制，并附带手机扫码用的二维码。界面为中文。",
+		"zh-TW": "以 MyGo 原生 UI 繪製的 WireGuard 設定管理工具。它在本機資料庫中保存使用者、帶有內網與公網位址及自動產生金鑰對的節點，以及允許的路由。分步驟精靈先選本機介面，再選對端與各自可存取的路由，產生完整設定，依區塊點擊即可複製，並附上供手機掃描的 QR 碼。介面為中文。",
+		"ja": "MyGo のネイティブ UI で描かれた WireGuard の設定管理ツールです。ユーザー、LAN と WAN のアドレスと自動生成した鍵ペアを持つノード、許可するルートをローカルのデータベースに保存します。手順に沿ってローカルのインターフェース、続いてピアとそれぞれが届くルートを選ぶと完全な設定ができ、ブロックごとにクリックでコピーでき、スマートフォン向けの QR コードも付きます。画面は中国語です。",
+		"ko": "MyGo 네이티브 UI로 그린 WireGuard 설정 관리 도구입니다. 사용자, LAN·WAN 주소와 자동 생성된 키 쌍을 가진 노드, 허용할 라우트를 로컬 데이터베이스에 저장합니다. 단계별 마법사에서 로컬 인터페이스를 고른 뒤 피어와 각 피어가 닿을 라우트를 고르면 전체 설정이 만들어지고, 블록마다 클릭해 복사할 수 있으며 휴대폰용 QR 코드도 함께 나옵니다. 화면은 중국어입니다."
 	},
 	"icon": {
 		"file": "wgm.webp"
