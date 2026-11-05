@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "agentsmd",
+	"name": "AgentsMD",
+	"author": "iwangjie",
+	"kind": "web",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/iwangjie/agentsmd",
+	"repo": "iwangjie/agentsmd",
+	"summary": {
+		"en": "A macOS editor that turns your own notes into a compact, translated AGENTS.md for coding agents.",
+		"zh-CN": "macOS 编辑器：把你的笔记整理成精简、译好的 AGENTS.md 给编程智能体。",
+		"zh-TW": "macOS 編輯器：把你的筆記整理成精簡、譯好的 AGENTS.md 給程式代理。",
+		"ja": "自分のメモをコーディングエージェント向けの簡潔な AGENTS.md に整える macOS エディター。",
+		"ko": "내 메모를 코딩 에이전트용 간결한 AGENTS.md로 정리하는 macOS 편집기."
+	},
+	"description": {
+		"en": "A macOS app for Apple silicon that keeps your notes in ~/.agents/AGENTS.raw.md untouched and generates ~/.agents/AGENTS.md from them. Each ## heading becomes a module you can switch off, and a model translates prose to English, strips repetition and merges duplicate rules. It talks to a local OpenAI-compatible gateway, and its interface is a web frontend running in MyGo.",
+		"zh-CN": "适用于 Apple 芯片 Mac 的应用：你写在 ~/.agents/AGENTS.raw.md 里的笔记始终原样保留，应用据此生成 ~/.agents/AGENTS.md。每个 ## 标题都是可单独关闭的模块，模型会把正文译成英文、删去冗余并合并重复的规则。它连接本地兼容 OpenAI 的网关，界面是运行在 MyGo 中的 Web 前端。",
+		"zh-TW": "適用於 Apple 晶片 Mac 的應用程式：你寫在 ~/.agents/AGENTS.raw.md 裡的筆記始終原封不動，程式據此產生 ~/.agents/AGENTS.md。每個 ## 標題都是可個別關閉的模組，模型會把內文譯成英文、刪去贅詞並合併重複的規則。它連接本機相容 OpenAI 的閘道，介面是在 MyGo 中執行的 Web 前端。",
+		"ja": "Apple シリコン搭載 Mac 向けのアプリ。~/.agents/AGENTS.raw.md に書いたメモには一切手を加えず、そこから ~/.agents/AGENTS.md を生成します。## 見出しごとにモジュールとなって個別にオフにでき、モデルが本文を英語に訳し、冗長な部分を削り、重複するルールをまとめます。接続先はローカルの OpenAI 互換ゲートウェイで、画面は MyGo 上で動く Web フロントエンドです。",
+		"ko": "Apple 실리콘 Mac용 앱으로, ~/.agents/AGENTS.raw.md에 쓴 메모는 건드리지 않고 이를 바탕으로 ~/.agents/AGENTS.md를 생성합니다. ## 제목마다 따로 끌 수 있는 모듈이 되고, 모델이 본문을 영어로 옮기며 군더더기를 덜어 내고 중복된 규칙을 합칩니다. 로컬의 OpenAI 호환 게이트웨이에 연결하며, 화면은 MyGo에서 실행되는 웹 프런트엔드입니다."
+	},
+	"icon": {
+		"file": "agentsmd.webp"
+	},
+	"screenshot": "agentsmd.webp",
+	"added": "2026-11-05T03:32:35Z"
+}
