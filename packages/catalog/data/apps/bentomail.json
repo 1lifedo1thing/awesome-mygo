@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "bentomail",
+	"name": "Bentomail",
+	"author": "Ahdeyyy",
+	"kind": "native",
+	"group": "chat",
+	"url": "https://github.com/Ahdeyyy/bentomail",
+	"repo": "Ahdeyyy/bentomail",
+	"summary": {
+		"en": "A native IMAP/SMTP mail client with multiple accounts, offline mail and full-text search.",
+		"zh-CN": "原生 IMAP/SMTP 邮件客户端：多账户、离线阅读、全文搜索。",
+		"zh-TW": "原生 IMAP/SMTP 郵件用戶端：多帳號、離線閱讀、全文搜尋。",
+		"ja": "ネイティブな IMAP/SMTP メールクライアント。複数アカウント、オフライン閲覧、全文検索に対応。",
+		"ko": "여러 계정, 오프라인 열람, 전문 검색을 지원하는 네이티브 IMAP/SMTP 메일 클라이언트."
+	},
+	"description": {
+		"en": "An IMAP/SMTP mail client drawn with MyGo's native UI, built for Windows, Linux and macOS. Mail, drafts, attachments and the search index stay in a local SQLite database and remain readable offline, with several accounts in a unified inbox, Google and Microsoft OAuth sign-in, rich text composing, scheduled sending and full-text search. Saving passwords and tokens currently works only on Windows.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 IMAP/SMTP 邮件客户端，提供 Windows、Linux 与 macOS 版本。邮件、草稿、附件和搜索索引都存放在本地 SQLite 数据库中，离线也能阅读；支持多账户统一收件箱、Google 与 Microsoft OAuth 登录、富文本撰写、定时发送和全文搜索。目前只有 Windows 版能保存密码和令牌。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 IMAP/SMTP 郵件用戶端，提供 Windows、Linux 與 macOS 版本。郵件、草稿、附件和搜尋索引都存放在本機 SQLite 資料庫中，離線也能閱讀；支援多帳號整合收件匣、Google 與 Microsoft OAuth 登入、RTF 格式撰寫、排程寄送和全文搜尋。目前只有 Windows 版能儲存密碼和權杖。",
+		"ja": "MyGo のネイティブ UI で描かれた IMAP/SMTP メールクライアントで、Windows・Linux・macOS 向けにビルドされています。メール、下書き、添付ファイル、検索インデックスはローカルの SQLite データベースに保存され、オフラインでも読めます。複数アカウントの統合受信トレイ、Google と Microsoft の OAuth サインイン、リッチテキストでの作成、予約送信、全文検索に対応します。パスワードやトークンの保存は現在 Windows でのみ可能です。",
+		"ko": "MyGo의 네이티브 UI로 그린 IMAP/SMTP 메일 클라이언트로, Windows, Linux, macOS용으로 빌드됩니다. 메일, 임시 보관함, 첨부 파일, 검색 색인은 로컬 SQLite 데이터베이스에 저장되어 오프라인에서도 읽을 수 있습니다. 여러 계정의 통합 받은편지함, Google과 Microsoft OAuth 로그인, 서식 있는 메일 작성, 예약 발송, 전문 검색을 지원합니다. 비밀번호와 토큰 저장은 현재 Windows에서만 됩니다."
+	},
+	"icon": {
+		"file": "bentomail.webp"
+	},
+	"screenshot": "bentomail.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T12:11:10Z"
+}
