@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "onegit",
+	"name": "Onegit",
+	"author": "oneo-me",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/oneo-me/onegit",
+	"repo": "oneo-me/onegit",
+	"summary": {
+		"en": "A worktree-centered macOS Git client that gathers many repositories in one window.",
+		"zh-CN": "以工作树为中心的 macOS Git 客户端，在一个窗口里浏览多个仓库。",
+		"zh-TW": "以工作樹為中心的 macOS Git 用戶端，在一個視窗裡瀏覽多個儲存庫。",
+		"ja": "ワークツリー中心の macOS 向け Git クライアント。多数のリポジトリを一つのウィンドウで扱えます。",
+		"ko": "워크트리 중심의 macOS Git 클라이언트. 여러 저장소를 한 창에서 살펴봅니다."
+	},
+	"description": {
+		"en": "A macOS Git client drawn with MyGo's native UI that gathers the repositories under a parent directory in one window, centered on worktrees. It browses the commit graph with history search and blame, stages files, changes or single lines, and handles branches, remotes, merges and interactive rebase. It is not released yet: build it from source, with Git on PATH.",
+		"zh-CN": "以工作树为中心的 macOS Git 客户端，由 MyGo 原生 UI 绘制，把上级目录下的仓库集中在一个窗口里。可以浏览提交图、搜索历史、查看 blame，按文件、改动或单行暂存，并处理分支、远程、合并与交互式变基。目前尚未发布，需要从源码构建，运行时 PATH 中要有 Git。",
+		"zh-TW": "以工作樹為中心的 macOS Git 用戶端，由 MyGo 原生 UI 繪製，把上層目錄下的儲存庫集中在一個視窗裡。可以瀏覽提交圖、搜尋歷史、查看 blame，依檔案、變更或單行暫存，並處理分支、遠端、合併與互動式 rebase。目前尚未發布，需要從原始碼建置，執行時 PATH 中須有 Git。",
+		"ja": "ワークツリーを中心にした macOS 向けの Git クライアントで、MyGo のネイティブ UI で描かれています。親ディレクトリ配下のリポジトリを一つのウィンドウにまとめ、コミットグラフや履歴検索、blame を表示し、ファイル・変更・行単位でステージでき、ブランチ、リモート、マージ、対話的リベースも扱えます。まだリリースされておらず、ソースからビルドして使います。実行時には Git が PATH 上に必要です。",
+		"ko": "워크트리 중심의 macOS용 Git 클라이언트로, MyGo의 네이티브 UI로 그렸습니다. 상위 디렉터리 아래의 저장소를 한 창에 모아 커밋 그래프, 기록 검색, blame을 보여 주고, 파일·변경·줄 단위로 스테이징하며 브랜치, 리모트, 병합, 대화형 리베이스를 다룹니다. 아직 출시되지 않아 소스에서 빌드해야 하며, 실행 시 PATH에 Git이 있어야 합니다."
+	},
+	"icon": {
+		"file": "onegit.webp"
+	},
+	"screenshot": "onegit.webp",
+	"added": "2026-11-05T02:55:41Z"
+}
