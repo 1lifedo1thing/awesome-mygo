@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "baidunetgo",
+	"name": "BaiduNetGo",
+	"author": "pengstem",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/pengstem/baidunetgo",
+	"repo": "pengstem/baidunetgo",
+	"summary": {
+		"en": "A native Baidu Netdisk desktop client for browsing, in-memory previews, transfers and sharing.",
+		"zh-CN": "原生百度网盘桌面客户端：浏览、内存预览、多连接传输与分享。",
+		"zh-TW": "原生百度網盤桌面用戶端：瀏覽、記憶體內預覽、多連線傳輸與分享。",
+		"ja": "ネイティブな百度網盤デスクトップクライアント。閲覧、メモリ内プレビュー、マルチ接続転送、共有に対応。",
+		"ko": "네이티브 Baidu Netdisk 클라이언트. 탐색, 메모리 내 미리보기, 다중 연결 전송과 공유."
+	},
+	"description": {
+		"en": "A Baidu Netdisk desktop client in pure Go, drawn on the GPU with MyGo's native UI, with no web view and no cgo; BaiduPCS-Go, used as a library, talks to the netdisk. It previews images, text, PDF and audio in memory without saving them to disk, hands video to mpv, runs multi-connection resumable transfers, and manages share links and offline downloads of HTTP and magnet links.",
+		"zh-CN": "用纯 Go 编写的百度网盘桌面客户端，界面由 MyGo 原生 UI 在 GPU 上绘制，没有 WebView，也不用 cgo；网盘功能来自作为库使用的 BaiduPCS-Go。图片、文本、PDF 和音频只读进内存预览，不落盘，视频交给 mpv 播放；支持多连接分块下载与断点续传、创建和管理分享链接，以及 HTTP 与磁力链接的离线下载。",
+		"zh-TW": "以純 Go 撰寫的百度網盤桌面用戶端，介面由 MyGo 原生 UI 在 GPU 上繪製，沒有 WebView，也不用 cgo；網盤功能來自當作函式庫使用的 BaiduPCS-Go。圖片、文字、PDF 與音訊只讀進記憶體預覽，不寫入磁碟，影片交給 mpv 播放；支援多連線分塊下載與斷點續傳、建立和管理分享連結，以及 HTTP 與磁力連結的離線下載。",
+		"ja": "純粋な Go で書かれた百度網盤のデスクトップクライアント。MyGo のネイティブ UI で GPU 上に描かれ、WebView も cgo も使いません。網盤との通信には BaiduPCS-Go をライブラリとして使っています。画像・テキスト・PDF・音声はディスクに保存せずメモリ上でプレビューし、動画は mpv で再生します。マルチ接続でレジューム対応の転送、共有リンクの作成と管理、HTTP・マグネットリンクのオフラインダウンロードにも対応します。",
+		"ko": "순수 Go로 작성한 Baidu Netdisk 데스크톱 클라이언트로, MyGo의 네이티브 UI가 GPU에서 그리며 WebView도 cgo도 쓰지 않습니다. 넷디스크 기능은 BaiduPCS-Go를 라이브러리로 사용합니다. 이미지, 텍스트, PDF, 오디오는 디스크에 저장하지 않고 메모리에서 미리 보며 동영상은 mpv로 재생합니다. 다중 연결과 이어받기를 지원하는 전송, 공유 링크 생성과 관리, HTTP·마그넷 링크 오프라인 다운로드도 지원합니다."
+	},
+	"icon": {
+		"file": "baidunetgo.webp"
+	},
+	"screenshot": "baidunetgo.webp",
+	"added": "2026-11-05T12:11:10Z"
+}
