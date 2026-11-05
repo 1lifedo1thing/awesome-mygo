@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mycast",
+	"name": "MyCast",
+	"author": "feiniao233",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/feiniao233/MyCast",
+	"repo": "feiniao233/MyCast",
+	"summary": {
+		"en": "A Windows launcher: app search with pinyin matching, clipboard text history and quick links.",
+		"zh-CN": "Windows 启动器：支持拼音搜索应用，附带文本剪贴板历史和快捷链接。",
+		"zh-TW": "Windows 啟動器：支援拼音搜尋應用程式，附帶文字剪貼簿歷史與快速連結。",
+		"ja": "Windows 用ランチャー。ピンイン対応のアプリ検索、テキストのクリップボード履歴、クイックリンク。",
+		"ko": "Windows 런처. 병음으로 앱을 검색하고 텍스트 클립보드 기록과 빠른 링크를 제공합니다."
+	},
+	"description": {
+		"en": "A Windows launcher inspired by Tinycast, drawn with MyGo's native UI, with no Electron, HTML or web view. A global hotkey opens a search over Start menu and desktop shortcuts, matching Chinese names by characters, full pinyin or initials. It also keeps an opt-in text clipboard history in memory only, and can paste an entry back into the previous window. It is an early alpha.",
+		"zh-CN": "受 Tinycast 启发的 Windows 启动器，由 MyGo 原生 UI 绘制，不使用 Electron、HTML 或 WebView。按全局热键呼出搜索框，查找开始菜单和桌面上的快捷方式，中文应用名可按汉字、完整拼音或首字母匹配。另有需手动开启、只存于内存的文本剪贴板历史，可回填到呼出前的窗口。目前为 alpha 版本。",
+		"zh-TW": "受 Tinycast 啟發的 Windows 啟動器，由 MyGo 原生 UI 繪製，不使用 Electron、HTML 或 WebView。按全域快捷鍵叫出搜尋框，尋找開始功能表和桌面上的捷徑，中文應用程式名稱可依漢字、完整拼音或首字母比對。另有需手動開啟、只存在記憶體中的文字剪貼簿歷史，可回填到叫出前的視窗。目前為 alpha 版本。",
+		"ja": "Tinycast に着想を得た Windows 用ランチャー。MyGo のネイティブ UI で描かれ、Electron も HTML も WebView も使いません。グローバルホットキーで検索窓を呼び出し、スタートメニューとデスクトップのショートカットを探せます。中国語の名前は漢字、完全なピンイン、頭文字のどれでも一致します。手動で有効にするテキストのクリップボード履歴はメモリ上にだけ残り、呼び出す前のウィンドウへ貼り付け直せます。現在は alpha 版です。",
+		"ko": "Tinycast에서 영감을 받은 Windows 런처로, MyGo의 네이티브 UI로 그렸으며 Electron, HTML, WebView를 쓰지 않습니다. 전역 단축키로 검색창을 열어 시작 메뉴와 바탕 화면의 앱을 찾고, 중국어 이름은 한자, 병음, 첫 글자로 찾습니다. 직접 켜야 하고 메모리에만 남는 텍스트 클립보드 기록도 있어 호출 전 창에 다시 붙여 넣을 수 있습니다. 현재 알파 버전입니다."
+	},
+	"icon": {
+		"file": "mycast.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "mycast.webp",
+	"added": "2026-11-05T17:24:29Z"
+}
