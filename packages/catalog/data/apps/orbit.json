@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "orbit",
+	"name": "orbit",
+	"author": "real-jacket",
+	"kind": "web",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/real-jacket/orbit",
+	"repo": "real-jacket/orbit",
+	"summary": {
+		"en": "A macOS front end for the mo CLI that cleans caches, uninstalls apps and maps disk usage.",
+		"zh-CN": "mo 命令行工具的 macOS 桌面客户端：清理缓存、卸载应用、分析磁盘占用。",
+		"zh-TW": "mo 命令列工具的 macOS 桌面用戶端：清理快取、解除安裝 App、分析磁碟用量。",
+		"ja": "mo CLI の macOS 向けクライアント。キャッシュ削除やアプリのアンインストール、ディスク分析に。",
+		"ko": "mo CLI용 macOS 데스크톱 클라이언트. 캐시 정리, 앱 제거, 디스크 사용량 분석."
+	},
+	"description": {
+		"en": "A macOS 13+ client for the mo CLI (tw93/mole), written in Go with MyGo and a web frontend shown in WKWebView. It runs the mo you installed to clean caches, uninstall apps, optimize and purge build artifacts, previews every deletion with dry-run on by default, and adds its own treemap disk analyzer, live system readings and a menu bar item. mo is not bundled; install it separately.",
+		"zh-CN": "面向 mo 命令行工具（tw93/mole）的 macOS 13 及以上版本客户端，用 Go 编写，借助 MyGo 以 WKWebView 承载 Web 前端。它调用你已安装的 mo 来清理缓存、卸载应用、优化系统和清除项目构建产物，每次删除前都会预览，默认只做演练；另有自带的树状图磁盘分析、实时系统数据和菜单栏图标。mo 不随应用附带，需要另行安装。",
+		"zh-TW": "為 mo 命令列工具（tw93/mole）打造的 macOS 13 以上版本用戶端，以 Go 撰寫，透過 MyGo 用 WKWebView 呈現 Web 前端。它呼叫你已安裝的 mo 來清理快取、解除安裝 App、最佳化系統與清除專案建置產物，每次刪除前都會預覽，預設只做模擬執行；另有內建的樹狀圖磁碟分析、即時系統數據與選單列圖示。mo 不隨附，需另行安裝。",
+		"ja": "mo CLI（tw93/mole）のための macOS 13 以降向けクライアント。Go で書かれ、MyGo の WKWebView で Web フロントエンドを表示します。インストール済みの mo を呼び出してキャッシュ削除、アプリのアンインストール、最適化、ビルド成果物の削除を行い、削除前には必ずプレビューを表示し、既定ではドライランで動きます。独自のツリーマップ式ディスク分析、リアルタイムのシステム情報、メニューバー項目も備えます。mo は同梱されないため、別途インストールが必要です。",
+		"ko": "mo CLI(tw93/mole)를 위한 macOS 13 이상용 클라이언트로, Go로 작성하고 MyGo의 WKWebView에 웹 프런트엔드를 띄웁니다. 설치된 mo를 호출해 캐시 정리, 앱 제거, 최적화, 빌드 산출물 정리를 하며, 삭제 전에는 항상 미리 보여 주고 기본값은 드라이런입니다. 자체 트리맵 디스크 분석기, 실시간 시스템 정보, 메뉴 막대 항목도 갖췄습니다. mo는 포함되지 않으므로 따로 설치해야 합니다."
+	},
+	"icon": {
+		"file": "orbit.webp"
+	},
+	"screenshot": "orbit.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T03:47:54Z"
+}
