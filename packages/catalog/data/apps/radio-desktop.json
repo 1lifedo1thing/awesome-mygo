@@ -1,0 +1,17 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "radio-desktop",
+	"name": "radio-desktop",
+	"author": "hmgle",
+	"kind": "native",
+	"category": "MultimediaApplication",
+	"url": "https://github.com/hmgle/radio-desktop",
+	"repo": "hmgle/radio-desktop",
+	"summary": {
+		"en": "在桌面上，收听世界各地的网络电台。"
+	},
+	"description": {
+		"en": "在桌面上，收听世界各地的网络电台。"
+	},
+	"added": "2026-11-05T01:27:22Z"
+}
