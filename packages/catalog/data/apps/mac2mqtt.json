@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mac2mqtt",
+	"name": "Mac2MQTT",
+	"author": "FaintGhost",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://faintghost.github.io/mac2mqtt/",
+	"repo": "FaintGhost/mac2mqtt",
+	"summary": {
+		"en": "Puts your Mac in Home Assistant over MQTT from the menu bar, with media and system controls.",
+		"zh-CN": "把 Mac 通过 MQTT 接入 Home Assistant 的菜单栏应用。",
+		"zh-TW": "把 Mac 透過 MQTT 接入 Home Assistant 的選單列應用程式。",
+		"ja": "Mac を MQTT で Home Assistant につなぐメニューバーアプリ。再生や画面も操作。",
+		"ko": "Mac을 MQTT로 Home Assistant에 연결하는 메뉴 막대 앱. 미디어와 시스템도 제어."
+	},
+	"description": {
+		"en": "A macOS menu bar app drawn with MyGo's native UI, with no web view, that brings a Mac into Home Assistant over MQTT; discovery creates the device on its own. It reports network, power, screen lock, camera and microphone use, volume and what is playing, and takes commands for playback, volume, locking and sleep, notifications, speech and Shortcuts. It needs macOS 13 or later.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 菜单栏应用，没有 Web 视图，通过 MQTT 把 Mac 接入 Home Assistant，设备由 MQTT 发现自动创建。它上报网络、电源、锁屏状态、摄像头与麦克风占用、音量和正在播放的内容，并接受播放控制、音量、锁屏与睡眠、通知、朗读和快捷指令等命令。需要 macOS 13 或更高版本。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS 選單列應用程式，沒有 Web 視圖，透過 MQTT 把 Mac 接入 Home Assistant，裝置由 MQTT 自動探索建立。它回報網路、電源、鎖定畫面狀態、相機與麥克風使用、音量和正在播放的內容，並接受播放控制、音量、鎖定與睡眠、通知、朗讀和捷徑等指令。需要 macOS 13 或以上版本。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS のメニューバーアプリで、Web ビューはありません。MQTT で Mac を Home Assistant につなぎ、デバイスは MQTT ディスカバリーで自動的に作られます。ネットワーク、電源、画面ロック、カメラとマイクの使用状況、音量、再生中の内容を送り、再生、音量、ロックやスリープ、通知、読み上げ、ショートカットの操作を受け付けます。macOS 13 以降が必要です。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS 메뉴 막대 앱으로, 웹 뷰가 없습니다. MQTT로 Mac을 Home Assistant에 연결하며, 기기는 MQTT 디스커버리로 자동 생성됩니다. 네트워크, 전원, 화면 잠금, 카메라와 마이크 사용 여부, 음량, 재생 중인 내용을 보내고, 재생, 음량, 잠금과 잠자기, 알림, 음성 읽기, 단축어 명령을 받습니다. macOS 13 이상이 필요합니다."
+	},
+	"icon": {
+		"file": "mac2mqtt.webp"
+	},
+	"screenshot": "mac2mqtt.webp",
+	"added": "2026-11-05T03:32:35Z"
+}
