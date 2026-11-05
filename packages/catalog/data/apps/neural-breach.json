@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "neural-breach",
+	"name": "Neural Breach",
+	"author": "ntnyq",
+	"kind": "native",
+	"group": "game",
+	"url": "https://github.com/ntnyq/NeuralBreach",
+	"repo": "ntnyq/NeuralBreach",
+	"summary": {
+		"en": "A cyberpunk breach puzzle: pick codes from a hex matrix to fit sequences into a limited buffer.",
+		"zh-CN": "赛博朋克风破解益智游戏：在十六进制矩阵中选码，用有限缓冲区上传序列。",
+		"zh-TW": "賽博龐克風破解益智遊戲：在十六進位矩陣中選碼，用有限緩衝區上傳序列。",
+		"ja": "サイバーパンクなハッキングパズル。16進マトリクスからコードを選び、限られたバッファでシーケンスを送る。",
+		"ko": "사이버펑크 해킹 퍼즐 게임. 16진수 행렬에서 코드를 골라 제한된 버퍼로 시퀀스를 올립니다."
+	},
+	"description": {
+		"en": "A cyberpunk code-breaking puzzle game drawn with MyGo's native UI. You read a hex matrix, start in the first row and pick codes alternately along columns and rows, uploading overlapping sequences through a limited buffer. It has four difficulty levels, seeded practice, an interactive tutorial, personal bests and step-by-step replays, with original synthesized music and five interface languages.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的赛博朋克破解益智游戏。观察十六进制矩阵，从第一行起手，交替沿列、行选码，用有限的缓冲区上传相互重叠的序列。提供四档难度、指定种子的自由练习和交互教程，记录个人最佳并支持逐步复盘，配有原创合成电子音乐，界面支持五种语言。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的賽博龐克破解益智遊戲。觀察十六進位矩陣，從第一橫列起手，交替沿直行、橫列選碼，用有限的緩衝區上傳彼此重疊的序列。提供四種難度、指定種子的自由練習和互動教學，記錄個人最佳並支援逐步重播，配有原創合成電子音樂，介面支援五種語言。",
+		"ja": "MyGo のネイティブ UI で描かれたサイバーパンクなハッキングパズルゲーム。16進マトリクスを読み、1行目から始めて列と行を交互にたどってコードを選び、限られたバッファで重なり合うシーケンスをアップロードします。4段階の難易度、シード指定のフリー練習、インタラクティブなチュートリアルがあり、自己ベストの記録とステップごとのリプレイ、オリジナルの合成電子音楽を備え、5言語に対応します。",
+		"ko": "MyGo의 네이티브 UI로 그린 사이버펑크 해킹 퍼즐 게임입니다. 16진수 행렬을 보고 첫 행에서 시작해 열과 행을 번갈아 따라가며 코드를 골라, 제한된 버퍼로 서로 겹치는 시퀀스를 업로드합니다. 네 단계 난이도, 시드를 지정하는 자유 연습, 대화형 튜토리얼을 갖추고, 개인 최고 기록과 단계별 리플레이, 직접 합성한 전자 음악을 제공하며 5개 언어를 지원합니다."
+	},
+	"icon": {
+		"file": "neural-breach.webp"
+	},
+	"screenshot": "neural-breach.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T16:30:17Z"
+}
