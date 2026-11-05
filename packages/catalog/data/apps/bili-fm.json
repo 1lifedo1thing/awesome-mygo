@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "bili-fm",
+	"name": "Bili FM",
+	"author": "vst93",
+	"kind": "native",
+	"category": "MultimediaApplication",
+	"url": "https://github.com/vst93/bili-fm",
+	"repo": "vst93/bili-fm",
+	"summary": {
+		"en": "A desktop player that turns Bilibili videos into audio, with playlists, subtitles and segment skipping.",
+		"zh-CN": "把 B 站视频当音频听的桌面播放器：订阅、歌单、弹幕、字幕与广告分段跳过。",
+		"zh-TW": "把 B 站影片當音訊聽的桌面播放器：訂閱、播放清單、彈幕、字幕與廣告片段跳過。",
+		"ja": "Bilibili の動画を音声として聴くデスクトッププレーヤー。登録、プレイリスト、弾幕、字幕、区間スキップに対応。",
+		"ko": "Bilibili 영상을 오디오로 듣는 데스크톱 플레이어. 구독, 재생목록, 탄막, 자막, 구간 건너뛰기를 지원합니다."
+	},
+	"description": {
+		"en": "A cross-platform app, drawn with MyGo's native UI, for listening to Bilibili videos instead of watching them: search, subscriptions and favorites, UP-host collections and playlists, a danmaku list with a heatmap, chapter navigation, multi-language subtitles, SponsorBlock-style segment skipping, 0.5×–3.0× speed and volume levelling. Audio runs on a pure Go engine (AAC decoding, WSOLA time-stretching, EQ, oto output) with no webview, while video opens in a temporary webview window. It ships for Windows, macOS and Linux, with signed in-app updates, a Microsoft Store build and a migration path from its old Tauri version.",
+		"zh-CN": "由 MyGo 原生 UI 绘制的跨平台应用，把 B 站视频当作音频收听：搜索、订阅与收藏、UP 主合集与个人播放列表、弹幕列表与热力时间轴、章节导航、多语言字幕、社区广告分段跳过、0.5x–3.0x 倍速与音量均衡。音频由纯 Go 引擎处理（AAC 解码、WSOLA 变速、EQ、oto 输出），只听音频时不启动 webview；视频则在临时 webview 窗口中播放。支持 Windows、macOS 与 Linux，提供签名校验的应用内更新、Microsoft Store 版本，并可从旧 Tauri 版直接迁移。",
+		"zh-TW": "由 MyGo 原生 UI 繪製的跨平台應用程式，把 B 站影片當作音訊收聽：搜尋、訂閱與收藏、UP 主合集與個人播放清單、彈幕清單與熱力時間軸、章節導覽、多語言字幕、社群廣告片段跳過、0.5x–3.0x 倍速與音量均衡。音訊由純 Go 引擎處理（AAC 解碼、WSOLA 變速、EQ、oto 輸出），只聽音訊時不啟動 webview；影片則在臨時 webview 視窗中播放。支援 Windows、macOS 與 Linux，提供簽章驗證的應用程式內更新、Microsoft Store 版本，並可從舊 Tauri 版直接移轉。",
+		"ja": "MyGo のネイティブ UI で描かれたクロスプラットフォームアプリで、Bilibili の動画を「観る」のではなく「聴く」ためのものです。検索、登録とお気に入り、UP 主のコレクションと個人プレイリスト、弾幕一覧とヒートマップ、チャプター移動、多言語字幕、コミュニティ広告区間のスキップ、0.5x〜3.0x の速度変更、音量の均一化に対応します。音声は純 Go のエンジン（AAC デコード、WSOLA による時間伸縮、EQ、oto 出力）で処理し、音声だけなら webview を起動しません。動画は一時的な webview ウィンドウで再生します。Windows、macOS、Linux 向けに配布され、署名検証付きのアプリ内更新、Microsoft Store 版、旧 Tauri 版からの移行に対応します。",
+		"ko": "MyGo의 네이티브 UI로 그린 크로스플랫폼 앱으로, Bilibili 영상을 보는 대신 듣기 위한 것입니다. 검색, 구독과 즐겨찾기, UP 주인 컬렉션과 개인 재생목록, 탄막 목록과 히트맵, 챕터 이동, 다국어 자막, 커뮤니티 광고 구간 건너뛰기, 0.5x~3.0x 배속, 음량 균일화를 지원합니다. 오디오는 순수 Go 엔진(AAC 디코딩, WSOLA 시간 신축, EQ, oto 출력)으로 처리하며 오디오만 들을 때는 webview를 띄우지 않고, 영상은 임시 webview 창에서 재생합니다. Windows, macOS, Linux용으로 배포되며 서명이 검증되는 앱 내 업데이트, Microsoft Store 버전, 구 Tauri 버전에서의 이전을 지원합니다."
+	},
+	"icon": {
+		"file": "bili-fm.webp"
+	},
+	"screenshot": "bili-fm.webp",
+	"added": "2026-11-05T05:07:41Z"
+}
