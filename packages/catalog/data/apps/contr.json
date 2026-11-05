@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "contr",
+	"name": "contr",
+	"author": "contursofran",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/contursofran/contr",
+	"repo": "contursofran/contr",
+	"summary": {
+		"en": "A native macOS client for herdr-core: agent terminals, a board of issues and PRs, and plan usage.",
+		"zh-CN": "herdr-core 的原生 macOS 客户端，带智能体终端和 issue 看板。",
+		"zh-TW": "herdr-core 的原生 macOS 用戶端，附代理程式終端機與 issue 看板。",
+		"ja": "herdr-core のネイティブ macOS クライアント。エージェント端末と PR ボード付き。",
+		"ko": "herdr-core용 네이티브 macOS 클라이언트. 에이전트 터미널과 issue·PR 보드 제공."
+	},
+	"description": {
+		"en": "A minimal herdr-core (hc) client for macOS on Apple silicon, written in Go with MyGo's native UI. It lists spaces, repos, worktrees and running agents with their status, shows the selected agent's hc terminal, and keeps a board with one row per issue or PR, its stages and what needs your answer. Claude and Codex plan usage, CPU and memory sit along the bottom.",
+		"zh-CN": "一款精简的 herdr-core（hc）macOS 客户端，面向 Apple 芯片，用 Go 编写，采用 MyGo 原生 UI。左侧列出空间、仓库、工作树和正在运行的智能体及其状态，中间是所选智能体的 hc 终端，右侧看板为每个 issue 或 PR 列出阶段和需要你处理的事项，并可直接回复。底部显示 Claude 与 Codex 的套餐用量、CPU 和内存。",
+		"zh-TW": "一款精簡的 herdr-core（hc）macOS 用戶端，適用 Apple 晶片，以 Go 撰寫，採用 MyGo 原生 UI。左側列出空間、儲存庫、工作樹和執行中的代理程式及其狀態，中間是所選代理程式的 hc 終端機，右側看板為每個 issue 或 PR 列出階段和需要你處理的事項，並可直接回覆。底部顯示 Claude 與 Codex 的方案用量、CPU 和記憶體。",
+		"ja": "Apple シリコン搭載 Mac 向けの、herdr-core（hc）のミニマルなクライアント。Go で書かれ、MyGo のネイティブ UI を使っています。左にスペース、リポジトリ、ワークツリーと実行中のエージェントを状態付きで並べ、中央に選んだエージェントの hc ターミナル、右には issue や PR ごとに段階と対応が必要な事項を示し、その場で返答できるボードを置きます。下部には Claude と Codex のプラン使用量、CPU、メモリを表示します。",
+		"ko": "Apple 실리콘 Mac용 herdr-core(hc) 미니멀 클라이언트로, Go로 작성하고 MyGo의 네이티브 UI를 사용합니다. 왼쪽에는 스페이스, 저장소, 워크트리와 실행 중인 에이전트를 상태와 함께 보여 주고, 가운데에는 선택한 에이전트의 hc 터미널을, 오른쪽에는 issue나 PR마다 단계와 처리할 일을 보여 주고 바로 답할 수 있는 보드를 둡니다. 아래쪽에는 Claude와 Codex 플랜 사용량, CPU, 메모리가 표시됩니다."
+	},
+	"icon": {
+		"file": "contr.webp"
+	},
+	"screenshot": "contr.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T04:00:52Z"
+}
