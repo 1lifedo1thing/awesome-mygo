@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "viper",
+	"name": "Viper",
+	"author": "qzh200",
+	"kind": "native",
+	"group": "devices",
+	"url": "https://github.com/qzh200/Viper",
+	"repo": "qzh200/Viper",
+	"summary": {
+		"en": "A Windows control center for Acer Predator and Nitro laptops: fans, RGB lighting, power modes.",
+		"zh-CN": "宏碁掠夺者与暗影骑士笔记本的 Windows 控制中心：风扇、RGB 灯效、性能模式。",
+		"zh-TW": "Acer Predator 與 Nitro 筆電控制中心：風扇、RGB、效能模式。",
+		"ja": "Acer Predator・Nitro のファン、RGB、電源モードを操る Windows ツール。",
+		"ko": "Acer Predator·Nitro 노트북용 Windows 제어 센터. 팬, RGB, 전원 모드."
+	},
+	"description": {
+		"en": "A control center for Acer Predator and Nitro laptops on Windows 10 and 11. The viperui window is drawn with MyGo's native UI, without a web view; the viper CLI for scripts is a separate program. Both read temperatures and fan speeds and set fan duty, power modes, GPU MUX mode and four-zone RGB keyboard lighting, through Acer's own AcerAgentService, which a bundled script installs.",
+		"zh-CN": "面向宏碁掠夺者与暗影骑士笔记本的 Windows 10/11 硬件控制中心。图形界面 viperui 由 MyGo 原生 UI 绘制，不使用 Web 视图；供脚本调用的命令行工具 viper 是另一个独立程序。两者都能读取温度与风扇转速，调节风扇占空比、性能模式、独显直连和 4 分区 RGB 键盘灯效，均通过宏碁原厂的 AcerAgentService 服务完成，该服务可用附带的脚本安装。",
+		"zh-TW": "適用於 Acer Predator 與 Nitro 筆電的 Windows 10/11 硬體控制中心。圖形介面 viperui 由 MyGo 原生 UI 繪製，不使用 Web 視圖；供腳本呼叫的命令列工具 viper 是另一個獨立程式。兩者都能讀取溫度與風扇轉速，調整風扇工作週期、效能模式、獨顯直連和 4 區 RGB 鍵盤燈效，皆透過 Acer 原廠的 AcerAgentService 服務完成，該服務可用隨附的腳本安裝。",
+		"ja": "Windows 10・11 用の Acer Predator・Nitro ノート向けコントロールセンター。GUI の viperui は MyGo のネイティブ UI で描かれ、スクリプト向け CLI の viper は別プログラムです。温度とファン回転数を読み、ファンのデューティ比、電源モード、GPU の MUX 切り替え、4 ゾーン RGB キーボードライトを設定します。動作には Acer の AcerAgentService が必要で、同梱スクリプトで導入できます。",
+		"ko": "Windows 10·11에서 쓰는 Acer Predator·Nitro 노트북용 제어 센터입니다. GUI인 viperui는 MyGo의 네이티브 UI로 그리며 웹 뷰를 쓰지 않고, 스크립트용 CLI인 viper는 별도 프로그램입니다. 둘 다 온도와 팬 속도를 읽고 팬 듀티, 전원 모드, GPU MUX 모드, 4구역 RGB 키보드 조명을 설정하며, Acer 순정 AcerAgentService를 통해 동작합니다. 이 서비스는 함께 제공되는 스크립트로 설치합니다."
+	},
+	"icon": {
+		"file": "viper.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "viper.webp",
+	"added": "2026-11-05T12:35:14Z"
+}
