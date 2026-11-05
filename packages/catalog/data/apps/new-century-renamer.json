@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "new-century-renamer",
+	"name": "跨向更名器 New Century Renamer",
+	"author": "eachgo",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"group": "system",
+	"url": "https://github.com/eachgo/New-Century-Renamer",
+	"repo": "eachgo/New-Century-Renamer",
+	"summary": {
+		"en": "A cross-platform batch renamer: chain rules into a pipeline, preview every new name, and roll a batch back.",
+		"zh-CN": "跨平台批量更名工具：把规则串成管道，逐个预览新名，不满意一键回滚。",
+		"zh-TW": "跨平台批次更名工具：把規則串成管線，逐一預覽新名稱，不滿意一鍵還原。",
+		"ja": "クロスプラットフォームの一括リネームツール。ルールを組み合わせ、プレビューしてから実行、一括で元に戻せます。",
+		"ko": "크로스 플랫폼 일괄 이름 변경 도구. 규칙을 파이프라인으로 엮어 새 이름을 미리 보고, 한 번에 되돌릴 수 있습니다."
+	},
+	"description": {
+		"en": "A free, open-source, cross-platform batch renamer with a GUI drawn natively by MyGo and a command line. Drop files in or point it at a folder, chain rules such as pinyin, Traditional–Simplified conversion, find and replace and numbering into a pipeline, and check a live preview before anything is renamed; a whole batch can be rolled back. It also names music, e-books and videos from their metadata, or asks an AI to name a file by its content.",
+		"zh-CN": "跨向更名器是一款免费开源的跨平台批量更名工具：把文件拖进界面或用命令行指定目录，将拼音转换、繁简互转、查找替换、加序号等规则自由组合成管道，实时预览后再执行，不满意可一键回滚；它还能读取音乐、电子书、视频的元数据自动命名，或接入 AI 按内容起名。适合需要整理音乐库、电子书、照片和下载的文件的人。",
+		"zh-TW": "跨向更名器是一款免費開源的跨平台批次更名工具：把檔案拖進介面或用命令列指定目錄，將拼音轉換、繁簡互轉、尋找取代、加序號等規則自由組合成管線，即時預覽後再執行，不滿意可一鍵還原；它還能讀取音樂、電子書、影片的中繼資料自動命名，或接入 AI 依內容命名。適合需要整理音樂庫、電子書、照片和下載檔案的人。",
+		"ja": "無料・オープンソースのクロスプラットフォーム一括リネームツールで、MyGo がネイティブに描く GUI とコマンドラインを備えます。ファイルを画面にドラッグするかフォルダーを指定し、ピンイン変換、繁体字・簡体字の相互変換、検索と置換、連番などのルールをパイプラインに組み、リアルタイムのプレビューを確かめてから実行します。一括で元に戻すこともできます。音楽・電子書籍・動画のメタデータから名前を付けたり、AI に内容から名前を考えさせたりもできます。",
+		"ko": "무료 오픈 소스 크로스 플랫폼 일괄 이름 변경 도구로, MyGo가 네이티브로 그리는 GUI와 명령줄을 함께 제공합니다. 파일을 화면에 끌어다 놓거나 폴더를 지정한 뒤 병음 변환, 번체·간체 변환, 찾아 바꾸기, 번호 붙이기 같은 규칙을 파이프라인으로 엮고, 실시간 미리보기를 확인한 다음 실행합니다. 한 번에 되돌릴 수도 있습니다. 음악, 전자책, 동영상의 메타데이터로 이름을 짓거나 AI에게 내용을 보고 이름을 짓게 할 수도 있습니다."
+	},
+	"icon": {
+		"file": "new-century-renamer.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "new-century-renamer.webp",
+	"added": "2026-11-05T06:01:33Z"
+}
