@@ -1,0 +1,20 @@
+{
+	"$schema": "../schema/ui.schema.json",
+	"slug": "breeze-ui",
+	"name": "Breeze UI",
+	"author": "yldm-tech",
+	"tag": "theme",
+	"surface": "native",
+	"summary": {
+		"en": "A Go component library for MyGo native UI that draws widgets as macOS, Windows 11 or GNOME controls to match the platform, with light and dark themes that follow the user's accent color.",
+		"zh-CN": "MyGo 原生 UI 组件库，按应用所在平台将控件绘制为 macOS、Windows 11 或 GNOME 风格，含随用户强调色变化的明暗主题。",
+		"zh-TW": "MyGo 原生 UI 元件庫，依執行平台將控制項繪製成 macOS、Windows 11 或 GNOME 樣式，含隨使用者強調色變化的深淺色主題。",
+		"ja": "MyGo ネイティブ UI 向けコンポーネントライブラリ。OS に合わせ、macOS、Windows 11、GNOME のコントロールとして描画し、アクセントカラーに従う明暗テーマ付き。",
+		"ko": "MyGo 네이티브 UI 컴포넌트 라이브러리. 실행 중인 플랫폼에 맞춰 macOS, Windows 11, GNOME 컨트롤로 그리며, 사용자 강조 색상을 따르는 라이트와 다크 테마를 제공합니다."
+	},
+	"repo": "yldm-tech/mygo-breeze-ui",
+	"url": "https://github.com/yldm-tech/mygo-breeze-ui",
+	"homepage": "https://yldm-tech.github.io/mygo-breeze-ui/",
+	"screenshot": "breeze-ui.webp",
+	"added": "2026-11-05T05:57:31Z"
+}
