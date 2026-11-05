@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mux",
+	"name": "Mux",
+	"author": "nomyfan",
+	"kind": "native",
+	"group": "agents",
+	"url": "https://github.com/nomyfan/mux",
+	"repo": "nomyfan/mux",
+	"summary": {
+		"en": "A native desktop client for herdr-core, the terminal runtime for coding agents.",
+		"zh-CN": "编码智能体终端运行时 herdr-core 的原生桌面客户端。",
+		"zh-TW": "程式設計代理終端執行環境 herdr-core 的原生桌面用戶端。",
+		"ja": "コーディングエージェント向けターミナルランタイム herdr-core のネイティブクライアント。",
+		"ko": "코딩 에이전트용 터미널 런타임 herdr-core의 네이티브 데스크톱 클라이언트."
+	},
+	"description": {
+		"en": "A desktop client for herdr-core (hc), the terminal runtime for coding agents, drawn with MyGo's native UI. Mux is a graphical front end, not a replacement: herdr-core has to be installed separately with its own install script before Mux can run. It comes in light and dark appearances.",
+		"zh-CN": "为编码智能体终端运行时 herdr-core（hc）打造的桌面客户端，由 MyGo 原生 UI 绘制。Mux 是 herdr-core 的图形界面，并不取代它：运行前需先用 herdr-core 自带的安装脚本单独安装。界面提供浅色与深色两种外观。",
+		"zh-TW": "為程式設計代理終端執行環境 herdr-core（hc）打造的桌面用戶端，由 MyGo 原生 UI 繪製。Mux 是 herdr-core 的圖形介面，並不取代它：執行前需先用 herdr-core 附帶的安裝腳本另行安裝。介面提供淺色與深色兩種外觀。",
+		"ja": "コーディングエージェント向けのターミナルランタイム herdr-core（hc）のデスクトップクライアントで、MyGo のネイティブ UI で描かれています。Mux は herdr-core を置き換えるものではなく、その GUI です。使う前に herdr-core を専用のインストールスクリプトで別途入れておく必要があります。ライトとダークの外観に対応しています。",
+		"ko": "코딩 에이전트를 위한 터미널 런타임 herdr-core(hc)의 데스크톱 클라이언트로, MyGo의 네이티브 UI로 그렸습니다. Mux는 herdr-core를 대체하지 않고 그 위에 얹는 GUI이므로, 먼저 herdr-core를 전용 설치 스크립트로 따로 설치해야 실행됩니다. 라이트와 다크 모드를 지원합니다."
+	},
+	"icon": {
+		"file": "mux.webp"
+	},
+	"screenshot": "mux.webp",
+	"added": "2026-11-05T10:51:28Z"
+}
