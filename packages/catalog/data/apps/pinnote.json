@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "pinnote",
+	"name": "PinNote",
+	"author": "yangchaojun",
+	"kind": "native",
+	"group": "notes",
+	"url": "https://github.com/yangchaojun/PinNote",
+	"repo": "yangchaojun/PinNote",
+	"summary": {
+		"en": "macOS sticky notes, each a frameless always-on-top window with Markdown editing and autosave.",
+		"zh-CN": "macOS 便签：每条笔记是一个无边框置顶窗口，支持 Markdown，自动保存。",
+		"zh-TW": "macOS 便利貼：每則筆記是一個無邊框置頂視窗，支援 Markdown，自動儲存。",
+		"ja": "macOS の付箋アプリ。ノートごとに枠なし・最前面の窓を開き、Markdown で書いて自動保存。",
+		"ko": "macOS 스티커 메모. 노트마다 테두리 없는 최상단 창, Markdown 편집, 자동 저장."
+	},
+	"description": {
+		"en": "A macOS sticky-notes app drawn with MyGo's native UI, with no web view and no main window: each note is its own frameless, always-on-top window across Spaces. ⌘⌥N opens a new one from any app, Markdown renders in place as you type and saves automatically to SQLite. A menu bar icon lists and searches notes, and deleted ones stay in a trash for 60 days.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 桌面便签，没有 Web 视图，也没有主面板：每条笔记都是一个无边框、置顶、跨 Space 的独立窗口。在任何应用中按 ⌘⌥N 即可新建，Markdown 语法边写边渲染，内容自动保存到 SQLite。菜单栏图标可列出和搜索笔记，删除的笔记在回收站保留 60 天。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS 桌面便利貼，沒有 Web 視圖，也沒有主面板：每則筆記都是一個無邊框、置頂、跨 Space 的獨立視窗。在任何應用程式中按 ⌘⌥N 即可新增，Markdown 語法邊寫邊呈現，內容自動儲存到 SQLite。選單列圖示可列出與搜尋筆記，刪除的筆記在垃圾桶保留 60 天。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS 用の付箋アプリ。Web ビューもメイン画面もなく、ノート一つひとつが枠なし・最前面・全 Space 共通の独立したウィンドウになります。どのアプリからでも ⌘⌥N で新しいノートを開け、Markdown は書いたその場で表示に反映され、内容は SQLite に自動保存されます。メニューバーのアイコンからノートの一覧と検索ができ、削除したノートはゴミ箱に 60 日間残ります。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS 스티커 메모 앱으로, 웹 뷰도 메인 창도 없이 노트 하나하나가 테두리 없이 항상 위에 떠 있고 모든 Space에 보이는 창이 됩니다. 어느 앱에서든 ⌘⌥N으로 새 노트를 열 수 있고, Markdown은 입력하는 자리에서 바로 렌더링되며 내용은 SQLite에 자동 저장됩니다. 메뉴 막대 아이콘에서 노트를 목록으로 보고 검색할 수 있으며, 삭제한 노트는 휴지통에 60일간 남습니다."
+	},
+	"icon": {
+		"file": "pinnote.webp"
+	},
+	"screenshot": "pinnote.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T14:05:27Z"
+}
