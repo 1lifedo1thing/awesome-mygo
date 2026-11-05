@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "chrome-profile-router",
+	"name": "Chrome Profile Router",
+	"author": "chinnsenn",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/chinnsenn/chrome-profile-router",
+	"repo": "chinnsenn/chrome-profile-router",
+	"summary": {
+		"en": "Acts as your default browser and asks which Chrome profile should open each link.",
+		"zh-CN": "设为默认浏览器后，每个链接先问你用哪个 Chrome Profile 打开。",
+		"zh-TW": "設為預設瀏覽器後，每個連結先問你要用哪個 Chrome Profile 開啟。",
+		"ja": "既定のブラウザーとして、リンクごとにどの Chrome プロファイルで開くかを選べるツール。",
+		"ko": "기본 브라우저로 설정하면 링크마다 어느 Chrome 프로필로 열지 묻는 도구."
+	},
+	"description": {
+		"en": "A link router written in Go and drawn with MyGo's native UI. Set as the default browser, it shows the incoming address above the Chrome profiles already on the machine, read from Chrome's local config with their names, emails and avatars, opens the link in the one you pick and quits once its queue is empty. macOS 12 and later is the main target; Linux is tested on amd64 and Windows support is experimental.",
+		"zh-CN": "用 Go 编写、由 MyGo 原生 UI 绘制的链接分流工具。设为默认浏览器后，从外部打开的链接会先到这里：顶部显示目标地址，下方列出直接从 Chrome 本地配置读取的 Profile，带名称、邮箱和头像，选中哪个就用哪个打开，队列处理完即退出。macOS 12 及以上是主线，Linux amd64 已实测，Windows 为实验支持。",
+		"zh-TW": "用 Go 撰寫、由 MyGo 原生 UI 繪製的連結分流工具。設為預設瀏覽器後，從外部開啟的連結會先到這裡：上方顯示目標網址，下方列出直接從 Chrome 本機設定讀取的 Profile，附名稱、電子郵件和頭像，選哪個就用哪個開啟，佇列處理完即結束。macOS 12 以上是主線，Linux amd64 已實測，Windows 為實驗性支援。",
+		"ja": "Go で書かれ、MyGo のネイティブ UI で描かれたリンク振り分けツール。既定のブラウザーに設定すると、外部から開いたリンクがまずここに届き、上に開き先のアドレス、下に Chrome のローカル設定から読み込んだプロファイルが名前・メールアドレス・アイコン付きで並びます。選んだプロファイルでリンクを開き、キューが空になると終了します。macOS 12 以降が主な対象で、Linux は amd64 で動作確認済み、Windows は試験的な対応です。",
+		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 링크 분배 도구입니다. 기본 브라우저로 설정하면 외부에서 연 링크가 먼저 여기로 오고, 위에는 대상 주소가, 아래에는 Chrome 로컬 설정에서 읽어 온 프로필이 이름, 이메일, 아바타와 함께 나열됩니다. 고른 프로필로 링크를 열고 대기열이 비면 종료합니다. macOS 12 이상이 주 대상이며 Linux는 amd64에서 테스트했고 Windows는 실험적으로 지원합니다."
+	},
+	"icon": {
+		"file": "chrome-profile-router.webp"
+	},
+	"screenshot": "chrome-profile-router.webp",
+	"added": "2026-11-05T14:05:27Z"
+}
