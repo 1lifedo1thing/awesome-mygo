@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "hku-vpn",
+	"name": "HKU VPN",
+	"author": "jialiangZ",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://jialiangZ.github.io/hkuvpn/",
+	"repo": "jialiangZ/hkuvpn",
+	"summary": {
+		"en": "A Windows app that connects to the HKU campus VPN as a local SOCKS5 and HTTP proxy.",
+		"zh-CN": "Windows 版 HKU 校园 VPN，经本地 SOCKS5/HTTP 代理接入。",
+		"zh-TW": "Windows 版 HKU 校園 VPN，經本機 SOCKS5/HTTP 代理連線。",
+		"ja": "HKU の学内 VPN に接続し、SOCKS5・HTTP プロキシで使える Windows アプリ。",
+		"ko": "HKU 캠퍼스 VPN에 연결해 로컬 SOCKS5·HTTP 프록시로 쓰는 Windows 앱."
+	},
+	"description": {
+		"en": "The Windows edition of hkuvpn, drawn with MyGo's native UI, with no WSL, Docker or console window. Enter your HKU account and Portal PIN, press Connect and type the six-digit Authenticator code; only traffic you send to the local SOCKS5 and HTTP proxies reaches the campus network, and your default route stays unchanged. A Docker edition for Linux, macOS and WSL2 is made without MyGo.",
+		"zh-CN": "hkuvpn 的 Windows 版，由 MyGo 原生 UI 绘制，无需 WSL 和 Docker，也没有控制台窗口。输入 HKU 账号和 Portal PIN，点 Connect 后再填六位 Authenticator 验证码即可连接；只有发往本地 SOCKS5 和 HTTP 代理的流量进入校园网，系统默认路由保持不变。面向 Linux、macOS 与 WSL2 的 Docker 版另行实现，不使用 MyGo。",
+		"zh-TW": "hkuvpn 的 Windows 版，以 MyGo 原生 UI 繪製，不需 WSL 或 Docker，也沒有主控台視窗。輸入 HKU 帳號與 Portal PIN，按 Connect 再填六位數驗證碼即可連線；只有送往本機 SOCKS5 與 HTTP 代理的流量進入校園網路，預設路由不變。Linux、macOS 與 WSL2 的 Docker 版未使用 MyGo。",
+		"ja": "hkuvpn の Windows 版で、MyGo のネイティブ UI で描かれています。WSL も Docker も不要で、コンソールウィンドウも出ません。HKU のアカウントと Portal PIN を入力して Connect を押し、6 桁の Authenticator コードを入れると接続します。学内ネットワークに入るのはローカルの SOCKS5・HTTP プロキシに送った通信だけで、既定のルートは変わりません。Linux・macOS・WSL2 向けの Docker 版は MyGo を使わずに作られています。",
+		"ko": "hkuvpn의 Windows 버전으로, MyGo의 네이티브 UI로 그렸으며 WSL이나 Docker가 필요 없고 콘솔 창도 뜨지 않습니다. HKU 계정과 Portal PIN을 입력하고 Connect를 누른 뒤 여섯 자리 Authenticator 코드를 넣으면 연결됩니다. 로컬 SOCKS5·HTTP 프록시로 보낸 트래픽만 캠퍼스 네트워크로 가고 기본 라우트는 그대로입니다. Linux, macOS, WSL2용 Docker 버전은 MyGo 없이 따로 만들어졌습니다."
+	},
+	"icon": {
+		"file": "hku-vpn.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "hku-vpn.webp",
+	"added": "2026-11-05T04:45:28Z"
+}
