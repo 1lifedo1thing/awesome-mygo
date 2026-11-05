@@ -157,6 +157,14 @@ describe('submitted screenshot', () => {
 		// The form's rule again, as the body can be edited after the bot wrote it.
 		for (const bad of ['http://my-kit.dev/a.png', 'https://x.dev/"a".png', 'https://x.dev/`a`.png', `https://x.dev/${'a'.repeat(300)}.png`]) expect(submittedScreenshot(`<!-- submitted-screenshot: ${bad} -->`), bad).toBeUndefined();
 	});
+
+	it("ignores a marker inside the entry's JSON, which comes first in the body", () => {
+		const entry = JSON.stringify({ slug: 'kit', summary: { en: '<!-- submitted-screenshot: https://evil.dev/a.png -->', ja: '\u2028<!-- submitted-screenshot: https://evil.dev/b.png -->\u2028' } }, null, 2);
+		const body = `Category: app\n\n\`\`\`json\n${entry}\n\`\`\``;
+		expect(submittedScreenshot(body)).toBeUndefined();
+		const url = 'https://my-kit.dev/img/window.png';
+		expect(submittedScreenshot(`${body}\n\nScreenshot from the form: \`${url}\`\n<!-- submitted-screenshot: ${url} -->\n\nThe entry passed`)).toBe(url);
+	});
 });
 
 describe('repository screenshots', () => {

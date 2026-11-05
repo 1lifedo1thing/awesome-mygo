@@ -165,10 +165,12 @@ export function repoShotSources(r: { repo: string; branch: string; paths: readon
 	];
 }
 
-// The screenshot link a visitor gave in the site's form, from the pull request the bot opened: apps/web/src/server/submit.ts writes it as <!-- submitted-screenshot: URL -->. The link is checked again with the form's rule (https, no space, quote, backtick or angle bracket), as the body could have been edited since.
+// The screenshot link a visitor gave in the site's form, from the pull request the bot opened: submissionBody in packages/catalog writes it as <!-- submitted-screenshot: URL --> on a line of its own. Only such a line counts, so a marker inside the entry's JSON above it, where every line starts with a space or a brace, is not taken for the visitor's link. Lines are split at \n only: a regular expression's multiline mode also starts a line after U+2028, which JSON.stringify leaves as it is in a string. The link is checked again with the form's rule (https, no space, quote, backtick or angle bracket), as the body could have been edited since.
 export function submittedScreenshot(body: string | null | undefined): string | undefined {
-	const m = /<!-- submitted-screenshot: (\S+) -->/.exec(body ?? '');
-	const url = m?.[1];
+	const url = (body ?? '')
+		.split(/\r?\n/)
+		.map((line) => /^<!-- submitted-screenshot: (\S+) -->$/.exec(line)?.[1])
+		.find((u) => u !== undefined);
 	return url && url.length <= 300 && /^https:\/\/[^\s<>"'`]+$/.test(url) ? url : undefined;
 }
 
