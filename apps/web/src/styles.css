@@ -766,10 +766,6 @@ html:lang(ko) .site {
 	height: 32px;
 	padding: 0 12px;
 }
-.lib-bar {
-	height: 34px;
-	padding: 0 14px;
-}
 .panel-bar {
 	height: 36px;
 	padding: 0 14px;
@@ -1464,30 +1460,28 @@ html:lang(ko) .site {
 	padding: 0 16px;
 }
 
-/* UI libraries */
-.lib-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(min(100%, 500px), 1fr));
-	gap: 20px;
-}
-.lib {
-	flex: 1 1 auto;
-	border: 1px solid var(--line-2);
-	border-radius: 18px;
-	background: var(--panel);
-	overflow: hidden;
-	display: flex;
-	flex-direction: column;
-}
-.lib-shot {
-	height: 240px;
+/* UI libraries and state solutions: a plugin card with the project's screenshot between its title bar and its body. */
+.card-shot {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	aspect-ratio: 16 / 10;
+	overflow: hidden;
 	border-bottom: 1px solid var(--line-2);
 	background-color: var(--well-2);
 }
-.lib-shot-label {
+/* A state solution's screenshot is its 1200x630 social card, shown whole. */
+.card-shot-social {
+	aspect-ratio: 1200 / 630;
+}
+.card-shot img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: top center;
+}
+.card-shot-label {
 	font-family: var(--f-mono);
 	font-size: 13px;
 	color: var(--fg-3);
@@ -1495,43 +1489,8 @@ html:lang(ko) .site {
 	border: 1px dashed var(--line-3);
 	border-radius: 8px;
 }
-.lib-body {
-	padding: 26px;
-	display: flex;
-	flex-direction: column;
-	gap: 14px;
-}
-.lib-head {
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-start;
-	gap: 12px;
-}
-.lib-name {
-	margin: 0;
-	font-family: var(--f-display);
-	font-size: 32px;
-	font-weight: 800;
-	letter-spacing: -0.03em;
-}
-.lib-by {
-	font-size: 14px;
-	color: var(--fg-3);
-}
-.lib-tag {
-	font-family: var(--f-mono);
-	font-size: 12px;
-	padding: 4px 10px;
-	border-radius: 999px;
-	border: 1px solid var(--cyan);
+.tag-cyan {
 	color: var(--cyan);
-	white-space: nowrap;
-}
-.lib-desc {
-	margin: 0;
-	font-size: 15px;
-	line-height: 1.7;
-	color: var(--fg-2);
 }
 
 /* State */
@@ -2723,26 +2682,11 @@ button.btn-pr:disabled {
 .hero-win.wi {
 	animation-fill-mode: backwards;
 }
-.lib-shot-img img {
-	display: block;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	object-position: top center;
-}
-.lib-shot-img {
-	padding: 0;
-	overflow: hidden;
-}
 .inline-link {
 	align-self: flex-start;
 	font-size: 15px;
 	font-weight: 600;
 	text-decoration: none;
-}
-.lib-tag-amber {
-	border-color: var(--amber);
-	color: var(--amber);
 }
 .cta-amber {
 	border-color: var(--amber);
@@ -2820,14 +2764,6 @@ button.btn-pr:disabled {
 }
 .wall .side {
 	pointer-events: auto;
-}
-/* A single listed solution keeps a column's width instead of stretching across the page, and its social card shows whole. */
-.state-list {
-	grid-template-columns: repeat(auto-fill, minmax(min(100%, 500px), 1fr));
-}
-.state-list .lib-shot-img {
-	height: auto;
-	aspect-ratio: 1200 / 630;
 }
 
 /* Official app icons: the files already carry a 22.5% corner, so the box matches it (and its shadow follows the same curve) instead of the letter tiles' rounder corner. */
