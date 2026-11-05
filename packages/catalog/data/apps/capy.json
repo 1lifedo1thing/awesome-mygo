@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "capy",
+	"name": "Capy",
+	"author": "onyx-dot-app",
+	"kind": "native",
+	"group": "ai",
+	"url": "https://github.com/onyx-dot-app/Capy",
+	"repo": "onyx-dot-app/Capy",
+	"summary": {
+		"en": "macOS menu bar app for live captions, translation and recaps, powered by Zoom AI Services.",
+		"zh-CN": "macOS 菜单栏应用：为任何对话提供实时字幕、翻译和总结。",
+		"zh-TW": "macOS 選單列應用程式：為任何對話提供即時字幕、翻譯與摘要。",
+		"ja": "macOS のメニューバーから、あらゆる会話にライブ字幕・翻訳・要約を付けるアプリ。",
+		"ko": "어떤 대화든 실시간 자막, 번역, 요약을 제공하는 macOS 메뉴 막대 앱."
+	},
+	"description": {
+		"en": "A macOS menu bar app that captions, translates and recaps meetings, videos and calls in real time, using your own Zoom AI Services API key. It listens to the microphone or to what the Mac plays, labels speakers, translates across 10 languages and writes recaps with action items. Audio is never stored and transcripts stay on the Mac. One Go binary on MyGo's native UI, with no webview.",
+		"zh-CN": "macOS 菜单栏应用，用你自己的 Zoom AI Services API 密钥，为会议、视频和通话实时生成字幕、翻译和总结。它收听麦克风或 Mac 播放的声音，标注说话人，在 10 种语言间翻译，并写出带待办事项的总结。音频从不保存，转录稿只留在本机。它是单个 Go 程序，由 MyGo 原生 UI 构建，没有 Web 视图。",
+		"zh-TW": "macOS 選單列應用程式，以你自己的 Zoom AI Services API 金鑰，為會議、影片和通話即時產生字幕、翻譯與摘要。它收聽麥克風或 Mac 播放的聲音，標示說話者，在 10 種語言間翻譯，並寫出附待辦事項的摘要。音訊從不儲存，逐字稿只留在本機。它是單一 Go 執行檔，以 MyGo 原生 UI 打造，沒有 Web 視圖。",
+		"ja": "自分の Zoom AI Services の API キーを使い、会議や動画、通話にリアルタイムで字幕・翻訳・要約を付ける macOS のメニューバーアプリ。マイクや Mac で再生中の音声を聞き取って話者を区別し、10 言語で翻訳し、アクションアイテム付きの要約を作ります。音声は保存されず、文字起こしは Mac の中に残ります。MyGo のネイティブ UI で作られた単一の Go バイナリで、Web ビューは使いません。",
+		"ko": "자신의 Zoom AI Services API 키로 회의, 영상, 통화에 실시간 자막, 번역, 요약을 제공하는 macOS 메뉴 막대 앱입니다. 마이크나 Mac에서 재생되는 소리를 듣고 화자를 구분하며, 10개 언어로 번역하고 할 일이 담긴 요약을 만듭니다. 오디오는 저장하지 않고 전사본은 Mac에만 남습니다. MyGo의 네이티브 UI로 만든 단일 Go 바이너리이며 웹 뷰가 없습니다."
+	},
+	"icon": {
+		"file": "capy.webp"
+	},
+	"screenshot": "capy.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T12:35:14Z"
+}
