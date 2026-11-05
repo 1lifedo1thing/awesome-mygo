@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "yoho-music",
+	"name": "Yoho Music",
+	"author": "Yohoia",
+	"kind": "native",
+	"group": "media",
+	"url": "https://github.com/Yohoia/yoho-music",
+	"repo": "Yohoia/yoho-music",
+	"summary": {
+		"en": "Third-party NetEase Cloud Music client: lyrics, private FM, captioned podcasts and lossless audio.",
+		"zh-CN": "第三方网易云音乐客户端：逐字歌词、私人 FM、带字幕的播客与无损音质。",
+		"zh-TW": "第三方網易雲音樂用戶端：逐字歌詞、私人 FM、附字幕的 Podcast 與無損音質。",
+		"ja": "NetEase Cloud Music の非公式クライアント。歌詞、字幕付きポッドキャスト、ロスレス再生。",
+		"ko": "비공식 NetEase Cloud Music 클라이언트: 가사, 자막 팟캐스트, 무손실 재생."
+	},
+	"description": {
+		"en": "A third-party NetEase Cloud Music desktop client written in Go and drawn with MyGo's native UI, with no web view; it builds on egoist/mygo-cloudmusic. It covers daily picks, playlists, charts, search, private FM and podcasts, which it can transcribe into captions locally with Qwen3-ASR. It streams up to lossless FLAC and Hi-Res, caches songs you have played and shows word-by-word lyrics with translations.",
+		"zh-CN": "用 Go 编写、由 MyGo 原生 UI 绘制的第三方网易云音乐桌面客户端，没有 WebView，基于 egoist/mygo-cloudmusic 二次开发。涵盖每日推荐、歌单、排行榜、搜索、私人 FM 与播客，播客节目可在本机用 Qwen3-ASR 转写成字幕。支持边下边播，最高可选无损 FLAC 与 Hi-Res 音质，会缓存听过的歌曲，并提供逐字歌词与翻译。",
+		"zh-TW": "以 Go 撰寫、由 MyGo 原生 UI 繪製的第三方網易雲音樂桌面用戶端，沒有 WebView，以 egoist/mygo-cloudmusic 為基礎改寫。涵蓋每日推薦、歌單、排行榜、搜尋、私人 FM 與 Podcast，節目可在本機以 Qwen3-ASR 轉寫成字幕。支援邊下載邊播放，最高可選無損 FLAC 與 Hi-Res 音質，會快取聽過的歌曲，並提供逐字歌詞與翻譯。",
+		"ja": "Go で書かれ、MyGo のネイティブ UI で描かれたサードパーティ製の NetEase Cloud Music デスクトップクライアント。WebView は使わず、egoist/mygo-cloudmusic をもとに開発されています。デイリーおすすめ、プレイリスト、ランキング、検索、パーソナル FM、ポッドキャストに対応し、番組は Qwen3-ASR で手元のマシン上で字幕にできます。ロスレス FLAC や Hi-Res までのストリーミング再生、聴いた曲のキャッシュ、一語ずつ流れる歌詞と翻訳も備えています。",
+		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 서드파티 NetEase Cloud Music 데스크톱 클라이언트로, WebView 없이 egoist/mygo-cloudmusic을 바탕으로 만들었습니다. 오늘의 추천, 플레이리스트, 차트, 검색, 개인 FM, 팟캐스트를 지원하며 팟캐스트 에피소드는 Qwen3-ASR로 로컬에서 자막을 만들 수 있습니다. 무손실 FLAC과 Hi-Res까지 스트리밍하고, 들은 곡은 캐시하며, 단어 단위 가사와 번역을 보여 줍니다."
+	},
+	"icon": {
+		"file": "yoho-music.webp"
+	},
+	"screenshot": "yoho-music.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T08:08:34Z"
+}
