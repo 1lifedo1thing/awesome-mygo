@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "neohm",
+	"name": "NeoHM",
+	"author": "oneo-me",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://oneo-me.github.io/neohm/",
+	"repo": "oneo-me/neohm",
+	"summary": {
+		"en": "A menu bar and tray app that controls Home Assistant devices by room, including air conditioners.",
+		"zh-CN": "按房间控制 Home Assistant 设备的菜单栏与托盘应用，空调也能完整调节。",
+		"zh-TW": "按房間控制 Home Assistant 裝置的選單列與系統匣程式，冷氣也能完整調整。",
+		"ja": "Home Assistant の機器を部屋別に操作するメニューバー・トレイアプリ。エアコンも細かく調整。",
+		"ko": "Home Assistant 기기를 방별로 제어하는 메뉴 막대·트레이 앱. 에어컨도 세세하게 조절."
+	},
+	"description": {
+		"en": "A Home Assistant controller for the macOS menu bar and the Windows and Linux tray, written in Go with MyGo's native UI. Its panel shows devices as tiles by room that switch with a click, with a page per device to dim, color or move it, and full air conditioner controls down to fan speed, airflow, Eco Mode and Sleep. It connects with a long-lived access token from Home Assistant.",
+		"zh-CN": "用 Go 编写、由 MyGo 原生 UI 绘制的 Home Assistant 控制器，常驻 macOS 菜单栏或 Windows、Linux 系统托盘。面板按房间以磁贴列出设备，点一下即可开关；每个设备有自己的页面，可调光、调色或调整位置；空调可控制到风速、风向、Eco Mode 与睡眠模式。使用 Home Assistant 的长期访问令牌连接。",
+		"zh-TW": "用 Go 撰寫、由 MyGo 原生 UI 繪製的 Home Assistant 控制器，常駐 macOS 選單列或 Windows、Linux 系統匣。面板依房間以磚塊列出裝置，點一下即可開關；每個裝置有自己的頁面，可調光、調色或調整位置；冷氣可控制到風速、風向、Eco Mode 與睡眠模式。使用 Home Assistant 的長期存取權杖連線。",
+		"ja": "Go で書かれ、MyGo のネイティブ UI で描かれた Home Assistant コントローラー。macOS ではメニューバー、Windows と Linux ではトレイに常駐します。パネルには部屋ごとにデバイスがタイルで並び、クリックでオン・オフできます。各デバイスのページで明るさや色、位置を変えられ、エアコンは風量、風向、Eco Mode、Sleep まで操作できます。Home Assistant の長期アクセストークンで接続します。",
+		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 Home Assistant 컨트롤러로, macOS에서는 메뉴 막대에, Windows와 Linux에서는 트레이에 상주합니다. 패널에는 기기가 방별 타일로 놓여 클릭 한 번으로 켜고 끄며, 기기별 페이지에서 밝기, 색, 위치를 바꾸고, 에어컨은 풍량, 풍향, Eco Mode, Sleep까지 조절합니다. Home Assistant의 장기 액세스 토큰으로 연결합니다."
+	},
+	"icon": {
+		"file": "neohm.webp"
+	},
+	"screenshot": "neohm.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T02:29:36Z"
+}
