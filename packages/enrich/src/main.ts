@@ -5,9 +5,9 @@ import { promisify } from 'node:util';
 import { DEFAULT_MODEL, README_LIMIT, type LlmConfig, writeCopy } from './copy.ts';
 import { github, rawFile, rawUrl as rawRepoUrl } from './github.ts';
 import { downloadImage, isDefaultIcon, writeIcon, writeShot } from './image.ts';
-import { ENTRY_DIRS, type Entry, type EntryKind, addedFiles, appCategories, appNameFrom, hasAllLanguages, iconOf, isArtwork, parseMygoConfig, pickMygoConfig, readmeImages, repoOfEntry, repoScreenshots, resolveImage, setCategory, submittedScreenshot } from './source.ts';
+import { type ChoiceField, ENTRY_DIRS, type Entry, type EntryKind, addedFiles, appNameFrom, formDefaults, hasAllLanguages, homepageOf, iconOf, isArtwork, parseMygoConfig, pickMygoConfig, readmeImages, repoOfEntry, repoScreenshots, resolveImage, schemaEnum, setCategory, submittedScreenshot } from './source.ts';
 
-// Run by .github/workflows/enrich-submission.yml on a pull request the submission bot opened, and by discover.ts on each entry it proposes. It finds the entries the branch adds, then for each fills in what the form cannot ask for: an app's icon (from its mygo.json) and screenshot (the first landscape one in its README, or else in a screenshot folder of the repository), its category when the submission names none, and the copy in every site language. It changes files in the working tree and writes a Markdown report for the pull request; the workflow runs the catalog checks and commits.
+// Run by .github/workflows/enrich-submission.yml on a pull request the submission bot opened, and by discover.ts on each entry it proposes. It finds the entries the branch adds, then for each fills in what the form cannot ask for: an app's icon (from its mygo.json); the screenshot of an app, a UI library or a state management library (the first landscape one in its README, or else in a screenshot folder of the repository); a UI library's or state management library's homepage (from the repository's settings); what the form fills in with a default (an app's category, a UI library's tag, a plugin's surface, the tags of state management and plugins), picked by the model; and the copy in every site language. It changes files in the working tree and writes a Markdown report for the pull request; the workflow runs the catalog checks and commits.
 //
 // Environment: BASE_REF (the branch the entries are compared with, default origin/main), REPORT_FILE (where the report goes), GITHUB_TOKEN (for the GitHub API), and LLM_API_KEY with optional LLM_BASE_URL and LLM_MODEL for the copy; without LLM_API_KEY the copy is left as submitted.
 
@@ -32,15 +32,17 @@ interface RepoFacts {
 	readme?: { path: string; text: string };
 	// The MyGo configuration, mygo.json or mygo.config.ts, with the fields read from it.
 	mygo?: { path: string; text: string; json: unknown };
+	// The homepage in the repository's settings.
+	homepage?: string | null;
 }
 
 async function repoFacts(repo: string): Promise<RepoFacts | undefined> {
-	const info = await github<{ default_branch: string; private: boolean }>(`/repos/${repo}`);
+	const info = await github<{ default_branch: string; private: boolean; homepage: string | null }>(`/repos/${repo}`);
 	if (!info) return undefined;
 	const branch = info.default_branch;
 	const tree = await github<{ tree: { path: string; type: string }[]; truncated: boolean }>(`/repos/${repo}/git/trees/${encodeURIComponent(branch)}?recursive=1`);
 	const paths = (tree?.tree ?? []).filter((t) => t.type === 'blob').map((t) => t.path);
-	const facts: RepoFacts = { repo, branch, paths };
+	const facts: RepoFacts = { repo, branch, paths, homepage: info.homepage };
 	const readme = await github<{ path: string; content: string; encoding: string }>(`/repos/${repo}/readme`);
 	if (readme?.encoding === 'base64') facts.readme = { path: readme.path, text: Buffer.from(readme.content, 'base64').toString('utf8') };
 	const mygoPath = pickMygoConfig(paths);
@@ -83,7 +85,8 @@ async function addIcon(entry: Entry, slug: string, facts: RepoFacts): Promise<st
 }
 
 // The link the visitor gave in the form first, as they picked it; then the README's images, as the project picked them to show itself; then the images in the repository's screenshot folders, which a project with none in its README often keeps for its website. Each source gets its own number of tries, so a README full of badges does not use up the folders' turn. An app without a repository can still get the form's screenshot.
-async function addScreenshot(entry: Entry, slug: string, facts: RepoFacts | undefined, iconUrl: string | undefined, submitted: string | undefined): Promise<void> {
+// what names what the screenshot should show, for the report: the app, or the library.
+async function addScreenshot(entry: Entry, slug: string, what: string, facts: RepoFacts | undefined, iconUrl: string | undefined, submitted: string | undefined): Promise<void> {
 	if (entry.screenshot !== undefined) return say('- Screenshot: kept the one submitted.');
 	if (!facts && !submitted) return;
 	const readme = facts?.readme;
@@ -113,7 +116,7 @@ async function addScreenshot(entry: Entry, slug: string, facts: RepoFacts | unde
 			if (result === 'ok') {
 				entry.screenshot = `${slug}.webp`;
 				const passed = skipped.length ? ` It passed over ${skipped.join(', ')}.` : '';
-				return say(`- Screenshot: ${url} from ${source.from}, saved as \`${PUBLIC}/shots/${slug}.webp\`. Check that it shows the app.${passed}`);
+				return say(`- Screenshot: ${url} from ${source.from}, saved as \`${PUBLIC}/shots/${slug}.webp\`. Check that it shows ${what}.${passed}`);
 			}
 			skipped.push(`${url} (${result === 'square' ? 'square, likely a logo' : result === 'narrow' ? 'under 600 px wide' : result === 'portrait' ? 'taller than wide' : result === 'banner' ? 'a banner, far wider than a window' : 'not a PNG, JPEG or WebP under 10 MB'})`);
 			if (++n >= source.tries) break;
@@ -123,34 +126,62 @@ async function addScreenshot(entry: Entry, slug: string, facts: RepoFacts | unde
 	say(!facts ? '- Screenshot: none added.' : readme ? '- Screenshot: none added, as neither the README nor a screenshot folder in the repository has an image.' : '- Screenshot: none added, as the repository has neither a README nor a screenshot folder.');
 }
 
-// An app needs a category: without one it is the only app in the showcase's other group, which the catalog checks reject. The form leaves it optional, so the model picks one along with the copy.
+// A UI library's or state management library's homepage, its website, demo or docs, which the form does not ask for: the one in the repository's settings, unless that is the repository itself.
+function addHomepage(entry: Entry, facts: RepoFacts): void {
+	if (entry.homepage !== undefined) return say('- Homepage: kept the one submitted.');
+	const home = homepageOf(facts.homepage, facts.repo);
+	if (!home) return say("- Homepage: none added, as the repository's settings name none.");
+	entry.homepage = home;
+	say(`- Homepage: ${home}, from the repository's settings.`);
+}
+
+const FIELD_NAMES: Record<ChoiceField | 'tags', string> = { category: 'Category', tag: 'Tag', surface: 'Surface', tags: 'Tags' };
+
+// What the report says of a field the form filled in with a default that the model did not pick: an app with no category fails the catalog checks, the rest still pass at the default but are likely wrong.
+function unpicked(field: ChoiceField | 'tags', entry: Entry, why: string): string {
+	if (field === 'category') return `- Category: none submitted, and none picked, ${why}. Add one before merging.`;
+	return `- ${FIELD_NAMES[field]}: left at the form's default, ${JSON.stringify(entry[field])}, ${why}. Check it before merging.`;
+}
+
+// The copy, and with it what the form fills in with a default rather than asking (formDefaults): an app needs a category, as without one it is the only app in the showcase's other group, which the catalog checks reject; a UI library's tag, a plugin's surface and the tags pass the checks at their defaults but put the entry under the wrong filter.
 async function addCopy(cfg: LlmConfig | undefined, kind: EntryKind, entry: Entry, facts: RepoFacts | undefined, examples: Entry[]): Promise<void> {
-	const needsCategory = kind === 'app' && entry.category === undefined;
+	const picks = formDefaults(kind, entry);
+	const left = (why: string) => [...(picks.choice ? [unpicked(picks.choice, entry, why)] : []), ...(picks.tags ? [unpicked('tags', entry, why)] : [])];
 	if (hasAllLanguages(entry.summary) && (kind !== 'app' || hasAllLanguages(entry.description))) {
 		say('- Copy: kept, as it is already in every site language.');
-		if (needsCategory) say('- Category: none submitted, and none picked as the copy was kept. Add one before merging.');
-		return;
+		return left('as the copy was kept').forEach(say);
 	}
-	if (!cfg) return say(`- Copy: left as submitted, as LLM_API_KEY is not set for this workflow.${needsCategory ? ' No category was picked either; add one before merging.' : ''}`);
+	if (!cfg) {
+		say('- Copy: left as submitted, as LLM_API_KEY is not set for this workflow.');
+		return left('as no model was asked').forEach(say);
+	}
 	if (facts?.readme && facts.readme.text.length > README_LIMIT) say(`- The README is ${facts.readme.text.length} characters long; the copy was written from its first ${README_LIMIT}.`);
 	try {
-		const categories = needsCategory ? appCategories(JSON.parse(await readFile(join(ROOT, DATA_DIR, 'schema/app.schema.json'), 'utf8'))) : undefined;
-		const copy = await writeCopy(cfg, { kind, entry, readme: facts?.readme?.text, mygoConfig: facts?.mygo ? { path: facts.mygo.path, text: facts.mygo.text } : undefined, examples, categories });
+		const values = picks.choice ? schemaEnum(JSON.parse(await readFile(join(ROOT, DATA_DIR, `schema/${kind}.schema.json`), 'utf8')), picks.choice) : [];
+		const choice = picks.choice ? { field: picks.choice, values } : undefined;
+		const copy = await writeCopy(cfg, { kind, entry, readme: facts?.readme?.text, mygoConfig: facts?.mygo ? { path: facts.mygo.path, text: facts.mygo.text } : undefined, examples, choice, tags: picks.tags });
 		entry.summary = copy.summary;
 		if (kind === 'app' && copy.description) entry.description = copy.description;
 		say(`- Copy: written by ${cfg.model} in all five languages from the submission${facts?.readme ? ' and the README' : ''}. Read it before merging.`);
-		if (copy.category) {
-			setCategory(entry, copy.category);
-			say(`- Category: ${copy.category}, picked by the model as the submission named none. Check it.`);
-		} else if (needsCategory) say(`- Category: none submitted, and the model's pick${copy.badCategory ? ` (${copy.badCategory})` : ''} is not one the schema allows. Add one before merging.`);
+		if (picks.choice && copy.choice) {
+			const was = entry[picks.choice];
+			if (picks.choice === 'category') setCategory(entry, copy.choice);
+			else entry[picks.choice] = copy.choice;
+			say(`- ${FIELD_NAMES[picks.choice]}: ${copy.choice}, picked by the model, as the form ${was === undefined ? 'leaves it out' : `left it at ${JSON.stringify(was)}`}. Check it.`);
+		} else if (picks.choice) say(unpicked(picks.choice, entry, `as the model's pick${copy.badChoice ? ` (${copy.badChoice})` : ''} is not one the schema allows`));
+		if (picks.tags && copy.tags) {
+			entry.tags = copy.tags;
+			say(`- Tags: ${copy.tags.join(', ')}, written by the model, as the form leaves them at a default. Check them.`);
+		} else if (picks.tags) say(unpicked('tags', entry, 'as the model gave none'));
 		if (copy.notes) say(`- Model's notes: ${copy.notes.replace(/\s+/g, ' ')}`);
 		if (copy.tooLong.length) say(`- Still longer than the hand-written examples after one rewrite (length/limit): ${copy.tooLong.join(', ')}. Shorten before merging.`);
 	} catch (err) {
-		say(`- Copy: left as submitted, as writing it failed: ${err instanceof Error ? err.message : String(err)}${needsCategory ? '. No category was picked either; add one before merging.' : ''}`);
+		say(`- Copy: left as submitted, as writing it failed: ${err instanceof Error ? err.message : String(err)}`);
+		left('as writing the copy failed').forEach(say);
 	}
 }
 
-// Fills in one added entry, in place: for an app its name, icon and screenshot from its repository, and for every kind the copy.
+// Fills in one added entry, in place: for an app its name, icon and screenshot from its repository, for a UI library or state management library its homepage and screenshot, and for every kind the copy.
 // submitted is the screenshot link from the site's form, for an app.
 async function complete(cfg: LlmConfig | undefined, kind: EntryKind, where: string, entry: Entry, examples: Entry[], submitted?: string): Promise<void> {
 	say(`### ${String(entry.name ?? entry.slug ?? '?')} (\`${where}\`)`);
@@ -166,12 +197,19 @@ async function complete(cfg: LlmConfig | undefined, kind: EntryKind, where: stri
 			entry.name = better;
 		}
 		const iconUrl = facts ? await addIcon(entry, slug, facts) : undefined;
-		await addScreenshot(entry, slug, facts, iconUrl, submitted);
+		await addScreenshot(entry, slug, 'the app', facts, iconUrl, submitted);
+	} else if ((kind === 'ui' || kind === 'state') && facts) {
+		addHomepage(entry, facts);
+		await addScreenshot(entry, String(entry.slug), 'the library', facts, undefined, undefined);
 	}
 	await addCopy(cfg, kind, entry, facts, examples);
 }
 
-const json = (v: unknown) => `${JSON.stringify(v, null, '\t')}\n`;
+// The entry's file, with added last as in the files written by hand, after the fields completed here.
+function json(entry: Entry): string {
+	const { added, ...rest } = entry;
+	return `${JSON.stringify(added === undefined ? rest : { ...rest, added }, null, '\t')}\n`;
+}
 
 async function main(): Promise<void> {
 	const cfg: LlmConfig | undefined = env.LLM_API_KEY ? { apiKey: env.LLM_API_KEY, baseURL: env.LLM_BASE_URL || undefined, model: env.LLM_MODEL || DEFAULT_MODEL } : undefined;

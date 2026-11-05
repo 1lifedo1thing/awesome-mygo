@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { addedFiles, appCategories, appNameFrom, hasAllLanguages, iconCut, iconOf, isArtwork, isBanner, isPortrait, isSquarish, lengthCaps, overCaps, joinRepoPath, scriptConfig, parseMygoConfig, pickMygoConfig, readmeImages, repoOfEntry, repoScreenshots, resolveImage, setCategory, sniffImage, submittedScreenshot } from './source.ts';
+import { addedFiles, appNameFrom, cleanTags, formDefaults, homepageOf, hasAllLanguages, iconCut, iconOf, isArtwork, isBanner, isPortrait, isSquarish, lengthCaps, overCaps, joinRepoPath, scriptConfig, parseMygoConfig, pickMygoConfig, readmeImages, repoOfEntry, repoScreenshots, resolveImage, schemaEnum, setCategory, sniffImage, submittedScreenshot } from './source.ts';
 
 describe('app names', () => {
 	it('takes mygo.json’s spelling of the same name only', () => {
@@ -159,11 +159,15 @@ describe('repository screenshots', () => {
 describe('categories', () => {
 	it("reads the categories the catalog's schema allows", async () => {
 		const schema = JSON.parse(await readFile(join(import.meta.dirname, '../../catalog/data/schema/app.schema.json'), 'utf8'));
-		const values = appCategories(schema);
+		const values = schemaEnum(schema, 'category');
 		expect(values).toContain('DeveloperApplication');
 		expect(values).toContain('UtilitiesApplication');
-		expect(appCategories({})).toEqual([]);
-		expect(appCategories(null)).toEqual([]);
+		expect(schemaEnum({}, 'category')).toEqual([]);
+		expect(schemaEnum(null, 'category')).toEqual([]);
+		const ui = JSON.parse(await readFile(join(import.meta.dirname, '../../catalog/data/schema/ui.schema.json'), 'utf8'));
+		expect(schemaEnum(ui, 'tag')).toEqual(['theme', 'retro', 'icons']);
+		const plugin = JSON.parse(await readFile(join(import.meta.dirname, '../../catalog/data/schema/plugin.schema.json'), 'utf8'));
+		expect(schemaEnum(plugin, 'surface')).toEqual(['web', 'native', 'both']);
 	});
 
 	it('sets the category right after kind, in place', () => {
@@ -203,5 +207,34 @@ describe('README images', () => {
 		expect(sniffImage(new Uint8Array([0xff, 0xd8, 0xff, 0xe0]))).toBe('jpeg');
 		expect(sniffImage(new Uint8Array([0x52, 0x49, 0x46, 0x46, 0, 0, 0, 0, 0x57, 0x45, 0x42, 0x50]))).toBe('webp');
 		expect(sniffImage(new TextEncoder().encode('<svg xmlns="http://www.w3.org/2000/svg"/>'))).toBeUndefined();
+	});
+});
+
+describe("the form's defaults", () => {
+	it('asks the model for what the form fills in without asking, while it holds the default', () => {
+		expect(formDefaults('app', { kind: 'native' })).toEqual({ choice: 'category', tags: false });
+		expect(formDefaults('app', { kind: 'native', category: 'GameApplication' })).toEqual({ choice: undefined, tags: false });
+		// flagicons, submitted through the form: an icon set left at theme.
+		expect(formDefaults('ui', { tag: 'theme' })).toEqual({ choice: 'tag', tags: false });
+		expect(formDefaults('ui', { tag: 'icons' })).toEqual({ choice: undefined, tags: false });
+		expect(formDefaults('state', { tags: ['state'] })).toEqual({ tags: true });
+		expect(formDefaults('state', { tags: ['store', 'reactive'] })).toEqual({ tags: false });
+		expect(formDefaults('plugin', { surface: 'web', tags: [] })).toEqual({ choice: 'surface', tags: true });
+		expect(formDefaults('plugin', { surface: 'native', tags: ['shaders'] })).toEqual({ choice: undefined, tags: false });
+	});
+
+	it('keeps up to four lowercase tags, each once', () => {
+		expect(cleanTags([' Store', 'store', 'Reactive', '', 'devtools', 'sync', 'extra'])).toEqual(['store', 'reactive', 'devtools', 'sync']);
+	});
+});
+
+describe('homepages', () => {
+	it("takes the repository's homepage when it is an https link elsewhere", () => {
+		expect(homepageOf('https://nodra.yldm.ai', 'yldm-tech/nodra')).toBe('https://nodra.yldm.ai');
+		expect(homepageOf(' https://x.dev/docs ', 'a/b')).toBe('https://x.dev/docs');
+		expect(homepageOf('https://github.com/yldm-tech/Nodra/', 'yldm-tech/nodra')).toBeUndefined();
+		expect(homepageOf('http://x.dev', 'a/b')).toBeUndefined();
+		expect(homepageOf('', 'a/b')).toBeUndefined();
+		expect(homepageOf(null, 'a/b')).toBeUndefined();
 	});
 });
