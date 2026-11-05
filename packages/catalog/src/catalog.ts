@@ -247,10 +247,10 @@ export function appBySlug(slug: string): App | undefined {
 	return APPS.find((a) => a.slug === slug);
 }
 
-// The author's GitHub profile, only where the data proves the author name is a GitHub login: one of their apps lives in a repository that login owns. Otherwise undefined, since a name such as 'Faizan' is not necessarily a login.
-export function authorProfile(author: string): string | undefined {
+// The author's GitHub profile, only where the data proves the author name is a GitHub login: one of their apps lives in a repository that login owns. Otherwise undefined, since a name such as 'Faizan' is not necessarily a login. The apps are the site's, or the ones a test gives.
+export function authorProfile(author: string, apps: readonly Pick<App, 'author' | 'url'>[] = APPS): string | undefined {
 	const login = author.toLowerCase();
-	const owns = APPS.some((a) => a.author === author && new URL(a.url).hostname === 'github.com' && new URL(a.url).pathname.split('/')[1]?.toLowerCase() === login);
+	const owns = apps.some((a) => a.author === author && new URL(a.url).hostname === 'github.com' && new URL(a.url).pathname.split('/')[1]?.toLowerCase() === login);
 	return owns ? `https://github.com/${author}` : undefined;
 }
 
