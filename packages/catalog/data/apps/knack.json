@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "knack",
+	"name": "Knack",
+	"author": "Maidang1",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/Maidang1/knack",
+	"repo": "Maidang1/knack",
+	"summary": {
+		"en": "One place for the local AI agent skills of Claude, Codex, Cursor and other tools.",
+		"zh-CN": "集中管理 Claude、Codex、Cursor 等工具的本地 AI Agent 技能。",
+		"zh-TW": "集中管理 Claude、Codex、Cursor 等工具的本機 AI Agent 技能。",
+		"ja": "Claude、Codex、Cursor などのローカルな AI エージェントスキルを一か所で管理。",
+		"ko": "Claude, Codex, Cursor 등의 로컬 AI 에이전트 스킬을 한곳에서 관리합니다."
+	},
+	"description": {
+		"en": "A desktop app for Windows, Linux and macOS, drawn with MyGo's native UI, that gathers the AI agent skills scattered across Claude, Codex, Cursor and other tools into one view. It shares skills between agents through symlinks to a pool in ~/.agents/skills, finds broken links and differing copies, fixes them with undo, and shows which same-named skill takes effect for each agent and folder.",
+		"zh-CN": "面向 Windows、Linux 和 macOS 的桌面应用，用 MyGo 原生 UI 绘制，把分散在 Claude、Codex、Cursor 等工具里的 AI Agent 技能集中到一个视图。它通过 ~/.agents/skills 共享池和软链让多个 Agent 共用技能，检查断链与内容不一致的副本，修复前确认、完成后可撤销，还能按 Agent 和工作目录查看同名技能由哪一份生效。",
+		"zh-TW": "面向 Windows、Linux 與 macOS 的桌面應用程式，以 MyGo 原生 UI 繪製，把分散在 Claude、Codex、Cursor 等工具中的 AI Agent 技能集中到同一個畫面。它透過 ~/.agents/skills 共享池與符號連結讓多個 Agent 共用技能，檢查斷掉的連結與內容不一致的副本，修復前會確認、完成後可復原，還能依 Agent 與工作目錄查看同名技能由哪一份生效。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows・Linux・macOS 向けのデスクトップアプリで、Claude、Codex、Cursor などに散らばった AI エージェントのスキルをひとつの画面にまとめます。~/.agents/skills の共有プールとシンボリックリンクで複数のエージェントにスキルを共有し、リンク切れや内容の異なるコピーを見つけて確認のうえ修復でき、取り消しも可能です。エージェントと作業ディレクトリごとに、同名スキルのどれが有効かも表示します。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows·Linux·macOS용 데스크톱 앱으로, Claude, Codex, Cursor 등에 흩어진 AI 에이전트 스킬을 한 화면에 모읍니다. ~/.agents/skills 공유 풀과 심볼릭 링크로 여러 에이전트가 스킬을 함께 쓰게 하고, 끊어진 링크와 내용이 다른 사본을 찾아 확인 후 고치며 되돌릴 수도 있습니다. 에이전트와 작업 디렉터리별로 같은 이름의 스킬 중 어느 것이 적용되는지도 보여 줍니다."
+	},
+	"icon": {
+		"file": "knack.webp"
+	},
+	"screenshot": "knack.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T04:00:52Z"
+}
