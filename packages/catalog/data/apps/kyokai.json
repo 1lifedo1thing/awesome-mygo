@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "kyokai",
+	"name": "Kyokai",
+	"author": "YuanZhe-99",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/YuanZhe-99/Kyokai",
+	"repo": "YuanZhe-99/Kyokai",
+	"summary": {
+		"en": "Remote desktop across your devices, controlled by hand or by an AI agent running on the host.",
+		"zh-CN": "跨设备远程桌面：可手动操控，也可交给在被控端运行的 AI 代理。",
+		"zh-TW": "跨裝置遠端桌面：可手動操控，也可交給在受控端執行的 AI 代理。",
+		"ja": "デバイス間のリモートデスクトップ。手で操作するか、ホスト側で動く AI エージェントに任せる。",
+		"ko": "기기 간 원격 데스크톱. 직접 조작하거나 호스트의 AI 에이전트에 맡깁니다."
+	},
+	"description": {
+		"en": "A remote desktop app for Windows, macOS and Linux with a GUI drawn in MyGo's native UI; its engine and Rust core are built separately. It connects by Device ID over EasyTier networks, shows the host's screen with sound, clipboard and files, and opens SSH, Remote Desktop and VNC in tabs. Tasks given in plain language run on the host with its own AI provider, such as Claude or OpenAI.",
+		"zh-CN": "适用于 Windows、macOS 和 Linux 的远程桌面应用，界面由 MyGo 原生 UI 绘制，后台引擎与 Rust 核心另行构建。它通过 EasyTier 网络按设备 ID 连接，显示被控端画面并传输声音、剪贴板和文件，还能在标签页中打开 SSH、远程桌面和 VNC。用自然语言下达的任务，由被控端用自己配置的 AI 服务（如 Claude 或 OpenAI）执行。",
+		"zh-TW": "適用於 Windows、macOS 與 Linux 的遠端桌面應用程式，介面由 MyGo 原生 UI 繪製，背景引擎與 Rust 核心另外建置。它透過 EasyTier 網路以裝置 ID 連線，顯示受控端畫面並傳輸聲音、剪貼簿與檔案，也能在分頁中開啟 SSH、遠端桌面與 VNC。以自然語言下達的任務，由受控端用自己設定的 AI 服務（如 Claude 或 OpenAI）執行。",
+		"ja": "Windows・macOS・Linux 向けのリモートデスクトップアプリ。UI 部分は MyGo のネイティブ UI で描かれ、エンジンと Rust のコアは別にビルドされます。EasyTier ネットワーク上でデバイス ID によって接続し、ホストの画面を音声・クリップボード・ファイルとともに扱えるほか、SSH・リモートデスクトップ・VNC をタブで開けます。自然な言葉で頼んだタスクは、ホストが自身の AI プロバイダー（Claude や OpenAI など）で実行します。",
+		"ko": "Windows, macOS, Linux용 원격 데스크톱 앱으로, 인터페이스는 MyGo의 네이티브 UI로 그리고 엔진과 Rust 코어는 따로 빌드합니다. EasyTier 네트워크에서 기기 ID로 연결해 호스트의 화면과 소리, 클립보드, 파일을 다루고, SSH, 원격 데스크톱, VNC를 탭으로 엽니다. 자연어로 보낸 작업은 호스트가 자체 AI 제공자(Claude, OpenAI 등)로 실행합니다."
+	},
+	"icon": {
+		"file": "kyokai.webp"
+	},
+	"screenshot": "kyokai.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T03:08:54Z"
+}
