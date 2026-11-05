@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "patch",
+	"name": "Patch",
+	"author": "darylcecile",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/darylcecile/patch",
+	"repo": "darylcecile/patch",
+	"summary": {
+		"en": "A native development workspace with dockable terminals, a project file browser and Git diffs.",
+		"zh-CN": "原生面板式开发工作区：可停靠的终端、项目文件浏览与 Git 差异。",
+		"zh-TW": "原生面板式開發工作區：可停靠的終端機、專案檔案瀏覽與 Git 差異。",
+		"ja": "ターミナル、ファイルブラウザー、Git の差分をドッキングできるネイティブな開発ワークスペース。",
+		"ko": "터미널, 프로젝트 파일 브라우저, Git 변경 비교를 도킹하는 네이티브 개발 작업 공간."
+	},
+	"description": {
+		"en": "A panel-based development workspace drawn entirely with MyGo's native UI, with no web frontend or JavaScript runtime. Open a project folder and dock real local shells, a file tree with syntax-highlighted previews and Git changes as native diffs wherever you drag them. It is developed on Apple Silicon macOS; a portable Windows x64 package exists but is not yet checked on Windows.",
+		"zh-CN": "完全由 MyGo 原生 UI 绘制的面板式开发工作区，外壳中没有 Web 前端，也没有 JavaScript 运行时。打开项目文件夹后，可以拖动面板标题，自由停靠真实的本地 Shell、带语法高亮预览的文件树，以及以原生差异视图呈现的 Git 变更。目前在 Apple Silicon 的 macOS 上开发验证；另有便携版 Windows x64 安装包，但尚未在 Windows 上实际验证。",
+		"zh-TW": "完全由 MyGo 原生 UI 繪製的面板式開發工作區，外殼中沒有 Web 前端，也沒有 JavaScript 執行環境。開啟專案資料夾後，可拖曳面板標題，自由停靠真實的本機 Shell、附語法高亮預覽的檔案樹，以及以原生差異檢視呈現的 Git 變更。目前在 Apple Silicon 的 macOS 上開發驗證；另有可攜版 Windows x64 套件，但尚未在 Windows 上實際驗證。",
+		"ja": "MyGo のネイティブ UI だけで描かれたパネル式の開発ワークスペースで、Web フロントエンドも JavaScript ランタイムもありません。プロジェクトフォルダーを開き、本物のローカルシェル、構文ハイライト付きプレビューのあるファイルツリー、ネイティブの差分表示による Git の変更を、パネルのヘッダーをドラッグして自由にドッキングできます。開発と検証は Apple Silicon の macOS で行われており、Windows x64 のポータブル版もありますが、Windows 上での動作確認はまだです。",
+		"ko": "MyGo의 네이티브 UI로만 그린 패널형 개발 작업 공간으로, 웹 프런트엔드도 JavaScript 런타임도 없습니다. 프로젝트 폴더를 열고 패널 헤더를 끌어 실제 로컬 셸, 구문 강조 미리보기가 있는 파일 트리, 네이티브 diff로 보여 주는 Git 변경 사항을 원하는 위치에 도킹할 수 있습니다. Apple Silicon macOS에서 개발·검증하며, Windows x64 포터블 패키지도 있지만 Windows에서는 아직 확인되지 않았습니다."
+	},
+	"icon": {
+		"file": "patch.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "patch.webp",
+	"added": "2026-11-05T08:45:51Z"
+}
