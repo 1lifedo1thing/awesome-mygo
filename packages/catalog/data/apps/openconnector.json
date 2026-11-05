@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "openconnector",
+	"name": "OpenConnector",
+	"author": "cheese-zj",
+	"kind": "web",
+	"group": "agents",
+	"url": "https://github.com/cheese-zj/openconnector",
+	"repo": "cheese-zj/openconnector",
+	"summary": {
+		"en": "A local hub that signs in to Google, GitHub, Slack, Notion and Linear once for your AI agents.",
+		"zh-CN": "在本机一次接入 Google、GitHub、Slack 等服务，供 AI 智能体共用。",
+		"zh-TW": "在本機一次連接 Google、GitHub、Slack 等服務，供 AI 代理共用。",
+		"ja": "Google、GitHub、Slack などを一度つなげば、各 AI エージェントで共有できるローカルハブ。",
+		"ko": "Google, GitHub, Slack 등을 한 번 연결해 AI 에이전트와 공유하는 로컬 허브."
+	},
+	"description": {
+		"en": "A local hub that connects Google, GitHub, Slack, Notion and Linear accounts once and shares them with AI agents over one MCP or REST endpoint, each agent with its own token and policy, while credentials stay encrypted on your machine. MyGo builds the desktop console with a web frontend; the same binary runs headless as a CLI and server. Still early: no provider is tested against its live API yet.",
+		"zh-CN": "本地连接中心：Google、GitHub、Slack、Notion 和 Linear 的账号只需连接一次，即可通过同一个 MCP 或 REST 端点供 AI 智能体使用，每个智能体有各自的令牌和权限策略，凭据加密保存在本机。MyGo 以 Web 前端构建其桌面控制台，同一个程序也能以命令行和服务器方式无界面运行。项目尚处早期，各服务尚未对接真实 API 测试。",
+		"zh-TW": "本機連線中樞：Google、GitHub、Slack、Notion 與 Linear 的帳號只需連接一次，就能透過同一個 MCP 或 REST 端點提供給 AI 代理使用，每個代理各有自己的權杖與權限政策，憑證加密存放在本機。MyGo 以 Web 前端建置其桌面主控台，同一個執行檔也能以 CLI 與伺服器形式無視窗執行。專案仍在早期，各服務尚未以真實 API 測試。",
+		"ja": "Google・GitHub・Slack・Notion・Linear のアカウントを一度つなぐだけで、MCP または REST のエンドポイントひとつから AI エージェントに使わせられるローカルハブ。エージェントごとに専用のトークンとポリシーを持ち、認証情報は暗号化して手元に保存されます。MyGo は Web フロントエンドのデスクトップコンソールをビルドし、同じバイナリは CLI とサーバーとしてヘッドレスでも動きます。まだ初期段階で、実 API でのテストは未実施です。",
+		"ko": "Google, GitHub, Slack, Notion, Linear 계정을 한 번만 연결하면 하나의 MCP 또는 REST 엔드포인트로 AI 에이전트가 쓸 수 있게 해 주는 로컬 허브입니다. 에이전트마다 토큰과 정책이 따로 있고, 자격 증명은 암호화되어 내 컴퓨터에 저장됩니다. MyGo는 웹 프런트엔드로 데스크톱 콘솔을 빌드하며, 같은 바이너리는 창 없이 CLI와 서버로도 실행됩니다. 아직 초기 단계로 실제 API로는 테스트되지 않았습니다."
+	},
+	"icon": {
+		"file": "openconnector.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "openconnector.webp",
+	"added": "2026-11-05T15:15:40Z"
+}
