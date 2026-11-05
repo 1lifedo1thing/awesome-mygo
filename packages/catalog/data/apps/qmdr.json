@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "qmdr",
+	"name": "Qmdr",
+	"author": "rzh0504",
+	"kind": "native",
+	"category": "MultimediaApplication",
+	"url": "https://github.com/rzh0504/Qmdr",
+	"repo": "rzh0504/Qmdr",
+	"summary": {
+		"en": "A native QQ Music downloader for songs and playlists, saved with tags, covers and lyrics.",
+		"zh-CN": "原生 QQ 音乐下载工具：搜索并批量下载歌曲和歌单，自动写入标签、封面与歌词。",
+		"zh-TW": "原生 QQ 音樂下載工具：搜尋並批次下載歌曲與歌單，自動寫入標籤、封面與歌詞。",
+		"ja": "ネイティブな QQ 音楽ダウンローダー。曲やプレイリストを検索し、タグ・カバー・歌詞付きで一括保存。",
+		"ko": "네이티브 QQ 뮤직 다운로더. 곡과 플레이리스트를 태그, 커버, 가사와 함께 일괄 저장합니다."
+	},
+	"description": {
+		"en": "A QQ Music downloader for Windows, macOS and Linux, drawn with MyGo's native UI. After a QQ or WeChat QR-code login it searches songs, reads playlists and downloads them in batches through a queue of one to eight parallel tasks, skipping files already there, and writes title, artist, album, cover and lyrics into FLAC and MP3 files. Paid tracks need an account that already has the rights.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 QQ 音乐下载工具，面向 Windows、macOS 和 Linux。用 QQ 或微信扫码登录后，可以搜索歌曲、分页读取歌单并批量下载；下载队列支持 1–8 个并发任务，会跳过已存在的文件，完成后为 FLAC 和 MP3 写入标题、歌手、专辑、封面和歌词。下载会员歌曲需要账号本身具有对应权益。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 QQ 音樂下載工具，支援 Windows、macOS 與 Linux。以 QQ 或微信掃碼登入後，可搜尋歌曲、分頁讀取歌單並批次下載；下載佇列支援 1–8 個並行任務，會略過已存在的檔案，完成後為 FLAC 與 MP3 寫入標題、歌手、專輯、封面與歌詞。下載會員歌曲需要帳號本身具備對應權益。",
+		"ja": "MyGo のネイティブ UI で描かれた QQ 音楽のダウンローダーで、Windows・macOS・Linux 向けです。QQ または WeChat の QR コードでログインすると、曲の検索、プレイリストの読み込み、一括ダウンロードができます。キューは 1〜8 件を並行処理して既存のファイルは飛ばし、FLAC と MP3 にタイトル・アーティスト・アルバム・カバー・歌詞を書き込みます。会員向けの曲には、その権利を持つアカウントが必要です。",
+		"ko": "MyGo의 네이티브 UI로 그린 QQ 뮤직 다운로더로, Windows, macOS, Linux를 대상으로 합니다. QQ나 WeChat QR 코드로 로그인하면 곡을 검색하고 플레이리스트를 읽어 일괄로 내려받을 수 있습니다. 다운로드 대기열은 1~8개 작업을 동시에 처리하고 이미 있는 파일은 건너뛰며, FLAC과 MP3에 제목, 아티스트, 앨범, 커버, 가사를 기록합니다. 회원 전용 곡은 해당 권한이 있는 계정이 필요합니다."
+	},
+	"icon": {
+		"file": "qmdr.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "qmdr.webp",
+	"added": "2026-11-05T04:32:09Z"
+}
