@@ -1,7 +1,7 @@
 import { readFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { type Counts, ENTRY_DIRS, type Entry, type EntryKind, MAX_WEIGHT, SITE_URL, composePost, kindLabel, sitePage, statsLine, weightedLength } from './tweet.ts';
+import { type Counts, ENTRY_DIRS, type Entry, type EntryKind, MAX_WEIGHT, SITE_URL, composePost, githubUrl, kindLabel, sitePage, statsLine, weightedLength } from './tweet.ts';
 
 const DATA_DIR = join(import.meta.dirname, '../../catalog/data');
 const COUNTS: Counts = { app: 40, plugin: 12, ui: 6, state: 1 };
@@ -18,6 +18,13 @@ describe('weighted length', () => {
 });
 
 describe('links', () => {
+	it('takes the repository from repo, or else from a GitHub link', () => {
+		expect(githubUrl({ repo: 'xiyaowong/flagicons', url: 'https://x.dev' })).toBe('https://github.com/xiyaowong/flagicons');
+		expect(githubUrl({ url: 'https://github.com/a/b.git' })).toBe('https://github.com/a/b');
+		expect(githubUrl({ url: 'https://getbamboo.app/' })).toBeUndefined();
+		expect(githubUrl({ docs: 'https://github.com/egoist/mygo/blob/main/docs/plugins/glass.md' })).toBeUndefined();
+	});
+
 	it('sends an app to its own page and the rest to their category', () => {
 		expect(sitePage('app', { slug: 'bamboo' })).toBe(`${SITE_URL}/apps/bamboo`);
 		expect(sitePage('ui', { slug: 'x' })).toBe(`${SITE_URL}/ui`);
@@ -34,8 +41,8 @@ describe('links', () => {
 describe('the post', () => {
 	const entry: Entry = { slug: 'nodra', name: 'Nodra', author: 'yldm-tech', summary: { en: 'A store.', 'zh-CN': '并发安全的响应式状态库。' }, url: 'https://github.com/yldm-tech/nodra', homepage: 'https://nodra.yldm.ai' };
 
-	it('says what was listed, by whom, where on the site, its stars and the site’s counts', () => {
-		expect(composePost({ kind: 'state', entry, stars: 42, counts: COUNTS })).toBe(['Awesome MyGo 新收录状态管理：Nodra by yldm-tech\nhttps://mygodock.dev/state', '并发安全的响应式状态库。', `GitHub 42 star\n${statsLine(COUNTS)}`].join('\n\n'));
+	it('says what was listed, by whom, where on the site, its repository with its stars and the site’s counts', () => {
+		expect(composePost({ kind: 'state', entry, stars: 42, counts: COUNTS })).toBe(['Awesome MyGo 新收录状态管理：Nodra by yldm-tech\nhttps://mygodock.dev/state', '并发安全的响应式状态库。', `GitHub：https://github.com/yldm-tech/nodra（42 star）\n${statsLine(COUNTS)}`].join('\n\n'));
 		expect(statsLine(COUNTS)).toBe('已收录 59 项：作品 40 · 插件 12 · UI 组件 6 · 状态管理 1');
 	});
 
@@ -63,8 +70,9 @@ describe('the post', () => {
 				const e = JSON.parse(await readFile(join(dir, file), 'utf8')) as Entry;
 				const text = composePost({ kind, entry: e, stars: 12345, counts: { app: 999, plugin: 999, ui: 999, state: 999 } });
 				expect(weightedLength(text, urlsIn(text)), `${kind}/${file}`).toBeLessThanOrEqual(MAX_WEIGHT);
-				// X shows a card for the first link, so the site's page must be the only one, even when the entry's own copy carries a link.
-				expect(urlsIn(text), `${kind}/${file}`).toEqual([sitePage(kind, e)]);
+				// X shows a card for the first link, so the site's page comes first, then the repository when there is one, and no link from the entry's own copy.
+				const github = githubUrl(e);
+				expect(urlsIn(text), `${kind}/${file}`).toEqual([sitePage(kind, e), ...(github ? [github] : [])]);
 			}
 		}
 	});

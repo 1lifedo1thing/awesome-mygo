@@ -2,7 +2,7 @@ import { appendFile, readFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { TwitterApi } from 'twitter-api-v2';
-import { type Counts, ENTRY_DIRS, type Entry, type EntryKind, composePost, sitePage } from './tweet.ts';
+import { type Counts, ENTRY_DIRS, type Entry, type EntryKind, composePost, githubUrl, sitePage } from './tweet.ts';
 
 // Run by .github/workflows/announce.yml once for each entry a push to main adds: node src/main.ts <dir>/<slug>.json, the path under packages/catalog/data (apps/, ui/, state/ or plugins/). It waits until the site lists the entry, so the post's links work, then posts it to X.
 //
@@ -21,13 +21,6 @@ function kindOf(dir: string): EntryKind {
 async function counts(): Promise<Counts> {
 	const n = async (kind: EntryKind) => (await readdir(join(DATA_DIR, ENTRY_DIRS[kind]))).filter((f) => f.endsWith('.json')).length;
 	return { app: await n('app'), ui: await n('ui'), state: await n('state'), plugin: await n('plugin') };
-}
-
-// owner/name of the entry's GitHub repository: its repo field, or else its link when that is a repository.
-function repoOf(entry: Entry): string | undefined {
-	if (typeof entry.repo === 'string' && /^[\w.-]+\/[\w.-]+$/.test(entry.repo)) return entry.repo;
-	const m = typeof entry.url === 'string' ? /^https:\/\/github\.com\/([\w.-]+)\/([\w.-]+?)(?:\.git)?(?:[/#?]|$)/.exec(entry.url) : null;
-	return m ? `${m[1]}/${m[2]}` : undefined;
 }
 
 // GitHub's answer for path, or undefined, with a warning, when it gives none: what the post takes from GitHub is not worth holding it back.
@@ -61,7 +54,7 @@ async function main(): Promise<void> {
 	const kind = kindOf(dir);
 	const entry = JSON.parse(await readFile(join(DATA_DIR, path), 'utf8')) as Entry;
 	const name = typeof entry.name === 'string' ? entry.name : String(entry.slug);
-	const repo = repoOf(entry);
+	const repo = githubUrl(entry)?.slice('https://github.com/'.length);
 	const info = repo ? await github<{ stargazers_count?: number; owner?: { login?: string } }>(`/repos/${repo}`) : undefined;
 	const owner = info?.owner?.login ? await github<{ twitter_username?: string | null }>(`/users/${encodeURIComponent(info.owner.login)}`) : undefined;
 	const text = composePost({ kind, entry, stars: info?.stargazers_count, handle: owner?.twitter_username ?? undefined, counts: await counts() });
