@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "security-sentinel",
+	"name": "Security Sentinel",
+	"author": "sixban6",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/sixban6/security-sentinel",
+	"repo": "sixban6/security-sentinel",
+	"summary": {
+		"en": "Menu bar security monitor that scans hosts over SSH for CVEs and helps review and apply fixes.",
+		"zh-CN": "菜单栏安全监控：通过 SSH 扫描主机上的 CVE 漏洞，并协助审阅和应用修复。",
+		"zh-TW": "選單列安全監控：透過 SSH 掃描主機上的 CVE 漏洞，並協助審閱與套用修補。",
+		"ja": "SSH 経由でホストの CVE を調べ、修正の確認と適用まで手伝うメニューバーのセキュリティ監視ツール。",
+		"ko": "SSH로 호스트의 CVE를 점검하고 수정 검토와 적용을 돕는 메뉴 막대 보안 모니터."
+	},
+	"description": {
+		"en": "A security monitor drawn with MyGo's native UI: a menu bar shield shows overall health, and a desktop workspace lists hosts, assets and CVEs. It scans servers and OpenWrt routers over SSH with no agent on them, covering system packages, Homebrew, Docker and project lock files, and shows each fix script beside its rollback script for review. The sectl command-line tool is a separate build.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的安全监控工具：菜单栏盾牌显示整体状态，桌面工作台列出主机、资产与 CVE。它通过 SSH 扫描服务器和 OpenWrt 路由器，目标机无需安装 Agent，覆盖系统包、Homebrew、Docker 与项目锁文件，并把加固脚本和回滚脚本并排列出供你审阅。sectl 命令行工具另行构建。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的安全監控工具：選單列盾牌顯示整體狀態，桌面工作台列出主機、資產與 CVE。它透過 SSH 掃描伺服器和 OpenWrt 路由器，目標機器不必安裝 Agent，涵蓋系統套件、Homebrew、Docker 與專案鎖定檔，並將加固腳本與回復腳本並排列出供你審閱。sectl 命令列工具另外建置。",
+		"ja": "MyGo のネイティブ UI で描かれたセキュリティ監視ツール。メニューバーの盾アイコンで全体の状態を示し、デスクトップのワークスペースでホスト、資産、CVE を一覧できます。SSH 経由でサーバーや OpenWrt ルーターをエージェントなしで調べ、システムパッケージ、Homebrew、Docker、プロジェクトのロックファイルまで対象にし、修正スクリプトとロールバック用スクリプトを並べて確認できます。sectl コマンドラインツールは別にビルドされます。",
+		"ko": "MyGo의 네이티브 UI로 그린 보안 모니터입니다. 메뉴 막대의 방패 아이콘이 전체 상태를 보여 주고, 데스크톱 작업 공간에서 호스트, 자산, CVE를 살펴볼 수 있습니다. SSH로 서버와 OpenWrt 라우터를 에이전트 없이 점검하며 시스템 패키지, Homebrew, Docker, 프로젝트 잠금 파일까지 다루고, 수정 스크립트와 롤백 스크립트를 나란히 놓고 검토할 수 있습니다. sectl 명령줄 도구는 따로 빌드됩니다."
+	},
+	"icon": {
+		"file": "security-sentinel.webp"
+	},
+	"screenshot": "security-sentinel.webp",
+	"added": "2026-11-05T23:30:36Z"
+}
