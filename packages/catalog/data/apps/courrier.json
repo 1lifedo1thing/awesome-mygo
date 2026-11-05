@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "courrier",
+	"name": "courrier",
+	"author": "tbdsux",
+	"kind": "native",
+	"group": "chat",
+	"url": "https://github.com/tbdsux/courrier",
+	"repo": "tbdsux/courrier",
+	"summary": {
+		"en": "A keyboard-friendly desktop mail client for IMAP, POP3 and SMTP that keeps working offline.",
+		"zh-CN": "键盘友好的桌面邮件客户端，支持 IMAP、POP3 与 SMTP，离线也能用。",
+		"zh-TW": "鍵盤操作順手的桌面郵件用戶端，支援 IMAP、POP3 與 SMTP，離線也能用。",
+		"ja": "キーボードで扱えるメールクライアント。IMAP・POP3・SMTP 対応でオフラインでも使える。",
+		"ko": "키보드 중심의 데스크톱 메일 앱. IMAP, POP3, SMTP 지원, 오프라인에서도 동작."
+	},
+	"description": {
+		"en": "A mail client for macOS, Windows and Linux drawn with MyGo's native UI; the system web view is used only to show HTML mail, in a sandbox. It works with IMAP or POP3 accounts plus SMTP and caches mail locally, so you can read, archive and move messages offline. It also has a unified inbox, threaded conversations, rules, snooze, send later and keyboard shortcuts.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS、Windows 与 Linux 邮件客户端，系统 Web 视图只用于在沙箱中显示 HTML 邮件。支持 IMAP 或 POP3 搭配 SMTP 的账户，邮件缓存在本地，离线时也能阅读、归档和移动。另有统一收件箱、会话归组、规则、稍后提醒、定时发送和键盘快捷键。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS、Windows 與 Linux 郵件用戶端，系統 Web 視圖只用來在沙箱中顯示 HTML 郵件。支援 IMAP 或 POP3 搭配 SMTP 的帳號，郵件快取在本機，離線時也能閱讀、封存和移動。另有整合收件匣、對話串、規則、稍後提醒、排程寄送和鍵盤快捷鍵。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS・Windows・Linux 向けのメールクライアント。システムの Web ビューは HTML メールをサンドボックスで表示するためだけに使います。IMAP または POP3 と SMTP のアカウントに対応し、メールはローカルにキャッシュされるので、オフラインでも閲覧・アーカイブ・移動ができます。統合受信箱、スレッド表示、ルール、スヌーズ、送信予約、キーボードショートカットも備えています。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS, Windows, Linux용 메일 클라이언트로, 시스템 웹 뷰는 HTML 메일을 샌드박스에서 보여 줄 때만 씁니다. IMAP 또는 POP3와 SMTP 계정을 지원하고 메일을 로컬에 캐시해 오프라인에서도 읽고 보관하고 이동할 수 있습니다. 통합 받은편지함, 스레드 보기, 규칙, 스누즈, 예약 발송, 키보드 단축키도 갖췄습니다."
+	},
+	"icon": {
+		"file": "courrier.webp"
+	},
+	"screenshot": "courrier.webp",
+	"added": "2026-11-05T10:51:28Z"
+}
