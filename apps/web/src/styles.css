@@ -1131,12 +1131,12 @@ html:lang(ko) .site {
 	position: absolute;
 	left: 50%;
 	top: 120px;
-	/* The 560x160 ellipse softened as if blurred by 90px, drawn as a gradient for the same reason as the backdrop's blobs: the box is 180px larger on every side. */
+	/* The 560x160 ellipse softened as if blurred by 90px, drawn as a gradient for the same reason as the backdrop's blobs: the box is 180px larger on every side, and the centre is 62% of the colour, as the blur, wider than the ellipse is tall, never reached the whole of it. */
 	width: 920px;
 	height: 520px;
 	margin-left: -460px;
 	margin-top: -180px;
-	background: radial-gradient(closest-side, var(--cyan) 0%, color-mix(in srgb, var(--cyan) 55%, transparent) 30%, transparent 100%);
+	background: radial-gradient(closest-side, color-mix(in srgb, var(--cyan) 62%, transparent) 0%, color-mix(in srgb, var(--cyan) 55%, transparent) 30%, transparent 100%);
 	opacity: 0.22;
 }
 .wall {

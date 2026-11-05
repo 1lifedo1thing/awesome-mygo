@@ -124,8 +124,10 @@ export function Background() {
 			mouse.x = -9999;
 			mouse.y = -9999;
 		};
+		// Resizing clears the canvas, so the next frame draws whatever the throttle says, or the backdrop would show blank for a frame on every resize (every frame while a window edge is dragged).
 		const resize = () => {
 			size();
+			last = 0;
 			if (reduce) frame();
 		};
 
