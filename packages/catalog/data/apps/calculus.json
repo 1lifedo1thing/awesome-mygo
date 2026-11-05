@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "calculus",
+	"name": "Calculus",
+	"author": "tortoise10h",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/tortoise10h/calculus",
+	"repo": "tortoise10h/calculus",
+	"summary": {
+		"en": "A Numi-style notepad calculator: math on many lines, with variables, tabs and live results.",
+		"zh-CN": "仿 Numi 的记事本式计算器：多行输入算式，支持变量与标签页，结果即时显示。",
+		"zh-TW": "仿 Numi 的記事本式計算機：多行輸入算式，支援變數與分頁，結果即時顯示。",
+		"ja": "Numi 風のメモ帳型電卓。複数行の計算に変数とタブが使え、結果は入力中に表示。",
+		"ko": "Numi 스타일의 메모장형 계산기. 여러 줄 계산, 변수, 탭을 지원하고 결과를 바로 보여 줍니다."
+	},
+	"description": {
+		"en": "A Numi-inspired notepad calculator for macOS, Windows and Linux, written in pure Go with MyGo's native UI. Type math across many lines and each line's result appears beside it as you type; values can go into variables and numbers can be written as 100k or 1b. Calculations are kept in tabs that are saved to disk and restored at the next start, and the app does not use the network.",
+		"zh-CN": "受 Numi 启发的记事本式计算器，支持 macOS、Windows 与 Linux，用纯 Go 编写、由 MyGo 原生 UI 绘制。算式可以跨多行输入，每行的结果在输入时即显示在行尾；数值可存入变量，也能写成 100k、1b 这样的简写。不同的计算分放在标签页中，自动保存到磁盘并在下次启动时恢复，应用不使用网络。",
+		"zh-TW": "受 Numi 啟發的記事本式計算機，支援 macOS、Windows 與 Linux，用純 Go 撰寫、由 MyGo 原生 UI 繪製。算式可跨多行輸入，每行的結果在輸入時即顯示於行尾；數值可存入變數，也能寫成 100k、1b 這樣的簡寫。不同的計算分放在分頁中，自動儲存到磁碟並在下次啟動時還原，應用程式不使用網路。",
+		"ja": "Numi に着想を得たメモ帳型の電卓で、macOS・Windows・Linux に対応し、純粋な Go で書かれ MyGo のネイティブ UI で描かれています。複数行にわたって式を入力すると、各行の結果が入力中に行の右側に表示されます。値は変数に入れられ、数値は 100k や 1b のように省略して書けます。計算はタブごとに分けられ、ディスクに保存されて次回起動時に復元されます。ネットワークは使いません。",
+		"ko": "Numi에서 영감을 받은 메모장형 계산기로, macOS·Windows·Linux를 지원하며 순수 Go로 작성하고 MyGo의 네이티브 UI로 그렸습니다. 여러 줄에 걸쳐 식을 입력하면 각 줄의 결과가 입력하는 대로 줄 오른쪽에 나타나고, 값을 변수에 담거나 숫자를 100k, 1b처럼 줄여 쓸 수 있습니다. 계산은 탭별로 나뉘어 디스크에 저장되고 다음 실행 때 복원되며, 네트워크는 사용하지 않습니다."
+	},
+	"icon": {
+		"file": "calculus.webp"
+	},
+	"screenshot": "calculus.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T17:24:29Z"
+}
