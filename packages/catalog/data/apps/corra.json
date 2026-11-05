@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "corra",
+	"name": "Corra",
+	"author": "Maidang1",
+	"kind": "native",
+	"group": "notes",
+	"url": "https://github.com/Maidang1/corra",
+	"repo": "Maidang1/corra",
+	"summary": {
+		"en": "A native Markdown editor for a folder of notes, with math, diagrams and PDF and HTML export.",
+		"zh-CN": "原生 Markdown 编辑器，支持公式与图表，可导出 PDF 和 HTML。",
+		"zh-TW": "原生 Markdown 編輯器，支援公式與圖表，可匯出 PDF 和 HTML。",
+		"ja": "数式や図表に対応し、PDF・HTML に書き出せるネイティブな Markdown エディター。",
+		"ko": "수식과 다이어그램을 지원하고 PDF·HTML로 내보내는 네이티브 Markdown 편집기."
+	},
+	"description": {
+		"en": "A Markdown editor for macOS, Windows and Linux drawn with MyGo's native UI, with no webview. It keeps notes as plain Markdown files in a folder that git or other editors can also change, and edits them as rich text or as source. It typesets math offline, renders Mermaid and D2 diagrams, and exports PDF and HTML, plus Word and EPUB through pandoc.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Markdown 编辑器，支持 macOS、Windows 与 Linux，不使用 webview。笔记以普通 Markdown 文件存放在文件夹中，git 或其他编辑器的改动也会反映进来，可用富文本或源码方式编辑。公式离线排版，可渲染 Mermaid 与 D2 图表，能导出 PDF 和 HTML，借助 pandoc 还能导出 Word 与 EPUB。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Markdown 編輯器，支援 macOS、Windows 與 Linux，不使用 webview。筆記以一般 Markdown 檔案存放在資料夾中，git 或其他編輯器的變更也會反映進來，可用富文字或原始碼方式編輯。公式離線排版，可算繪 Mermaid 與 D2 圖表，能匯出 PDF 和 HTML，透過 pandoc 還能匯出 Word 與 EPUB。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS・Windows・Linux 向けの Markdown エディター。webview は使いません。ノートはフォルダー内のふつうの Markdown ファイルとして保存されるため、git やほかのエディターでの変更もそのまま反映され、リッチテキストでもソースでも編集できます。数式をオフラインで組版し、Mermaid や D2 の図を描画して、PDF と HTML に書き出せます。pandoc があれば Word や EPUB にも書き出せます。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS·Windows·Linux용 Markdown 편집기로, 웹뷰를 쓰지 않습니다. 노트는 폴더 안의 평범한 Markdown 파일로 저장되어 git이나 다른 편집기에서 바꾼 내용도 그대로 반영되며, 리치 텍스트나 소스로 편집할 수 있습니다. 수식을 오프라인으로 조판하고 Mermaid와 D2 다이어그램을 렌더링하며, PDF와 HTML로 내보내고 pandoc이 있으면 Word와 EPUB으로도 내보냅니다."
+	},
+	"icon": {
+		"file": "corra.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "corra.webp",
+	"added": "2026-11-05T12:11:10Z"
+}
