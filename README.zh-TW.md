@@ -29,7 +29,7 @@ pnpm monorepo，由 [TanStack Start](https://tanstack.com/start) 執行在 [Clou
 |---|---|
 | `apps/web` | 網站：React 19、TanStack Start（伺服器端渲染），以及帶 `@cloudflare/vite-plugin` 的 Vite。`wrangler.jsonc` 把它部署到 `awesomemygo.dev`。 |
 | `packages/catalog` | 資料：`data/*.json`（應用、UI 元件、狀態方案、外掛、文章、指南）及其 JSON Schema，五種語言的介面文案，搜尋與提交表單的條目。測試會驗證每個條目。 |
-| `packages/enrich` | 補全提交 bot 開的 PR：從專案倉庫取應用圖示，截圖優先用表單裡上傳的圖片或填的連結、否則從倉庫取，並用 Claude 寫五種語言的文案。由 `.github/workflows/enrich-submission.yml` 執行。 |
+| `packages/enrich` | 補全提交 bot 開的 PR：從專案倉庫取應用圖示，截圖優先用表單裡上傳的圖片或填的連結、否則從倉庫取，並用 Claude 寫五種語言的文案。由 `.github/workflows/enrich-submission.yml` 執行。`.github/workflows/verify.yml` 每週還會核驗所有已收錄專案的倉庫，倉庫有變化的條目各開一個 PR：倉庫被刪除、轉為私有或被停用時下架條目，被改名或轉移時更新條目，補上缺少的 homepage，專案有了自己的圖片後替換臨時圖；倉庫被封存或不再用 MyGo 建置時只在執行摘要裡列出。 |
 
 應用圖示來自 [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo)，由它的 CDN 提供；它未收錄的少數應用使用 `apps/web/public/icons/` 裡的官方圖示。
 

@@ -50,19 +50,26 @@ export async function repoFacts(repo: string, note: (line: string) => void): Pro
 
 export const rawUrl = (facts: RepoFacts, path: string) => rawRepoUrl(facts.repo, facts.branch, path);
 
-// The app's own icon, where MyGo takes it from, or, without a MyGo configuration to name it (as in a repository that keeps MyGo as a submodule), an icon file where projects usually keep one; written as the app's icon file. Returns the file it came from when there was one, so the screenshot search can pass over the same image, and why there is none otherwise.
-export async function ownIcon(slug: string, facts: RepoFacts): Promise<{ path: string; url: string; guessed: boolean } | { why: string; url?: string }> {
+// Where the app's own icon is: where MyGo takes it from, or, without a MyGo configuration to name it (as in a repository that keeps MyGo as a submodule), an icon file where projects usually keep one (guessed); why there is none otherwise.
+export function iconSource(facts: RepoFacts): { path: string; url: string; guessed: boolean } | { why: string } {
 	const found = facts.mygo ? undefined : repoIcons(facts.paths)[0];
 	if (!facts.mygo && !found) return { why: 'the repository has neither a MyGo configuration (mygo.json or mygo.config.ts) nor an icon file where projects usually keep one' };
 	const src = facts.mygo ? iconOf(facts.mygo.path, facts.mygo.json, facts.paths) : { path: found as string };
 	if (!src) return { why: `neither \`${facts.mygo?.path}\` nor resources/ beside it has an icon` };
 	if ('macOnly' in src) return { why: `the app's only icon is \`${src.macOnly}\` (macos.icon), which cannot be converted here` };
-	const url = rawUrl(facts, src.path);
+	return { path: src.path, url: rawUrl(facts, src.path), guessed: found !== undefined };
+}
+
+// The app's own icon (iconSource), written as the app's icon file. Returns the file it came from when there was one, so the screenshot search can pass over the same image, and why there is none otherwise.
+export async function ownIcon(slug: string, facts: RepoFacts): Promise<{ path: string; url: string; guessed: boolean } | { why: string; url?: string }> {
+	const src = iconSource(facts);
+	if ('why' in src) return src;
+	const url = src.url;
 	const img = await downloadImage(url);
 	if (!img) return { why: `\`${src.path}\` could not be downloaded as a PNG, JPEG or WebP under 10 MB` };
 	if (await isDefaultIcon(img)) return { why: `\`${src.path}\` is MyGo's default icon (as \`mygo init\` leaves it)`, url };
 	if (!(await writeIcon(img, join(ROOT, PUBLIC, 'icons', `${slug}.webp`)))) return { why: `\`${src.path}\` is smaller than 128 px`, url };
-	return { path: src.path, url, guessed: found !== undefined };
+	return src;
 }
 
 // Where a screenshot may come from: its links in order, how many of them to try, and whether someone picked it (a visitor's link, the repository's social preview), so it is taken as it is, while the repository's own images may be artwork.
