@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "countdowner",
+	"name": "Countdowner",
+	"author": "Star-Trails",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/Star-Trails/countdowner",
+	"repo": "Star-Trails/countdowner",
+	"summary": {
+		"en": "A Windows desktop countdown widget for several deadlines, with day grids and progress rings.",
+		"zh-CN": "Windows 桌面倒计时小组件：同时追踪多个截止日期，以日格和进度环显示。",
+		"zh-TW": "Windows 桌面倒數小工具：同時追蹤多個截止期限，以日格與進度環呈現。",
+		"ja": "Windows デスクトップのカウントダウンウィジェット。複数の締め切りを日のマスと進捗リングで表示。",
+		"ko": "Windows 바탕 화면 카운트다운 위젯. 여러 마감일을 날짜 칸과 진행 링으로 보여 줍니다."
+	},
+	"description": {
+		"en": "A countdown widget for the Windows 10/11 desktop, drawn with MyGo's native UI and shipped as one executable with no installer, embedded browser or WebView2. It sits behind your windows rather than on top, keeps several deadlines in one resizable widget, shows near ones as colored day grids that become progress rings in the final 24 hours, and stores everything locally with no account.",
+		"zh-CN": "用于 Windows 10/11 桌面的倒计时小组件，由 MyGo 原生 UI 绘制，单个可执行文件即可运行，无需安装，也没有内嵌浏览器或 WebView2。它停留在其他窗口之后而不置顶，在一个可自由调整大小的小组件里放下多个截止日期；临近的期限以彩色日格显示，最后 24 小时变为进度环。所有数据都保存在本机，无需账号。",
+		"zh-TW": "適用於 Windows 10/11 桌面的倒數小工具，由 MyGo 原生 UI 繪製，單一執行檔即可執行，免安裝，也沒有內嵌瀏覽器或 WebView2。它待在其他視窗後方而非置頂，在一個可自由調整大小的小工具裡放進多個截止期限；接近的期限以彩色日格顯示，最後 24 小時變成進度環。所有資料都存在本機，不需帳號。",
+		"ja": "Windows 10/11 のデスクトップに置くカウントダウンウィジェット。MyGo のネイティブ UI で描かれ、インストーラーも埋め込みブラウザも WebView2 もない単一の実行ファイルで動きます。最前面ではなくほかのウィンドウの後ろに留まり、サイズを自由に変えられる一つのウィジェットに複数の締め切りをまとめます。近い締め切りは色付きの日のマスで示し、最後の 24 時間は進捗リングに変わります。データはすべて PC に保存され、アカウントは不要です。",
+		"ko": "Windows 10/11 바탕 화면에 두는 카운트다운 위젯으로, MyGo의 네이티브 UI로 그렸으며 설치 프로그램도 내장 브라우저도 WebView2도 없는 실행 파일 하나로 동작합니다. 다른 창 위가 아니라 뒤에 머물고, 크기를 자유롭게 바꿀 수 있는 위젯 하나에 여러 마감일을 모아 둡니다. 가까운 마감일은 색깔 있는 날짜 칸으로, 마지막 24시간은 진행 링으로 보여 주며, 데이터는 계정 없이 PC에만 저장됩니다."
+	},
+	"icon": {
+		"file": "countdowner.webp"
+	},
+	"screenshot": "countdowner.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T11:28:55Z"
+}
