@@ -1,0 +1,26 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "atvloadly",
+	"name": "atvloadly",
+	"author": "bitxeno",
+	"kind": "web",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/bitxeno/atvloadly",
+	"repo": "bitxeno/atvloadly",
+	"summary": {
+		"en": "Sideloads IPA apps onto Apple TV and refreshes them automatically so they keep working.",
+		"zh-CN": "把 IPA 应用侧载到 Apple TV，并自动刷新，让应用一直可用。",
+		"zh-TW": "把 IPA App 側載到 Apple TV，並自動重新整理，讓 App 一直可用。",
+		"ja": "Apple TV に IPA アプリをサイドロードし、自動でリフレッシュして使える状態を保つ。",
+		"ko": "Apple TV에 IPA 앱을 사이드로드하고 자동으로 갱신해 계속 쓸 수 있게 합니다."
+	},
+	"description": {
+		"en": "A web service that sideloads IPA files onto Apple TV through Impactor and refreshes installed apps automatically so they stay usable. It runs in Docker on Linux and OpenWrt or as a desktop app on macOS and Windows, with a web page for pairing and installing. It signs with an Apple ID or your own P12 certificate and can follow GitHub releases and AltStore sources for updates.",
+		"zh-CN": "一个把 IPA 侧载到 Apple TV 的 Web 服务，底层使用 Impactor，并会自动刷新已安装的应用，让它们长期可用。可在 Linux 与 OpenWrt 上以 Docker 运行，也可作为 macOS 与 Windows 桌面应用运行，配对和安装都在网页上完成。签名可用 Apple ID 或自己的 P12 证书，并能跟踪 GitHub Releases 与 AltStore 源来更新应用。",
+		"zh-TW": "一個把 IPA 側載到 Apple TV 的 Web 服務，底層使用 Impactor，並會自動重新整理已安裝的 App，讓它們長期可用。可在 Linux 與 OpenWrt 上以 Docker 執行，也能作為 macOS 與 Windows 桌面應用程式執行，配對與安裝都在網頁上完成。簽署可用 Apple ID 或自己的 P12 憑證，並能追蹤 GitHub Releases 與 AltStore 來源來更新 App。",
+		"ja": "Impactor を使って Apple TV に IPA ファイルをサイドロードする Web サービスで、インストールしたアプリを自動でリフレッシュし、使える状態を保ちます。Linux や OpenWrt では Docker で、macOS と Windows ではデスクトップアプリとして動き、ペアリングとインストールは Web ページから行います。署名には Apple ID か手持ちの P12 証明書を使え、GitHub のリリースや AltStore のソースを追ってアップデートできます。",
+		"ko": "Impactor를 이용해 Apple TV에 IPA 파일을 사이드로드하는 웹 서비스로, 설치한 앱을 자동으로 갱신해 계속 쓸 수 있게 합니다. Linux와 OpenWrt에서는 Docker로, macOS와 Windows에서는 데스크톱 앱으로 실행되며 페어링과 설치는 웹 페이지에서 합니다. 서명에는 Apple ID나 직접 가진 P12 인증서를 쓸 수 있고, GitHub 릴리스와 AltStore 소스를 추적해 업데이트합니다."
+	},
+	"screenshot": "atvloadly.webp",
+	"added": "2026-11-05T00:46:37Z"
+}
