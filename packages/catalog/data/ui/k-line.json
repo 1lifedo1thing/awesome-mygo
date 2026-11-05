@@ -1,0 +1,22 @@
+{
+	"$schema": "../schema/ui.schema.json",
+	"slug": "k-line",
+	"name": "K-line",
+	"author": "shenjing023",
+	"tag": "theme",
+	"surface": "native",
+	"summary": {
+		"en": "A candlestick chart component for MyGo native UI, with volume, MA, MACD, BOLL and KDJ, pan and zoom, drawing tools, trade markers and bar replay.",
+		"zh-CN": "MyGo 原生 UI 的 K 线图组件，含成交量、MA、MACD、BOLL、KDJ，支持平移缩放、画线、交易标记与回放。",
+		"zh-TW": "MyGo 原生 UI 的 K 線圖元件，含成交量、MA、MACD、BOLL、KDJ，支援平移縮放、畫線、交易標記與回放。",
+		"ja": "MyGo ネイティブ UI 向けのローソク足チャートコンポーネント。出来高、MA、MACD、BOLL、KDJ、パンとズーム、描画ツール、売買マーカー、リプレイに対応。",
+		"ko": "MyGo 네이티브 UI용 캔들스틱 차트 컴포넌트로, 거래량, MA, MACD, BOLL, KDJ, 패닝·줌, 그리기 도구, 매매 마커, 리플레이를 지원합니다."
+	},
+	"repo": "shenjing023/KLineChart-go",
+	"url": "https://github.com/shenjing023/KLineChart-go",
+	"screenshot": "k-line.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T14:40:59Z"
+}
