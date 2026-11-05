@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "auralink",
+	"name": "Auralink",
+	"author": "hehehai",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://actnow.dev/auralink",
+	"repo": "hehehai/Auralink",
+	"summary": {
+		"en": "macOS voice input: speak in any app to type at the cursor, or to translate and rewrite text.",
+		"zh-CN": "macOS 语音输入：在任意应用里说话，文字直接打在光标处，也能翻译和改写。",
+		"zh-TW": "macOS 語音輸入：在任何 App 裡說話，文字直接打在游標處，也能翻譯和改寫。",
+		"ja": "macOS の音声入力アプリ。どのアプリでも話せばカーソル位置に入力され、翻訳や書き換えもできる。",
+		"ko": "macOS 음성 입력 앱. 어느 앱에서든 말하면 커서 위치에 입력되고, 번역과 고쳐 쓰기도 지원."
+	},
+	"description": {
+		"en": "A voice input app for macOS on Apple silicon, drawn with MyGo's native UI, with a small Swift helper for the microphone, shortcuts and Accessibility. Press a shortcut in any app and speak to type at the cursor, tidied by a language model, or to translate or rewrite the selected text. No models run locally; you bring API keys for services such as StepFun, Doubao, DeepSeek or OpenAI.",
+		"zh-CN": "面向 Apple 芯片 Mac 的语音输入应用，用 MyGo 原生 UI 绘制，麦克风、快捷键和辅助功能由一个小型 Swift 辅助程序负责。在任意应用里按下快捷键说话，经语言模型整理的文字会直接打在光标处，也可以翻译或改写选中的文字。它不在本机运行模型，需自行选择 StepFun、Doubao、DeepSeek、OpenAI 等服务并填入自己的 API 密钥。",
+		"zh-TW": "適用於 Apple 晶片 Mac 的語音輸入應用程式，以 MyGo 原生 UI 繪製，麥克風、快速鍵和輔助使用則交給一個小型 Swift 輔助程式處理。在任何 App 裡按下快速鍵說話，經語言模型整理的文字會直接打在游標處，也能翻譯或改寫選取的文字。它不在本機執行模型，需自行選擇 StepFun、Doubao、DeepSeek、OpenAI 等服務並填入自己的 API 金鑰。",
+		"ja": "Apple シリコン搭載の Mac 向け音声入力アプリ。MyGo のネイティブ UI で描かれ、マイク、ショートカット、アクセシビリティは小さな Swift ヘルパーが担当します。どのアプリでもショートカットを押して話せば、言語モデルで整えた文章がカーソル位置に入力され、選択したテキストの翻訳や書き換えもできます。モデルはローカルでは動かさず、StepFun、Doubao、DeepSeek、OpenAI などのサービスを選び、自分の API キーで使います。",
+		"ko": "Apple 실리콘 Mac용 음성 입력 앱으로, MyGo의 네이티브 UI로 그렸고 마이크, 단축키, 손쉬운 사용은 작은 Swift 헬퍼가 맡습니다. 어느 앱에서든 단축키를 누르고 말하면 언어 모델이 다듬은 텍스트가 커서 위치에 입력되며, 선택한 텍스트를 번역하거나 고쳐 쓸 수도 있습니다. 모델을 로컬에서 돌리지 않고 StepFun, Doubao, DeepSeek, OpenAI 등의 서비스를 골라 자신의 API 키로 사용합니다."
+	},
+	"icon": {
+		"file": "auralink.webp"
+	},
+	"screenshot": "auralink.webp",
+	"added": "2026-11-05T03:47:54Z"
+}
