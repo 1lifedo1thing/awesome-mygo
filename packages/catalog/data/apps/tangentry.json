@@ -1,0 +1,26 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "tangentry",
+	"name": "Tangentry",
+	"author": "mu-zi-lee",
+	"kind": "web",
+	"category": "ReferenceApplication",
+	"url": "https://github.com/mu-zi-lee/Tangentry",
+	"repo": "mu-zi-lee/Tangentry",
+	"summary": {
+		"en": "Reads videos, podcasts, RSS and articles from several platforms in one local app, with notes.",
+		"zh-CN": "把多平台的视频、播客、RSS 与文章收进同一个本地阅读器，边看边记笔记。",
+		"zh-TW": "把多個平台的影片、Podcast、RSS 與文章收進同一個本機閱讀器，邊看邊記筆記。",
+		"ja": "複数サービスの動画、ポッドキャスト、RSS、記事をまとめて読み、メモも取れるローカルリーダー。",
+		"ko": "여러 플랫폼의 동영상, 팟캐스트, RSS, 글을 한 로컬 리더에 모아 읽고 메모합니다."
+	},
+	"description": {
+		"en": "A local-first reader for Bilibili, YouTube, Xiaohongshu, Douyin, Xiaoyuzhou podcasts, RSS and web articles, with a React frontend on MyGo. Videos and podcasts play beside subtitles or local or cloud transcripts, and notes tied to timestamps, quotes or frames export as Markdown for Obsidian. It runs on macOS, Windows and Linux, or as a Docker server.",
+		"zh-CN": "本地优先的阅读器，收纳 B站、YouTube、小红书、抖音、小宇宙播客、RSS 与网页文章，React 前端运行在 MyGo 上。视频和播客播放时，旁边同步显示字幕或由本机、云端转录的文稿；笔记可锚定时间点、引文或截帧，并导出为兼容 Obsidian 的 Markdown。支持 macOS、Windows、Linux，也可用 Docker 自托管。",
+		"zh-TW": "本機優先的閱讀器，收納 B站、YouTube、小紅書、抖音、小宇宙 Podcast、RSS 與網頁文章，React 前端運行於 MyGo 上。影片與 Podcast 播放時，旁邊同步顯示字幕或由本機、雲端轉錄的文字稿；筆記可錨定時間點、引文或截圖畫面，並匯出為相容 Obsidian 的 Markdown。支援 macOS、Windows、Linux，也能以 Docker 自架。",
+		"ja": "Bilibili、YouTube、小紅書、Douyin、小宇宙のポッドキャスト、RSS、Web 記事をまとめて読めるローカルファーストのリーダー。React のフロントエンドを MyGo で動かしています。動画やポッドキャストは字幕、またはローカルやクラウドで作った文字起こしと並べて再生でき、タイムスタンプや引用、画面キャプチャに結びつけたメモは Obsidian 向けの Markdown で書き出せます。macOS、Windows、Linux で動き、Docker サーバーとしても使えます。",
+		"ko": "Bilibili, YouTube, 샤오훙수, Douyin, 샤오위저우 팟캐스트, RSS, 웹 글을 한곳에서 읽는 로컬 우선 리더로, React 프런트엔드를 MyGo 위에서 실행합니다. 동영상과 팟캐스트는 자막이나 로컬·클라우드에서 만든 전사본과 나란히 재생되고, 타임스탬프, 인용문, 캡처한 화면에 연결한 메모는 Obsidian용 Markdown으로 내보낼 수 있습니다. macOS, Windows, Linux에서 실행되며 Docker 서버로도 쓸 수 있습니다."
+	},
+	"added": "2026-11-05T00:47:16Z",
+	"screenshot": "tangentry.webp"
+}
