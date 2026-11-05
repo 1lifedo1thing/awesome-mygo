@@ -5,7 +5,7 @@
 	"author": "pi-dal",
 	"kind": "native",
 	"group": "network",
-	"url": "https://github.com/pi-dal/sakamoto",
+	"url": "https://github.com/pi-dal/sakamoto/tree/main/desktop",
 	"repo": "pi-dal/sakamoto",
 	"summary": {
 		"en": "Menu bar and tray app for the sing-box client sakamoto: pick nodes and watch live connections.",
