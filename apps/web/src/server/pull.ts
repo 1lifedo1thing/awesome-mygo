@@ -89,9 +89,19 @@ export async function openSubmission(gh: Octokit, cat: SubmitCat, name: string, 
 		const shown = from.upload && staged ? (await gh.request('PUT /repos/{owner}/{repo}/contents/{path}', { ...repo, path: staged, branch, message: `chore(catalog): stage the screenshot uploaded for ${plainName}`, content: toBase64(from.upload.bytes) })).data.commit.sha : undefined;
 		const body = submissionBody({ cat, name: plainName, entry, screenshot: from.screenshot, staged: staged && shown ? { path: staged, commit: shown } : undefined, issue: from.issue });
 		const { data: pr } = await gh.request('POST /repos/{owner}/{repo}/pulls', { ...repo, title: `Add ${plainName} (${label})`, head: branch, base: BASE, body });
+		if (from.issue) {
+			// Counted again now that this one is open: runs for different issues go side by side (the workflow's concurrency group is per issue), so one account sending several at once all pass the count above. Only the author's oldest MAX_OPEN_PER_SENDER stay; this one is closed, and its branch removed below, when it is not among them.
+			const author = from.issue.author.toLowerCase();
+			const { data: now } = await gh.request('GET /repos/{owner}/{repo}/pulls', { ...repo, state: 'open', per_page: 100 });
+			const theirs = now.filter((p) => p.head.ref.startsWith(BRANCH_PREFIX) && p.user?.login === BOT && submittedIssue(p.body)?.author.toLowerCase() === author).map((p) => p.number);
+			if (theirs.filter((n) => n < pr.number).length >= MAX_OPEN_PER_SENDER) {
+				await gh.request('PATCH /repos/{owner}/{repo}/pulls/{pull_number}', { ...repo, pull_number: pr.number, state: 'closed' });
+				throw new SenderBusy();
+			}
+		}
 		return { url: pr.html_url, number: pr.number };
 	} catch (err) {
-		// Leave no branch behind when the pull request could not be opened; the original error is the one worth reporting.
+		// Leave no branch behind when the pull request could not be opened, or was closed as one too many for its author; the original error is the one worth reporting.
 		await gh.request('DELETE /repos/{owner}/{repo}/git/refs/{ref}', { ...repo, ref: `heads/${branch}` }).catch(() => undefined);
 		throw err;
 	}
