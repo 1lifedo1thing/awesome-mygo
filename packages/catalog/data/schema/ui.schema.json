@@ -9,6 +9,7 @@
 		"name",
 		"author",
 		"tag",
+		"surface",
 		"summary",
 		"repo",
 		"url",
@@ -36,6 +37,14 @@
 				"icons"
 			],
 			"description": "The filter it appears under."
+		},
+		"surface": {
+			"enum": [
+				"web",
+				"native",
+				"both"
+			],
+			"description": "The kind of window its components go in: web pages, native UI, or both."
 		},
 		"summary": {
 			"$ref": "common.schema.json#/$defs/text"

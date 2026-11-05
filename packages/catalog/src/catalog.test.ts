@@ -111,12 +111,14 @@ describe('catalog data', () => {
 
 	// Every category is one file per entry, so that submissions arriving together never edit the same file.
 	it('keeps every entry in a file named after its slug, dated where it can be submitted', () => {
-		const lib = { $schema: '../schema/ui.schema.json', slug: 'kit', name: 'Kit', author: 'someone', tag: 'theme', summary: { en: 'A kit.' }, repo: 'someone/kit', url: 'https://github.com/someone/kit', added: '2026-11-04T12:00:00Z' };
+		const lib = { $schema: '../schema/ui.schema.json', slug: 'kit', name: 'Kit', author: 'someone', tag: 'theme', surface: 'native', summary: { en: 'A kit.' }, repo: 'someone/kit', url: 'https://github.com/someone/kit', added: '2026-11-04T12:00:00Z' };
 		expect(readEntryFile(UI_KIND, 'kit.json', lib).slug).toBe('kit');
 		expect(() => readEntryFile(UI_KIND, 'other.json', lib)).toThrow(/ui\/other.json \(Kit\): slug must match the file name/);
 		expect(() => readEntryFile(UI_KIND, 'kit.json', { ...lib, added: undefined })).toThrow(/added is required/);
 		expect(() => readEntryFile(UI_KIND, 'kit.json', { ...lib, $schema: './schema/ui.schema.json' })).toThrow(/\$schema must be/);
 		expect(() => readUiLibs({ 'kit.json': lib, 'kit-2.json': { ...lib, slug: 'kit-2' } })).toThrow(/ui\/: two entries have repo "someone\/kit"/);
+		expect(() => readEntryFile(UI_KIND, 'kit.json', { ...lib, surface: undefined })).toThrow(/surface/);
+		expect(() => readEntryFile(UI_KIND, 'kit.json', { ...lib, surface: 'desktop' })).toThrow(/surface/);
 		const doc = { $schema: '../schema/doc.schema.json', slug: 'cli', title: 'The mygo CLI', file: 'cli.md', summary: { en: 'The CLI.' } };
 		expect(readDocs({ 'cli.json': doc })[0].url).toMatch(/\/docs\/cli\.md$/);
 		expect(() => readDocs({ 'cli.json': { ...doc, added: '2026-11-04T12:00:00Z' } })).toThrow(/added is not a known field/);

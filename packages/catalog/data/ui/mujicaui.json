@@ -4,6 +4,7 @@
 	"name": "MujicaUI",
 	"author": "ELY Open Source",
 	"tag": "theme",
+	"surface": "native",
 	"summary": {
 		"en": "Court-gothic components for MyGo native UI: ivory and charcoal grounds, a wine-red accent, old-gold rules and serif titles, in light and dark themes and three densities, from forms and charts to calendars, chat, agent and Git views.",
 		"zh-CN": "宫廷哥特风格的 MyGo 原生 UI 组件：象牙白与炭黑底色、酒红主色、旧金装饰线与衬线标题，浅深两套主题、三种密度，涵盖表单、图表、日历、聊天、智能体与 Git 等界面。",

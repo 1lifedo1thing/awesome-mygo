@@ -4,6 +4,7 @@
 	"name": "uix",
 	"author": "smallnest",
 	"tag": "theme",
+	"surface": "native",
 	"summary": {
 		"en": "A shadcn/ui-style component library for MyGo native UI, each component its own Go package: from buttons and forms to chat, charts, Markdown and Lucide icons, on light and dark design tokens mapped to shadcn's.",
 		"zh-CN": "shadcn/ui 风格的 MyGo 原生 UI 组件库，从按钮、表单到聊天、图表、Markdown 与 Lucide 图标，配有浅色与深色设计令牌。",

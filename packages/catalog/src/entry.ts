@@ -147,7 +147,7 @@ export function buildEntry(cat: SubmitCat, d: EntryDraft, mode: 'native' | 'web'
 		case 'showcase':
 			return { slug: entrySlug(name, url), name, author, kind: mode, ...(d.category ? { category: d.category } : {}), url, ...(repoOf(d.repo ?? '') ? { repo: repoOf(d.repo ?? '') } : {}), summary, description: summary };
 		case 'ui':
-			return { slug: entrySlug(name, url), name, author, tag: 'theme', summary, repo: repo ?? 'owner/name', url };
+			return { slug: entrySlug(name, url), name, author, tag: 'theme', surface: 'native', summary, repo: repo ?? 'owner/name', url };
 		case 'state':
 			return { slug: entrySlug(name, url), name, author, summary, repo: repo ?? 'owner/name', url, install: repo ? `go get github.com/${repo}` : 'go get …', tags: ['state'] };
 		case 'plugin':

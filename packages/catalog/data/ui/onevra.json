@@ -4,6 +4,7 @@
 	"name": "Onevra",
 	"author": "ONEO",
 	"tag": "theme",
+	"surface": "native",
 	"summary": {
 		"en": "Native desktop UI components for Go: themed controls, window shells, Lucide icons, plus chat, Markdown, code highlighting, charts and a command palette, and a packager for macOS, Windows and Linux.",
 		"zh-CN": "原生桌面 UI 组件：主题化控件、窗口外壳、Lucide 图标，以及聊天、Markdown、代码高亮、图表和命令面板，另附跨平台打包器。",
