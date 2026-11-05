@@ -334,7 +334,7 @@ html:lang(ko) .site {
 	display: flex;
 	gap: 56px;
 	width: max-content;
-	/* 1.2 s an app, the pace the strip had at 40 apps in 48 s: a fixed duration made it run faster with every app listed, until at 175 it moved too fast to read. --marq-n is the number of apps (routes/index.tsx). */
+	/* 1.2 s an app, the pace the strip had at 40 apps in 48 s: a fixed duration made it run faster with every app listed, until at 175 it moved too fast to read. --marq-n is the number of apps on the strip (routes/index.tsx). */
 	animation: marq calc(var(--marq-n, 40) * 1.2s) linear infinite;
 }
 .marq:hover {
@@ -514,13 +514,19 @@ html:lang(ko) .site {
 	width: 100%;
 	height: 100%;
 }
+/* The dot spotlight is a 560px box that the pointer moves with a transform (Background.tsx sets --mx and --my), its circular mask fixed to the box, rather than a full-screen layer whose mask moved: that made the browser repaint and re-mask the whole screen on every pointer move. The dots stay on the screen's 22px grid as the box moves, by moving the pattern back by as much. */
 .spot {
 	position: absolute;
-	inset: 0;
+	left: -280px;
+	top: -280px;
+	width: 560px;
+	height: 560px;
+	transform: translate(var(--mx, 70vw), var(--my, 25vh));
 	background-image: radial-gradient(rgba(63, 211, 245, 0.6) 1px, transparent 1.3px);
 	background-size: 22px 22px;
-	-webkit-mask-image: radial-gradient(280px circle at var(--mx, 70%) var(--my, 25%), #000, transparent 72%);
-	mask-image: radial-gradient(280px circle at var(--mx, 70%) var(--my, 25%), #000, transparent 72%);
+	background-position: calc(280px - var(--mx, 70vw)) calc(280px - var(--my, 25vh));
+	-webkit-mask-image: radial-gradient(closest-side, #000, transparent 72%);
+	mask-image: radial-gradient(closest-side, #000, transparent 72%);
 }
 .vig {
 	position: absolute;

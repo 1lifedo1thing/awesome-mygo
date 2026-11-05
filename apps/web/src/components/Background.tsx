@@ -21,12 +21,14 @@ export function Background() {
 		const ctx = c?.getContext('2d');
 		if (!c || !ctx) return;
 		const reduce = prefersReducedMotion();
-		const dpr = Math.min(window.devicePixelRatio || 1, 2);
+		// The canvas is drawn at 1x, whatever the screen: its faint 1px lines and small dots look the same, and a 2x backing store is four times the pixels to clear, draw and hand to the compositor every frame, which Firefox's software renderer does on the CPU.
+		const dpr = 1;
 		let w = 0;
 		let h = 0;
 		let pts: Point[] = [];
 		let raf = 0;
 		let tt = 0;
+		let last = 0;
 		const mouse = { x: -9999, y: -9999 };
 
 		const size = () => {
@@ -49,19 +51,26 @@ export function Background() {
 			}));
 		};
 
-		const frame = () => {
-			tt += 0.016;
+		// Redrawn about 30 times a second: the points drift slowly, so the eye does not miss the other frames, and every redraw changes the whole fixed backdrop the browser has to composite. Motion is scaled by the time since the last redraw (dt, in 60 Hz frames), so the drift keeps its speed at any refresh rate; called without a timestamp (reduced motion, resize) it draws one step.
+		const frame = (now?: number) => {
+			if (now !== undefined && last && now - last < 32) {
+				raf = requestAnimationFrame(frame);
+				return;
+			}
+			const dt = now !== undefined && last ? Math.min((now - last) / 16.667, 4) : 1;
+			if (now !== undefined) last = now;
+			tt += 0.016 * dt;
 			ctx.clearRect(0, 0, w, h);
 			for (const p of pts) {
 				const dx = mouse.x - p.x;
 				const dy = mouse.y - p.y;
 				const d = Math.sqrt(dx * dx + dy * dy);
 				if (d < 200 && d > 1) {
-					p.x -= (dx / d) * 0.35;
-					p.y -= (dy / d) * 0.35;
+					p.x -= (dx / d) * 0.35 * dt;
+					p.y -= (dy / d) * 0.35 * dt;
 				}
-				p.x += p.vx;
-				p.y += p.vy;
+				p.x += p.vx * dt;
+				p.y += p.vy * dt;
 				if (p.x < -20) p.x = w + 20;
 				if (p.x > w + 20) p.x = -20;
 				if (p.y < -20) p.y = h + 20;

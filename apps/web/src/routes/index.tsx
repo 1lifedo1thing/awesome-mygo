@@ -6,7 +6,11 @@ import { useLang, useT } from '../lib/lang';
 import { prefersReducedMotion, tilt, useCountUp } from '../lib/motion';
 import { validateHomeSearch } from '../lib/page-search';
 import { pageHead } from '../lib/seo';
+import { DEFAULT_SORT, sortApps } from '../lib/showcase';
 import { useSite } from '../lib/site';
+
+// The marquee's apps: the first 30 in the showcase's default order, not the whole catalog. With every app twice, the strip grew past 80,000px with 400 links and icons, a layer too wide for Firefox to animate on the compositor, so it moved it on the main thread every frame.
+const MARQUEE_APPS = sortApps(APPS, DEFAULT_SORT, {}).slice(0, 30);
 
 export const Route = createFileRoute('/')({
 	// ?install= keeps the install command's tab in the address, so a link reproduces the view.
@@ -44,15 +48,16 @@ function HomePage() {
 	const t = useT();
 	const lang = useLang();
 	const nApps = APPS.length;
+	const marqN = MARQUEE_APPS.length;
 	return (
 		<div className='enter'>
 			<Hero />
 			{/* fetchPriority='low' keeps React from preloading the icons ahead of the stylesheets. They are not lazy: the strip clips them with overflow:hidden and slides them in with a transform, so a lazy icon could start loading only as it enters and show as a blank square at the edge. */}
 			<section aria-label={t.a_marquee} className='marq-wrap'>
-				{/* The strip's length grows with the catalog, so its duration does too (--marq-n, styles.css), keeping its speed as more apps are listed. */}
-				<div className='marq' style={{ '--marq-n': nApps } as CSSProperties}>
-					{[...APPS, ...APPS].map((a, i) => (
-						<AppLink key={`${a.slug}-${i}`} slug={a.slug} className='marq-item' tabIndex={i >= nApps ? -1 : undefined} hidden={i >= nApps}>
+				{/* The strip's duration follows its length (--marq-n, styles.css), keeping its speed whatever the number of apps on it. */}
+				<div className='marq' style={{ '--marq-n': marqN } as CSSProperties}>
+					{[...MARQUEE_APPS, ...MARQUEE_APPS].map((a, i) => (
+						<AppLink key={`${a.slug}-${i}`} slug={a.slug} className='marq-item' tabIndex={i >= marqN ? -1 : undefined} hidden={i >= marqN}>
 							{a.icon ? (
 								<img className='marq-icon app-icon' src={a.icon} alt='' width={36} height={36} fetchPriority='low' decoding='async' />
 							) : (
