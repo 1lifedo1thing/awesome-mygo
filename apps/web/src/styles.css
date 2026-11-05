@@ -334,7 +334,8 @@ html:lang(ko) .site {
 	display: flex;
 	gap: 56px;
 	width: max-content;
-	animation: marq 48s linear infinite;
+	/* 1.2 s an app, the pace the strip had at 40 apps in 48 s: a fixed duration made it run faster with every app listed, until at 175 it moved too fast to read. --marq-n is the number of apps (routes/index.tsx). */
+	animation: marq calc(var(--marq-n, 40) * 1.2s) linear infinite;
 }
 .marq:hover {
 	animation-play-state: paused;
