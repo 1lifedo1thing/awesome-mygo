@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "jstv-player",
+	"name": "JSTV Player",
+	"author": "freelxs",
+	"kind": "web",
+	"group": "media",
+	"url": "https://github.com/freelxs/jstv-player",
+	"repo": "freelxs/jstv-player",
+	"summary": {
+		"en": "A desktop player for CatPawOpen-compatible JS plugins you supply: browse, search and play.",
+		"zh-CN": "运行你自备的 CatPawOpen 兼容 JS 插件的桌面播放器，可浏览、搜索和播放。",
+		"zh-TW": "執行你自備的 CatPawOpen 相容 JS 外掛的桌面播放器，可瀏覽、搜尋和播放。",
+		"ja": "自前の CatPawOpen 互換 JS プラグインで閲覧・検索・再生するデスクトッププレーヤー。",
+		"ko": "직접 준비한 CatPawOpen 호환 JS 플러그인으로 탐색·검색·재생하는 데스크톱 플레이어."
+	},
+	"description": {
+		"en": "A player shell for macOS, Windows and Linux that runs CatPawOpen-compatible JS plugins you supply on Node.js to browse, search and play their media; it ships no content or plugins. It plays in-window with hls.js or hands streams to mpv, IINA, PotPlayer or another player, and moves on to the next episode. MyGo builds the desktop client with a web frontend; its Docker web mode runs without it.",
+		"zh-CN": "适用于 macOS、Windows 和 Linux 的播放器外壳，用 Node.js 运行你自备的 CatPawOpen 兼容 JS 插件，浏览、搜索并播放插件返回的媒体，本身不含任何内容或插件。可在窗口内用 hls.js 播放，也可交给 mpv、IINA、PotPlayer 或其他播放器，并自动连播下一集。MyGo 以 Web 前端构建桌面客户端；Docker 网页模式另行运行。",
+		"zh-TW": "適用於 macOS、Windows 和 Linux 的播放器外殼，以 Node.js 執行你自備的 CatPawOpen 相容 JS 外掛，瀏覽、搜尋並播放外掛回傳的媒體，本身不含任何內容或外掛。可在視窗內用 hls.js 播放，也可交給 mpv、IINA、PotPlayer 或其他播放器，並自動連播下一集。MyGo 以 Web 前端建置桌面用戶端；Docker 網頁模式另行執行。",
+		"ja": "macOS・Windows・Linux 向けのプレーヤーシェルで、手持ちの CatPawOpen 互換 JS プラグインを Node.js で動かし、返されたメディアを閲覧・検索・再生します。コンテンツやプラグインは含みません。ウィンドウ内で hls.js により再生するほか、mpv、IINA、PotPlayer などの外部プレーヤーにも渡せ、連続再生にも対応します。MyGo は Web フロントエンドでデスクトップ版を構築し、Docker 向けの Web モードは別に動きます。",
+		"ko": "macOS, Windows, Linux용 플레이어 셸로, 직접 준비한 CatPawOpen 호환 JS 플러그인을 Node.js로 실행해 플러그인이 돌려준 미디어를 탐색·검색·재생합니다. 콘텐츠나 플러그인은 들어 있지 않습니다. 창 안에서 hls.js로 재생하거나 mpv, IINA, PotPlayer 등 외부 플레이어로 넘길 수 있고, 다음 회차를 이어서 재생합니다. MyGo는 웹 프런트엔드로 데스크톱 클라이언트를 빌드하며, Docker용 웹 모드는 따로 실행됩니다."
+	},
+	"icon": {
+		"file": "jstv-player.webp"
+	},
+	"screenshot": "jstv-player.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T15:55:15Z"
+}
