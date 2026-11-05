@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "gossh",
+	"name": "gossh",
+	"author": "Sutsikii",
+	"kind": "web",
+	"group": "dev",
+	"url": "https://github.com/Sutsikii/go-ssh",
+	"repo": "Sutsikii/go-ssh",
+	"summary": {
+		"en": "Manage SSH servers in bulk: tabbed terminals, live stats and one command run on many at once.",
+		"zh-CN": "批量管理 SSH 服务器：标签页终端、实时统计，一条命令同时在多台服务器上执行。",
+		"zh-TW": "批次管理 SSH 伺服器：分頁終端機、即時統計，一道指令同時在多台伺服器上執行。",
+		"ja": "SSH サーバーをまとめて管理。タブ式ターミナル、ライブ統計、複数サーバーへの一括コマンド実行。",
+		"ko": "SSH 서버를 한꺼번에 관리합니다. 탭 터미널, 실시간 통계, 여러 서버에 한 번에 명령 실행."
+	},
+	"description": {
+		"en": "A desktop SSH manager for Windows, macOS and Linux, with a web interface built with MyGo and no Electron or Node. It imports ~/.ssh/config with ProxyJump, opens terminals in tabs or side by side and can type into all of them at once, reads CPU, memory, disk and network stats from /proc over SSH with nothing installed on the servers, and runs one command on many servers in parallel.",
+		"zh-CN": "面向 Windows、macOS 与 Linux 的桌面 SSH 管理工具，网页前端界面由 MyGo 构建，不用 Electron，也不需要 Node。可导入含 ProxyJump 的 ~/.ssh/config，终端以标签页或平铺方式打开，还能把输入同时发送到所有终端；通过 SSH 读取 /proc 获取 CPU、内存、磁盘和网络统计，服务器上无需安装任何东西；同一条命令可在多台服务器上并行执行。",
+		"zh-TW": "適用於 Windows、macOS 與 Linux 的桌面 SSH 管理工具，網頁前端介面由 MyGo 建構，不用 Electron，也不需要 Node。可匯入含 ProxyJump 的 ~/.ssh/config，終端機以分頁或並排方式開啟，還能把輸入同時送到所有終端機；透過 SSH 讀取 /proc 取得 CPU、記憶體、磁碟和網路統計，伺服器上不必安裝任何東西；同一道指令可在多台伺服器上平行執行。",
+		"ja": "Windows・macOS・Linux 向けのデスクトップ SSH マネージャー。Web フロントエンドの画面を MyGo で構築しており、Electron も Node も使いません。ProxyJump を含む ~/.ssh/config を取り込み、ターミナルをタブや並べた表示で開いて全てに同時入力できます。CPU、メモリー、ディスク、ネットワークの統計は SSH 経由で /proc から読むため、サーバー側に何も入れる必要はありません。一つのコマンドを多数のサーバーで並列に実行することもできます。",
+		"ko": "Windows, macOS, Linux용 데스크톱 SSH 관리 도구로, 웹 프런트엔드 화면을 MyGo로 만들었으며 Electron도 Node도 쓰지 않습니다. ProxyJump를 포함한 ~/.ssh/config를 가져오고, 터미널을 탭이나 나란히 놓은 화면으로 열어 모든 터미널에 동시에 입력할 수 있습니다. CPU, 메모리, 디스크, 네트워크 통계는 SSH로 /proc에서 읽어 서버에 따로 설치할 것이 없고, 한 명령을 여러 서버에서 병렬로 실행합니다."
+	},
+	"icon": {
+		"file": "gossh.webp"
+	},
+	"screenshot": "gossh.webp",
+	"added": "2026-11-05T16:49:05Z"
+}
