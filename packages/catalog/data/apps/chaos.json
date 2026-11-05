@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "chaos",
+	"name": "Chaos",
+	"author": "michaelmjhhhh",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/michaelmjhhhh/Chaos",
+	"repo": "michaelmjhhhh/Chaos",
+	"summary": {
+		"en": "A macOS menu bar app that names and files new screenshots with a vision model.",
+		"zh-CN": "macOS 菜单栏应用，用视觉模型为新截图命名并归档。",
+		"zh-TW": "macOS 選單列應用程式，用視覺模型為新截圖命名並歸檔。",
+		"ja": "視覚モデルで新しいスクリーンショットに名前を付けて整理する macOS メニューバーアプリ。",
+		"ko": "비전 모델로 새 스크린샷의 이름을 짓고 정리하는 macOS 메뉴 막대 앱."
+	},
+	"description": {
+		"en": "A macOS menu bar app for Apple Silicon, written in Go and drawn with MyGo's native UI. It watches a folder for new screenshots, has a vision model describe each one, then renames and files it by your template without overwriting anything. It works with OpenAI, DeepSeek, OpenRouter, other OpenAI-compatible APIs or a local Ollama, and keeps a searchable history.",
+		"zh-CN": "用 Go 编写、由 MyGo 原生 UI 绘制的 macOS 菜单栏应用，需要 Apple Silicon。它监视指定文件夹中的新截图，让视觉模型描述内容，再按你设定的模板重命名并归档，从不覆盖已有文件。支持 OpenAI、DeepSeek、OpenRouter、其他 OpenAI 兼容接口或本地 Ollama，并保留可搜索的历史记录。",
+		"zh-TW": "用 Go 撰寫、由 MyGo 原生 UI 繪製的 macOS 選單列應用程式，需要 Apple Silicon。它監看指定資料夾中的新截圖，讓視覺模型描述內容，再依你設定的範本重新命名並歸檔，絕不覆寫既有檔案。支援 OpenAI、DeepSeek、OpenRouter、其他相容 OpenAI 的 API 或本機 Ollama，並保留可搜尋的歷史紀錄。",
+		"ja": "Go で書かれ、MyGo のネイティブ UI で描かれた Apple Silicon 向けの macOS メニューバーアプリ。指定したフォルダーの新しいスクリーンショットを視覚モデルに説明させ、設定したテンプレートで名前を付けて整理します。既存のファイルを上書きすることはありません。OpenAI、DeepSeek、OpenRouter、その他の OpenAI 互換 API、ローカルの Ollama に対応し、履歴は検索できます。",
+		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 Apple Silicon용 macOS 메뉴 막대 앱입니다. 지정한 폴더의 새 스크린샷을 비전 모델이 설명하게 한 뒤, 정해 둔 템플릿에 따라 이름을 바꾸고 정리하며 기존 파일은 덮어쓰지 않습니다. OpenAI, DeepSeek, OpenRouter, 기타 OpenAI 호환 API나 로컬 Ollama와 함께 쓸 수 있고, 검색 가능한 기록을 남깁니다."
+	},
+	"icon": {
+		"file": "chaos.webp"
+	},
+	"screenshot": "chaos.webp",
+	"added": "2026-11-05T04:45:28Z"
+}
