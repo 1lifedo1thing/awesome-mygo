@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "febuildergba",
+	"name": "FEBuilderGBA",
+	"author": "woxQAQ",
+	"kind": "native",
+	"group": "game",
+	"url": "https://github.com/woxQAQ/febuildergba-mygo",
+	"repo": "woxQAQ/febuildergba-mygo",
+	"summary": {
+		"en": "A native Fire Emblem GBA ROM editor for FE6, FE7 and FE8: units, text, maps, events and portraits.",
+		"zh-CN": "火焰纹章 GBA ROM 原生编辑器，可改人物、文本、地图、事件与头像。",
+		"zh-TW": "聖火降魔錄 GBA ROM 原生編輯器，可改人物、文字、地圖、事件與頭像。",
+		"ja": "ファイアーエムブレム GBA 版の ROM エディター。ユニット、テキスト、マップ、イベントを編集。",
+		"ko": "파이어 엠블렘 GBA ROM 네이티브 편집기. 유닛, 텍스트, 맵, 이벤트를 편집합니다."
+	},
+	"description": {
+		"en": "A rebuild of the Fire Emblem GBA ROM editor FEBuilderGBA in Go with MyGo's native UI, aimed at macOS first. It opens FE8U, FE8J, FE7U, FE7J and FE6 ROMs and edits units, classes, items, text, portraits, maps, events and support conversations, with shared undo, redo and backups. Tilesets, more graphics and audio, and patch management are not covered yet.",
+		"zh-CN": "用 Go 和 MyGo 原生 UI 重建的火焰纹章 GBA ROM 编辑器 FEBuilderGBA，首阶段面向 macOS。支持 FE8U、FE8J、FE7U、FE7J 和 FE6，可编辑人物、职业、道具、文本、头像、地图、事件与支援对话，并共用撤销、重做与备份。图块素材、更多图像与音频、补丁管理尚未覆盖。",
+		"zh-TW": "以 Go 和 MyGo 原生 UI 重建的聖火降魔錄 GBA ROM 編輯器 FEBuilderGBA，第一階段以 macOS 為主。支援 FE8U、FE8J、FE7U、FE7J 與 FE6，可編輯人物、職業、道具、文字、頭像、地圖、事件與支援對話，並共用復原、重做與備份。圖塊素材、更多圖像與音訊、修補程式管理尚未支援。",
+		"ja": "Go と MyGo のネイティブ UI で作り直された、ファイアーエムブレム GBA 版の ROM エディター FEBuilderGBA。まずは macOS 向けです。FE8U・FE8J・FE7U・FE7J・FE6 に対応し、ユニット、クラス、アイテム、テキスト、顔画像、マップ、イベント、支援会話を編集でき、元に戻す・やり直し・バックアップは共通です。タイルセット素材、その他の画像や音声、パッチ管理にはまだ対応していません。",
+		"ko": "Go와 MyGo의 네이티브 UI로 다시 만든 파이어 엠블렘 GBA ROM 편집기 FEBuilderGBA로, 우선 macOS를 대상으로 합니다. FE8U, FE8J, FE7U, FE7J, FE6를 지원하며 유닛, 직업, 아이템, 텍스트, 초상화, 맵, 이벤트, 지원 대화를 편집하고 실행 취소, 다시 실행, 백업을 함께 씁니다. 타일셋 소재, 그 밖의 이미지와 오디오, 패치 관리는 아직 지원하지 않습니다."
+	},
+	"icon": {
+		"file": "febuildergba.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "febuildergba.webp",
+	"added": "2026-11-05T15:55:15Z"
+}
