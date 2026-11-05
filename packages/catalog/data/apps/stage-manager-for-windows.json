@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "stage-manager-for-windows",
+	"name": "Stage Manager for Windows",
+	"author": "e1roy",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/e1roy/stage-manager-for-windows",
+	"repo": "e1roy/stage-manager-for-windows",
+	"summary": {
+		"en": "macOS Stage Manager on Windows: one app on screen, the rest tucked into cards at the edge.",
+		"zh-CN": "把 macOS 的台前调度搬到 Windows：只留正在用的应用，其余收成侧边卡片。",
+		"zh-TW": "把 macOS 的幕前調度搬到 Windows：只留正在用的 App，其餘收成側邊卡片。",
+		"ja": "macOS のステージマネージャを Windows に。使っているアプリを残し、ほかは画面端のカードに。",
+		"ko": "macOS의 스테이지 매니저를 Windows로. 쓰는 앱만 화면에 두고 나머지는 가장자리 카드로."
+	},
+	"description": {
+		"en": "A Windows 10 and 11 window manager modeled on macOS Stage Manager, drawn with MyGo's native UI. Each monitor keeps the app in use on its stage and groups the rest by app into cards on the left or right edge; click a card to switch, Shift-click it for two apps side by side, or press Win+Tab to see every window. Alt+Tab and the taskbar still work, and quitting or a crash puts every window back.",
+		"zh-CN": "仿照 macOS 台前调度的 Windows 10/11 窗口管理工具，用 MyGo 原生 UI 绘制。每台显示器只把正在用的应用留在台前，其余按应用归成卡片，排在左侧或右侧边缘；点卡片即可切换，按住 Shift 点击可让两个应用并排，Win+Tab 可查看所有窗口。Alt+Tab 和任务栏照常可用，退出或崩溃时所有窗口都会还原。",
+		"zh-TW": "仿照 macOS 幕前調度的 Windows 10/11 視窗管理工具，以 MyGo 原生 UI 繪製。每台螢幕只把正在使用的 App 留在舞台上，其餘依 App 歸成卡片，排在左側或右側邊緣；點卡片即可切換，按住 Shift 點擊可讓兩個 App 並排，Win+Tab 可檢視所有視窗。Alt+Tab 與工作列照常可用，結束或當機時所有視窗都會復原。",
+		"ja": "macOS のステージマネージャにならった Windows 10/11 向けのウインドウ管理ツールで、MyGo のネイティブ UI で描かれています。モニターごとに使っているアプリだけをステージに残し、ほかはアプリ単位のカードにまとめて左右どちらかの端に並べます。カードのクリックで切り替え、Shift クリックで 2 つのアプリを並べ、Win+Tab ですべてのウインドウを一覧できます。Alt+Tab とタスクバーはそのまま使え、終了やクラッシュの際はすべてのウインドウが元に戻ります。",
+		"ko": "macOS 스테이지 매니저를 본뜬 Windows 10/11용 창 관리 도구로, MyGo의 네이티브 UI로 그렸습니다. 모니터마다 쓰고 있는 앱만 스테이지에 남기고 나머지는 앱별 카드로 묶어 왼쪽이나 오른쪽 가장자리에 둡니다. 카드를 클릭해 전환하고, Shift 클릭으로 두 앱을 나란히 띄우며, Win+Tab으로 모든 창을 한눈에 봅니다. Alt+Tab과 작업 표시줄은 그대로 쓸 수 있고, 종료하거나 충돌해도 모든 창이 원래대로 돌아옵니다."
+	},
+	"icon": {
+		"file": "stage-manager-for-windows.webp"
+	},
+	"screenshot": "stage-manager-for-windows.webp",
+	"added": "2026-11-05T15:55:15Z"
+}
