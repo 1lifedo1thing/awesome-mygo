@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "sing-box-drover-go",
+	"name": "sing-box-drover-go",
+	"author": "moxuun",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/moxuun/sing-box-drover-go",
+	"repo": "moxuun/sing-box-drover-go",
+	"summary": {
+		"en": "A tray controller for sing-box: toggles system proxy and TUN mode and switches outbound nodes.",
+		"zh-CN": "sing-box 托盘控制器：开关系统代理与 TUN 模式，切换出站节点。",
+		"zh-TW": "sing-box 系統匣控制器：切換系統代理與 TUN 模式，選擇出站節點。",
+		"ja": "sing-box のトレイコントローラー。システムプロキシと TUN を切り替え、出口ノードを選択。",
+		"ko": "sing-box 트레이 컨트롤러. 시스템 프록시와 TUN을 켜고 끄며 출구 노드를 바꿉니다."
+	},
+	"description": {
+		"en": "A tray controller for sing-box on Windows, macOS and Linux, using MyGo's native UI with no web view. With a sing-box core and config.json you provide, it starts and restarts the core, toggles the system proxy and TUN mode, and switches outbound nodes read from the running core's Clash API. It bundles no core and does not manage subscriptions or edit configs.",
+		"zh-CN": "基于 MyGo 原生 UI 的 sing-box 托盘控制器，支持 Windows、macOS 与 Linux，不使用 WebView。配合自行准备的 sing-box 内核与 config.json，它负责启动和重启内核、开关系统代理与 TUN 模式，并从运行中内核的 Clash API 读取出站节点供切换。不内置内核，也不提供订阅管理或配置编辑。",
+		"zh-TW": "以 MyGo 原生 UI 打造的 sing-box 系統匣控制器，支援 Windows、macOS 與 Linux，不使用 WebView。搭配自行準備的 sing-box 核心與 config.json，負責啟動與重啟核心、切換系統代理與 TUN 模式，並從執行中核心的 Clash API 讀取出站節點供切換。不內建核心，也不提供訂閱管理或設定檔編輯。",
+		"ja": "MyGo のネイティブ UI で作られた、Windows・macOS・Linux 向けの sing-box トレイコントローラー。WebView は使いません。自分で用意した sing-box コアと config.json を使い、コアの起動と再起動、システムプロキシと TUN モードの切り替え、実行中のコアの Clash API から読み取った出口ノードの選択を行います。コアは同梱せず、サブスクリプション管理や設定の編集機能もありません。",
+		"ko": "MyGo의 네이티브 UI로 만든 Windows·macOS·Linux용 sing-box 트레이 컨트롤러로, WebView를 쓰지 않습니다. 직접 준비한 sing-box 코어와 config.json으로 코어를 시작·재시작하고, 시스템 프록시와 TUN 모드를 켜고 끄며, 실행 중인 코어의 Clash API에서 읽은 아웃바운드 노드를 전환합니다. 코어는 포함하지 않으며 구독 관리나 설정 편집 기능도 없습니다."
+	},
+	"icon": {
+		"file": "sing-box-drover-go.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "sing-box-drover-go.webp",
+	"added": "2026-11-05T02:43:19Z"
+}
