@@ -5,6 +5,7 @@
 	"author": "logdns",
 	"kind": "native",
 	"category": "CommunicationApplication",
+	"group": "chat",
 	"url": "https://imy.email",
 	"repo": "logdns/imyemail-cloud",
 	"summary": {
