@@ -92,43 +92,61 @@
 	image-rendering: pixelated;
 }
 
-/* Scores (components/Score.tsx). The component lives outside this folder, so Tailwind never sees its class names; its parts are drawn here instead, as the original look draws them in styles.css. The chip and the button are pills like the like button, in a neutral tone; the popover is a small window over a dimmed desktop. */
+/* Scores (components/Score.tsx). The component lives outside this folder, so Tailwind never sees its class names; its parts are drawn here instead, as the original look draws them in styles.css. The badge is a filled pill coloured by band (green from 80, purple from 60, grey below; never yellow or red, which read as a warning); the popover is a small window over a dimmed desktop. */
 @layer components {
 	.score-chip {
+		display: inline-flex;
 		flex: none;
-		padding: 0 6px;
-		border: 1px solid var(--color-line);
+		align-items: center;
+		padding: 1px 7px;
+		border: 1px solid rgb(16 35 58 / 0.25);
 		border-radius: 9999px;
-		background: var(--color-hi);
-		color: var(--color-muted);
+		background: var(--color-pur);
+		color: var(--color-hi);
 		font-family: var(--font-mono);
-		font-size: 11px;
+		font-size: 12px;
+		font-weight: 700;
 		line-height: 16px;
 		font-variant-numeric: tabular-nums;
+		box-shadow: 0 1px 1px rgb(16 35 58 / 0.12);
+	}
+	.score-chip[data-tier='hi'] {
+		background: #8fdba6;
+		color: var(--color-ink);
+	}
+	.score-chip[data-tier='lo'] {
+		background: var(--color-face-lo);
+		color: var(--color-ink);
+	}
+	/* Beside the name the band's colour says what it is; the word would only crowd the name out. */
+	.score-chip-k {
+		display: none;
 	}
 	.score-btn {
 		display: inline-flex;
-		height: 24px;
 		cursor: pointer;
 		align-items: center;
-		padding: 0 8px;
-		border: 1px solid var(--color-line);
-		border-radius: 9999px;
-		background: var(--color-hi);
-		color: var(--color-ink);
-		font-size: 12px;
-		box-shadow: 0 1px 1px rgb(16 35 58 / 0.06);
-		transition: background-color 0.15s;
-	}
-	.score-btn:hover {
-		background: var(--color-face);
-	}
-	.score-btn .score-chip {
 		padding: 0;
 		border: 0;
+		border-radius: 9999px;
 		background: none;
-		color: inherit;
-		font-size: inherit;
+	}
+	.score-btn:hover .score-chip {
+		filter: brightness(1.08);
+	}
+	.score-btn:focus-visible {
+		outline: 2px solid var(--color-pur);
+		outline-offset: 2px;
+	}
+	.score-btn .score-chip {
+		padding: 2px 9px;
+		font-size: 13px;
+	}
+	.score-total[data-tier='hi'] {
+		color: #1f7a45;
+	}
+	.score-total[data-tier='mid'] {
+		color: var(--color-pur);
 	}
 	/* Preflight takes every margin away, the browser's auto margins that centre a popover included. */
 	.score-pop {
