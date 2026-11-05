@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "pomodoro",
+	"name": "Pomodoro",
+	"author": "mintonight",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/mintonight/pomodoro",
+	"repo": "mintonight/pomodoro",
+	"summary": {
+		"en": "A native desktop Pomodoro timer that keeps running in the tray and charts your daily focus time.",
+		"zh-CN": "原生桌面番茄钟：计时在托盘里继续，按天以热力图统计专注时长。",
+		"zh-TW": "原生桌面番茄鐘：計時在系統匣中繼續，按日以熱度圖統計專注時數。",
+		"ja": "トレイで動き続け、日ごとの集中時間をヒートマップで表示するネイティブなポモドーロタイマー。",
+		"ko": "트레이에서 계속 돌아가고 하루 집중 시간을 히트맵으로 보여 주는 네이티브 뽀모도로 타이머."
+	},
+	"description": {
+		"en": "A Pomodoro timer for Linux, Windows and macOS, drawn with MyGo's native UI and shipped as a Go executable of a few MB, with no webview. Pauses over 30 minutes discard the current round, and closing the window leaves the timer running in the tray. Completed rounds are stored in local SQLite, shown as a daily heatmap and exported or imported as JSON.",
+		"zh-CN": "适用于 Linux、Windows 和 macOS 的番茄钟，由 MyGo 原生 UI 绘制，没有 webview，整个应用是一个几 MB 的 Go 可执行文件。暂停超过 30 分钟会自动丢弃当前番茄，关闭窗口后计时仍在系统托盘里继续。完整完成的番茄保存在本地 SQLite，按天显示为热力图，并可用 JSON 导出导入。",
+		"zh-TW": "適用於 Linux、Windows 和 macOS 的番茄鐘，由 MyGo 原生 UI 繪製，沒有 webview，整個應用程式是一個幾 MB 的 Go 執行檔。暫停超過 30 分鐘會自動捨棄目前的番茄，關閉視窗後計時仍在系統匣中繼續。完整完成的番茄儲存在本機 SQLite，按日顯示為熱度圖，並可用 JSON 匯出匯入。",
+		"ja": "MyGo のネイティブ UI で描かれた Linux・Windows・macOS 向けのポモドーロタイマーで、webview はなく、アプリ全体が数 MB の Go 実行ファイルです。一時停止が 30 分を超えると現在のポモドーロは破棄され、ウィンドウを閉じてもタイマーはシステムトレイで動き続けます。完了したポモドーロはローカルの SQLite に保存され、日ごとのヒートマップで表示されるほか、JSON で書き出し・読み込みもできます。",
+		"ko": "MyGo의 네이티브 UI로 그린 Linux, Windows, macOS용 뽀모도로 타이머로, webview 없이 앱 전체가 몇 MB짜리 Go 실행 파일 하나입니다. 일시정지가 30분을 넘으면 진행 중인 뽀모도로를 버리고, 창을 닫아도 타이머는 시스템 트레이에서 계속 돌아갑니다. 끝까지 마친 뽀모도로는 로컬 SQLite에 저장되어 날짜별 히트맵으로 표시되며, JSON으로 내보내고 가져올 수 있습니다."
+	},
+	"icon": {
+		"file": "pomodoro.webp"
+	},
+	"screenshot": "pomodoro.webp",
+	"added": "2026-11-05T17:06:44Z"
+}
