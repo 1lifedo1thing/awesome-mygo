@@ -1,11 +1,11 @@
 import { execFile } from 'node:child_process';
-import { readFile, readdir, writeFile } from 'node:fs/promises';
+import { readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { promisify } from 'node:util';
 import { DEFAULT_MODEL, README_LIMIT, type LlmConfig, writeCopy } from './copy.ts';
 import { github, rawFile, rawUrl as rawRepoUrl } from './github.ts';
 import { downloadImage, fetchImage, isDefaultIcon, writeCard, writeIcon, writeShot } from './image.ts';
-import { type ChoiceField, ENTRY_DIRS, type Entry, type EntryKind, addedFiles, appNameFrom, formDefaults, hasAllLanguages, homepageOf, iconOf, isArtwork, parseMygoConfig, pickMygoConfig, readmeImages, repoIcons, repoOfEntry, repoScreenshots, resolveImage, schemaEnum, setCategory, submittedScreenshot } from './source.ts';
+import { type ChoiceField, ENTRY_DIRS, STAGED_SHOTS, type Entry, type EntryKind, addedFiles, appNameFrom, formDefaults, hasAllLanguages, homepageOf, iconOf, isArtwork, parseMygoConfig, pickMygoConfig, repoIcons, repoOfEntry, repoShotSources, schemaEnum, setCategory, sniffImage, stagedShotOf, submittedScreenshot } from './source.ts';
 
 // Run by .github/workflows/enrich-submission.yml on a pull request the submission bot opened, and by discover.ts on each entry it proposes. It finds the entries the branch adds, then for each fills in what the form cannot ask for: an app's icon (from its mygo.json); the screenshot of an app, a UI library or a state management library (the first landscape one in its README, or else in a screenshot folder of the repository); a UI library's or state management library's homepage (from the repository's settings); what the form fills in with a default (an app's category, a UI library's tag, a plugin's surface, the tags of state management and plugins), picked by the model; and the copy in every site language. An entry with a repository is never left without an image: an app without an icon of its own gets its owner's GitHub avatar, and an entry without a screenshot gets the repository's social preview, or else a card drawn here from the owner's avatar, and the report says so. It changes files in the working tree and writes a Markdown report for the pull request; the workflow runs the catalog checks and commits.
 //
@@ -102,20 +102,31 @@ async function addIcon(entry: Entry, slug: string, facts: RepoFacts): Promise<st
 
 // The link the visitor gave in the form first, as they picked it; then the README's images, as the project picked them to show itself; then the images in the repository's screenshot folders, which a project with none in its README often keeps for its website. Each source gets its own number of tries, so a README full of badges does not use up the folders' turn. An app without a repository can still get the form's screenshot.
 // what names what the screenshot should show, for the report: the app, or the library.
-async function addScreenshot(entry: Entry, slug: string, what: string, facts: RepoFacts | undefined, iconUrl: string | undefined, submitted: string | undefined): Promise<void> {
+// staged: the image the visitor uploaded with the form, which the site's bot put on the branch under submissions/ (stagedShot); it comes first, as they picked it, and is removed once it is the site's WebP.
+async function addScreenshot(entry: Entry, slug: string, what: string, facts: RepoFacts | undefined, iconUrl: string | undefined, submitted: string | undefined, staged?: string): Promise<void> {
 	if (entry.screenshot !== undefined) return say('- Screenshot: kept the one submitted.');
-	if (!facts && !submitted) return;
-	const readme = facts?.readme;
+	if (!facts && !submitted && !staged) return;
+	const out = join(ROOT, PUBLIC, 'shots', `${slug}.webp`);
+	const tried: string[] = [];
+	const skipped: string[] = [];
+	if (staged) {
+		const bytes = new Uint8Array(await readFile(join(ROOT, staged)));
+		const format = sniffImage(bytes);
+		const result = format ? await writeShot({ bytes, format }, out) : 'not a PNG, JPEG or WebP';
+		await rm(join(ROOT, staged));
+		if (result === 'ok') {
+			entry.screenshot = `${slug}.webp`;
+			return say(`- Screenshot: the image uploaded with the form (\`${staged}\`), saved as \`${PUBLIC}/shots/${slug}.webp\` and removed from \`${STAGED_SHOTS}/\`. Check that it shows ${what}.`);
+		}
+		skipped.push(`\`${staged}\`, uploaded with the form and removed (${result})`);
+	}
 	// picked: the visitor chose the image, so it is taken as it is; the repository's images may be artwork.
 	const sources: { from: string; urls: string[]; tries: number; picked: boolean }[] = [
 		{ from: 'the link given in the form', urls: submitted ? [submitted] : [], tries: 1, picked: true },
-		{ from: 'the README', urls: facts && readme ? readmeImages(readme.text).map((src) => resolveImage(src, facts.repo, facts.branch, readme.path)).filter((u): u is string => !!u) : [], tries: 8, picked: false },
-		{ from: 'a screenshot folder in the repository', urls: facts ? repoScreenshots(facts.paths).map((p) => rawUrl(facts, p)) : [], tries: 6, picked: false },
+		...(facts ? repoShotSources(facts).map((s) => ({ ...s, picked: false })) : []),
 		// The last resort, so an entry with a repository is never without an image: the preview its owner set for the repository, or else the card GitHub draws of it.
 		{ from: facts?.preview?.custom ? "the repository's social preview, as no screenshot was found" : "GitHub's card for the repository (its social preview), as no screenshot was found", urls: facts?.preview ? [facts.preview.url] : [], tries: 1, picked: true },
 	];
-	const tried: string[] = [];
-	const skipped: string[] = [];
 	for (const source of sources) {
 		let n = 0;
 		for (const url of source.urls) {
@@ -130,7 +141,7 @@ async function addScreenshot(entry: Entry, slug: string, what: string, facts: Re
 				continue;
 			}
 			const img = await fetchImage(url);
-			const result = typeof img === 'string' ? img : await writeShot(img, join(ROOT, PUBLIC, 'shots', `${slug}.webp`));
+			const result = typeof img === 'string' ? img : await writeShot(img, out);
 			if (result === 'ok') {
 				entry.screenshot = `${slug}.webp`;
 				const passed = skipped.length ? ` It passed over ${skipped.join(', ')}.` : '';
@@ -147,7 +158,7 @@ async function addScreenshot(entry: Entry, slug: string, what: string, facts: Re
 		const owner = facts.repo.split('/')[0];
 		const avatar = await downloadImage(`https://github.com/${owner}.png?size=512`);
 		if (avatar) {
-			await writeCard(avatar, facts.repo, join(ROOT, PUBLIC, 'shots', `${slug}.webp`));
+			await writeCard(avatar, facts.repo, out);
 			entry.screenshot = `${slug}.webp`;
 			return say(`- Screenshot: none found, so a card of ${owner}'s GitHub avatar and ${facts.repo} was drawn, saved as \`${PUBLIC}/shots/${slug}.webp\`. Replace it with a screenshot when there is one.${passed}`);
 		}
@@ -215,8 +226,9 @@ async function addCopy(cfg: LlmConfig | undefined, kind: EntryKind, entry: Entry
 }
 
 // Fills in one added entry, in place: for an app its name, icon and screenshot from its repository, for a UI library or state management library its homepage and screenshot, and for every kind the copy.
-// used: the categories of the apps on the site. submitted: the screenshot link from the site's form, for an app.
+// used: the categories of the apps on the site. submitted: the screenshot link from the site's form, for an app, a UI library or state management.
 async function complete(cfg: LlmConfig | undefined, kind: EntryKind, where: string, entry: Entry, examples: Entry[], used: ReadonlySet<string>, submitted?: string): Promise<void> {
+	const staged = stagedShotOf(await readdir(join(ROOT, STAGED_SHOTS)).catch(() => []), String(entry.slug));
 	say(`### ${String(entry.name ?? entry.slug ?? '?')} (\`${where}\`)`);
 	const repo = repoOfEntry(entry);
 	const facts = repo ? await repoFacts(repo) : undefined;
@@ -230,10 +242,10 @@ async function complete(cfg: LlmConfig | undefined, kind: EntryKind, where: stri
 			entry.name = better;
 		}
 		const iconUrl = facts ? await addIcon(entry, slug, facts) : undefined;
-		await addScreenshot(entry, slug, 'the app', facts, iconUrl, submitted);
-	} else if ((kind === 'ui' || kind === 'state') && facts) {
-		addHomepage(entry, facts);
-		await addScreenshot(entry, String(entry.slug), 'the library', facts, undefined, undefined);
+		await addScreenshot(entry, slug, 'the app', facts, iconUrl, submitted, staged);
+	} else if (kind === 'ui' || kind === 'state') {
+		if (facts) addHomepage(entry, facts);
+		await addScreenshot(entry, String(entry.slug), 'the library', facts, undefined, submitted, staged);
 	}
 	await addCopy(cfg, kind, entry, facts, examples, used);
 }
@@ -258,10 +270,10 @@ async function main(): Promise<void> {
 		const names = addedFiles(known, head);
 		if (names.length) added.push({ kind, dir, known, names });
 	}
-	// The bot's pull request adds one app, and its body may carry the screenshot link from the form; with several apps it would be unclear whose it is, so it is left out.
-	const newApps = added.find((a) => a.kind === 'app')?.names ?? [];
-	const pr = newApps.length === 1 && env.PR && env.GITHUB_REPOSITORY ? await github<{ body: string | null }>(`/repos/${env.GITHUB_REPOSITORY}/pulls/${env.PR}`) : undefined;
-	const submitted = newApps.length === 1 ? submittedScreenshot(pr?.body) : undefined;
+	// The bot's pull request adds one entry, and its body may carry the screenshot link from the form; with several entries it would be unclear whose it is, so it is left out.
+	const single = added.reduce((n, a) => n + a.names.length, 0) === 1;
+	const pr = single && env.PR && env.GITHUB_REPOSITORY ? await github<{ body: string | null }>(`/repos/${env.GITHUB_REPOSITORY}/pulls/${env.PR}`) : undefined;
+	const submitted = single ? submittedScreenshot(pr?.body) : undefined;
 	// The categories of the apps already on the site: a new app picks its own from them.
 	const used = new Set<string>();
 	const appsDir = `${DATA_DIR}/${ENTRY_DIRS.app}`;
@@ -277,7 +289,7 @@ async function main(): Promise<void> {
 		const examples = kind === 'app' ? await Promise.all(EXAMPLE_APPS.map((slug) => read(`${slug}.json`))) : (await Promise.all(known.map(read))).sort((a, b) => String(a.added ?? '').localeCompare(String(b.added ?? ''))).slice(-2);
 		for (const name of names) {
 			const entry = await read(name);
-			await complete(cfg, kind, `${dir}/${name}`, entry, examples, used, kind === 'app' ? submitted : undefined);
+			await complete(cfg, kind, `${dir}/${name}`, entry, examples, used, kind === 'plugin' ? undefined : submitted);
 			await writeFile(join(ROOT, dir, name), json(entry));
 		}
 	}

@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { repoIcons, addedFiles, appNameFrom, cleanTags, formDefaults, homepageOf, hasAllLanguages, iconCut, iconOf, isArtwork, isBanner, isPortrait, isSquarish, lengthCaps, overCaps, joinRepoPath, scriptConfig, parseMygoConfig, pickMygoConfig, readmeImages, repoOfEntry, repoScreenshots, resolveImage, schemaEnum, setCategory, sniffImage, submittedScreenshot } from './source.ts';
+import { repoIcons, repoShotSources, shotProblem, stagedShot, stagedShotOf, addedFiles, appNameFrom, cleanTags, formDefaults, homepageOf, hasAllLanguages, iconCut, iconOf, isArtwork, isBanner, isPortrait, isSquarish, lengthCaps, overCaps, joinRepoPath, scriptConfig, parseMygoConfig, pickMygoConfig, readmeImages, repoOfEntry, repoScreenshots, resolveImage, schemaEnum, setCategory, sniffImage, submittedScreenshot } from './source.ts';
 
 describe('app names', () => {
 	it('takes mygo.json’s spelling of the same name only', () => {
@@ -247,5 +247,41 @@ describe('icons without a MyGo configuration', () => {
 		expect(repoIcons(['icon.png', 'build/appicon.png', 'build/icon_512x512.png'])).toEqual(['icon.png', 'build/appicon.png', 'build/icon_512x512.png']);
 		expect(repoIcons(['examples/demo/resources/icon.png', 'node_modules/x/icon.png', 'docs/icon.png', 'internal/ui/icon.png'])).toEqual([]);
 		expect(repoIcons(['desktop/assets/icon.png'])).toEqual(['desktop/assets/icon.png']);
+	});
+});
+
+describe('screenshots as the form, its Worker and the workflow judge them', () => {
+	it('says why an image is not a screenshot of a window', () => {
+		expect(shotProblem(1280, 800)).toBeUndefined();
+		// BunnyBox's README image is its icon.
+		expect(shotProblem(256, 256)).toBe('narrow');
+		expect(shotProblem(1024, 1024)).toBe('square');
+		expect(shotProblem(800, 1200)).toBe('portrait');
+		expect(shotProblem(1500, 400)).toBe('banner');
+	});
+
+	it('puts an uploaded image under submissions/, named after the entry', () => {
+		expect(stagedShot('bunnybox', 'jpeg')).toBe('submissions/bunnybox.jpg');
+		expect(stagedShot('bunnybox', 'png')).toBe('submissions/bunnybox.png');
+		expect(stagedShotOf(['other.png', 'bunnybox.webp'], 'bunnybox')).toBe('submissions/bunnybox.webp');
+		expect(stagedShotOf(['bunnybox-2.png', 'bunnybox.gif'], 'bunnybox')).toBeUndefined();
+		expect(stagedShotOf([], 'bunnybox')).toBeUndefined();
+	});
+
+	it("lists a repository's README images, then its screenshot folders, each once", () => {
+		const sources = repoShotSources({
+			repo: 'o/app',
+			branch: 'main',
+			paths: ['docs/screenshots/main.png', 'assets/hero.png'],
+			readme: { path: 'README.md', text: '![](docs/screenshots/main.png)\n![hero](assets/hero.png)\n<img src="https://example.com/b.png">' },
+		});
+		expect(sources).toEqual([
+			{ from: 'the README', urls: ['https://raw.githubusercontent.com/o/app/main/docs/screenshots/main.png', 'https://raw.githubusercontent.com/o/app/main/assets/hero.png', 'https://example.com/b.png'], tries: 8 },
+			{ from: 'a screenshot folder in the repository', urls: [], tries: 6 },
+		]);
+		expect(repoShotSources({ repo: 'o/app', branch: 'main', paths: [] })).toEqual([
+			{ from: 'the README', urls: [], tries: 8 },
+			{ from: 'a screenshot folder in the repository', urls: [], tries: 6 },
+		]);
 	});
 });

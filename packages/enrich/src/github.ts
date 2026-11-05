@@ -1,3 +1,4 @@
+import { rawUrl } from './source.ts';
 // GitHub's REST API and raw files, as the enrich and discover scripts read and write them, with GITHUB_TOKEN when it is set.
 
 const env = process.env;
@@ -33,7 +34,7 @@ export async function github<T>(path: string, init: { method?: string; body?: un
 	return res.status === 204 ? (undefined as T) : ((await res.json()) as T);
 }
 
-export const rawUrl = (repo: string, branch: string, path: string) => `https://raw.githubusercontent.com/${repo}/${branch}/${path.split('/').map(encodeURIComponent).join('/')}`;
+export { rawUrl };
 
 export async function rawFile(repo: string, branch: string, path: string): Promise<string | undefined> {
 	const res = await request(rawUrl(repo, branch, path), {});

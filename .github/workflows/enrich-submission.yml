@@ -89,6 +89,8 @@ jobs:
           HEAD_REF: ${{ steps.pr.outputs.head }}
         run: |
           git add -A packages/catalog/data apps/web/public
+          # The screenshot the bot staged from the form's upload, which the workflow turned into the site's WebP and removed; the folder is only there when one was uploaded.
+          if [[ -n "$(git ls-files submissions)" ]]; then git add -A submissions; fi
           if git diff --cached --quiet; then
             echo "pushed=false" >> "$GITHUB_OUTPUT"
             exit 0
