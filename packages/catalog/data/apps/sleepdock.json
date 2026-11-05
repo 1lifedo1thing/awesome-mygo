@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "sleepdock",
+	"name": "SleepDock",
+	"author": "javatoai",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/javatoai/sleepdock",
+	"repo": "javatoai/sleepdock",
+	"summary": {
+		"en": "A tray sleep timer: counts down, warns you for a minute, then puts Windows or macOS to sleep.",
+		"zh-CN": "托盘里的定时睡眠工具：倒计时结束先提醒一分钟，再让 Windows 或 macOS 睡眠。",
+		"zh-TW": "系統匣定時睡眠工具：倒數結束先提醒一分鐘，再讓 Windows 或 macOS 睡眠。",
+		"ja": "トレイで動くスリープタイマー。1 分前に警告してから Windows や macOS をスリープさせます。",
+		"ko": "트레이에서 도는 절전 타이머. 1분간 알린 뒤 Windows나 macOS를 절전 모드로 전환합니다."
+	},
+	"description": {
+		"en": "A sleep timer for Windows x64 and macOS on Apple Silicon or Intel, drawn with MyGo's native UI. Set a countdown of up to 24 hours or a time of day and close the window to the tray; when time is up it warns for 60 seconds, with cancel and a 15-minute snooze, then asks the system to sleep. It follows the existing power plan and does not keep the computer awake.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的定时睡眠工具，支持 Windows x64 与 Apple Silicon、Intel 的 macOS。可设最长 24 小时的倒计时或指定时刻，关闭窗口后收进托盘；到时先提醒 60 秒，期间可取消或延后 15 分钟，然后请求系统睡眠。它遵循系统已有的电源计划，不保持唤醒。",
+		"zh-TW": "以 MyGo 原生 UI 繪製的定時睡眠工具，支援 Windows x64 與 Apple Silicon、Intel 的 macOS。可設定最長 24 小時的倒數計時或指定時刻，關閉視窗後收進系統匣；時間到先提醒 60 秒，期間可取消或延後 15 分鐘，之後請求系統進入睡眠。它遵循系統既有的電源計畫，不會保持喚醒。",
+		"ja": "MyGo のネイティブ UI で描かれたスリープタイマー。Windows x64 と Apple Silicon・Intel の macOS に対応します。最長 24 時間のカウントダウンか時刻を指定し、ウィンドウを閉じればトレイに収まります。時間になると 60 秒間警告を出し、その間に取り消しや 15 分の延長ができ、その後システムにスリープを要求します。既存の電源設定に従い、PC を起こしたままにはしません。",
+		"ko": "MyGo의 네이티브 UI로 그린 절전 타이머로, Windows x64와 Apple Silicon·Intel macOS를 지원합니다. 최대 24시간 카운트다운이나 특정 시각을 정하고 창을 닫으면 트레이로 들어갑니다. 시간이 되면 60초 동안 알려 주며 그사이 취소하거나 15분 미룰 수 있고, 이후 시스템에 절전을 요청합니다. 기존 전원 설정을 따르며 컴퓨터를 깨어 있게 유지하지 않습니다."
+	},
+	"icon": {
+		"file": "sleepdock.webp"
+	},
+	"screenshot": "sleepdock.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T17:06:44Z"
+}
