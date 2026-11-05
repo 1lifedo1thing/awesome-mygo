@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "lookback",
+	"name": "Lookback",
+	"author": "hamidriaz1998",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/hamidriaz1998/lookback",
+	"repo": "hamidriaz1998/lookback",
+	"summary": {
+		"en": "Finds your local images and documents by what they contain, using an on-device embedding model.",
+		"zh-CN": "按内容查找本地图片和文档，嵌入模型完全在本机运行。",
+		"zh-TW": "依內容搜尋本機圖片與文件，嵌入模型完全在本機執行。",
+		"ja": "画像や文書を中身で探せるローカル検索アプリ。埋め込みモデルは端末上で動作。",
+		"ko": "이미지와 문서를 내용으로 찾는 로컬 검색 앱. 임베딩 모델이 기기에서 실행됩니다."
+	},
+	"description": {
+		"en": "A semantic search app for Linux x64, drawn with MyGo's native UI, that finds screenshots, PDFs, Office files and notes by what they contain, or finds files similar to a result. It downloads an embedding model and a CPU, Vulkan or CUDA runtime matched to your hardware, indexes the folders you choose and keeps the index current as files change, with no account, cloud or telemetry.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Linux x64 语义搜索应用，按内容找出截图、PDF、Office 文件和笔记，也能查找与某个结果相似的文件。它会根据你的硬件下载嵌入模型以及 CPU、Vulkan 或 CUDA 运行时，为你选定的文件夹建立索引，并在文件变动时自动更新；无需账号，不上云，也没有遥测。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Linux x64 語意搜尋應用程式，依內容找出截圖、PDF、Office 檔案和筆記，也能搜尋與某個結果相似的檔案。它會依你的硬體下載嵌入模型以及 CPU、Vulkan 或 CUDA 執行環境，為你選定的資料夾建立索引，並在檔案變動時自動更新；不需帳號，不上雲端，也沒有遙測。",
+		"ja": "MyGo のネイティブ UI で描かれた Linux x64 向けのセマンティック検索アプリ。スクリーンショット、PDF、Office ファイル、メモを中身で探し、検索結果に似たファイルも見つけます。ハードウェアに合わせて埋め込みモデルと CPU・Vulkan・CUDA のランタイムをダウンロードし、選んだフォルダーをインデックス化して、ファイルの変更に合わせて自動で更新します。アカウントもクラウドもテレメトリもありません。",
+		"ko": "MyGo의 네이티브 UI로 그린 Linux x64용 시맨틱 검색 앱으로, 스크린샷, PDF, Office 파일, 메모를 내용으로 찾고 검색 결과와 비슷한 파일도 찾아 줍니다. 하드웨어에 맞는 임베딩 모델과 CPU, Vulkan, CUDA 런타임을 내려받아 선택한 폴더를 색인하고, 파일이 바뀌면 색인을 자동으로 갱신합니다. 계정도 클라우드도 텔레메트리도 없습니다."
+	},
+	"icon": {
+		"file": "lookback.webp"
+	},
+	"screenshot": "lookback.webp",
+	"added": "2026-11-05T08:08:34Z"
+}
