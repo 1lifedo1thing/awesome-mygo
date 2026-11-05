@@ -3,7 +3,7 @@ import { UPLOAD_MAX_BYTES } from '@awesome-mygo/enrich/source';
 import { createFileRoute } from '@tanstack/react-router';
 import { env } from 'cloudflare:workers';
 import { SubmissionsBusy, type Upload, openSubmission } from '../../server/pull';
-import { checkUpload, findRepoShot } from '../../server/shots';
+import { checkUpload, repoLacksShot } from '../../server/shots';
 import { botConfig, installation, installationToken, verifyTurnstile } from '../../server/submit';
 
 // GET says whether the bot is set up (and gives the Turnstile site key); POST submits an entry, as JSON, or as multipart/form-data with the JSON in payload and an uploaded screenshot in shot. Error codes: invalid, shot (an app, UI components or state management with no screenshot to show: none given and none in its repository), limited, captcha, busy, disabled, github.
@@ -72,17 +72,12 @@ function parseSubmission(text: string): Submission | undefined {
 	return { cat, token, kind: 'form', mode, draft: { name, author, url, desc, group, repo, screenshot } };
 }
 
-// The screenshot of what is submitted, when it needs one: an app, UI components or state management with neither a link nor an upload from the form. undefined when the repository has one the submission workflow will take, 'shot' when nothing would show. A GitHub failure here does not hold the submission back: the workflow looks again.
+// The screenshot of what is submitted, when it needs one: an app, UI components or state management with neither a link nor an upload from the form. undefined when the repository has one the submission workflow will take, or GitHub could not say (repoLacksShot), 'shot' when nothing would show.
 async function missingShot(cfg: NonNullable<ReturnType<typeof botConfig>>, sub: Submission): Promise<'shot' | undefined> {
 	if (!takesShot(sub.cat) || sub.shot || (sub.kind === 'form' && sub.draft.screenshot?.trim())) return undefined;
 	const repo = sub.kind === 'form' ? shotRepo(sub.cat, sub.draft) : pastedShotRepo(sub.cat, sub.entry);
 	if (!repo) return 'shot';
-	try {
-		return (await findRepoShot(repo, await installationToken(cfg))).found ? undefined : 'shot';
-	} catch (err) {
-		console.error('looking for a screenshot failed', err);
-		return undefined;
-	}
+	return (await repoLacksShot(repo, installationToken(cfg))) ? 'shot' : undefined;
 }
 
 export const Route = createFileRoute('/api/submit')({

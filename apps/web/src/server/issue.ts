@@ -1,7 +1,7 @@
 import { CatalogError, SITE_URL, type SubmitCat, codeFence, pastedName, pastedShotRepo, submissionFromIssue, takesShot } from '@awesome-mygo/catalog';
 import type { Octokit } from '@octokit/core';
 import { MAX_OPEN, MAX_OPEN_PER_SENDER, SenderBusy, SubmissionsBusy, openSubmission } from './pull';
-import { findRepoShot } from './shots';
+import { repoLacksShot } from './shots';
 
 // An issue sent through the form's issue link (issueUrl in packages/catalog), turned into the pull request the site's bot opens for the form, which the Complete submission workflow then completes. Run by the Submission issue workflow (apps/web/scripts/issue-submission.ts), which posts the comment this returns on the issue and closes it once the pull request is open.
 
@@ -20,17 +20,12 @@ export interface Issue {
 
 export type IssueResult = { result: 'opened' | 'problem'; comment: string } | { result: 'skip'; why: string };
 
-// Why an app, UI components or state management sent without a screenshot link has none to show, as the form's Worker judges it (missingShot in routes/api/submit.ts): no GitHub repository, or none the submission workflow would take a screenshot from. A GitHub failure here does not hold the submission back: the workflow looks again.
+// Why an app, UI components or state management sent without a screenshot link has none to show, as the form's Worker judges it (missingShot in routes/api/submit.ts): no GitHub repository, or none the submission workflow would take a screenshot from; a GitHub failure lets it through (repoLacksShot).
 async function missingShot(found: { cat: SubmitCat; entry: Record<string, unknown>; screenshot?: string }, token: string): Promise<string | undefined> {
 	if (!takesShot(found.cat) || found.screenshot) return undefined;
 	const repo = pastedShotRepo(found.cat, found.entry);
 	if (!repo) return 'There is no GitHub repository to take a screenshot from.';
-	try {
-		return (await findRepoShot(repo, token)).found ? undefined : "The project's repository has no screenshot the site could use.";
-	} catch (err) {
-		console.error('looking for a screenshot failed', err);
-		return undefined;
-	}
+	return (await repoLacksShot(repo, token)) ? "The project's repository has no screenshot the site could use." : undefined;
 }
 
 // Checks the issue as the form checks a pasted entry and opens its pull request with gh, the site's GitHub App; token is the same app's token, for looking for a screenshot in the project's repository. skip is for an issue that is not one the form wrote, which gets no comment.

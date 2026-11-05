@@ -297,7 +297,6 @@ export function editUrl(repo: string, cat: SubmitCat, entry: Record<string, unkn
 	return `${repo}/new/main/${DATA_DIR}/${dir}?${q}`;
 }
 
-
 // ---- the bot's pull request ----
 
 // The marker the submission workflow reads an app's screenshot link from (packages/enrich, submittedScreenshot), on a line of its own: the entry's JSON above it cannot start a line with it, as every line of it starts with a space or a brace. The link has passed isBadShot, so it holds no space, quote, backtick or angle bracket and cannot end the comment.
@@ -308,14 +307,13 @@ export const issueMarker = (n: number) => `<!-- submitted-issue: ${n} -->`;
 
 // The body of the pull request the site's bot opens for a submission (apps/web/src/server/pull.ts). name is the entry's name as the title has it. screenshot is the link from the form or the issue, which is not part of the entry; staged is where an image uploaded with the form went on the branch, and the commit that put it there. issue is the issue the entry was sent as, and its author's login, which is linked rather than mentioned so nobody is notified.
 export function submissionBody(s: { cat: SubmitCat; name: string; entry: Record<string, unknown>; screenshot?: string; staged?: { path: string; commit: string }; issue?: { number: number; author: string } }): string {
-	const [owner, repo] = SITE_REPO.replace('https://github.com/', '').split('/');
 	return [
 		s.issue ? `Sent as issue #${s.issue.number} by [${s.issue.author}](https://github.com/${s.issue.author}) through the issue link of the form on ${SITE_URL}, so the site's bot opened this pull request.\n${issueMarker(s.issue.number)}` : `Submitted through the form on ${SITE_URL} by a visitor without a GitHub account, so the site's bot opened this pull request.`,
 		`Category: ${SUBMIT_LABELS[s.cat]} (\`${DATA_DIR}/${entryPath(s.cat, s.entry)}\`)`,
 		codeFence(JSON.stringify(s.entry, null, 2), 'json'),
 		// In a code span, so the visitor's link does not become a link here; the workflow downloads it and the report says whether it was used.
 		...(s.screenshot ? [`Screenshot from the ${s.issue ? 'issue' : 'form'}: \`${s.screenshot}\`\n${shotMarker(s.screenshot)}`] : []),
-		...(s.staged ? [`Screenshot uploaded with the form, staged as \`${s.staged.path}\`; the workflow turns it into the site's WebP and removes it:\n\n![Screenshot of ${s.name.replace(/[[\]]/g, '')}](https://raw.githubusercontent.com/${owner}/${repo}/${s.staged.commit}/${s.staged.path})`] : []),
+		...(s.staged ? [`Screenshot uploaded with the form, staged as \`${s.staged.path}\`; the workflow turns it into the site's WebP and removes it:\n\n![Screenshot of ${s.name.replace(/[[\]]/g, '')}](${SITE_REPO.replace('https://github.com/', 'https://raw.githubusercontent.com/')}/${s.staged.commit}/${s.staged.path})`] : []),
 		'The entry passed the catalog checks before it was submitted, and CI runs them again. The *Complete submission* workflow then adds what the form cannot ask for (an app\'s icon, the screenshot uploaded with the form, from its link or from the project\'s repository, a library\'s homepage, the copy in every site language, and a value for each field the form leaves at a default, such as `tag`, `tags` or `surface`) and comments what it did. Before merging, check that the project exists and is built with MyGo, and read the generated copy and the values it picked.',
 	].join('\n\n');
 }
