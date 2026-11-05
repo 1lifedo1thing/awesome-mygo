@@ -5,7 +5,7 @@
 	"author": "Alpenl",
 	"kind": "native",
 	"group": "media",
-	"url": "https://github.com/Alpenl/openaria-bridge-sdk",
+	"url": "https://github.com/Alpenl/openaria-bridge-sdk/tree/main/desktop/exporter",
 	"repo": "Alpenl/openaria-bridge-sdk",
 	"summary": {
 		"en": "A native desktop exporter that turns Open Aria recording card footage into verified videos.",
