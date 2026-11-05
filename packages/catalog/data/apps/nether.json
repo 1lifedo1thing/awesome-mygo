@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "nether",
+	"name": "Nether",
+	"author": "fzn0x",
+	"kind": "web",
+	"category": "UtilitiesApplication",
+	"url": "https://fzn0x.github.io/Nether/",
+	"repo": "fzn0x/Nether",
+	"summary": {
+		"en": "Local-first Markdown notes with Notion-style databases and import from Obsidian and Notion.",
+		"zh-CN": "本地优先 Markdown 笔记，含 Notion 式数据库与 Obsidian 导入。",
+		"zh-TW": "本地優先 Markdown 筆記，含 Notion 式資料庫與 Obsidian 匯入。",
+		"ja": "ローカルファーストの Markdown ノート。Notion 風 DB と Obsidian 取り込み。",
+		"ko": "로컬 우선 Markdown 노트 앱. Notion식 데이터베이스와 Obsidian 가져오기 지원."
+	},
+	"description": {
+		"en": "The desktop app of Nether for Windows, macOS and Linux, a web frontend run by MyGo in the system's webview. It keeps notes as Markdown files in a folder you choose, turns notes into databases with six views, and imports Obsidian vaults and Notion exports. The sync server and web app are built separately, and this 0.0.1 developer preview does not sync yet.",
+		"zh-CN": "Nether 的桌面版，支持 Windows、macOS 与 Linux，由 MyGo 在系统 WebView 中运行 Web 前端。笔记以 Markdown 文件保存在你选定的文件夹里，可变成带六种视图的数据库，并能导入 Obsidian 资料库和 Notion 导出文件。同步服务器与 Web 版另行构建，目前的 0.0.1 开发者预览版尚不支持同步。",
+		"zh-TW": "Nether 的桌面版，支援 Windows、macOS 與 Linux，由 MyGo 在系統 WebView 中執行 Web 前端。筆記以 Markdown 檔案存放在你選定的資料夾，可轉為具備六種檢視的資料庫，並能匯入 Obsidian 筆記庫與 Notion 匯出檔。同步伺服器與 Web 版另行建置，目前的 0.0.1 開發者預覽版尚不支援同步。",
+		"ja": "Nether のデスクトップ版で、Windows・macOS・Linux に対応し、MyGo がシステムの WebView で Web フロントエンドを動かします。ノートは選んだフォルダーに Markdown ファイルとして保存され、6 種類のビューを持つデータベースにでき、Obsidian の保管庫や Notion のエクスポートを取り込めます。同期サーバーと Web 版は別に作られており、現在の 0.0.1 開発者プレビューではまだ同期できません。",
+		"ko": "Nether의 데스크톱 버전으로 Windows, macOS, Linux를 지원하며, MyGo가 시스템 웹뷰에서 웹 프런트엔드를 실행합니다. 노트는 직접 고른 폴더에 Markdown 파일로 저장되고, 여섯 가지 보기를 갖춘 데이터베이스로 만들 수 있으며, Obsidian 보관소와 Notion 내보내기를 가져올 수 있습니다. 동기화 서버와 웹 앱은 따로 만들어지며, 현재 0.0.1 개발자 프리뷰에서는 아직 동기화를 지원하지 않습니다."
+	},
+	"icon": {
+		"file": "nether.webp"
+	},
+	"screenshot": "nether.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T02:43:19Z"
+}
