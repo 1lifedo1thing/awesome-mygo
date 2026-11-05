@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "driga",
+	"name": "Driga",
+	"author": "labstack",
+	"kind": "web",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/labstack/driga",
+	"repo": "labstack/driga",
+	"summary": {
+		"en": "Watches your AI coding agent sessions and shows which ones are waiting for you.",
+		"zh-CN": "查看 AI 编程代理的会话，找出正在等你处理的那些。",
+		"zh-TW": "查看 AI 程式代理的工作階段，找出正在等你處理的那些。",
+		"ja": "AI コーディングエージェントのセッションを見守り、対応待ちのものを知らせる。",
+		"ko": "AI 코딩 에이전트 세션을 지켜보고 응답을 기다리는 세션을 알려 줍니다."
+	},
+	"description": {
+		"en": "A desktop app for AI coding agent sessions on macOS and Linux, with Windows experimental, still in alpha. It shows sessions from Claude Code, Codex and other agents, an inbox of agents waiting on you, Git worktree status and machine health. The app is a MyGo web frontend over the background service drigad, which also feeds the driga CLI and terminal UI.",
+		"zh-CN": "面向 AI 编程代理会话的桌面应用，支持 macOS 与 Linux，Windows 为实验性支持，仍处于 alpha 阶段。它汇总 Claude Code、Codex 等代理的会话，用收件箱列出等你处理的代理，并显示 Git 工作树状态与机器健康状况。应用是用 MyGo 构建的 Web 前端，背后是后台服务 drigad，driga 命令行与终端界面也由它提供数据。",
+		"zh-TW": "面向 AI 程式代理工作階段的桌面應用程式，支援 macOS 與 Linux，Windows 為實驗性支援，仍處於 alpha 階段。它彙整 Claude Code、Codex 等代理的活動，以收件匣列出等你處理的代理，並顯示 Git 工作樹狀態與機器健康狀況。介面是以 MyGo 建構的 Web 前端，背後是背景服務 drigad，driga 命令列與終端介面也由它提供資料。",
+		"ja": "AI コーディングエージェントのセッションを見守るデスクトップアプリ。macOS と Linux に対応し、Windows は実験的サポートで、現在はアルファ版です。Claude Code や Codex などのセッション、対応を待つエージェントを集めた受信箱、Git ワークツリーの状態、マシンの状態を表示します。アプリは MyGo で作られた Web フロントエンドで、バックグラウンドサービス drigad の上で動き、driga の CLI とターミナル UI も同じサービスを使います。",
+		"ko": "AI 코딩 에이전트 세션을 지켜보는 데스크톱 앱으로, macOS와 Linux를 지원하고 Windows는 실험적이며 아직 알파 단계입니다. Claude Code, Codex 등의 세션과 사용자를 기다리는 에이전트를 모은 받은편지함, Git 워크트리 상태, 머신 상태를 보여 줍니다. 앱은 MyGo로 만든 웹 프런트엔드로 백그라운드 서비스 drigad 위에서 동작하며, driga CLI와 터미널 UI도 같은 서비스를 씁니다."
+	},
+	"icon": {
+		"file": "driga.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "driga.webp",
+	"added": "2026-11-05T05:02:32Z"
+}
