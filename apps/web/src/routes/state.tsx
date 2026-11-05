@@ -46,51 +46,62 @@ function StatePage() {
 			{listed && (
 				<div className='stack-16'>
 					<h2 className='guides-h'>{t.state_listed_h}</h2>
-					<div className='lib-grid state-list'>
-						{STATE_SOLUTIONS.map((s, k) => (
-							<div key={s.repo} className={`rv d${k} flex`}>
-								<article className='win lib'>
-									<WinBar label={`github.com/${s.repo}`} size='md' className='lib-bar' />
-									{s.image && (
-										<div className='lib-shot lib-shot-img'>
-											<img src={s.image} alt={`${s.name} ${t.preview_img}`} width={1200} height={630} loading={k === 0 ? 'eager' : 'lazy'} fetchPriority={k === 0 ? 'high' : undefined} decoding='async' />
-										</div>
-									)}
-									<div className='lib-body'>
-										<div className='lib-head'>
-											<div className='stack-4'>
-												<h3 className='lib-name'>{s.name}</h3>
-												<span className='lib-by'>
-													<span lang='en'>by</span> {s.author}
-												</span>
-											</div>
-											<span className='lib-tag lib-tag-amber'>{s.tags[0]}</span>
-										</div>
-										<p className='lib-desc'>{pick(s.desc, lang)}</p>
-										<div className='cmd-row'>
-											<span className='cmd-text'>
-												<span className='c-cyan'>❯ </span>
-												{s.install}
-											</span>
-											<button type='button' className='cmd-copy' onClick={() => copy(s.install, 'cmd0')} aria-label={t.a_copy_cmd}>
-												{copied === 'cmd0' ? t.copied : t.copy}
-											</button>
-										</div>
-										<div className='cta-acts'>
-											<a className='btn-c btn-44' href={s.url} target='_blank' rel='noopener'>
-												{t.on_github}
-											</a>
+					<div className='show-grid'>
+						{STATE_SOLUTIONS.map((s, k) => {
+							// As on a plugin card, the install line gives way to an ellipsis before its last path segment, which tells the lines apart.
+							const cut = s.install.lastIndexOf('/') + 1;
+							const key = `state:${s.slug}` as const;
+							return (
+								<div key={s.repo} className={`rv d${k % 6} flex`}>
+									<article className='win card plug-card'>
+										<WinBar label={`github.com/${s.repo}`} size='md' className='card-bar'>
 											{s.homepage && (
-												<a className='btn-g btn-44 btn-outline' href={s.homepage} target='_blank' rel='noopener'>
+												<a className='plug-bar-docs' href={s.homepage} target='_blank' rel='noopener'>
 													{t.visit}
 												</a>
 											)}
-											<LikeButton item={likeKey.state(s)} name={s.name} className='like-btn like-lg like-end' size={18} />
+										</WinBar>
+										{s.image && (
+											<a className='card-shot card-shot-social' href={s.url} target='_blank' rel='noopener' tabIndex={-1} aria-hidden='true'>
+												<img src={s.image} alt='' width={1200} height={630} loading={k === 0 ? 'eager' : 'lazy'} fetchPriority={k === 0 ? 'high' : undefined} decoding='async' />
+											</a>
+										)}
+										<div className='plug-body'>
+											<div className='show-id'>
+												<div className='show-id-text'>
+													<h3 className='show-name'>
+														<a className='plug-link' href={s.url} target='_blank' rel='noopener'>
+															{s.name}
+														</a>
+													</h3>
+													<span className='show-by' title={s.author}>
+														<span lang='en'>by</span> {s.author}
+													</span>
+												</div>
+												<LikeButton item={likeKey.state(s)} name={s.name} className='like-btn like-end' />
+											</div>
+											<p className='show-desc'>{pick(s.desc, lang)}</p>
+											<div className='cmd-row plug-cmd'>
+												<code className='plug-cmd-text' lang='en'>
+													<span className='plug-cmd-head'>{s.install.slice(0, cut)}</span>
+													<span className='plug-cmd-tail'>{s.install.slice(cut)}</span>
+												</code>
+												<button type='button' className='cmd-copy' onClick={() => copy(s.install, key)} aria-label={`${t.copy}: ${s.install}`}>
+													{copied === key ? t.copied : t.copy}
+												</button>
+											</div>
+											<span className='plug-tags'>
+												{s.tags.map((tg) => (
+													<span key={tg} className='plug-tag' lang='en'>
+														{tg}
+													</span>
+												))}
+											</span>
 										</div>
-									</div>
-								</article>
-							</div>
-						))}
+									</article>
+								</div>
+							);
+						})}
 					</div>
 				</div>
 			)}

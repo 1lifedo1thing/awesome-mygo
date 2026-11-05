@@ -44,42 +44,38 @@ function UiPage() {
 					</button>
 				))}
 			</div>
-			<div className='lib-grid'>
+			<div className='show-grid'>
 				{libs.map((l, k) => (
-					<div key={l.repo} className={`rv d${k} flex`}>
-						<article className='win lib'>
-							<WinBar label={`github.com/${l.repo}`} size='md' className='lib-bar' />
-							{l.image ? (
-								<div className='lib-shot lib-shot-img'>
-									<img src={l.image} alt={`${l.name} ${t.shot}`} width={1200} height={750} loading={k === 0 ? 'eager' : 'lazy'} fetchPriority={k === 0 ? 'high' : undefined} decoding='async' />
-								</div>
-							) : (
-								<div className='dots lib-shot'>
-									<span className='lib-shot-label'>{l.name}</span>
-								</div>
-							)}
-							<div className='lib-body'>
-								<div className='lib-head'>
-									<div className='stack-4'>
-										<h2 className='lib-name'>{l.name}</h2>
-										<span className='lib-by'>
-											<span lang='en'>by</span> {l.author}
+					<div key={l.repo} className={`rv d${k % 6} flex`}>
+						<article className='win card plug-card'>
+							<WinBar label={`github.com/${l.repo}`} size='md' className='card-bar'>
+								{l.homepage && (
+									<a className='plug-bar-docs' href={l.homepage} target='_blank' rel='noopener'>
+										{t.visit}
+									</a>
+								)}
+							</WinBar>
+							<a className='card-shot' href={l.url} target='_blank' rel='noopener' tabIndex={-1} aria-hidden='true'>
+								{l.image ? <img src={l.image} alt='' width={1200} height={750} loading={k === 0 ? 'eager' : 'lazy'} fetchPriority={k === 0 ? 'high' : undefined} decoding='async' /> : <span className='card-shot-label'>{l.name}</span>}
+							</a>
+							<div className='plug-body'>
+								<div className='show-id'>
+									<div className='show-id-text'>
+										<h2 className='show-name'>
+											<a className='plug-link' href={l.url} target='_blank' rel='noopener'>
+												{l.name}
+											</a>
+										</h2>
+										<span className='show-meta'>
+											<span className='show-by' title={l.author}>
+												<span lang='en'>by</span> {l.author}
+											</span>
+											<span className='kind-tag tag-cyan'>{t[TAG[l.key]]}</span>
 										</span>
 									</div>
-									<span className='lib-tag'>{t[TAG[l.key]]}</span>
+									<LikeButton item={likeKey.ui(l)} name={l.name} className='like-btn like-end' />
 								</div>
-								<p className='lib-desc'>{pick(l.desc, lang)}</p>
-								<div className='cta-acts'>
-									<a className='btn-c btn-44' href={l.url} target='_blank' rel='noopener'>
-										{t.on_github}
-									</a>
-									{l.homepage && (
-										<a className='btn-g btn-44 btn-outline' href={l.homepage} target='_blank' rel='noopener'>
-											{t.visit}
-										</a>
-									)}
-									<LikeButton item={likeKey.ui(l)} name={l.name} className='like-btn like-lg like-end' size={18} />
-								</div>
+								<p className='show-desc'>{pick(l.desc, lang)}</p>
 							</div>
 						</article>
 					</div>
