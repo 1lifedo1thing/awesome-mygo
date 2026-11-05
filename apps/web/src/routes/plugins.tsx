@@ -1,4 +1,4 @@
-import { CLI_CMDS, COMMUNITY_PLUGINS, PLUGINS, PLUGINS_DOC, type PluginSurface, fill, likeKey, pick } from '@awesome-mygo/catalog';
+import { CLI_CMDS, COMMUNITY_PLUGINS, PLUGINS, PLUGINS_DOC, type Plugin, type PluginSurface, fill, likeKey, pick } from '@awesome-mygo/catalog';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { WinBar } from '../components/bits';
 import { LikeButton } from '../components/Like';
@@ -42,13 +42,70 @@ function PluginsPage() {
 	const byLikes = search.sort === 'likes' && likes !== 'off';
 	const setByLikes = (on: boolean) => setSearch({ sort: on ? 'likes' : undefined });
 	const shown = PLUGINS.filter((p) => fits(p.surface));
+	// The community's plugins, under the same filter, after the official ones and the call to write one.
+	const community = COMMUNITY_PLUGINS.filter((p) => fits(p.surface));
 	// Most liked first; ties keep the docs' order.
-	if (byLikes) shown.sort((a, b) => (counts[likeKey.plugin(b)] ?? 0) - (counts[likeKey.plugin(a)] ?? 0));
+	if (byLikes) for (const list of [shown, community]) list.sort((a, b) => (counts[likeKey.plugin(b)] ?? 0) - (counts[likeKey.plugin(a)] ?? 0));
 	const chips = [
 		{ key: 'all' as const, label: `${t.all} · ${PLUGINS.length}` },
 		{ key: 'web' as const, label: `${t.surf_web} · ${PLUGINS.filter((p) => p.surface !== 'native').length}` },
 		{ key: 'native' as const, label: `${t.surf_native} · ${PLUGINS.filter((p) => p.surface !== 'web').length}` },
 	];
+	// One plugin's card, as the official ones and the community's are shown alike.
+	const card = (p: Plugin, k: number) => {
+		// What the docs say to do first: import the Go package, and add the frontend package when there is one. `tail` is the part that tells the lines apart (the package's last two segments), which stays whole while `head` gives way to an ellipsis on a narrow card.
+		const setup = [...(p.goImport ? [{ key: `plug:${p.slug}:go` as const, ...goLine(p.goImport) }] : []), ...(p.npm ? [{ key: `plug:${p.slug}:npm` as const, head: 'bun add ', tail: p.npm }] : [])];
+		return (
+			<div key={p.slug} className={`rv d${k % 6} flex`}>
+				<article className='win card plug-card'>
+					<WinBar label={`plugins/${p.slug}`} size='md' className='card-bar'>
+						<a className='plug-bar-docs' href={p.url} target='_blank' rel='noopener'>
+							{t.docs_link}
+						</a>
+					</WinBar>
+					<div className='plug-body'>
+						<div className='show-id'>
+							<span className={`mono-tile mono-44 ${TONES[k % 3]}`} aria-hidden='true'>
+								{p.mark}
+							</span>
+							<div className='show-id-text'>
+								<h2 className='show-name'>
+									<a className='plug-link' href={p.url} target='_blank' rel='noopener'>
+										{p.name}
+									</a>
+								</h2>
+								<span className={`surf surf-${p.surface}`}>{surfLabel[p.surface]}</span>
+							</div>
+							<LikeButton item={likeKey.plugin(p)} name={p.name} className='like-btn like-end' />
+						</div>
+						<p className='show-desc'>{pick(p.desc, lang)}</p>
+						{setup.length > 0 && (
+							<div className='plug-setup'>
+								{setup.map((line) => (
+									<div key={line.key} className='cmd-row plug-cmd'>
+										<code className='plug-cmd-text' lang='en'>
+											<span className='plug-cmd-head'>{line.head}</span>
+											<span className='plug-cmd-tail'>{line.tail}</span>
+										</code>
+										<button type='button' className='cmd-copy' onClick={() => copy(line.head + line.tail, line.key)} aria-label={`${t.copy}: ${line.head}${line.tail}`}>
+											{copied === line.key ? t.copied : t.copy}
+										</button>
+									</div>
+								))}
+							</div>
+						)}
+						<span className='plug-tags'>
+							{p.tags.map((tg) => (
+								<span key={tg} className='plug-tag' lang='en'>
+									{tg}
+								</span>
+							))}
+						</span>
+					</div>
+				</article>
+			</div>
+		);
+	};
 	return (
 		<section className='page enter gap-40'>
 			<div className='stack-14'>
@@ -77,60 +134,7 @@ function PluginsPage() {
 				)}
 			</div>
 			<div className='plug-grid'>
-				{shown.map((p, k) => {
-					// What the docs say to do first: import the Go package, and add the frontend package when there is one. `tail` is the part that tells the lines apart (the package's last two segments), which stays whole while `head` gives way to an ellipsis on a narrow card.
-					const setup = [...(p.goImport ? [{ key: `plug:${p.slug}:go` as const, ...goLine(p.goImport) }] : []), ...(p.npm ? [{ key: `plug:${p.slug}:npm` as const, head: 'bun add ', tail: p.npm }] : [])];
-					return (
-						<div key={p.slug} className={`rv d${k % 6} flex`}>
-							<article className='win card plug-card'>
-								<WinBar label={`plugins/${p.slug}`} size='md' className='card-bar'>
-									<a className='plug-bar-docs' href={p.url} target='_blank' rel='noopener'>
-										{t.docs_link}
-									</a>
-								</WinBar>
-								<div className='plug-body'>
-									<div className='show-id'>
-										<span className={`mono-tile mono-44 ${TONES[k % 3]}`} aria-hidden='true'>
-											{p.mark}
-										</span>
-										<div className='show-id-text'>
-											<h2 className='show-name'>
-												<a className='plug-link' href={p.url} target='_blank' rel='noopener'>
-													{p.name}
-												</a>
-											</h2>
-											<span className={`surf surf-${p.surface}`}>{surfLabel[p.surface]}</span>
-										</div>
-										<LikeButton item={likeKey.plugin(p)} name={p.name} className='like-btn like-end' />
-									</div>
-									<p className='show-desc'>{pick(p.desc, lang)}</p>
-									{setup.length > 0 && (
-										<div className='plug-setup'>
-											{setup.map((line) => (
-												<div key={line.key} className='cmd-row plug-cmd'>
-													<code className='plug-cmd-text' lang='en'>
-														<span className='plug-cmd-head'>{line.head}</span>
-														<span className='plug-cmd-tail'>{line.tail}</span>
-													</code>
-													<button type='button' className='cmd-copy' onClick={() => copy(line.head + line.tail, line.key)} aria-label={`${t.copy}: ${line.head}${line.tail}`}>
-														{copied === line.key ? t.copied : t.copy}
-													</button>
-												</div>
-											))}
-										</div>
-									)}
-									<span className='plug-tags'>
-										{p.tags.map((tg) => (
-											<span key={tg} className='plug-tag' lang='en'>
-												{tg}
-											</span>
-										))}
-									</span>
-								</div>
-							</article>
-						</div>
-					);
-				})}
+				{shown.map(card)}
 			</div>
 			<div className='rv cli'>
 				<WinBar label='mygo-cli' size='md' className='panel-bar' />
@@ -171,6 +175,7 @@ function PluginsPage() {
 					</button>
 				</div>
 			</div>
+			{community.length > 0 && <div className='plug-grid'>{community.map(card)}</div>}
 		</section>
 	);
 }
