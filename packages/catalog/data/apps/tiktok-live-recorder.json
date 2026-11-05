@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "tiktok-live-recorder",
+	"name": "TikTok Live Recorder",
+	"author": "SamiNassim",
+	"kind": "native",
+	"group": "media",
+	"url": "https://github.com/SamiNassim/tiktok-live-recorder",
+	"repo": "SamiNassim/tiktok-live-recorder",
+	"summary": {
+		"en": "Watches TikTok accounts and records their livestreams automatically as they go live.",
+		"zh-CN": "监视 TikTok 账号，开播时自动录下直播。",
+		"zh-TW": "監看 TikTok 帳號，開播時自動錄下直播。",
+		"ja": "TikTok アカウントを見張り、配信が始まると自動で録画するアプリ。",
+		"ko": "TikTok 계정을 지켜보다가 라이브가 시작되면 자동으로 녹화합니다."
+	},
+	"description": {
+		"en": "A macOS, Windows and Linux app, drawn with MyGo's native UI, that watches TikTok accounts and records their livestreams as they start, with no browser running. Each stream is saved untouched as FLV in the best offered quality, and FFmpeg can make an MKV, MP4 or TS copy without re-encoding. Public streams need no account; a session cookie helps when TikTok limits access.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS、Windows 与 Linux 应用，监视 TikTok 账号并在开播时自动录制直播，无需运行浏览器。直播以所提供的最高画质原样保存为 FLV，也可用 FFmpeg 不重新编码地另存一份 MKV、MP4 或 TS。公开直播无需账号；TikTok 限制访问时可填入已登录会话的 Cookie。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS、Windows 與 Linux 應用程式，監看 TikTok 帳號並在開播時自動錄下直播，不需執行瀏覽器。直播以提供的最高畫質原封不動存成 FLV，也可用 FFmpeg 在不重新編碼的情況下另存 MKV、MP4 或 TS 副本。公開直播不需帳號；TikTok 限制存取時可填入已登入工作階段的 Cookie。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS・Windows・Linux 向けアプリ。TikTok アカウントを監視し、配信が始まると自動で録画します。ブラウザーを動かしておく必要はありません。配信は提供される最高画質のまま FLV に手を加えずに保存し、FFmpeg で再エンコードなしの MKV・MP4・TS のコピーも作れます。公開配信はアカウント不要で、TikTok がアクセスを制限する場合はログイン中のセッションの Cookie を使えます。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS·Windows·Linux용 앱으로, TikTok 계정을 지켜보다가 라이브가 시작되면 자동으로 녹화하며 브라우저를 띄워 둘 필요가 없습니다. 방송은 제공되는 최고 화질 그대로 FLV로 손대지 않고 저장하고, FFmpeg로 재인코딩 없이 MKV, MP4, TS 사본도 만들 수 있습니다. 공개 라이브는 계정 없이 녹화되며, TikTok이 접근을 제한하면 로그인 세션 쿠키를 쓸 수 있습니다."
+	},
+	"icon": {
+		"file": "tiktok-live-recorder.webp"
+	},
+	"screenshot": "tiktok-live-recorder.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T08:28:47Z"
+}
