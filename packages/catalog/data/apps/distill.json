@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "distill",
+	"name": "Distill",
+	"author": "M2tHane",
+	"kind": "native",
+	"group": "agents",
+	"url": "https://github.com/M2tHane/Distill",
+	"repo": "M2tHane/Distill",
+	"summary": {
+		"en": "Distills your local Claude Code, Codex and Pi sessions into skills, rules and AGENTS.md files.",
+		"zh-CN": "把本机 Claude Code、Codex、Pi 会话提炼成 Skill 和规则。",
+		"zh-TW": "把本機 Claude Code、Codex、Pi 對話紀錄提煉成 Skill 與規則。",
+		"ja": "ローカルの Claude Code・Codex・Pi のセッションを Skill やルールに抽出する。",
+		"ko": "로컬 Claude Code, Codex, Pi 세션을 Skill과 규칙으로 정리해 주는 앱."
+	},
+	"description": {
+		"en": "A macOS app drawn with MyGo's native UI that reads the session history of Claude Code, Codex and Pi on your machine and hands it to one of those agents to distill into skills, rules, AGENTS.md and CLAUDE.md files. Results go into a library under ~/.distill and can be applied to each agent in one click, as symlinks, copies or a managed block in its instruction file.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 应用，读取本机 Claude Code、Codex 和 Pi 的历史会话，交给其中一个 agent 提炼成 Skill、Rule、AGENTS.md 和 CLAUDE.md。结果存进 ~/.distill 下的资源库，可一键应用到各个 agent，方式可以是符号链接、副本，或指令文件中的托管块。",
+		"zh-TW": "以 MyGo 原生 UI 繪製的 macOS 應用程式，讀取本機 Claude Code、Codex 與 Pi 的歷史對話紀錄，交給其中一個 agent 提煉成 Skill、Rule、AGENTS.md 與 CLAUDE.md。成果存進 ~/.distill 下的資源庫，可一鍵套用到各個 agent，方式可選符號連結、副本，或指令檔中的託管區塊。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS アプリ。手元の Claude Code・Codex・Pi のセッション履歴を読み込み、そのいずれかのエージェントに渡して Skill、Rule、AGENTS.md、CLAUDE.md に抽出させます。結果は ~/.distill のライブラリに保存され、シンボリックリンク、コピー、指示ファイル内の管理ブロックのいずれかの形で、ワンクリックで各エージェントに適用できます。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS 앱입니다. 이 컴퓨터에 있는 Claude Code, Codex, Pi의 세션 기록을 읽어 그중 한 에이전트에게 넘기고, Skill, Rule, AGENTS.md, CLAUDE.md로 추려 냅니다. 결과는 ~/.distill 아래 라이브러리에 저장되며, 심볼릭 링크나 사본, 지시 파일 안의 관리 블록으로 각 에이전트에 클릭 한 번으로 적용할 수 있습니다."
+	},
+	"icon": {
+		"file": "distill.webp"
+	},
+	"screenshot": "distill.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T15:37:24Z"
+}
