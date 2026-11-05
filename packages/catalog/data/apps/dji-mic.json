@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "dji-mic",
+	"name": "DJI Mic 接收器控制台",
+	"author": "Curtion",
+	"kind": "native",
+	"group": "devices",
+	"url": "https://github.com/Curtion/dji-mic-rx",
+	"repo": "Curtion/dji-mic-rx",
+	"summary": {
+		"en": "An unofficial Windows tool to check and change the settings of DJI Mic receivers.",
+		"zh-CN": "非官方 Windows 工具，查看 DJI Mic 接收器状态并调整设置。",
+		"zh-TW": "非官方 Windows 工具，查看 DJI Mic 接收器狀態並調整設定。",
+		"ja": "DJI Mic 受信機の状態を確認し設定を変える、非公式の Windows ツール。",
+		"ko": "DJI Mic 수신기의 상태를 보고 설정을 바꾸는 비공식 Windows 도구."
+	},
+	"description": {
+		"en": "An unofficial Windows tool for DJI Mic receivers, the DMMR01 standard and DMMR02 mobile versions, drawn with MyGo's native UI. It shows connection status, battery, input level and gain, changes noise reduction, low cut, channel mode, safety track and auto power-off, and installs its control driver without affecting system recording. It reconnects when the receiver is replugged.",
+		"zh-CN": "非官方的 Windows 版 DJI Mic 接收器控制工具，支持 DMMR01 标准版与 DMMR02 手机版，由 MyGo 原生 UI 绘制。可查看连接状态、电量、实时输入电平与增益，调整降噪、低切、声道模式、安全音轨和自动关机，并能安装控制接口驱动，不影响系统录音；接收器插拔后自动重连。",
+		"zh-TW": "非官方的 Windows 版 DJI Mic 接收器控制工具，支援 DMMR01 標準版與 DMMR02 手機版，由 MyGo 原生 UI 繪製。可查看連線狀態、電量、即時輸入電平與增益，調整降噪、低切、聲道模式、安全音軌和自動關機，並能安裝控制介面驅動程式，不影響系統錄音；接收器插拔後會自動重新連線。",
+		"ja": "DJI Mic 受信機（DMMR01 標準版・DMMR02 スマートフォン版）を操作する非公式の Windows 用ツールで、MyGo のネイティブ UI で描かれています。接続状態、バッテリー残量、リアルタイムの入力レベルとゲインを表示し、ノイズ低減、ローカット、チャンネルモード、セーフティトラック、自動電源オフを設定できます。制御用ドライバーはシステムの録音機能に影響せずインストールでき、抜き差し後は自動で再接続します。",
+		"ko": "DJI Mic 수신기(DMMR01 표준판, DMMR02 휴대폰판)를 제어하는 비공식 Windows 도구로, MyGo의 네이티브 UI로 그렸습니다. 연결 상태, 배터리, 실시간 입력 레벨과 게인을 보여 주고 노이즈 감소, 로우컷, 채널 모드, 세이프티 트랙, 자동 전원 끄기를 설정합니다. 시스템 녹음 기능에 영향을 주지 않고 제어용 드라이버를 설치할 수 있으며, 수신기를 다시 꽂으면 자동으로 재연결합니다."
+	},
+	"icon": {
+		"file": "dji-mic.webp"
+	},
+	"screenshot": "dji-mic.webp",
+	"added": "2026-11-05T17:38:35Z"
+}
