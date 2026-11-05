@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "stockfloat",
+	"name": "StockFloat",
+	"author": "lesenelir",
+	"kind": "web",
+	"group": "system",
+	"url": "https://github.com/lesenelir/stock-float-mygo",
+	"repo": "lesenelir/stock-float-mygo",
+	"summary": {
+		"en": "An always-on-top macOS panel with live prices for the US, Hong Kong and A-share stocks you follow.",
+		"zh-CN": "始终置顶的 macOS 面板，显示你关注的美股、港股和 A 股实时行情。",
+		"zh-TW": "永遠置頂的 macOS 面板，顯示你關注的美股、港股和 A 股即時行情。",
+		"ja": "常に最前面に浮かぶ macOS パネル。米国株・香港株・A 株のリアルタイム株価を表示。",
+		"ko": "항상 위에 떠 있는 macOS 패널로 미국·홍콩·A주 실시간 시세를 보여 줍니다."
+	},
+	"description": {
+		"en": "An always-on-top macOS panel with live prices and daily change for US, Hong Kong and A-share stocks, shown over every desktop and full-screen app without taking focus. Quotes come from Tencent, or Longbridge or Finnhub for US stocks, and price alerts arrive as macOS notifications. It rewrites the Swift StockFloat in Go with a web frontend for the panel, and shares its watch list.",
+		"zh-CN": "始终置顶的 macOS 小面板，显示美股、港股和 A 股的实时价格与当日涨跌，浮在所有桌面和全屏应用之上，且不抢占焦点。行情默认来自腾讯，美股也可改用 Longbridge 或 Finnhub；价格提醒以 macOS 通知送达。它用 Go 重写了 Swift 版 StockFloat，面板是 Web 前端，并与原版共用自选列表。",
+		"zh-TW": "永遠置頂的 macOS 小面板，顯示美股、港股和 A 股的即時價格與當日漲跌，浮在所有桌面和全螢幕 App 之上，且不搶走焦點。報價預設來自騰訊，美股也可改用 Longbridge 或 Finnhub；價格提醒以 macOS 通知送達。它用 Go 改寫了 Swift 版 StockFloat，面板是 Web 前端，並與原版共用自選清單。",
+		"ja": "常に最前面に表示される macOS 用の小さなパネルで、米国株・香港株・A 株のリアルタイム株価と当日の騰落を表示します。すべてのデスクトップとフルスクリーンアプリの上に浮かび、フォーカスを奪いません。相場は標準で Tencent から取得し、米国株は Longbridge や Finnhub も使えます。価格アラートは macOS の通知で届きます。Swift 版 StockFloat を Go で書き直したもので、パネルは Web フロントエンドで作られ、元のアプリとウォッチリストを共有します。",
+		"ko": "항상 위에 떠 있는 macOS용 작은 패널로, 미국 주식·홍콩 주식·A주의 실시간 가격과 당일 등락을 보여 줍니다. 모든 데스크톱과 전체 화면 앱 위에 표시되며 포커스를 가져가지 않습니다. 시세는 기본으로 Tencent에서 받고, 미국 주식은 Longbridge나 Finnhub도 쓸 수 있으며, 가격 알림은 macOS 알림으로 옵니다. Swift로 만든 StockFloat를 Go로 다시 작성한 앱으로, 패널은 웹 프런트엔드이고 원래 앱과 관심 종목 목록을 함께 씁니다."
+	},
+	"icon": {
+		"file": "stockfloat.webp"
+	},
+	"screenshot": "stockfloat.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T15:15:40Z"
+}
