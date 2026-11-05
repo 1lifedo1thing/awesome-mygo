@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "ai-limit",
+	"name": "AI Limit",
+	"author": "hoanglong2311",
+	"kind": "native",
+	"group": "agents",
+	"url": "https://github.com/hoanglong2311/AI-limit",
+	"repo": "hoanglong2311/AI-limit",
+	"summary": {
+		"en": "Usage limits for Claude, Codex and Grok Build, plus your DeepSeek balance, in the macOS menu bar.",
+		"zh-CN": "在 macOS 菜单栏查看 Claude、Codex 等 AI 服务的用量额度与余额。",
+		"zh-TW": "在 macOS 選單列查看 Claude、Codex 等 AI 服務的用量額度與餘額。",
+		"ja": "Claude や Codex などの AI サービスの利用上限と残高を macOS メニューバーに表示。",
+		"ko": "Claude, Codex 등 AI 서비스의 사용 한도와 잔액을 macOS 메뉴 막대에 표시합니다."
+	},
+	"description": {
+		"en": "A macOS menu bar app drawn with MyGo's native UI in pure Go, with no web view. It shows the 5-hour and weekly limits of Claude and Codex and the weekly credits of Grok Build with the time left until reset, plus the DeepSeek balance. It only reads the logins Claude Code and Grok Build have saved and Codex CLI's session logs, and keeps the DeepSeek key in the Keychain.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 菜单栏应用，纯 Go 编写，没有 Web 视图。它显示 Claude 与 Codex 的 5 小时和每周额度、Grok Build 的每周 credit 用量以及距离重置的剩余时间，还能查看 DeepSeek 余额。它只读取 Claude Code 与 Grok Build 已保存的登录凭据和 Codex CLI 的会话日志，DeepSeek 密钥则存放在钥匙串中。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS 選單列應用程式，純 Go 撰寫，沒有 Web 視圖。它顯示 Claude 與 Codex 的 5 小時和每週額度、Grok Build 的每週 credit 用量以及距離重置的剩餘時間，還能查看 DeepSeek 餘額。它只讀取 Claude Code 與 Grok Build 已儲存的登入憑證和 Codex CLI 的工作階段記錄，DeepSeek 金鑰則存放在鑰匙圈中。",
+		"ja": "MyGo のネイティブ UI で描かれ、純粋な Go で書かれた macOS のメニューバーアプリ。Web ビューはありません。Claude と Codex の 5 時間・週ごとの上限、Grok Build の週のクレジット使用量をリセットまでの残り時間とともに表示し、DeepSeek の残高も確認できます。Claude Code と Grok Build が保存済みのログイン情報、Codex CLI のセッションログは読み取るだけで、DeepSeek のキーはキーチェーンに保存します。",
+		"ko": "MyGo의 네이티브 UI로 그리고 순수 Go로 작성한 macOS 메뉴 막대 앱으로, 웹 뷰가 없습니다. Claude와 Codex의 5시간·주간 한도, Grok Build의 주간 크레딧 사용량을 리셋까지 남은 시간과 함께 보여 주고 DeepSeek 잔액도 표시합니다. Claude Code와 Grok Build가 저장해 둔 로그인 정보와 Codex CLI의 세션 로그는 읽기만 하며, DeepSeek 키는 키체인에 보관합니다."
+	},
+	"icon": {
+		"file": "ai-limit.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "ai-limit.webp",
+	"added": "2026-11-05T15:37:24Z"
+}
