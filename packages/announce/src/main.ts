@@ -131,23 +131,35 @@ async function main(): Promise<void> {
 	const wait = Number(env.WAIT_SECONDS ?? 900);
 	if (wait > 0) await waitForSite(sitePage(kind, entry), name, wait);
 	let postUrl: string | undefined = earlierPost;
+	let postError: string | undefined;
 	if (issueOnly) {
 		console.log(`::notice::${name} was not posted, as only its issue was asked for.`);
 		await summary(`### ${name}: not posted, as only its issue was asked for${earlierPost ? `; the issue links ${earlierPost}` : ''}`);
 	} else if (canPost) {
-		const client = new TwitterApi({ appKey, appSecret, accessToken, accessSecret });
-		const { data } = await client.v2.tweet(text);
-		postUrl = `https://x.com/i/status/${data.id}`;
-		console.log(`Posted ${postUrl}`);
-		await summary(`### ${name}: posted ${postUrl}${block(text)}`);
+		// A post X refuses (402 once the account's credits are spent, 429 when it is busy) does not keep the project from being told: the issue goes without a post, and the job fails afterwards, so running it again posts and finds the issue opened.
+		try {
+			const client = new TwitterApi({ appKey, appSecret, accessToken, accessSecret });
+			const { data } = await client.v2.tweet(text);
+			postUrl = `https://x.com/i/status/${data.id}`;
+			console.log(`Posted ${postUrl}`);
+			await summary(`### ${name}: posted ${postUrl}${block(text)}`);
+		} catch (err) {
+			postError = err instanceof Error ? err.message : String(err);
+			console.log(`::error::${name} could not be posted: ${postError}`);
+			await summary(`### ${name}: could not be posted: ${postError}${block(text)}`);
+		}
 	} else {
 		console.log(`::notice::${name} was not posted, as the X keys are not set; the issue goes without a post.`);
 		await summary(`### ${name}: not posted, as the X keys are not set${block(text)}`);
 	}
 
-	// The post is out by now, so nothing here may fail the job: running it again would post it twice. What went wrong is a warning instead.
+	// The post is out by now, unless X refused it, so nothing here may fail the job: running it again would post it twice. What went wrong is a warning instead.
 	const issue = printIssue(postUrl);
-	if (!issue || !repoToTell) return summary('Issue: none, as the entry has no GitHub repository to open one on.');
+	if (!issue || !repoToTell) {
+		await summary('Issue: none, as the entry has no GitHub repository to open one on.');
+		if (postError) throw new Error(`${name} could not be posted: ${postError}; run the job again to post it`);
+		return;
+	}
 	try {
 		const done = await tellProject(repoToTell, ISSUE_TITLE, issue.body);
 		console.log(`Issue: ${done}.`);
@@ -157,6 +169,7 @@ async function main(): Promise<void> {
 		console.log(`::warning::The issue on ${repoToTell} could not be opened: ${why}`);
 		await summary(`Issue: could not be opened on ${repoToTell}: ${why}`);
 	}
+	if (postError) throw new Error(`${name} could not be posted: ${postError}; run the job again to post it, and its issue, opened already, is not opened twice`);
 }
 
 await main();
