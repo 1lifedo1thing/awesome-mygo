@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "oci-sync",
+	"name": "oci-sync",
+	"author": "tiramission",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://tiramission.github.io/oci-sync/",
+	"repo": "tiramission/oci-sync",
+	"summary": {
+		"en": "Syncs local files to OCI registries with optional encryption, from a CLI, TUI or desktop GUI.",
+		"zh-CN": "把本地文件同步到 OCI 镜像仓库，可选加密，提供 CLI、TUI 和桌面 GUI。",
+		"zh-TW": "把本機檔案同步到 OCI 映像倉庫，可選加密，提供 CLI、TUI 與桌面 GUI。",
+		"ja": "ファイルを OCI レジストリへ同期。暗号化に対応し、CLI・TUI・デスクトップ GUI で使える。",
+		"ko": "로컬 파일을 OCI 레지스트리와 동기화. 암호화 선택 가능, CLI·TUI·데스크톱 GUI 제공."
+	},
+	"description": {
+		"en": "A tool that packs local files or directories into OCI-compatible registries and pulls them back, with optional AES-256-GCM encryption and credentials from a config file or the Docker credential store. MyGo draws only its desktop GUI (oci-sync gui, in Chinese) for browsing repositories and pushing, pulling and deleting artifacts; the CLI and terminal UI are made without it.",
+		"zh-CN": "将本地文件或目录打包推送到 OCI 兼容的镜像仓库，也能再拉取回来，可选 AES-256-GCM 加密，凭据取自配置文件或 Docker credential store。MyGo 只负责其中的原生桌面 GUI（oci-sync gui，中文界面），用于浏览仓库以及推送、拉取和删除 artifact；命令行和终端界面另行实现。",
+		"zh-TW": "將本機檔案或目錄打包推送到 OCI 相容的映像倉庫，也能再拉取回來，可選用 AES-256-GCM 加密，憑證取自設定檔或 Docker credential store。MyGo 只負責其中的原生桌面 GUI（oci-sync gui，中文介面），用來瀏覽倉庫以及推送、拉取和刪除 artifact；命令列與終端介面則另行實作。",
+		"ja": "ローカルのファイルやディレクトリを OCI 互換のレジストリへまとめて送り、取り戻すためのツール。AES-256-GCM による暗号化を選べ、認証情報は設定ファイルか Docker credential store から読みます。MyGo が描くのはネイティブのデスクトップ GUI（oci-sync gui、中国語の画面）だけで、リポジトリの閲覧と artifact のプッシュ・プル・削除ができます。CLI とターミナル UI は別に作られています。",
+		"ko": "로컬 파일이나 디렉터리를 OCI 호환 레지스트리에 올리고 다시 받아 오는 도구로, AES-256-GCM 암호화를 선택할 수 있고 인증 정보는 설정 파일이나 Docker credential store에서 가져옵니다. MyGo는 네이티브 데스크톱 GUI(oci-sync gui, 중국어 화면)만 그리며, 저장소를 둘러보고 artifact를 푸시·풀·삭제할 수 있습니다. CLI와 터미널 UI는 따로 만들어졌습니다."
+	},
+	"icon": {
+		"file": "oci-sync.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "oci-sync.webp",
+	"added": "2026-11-05T05:57:31Z"
+}
