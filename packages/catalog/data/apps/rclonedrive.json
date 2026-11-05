@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "rclonedrive",
+	"name": "RcloneDrive",
+	"author": "younland",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/younland/RcloneDrive",
+	"repo": "younland/RcloneDrive",
+	"summary": {
+		"en": "Mounts WebDAV, SFTP, S3 and 70+ other rclone storage backends as local drives, from the tray.",
+		"zh-CN": "把 WebDAV、SFTP、S3 等 70 多种 rclone 后端挂载为本地磁盘。",
+		"zh-TW": "把 WebDAV、SFTP、S3 等 70 多種 rclone 後端掛載為本機磁碟。",
+		"ja": "WebDAV・SFTP・S3 など 70 以上の rclone バックエンドをローカルにマウント。",
+		"ko": "WebDAV, SFTP, S3 등 70개 이상의 rclone 저장소를 로컬 드라이브로 마운트."
+	},
+	"description": {
+		"en": "Mounts remote storage as local disks through a built-in rclone engine, drawn with MyGo's native UI rather than a web view. Its 70+ backends include WebDAV, SFTP, SMB, S3 and major cloud drives, mounted as a drive letter on Windows or a folder on Linux and macOS. It stays in the tray, installs WinFsp itself on Windows and updates from GitHub Releases; on macOS you build it from source.",
+		"zh-CN": "用 MyGo 原生 UI 绘制、不用 WebView 的网盘挂载工具，内嵌 rclone 引擎。支持 WebDAV、SFTP、SMB、S3 及各大网盘等 70 多种存储后端，在 Windows 上挂载为盘符，在 Linux 与 macOS 上挂载为目录。常驻托盘，在 Windows 上自动安装 WinFsp，并从 GitHub Releases 自动更新；macOS 版需从源码构建。",
+		"zh-TW": "用 MyGo 原生 UI 繪製、不用 WebView 的網路硬碟掛載工具，內嵌 rclone 引擎。支援 WebDAV、SFTP、SMB、S3 及各大雲端硬碟等 70 多種儲存後端，在 Windows 上掛載為磁碟機代號，在其他平台掛載為資料夾。常駐系統匣，在 Windows 上自動安裝 WinFsp，並從 GitHub Releases 自動更新；macOS 版需從原始碼建置。",
+		"ja": "MyGo のネイティブ UI で描かれ、WebView を使わないマウントツール。rclone エンジンを内蔵し、WebDAV・SFTP・SMB・S3 やクラウドドライブなど 70 以上のバックエンドを、Windows ではドライブ文字、ほかの OS ではフォルダーとしてマウントします。トレイに常駐し、Windows では WinFsp を自動で導入し、GitHub Releases から自動更新します。macOS 版はソースからのビルドが必要です。",
+		"ko": "MyGo의 네이티브 UI로 그린, WebView를 쓰지 않는 마운트 도구로 rclone 엔진을 내장했습니다. WebDAV, SFTP, SMB, S3와 클라우드 드라이브 등 70개 이상의 백엔드를 Windows에서는 드라이브 문자로, 다른 OS에서는 폴더로 마운트합니다. 트레이에 상주하고 Windows에서는 WinFsp를 자동으로 설치하며 GitHub Releases로 자동 업데이트합니다. macOS 버전은 소스에서 빌드해야 합니다."
+	},
+	"icon": {
+		"file": "rclonedrive.webp"
+	},
+	"screenshot": "rclonedrive.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T17:06:44Z"
+}
