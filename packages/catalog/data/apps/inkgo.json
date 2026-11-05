@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "inkgo",
+	"name": "Inkgo",
+	"author": "ikexing-cn",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/ikexing-cn/inkgo",
+	"repo": "ikexing-cn/inkgo",
+	"summary": {
+		"en": "A desktop app for writing long novels, with outlines, story settings and AI-assisted writing.",
+		"zh-CN": "写长篇小说的桌面软件，含大纲、设定管理与 AI 辅助写作。",
+		"zh-TW": "寫長篇小說的桌面軟體，含大綱、設定管理與 AI 輔助寫作。",
+		"ja": "長編小説を書くためのデスクトップアプリ。プロットと設定の管理、AI による執筆支援付き。",
+		"ko": "장편 소설 집필용 데스크톱 앱. 개요와 설정 관리, AI 집필 보조를 지원합니다."
+	},
+	"description": {
+		"en": "A desktop app for writing long novels, written in pure Go and drawn with MyGo's native UI. Alongside the chapter editor it keeps chapter and story outlines and story settings, and offers AI discussion, continuation and prose checks. It saves when you stop typing, checks whether a chapter was changed outside the app, and handles backups and export.",
+		"zh-CN": "写长篇小说的桌面软件，用纯 Go 编写，由 MyGo 原生 UI 绘制。除正文编辑外，还能管理章纲、故事大纲与设定，并提供 AI 讨论、续写和正文检查。停笔即自动保存，会检查章节是否在软件外被改动，也支持备份与导出。",
+		"zh-TW": "寫長篇小說的桌面軟體，以純 Go 撰寫，由 MyGo 原生 UI 繪製。除了正文編輯，也能管理章綱、故事大綱與設定，並提供 AI 討論、續寫和正文檢查。停筆即自動儲存，會檢查章節是否在軟體外被修改，也支援備份與匯出。",
+		"ja": "長編小説を書くためのデスクトップアプリ。純粋な Go で書かれ、MyGo のネイティブ UI で描かれています。本文の編集に加えて、章ごとのプロットや物語のアウトライン、設定を管理でき、AI との相談、続きの執筆、本文チェックも使えます。手を止めると自動で保存し、アプリの外で章が書き換えられていないかを確認し、バックアップと書き出しにも対応します。",
+		"ko": "장편 소설을 쓰기 위한 데스크톱 앱으로, 순수 Go로 작성하고 MyGo의 네이티브 UI로 그렸습니다. 본문 편집 외에 장별 개요와 이야기 개요, 설정을 관리하고, AI와의 토론, 이어 쓰기, 본문 검토를 제공합니다. 입력을 멈추면 자동 저장하고, 앱 밖에서 장이 수정됐는지 확인하며, 백업과 내보내기도 지원합니다."
+	},
+	"icon": {
+		"file": "inkgo.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "inkgo.webp",
+	"added": "2026-11-05T05:38:23Z"
+}
