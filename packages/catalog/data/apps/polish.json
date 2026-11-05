@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "polish",
+	"name": "Polish",
+	"author": "52funny",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/52funny/polish",
+	"repo": "52funny/polish",
+	"summary": {
+		"en": "Polishes or translates selected text on Linux Wayland with an OpenAI-compatible model.",
+		"zh-CN": "Linux Wayland 写作助手：用 OpenAI 兼容模型润色或翻译选中的文字。",
+		"zh-TW": "Linux Wayland 寫作助手：以 OpenAI 相容模型潤飾或翻譯選取的文字。",
+		"ja": "Linux Wayland 用の文章アシスタント。選択テキストを OpenAI 互換モデルで推敲・翻訳。",
+		"ko": "선택한 텍스트를 OpenAI 호환 모델로 다듬거나 번역하는 Linux Wayland 앱."
+	},
+	"description": {
+		"en": "A Linux writing assistant for Wayland desktops, drawn with MyGo's native UI without CGo or WebKitGTK. It takes the Wayland PRIMARY selection, the clipboard or typed text, polishes it in a natural, formal or concise style or translates it into Simplified Chinese or English with any OpenAI-compatible endpoint, and leaves the result for you to review and copy back.",
+		"zh-CN": "面向 Linux Wayland 桌面的写作助手，用 MyGo 原生 UI 绘制，不需要 CGo 或 WebKitGTK。它从 Wayland PRIMARY 选区、剪贴板或手动输入获取文字，通过任意 OpenAI 兼容接口以自然、正式或简洁风格润色，或译成简体中文或英文，结果可先审阅再复制回原应用。",
+		"zh-TW": "為 Linux Wayland 桌面打造的寫作助手，以 MyGo 原生 UI 繪製，不需要 CGo 或 WebKitGTK。它從 Wayland PRIMARY 選取區、剪貼簿或手動輸入取得文字，透過任何 OpenAI 相容端點以自然、正式或簡潔風格潤飾，或翻譯成簡體中文或英文，結果可先檢視再複製回原應用程式。",
+		"ja": "MyGo のネイティブ UI で描かれた、Linux の Wayland デスクトップ向け文章アシスタント。CGo も WebKitGTK も不要です。Wayland の PRIMARY 選択、クリップボード、手入力からテキストを取り込み、OpenAI 互換のエンドポイントで自然・フォーマル・簡潔のいずれかの文体に推敲するか、簡体字中国語か英語に翻訳します。結果は確認してから元のアプリへコピーできます。",
+		"ko": "MyGo의 네이티브 UI로 그린 Linux Wayland 데스크톱용 글쓰기 도우미로, CGo나 WebKitGTK가 필요 없습니다. Wayland PRIMARY 선택 영역, 클립보드, 직접 입력한 텍스트를 OpenAI 호환 엔드포인트로 자연스럽게, 격식 있게 또는 간결하게 다듬거나 간체 중국어나 영어로 번역하고, 결과를 확인한 뒤 원래 앱에 복사해 넣을 수 있습니다."
+	},
+	"icon": {
+		"file": "polish.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "polish.webp",
+	"added": "2026-11-05T05:19:24Z"
+}
