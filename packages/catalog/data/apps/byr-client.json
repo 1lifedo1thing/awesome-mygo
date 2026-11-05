@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "byr-client",
+	"name": "BYR Client",
+	"author": "VeinsureLee",
+	"kind": "native",
+	"category": "CommunicationApplication",
+	"url": "https://github.com/VeinsureLee/BYR-Client",
+	"repo": "VeinsureLee/BYR-Client",
+	"summary": {
+		"en": "A native desktop client for the BYR forum: browse boards, search posts and ask DeepSeek or Kimi.",
+		"zh-CN": "北邮人论坛原生桌面客户端：浏览、检索帖子，用 DeepSeek 或 Kimi 问答。",
+		"zh-TW": "北郵人論壇原生桌面用戶端：瀏覽、檢索文章，用 DeepSeek 或 Kimi 問答。",
+		"ja": "北邮人掲示板（BYR）のネイティブなデスクトップクライアント。閲覧、検索、AI への質問に対応。",
+		"ko": "BYR 포럼용 네이티브 데스크톱 클라이언트. 열람, 검색, DeepSeek·Kimi AI 질문 지원."
+	},
+	"description": {
+		"en": "A desktop client for BUPT's BYR forum, drawn with MyGo's native UI. It browses boards and threads, shows quoted replies as a tree, runs keyword searches and answers questions through DeepSeek or Kimi, whose models can search and read the forum. Releases are Windows x64 only; a separate Windows and Android prototype is built with Fyne, and login on the real forum is not yet verified.",
+		"zh-CN": "面向北邮人论坛的桌面客户端，界面由 MyGo 原生 UI 绘制。可浏览版面与主题，以树状展示引用回复，按关键词检索，并通过 DeepSeek 或 Kimi 问答，模型可调用工具搜索和读帖。发布版仅有 Windows x64；另有用 Fyne 构建的 Windows / Android 原型，真实论坛登录尚未完成联调。",
+		"zh-TW": "面向北郵人論壇的桌面用戶端，介面由 MyGo 原生 UI 繪製。可瀏覽版面與主題，以樹狀顯示引用回覆，依關鍵字檢索，並透過 DeepSeek 或 Kimi 問答，模型可呼叫工具搜尋與讀文。發行版僅有 Windows x64；另有以 Fyne 建置的 Windows / Android 原型，真實論壇登入尚未完成實測。",
+		"ja": "北邮人掲示板（BYR）のデスクトップクライアントで、画面は MyGo のネイティブ UI で描かれています。板とスレッドを閲覧し、引用返信をツリーで表示し、キーワードで検索できるほか、DeepSeek や Kimi に質問でき、モデルは掲示板の検索や投稿の読み取りも行います。リリースは Windows x64 のみで、Windows・Android 向けの試作版は別途 Fyne で作られています。実際の掲示板でのログインはまだ検証されていません。",
+		"ko": "베이징우전대학 BYR 포럼용 데스크톱 클라이언트로, 화면은 MyGo의 네이티브 UI로 그립니다. 게시판과 글을 둘러보고, 인용 답글을 트리로 보여 주며, 키워드로 검색하고 DeepSeek나 Kimi에게 질문할 수 있고, 모델이 포럼을 검색하고 글을 읽습니다. 릴리스는 Windows x64용뿐이며 Windows·Android 시제품은 Fyne으로 따로 만들고, 실제 포럼 로그인은 아직 검증되지 않았습니다."
+	},
+	"icon": {
+		"file": "byr-client.webp"
+	},
+	"screenshot": "byr-client.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T03:47:54Z"
+}
