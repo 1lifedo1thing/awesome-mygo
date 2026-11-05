@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "leagueakari-mygo",
+	"name": "LeagueAkari-MyGo",
+	"author": "zhengchalei",
+	"kind": "web",
+	"category": "GameApplication",
+	"url": "https://github.com/zhengchalei/LeagueAkari-MyGo",
+	"repo": "zhengchalei/LeagueAkari-MyGo",
+	"summary": {
+		"en": "A League of Legends match history and champion select assistant for the China servers.",
+		"zh-CN": "国服英雄联盟战绩查询与选人助手，LeagueAkari 的轻量 MyGo 版本。",
+		"zh-TW": "中國伺服器的英雄聯盟戰績查詢與選角助手，LeagueAkari 的輕量 MyGo 版。",
+		"ja": "中国サーバー向け League of Legends の戦績・チャンピオン選択アシスタント。",
+		"ko": "중국 서버용 League of Legends 전적 조회·챔피언 선택 도우미."
+	},
+	"description": {
+		"en": "A Windows assistant for League of Legends on the China servers, based on LeagueAkari. It detects the WeGame client, shows ranks and match history for teammates and opponents, and helps in champion select, with automation off by default. MyGo replaces the Electron host: the original Vue interface runs in WebView2 over a Go backend, and the Mini window is drawn with MyGo's native UI.",
+		"zh-CN": "基于 LeagueAkari 的 Windows 国服英雄联盟助手。自动识别 WeGame 客户端，查看队友与对手的段位和近期战绩，并在选人时提供辅助，各项自动化默认关闭。MyGo 取代原来的 Electron 宿主：原有 Vue 界面由 Go 后端配合 WebView2 承载，常驻的 Mini 窗口则用 MyGo 原生 UI 绘制。",
+		"zh-TW": "以 LeagueAkari 為基礎的 Windows 英雄聯盟中國伺服器助手。自動偵測 WeGame 用戶端，查看隊友與對手的牌位和近期戰績，並在選角時提供輔助，各項自動化預設關閉。MyGo 取代原本的 Electron 宿主：原有的 Vue 介面由 Go 後端搭配 WebView2 呈現，常駐的 Mini 視窗則以 MyGo 原生 UI 繪製。",
+		"ja": "LeagueAkari をもとにした、中国サーバーの League of Legends 向け Windows アシスタント。WeGame クライアントを自動で検出し、味方と相手のランクや最近の戦績を表示して、チャンピオン選択を手助けします。自動化機能は初期状態でオフです。MyGo が Electron に代わるホストとなり、元の Vue 画面は Go バックエンドと WebView2 で動き、常駐の Mini ウィンドウは MyGo のネイティブ UI で描かれます。",
+		"ko": "LeagueAkari를 바탕으로 한 중국 서버 League of Legends용 Windows 도우미입니다. WeGame 클라이언트를 자동으로 찾아 아군과 상대의 티어와 최근 전적을 보여 주고 챔피언 선택을 도우며, 자동화 기능은 기본적으로 꺼져 있습니다. MyGo가 Electron 호스트를 대신해 기존 Vue 화면을 Go 백엔드와 WebView2로 띄우고, 상주 Mini 창은 MyGo의 네이티브 UI로 그립니다."
+	},
+	"screenshot": "leagueakari-mygo.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T04:45:28Z"
+}
