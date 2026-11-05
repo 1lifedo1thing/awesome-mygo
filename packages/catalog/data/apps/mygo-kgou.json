@@ -1,6 +1,6 @@
 {
 	"$schema": "../schema/app.schema.json",
-	"slug": "mygo",
+	"slug": "mygo-kgou",
 	"name": "酷狗音乐 · MyGo",
 	"author": "fansa91",
 	"kind": "native",
@@ -22,9 +22,9 @@
 		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 비공식 쿠거우 뮤직 데스크톱 클라이언트로, WebView를 쓰지 않습니다. QR 코드로 로그인해 오늘의 추천, 플레이리스트, 차트, 오디오북을 둘러보고, 무손실 FLAC과 Hi-Res까지의 음질로 스트리밍합니다. 한 글자씩 넘어가는 가사와 번역, 개인 FM을 지원하며, 설정에서 노치 플레이어를 켜면 화면 상단에 미니 플레이어가 나타납니다."
 	},
 	"icon": {
-		"file": "mygo.webp"
+		"file": "mygo-kgou.webp"
 	},
-	"screenshot": "mygo.webp",
+	"screenshot": "mygo-kgou.webp",
 	"provisional": [
 		"screenshot"
 	],
