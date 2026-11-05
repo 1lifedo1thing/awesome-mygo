@@ -100,10 +100,18 @@ export async function writeCopy(cfg: LlmConfig, input: CopyInput): Promise<Copy>
 
 	let res = await ask();
 	let out = checked(res) as { summary: Text; description?: Text; choice?: string; tags?: string[]; notes: string };
-	// One rewrite when a text runs past its limit, with the first answer kept in the conversation as it came back.
-	const first = tooLong(out);
+	// What the first answer must fix: a text past its limit, or a pick outside its list.
+	const problems = (o: typeof out) => {
+		const long = tooLong(o);
+		return [
+			...(long.length ? [`These texts are longer than their limits (length/limit): ${long.join(', ')}. Rewrite all the copy so every text is within its limit, keeping only facts from the README.`] : []),
+			...(choice && !choice.values.includes(o.choice?.trim() ?? '') ? [`The choice, its ${choice.field}, must be one of: ${choice.values.join(', ')}.`] : []),
+		];
+	};
+	// One rewrite when there is anything to fix, with the first answer kept in the conversation as it came back.
+	const first = problems(out);
 	if (first.length) {
-		messages.push({ role: 'assistant', content: res.content }, { role: 'user', content: `These texts are longer than their limits (length/limit): ${first.join(', ')}. Rewrite all the copy so every text is within its limit, keeping only facts from the README.` });
+		messages.push({ role: 'assistant', content: res.content }, { role: 'user', content: first.join('\n') });
 		res = await ask();
 		out = checked(res) as typeof out;
 	}
