@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "hyla",
+	"name": "Hyla",
+	"author": "smallnest",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/smallnest/hyla",
+	"repo": "smallnest/hyla",
+	"summary": {
+		"en": "A terminal for coding agents: sessions that outlive the window and a status for every pane.",
+		"zh-CN": "面向编程智能体的终端：会话在关闭窗口后继续运行，每个窗格都显示状态。",
+		"zh-TW": "為程式設計代理打造的終端機：關掉視窗後工作階段仍持續執行，每個窗格都顯示狀態。",
+		"ja": "コーディングエージェント向けのターミナル。ウィンドウを閉じてもセッションが残り、ペインごとに状態を表示。",
+		"ko": "코딩 에이전트용 터미널. 창을 닫아도 세션이 계속 실행되고 패널마다 상태를 보여 줍니다."
+	},
+	"description": {
+		"en": "A terminal for coding agents on macOS, Windows and Linux, drawn with MyGo's native UI, with terminals rendered by libghostty. Sessions run in a small daemon, hylad, so they survive quitting the app; a sidebar groups them by project and shows which are working, need you or are done. The hyla CLI lets agents start and drive sessions, and remote hosts join the sidebar over SSH or Tailscale.",
+		"zh-CN": "面向编程智能体的终端，支持 macOS、Windows 和 Linux，界面由 MyGo 原生 UI 绘制，终端用 libghostty 渲染。会话运行在小型守护进程 hylad 中，退出应用后仍继续运行；侧栏按项目分组，标出哪些正在工作、哪些在等你、哪些已完成。智能体可通过 hyla 命令行启动和操控会话，远程主机也能经 SSH 或 Tailscale 接入同一侧栏。",
+		"zh-TW": "為程式設計代理打造的終端機，支援 macOS、Windows 與 Linux，介面由 MyGo 原生 UI 繪製，終端畫面以 libghostty 渲染。工作階段在小型常駐程式 hylad 中執行，結束應用程式後仍持續運作；側邊欄依專案分組，標出哪些正在工作、哪些在等你、哪些已完成。代理可透過 hyla 命令列啟動並操作工作階段，遠端主機也能經 SSH 或 Tailscale 加入同一個側邊欄。",
+		"ja": "MyGo のネイティブ UI で描かれた、macOS・Windows・Linux 向けのコーディングエージェント用ターミナル。端末の描画には libghostty を使います。セッションは小さなデーモン hylad で動くため、アプリを終了しても動き続けます。サイドバーはセッションをプロジェクトごとにまとめ、作業中・対応待ち・完了を示します。hyla コマンドでエージェント自身がセッションを起動・操作でき、SSH や Tailscale でリモートホストも同じサイドバーに並べられます。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS·Windows·Linux용 코딩 에이전트 터미널로, 터미널 렌더링에는 libghostty를 씁니다. 세션은 작은 데몬 hylad에서 실행되어 앱을 종료해도 계속 돌아가고, 사이드바는 세션을 프로젝트별로 묶어 작업 중인지, 사용자를 기다리는지, 끝났는지 보여 줍니다. hyla CLI로 에이전트가 직접 세션을 시작하고 조작할 수 있으며, SSH나 Tailscale로 원격 호스트도 같은 사이드바에 추가할 수 있습니다."
+	},
+	"icon": {
+		"file": "hyla.webp"
+	},
+	"screenshot": "hyla.webp",
+	"added": "2026-11-05T04:16:52Z"
+}
