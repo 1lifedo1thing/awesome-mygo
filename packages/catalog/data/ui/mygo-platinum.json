@@ -4,6 +4,7 @@
 	"name": "mygo-platinum",
 	"author": "Zhao Lei",
 	"tag": "retro",
+	"surface": "native",
 	"summary": {
 		"en": "UI components inspired by the late-1990s \"Platinum\" desktop theme, for a classic desktop feel.",
 		"zh-CN": "还原 90 年代末「Platinum」桌面主题的 UI 组件，让应用拥有经典桌面质感。",

@@ -232,11 +232,17 @@ export function authorProfile(author: string): string | undefined {
 export const UI_KEYS = ['theme', 'retro', 'icons'] as const;
 export type UiLibKey = (typeof UI_KEYS)[number];
 
+// The kind of MyGo window a UI library or a plugin serves: web pages, native UI (all Go), or both.
+export const SURFACES = ['web', 'native', 'both'] as const;
+export type Surface = (typeof SURFACES)[number];
+
 export interface UiLib {
 	slug: string;
 	name: string;
 	author: string;
 	key: UiLibKey;
+	// Which kind of window its components go in: a native UI library is Go, a web one is a JavaScript package, and one for both has a part for each.
+	surface: Surface;
 	desc: Text;
 	repo: string;
 	url: string;
@@ -246,12 +252,13 @@ export interface UiLib {
 }
 
 const readUiLib = (r: Reader): UiLib => {
-	r.only(['$schema', 'slug', 'name', 'author', 'tag', 'summary', 'repo', 'url', 'homepage', 'screenshot', 'added']);
+	r.only(['$schema', 'slug', 'name', 'author', 'tag', 'surface', 'summary', 'repo', 'url', 'homepage', 'screenshot', 'added']);
 	return {
 		slug: readSlug(r),
 		name: r.str('name'),
 		author: r.str('author'),
 		key: r.oneOf('tag', UI_KEYS),
+		surface: r.oneOf('surface', SURFACES),
 		desc: r.text('summary'),
 		repo: r.match('repo', REPO, 'owner/name'),
 		url: r.url('url'),
@@ -318,7 +325,7 @@ export const STATE_SOLUTIONS: readonly StateSolution[] = readStateSolutions(byFi
 
 // ---- plugins (data/plugins/<slug>.json) ----
 
-export type PluginSurface = 'web' | 'native' | 'both';
+export type PluginSurface = Surface;
 
 export interface Plugin {
 	slug: string;
@@ -346,7 +353,7 @@ const readPlugin = (r: Reader): Plugin => {
 		name: r.str('name'),
 		mark: r.match('mark', /^\S{1,2}$/, 'one or two characters'),
 		official: r.bool('official'),
-		surface: r.oneOf('surface', ['web', 'native', 'both'] as const),
+		surface: r.oneOf('surface', SURFACES),
 		goImport: r.raw.import === undefined ? undefined : r.match('import', GO_IMPORT, 'a Go import path'),
 		npm: r.raw.npm === undefined ? undefined : r.match('npm', NPM_NAME, 'an npm package name'),
 		tags: r.strings('tags'),

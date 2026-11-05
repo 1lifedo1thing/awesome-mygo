@@ -4,6 +4,7 @@
 	"name": "AI Logo",
 	"author": "yldm-tech",
 	"tag": "icons",
+	"surface": "both",
 	"summary": {
 		"en": "Over a thousand AI and LLM brand marks, parsed on demand as SVG in MyGo native UI, with a React package and a CDN too.",
 		"zh-CN": "上千个 AI / LLM 品牌标志，MyGo 原生 UI 可按需解析 SVG 使用，另有 React 包与 CDN。",

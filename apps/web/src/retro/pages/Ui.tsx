@@ -1,4 +1,4 @@
-import { NATIVE_UI_DOCS, UI_KEYS, UI_LIBS, type UiLib, type UiLibKey, fill, likeKey, pick } from '@awesome-mygo/catalog';
+import { NATIVE_UI_DOCS, type Surface, UI_KEYS, UI_LIBS, type UiLib, type UiLibKey, fill, likeKey, pick } from '@awesome-mygo/catalog';
 import { useNavigate, useSearch } from '@tanstack/react-router';
 import { LikeButton } from '../../components/Like';
 import { useLang, useT } from '../../lib/lang';
@@ -7,17 +7,26 @@ import { DesktopIcons } from '../DesktopIcons';
 import { Note, StatusBar, Win, btnGo, btnSm, seg, field, likeBtn, lnk, well } from '../ui';
 
 const TAG: Record<UiLibKey, 'tag_theme' | 'tag_retro' | 'tag_icons'> = { theme: 'tag_theme', retro: 'tag_retro', icons: 'tag_icons' };
+// The kind of window as the plugins page marks it: native in ink, web in yellow, both in sky.
+const SURF_TONE: Record<Surface, string> = { native: 'bg-ink text-paper', web: 'bg-yel text-ink', both: 'bg-sky/60 text-ink' };
+const SURF: Record<Surface, 'surf_native' | 'surf_web' | 'surf_both'> = { native: 'surf_native', web: 'surf_web', both: 'surf_both' };
 
 // The UI components page: one window with the filter in its toolbar, the introduction in a side panel and the libraries in a list that scrolls inside the window, so the page stays on one screen on the desktop. A sticky note beside it asks for more.
 export function Ui() {
 	const t = useT();
-	// ?tag= keeps the filter in the address, as in the original look.
-	const { tag } = useSearch({ from: '/ui' });
+	// ?tag= and ?surface= keep the filters in the address, as in the original look.
+	const { tag, surface } = useSearch({ from: '/ui' });
 	const navigate = useNavigate({ from: '/ui' });
-	const filter = tag ?? 'all';
-	const setFilter = (k: 'all' | UiLibKey) => void navigate({ search: (prev) => ({ ...prev, tag: k === 'all' ? undefined : k }), replace: true, resetScroll: false });
-	const chips = [{ key: 'all' as const, label: `${t.all} · ${UI_LIBS.length}` }, ...UI_KEYS.map((k) => ({ key: k, label: `${t[TAG[k]]} · ${UI_LIBS.filter((l) => l.key === k).length}` }))];
-	const libs = UI_LIBS.filter((l) => filter === 'all' || l.key === filter);
+	const setFilter = (next: { tag?: UiLibKey; surface?: 'web' | 'native' }) => void navigate({ search: (prev) => ({ ...prev, ...next }), replace: true, resetScroll: false });
+	// A library for both kinds of window shows under either. The tags count the libraries of the chosen window, as in the original look.
+	const ofSurface = UI_LIBS.filter((l) => !surface || l.surface === surface || l.surface === 'both');
+	const chips = [{ key: undefined, n: ofSurface.length, label: t.all }, ...UI_KEYS.map((k) => ({ key: k, n: ofSurface.filter((l) => l.key === k).length, label: t[TAG[k]] }))].filter((c) => c.key === undefined || c.n > 0 || c.key === tag);
+	const surfaces = [
+		{ key: undefined, n: UI_LIBS.length, label: t.all },
+		{ key: 'native' as const, n: UI_LIBS.filter((l) => l.surface !== 'web').length, label: t.surf_native },
+		{ key: 'web' as const, n: UI_LIBS.filter((l) => l.surface !== 'native').length, label: t.surf_web },
+	];
+	const libs = ofSurface.filter((l) => !tag || l.key === tag);
 	return (
 		<div className='relative mx-auto flex max-w-[1440px] flex-col gap-[26px] px-3.5 pt-3.5 desk:block desk:pt-[26px] desk:pr-10 desk:pl-[136px] min-[1261px]:grid min-[1261px]:grid-cols-[minmax(0,1fr)_260px] min-[1261px]:items-start min-[1261px]:gap-x-10 min-[1261px]:pr-6'>
 			<DesktopIcons className='hidden desk:absolute desk:top-[26px] desk:left-[18px] desk:grid desk:grid-cols-1 desk:gap-4' />
@@ -25,8 +34,15 @@ export function Ui() {
 				<div className='flex flex-wrap items-center gap-2.5 px-1.5 pt-[3px] pb-1.5'>
 					<div role='group' aria-label={t.a_filter} className='flex flex-wrap'>
 						{chips.map((c) => (
-							<button key={c.key} type='button' aria-pressed={filter === c.key} onClick={() => setFilter(c.key)} className={`${btnSm} ${seg}`}>
-								{c.label}
+							<button key={c.key ?? 'all'} type='button' aria-pressed={tag === c.key} onClick={() => setFilter({ tag: c.key })} className={`${btnSm} ${seg}`}>
+								{c.label} · {c.n}
+							</button>
+						))}
+					</div>
+					<div role='group' aria-label={t.a_kind} className='flex flex-wrap'>
+						{surfaces.map((c) => (
+							<button key={c.key ?? 'all'} type='button' aria-pressed={surface === c.key} onClick={() => setFilter({ surface: c.key })} className={`${btnSm} ${seg}`}>
+								{c.label} · {c.n}
 							</button>
 						))}
 					</div>
@@ -46,6 +62,14 @@ export function Ui() {
 						{libs.map((l, i) => (
 							<LibCard key={l.repo} lib={l} first={i === 0} />
 						))}
+						{libs.length === 0 && (
+							<p className='col-span-full m-0'>
+								{t.ui_none}{' '}
+								<button type='button' className={`${lnk} cursor-pointer border-0 bg-transparent p-0`} onClick={() => setFilter({ tag: undefined, surface: undefined })}>
+									{t.f_clear}
+								</button>
+							</p>
+						)}
 					</div>
 				</div>
 				<StatusBar>
@@ -60,7 +84,7 @@ export function Ui() {
 	);
 }
 
-// One library as a small card, the size of a showcase card: the screenshot, the name with its tag, the author, a short description and the links.
+// One library as a small card, the size of a showcase card: the screenshot, the name with its tag and the kind of window it serves, the author, a short description and the links.
 function LibCard({ lib, first }: { lib: UiLib; first: boolean }) {
 	const t = useT();
 	const lang = useLang();
@@ -78,6 +102,7 @@ function LibCard({ lib, first }: { lib: UiLib; first: boolean }) {
 			<div className='mt-1 flex min-w-0 items-center gap-2'>
 				<h2 className='m-0 min-w-0 truncate text-sm leading-5 font-semibold'>{lib.name}</h2>
 				<span className='shrink-0 rounded-full bg-yel px-2 text-[11px] leading-[18px]'>{t[TAG[lib.key]]}</span>
+				<span className={`shrink-0 border border-line px-1.5 text-[11px] leading-4 ${SURF_TONE[lib.surface]}`}>{t[SURF[lib.surface]]}</span>
 			</div>
 			<p className='m-0 -mt-1 truncate text-muted'>
 				<span lang='en'>by</span> {lib.author}

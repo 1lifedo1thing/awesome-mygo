@@ -847,6 +847,9 @@ html:lang(ko) .site {
 .kind-web {
 	color: var(--amber);
 }
+.kind-both {
+	color: var(--fg-2);
+}
 .card {
 	flex: 1 1 auto;
 	padding: 0;
@@ -1932,6 +1935,14 @@ html:lang(ko) .site {
 .show-meta .kind-tag {
 	flex: none;
 	align-self: auto;
+}
+/* A UI library's row carries two tags beside the like button: they go on their own line under the author, on every card so the descriptions line up, rather than squeeze its name away. */
+.show-meta-wrap {
+	flex-wrap: wrap;
+	row-gap: 6px;
+}
+.show-meta-wrap .show-by {
+	flex: 1 0 100%;
 }
 .show-desc {
 	font-size: 14px;

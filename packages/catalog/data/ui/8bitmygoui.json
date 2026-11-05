@@ -4,6 +4,7 @@
 	"name": "8bitMyGoUI",
 	"author": "ELY Open Source",
 	"tag": "retro",
+	"surface": "native",
 	"summary": {
 		"en": "500 pixel-art components for MyGo native UI in the manner of 16-bit consoles: every dot on the grid, no anti-aliasing, and colors from a sixteen-slot palette, with eight palettes for the four seasons by day and night.",
 		"zh-CN": "16 位游戏机风格的 MyGo 原生 UI 像素组件，22 类共 500 个：每个点都落在点阵上，没有抗锯齿，颜色只取自 16 格调色板，另有四季昼夜八套调色板。",

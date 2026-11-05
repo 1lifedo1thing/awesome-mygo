@@ -166,6 +166,7 @@ describe('categories', () => {
 		expect(schemaEnum(null, 'category')).toEqual([]);
 		const ui = JSON.parse(await readFile(join(import.meta.dirname, '../../catalog/data/schema/ui.schema.json'), 'utf8'));
 		expect(schemaEnum(ui, 'tag')).toEqual(['theme', 'retro', 'icons']);
+		expect(schemaEnum(ui, 'surface')).toEqual(['web', 'native', 'both']);
 		const plugin = JSON.parse(await readFile(join(import.meta.dirname, '../../catalog/data/schema/plugin.schema.json'), 'utf8'));
 		expect(schemaEnum(plugin, 'surface')).toEqual(['web', 'native', 'both']);
 	});
@@ -212,15 +213,16 @@ describe('README images', () => {
 
 describe("the form's defaults", () => {
 	it('asks the model for what the form fills in without asking, while it holds the default', () => {
-		expect(formDefaults('app', { kind: 'native' })).toEqual({ choice: 'category', tags: false });
-		expect(formDefaults('app', { kind: 'native', category: 'GameApplication' })).toEqual({ choice: undefined, tags: false });
+		expect(formDefaults('app', { kind: 'native' })).toEqual({ choices: ['category'], tags: false });
+		expect(formDefaults('app', { kind: 'native', category: 'GameApplication' })).toEqual({ choices: [], tags: false });
 		// flagicons, submitted through the form: an icon set left at theme.
-		expect(formDefaults('ui', { tag: 'theme' })).toEqual({ choice: 'tag', tags: false });
-		expect(formDefaults('ui', { tag: 'icons' })).toEqual({ choice: undefined, tags: false });
-		expect(formDefaults('state', { tags: ['state'] })).toEqual({ tags: true });
-		expect(formDefaults('state', { tags: ['store', 'reactive'] })).toEqual({ tags: false });
-		expect(formDefaults('plugin', { surface: 'web', tags: [] })).toEqual({ choice: 'surface', tags: true });
-		expect(formDefaults('plugin', { surface: 'native', tags: ['shaders'] })).toEqual({ choice: undefined, tags: false });
+		expect(formDefaults('ui', { tag: 'theme', surface: 'native' })).toEqual({ choices: ['tag', 'surface'], tags: false });
+		expect(formDefaults('ui', { tag: 'icons', surface: 'native' })).toEqual({ choices: ['surface'], tags: false });
+		expect(formDefaults('ui', { tag: 'icons', surface: 'both' })).toEqual({ choices: [], tags: false });
+		expect(formDefaults('state', { tags: ['state'] })).toEqual({ choices: [], tags: true });
+		expect(formDefaults('state', { tags: ['store', 'reactive'] })).toEqual({ choices: [], tags: false });
+		expect(formDefaults('plugin', { surface: 'web', tags: [] })).toEqual({ choices: ['surface'], tags: true });
+		expect(formDefaults('plugin', { surface: 'native', tags: ['shaders'] })).toEqual({ choices: [], tags: false });
 	});
 
 	it('keeps up to four lowercase tags, each once', () => {

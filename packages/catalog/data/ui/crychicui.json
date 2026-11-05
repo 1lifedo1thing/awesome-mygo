@@ -4,6 +4,7 @@
 	"name": "CrychicUI",
 	"author": "ELY Open Source",
 	"tag": "theme",
+	"surface": "native",
 	"summary": {
 		"en": "1500 components for MyGo native UI in 38 categories, in MyGo's own look of zinc greys and the system accent color; every component animates, and interactive ones play synthesized sound cues.",
 		"zh-CN": "为 MyGo 原生 UI 打造的 1500 个组件，分 38 类，沿用 MyGo 自己的锌灰底色与系统强调色；每个组件都有动效，可交互组件还会播放合成音效。",
