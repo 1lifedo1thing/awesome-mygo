@@ -149,6 +149,8 @@ export interface App {
 	image?: string;
 	// The app's icon: its ai-logo avatar on the ai-logo CDN, its official icon under /icons/, or none, for the letter tile.
 	icon?: string;
+	// The images that stand in until the project gives its own (readProvisional).
+	provisional?: ProvisionalImage[];
 	// When it joined the showcase (UTC, e.g. 2026-11-04T12:00:00Z), for the showcase's newest-first order. Set by the submission bot, so an entry checked before it is submitted has none yet.
 	added?: string;
 }
@@ -156,8 +158,20 @@ export interface App {
 // Icons come from yldm-tech/ai-logo (its avatar renders), served by its CDN.
 export const AILOGO_CDN = 'https://ailogo.yldm.ai/avatar/';
 
+// Which of an entry's images stand in until its project gives its own: the owner's GitHub avatar for an app's icon, GitHub's card of the repository or a card drawn of it for a screenshot. packages/enrich sets the list, the announcement's issue asks the project for the images on it, and whoever replaces one drops it from the list.
+export type ProvisionalImage = 'icon' | 'screenshot';
+
+const readProvisional = (r: Reader, allowed: readonly ProvisionalImage[]): ProvisionalImage[] | undefined => {
+	if (r.raw.provisional === undefined) return undefined;
+	const list = r.strings('provisional', 1);
+	for (const v of list) if (!(allowed as readonly string[]).includes(v)) r.fail('provisional', `may list only ${allowed.join(' and ')}`);
+	if (new Set(list).size !== list.length) r.fail('provisional', 'lists an image twice');
+	for (const v of list) if (r.raw[v] === undefined) r.fail('provisional', `lists the ${v}, which the entry does not have`);
+	return list as ProvisionalImage[];
+};
+
 const readApp = (r: Reader): App => {
-	r.only(['$schema', 'slug', 'name', 'author', 'kind', 'category', 'url', 'repo', 'summary', 'description', 'screenshot', 'icon', 'added']);
+	r.only(['$schema', 'slug', 'name', 'author', 'kind', 'category', 'url', 'repo', 'summary', 'description', 'screenshot', 'icon', 'provisional', 'added']);
 	const icon = r.raw.icon as { ailogo?: unknown; file?: unknown } | undefined;
 	let iconUrl: string | undefined;
 	if (icon !== undefined) {
@@ -177,6 +191,7 @@ const readApp = (r: Reader): App => {
 		about: r.text('description'),
 		image: shot(r.raw.screenshot === undefined ? undefined : r.match('screenshot', SHOT, 'a .webp or .svg file name')),
 		icon: iconUrl,
+		provisional: readProvisional(r, ['icon', 'screenshot']),
 		added: readAdded(r),
 	};
 };
@@ -248,11 +263,13 @@ export interface UiLib {
 	url: string;
 	homepage?: string;
 	image?: string;
+	// The images that stand in until the project gives its own (readProvisional).
+	provisional?: ProvisionalImage[];
 	added?: string;
 }
 
 const readUiLib = (r: Reader): UiLib => {
-	r.only(['$schema', 'slug', 'name', 'author', 'tag', 'surface', 'summary', 'repo', 'url', 'homepage', 'screenshot', 'added']);
+	r.only(['$schema', 'slug', 'name', 'author', 'tag', 'surface', 'summary', 'repo', 'url', 'homepage', 'screenshot', 'provisional', 'added']);
 	return {
 		slug: readSlug(r),
 		name: r.str('name'),
@@ -264,6 +281,7 @@ const readUiLib = (r: Reader): UiLib => {
 		url: r.url('url'),
 		homepage: r.optUrl('homepage'),
 		image: shot(r.raw.screenshot === undefined ? undefined : r.match('screenshot', SHOT, 'a .webp or .svg file name')),
+		provisional: readProvisional(r, ['screenshot']),
 		added: readAdded(r),
 	};
 };
@@ -292,11 +310,13 @@ export interface StateSolution {
 	install: string;
 	tags: readonly string[];
 	image?: string;
+	// The images that stand in until the project gives its own (readProvisional).
+	provisional?: ProvisionalImage[];
 	added?: string;
 }
 
 const readStateSolution = (r: Reader): StateSolution => {
-	r.only(['$schema', 'slug', 'name', 'author', 'summary', 'repo', 'url', 'homepage', 'install', 'tags', 'screenshot', 'added']);
+	r.only(['$schema', 'slug', 'name', 'author', 'summary', 'repo', 'url', 'homepage', 'install', 'tags', 'screenshot', 'provisional', 'added']);
 	return {
 		slug: readSlug(r),
 		name: r.str('name'),
@@ -308,6 +328,7 @@ const readStateSolution = (r: Reader): StateSolution => {
 		install: r.str('install'),
 		tags: r.strings('tags', 1),
 		image: shot(r.raw.screenshot === undefined ? undefined : r.match('screenshot', SHOT, 'a .webp or .svg file name')),
+		provisional: readProvisional(r, ['screenshot']),
 		added: readAdded(r),
 	};
 };

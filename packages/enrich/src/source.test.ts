@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { repoIcons, repoShotSources, shotProblem, stagedShot, stagedShotOf, addedFiles, appNameFrom, cleanTags, formDefaults, homepageOf, hasAllLanguages, iconCut, iconOf, isArtwork, isBanner, isPortrait, isSquarish, lengthCaps, overCaps, joinRepoPath, scriptConfig, parseMygoConfig, pickMygoConfig, readmeImages, repoOfEntry, repoScreenshots, resolveImage, schemaEnum, setCategory, sniffImage, submittedScreenshot } from './source.ts';
+import { repoIcons, repoShotSources, shotProblem, stagedShot, stagedShotOf, addedFiles, appNameFrom, cleanTags, formDefaults, homepageOf, hasAllLanguages, markProvisional, iconCut, iconOf, isArtwork, isBanner, isPortrait, isSquarish, lengthCaps, overCaps, joinRepoPath, scriptConfig, parseMygoConfig, pickMygoConfig, readmeImages, repoOfEntry, repoScreenshots, resolveImage, schemaEnum, setCategory, sniffImage, submittedScreenshot } from './source.ts';
 
 describe('app names', () => {
 	it('takes mygo.json’s spelling of the same name only', () => {
@@ -25,6 +25,17 @@ describe('app names', () => {
 		expect(hasAllLanguages({ en: 'a', 'zh-CN': 'b', 'zh-TW': 'c', ja: 'd', ko: ' ' })).toBe(false);
 		expect(hasAllLanguages({ en: '本地 agent skills 库管理工具' })).toBe(false);
 		expect(hasAllLanguages(undefined)).toBe(false);
+	});
+});
+
+describe('stand-in images', () => {
+	it('records each stand-in once, in a fixed order', () => {
+		const entry: Record<string, unknown> = { slug: 'kit' };
+		markProvisional(entry, 'screenshot');
+		expect(entry.provisional).toEqual(['screenshot']);
+		markProvisional(entry, 'icon');
+		markProvisional(entry, 'screenshot');
+		expect(entry.provisional).toEqual(['icon', 'screenshot']);
 	});
 });
 

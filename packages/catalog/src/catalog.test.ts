@@ -5,7 +5,7 @@ import docSchema from '../data/schema/doc.schema.json';
 import pluginSchema from '../data/schema/plugin.schema.json';
 import stateSchema from '../data/schema/state.schema.json';
 import uiSchema from '../data/schema/ui.schema.json';
-import { AILOGO_CDN, APP_CATEGORIES, APP_GROUPS, APP_KIND, APPS, ARTICLE_KIND, DOC_KIND, GROUP_CATEGORY, PLUGIN_KIND, STATE_KIND, UI_KIND, appGroup, appSource, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, authorProfile, byAdded, byName, byNewest, hostOf, readAppEntry, readAppFile, readApps, readDocs, readEntryFile, readPlugins, readUiLibs } from './catalog';
+import { AILOGO_CDN, APP_CATEGORIES, APP_GROUPS, APP_KIND, APPS, ARTICLE_KIND, DOC_KIND, GROUP_CATEGORY, PLUGIN_KIND, STATE_KIND, UI_KIND, appGroup, appSource, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, authorProfile, byAdded, byName, byNewest, hostOf, readAppEntry, readAppFile, readApps, readEntry, readDocs, readEntryFile, readPlugins, readUiLibs } from './catalog';
 import { SUBMIT_CATS, SUBMIT_KINDS, type SubmitCat, alreadyListed, buildEntry, codeFence, descMax, editUrl, entryCats, entryFileText, entryPath, entryProblem, guessFromLink, isBadShot, isBadUrl, isEntryComplete, issueUrl, jsonEntry, missingFields, parseEntryJson, pastedEntryProblem, pastedName, pastedShotRepo, shotRepo, slugify, takesShot, withScheme } from './entry';
 import { LANGS, type LangCode, type Text, fill, langRedirectScript, negotiateLang, pick, validateRootSearch } from './lang';
 import { buildSearchIndex, searchCatalog } from './search';
@@ -166,6 +166,20 @@ describe('catalog data', () => {
 		const entry = { slug: 'kit', name: 'Kit', author: 'someone', kind: 'native', url: 'https://x.dev', summary: { en: 'A kit.' }, description: { en: 'A kit.' } };
 		expect(readAppEntry(entry).category).toBeUndefined();
 		expect(() => readAppEntry({ ...entry, category: 'DesktopApplication' })).toThrow(/category must be one of/);
+	});
+
+	it('lists as provisional only images the entry has, and only kinds of image its category shows', () => {
+		const app = { slug: 'kit', name: 'Kit', author: 'a', kind: 'native', url: 'https://x.dev', summary: { en: 'A kit.' }, description: { en: 'A kit.' }, screenshot: 'kit.webp', icon: { file: 'kit.webp' } };
+		expect(readAppEntry({ ...app, provisional: ['icon', 'screenshot'] }).provisional).toEqual(['icon', 'screenshot']);
+		expect(readAppEntry(app).provisional).toBeUndefined();
+		expect(() => readAppEntry({ ...app, provisional: ['banner'] })).toThrow(/provisional may list only icon and screenshot/);
+		expect(() => readAppEntry({ ...app, provisional: ['icon', 'icon'] })).toThrow(/provisional lists an image twice/);
+		expect(() => readAppEntry({ ...app, provisional: [] })).toThrow(/provisional/);
+		const { screenshot: _shot, ...noShot } = app;
+		expect(() => readAppEntry({ ...noShot, provisional: ['screenshot'] })).toThrow(/provisional lists the screenshot, which the entry does not have/);
+		const lib = { slug: 'kit', name: 'Kit', author: 'a', tag: 'theme', surface: 'native', summary: { en: 'A kit.' }, repo: 'a/kit', url: 'https://github.com/a/kit', screenshot: 'kit.webp' };
+		expect(readEntry(UI_KIND, { ...lib, provisional: ['screenshot'] }).provisional).toEqual(['screenshot']);
+		expect(() => readEntry(UI_KIND, { ...lib, provisional: ['icon'] })).toThrow(/provisional may list only screenshot/);
 	});
 
 	it('links an author to a GitHub profile only when one of their apps is in a repository they own', () => {

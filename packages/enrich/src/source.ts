@@ -230,6 +230,12 @@ export function homepageOf(homepage: string | null | undefined, repo: string): s
 	return h;
 }
 
+// Records that one of the entry's images stands in until the project gives its own (the catalog's provisional field), in a fixed order, once.
+export function markProvisional(entry: Entry, image: 'icon' | 'screenshot'): void {
+	const list = Array.isArray(entry.provisional) ? (entry.provisional as string[]) : [];
+	entry.provisional = [...new Set([...list, image])].sort();
+}
+
 // Sets the entry's category in place, right after kind as in the files written by hand, since the entry is written back in its key order.
 export function setCategory(entry: Entry, category: string): void {
 	const fields = Object.entries(entry).filter(([k]) => k !== 'category');

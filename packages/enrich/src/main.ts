@@ -5,7 +5,7 @@ import { promisify } from 'node:util';
 import { DEFAULT_MODEL, README_LIMIT, type LlmConfig, writeCopy } from './copy.ts';
 import { github, rawFile, rawUrl as rawRepoUrl } from './github.ts';
 import { downloadImage, fetchImage, isDefaultIcon, writeCard, writeIcon, writeShot } from './image.ts';
-import { type ChoiceField, ENTRY_DIRS, STAGED_SHOTS, type Entry, type EntryKind, addedFiles, appNameFrom, formDefaults, hasAllLanguages, homepageOf, iconOf, isArtwork, parseMygoConfig, pickMygoConfig, repoIcons, repoOfEntry, repoShotSources, schemaEnum, setCategory, sniffImage, stagedShotOf, submittedScreenshot } from './source.ts';
+import { type ChoiceField, ENTRY_DIRS, STAGED_SHOTS, type Entry, type EntryKind, addedFiles, appNameFrom, formDefaults, hasAllLanguages, homepageOf, iconOf, isArtwork, markProvisional, parseMygoConfig, pickMygoConfig, repoIcons, repoOfEntry, repoShotSources, schemaEnum, setCategory, sniffImage, stagedShotOf, submittedScreenshot } from './source.ts';
 
 // Run by .github/workflows/enrich-submission.yml on a pull request the submission bot opened, and by discover.ts on each entry it proposes. It finds the entries the branch adds, then for each fills in what the form cannot ask for: an app's icon (from its mygo.json); the screenshot of an app, a UI library or a state management library (the first landscape one in its README, or else in a screenshot folder of the repository); a UI library's or state management library's homepage (from the repository's settings); what the form fills in with a default (an app's category, a UI library's tag and surface, a plugin's surface, the tags of state management and plugins), picked by the model; and the copy in every site language. An entry with a repository is never left without an image: an app without an icon of its own gets its owner's GitHub avatar, and an entry without a screenshot gets the repository's social preview, or else a card drawn here from the owner's avatar, and the report says so. It changes files in the working tree and writes a Markdown report for the pull request; the workflow runs the catalog checks and commits.
 //
@@ -95,6 +95,7 @@ async function addIcon(entry: Entry, slug: string, facts: RepoFacts): Promise<st
 	const img = await downloadImage(avatar);
 	if (img && (await writeIcon(img, join(ROOT, PUBLIC, 'icons', `${slug}.webp`)))) {
 		entry.icon = { file: `${slug}.webp` };
+		markProvisional(entry, 'icon');
 		say(`- Icon: ${own.why}, so the owner's GitHub avatar (${avatar}) stands in, saved as \`${PUBLIC}/icons/${slug}.webp\`. Replace it with the app's own icon when there is one.`);
 	} else say(`- Icon: ${own.why}, and the owner's GitHub avatar could not be used either; the app shows a letter tile. **Add an icon before merging.**`);
 	return own.url;
@@ -144,6 +145,8 @@ async function addScreenshot(entry: Entry, slug: string, what: string, facts: Re
 			const result = typeof img === 'string' ? img : await writeShot(img, out);
 			if (result === 'ok') {
 				entry.screenshot = `${slug}.webp`;
+				// GitHub's own card of the repository stands in; a preview its owner set is the project's image.
+				if (url === facts?.preview?.url && !facts.preview.custom) markProvisional(entry, 'screenshot');
 				const passed = skipped.length ? ` It passed over ${skipped.join(', ')}.` : '';
 				const check = url === facts?.preview?.url ? ' Replace it with a screenshot when there is one.' : ` Check that it shows ${what}.`;
 				return say(`- Screenshot: ${url} from ${source.from}, saved as \`${PUBLIC}/shots/${slug}.webp\`.${check}${passed}`);
@@ -160,6 +163,7 @@ async function addScreenshot(entry: Entry, slug: string, what: string, facts: Re
 		if (avatar) {
 			await writeCard(avatar, facts.repo, out);
 			entry.screenshot = `${slug}.webp`;
+			markProvisional(entry, 'screenshot');
 			return say(`- Screenshot: none found, so a card of ${owner}'s GitHub avatar and ${facts.repo} was drawn, saved as \`${PUBLIC}/shots/${slug}.webp\`. Replace it with a screenshot when there is one.${passed}`);
 		}
 	}
