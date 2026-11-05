@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "reqflow",
+	"name": "ReqFlow",
+	"author": "wangqizhi",
+	"kind": "web",
+	"group": "agents",
+	"url": "https://github.com/wangqizhi/ReqFlow",
+	"repo": "wangqizhi/ReqFlow",
+	"summary": {
+		"en": "Windows workbench: manage requirements, hand them to AI coding agents, then verify the results.",
+		"zh-CN": "Windows 需求工作台：整理需求、交给 AI 编码 Agent，再人工验收结果。",
+		"zh-TW": "Windows 需求工作台：整理需求、交給 AI 編碼 Agent，再人工驗收結果。",
+		"ja": "要件を整理して AI コーディングエージェントに渡し、結果を検証する Windows 用ワークベンチ。",
+		"ko": "요구사항을 정리해 AI 코딩 에이전트에 맡기고 결과를 검증하는 Windows 워크벤치."
+	},
+	"description": {
+		"en": "A Windows workbench for solo developers that turns ideas into requirements, generates prompts for AI coding agents and brings their results back for manual review. It hands tasks to Codex, Claude Code, Pi and other agents in built-in terminals, with agent plugins, a CLI and a Git panel. Built on MyGo with a React frontend in the system WebView2, with no Node or Electron.",
+		"zh-CN": "面向个人开发者的 Windows 桌面工作台：把想法整理成需求，生成 Prompt 交给 AI 编码 Agent，再把实现结果带回人工验证。可在内置终端中指派 Codex、Claude Code、Pi 等 Agent 执行，另有 Agent 插件、CLI 和 Git 面板。基于 MyGo 构建，React 界面运行在系统 WebView2 中，不含 Node 或 Electron。",
+		"zh-TW": "專為個人開發者打造的 Windows 桌面工作台：把想法整理成需求，產生 Prompt 交給 AI 編碼 Agent，再把實作結果帶回人工驗證。可在內建終端機中指派 Codex、Claude Code、Pi 等 Agent 執行，另有 Agent 外掛、CLI 與 Git 面板。以 MyGo 建構，React 介面執行於系統 WebView2，不含 Node 或 Electron。",
+		"ja": "個人開発者向けの Windows デスクトップワークベンチ。アイデアを要件にまとめ、Prompt を生成して AI コーディングエージェントに渡し、実装結果を人の目で検証します。内蔵ターミナルで Codex、Claude Code、Pi などに作業を割り当てられ、エージェント用プラグイン、CLI、Git パネルも備えています。MyGo で作られ、React の UI をシステムの WebView2 で表示し、Node や Electron は含みません。",
+		"ko": "개인 개발자를 위한 Windows 데스크톱 워크벤치로, 아이디어를 요구사항으로 정리하고 Prompt를 만들어 AI 코딩 에이전트에 넘긴 뒤 구현 결과를 사람이 검증합니다. 내장 터미널에서 Codex, Claude Code, Pi 등에 작업을 맡길 수 있고 에이전트 플러그인, CLI, Git 패널도 갖췄습니다. MyGo로 만들었으며 React UI를 시스템 WebView2에서 실행하고 Node나 Electron은 포함하지 않습니다."
+	},
+	"icon": {
+		"file": "reqflow.webp"
+	},
+	"screenshot": "reqflow.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T08:08:34Z"
+}
