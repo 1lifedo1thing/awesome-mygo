@@ -1,7 +1,7 @@
 {
 	"$schema": "../schema/app.schema.json",
 	"slug": "qwen-image",
-	"name": "Qwen Image",
+	"name": "Qwen-Image 2.1 本地部署",
 	"author": "zcf0508",
 	"kind": "native",
 	"group": "ai",
