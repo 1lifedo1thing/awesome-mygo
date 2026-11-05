@@ -1,0 +1,24 @@
+{
+	"$schema": "../schema/plugin.schema.json",
+	"slug": "mygo-mcp",
+	"name": "MyGo MCP",
+	"mark": "My",
+	"official": false,
+	"surface": "native",
+	"import": "github.com/auron-labs/mygo-mcp",
+	"tags": [
+		"mcp",
+		"testing",
+		"automation",
+		"agents"
+	],
+	"docs": "https://github.com/auron-labs/mygo-mcp",
+	"summary": {
+		"en": "Serves headless MyGo views to MCP clients so AI agents can inspect, click, type into and screenshot them without a window.",
+		"zh-CN": "将无头 MyGo 视图提供给 MCP 客户端，让 AI 代理无需打开窗口即可检查、点击、输入和截图。",
+		"zh-TW": "將無頭 MyGo 檢視提供給 MCP 用戶端，讓 AI 代理不必開啟視窗即可檢查、點擊、輸入與截圖。",
+		"ja": "ヘッドレスの MyGo ビューを MCP クライアントに公開し、AI エージェントがウィンドウなしで検査、クリック、入力、スクリーンショットを行えます。",
+		"ko": "헤드리스 MyGo 뷰를 MCP 클라이언트에 제공해, AI 에이전트가 창 없이 검사, 클릭, 입력, 스크린숏을 할 수 있습니다."
+	},
+	"added": "2026-11-05T09:41:01Z"
+}
