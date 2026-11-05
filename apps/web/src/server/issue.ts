@@ -26,7 +26,7 @@ async function missingShot(found: { cat: SubmitCat; entry: Record<string, unknow
 	const repo = pastedShotRepo(found.cat, found.entry);
 	if (!repo) return 'There is no GitHub repository to take a screenshot from.';
 	try {
-		return (await findRepoShot(repo, token)).found ? undefined : `The repository ${repo} has no screenshot the site could use.`;
+		return (await findRepoShot(repo, token)).found ? undefined : "The project's repository has no screenshot the site could use.";
 	} catch (err) {
 		console.error('looking for a screenshot failed', err);
 		return undefined;
