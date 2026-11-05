@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "openuxp-installer",
+	"name": "OpenUXP Installer",
+	"author": "Moonvy",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/Moonvy/UPX-Installer-GO",
+	"repo": "Moonvy/UPX-Installer-GO",
+	"summary": {
+		"en": "An installer for Adobe UXP, CEP and XDX plugins that also lists and removes installed ones.",
+		"zh-CN": "Adobe UXP、CEP 与 XDX 插件安装器，也能查看和移除已安装的扩展。",
+		"zh-TW": "Adobe UXP、CEP 與 XDX 外掛安裝工具，也能檢視和移除已安裝的擴充功能。",
+		"ja": "Adobe の UXP・CEP・XDX プラグインのインストーラー。導入済みの一覧と削除にも対応。",
+		"ko": "Adobe UXP·CEP·XDX 플러그인 설치 도구로, 설치된 확장의 목록 확인과 제거도 합니다."
+	},
+	"description": {
+		"en": "A Go rewrite of the Tauri-based OpenUPX Installer for macOS and Windows, drawn with MyGo's native UI with no web view. It shows a package's version and hosts first, then installs it through the UPIA service bundled with Creative Cloud Desktop or sideloads it into the user's Adobe plugin folders. It also lists installed extensions by app and removes the ones you installed.",
+		"zh-CN": "用 Go 重写的 Tauri 版 OpenUPX Installer，适用于 macOS 与 Windows，由 MyGo 原生 UI 绘制，不使用 WebView。安装前先显示安装包的版本与兼容宿主，再通过 Creative Cloud Desktop 附带的 UPIA 安装，或侧载到当前用户的 Adobe 插件目录。已安装的扩展按应用分组列出，自己安装的可以直接移除。",
+		"zh-TW": "以 Go 改寫的 Tauri 版 OpenUPX Installer，支援 macOS 與 Windows，由 MyGo 原生 UI 繪製，不使用 WebView。安裝前會先顯示安裝包的版本與相容宿主，再透過 Creative Cloud Desktop 內附的 UPIA 安裝，或側載到目前使用者的 Adobe 外掛目錄。已安裝的擴充功能依應用程式分組列出，自己安裝的可以直接移除。",
+		"ja": "Tauri 製の OpenUPX Installer を Go で書き直した macOS・Windows 向けアプリで、MyGo のネイティブ UI で描かれ、WebView は使いません。インストール前にパッケージのバージョンと対応ホストを表示し、Creative Cloud Desktop 付属の UPIA でインストールするか、ユーザーの Adobe プラグインフォルダーにサイドロードします。導入済みの拡張機能はアプリごとに一覧でき、自分で入れたものは削除できます。",
+		"ko": "Tauri 기반 OpenUPX Installer를 Go로 다시 작성한 macOS·Windows용 앱으로, MyGo의 네이티브 UI로 그리며 WebView를 쓰지 않습니다. 설치 전에 패키지의 버전과 호환 호스트를 보여 주고, Creative Cloud Desktop에 포함된 UPIA로 설치하거나 사용자의 Adobe 플러그인 폴더에 사이드로드합니다. 설치된 확장은 앱별로 나열되며 직접 설치한 것은 제거할 수 있습니다."
+	},
+	"icon": {
+		"file": "openuxp-installer.webp"
+	},
+	"screenshot": "openuxp-installer.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T15:15:40Z"
+}
