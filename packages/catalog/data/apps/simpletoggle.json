@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "simpletoggle",
+	"name": "SimpleToggle",
+	"author": "HanlunWang",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/HanlunWang/simple-toggle/releases/latest",
+	"repo": "HanlunWang/simple-toggle",
+	"summary": {
+		"en": "Turns shell scripts into macOS menu bar switches, with scenes, automations and an MCP server.",
+		"zh-CN": "把 shell 脚本变成 macOS 菜单栏开关，支持场景、自动化、CLI 与 MCP。",
+		"zh-TW": "把 shell 腳本變成 macOS 選單列開關，支援情境、自動化、CLI 與 MCP。",
+		"ja": "シェルスクリプトを macOS メニューバーのスイッチに。シーン、自動化、CLI、MCP に対応。",
+		"ko": "셸 스크립트를 macOS 메뉴 막대 스위치로. 장면, 자동화, CLI, MCP 서버 지원."
+	},
+	"description": {
+		"en": "A macOS menu bar app drawn with MyGo's native UI that runs your shell scripts as switches, long-running processes or buttons, described by comment lines at the top of each script. It sets several switches at once with scenes, runs them on time, network or app triggers, and lets AI agents use them through a CLI and MCP server, with script changes waiting for your approval.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 菜单栏应用，只需在脚本开头写几行注释，就能把 shell 脚本变成开关、常驻进程或按钮。可用场景一次设置多个开关，按时间、网络或应用启动等条件自动运行；AI 代理也能通过 CLI 和 MCP 服务器操作，脚本改动需经你批准才会写入。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS 選單列應用程式，只要在腳本開頭寫幾行註解，就能把 shell 腳本變成開關、常駐程序或按鈕。可用情境一次設定多個開關，依時間、網路或應用程式啟動等條件自動執行；AI 代理也能透過 CLI 與 MCP 伺服器操作，腳本變更須經你核准才會寫入。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS のメニューバーアプリ。スクリプト冒頭の数行のコメントをもとに、シェルスクリプトをスイッチ、常駐プロセス、ボタンとして扱います。シーンで複数のスイッチをまとめて切り替え、時刻やネットワーク、アプリの起動などをきっかけに自動実行でき、AI エージェントも CLI と MCP サーバーから操作できます。AI によるスクリプトの変更は、承認するまで書き込まれません。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS 메뉴 막대 앱으로, 스크립트 첫머리 몇 줄의 주석만으로 셸 스크립트를 스위치, 상주 프로세스, 버튼으로 만듭니다. 장면으로 여러 스위치를 한 번에 바꾸고 시간, 네트워크, 앱 실행 등에 따라 자동으로 실행하며, AI 에이전트도 CLI와 MCP 서버로 다룰 수 있습니다. AI가 바꾼 스크립트는 승인해야 저장됩니다."
+	},
+	"icon": {
+		"file": "simpletoggle.webp"
+	},
+	"screenshot": "simpletoggle.webp",
+	"added": "2026-11-05T11:50:47Z"
+}
