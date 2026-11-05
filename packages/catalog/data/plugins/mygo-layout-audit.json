@@ -1,0 +1,24 @@
+{
+	"$schema": "../schema/plugin.schema.json",
+	"slug": "mygo-layout-audit",
+	"name": "mygo-layout-audit",
+	"mark": "my",
+	"official": false,
+	"surface": "native",
+	"import": "github.com/knothhe/mygo-layout-audit",
+	"tags": [
+		"devtools",
+		"layout",
+		"debugging",
+		"ruler"
+	],
+	"docs": "https://github.com/knothhe/mygo-layout-audit",
+	"summary": {
+		"en": "Development overlay for MyGo native views that draws layout bounds, an optional logical grid and a two-point ruler.",
+		"zh-CN": "用于 MyGo 原生视图的开发辅助叠加层，绘制布局边界、可选的逻辑网格和两点测量尺。",
+		"zh-TW": "用於 MyGo 原生檢視的開發輔助疊加層，可繪製版面邊界、選用的邏輯格線與兩點量尺。",
+		"ja": "MyGo のネイティブビュー向けの開発用オーバーレイ。レイアウトの境界、任意の論理グリッド、2 点間を測るルーラーを表示します。",
+		"ko": "MyGo 네이티브 뷰용 개발 오버레이로, 레이아웃 경계와 선택적 논리 그리드, 두 점 사이를 재는 눈금자를 그립니다."
+	},
+	"added": "2026-11-05T09:41:01Z"
+}
