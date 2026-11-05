@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "leaflet",
+	"name": "Leaflet",
+	"author": "tacshi",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/tacshi/Leaflet",
+	"repo": "tacshi/Leaflet",
+	"summary": {
+		"en": "Block-based notes where you and AI agents edit pages together, with iCloud Drive or Supabase sync.",
+		"zh-CN": "块式笔记：与 AI 代理共同编辑页面，经 iCloud 或 Supabase 同步。",
+		"zh-TW": "區塊式筆記：與 AI 代理共同編輯頁面，經 iCloud 或 Supabase 同步。",
+		"ja": "AI エージェントと一緒に書くブロック型ノート。iCloud か Supabase で同期。",
+		"ko": "AI 에이전트와 함께 페이지를 편집하는 블록 기반 노트. iCloud나 Supabase로 동기화."
+	},
+	"description": {
+		"en": "A block-based notes app for macOS and Windows, drawn with MyGo's native UI. AI agents from any OpenAI-compatible provider, local models included, edit pages beside you in undoable steps, and Claude Code or Cursor work on them through leaflet mcp. Pages are saved on the device first and sync through iCloud Drive or Supabase. An iPhone and iPad app is in progress, built separately in SwiftUI.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 与 Windows 块式笔记应用。任何兼容 OpenAI 的模型服务（包括本地模型）都能驱动 AI 代理与你一起编辑页面，每次修改都可撤销；Claude Code、Cursor 等外部代理可通过 leaflet mcp 操作页面。页面先保存在本机，再通过 iCloud Drive 或 Supabase 同步。iPhone 与 iPad 版仍在开发中，另以 SwiftUI 构建。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS 與 Windows 區塊式筆記軟體。相容 OpenAI 的模型服務（含本機模型）可驅動 AI 代理與你一起編輯頁面，修改皆可復原；Claude Code 等外部代理可透過 leaflet mcp 操作頁面。頁面先存在本機，經 iCloud Drive 或 Supabase 同步。iPhone 與 iPad 版開發中，另以 SwiftUI 打造。",
+		"ja": "MyGo のネイティブ UI で描かれた、macOS・Windows 向けのブロック型ノートアプリ。OpenAI 互換のプロバイダー（ローカルモデルを含む）の AI エージェントが隣でページを編集し、変更は取り消せます。Claude Code や Cursor などの外部エージェントも leaflet mcp からページを扱えます。ページはまず端末に保存され、iCloud Drive か Supabase で同期します。iPhone・iPad 版は開発中で、SwiftUI で別に作られています。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS·Windows용 블록 기반 노트 앱입니다. OpenAI 호환 공급자(로컬 모델 포함)의 AI 에이전트가 함께 페이지를 편집하며 변경은 되돌릴 수 있고, Claude Code나 Cursor 같은 외부 에이전트도 leaflet mcp로 페이지를 다룹니다. 페이지는 먼저 기기에 저장되고 iCloud Drive나 Supabase로 동기화됩니다. iPhone·iPad 앱은 개발 중이며 SwiftUI로 따로 만듭니다."
+	},
+	"icon": {
+		"file": "leaflet.webp"
+	},
+	"screenshot": "leaflet.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T02:55:41Z"
+}
