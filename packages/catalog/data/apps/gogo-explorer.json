@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "gogo-explorer",
+	"name": "gogo-explorer",
+	"author": "sugarbearr",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/sugarbearr/gogo-explorer",
+	"repo": "sugarbearr/gogo-explorer",
+	"summary": {
+		"en": "A native Windows task manager that shows live processes and traces why each one is running.",
+		"zh-CN": "原生 Windows 任务管理器：实时进程列表，并能追溯每个进程为何在运行。",
+		"zh-TW": "原生 Windows 工作管理員：即時列出處理程序，並追溯每個程序為何在執行。",
+		"ja": "ネイティブな Windows タスクマネージャー。プロセスを一覧し、なぜ動いているかまで辿る。",
+		"ko": "네이티브 Windows 작업 관리자. 실시간 프로세스 목록과 실행 이유 추적."
+	},
+	"description": {
+		"en": "A Windows 10 and 11 task manager drawn with MyGo's native UI, with no web view. The whole window is a process table sampled every second, with same-name processes grouped and search, above a strip of CPU, memory, disk and network graphs. Selecting a process opens a panel where the bundled witr traces why it is running, back to the service, scheduled task or shell that started it.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 10/11 任务管理器，没有 Web 视图。整个窗口就是一张每秒刷新的进程表，同名进程合并为一行，可按名称或 PID 搜索，底部是 CPU、内存、磁盘与网络曲线。选中进程后，右侧面板会借助内置的 witr 追溯它为何在运行，一直找到启动它的 Windows 服务、计划任务或 Shell。",
+		"zh-TW": "以 MyGo 原生 UI 繪製的 Windows 10/11 工作管理員，沒有 Web 視圖。整個視窗就是一張每秒更新的處理程序表，同名程序合併為一列，可依名稱或 PID 搜尋，底部是 CPU、記憶體、磁碟與網路曲線。選取程序後，右側面板會透過內建的 witr 追溯它為何在執行，一路找到啟動它的 Windows 服務、排程工作或 Shell。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows 10/11 用タスクマネージャー。Web ビューはありません。ウィンドウ全体が毎秒更新されるプロセス表で、同名のプロセスはまとめて表示され、名前や PID で検索でき、下部には CPU・メモリ・ディスク・ネットワークのグラフが並びます。プロセスを選ぶと、同梱の witr がなぜ動いているかを辿り、起動元の Windows サービス、スケジュールされたタスク、シェルまで示します。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows 10/11용 작업 관리자로, 웹 뷰가 없습니다. 창 전체가 1초마다 갱신되는 프로세스 표이며, 같은 이름의 프로세스는 한 줄로 묶이고 이름이나 PID로 검색할 수 있으며, 아래에는 CPU, 메모리, 디스크, 네트워크 그래프가 있습니다. 프로세스를 선택하면 내장된 witr가 실행 이유를 추적해 이를 시작한 Windows 서비스, 예약 작업, 셸까지 보여 줍니다."
+	},
+	"icon": {
+		"file": "gogo-explorer.webp"
+	},
+	"screenshot": "gogo-explorer.webp",
+	"added": "2026-11-05T15:37:24Z"
+}
