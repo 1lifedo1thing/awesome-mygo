@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "open-aria-exporter",
+	"name": "Open Aria Exporter",
+	"author": "Alpenl",
+	"kind": "native",
+	"group": "media",
+	"url": "https://github.com/Alpenl/openaria-bridge-sdk/tree/main/desktop/exporter",
+	"repo": "Alpenl/openaria-bridge-sdk",
+	"summary": {
+		"en": "A native desktop exporter that turns Open Aria recording card footage into verified videos.",
+		"zh-CN": "原生桌面工具，把 Open Aria 录制卡上的录像导出为校验过的视频。",
+		"zh-TW": "原生桌面工具，將 Open Aria 錄影卡上的錄影匯出為驗證過的影片。",
+		"ja": "Open Aria の録画カードの映像を、検証済みの動画に書き出すネイティブなデスクトップアプリ。",
+		"ko": "Open Aria 녹화 카드의 영상을 검증된 동영상으로 내보내는 네이티브 데스크톱 앱."
+	},
+	"description": {
+		"en": "The desktop exporter of Open Aria Bridge for macOS, Windows and Ubuntu, with a Chinese interface drawn with MyGo's native UI. It reads Open Aria recording cards without changing them and exports their recordings as videos. Bridge checks every source file and joins both eyes into one side-by-side MP4; its Python SDK and terminal interface are built separately, not with MyGo.",
+		"zh-CN": "Open Aria Bridge 的桌面导出工具，支持 macOS、Windows 与 Ubuntu，中文界面由 MyGo 原生 UI 绘制。它以只读方式读取 Open Aria 录制卡，把其中的录像导出为视频。Bridge 会校验每个源文件，并把左右眼画面合成一个左右并排的 MP4；项目中的 Python SDK 和终端界面另行构建，不使用 MyGo。",
+		"zh-TW": "Open Aria Bridge 的桌面匯出工具，支援 macOS、Windows 與 Ubuntu，中文介面由 MyGo 原生 UI 繪製。它以唯讀方式讀取 Open Aria 錄影卡，將其中的錄影匯出為影片。Bridge 會驗證每個來源檔案，並把左右眼畫面合成一支左右並排的 MP4；專案中的 Python SDK 與終端介面另行建置，不使用 MyGo。",
+		"ja": "Open Aria Bridge のデスクトップ版エクスポーター。macOS・Windows・Ubuntu に対応し、中国語の画面を MyGo のネイティブ UI で描いています。Open Aria の録画カードを読み取り専用で開き、録画を動画として書き出します。Bridge はすべてのソースファイルを検証し、左右の目の映像を 1 本のサイドバイサイド MP4 にまとめます。Python SDK とターミナル版は MyGo を使わず別に作られています。",
+		"ko": "Open Aria Bridge의 데스크톱 내보내기 도구로, macOS, Windows, Ubuntu를 지원하며 중국어 화면을 MyGo의 네이티브 UI로 그립니다. Open Aria 녹화 카드를 읽기 전용으로 열어 녹화를 영상으로 내보냅니다. Bridge는 모든 원본 파일을 검증하고 양쪽 눈 영상을 하나의 사이드 바이 사이드 MP4로 합칩니다. Python SDK와 터미널 인터페이스는 MyGo 없이 따로 만들어집니다."
+	},
+	"icon": {
+		"file": "open-aria-exporter.webp"
+	},
+	"screenshot": "open-aria-exporter.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T10:51:28Z"
+}
