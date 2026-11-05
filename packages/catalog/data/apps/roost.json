@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "roost",
+	"name": "roost",
+	"author": "Ernxst",
+	"kind": "web",
+	"group": "notes",
+	"url": "https://github.com/Ernxst/roost",
+	"repo": "Ernxst/roost",
+	"summary": {
+		"en": "Keeps your X bookmarks on your Mac to sort into collections, search and read offline.",
+		"zh-CN": "把 X 书签保存到 Mac 本地，分类整理、搜索并离线阅读。",
+		"zh-TW": "把 X 書籤保存到 Mac 本機，分類整理、搜尋並離線閱讀。",
+		"ja": "X のブックマークを Mac に保存し、コレクションに整理して検索・オフライン閲覧。",
+		"ko": "X 북마크를 Mac에 저장해 컬렉션으로 정리하고 검색하며 오프라인으로 읽습니다."
+	},
+	"description": {
+		"en": "A Mac app that keeps the posts you bookmark on X, with their threads, pictures and linked articles, even after a post is deleted. It signs in to X as you, with no paid account, and lets you sort bookmarks into collections, search them, add notes and export to Markdown. Built with MyGo: Go runs sync and storage, and a Preact web frontend draws the interface in the system webview.",
+		"zh-CN": "一款 Mac 应用，把你在 X 上收藏的帖子连同讨论串、图片和链接文章保存到本地，即使原帖被删除也会保留。它以你的身份登录 X 网站，无需付费账号；可以把书签分入合集、搜索、写笔记，并导出为 Markdown。基于 MyGo 构建，Go 负责同步与存储，Preact 网页前端在系统 WebView 中绘制界面。",
+		"zh-TW": "一款 Mac 應用程式，把你在 X 上收藏的貼文連同討論串、圖片和連結文章保存到本機，即使原文被刪除也會保留。它以你的身分登入 X 網站，不需付費帳號；可以把書籤分入收藏集、搜尋、寫筆記，並匯出為 Markdown。以 MyGo 打造，Go 負責同步與儲存，Preact 網頁前端在系統 WebView 中繪製介面。",
+		"ja": "X でブックマークした投稿を、スレッド、画像、リンク先の記事ごと保存する Mac アプリ。元の投稿が削除されても残ります。有料アカウントは不要で、あなたとして X の Web サイトにサインインし、ブックマークをコレクションに整理したり、検索したり、メモを書いたり、Markdown で書き出したりできます。MyGo で作られており、同期と保存は Go が担い、画面は Preact の Web フロントエンドがシステムの WebView に描きます。",
+		"ko": "X에서 북마크한 게시물을 스레드, 사진, 링크된 글과 함께 보관하는 Mac 앱으로, 원래 게시물이 삭제되어도 남아 있습니다. 유료 계정 없이 사용자 본인으로 X 웹사이트에 로그인하며, 북마크를 컬렉션으로 정리하고 검색하고 메모를 달고 Markdown으로 내보낼 수 있습니다. MyGo로 만들었으며, 동기화와 저장은 Go가 맡고 화면은 Preact 웹 프런트엔드가 시스템 웹뷰에 그립니다."
+	},
+	"icon": {
+		"file": "roost.webp"
+	},
+	"screenshot": "roost.webp",
+	"added": "2026-11-05T14:23:33Z"
+}
