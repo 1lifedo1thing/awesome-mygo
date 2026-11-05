@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "trot",
+	"name": "Trot",
+	"author": "sorrycc",
+	"kind": "native",
+	"group": "ai",
+	"url": "https://github.com/sorrycc/Trot",
+	"repo": "sorrycc/Trot",
+	"summary": {
+		"en": "A macOS menu bar translator for selected text, typed text and screenshots, in a floating panel.",
+		"zh-CN": "macOS 菜单栏翻译工具：在浮动面板中翻译选中文字、输入文字和截图。",
+		"zh-TW": "macOS 選單列翻譯工具：在浮動面板中翻譯選取文字、輸入文字和截圖。",
+		"ja": "選択したテキスト、入力した文章、スクリーンショットを浮動パネルで訳す macOS メニューバーアプリ。",
+		"ko": "선택한 텍스트, 입력한 글, 스크린샷을 떠 있는 패널에서 번역하는 macOS 메뉴 막대 앱."
+	},
+	"description": {
+		"en": "A macOS menu bar translator written in Go and drawn with MyGo's native UI. A hotkey translates text selected in any app, text typed into the panel, or a screen region read with Vision, streaming the result into a floating panel at the mouse. It translates through a Mon account with no API key, or an OpenAI-compatible API, Claude, DeepL or Google, and needs macOS 13 or later.",
+		"zh-CN": "用 Go 编写、由 MyGo 原生 UI 绘制的 macOS 菜单栏翻译工具。按下快捷键，即可翻译任意应用中选中的文字、在面板里输入的文字，或用 Vision 识别的屏幕区域，结果在鼠标旁的浮动面板中实时显示。登录 Mon 账号无需 API 密钥即可使用，也可接入 OpenAI 兼容接口、Claude、DeepL 或 Google。需要 macOS 13 或更高版本。",
+		"zh-TW": "用 Go 撰寫、由 MyGo 原生 UI 繪製的 macOS 選單列翻譯工具。按下快速鍵，即可翻譯任何 App 中選取的文字、在面板裡輸入的文字，或以 Vision 辨識的螢幕區域，結果在滑鼠旁的浮動面板中即時顯示。登入 Mon 帳號不需 API 金鑰即可使用，也可串接 OpenAI 相容介面、Claude、DeepL 或 Google。需要 macOS 13 或更新版本。",
+		"ja": "Go で書かれ、MyGo のネイティブ UI で描かれた macOS のメニューバー翻訳アプリ。ホットキーひとつで、どのアプリで選択したテキストも、パネルに入力した文章も、Vision で読み取った画面の一部も翻訳し、結果をマウス位置の浮動パネルに順次表示します。Mon アカウントなら API キーなしで使え、OpenAI 互換 API、Claude、DeepL、Google も選べます。macOS 13 以降が必要です。",
+		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 macOS 메뉴 막대 번역 앱입니다. 단축키 하나로 어느 앱에서든 선택한 텍스트, 패널에 입력한 글, Vision으로 읽은 화면 영역을 번역하고, 결과를 마우스 옆의 떠 있는 패널에 실시간으로 보여 줍니다. Mon 계정으로 로그인하면 API 키 없이 쓸 수 있고, OpenAI 호환 API, Claude, DeepL, Google도 사용할 수 있습니다. macOS 13 이상이 필요합니다."
+	},
+	"icon": {
+		"file": "trot.webp"
+	},
+	"screenshot": "trot.webp",
+	"added": "2026-11-05T14:57:25Z"
+}
