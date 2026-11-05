@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "dsh-gtk",
+	"name": "DSH GTK",
+	"author": "baka-world",
+	"kind": "web",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/baka-world/dsh-gtk",
+	"repo": "baka-world/dsh-gtk",
+	"summary": {
+		"en": "A Linux desktop client for DeepSeek Harness that runs dsh web locally in its own window.",
+		"zh-CN": "DeepSeek Harness 的 Linux 客户端，在窗口中运行 dsh web。",
+		"zh-TW": "DeepSeek Harness 的 Linux 用戶端，在視窗中執行 dsh web。",
+		"ja": "DeepSeek Harness の Linux 用クライアント。dsh web をウィンドウで動かす。",
+		"ko": "DeepSeek Harness용 Linux 클라이언트. dsh web을 창에서 실행합니다."
+	},
+	"description": {
+		"en": "An unofficial Linux desktop shell for DeepSeek Harness made with MyGo: it starts dsh web locally and shows its web workspace in a native window, where sessions, models, plugins and tools work as usual. dsh itself comes from DeepSeek Harness and ships inside the app with Node, and can be updated apart from it. With a tray, closing the window leaves dsh running.",
+		"zh-CN": "非官方的 DeepSeek Harness Linux 桌面外壳，用 MyGo 搭建：在本机启动 dsh web，并在原生窗口中加载它的 Web 工作区，会话、模型、插件和工具照常可用。dsh 本身来自 DeepSeek Harness，连同 Node 一起打包进应用，也可以单独更新。有托盘时关闭窗口，dsh 仍在后台运行。",
+		"zh-TW": "非官方的 DeepSeek Harness Linux 桌面外殼，以 MyGo 打造：在本機啟動 dsh web，並在原生視窗中載入它的 Web 工作區，工作階段、模型、外掛和工具照常可用。dsh 本身來自 DeepSeek Harness，連同 Node 一起打包進應用程式，也可以單獨更新。有系統匣時關閉視窗，dsh 仍在背景執行。",
+		"ja": "MyGo で作られた、DeepSeek Harness の非公式な Linux 向けデスクトップシェル。ローカルで dsh web を起動し、その Web ワークスペースをネイティブウィンドウに表示するので、セッション、モデル、プラグイン、ツールはそのまま使えます。dsh 本体は DeepSeek Harness のもので、Node とともにアプリに同梱され、アプリとは別に更新できます。トレイがあれば、ウィンドウを閉じても dsh は動き続けます。",
+		"ko": "MyGo로 만든 DeepSeek Harness의 비공식 Linux 데스크톱 셸입니다. 로컬에서 dsh web을 띄우고 그 웹 작업 공간을 네이티브 창에 보여 주므로 세션, 모델, 플러그인, 도구를 그대로 쓸 수 있습니다. dsh 자체는 DeepSeek Harness의 것으로 Node와 함께 앱에 포함되며 앱과 별도로 업데이트할 수 있습니다. 트레이가 있으면 창을 닫아도 dsh는 계속 실행됩니다."
+	},
+	"icon": {
+		"file": "dsh-gtk.webp"
+	},
+	"screenshot": "dsh-gtk.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T03:32:35Z"
+}
