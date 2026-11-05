@@ -5,7 +5,7 @@ import { LikeButton } from '../../components/Like';
 import { ScoreChip } from '../../components/Score';
 import { useLang, useT } from '../../lib/lang';
 import { useLikes } from '../../lib/likes';
-import { type AppSort, DEFAULT_SORT, groupChips, sortApps } from '../../lib/showcase';
+import { DEFAULT_SORT, groupChips, shownSort, sortApps } from '../../lib/showcase';
 import { useSite } from '../../lib/site';
 import { AppIcon, Note, StatusBar, Win, btnGo, btnSm, iconLabel, likeBtn, lnk, seg, select, well } from '../ui';
 import { noShot } from './AppPage';
@@ -37,8 +37,7 @@ export function Showcase() {
 	const author = authorParam ?? null;
 	const setAuthor = (name: string | null) => setFilter({ author: name ?? undefined });
 	const { status: likes, counts } = useLikes();
-	// With likes off there is no most-liked order to show, and before the first scores no order by score, whatever the link says. Scores are part of the build, so the order by score needs no likes.
-	const sort: AppSort = (sortParam === 'likes' && likes === 'off') || (sortParam === 'score' && !HAS_SCORES) ? DEFAULT_SORT : (sortParam ?? DEFAULT_SORT);
+	const sort = shownSort(sortParam, likes);
 
 	const kinds = [
 		{ key: 'all', label: t.all, n: APPS.length },

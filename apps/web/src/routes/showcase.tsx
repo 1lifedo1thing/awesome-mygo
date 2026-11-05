@@ -1,5 +1,5 @@
 import { APPS, type AppKind, HAS_SCORES, likeKey, pad2, pick } from '@awesome-mygo/catalog';
-import { type AppSort, DEFAULT_SORT, groupChips, sortApps, validateShowcaseSearch } from '../lib/showcase';
+import { DEFAULT_SORT, groupChips, shownSort, sortApps, validateShowcaseSearch } from '../lib/showcase';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { AppLink, KindTag, MonoTile, WinBar, appView } from '../components/bits';
 import { LikeButton } from '../components/Like';
@@ -22,8 +22,7 @@ function ShowcasePage() {
 	const navigate = useNavigate({ from: '/showcase' });
 	const setFilter = (next: { cat?: typeof group; ui?: AppKind; sort?: typeof sortParam }) => void navigate({ search: (prev) => ({ ...prev, ...next }), replace: true, resetScroll: false });
 	const { status: likes, counts } = useLikes();
-	// With likes off there is no most-liked order to show, and before the first scores no order by score, whatever the link says. Scores are part of the build, so the order by score needs no likes.
-	const sort: AppSort = (sortParam === 'likes' && likes === 'off') || (sortParam === 'score' && !HAS_SCORES) ? DEFAULT_SORT : (sortParam ?? DEFAULT_SORT);
+	const sort = shownSort(sortParam, likes);
 
 	const nNative = APPS.filter((a) => a.kind === 'native').length;
 	// The groups count the apps of the chosen interface, so a chip never leads to an empty list.

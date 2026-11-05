@@ -109,14 +109,15 @@ async function main(): Promise<void> {
 
 	const { file: next, kept, skipped } = assemble(plan, prev, targets, found, likes, asOf);
 
-	const rows = plan.measure.filter((key) => Object.hasOwn(next.entries, key)).sort((a, b) => (totalOf(next, b) ?? -1) - (totalOf(next, a) ?? -1) || (a < b ? -1 : 1));
+	const totals = new Map(plan.measure.filter((key) => Object.hasOwn(next.entries, key)).map((key) => [key, totalOf(next, key) as number]));
+	const rows = [...totals.keys()].sort((a, b) => (totals.get(b) as number) - (totals.get(a) as number) || (a < b ? -1 : 1));
 	say(`### Scores (${rows.length})\n`);
 	say('n/a is a signal that cannot be measured, counted at half its weight; ≈ marks a score with such a signal.\n');
 	say('| Entry | Score | Change | Stars /30 | Activity /25 | Openness /20 | Likes /15 | Release /10 |');
 	say('| --- | --: | --: | --- | --- | --- | --- | --- |');
 	for (const key of rows) {
 		const from = totalOf(prev, key);
-		const to = totalOf(next, key) as number;
+		const to = totals.get(key) as number;
 		const change = from === undefined ? 'new' : to === from ? '0' : `${to > from ? '+' : ''}${to - from}`;
 		say(`| ${cell(key)} | ${scoreCell(next, key)} | ${change} | ${partCells(next, key).join(' | ')} |`);
 	}

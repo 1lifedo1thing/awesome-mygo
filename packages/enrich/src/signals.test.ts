@@ -328,7 +328,7 @@ describe('the file a run writes', () => {
 		expect(out.file.entries['app:a3']).toMatchObject({ repo: 'o/a3', likes: 0 });
 	});
 
-	it('stops when more than a fifth of the repositories asked about, and more than three, are not found', () => {
+	it('stops when more than a fifth of the catalog\'s repositories, and more than three, are not found', () => {
 		const prev: ScoresFile = { asOf: null, entries: {} };
 		const plan = planRun(prev, targets, ASOF, false);
 		expect(() => assemble(plan, prev, targets, found(['app:a1', 'app:a2']), {}, ASOF)).not.toThrow();
@@ -338,6 +338,10 @@ describe('the file a run writes', () => {
 		// An incremental run that asks about one new entry whose repository is gone records the rest rather than failing.
 		const one = { ...plan, measure: ['app:a1'] };
 		expect(() => assemble(one, prev, targets, found(['app:a1']), {}, ASOF)).not.toThrow();
+		// Entries whose repositories are not found have no record, so every later run of the week asks about them again: a fifth of a larger catalog, they leave those runs to record the rest.
+		const big = new Map<string, ScoreTarget>([...targets, ...Array.from({ length: 20 }, (_, i): [string, ScoreTarget] => [`app:b${i}`, { repo: `o/b${i}` }])]);
+		const missing = ['app:a1', 'app:a2', 'app:a3', 'app:a4'];
+		expect(() => assemble({ ...plan, measure: missing }, prev, big, found(missing), {}, ASOF)).not.toThrow();
 	});
 
 	it('counts the likes only when they are on', () => {

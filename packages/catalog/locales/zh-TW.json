@@ -226,7 +226,7 @@
 	"score_lic_none": "原始碼公開，但沒有授權",
 	"score_lic_closed": "未公開原始碼",
 	"score_na_closed": "無法測量：未公開原始碼，以一半計入",
-	"score_na_shared": "無法測量：外掛位於 {x} 倉庫中，宿主的 Star 不算外掛自己的，以一半計入",
+	"score_na_shared": "無法測量：它位於 {x} 倉庫的一個目錄中，倉庫的 Star 不算它自己的，以一半計入",
 	"score_neutral": "中性值",
 	"score_archived": "倉庫已封存 ×{n}",
 	"score_asof": "{x} 這一週的評分，每週一更新",

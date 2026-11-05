@@ -1,4 +1,4 @@
-import { ARCHIVED_FACTOR, type LangCode, SITE_REPO, type Score, type ScorePart, type ScoreSignal, type ScoreSignals, type Translations, fill } from '@awesome-mygo/catalog';
+import { ARCHIVED_FACTOR, type LangCode, SITE_REPO, type Score, type ScoreSignal, type ScoreSignals, type Translations, fill } from '@awesome-mygo/catalog';
 
 // An entry's score as both looks show it (components/Score.tsx): the total, and each signal's line in the breakdown with what was measured, or why it could not be, in the page's language. The looks only lay these out.
 
@@ -17,8 +17,7 @@ export interface ScoreRow {
 	max: number;
 	// The points out of max as the page writes numbers, 12.5/25.
 	of: string;
-	basis: ScorePart['basis'];
-	// Whether the row shows the neutral tag: a signal counted at NEUTRAL, and the activity of an entry with no week to judge yet, which the formula counts at half too.
+	// Whether the row shows the neutral tag: a signal counted at NEUTRAL.
 	neutral: boolean;
 }
 
@@ -53,10 +52,11 @@ function license(s: ScoreSignals, t: Translations): string {
 	return fill(s.osi ? t.score_lic_osi : t.score_lic_other, { x: s.license });
 }
 
-// Why a signal counted at NEUTRAL could not be measured: the source is closed, or the stars of the repository an entry lives in are not its own.
-function neutralReason(signal: ScoreSignal, s: ScoreSignals, t: Translations): string {
+// Why a signal counted at NEUTRAL could not be measured: the source is closed, the stars of the repository an entry lives in are not its own, or there is no week of history to judge the activity on yet. day is the week's, as the page writes it.
+function neutralReason(signal: ScoreSignal, s: ScoreSignals, t: Translations, day: string): string {
 	if (!s.repo) return t.score_na_closed;
 	if (signal === 'stars' && s.path) return fill(t.score_na_shared, { x: s.repo });
+	if (signal === 'activity' && s.weeks === 0) return fill(t.score_v_weeks_new, { x: day });
 	return '';
 }
 
@@ -65,7 +65,7 @@ export function scoreRows(score: Score, signals: ScoreSignals, asOf: string, t: 
 	const day = dayOf(asOf, lang);
 	const measured: Record<ScoreSignal, () => string> = {
 		stars: () => fill(t.score_v_stars, { n: num.format(signals.stars ?? 0) }),
-		activity: () => (signals.weeks === 0 ? fill(t.score_v_weeks_new, { x: day }) : fill(t.score_v_weeks, { x: num.format(signals.weeks ?? 0), n: num.format(signals.activeWeeks ?? 0) })),
+		activity: () => fill(t.score_v_weeks, { x: num.format(signals.weeks ?? 0), n: num.format(signals.activeWeeks ?? 0) }),
 		openness: () => license(signals, t),
 		likes: () => fill(t.score_v_likes, { n: num.format(signals.likes) }),
 		release: () => (signals.released ? fill(t.score_v_rel, { x: dayOf(signals.released, lang) }) : t.score_v_rel_none),
@@ -74,12 +74,11 @@ export function scoreRows(score: Score, signals: ScoreSignals, asOf: string, t: 
 		(p): ScoreRow => ({
 			signal: p.signal,
 			label: t[LABEL[p.signal]],
-			detail: p.basis === 'neutral' ? neutralReason(p.signal, signals, t) : measured[p.signal](),
+			detail: p.basis === 'neutral' ? neutralReason(p.signal, signals, t, day) : measured[p.signal](),
 			points: p.points,
 			max: p.max,
 			of: `${num.format(p.points)}/${p.max}`,
-			basis: p.basis,
-			neutral: p.basis === 'neutral' || (p.signal === 'activity' && signals.weeks === 0),
+			neutral: p.basis === 'neutral',
 		}),
 	);
 	return { rows, archived: score.archived ? fill(t.score_archived, { n: num.format(ARCHIVED_FACTOR) }) : undefined, asOf: fill(t.score_asof, { x: day }) };

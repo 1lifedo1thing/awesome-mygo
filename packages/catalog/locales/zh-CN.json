@@ -226,7 +226,7 @@
 	"score_lic_none": "源码公开，但没有协议",
 	"score_lic_closed": "未公开源码",
 	"score_na_closed": "无法测量：未公开源码，按一半计入",
-	"score_na_shared": "无法测量：插件住在 {x} 仓库里，宿主的 Star 不算插件自己的，按一半计入",
+	"score_na_shared": "无法测量：它在 {x} 仓库的一个目录里，仓库的 Star 不算它自己的，按一半计入",
 	"score_neutral": "中性值",
 	"score_archived": "仓库已归档 ×{n}",
 	"score_asof": "{x} 这一周的评分，每周一更新",

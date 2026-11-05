@@ -226,7 +226,7 @@
 	"score_lic_none": "소스는 공개되어 있지만 라이선스가 없습니다",
 	"score_lic_closed": "소스 비공개",
 	"score_na_closed": "측정 불가: 소스가 공개되지 않아 절반으로 계산",
-	"score_na_shared": "측정 불가: 플러그인이 {x} 저장소 안에 있어 저장소의 스타는 플러그인 자체의 것이 아니므로 절반으로 계산",
+	"score_na_shared": "측정 불가: {x} 저장소의 한 폴더에 있어 저장소의 스타는 그 자체의 것이 아니므로 절반으로 계산",
 	"score_neutral": "중간값",
 	"score_archived": "저장소 보관됨 ×{n}",
 	"score_asof": "{x} 주의 점수, 매주 월요일 업데이트",

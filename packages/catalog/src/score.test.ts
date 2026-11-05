@@ -108,6 +108,11 @@ describe('scoreOf', () => {
 		const sqlite = score(PLUGIN);
 		expect(part(sqlite, 'stars')).toEqual({ signal: 'stars', points: 15, max: 30, basis: 'neutral' });
 		expect(part(sqlite, 'activity').basis).toBe('measured');
+		// A repository or folder with no week of history yet: its activity is not measured, so the total is approximate, at the same points as before.
+		const fresh = score({ ...OPEN, weeks: 0, activeWeeks: 0 });
+		expect(part(fresh, 'activity')).toEqual({ signal: 'activity', points: 12.5, max: 25, basis: 'neutral' });
+		expect(fresh.measured).toBe(0.75);
+		expect(part(score({ ...OPEN, weeks: 1, activeWeeks: 1 }), 'activity').basis).toBe('measured');
 		expect(sqlite.measured).toBeCloseTo(0.7, 10);
 		// Stars recorded for it by mistake are not counted either.
 		expect(score({ ...PLUGIN, stars: 4592 }).total).toBe(sqlite.total);
@@ -189,6 +194,10 @@ describe('scoreTarget', () => {
 	it('measures the folder a /tree/ link points at', () => {
 		expect(scoreTarget({ url: 'https://github.com/someone/tools/tree/main/x' })).toEqual({ repo: 'someone/tools', path: 'x' });
 		expect(scoreTarget({ url: 'https://github.com/someone/tools/tree/main/x/y/' })).toEqual({ repo: 'someone/tools', path: 'x/y' });
+		expect(scoreTarget({ url: 'https://github.com/someone/tools/tree/main/x#readme' })).toEqual({ repo: 'someone/tools', path: 'x' });
+		expect(scoreTarget({ repo: 'Someone/Tools', url: 'https://github.com/someone/tools/tree/main/x' })).toEqual({ repo: 'Someone/Tools', path: 'x' });
+		// A link into another repository says nothing of a folder of the entry's own.
+		expect(scoreTarget({ repo: 'someone/app', url: 'https://github.com/other/monorepo/tree/main/packages/app' })).toEqual({ repo: 'someone/app' });
 	});
 
 	it('measures nothing of a closed-source entry', () => {

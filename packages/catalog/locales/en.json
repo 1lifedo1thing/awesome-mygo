@@ -226,7 +226,7 @@
 	"score_lic_none": "The source is public, but has no license",
 	"score_lic_closed": "The source is not public",
 	"score_na_closed": "Not measurable: the source is not public, so it counts at half",
-	"score_na_shared": "Not measurable: the plugin lives in the {x} repository, whose stars are not its own, so it counts at half",
+	"score_na_shared": "Not measurable: it lives in a folder of the {x} repository, whose stars are not its own, so it counts at half",
 	"score_neutral": "Neutral",
 	"score_archived": "Repository archived ×{n}",
 	"score_asof": "Scores for the week of {x}, updated every Monday",

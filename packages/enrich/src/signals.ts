@@ -275,9 +275,9 @@ export function signalsOf(target: ScoreTarget, repo: RepoInfo, activity: Activit
 	};
 }
 
-// More than this share of the entries asked about not found means the token cannot see public repositories, not that they are gone: the run stops.
+// More than this share of the catalog's entries with a repository not found means the token cannot see public repositories, not that they are gone: the run stops. The share is of the whole catalog rather than of the entries a run asks about: an entry whose repository is not found has no record, so every later run of the week asks about it again, and four such entries alone would otherwise fail every run until they are fixed.
 export const NOT_FOUND_LIMIT = 0.2;
-// A few missing repositories are entries to fix, not a broken token, whatever share of a small incremental run they are: the run aborts only past this many as well.
+// A few missing repositories are entries to fix, not a broken token, whatever share of a small catalog they are: the run aborts only past this many as well.
 export const NOT_FOUND_MIN = 3;
 
 export interface Assembled {
@@ -289,8 +289,8 @@ export interface Assembled {
 
 // The file a run writes: the records it keeps, and the ones it measured, from GitHub's answers and the likes. Throws when too many repositories were not found, before anything is written.
 export function assemble(plan: Plan, prev: ScoresFile, targets: ReadonlyMap<string, ScoreTarget>, found: BatchResult, likes: Readonly<Record<string, number>>, asOf: string): Assembled {
-	const asked = plan.measure.filter((key) => targets.get(key)?.repo).length;
-	if (found.notFound.length > NOT_FOUND_MIN && found.notFound.length > asked * NOT_FOUND_LIMIT) throw new Error(`GitHub did not find the repositories of ${found.notFound.length} of the ${asked} entries asked about (${found.notFound.join(', ')}), more than ${NOT_FOUND_LIMIT * 100}%: is the token able to read public repositories?`);
+	const open = [...targets.values()].filter((t) => t.repo).length;
+	if (found.notFound.length > NOT_FOUND_MIN && found.notFound.length > open * NOT_FOUND_LIMIT) throw new Error(`GitHub did not find the repositories of ${found.notFound.length} of the ${open} entries with a repository (${found.notFound.join(', ')}), more than ${NOT_FOUND_LIMIT * 100}%: is the token able to read public repositories?`);
 	const notFound = new Set(found.notFound);
 	const entries: Record<string, ScoreSignals> = { ...plan.keep };
 	const kept: string[] = [];

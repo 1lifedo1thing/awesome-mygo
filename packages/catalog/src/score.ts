@@ -62,9 +62,9 @@ const round1 = (n: number) => Math.round(n * 10) / 10;
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
 const DAY = 86_400_000;
 
-// A count on a log scale, 0 at 0 and 1 at anchor and above.
-function logShare(n: number, anchor: number, log: (x: number) => number): number {
-	return clamp01(log(1 + Math.max(0, n)) / log(1 + anchor));
+// A count on a log scale, 0 at 0 and 1 at anchor and above. A ratio of logarithms is the same in any base, so one base serves every signal.
+function logShare(n: number, anchor: number): number {
+	return clamp01(Math.log1p(Math.max(0, n)) / Math.log1p(anchor));
 }
 
 // Activity: active weeks over the weeks the entry is judged on, between ACTIVITY_MIN and ACTIVITY_FULL; a project younger than ACTIVITY_MIN weeks has the weeks it did not exist yet counted at half, so it is neither punished for being young nor in full after two busy weeks.
@@ -94,10 +94,11 @@ export function releaseShare(released: string | undefined, asOf: string): number
 export function scoreOf(s: ScoreSignals, asOf: string): Score {
 	const open = Boolean(s.repo);
 	const shares: Record<ScoreSignal, number | undefined> = {
-		stars: open && !s.path && s.stars !== undefined ? logShare(s.stars, STAR_ANCHOR, Math.log10) : undefined,
-		activity: open && s.weeks !== undefined && s.activeWeeks !== undefined ? activityShare(s.weeks, s.activeWeeks) : undefined,
+		stars: open && !s.path && s.stars !== undefined ? logShare(s.stars, STAR_ANCHOR) : undefined,
+		// No week to judge yet (a repository or folder with no commit before asOf) is not a measurement: activityShare would count it at NEUTRAL anyway, and marking it so makes the total approximate, as the breakdown says.
+		activity: open && s.weeks !== undefined && s.weeks > 0 && s.activeWeeks !== undefined ? activityShare(s.weeks, s.activeWeeks) : undefined,
 		openness: opennessShare(s),
-		likes: logShare(s.likes, LIKE_ANCHOR, Math.log2),
+		likes: logShare(s.likes, LIKE_ANCHOR),
 		release: open ? releaseShare(s.released, asOf) : undefined,
 	};
 	const parts = SCORE_SIGNALS.map((signal): ScorePart => {
@@ -118,14 +119,16 @@ export interface ScoreTarget {
 
 const GITHUB_REPO = /^https:\/\/github\.com\/([\w.-]+)\/([\w.-]+?)(?:\.git)?(?:[/#?]|$)/;
 
-// What the workflow measures for an entry: its repository (its repo field, or else its link when that is a repository) and, for an entry in a folder of it, the folder (from its Go import path under the repository, or else from a /tree/<ref>/<path> link). An empty target is a closed-source entry.
+// What the workflow measures for an entry: its repository (its repo field, or else its link when that is a repository) and, for an entry in a folder of it, the folder (from its Go import path under the repository, or else from a /tree/<ref>/<path> link into that same repository). An empty target is a closed-source entry.
 export function scoreTarget(e: { repo?: string; url?: string; goImport?: string }): ScoreTarget {
 	const m = e.url ? GITHUB_REPO.exec(e.url.trim()) : null;
-	const repo = e.repo && /^[^/\s]+\/[^/\s]+$/.test(e.repo) ? e.repo : m ? `${m[1]}/${m[2]}` : undefined;
+	const linked = m ? `${m[1]}/${m[2]}` : undefined;
+	const repo = e.repo && /^[^/\s]+\/[^/\s]+$/.test(e.repo) ? e.repo : linked;
 	if (!repo) return {};
 	const prefix = `github.com/${repo}/`.toLowerCase();
 	const fromImport = e.goImport?.toLowerCase().startsWith(prefix) ? e.goImport.slice(prefix.length) : undefined;
-	const fromTree = e.url ? /^https:\/\/github\.com\/[^/]+\/[^/]+\/tree\/[^/]+\/(.+?)\/?$/.exec(e.url.trim())?.[1] : undefined;
+	// A folder of another repository than the entry's is not the entry's folder; a query or fragment is not part of the folder.
+	const fromTree = e.url && linked?.toLowerCase() === repo.toLowerCase() ? /^https:\/\/github\.com\/[^/]+\/[^/]+\/tree\/[^/]+\/([^?#]+?)\/?(?:[?#].*)?$/.exec(e.url.trim())?.[1] : undefined;
 	const path = (fromImport ?? fromTree)?.replace(/^\/+|\/+$/g, '');
 	return path ? { repo, path } : { repo };
 }
