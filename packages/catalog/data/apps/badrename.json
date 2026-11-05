@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "badrename",
+	"name": "BadRename",
+	"author": "Nemuboshi",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/Nemuboshi/BadRename",
+	"repo": "Nemuboshi/BadRename",
+	"summary": {
+		"en": "A batch file renamer: pick a rule and see every new name before any file is renamed.",
+		"zh-CN": "批量重命名工具：选好规则，改名前先看到每个新文件名。",
+		"zh-TW": "批次重新命名工具：選好規則，更名前先看到每個新檔名。",
+		"ja": "ルールを選び、実行前にすべての新しい名前を確認できる一括リネームツール。",
+		"ko": "규칙을 골라 실제로 바꾸기 전에 모든 새 이름을 미리 보는 일괄 이름 변경 도구."
+	},
+	"description": {
+		"en": "A batch rename tool for Windows, macOS and Linux, drawn with MyGo's native UI, with no webview and no Node.js. New names come from one of four rules: a template with the original name and serial numbers, plain replace, add or delete text, or a regular expression. Every new name is shown before anything touches the disk, and on a conflict it can ask, overwrite, skip or auto-rename.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的批量重命名工具，支持 Windows、macOS 与 Linux，不需要 WebView 或 Node.js。新文件名可由四种规则之一生成：结合原文件名与序号的模板、字符串替换、添加或删除文字，以及正则表达式。动手改名之前会先列出每个新名称；遇到重名时可选择询问、覆盖、跳过或自动改名。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的批次重新命名工具，支援 Windows、macOS 與 Linux，不需要 WebView 或 Node.js。新檔名可由四種規則之一產生：結合原檔名與序號的範本、字串取代、新增或刪除文字，以及正規表示式。實際更名之前會先列出每個新名稱；遇到同名時可選擇詢問、覆寫、略過或自動改名。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows・macOS・Linux 向けの一括リネームツール。Web ビューも Node.js も使いません。新しい名前は、元の名前と連番を組み合わせるテンプレート、文字列の置換、文字の追加・削除、正規表現の四つのルールから一つを選んで作ります。ディスクに手を付ける前にすべての新しい名前を確認でき、名前が重なったときは確認、上書き、スキップ、自動リネームから選べます。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows·macOS·Linux용 일괄 이름 변경 도구로, 웹 뷰도 Node.js도 쓰지 않습니다. 새 이름은 원래 이름과 일련번호를 조합하는 템플릿, 문자열 바꾸기, 글자 추가·삭제, 정규식의 네 가지 규칙 중 하나로 만듭니다. 디스크를 건드리기 전에 모든 새 이름을 미리 보여 주며, 이름이 겹치면 묻기, 덮어쓰기, 건너뛰기, 자동 이름 변경 중에서 고를 수 있습니다."
+	},
+	"icon": {
+		"file": "badrename.webp"
+	},
+	"screenshot": "badrename.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T03:32:35Z"
+}
