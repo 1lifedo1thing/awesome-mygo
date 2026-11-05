@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "codei18n",
+	"name": "Codei18n",
+	"author": "CairnPack",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/CairnPack/Codei18nDesktop",
+	"repo": "CairnPack/Codei18nDesktop",
+	"summary": {
+		"en": "Codei18n's Windows client: extract, translate and browse code comments across projects.",
+		"zh-CN": "Codei18n 的 Windows 客户端：跨多个项目提取、翻译和浏览代码注释。",
+		"zh-TW": "Codei18n 的 Windows 用戶端：跨多個專案擷取、翻譯與瀏覽程式碼註解。",
+		"ja": "Codei18n の Windows クライアント。複数プロジェクトのコードコメントを抽出・翻訳・閲覧。",
+		"ko": "Codei18n의 Windows 클라이언트. 여러 프로젝트의 코드 주석을 추출하고 번역하고 살펴봅니다."
+	},
+	"description": {
+		"en": "The Windows desktop client of Codei18n, drawn with MyGo's native UI with no web view; it calls the Codei18n core library in-process, and the codei18n command line comes from that core. It extracts and translates code comments across several projects, keeps API tokens in Windows Credential Manager, and lets you filter, search and edit translations side by side with the original.",
+		"zh-CN": "Codei18n 的 Windows 桌面端，由 MyGo 原生 UI 绘制，不使用 Web 视图；它在进程内调用 Codei18n core 库，codei18n 命令行同样来自这个 core。可以跨多个项目提取和翻译代码注释，把 API 令牌存进 Windows 凭据管理器，并按条件筛选、搜索注释，原文与译文并排编辑。",
+		"zh-TW": "Codei18n 的 Windows 桌面版，由 MyGo 原生 UI 繪製，不使用 Web 視圖；它在行程內呼叫 Codei18n core 函式庫，codei18n 命令列工具也來自這個 core。可跨多個專案擷取並翻譯程式碼註解，將 API 權杖存入 Windows 認證管理員，並篩選、搜尋註解，原文與譯文並排編輯。",
+		"ja": "MyGo のネイティブ UI で描かれた Codei18n の Windows 版デスクトップクライアントで、Web ビューは使いません。Codei18n core ライブラリをプロセス内で呼び出し、codei18n コマンドラインもその core が提供します。複数プロジェクトのコードコメントを抽出・翻訳し、API トークンは Windows 資格情報マネージャーに保存。コメントは絞り込みや検索ができ、原文と訳文を並べて編集できます。",
+		"ko": "MyGo의 네이티브 UI로 그린 Codei18n의 Windows 데스크톱 클라이언트로, 웹 뷰를 쓰지 않습니다. Codei18n core 라이브러리를 프로세스 안에서 호출하며, codei18n 명령줄 도구도 이 core에서 나옵니다. 여러 프로젝트의 코드 주석을 추출해 번역하고, API 토큰은 Windows 자격 증명 관리자에 저장하며, 주석을 필터링·검색하고 원문과 번역을 나란히 놓고 편집할 수 있습니다."
+	},
+	"icon": {
+		"file": "codei18n.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "codei18n.webp",
+	"added": "2026-11-05T17:24:29Z"
+}
