@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "naive-client",
+	"name": "Naive Client",
+	"author": "Jonkimi",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/Jonkimi/mygo-naive-client",
+	"repo": "Jonkimi/mygo-naive-client",
+	"summary": {
+		"en": "A native desktop client that runs several NaiveProxy services at once, with speed tests and logs.",
+		"zh-CN": "原生 NaiveProxy 桌面客户端：同时运行多个服务，支持测速、日志与链接导入。",
+		"zh-TW": "原生 NaiveProxy 桌面用戶端：同時執行多個服務，支援測速、日誌與連結匯入。",
+		"ja": "複数の NaiveProxy サービスを同時に動かせるネイティブなデスクトップクライアント。",
+		"ko": "여러 NaiveProxy 서비스를 동시에 실행하고 관리하는 네이티브 데스크톱 클라이언트."
+	},
+	"description": {
+		"en": "A NaiveProxy client manager for macOS, Linux and Windows, drawn with MyGo's native GPU UI, with no Electron or WebKit runtime and about 50 MB of memory at idle. It runs several local SOCKS5, HTTP or Redir services at once, tests latency and download speed, keeps a log for each, imports links in bulk, and updates the NaiveProxy core from GitHub releases.",
+		"zh-CN": "用 MyGo 原生 GPU 渲染的 NaiveProxy 客户端管理器，支持 macOS、Linux 与 Windows，无需 Electron 或 WebKit 运行时，空闲内存约 50 MB。可同时运行多个本地 SOCKS5、HTTP 或 Redir 服务，测试延迟与下载速度，查看各服务日志，批量导入链接，并从 GitHub Releases 自动更新 NaiveProxy 核心。",
+		"zh-TW": "用 MyGo 原生 GPU 繪製的 NaiveProxy 用戶端管理工具，支援 macOS、Linux 與 Windows，不需 Electron 或 WebKit 執行環境，閒置記憶體約 50 MB。可同時執行多個本機 SOCKS5、HTTP 或 Redir 服務，測試延遲與下載速度，查看各服務日誌，批次匯入連結，並從 GitHub Releases 自動更新 NaiveProxy 核心。",
+		"ja": "MyGo のネイティブ GPU 描画による NaiveProxy クライアントマネージャー。macOS・Linux・Windows に対応し、Electron や WebKit のランタイムは不要で、アイドル時のメモリは約 50 MB です。ローカルの SOCKS5・HTTP・Redir サービスを複数同時に動かし、遅延とダウンロード速度の計測、サービスごとのログ表示、リンクの一括インポート、GitHub Releases からの NaiveProxy コアの自動更新ができます。",
+		"ko": "MyGo의 네이티브 GPU 렌더링으로 그린 NaiveProxy 클라이언트 관리 앱으로, macOS, Linux, Windows를 지원하며 Electron이나 WebKit 런타임 없이 유휴 시 메모리를 약 50MB 사용합니다. 로컬 SOCKS5, HTTP, Redir 서비스를 여러 개 동시에 실행하고, 지연 시간과 다운로드 속도를 측정하며, 서비스별 로그를 보고, 링크를 일괄 가져오고, GitHub Releases에서 NaiveProxy 코어를 자동으로 업데이트합니다."
+	},
+	"icon": {
+		"file": "naive-client.webp"
+	},
+	"screenshot": "naive-client.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T03:32:35Z"
+}
