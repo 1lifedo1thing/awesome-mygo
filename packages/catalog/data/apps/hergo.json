@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "hergo",
+	"name": "Hergo",
+	"author": "Maidang1",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/Maidang1/hergo",
+	"repo": "Maidang1/hergo",
+	"summary": {
+		"en": "A native desktop client for Herdr: workspaces, Git worktrees, diffs, agents and split terminals.",
+		"zh-CN": "Herdr 的原生桌面客户端：工作区、Git 工作树、diff、编程助手与分屏终端。",
+		"zh-TW": "Herdr 的原生桌面用戶端：工作區、Git 工作樹、diff、程式助理與分割終端機。",
+		"ja": "Herdr のネイティブクライアント。ワークスペース、Git 差分、エージェント、分割ターミナル。",
+		"ko": "Herdr용 네이티브 데스크톱 클라이언트. 워크스페이스, diff, 에이전트, 분할 터미널."
+	},
+	"description": {
+		"en": "A desktop client for Herdr on macOS, Windows and Linux, drawn with MyGo's native UI, terminal included, with no web view or Node.js runtime. It uses the Herdr installed on your machine to browse workspaces and Git worktrees, run split-pane terminals, read diffs of uncommitted changes and recent commits, and follow coding agents with alerts when they stop or their output matches.",
+		"zh-CN": "支持 macOS、Windows 与 Linux 的 Herdr 桌面客户端，界面与终端都由 MyGo 原生 UI 绘制，无需 WebView 或 Node.js 运行时。它使用本机安装的 Herdr，可浏览工作区与 Git 工作树、分屏使用终端、查看未提交改动和最近提交的 diff，并跟进 AI 编程助手的状态，在其停止或输出匹配时发出提醒。",
+		"zh-TW": "支援 macOS、Windows 與 Linux 的 Herdr 桌面用戶端，介面與終端機都由 MyGo 原生 UI 繪製，不需要 WebView 或 Node.js 執行環境。它使用本機安裝的 Herdr，可瀏覽工作區與 Git 工作樹、分割窗格使用終端機、查看未提交變更與最近提交的 diff，並追蹤 AI 程式助理的狀態，在其停止或輸出符合條件時提醒。",
+		"ja": "macOS・Windows・Linux 向けの Herdr デスクトップクライアント。画面もターミナルも MyGo のネイティブ UI で描かれ、WebView や Node.js ランタイムは不要です。手元にインストールした Herdr を使い、ワークスペースと Git ワークツリーの閲覧、分割ペインのターミナル、未コミットの変更と最近のコミットの差分表示、AI コーディングエージェントの状態確認ができ、停止時や出力の一致時に通知も出せます。",
+		"ko": "macOS, Windows, Linux용 Herdr 데스크톱 클라이언트로, 화면과 터미널 모두 MyGo의 네이티브 UI로 그리며 WebView나 Node.js 런타임이 필요 없습니다. 설치된 Herdr를 사용해 워크스페이스와 Git 워크트리를 둘러보고, 분할 창 터미널을 쓰고, 커밋하지 않은 변경과 최근 커밋의 diff를 보며, AI 코딩 에이전트의 상태를 확인하고 멈추거나 출력이 일치할 때 알림을 받을 수 있습니다."
+	},
+	"icon": {
+		"file": "hergo.webp"
+	},
+	"screenshot": "hergo.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T03:08:54Z"
+}
