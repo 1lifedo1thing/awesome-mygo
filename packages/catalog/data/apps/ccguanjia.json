@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "ccguanjia",
+	"name": "CCGuanjia",
+	"author": "sorrycc",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/sorrycc/CCGuanjia",
+	"repo": "sorrycc/CCGuanjia",
+	"summary": {
+		"en": "A Mac app for Claude Code: profiles for your own accounts, usage overview, installs and cleanup.",
+		"zh-CN": "管理 Claude Code 的 Mac 应用：账号配置、用量概览、安装更新与清理。",
+		"zh-TW": "管理 Claude Code 的 Mac 應用程式：帳號設定、用量概覽、安裝更新與清理。",
+		"ja": "Claude Code を管理する Mac アプリ。プロファイル、使用量、インストール、フォルダー整理。",
+		"ko": "Claude Code를 관리하는 Mac 앱. 내 계정 프로필, 사용량, 설치 업데이트, 폴더 정리."
+	},
+	"description": {
+		"en": "A Mac app that looks after Claude Code, written in Go and drawn with MyGo's native UI. It finds your ~/.claude-<name> profiles, starts each on its own sign-in, and shows usage from local transcripts and how Claude Code is installed, with updates. It edits settings.json with a diff before each save and backs folders up before cleaning them. It never reads sign-in tokens.",
+		"zh-CN": "用 Go 编写、由 MyGo 原生 UI 绘制的 Mac 应用，用来照管 Claude Code。它会找出你的 ~/.claude-<name> 配置，让每个配置用各自的登录启动，根据本地会话记录显示用量，同时显示 Claude Code 的安装方式并可更新。编辑 settings.json 时每次保存前先显示差异，清理文件夹前先备份。它从不读取登录令牌。",
+		"zh-TW": "用 Go 撰寫、由 MyGo 原生 UI 繪製的 Mac 應用程式，用來照管 Claude Code。它會找出你的 ~/.claude-<name> 設定檔，讓每個設定檔以各自的登入啟動，依本機對話紀錄顯示用量，同時顯示 Claude Code 的安裝方式並可更新。編輯 settings.json 時每次儲存前先顯示差異，清理資料夾前先備份。它從不讀取登入權杖。",
+		"ja": "Go で書かれ、MyGo のネイティブ UI で描かれた、Claude Code の面倒を見る Mac アプリ。~/.claude-<name> のプロファイルを見つけてそれぞれ別のサインインで起動し、ローカルのトランスクリプトから集計した使用量を Claude Code のインストール状況とともに表示し、更新もできます。settings.json は保存のたびに差分を確認でき、フォルダーはバックアップしてから整理します。サインイントークンは読み取りません。",
+		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린, Claude Code를 관리하는 Mac 앱입니다. ~/.claude-<name> 프로필을 찾아 각자의 로그인으로 실행하고, 로컬 대화 기록에서 집계한 사용량을 Claude Code 설치 상태와 함께 보여 주며 업데이트도 합니다. settings.json은 저장할 때마다 변경 내용을 먼저 보여 주고, 폴더는 백업한 뒤 정리합니다. 로그인 토큰은 읽지 않습니다."
+	},
+	"icon": {
+		"file": "ccguanjia.webp"
+	},
+	"screenshot": "ccguanjia.webp",
+	"added": "2026-11-05T02:43:19Z"
+}
