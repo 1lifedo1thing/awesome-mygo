@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "planet-windows",
+	"name": "Planet Windows",
+	"author": "Stdq123",
+	"kind": "web",
+	"group": "notes",
+	"url": "https://github.com/Stdq123/planet-windows",
+	"repo": "Stdq123/planet-windows",
+	"summary": {
+		"en": "Windows port of Planet for publishing sites to IPFS and following RSS, Atom, IPNS and ENS feeds.",
+		"zh-CN": "Windows 版 Planet：把网站发布到 IPFS，并订阅 RSS 等订阅源。",
+		"zh-TW": "Windows 版 Planet：將網站發布到 IPFS，並訂閱 RSS 等訂閱源。",
+		"ja": "Planet の Windows 版。サイトを IPFS で公開し、RSS や ENS のフィードを購読。",
+		"ko": "Planet의 Windows 포팅판. 사이트를 IPFS에 게시하고 RSS·ENS 피드를 구독합니다."
+	},
+	"description": {
+		"en": "An independent Windows port of Planet, built with MyGo and a TypeScript web frontend in WebView2; the original Planet is made separately. It publishes Markdown sites to IPFS and IPNS through a bundled Kubo node and follows RSS, Atom, JSON Feed, IPNS and ENS feeds, keeping chosen ones offline. It is still in early development, and compatibility with Mac backups is unverified.",
+		"zh-CN": "Planet 的独立 Windows 移植版，用 MyGo 搭配在 WebView2 中运行的 TypeScript 网页前端构建，原版 Planet 另行开发。它通过内置的 Kubo 节点把 Markdown 网站发布到 IPFS 与 IPNS，并订阅 RSS、Atom、JSON Feed、IPNS 和 ENS 内容，可将选定内容保存以便离线阅读。目前仍处于早期开发阶段，与 Mac 备份的兼容性尚未验证。",
+		"zh-TW": "Planet 的獨立 Windows 移植版，以 MyGo 搭配在 WebView2 中執行的 TypeScript 網頁前端打造，原版 Planet 另行開發。它透過內建的 Kubo 節點將 Markdown 網站發布到 IPFS 與 IPNS，並訂閱 RSS、Atom、JSON Feed、IPNS 和 ENS 內容，可將選定內容儲存以便離線閱讀。目前仍在早期開發階段，與 Mac 備份的相容性尚未驗證。",
+		"ja": "Planet をもとにした独立した Windows 移植版で、MyGo と WebView2 上の TypeScript 製 Web フロントエンドで作られています。元の Planet は別に開発されています。同梱の Kubo ノードで Markdown のサイトを IPFS と IPNS に公開し、RSS、Atom、JSON Feed、IPNS、ENS のフィードを購読して、選んだ内容をオフラインで読めるように保存できます。まだ開発初期の段階で、Mac のバックアップとの互換性は確認されていません。",
+		"ko": "Planet에서 파생한 독립적인 Windows 포팅판으로, MyGo와 WebView2에서 실행되는 TypeScript 웹 프런트엔드로 만들었으며 원래 Planet은 별도로 개발됩니다. 내장된 Kubo 노드로 Markdown 사이트를 IPFS와 IPNS에 게시하고, RSS, Atom, JSON Feed, IPNS, ENS 피드를 구독하며 선택한 콘텐츠를 오프라인용으로 저장합니다. 아직 초기 개발 단계이며 Mac 백업과의 호환성은 검증되지 않았습니다."
+	},
+	"icon": {
+		"file": "planet-windows.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "planet-windows.webp",
+	"added": "2026-11-05T10:51:28Z"
+}
