@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "curb",
+	"name": "Curb",
+	"author": "xptea",
+	"kind": "native",
+	"category": "MultimediaApplication",
+	"url": "https://curb.seths.app",
+	"repo": "xptea/curb",
+	"summary": {
+		"en": "Native video and audio downloader on yt-dlp: paste a link, pick video or MP3 and a quality.",
+		"zh-CN": "基于 yt-dlp 的原生音视频下载器：粘贴链接，选视频或 MP3 和质量即可保存。",
+		"zh-TW": "以 yt-dlp 為基礎的原生影音下載器：貼上連結，選影片或 MP3 與品質即可儲存。",
+		"ja": "yt-dlp を使うネイティブな動画・音声ダウンローダー。リンクを貼って形式と画質を選ぶだけ。",
+		"ko": "yt-dlp 기반 네이티브 영상·음성 다운로더. 링크를 붙여 넣고 형식과 화질만 고르면 됩니다."
+	},
+	"description": {
+		"en": "A video and audio downloader drawn with MyGo's native UI, with no web view or frontend server. Paste a link, choose video or MP3 audio and a quality, and Curb saves the file through yt-dlp and FFmpeg, with progress, cancellation and a supported-site list that works offline. Linux is the packaged and tested platform; macOS and Windows builds compile but are not yet validated.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的音视频下载器，没有 Web 视图，也没有前端服务器。粘贴链接，选择视频或 MP3 音频及质量，Curb 便通过 yt-dlp 和 FFmpeg 保存文件，可查看进度、随时取消，支持站点列表离线也能搜索。目前只有 Linux 版经过打包和测试，macOS 与 Windows 仅确认能够编译。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的影音下載器，沒有 Web 視圖，也沒有前端伺服器。貼上連結，選擇影片或 MP3 音訊及品質，Curb 便透過 yt-dlp 和 FFmpeg 儲存檔案，可查看進度、隨時取消，支援網站清單離線也能搜尋。目前只有 Linux 版經過打包與測試，macOS 與 Windows 僅確認可以編譯。",
+		"ja": "MyGo のネイティブ UI で描かれた動画・音声ダウンローダー。Web ビューもフロントエンドサーバーもありません。リンクを貼り、動画か MP3 音声と画質を選ぶと、yt-dlp と FFmpeg でファイルを保存します。進捗表示とキャンセルに対応し、対応サイト一覧はオフラインでも検索できます。パッケージ化とテストが済んでいるのは Linux のみで、macOS と Windows はコンパイルの確認にとどまります。",
+		"ko": "MyGo의 네이티브 UI로 그린 영상·음성 다운로더로, 웹 뷰도 프런트엔드 서버도 없습니다. 링크를 붙여 넣고 영상이나 MP3 음성과 화질을 고르면 yt-dlp와 FFmpeg로 파일을 저장하며, 진행 상황 표시와 취소를 지원하고 지원 사이트 목록은 오프라인에서도 검색할 수 있습니다. 패키징과 테스트를 마친 것은 Linux뿐이며, macOS와 Windows는 컴파일만 확인된 상태입니다."
+	},
+	"icon": {
+		"file": "curb.webp"
+	},
+	"screenshot": "curb.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T04:45:28Z"
+}
