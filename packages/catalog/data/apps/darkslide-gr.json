@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "darkslide-gr",
+	"name": "DARKSLIDE GR",
+	"author": "LiorMoment",
+	"kind": "web",
+	"category": "MultimediaApplication",
+	"url": "https://github.com/LiorMoment/darkslide-gr",
+	"repo": "LiorMoment/darkslide-gr",
+	"summary": {
+		"en": "Builds modified Ricoh GR III and GR IIIx firmware with film looks, your own LUTs and preset names.",
+		"zh-CN": "为理光 GR III／IIIx 生成带胶片颜色、自定义 LUT 和预设名的修改版固件。",
+		"zh-TW": "為理光 GR III／IIIx 產生帶有底片色調、自訂 LUT 和預設名稱的修改版韌體。",
+		"ja": "リコー GR III／IIIx の改造ファームウェアを作成。フィルムの色、自作 LUT、プリセット名に対応。",
+		"ko": "필름 색감, 내 LUT, 프리셋 이름을 넣은 리코 GR III·IIIx 수정 펌웨어를 만듭니다."
+	},
+	"description": {
+		"en": "Takes official Ricoh GR III or GR IIIx firmware and builds a modified file on your computer, with film looks, .cube or Lightroom LUTs, your own preset icons and names, soft focus and extra aspect ratios. Each build is checked by separate code before download. It runs on macOS and Windows and includes no firmware; the README warns that flashing may brick the camera.",
+		"zh-CN": "以你从理光官网下载的 GR III 或 GR IIIx 官方固件为基础，在自己的电脑上生成修改版固件文件，可加入胶片颜色、.cube 或 Lightroom LUT、自定义预设图标和名字、柔光以及新画幅。每次生成后都由另一套独立代码核对，通过才提供下载。桌面版支持 macOS 与 Windows，不附带任何固件；README 提醒刷入可能让相机变砖。",
+		"zh-TW": "以你從理光官網下載的 GR III 或 GR IIIx 官方韌體為基礎，在自己的電腦上產生修改版韌體檔案，可加入底片色調、.cube 或 Lightroom LUT、自訂預設圖示與名稱、柔焦效果以及新的長寬比。每次產生後都由另一套獨立程式碼核對，通過才提供下載。桌面版支援 macOS 與 Windows，不附帶任何韌體；README 提醒刷入可能讓相機變磚。",
+		"ja": "自分でダウンロードしたリコー GR III／GR IIIx の公式ファームウェアをもとに、改造ファームウェアを手元のパソコンで生成します。フィルムの色、.cube や Lightroom の LUT、独自のプリセットアイコンと名前、ソフトフォーカス、新しいアスペクト比を加えられます。生成したファイルは別系統のコードで検証してからダウンロードできます。macOS と Windows で動き、ファームウェアは同梱しません。README は書き込みでカメラが文鎮化するおそれがあると警告しています。",
+		"ko": "직접 내려받은 리코 GR III 또는 GR IIIx 공식 펌웨어로 내 컴퓨터에서 수정 펌웨어 파일을 만듭니다. 필름 색감, .cube나 Lightroom LUT, 직접 정한 프리셋 아이콘과 이름, 소프트 포커스, 새 화면비를 넣을 수 있습니다. 결과물은 별도의 코드로 검증한 뒤에만 내려받을 수 있습니다. macOS와 Windows에서 실행되며 펌웨어는 포함하지 않고, README는 플래싱하면 카메라가 벽돌이 될 수 있다고 경고합니다."
+	},
+	"added": "2026-11-05T00:53:55Z",
+	"icon": {
+		"file": "darkslide-gr.webp"
+	},
+	"screenshot": "darkslide-gr.webp"
+}
