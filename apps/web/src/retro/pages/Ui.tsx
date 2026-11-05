@@ -1,6 +1,7 @@
 import { NATIVE_UI_DOCS, type Surface, UI_KEYS, UI_LIBS, type UiLib, type UiLibKey, fill, likeKey, pick } from '@awesome-mygo/catalog';
 import { useNavigate, useSearch } from '@tanstack/react-router';
 import { LikeButton } from '../../components/Like';
+import { ScoreButton } from '../../components/Score';
 import { useLang, useT } from '../../lib/lang';
 import { useSite } from '../../lib/site';
 import { DesktopIcons } from '../DesktopIcons';
@@ -118,6 +119,7 @@ function LibCard({ lib, first }: { lib: UiLib; first: boolean }) {
 					</a>
 				)}
 				<LikeButton item={likeKey.ui(lib)} name={lib.name} className={likeBtn} size={12} />
+				<ScoreButton item={likeKey.ui(lib)} name={lib.name} />
 			</div>
 		</article>
 	);

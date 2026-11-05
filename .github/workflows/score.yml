@@ -1,0 +1,90 @@
+name: Update scores
+
+# Once a day this records in packages/catalog/data/scores.json the raw signals of every entry's score (its repository's stars, its weeks with commits, its license, its latest release and its likes on the site) with packages/enrich (score.ts), and pushes the change to main as the site's GitHub App, so that CI and the deployment run on it; the site computes the scores from the file when it is built (packages/catalog/src/score.ts). The first run of a week (from Monday, UTC) measures every entry; a later one only the entries added or moved since, so most days nothing changes and nothing is committed. A run that fails writes nothing, and the next day's run makes up for it.
+#
+# The catalog's tests check the new file before it is committed. The run's summary lists every measured entry's score and its parts, anomalies (likes or stars that jumped, an archived repository, a score that moved by 15 or more) and data to fix.
+#
+# Secrets: SUBMIT_APP_PRIVATE_KEY, as for the Complete submission workflow. Variables: SUBMIT_APP_CLIENT_ID.
+
+on:
+  schedule:
+    - cron: '41 3 * * *'
+  workflow_dispatch:
+    inputs:
+      full:
+        description: Measure every entry again, even when this week is recorded
+        type: boolean
+        default: false
+      dry_run:
+        description: Only report what it measured, without committing
+        type: boolean
+        default: false
+
+concurrency:
+  group: update-scores
+
+permissions:
+  contents: read
+
+jobs:
+  score:
+    if: github.repository == 'yldm-tech/awesome-mygo'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - id: app
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.SUBMIT_APP_CLIENT_ID }}
+          private-key: ${{ secrets.SUBMIT_APP_PRIVATE_KEY }}
+
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          token: ${{ steps.app.outputs.token }}
+          # The whole history, so that the push can rebase onto a main that moved during the run.
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Commit as the bot
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          BOT: ${{ steps.app.outputs.app-slug }}[bot]
+        run: |
+          git config user.name "$BOT"
+          git config user.email "$(gh api "users/$BOT" --jq .id)+$BOT@users.noreply.github.com"
+
+      - name: Measure the signals
+        env:
+          GITHUB_TOKEN: ${{ steps.app.outputs.token }}
+          LIKES_URL: https://awesomemygo.dev/api/likes
+          FULL: ${{ inputs.full && 'true' || 'false' }}
+          DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
+          REPORT_FILE: ${{ runner.temp }}/score-report.md
+          COMMIT_FILE: ${{ runner.temp }}/score-commit.txt
+        run: pnpm --filter @awesome-mygo/enrich score
+
+      - name: Check the catalog
+        run: pnpm --filter @awesome-mygo/catalog test
+
+      - name: Commit and push
+        if: ${{ !inputs.dry_run }}
+        run: |
+          git add packages/catalog/data/scores.json
+          if git diff --cached --quiet; then echo 'No signal changed'; exit 0; fi
+          git commit -q -F "$RUNNER_TEMP/score-commit.txt"
+          # Only this workflow writes scores.json, so a rebase onto a main that moved meanwhile does not conflict.
+          # A main that moved during the run may have removed or moved an entry: the checks run again on the rebased tree before the retry pushes.
+          git push origin HEAD:main || { git pull -q --rebase origin main && pnpm --filter @awesome-mygo/catalog test && git push origin HEAD:main; }
+
+      - name: Summary
+        if: always()
+        run: |
+          report="$RUNNER_TEMP/score-report.md"
+          if [[ -s "$report" ]]; then cat "$report" >> "$GITHUB_STEP_SUMMARY"; fi

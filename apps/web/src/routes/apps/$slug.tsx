@@ -1,7 +1,8 @@
-import { appBySlug, appGroup, pick } from '@awesome-mygo/catalog';
+import { appBySlug, appGroup, likeKey, pick } from '@awesome-mygo/catalog';
 import { Link, createFileRoute, notFound } from '@tanstack/react-router';
 import { AppActions, AppBadge, AppFacts, AppPager, MoreBy } from '../../components/AppDetail';
 import { KindTag, MonoTile, WinBar, appView } from '../../components/bits';
+import { ScoreBreakdown } from '../../components/Score';
 import { useLang, useT } from '../../lib/lang';
 import { appHead } from '../../lib/seo';
 
@@ -81,6 +82,7 @@ function AppPage() {
 				</div>
 				<aside className='app-side'>
 					<AppFacts view={v} kindLabel={kindLabel} />
+					<ScoreBreakdown item={likeKey.app(app)} id='score' className='app-score' />
 					<AppBadge app={app} />
 				</aside>
 			</div>

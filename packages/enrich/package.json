@@ -11,11 +11,13 @@
 		"enrich": "node src/main.ts",
 		"discover": "node src/discover.ts",
 		"verify": "node src/verify.ts",
+		"score": "node src/score.ts",
 		"typecheck": "tsc --noEmit",
 		"test": "vitest run"
 	},
 	"dependencies": {
 		"@anthropic-ai/sdk": "^1.4.0",
+		"spdx-license-list": "^6.12.0",
 		"zod": "^4.6.7"
 	},
 	"devDependencies": {

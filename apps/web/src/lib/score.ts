@@ -1,0 +1,85 @@
+import { ARCHIVED_FACTOR, type LangCode, SITE_REPO, type Score, type ScoreSignal, type ScoreSignals, type Translations, fill } from '@awesome-mygo/catalog';
+
+// An entry's score as both looks show it (components/Score.tsx): the total, and each signal's line in the breakdown with what was measured, or why it could not be, in the page's language. The looks only lay these out.
+
+// The formula, and every change to the recorded signals, on GitHub: anyone can take the raw values and work the score out again.
+export const SCORE_FORMULA_URL = `${SITE_REPO}/blob/main/packages/catalog/src/score.ts`;
+export const SCORE_HISTORY_URL = `${SITE_REPO}/commits/main/packages/catalog/data/scores.json`;
+
+const LABEL: Record<ScoreSignal, 'score_stars' | 'score_activity' | 'score_open' | 'score_likes' | 'score_release'> = { stars: 'score_stars', activity: 'score_activity', openness: 'score_open', likes: 'score_likes', release: 'score_release' };
+
+export interface ScoreRow {
+	signal: ScoreSignal;
+	label: string;
+	// The raw value behind the points (the star count, the active weeks, the license), or why the signal could not be measured.
+	detail: string;
+	points: number;
+	max: number;
+	// The points out of max as the page writes numbers, 12.5/25.
+	of: string;
+	// Whether the row shows the neutral tag: a signal counted at NEUTRAL.
+	neutral: boolean;
+}
+
+export interface ScoreView {
+	rows: ScoreRow[];
+	// The archived line, when the score was multiplied by ARCHIVED_FACTOR.
+	archived: string | undefined;
+	asOf: string;
+}
+
+// The total as shown: approximate (≈37) when part of the weight was counted at NEUTRAL rather than measured.
+export function scoreTotal(score: Score): string {
+	return `${score.measured < 1 ? '≈' : ''}${score.total}`;
+}
+
+// The score as a sentence for assistive technology and the tooltip, with a note when part of it could not be measured.
+export function scoreLabel(score: Score, name: string, t: Translations, lang: LangCode): string {
+	const label = fill(t.score_a, { x: name, n: score.total });
+	if (score.measured >= 1) return label;
+	return `${label}${lang === 'en' || lang === 'ko' ? '. ' : '。'}${t.score_partial}`;
+}
+
+// A day in the page's language, formatted in UTC as the app pages' added date is, so the server's render and the visitor's browser agree on it.
+function dayOf(day: string, lang: LangCode): string {
+	return new Intl.DateTimeFormat(lang, { dateStyle: 'medium', timeZone: 'UTC' }).format(new Date(day));
+}
+
+function license(s: ScoreSignals, t: Translations): string {
+	if (!s.repo) return t.score_lic_closed;
+	if (s.license === null || s.license === undefined) return t.score_lic_none;
+	if (s.license === 'NOASSERTION') return t.score_lic_unknown;
+	return fill(s.osi ? t.score_lic_osi : t.score_lic_other, { x: s.license });
+}
+
+// Why a signal counted at NEUTRAL could not be measured: the source is closed, the stars of the repository an entry lives in are not its own, or there is no week of history to judge the activity on yet. day is the week's, as the page writes it.
+function neutralReason(signal: ScoreSignal, s: ScoreSignals, t: Translations, day: string): string {
+	if (!s.repo) return t.score_na_closed;
+	if (signal === 'stars' && s.path) return fill(t.score_na_shared, { x: s.repo });
+	if (signal === 'activity' && s.weeks === 0) return fill(t.score_v_weeks_new, { x: day });
+	return '';
+}
+
+export function scoreRows(score: Score, signals: ScoreSignals, asOf: string, t: Translations, lang: LangCode): ScoreView {
+	const num = new Intl.NumberFormat(lang, { maximumFractionDigits: 1 });
+	const day = dayOf(asOf, lang);
+	const measured: Record<ScoreSignal, () => string> = {
+		stars: () => fill(t.score_v_stars, { n: num.format(signals.stars ?? 0) }),
+		activity: () => fill(t.score_v_weeks, { x: num.format(signals.weeks ?? 0), n: num.format(signals.activeWeeks ?? 0) }),
+		openness: () => license(signals, t),
+		likes: () => fill(t.score_v_likes, { n: num.format(signals.likes) }),
+		release: () => (signals.released ? fill(t.score_v_rel, { x: dayOf(signals.released, lang) }) : t.score_v_rel_none),
+	};
+	const rows = score.parts.map(
+		(p): ScoreRow => ({
+			signal: p.signal,
+			label: t[LABEL[p.signal]],
+			detail: p.basis === 'neutral' ? neutralReason(p.signal, signals, t, day) : measured[p.signal](),
+			points: p.points,
+			max: p.max,
+			of: `${num.format(p.points)}/${p.max}`,
+			neutral: p.basis === 'neutral',
+		}),
+	);
+	return { rows, archived: score.archived ? fill(t.score_archived, { n: num.format(ARCHIVED_FACTOR) }) : undefined, asOf: fill(t.score_asof, { x: day }) };
+}

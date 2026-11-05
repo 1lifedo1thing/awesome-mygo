@@ -1,7 +1,8 @@
-import { CLI_CMDS, COMMUNITY_PLUGINS, PLUGINS, PLUGINS_DOC, type Plugin, type PluginSurface, fill, likeKey, pick } from '@awesome-mygo/catalog';
+import { CLI_CMDS, COMMUNITY_PLUGINS, HAS_SCORES, PLUGINS, PLUGINS_DOC, type Plugin, type PluginSurface, fill, likeKey, pick, scoreRank } from '@awesome-mygo/catalog';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { WinBar } from '../components/bits';
 import { LikeButton } from '../components/Like';
+import { ScoreButton } from '../components/Score';
 import { useLikes } from '../lib/likes';
 import { validatePluginsSearch } from '../lib/page-search';
 import { useLang, useT } from '../lib/lang';
@@ -38,14 +39,16 @@ function PluginsPage() {
 	// A plugin for both kinds of window shows under either filter.
 	const fits = (s: PluginSurface) => surface === 'all' || s === surface || s === 'both';
 	const { status: likes, counts } = useLikes();
-	// With likes off there is no most-liked order to show, whatever the link says.
-	const byLikes = search.sort === 'likes' && likes !== 'off';
-	const setByLikes = (on: boolean) => setSearch({ sort: on ? 'likes' : undefined });
+	// With likes off there is no most-liked order to show, and before the first scores no order by score, whatever the link says; either falls back to the docs' order.
+	const sort = (search.sort === 'likes' && likes === 'off') || (search.sort === 'score' && !HAS_SCORES) ? undefined : search.sort;
 	const shown = PLUGINS.filter((p) => fits(p.surface));
 	// The community's plugins, under the same filter, after the official ones and the call to write one.
 	const community = COMMUNITY_PLUGINS.filter((p) => fits(p.surface));
-	// Most liked first; ties keep the docs' order.
-	if (byLikes) for (const list of [shown, community]) list.sort((a, b) => (counts[likeKey.plugin(b)] ?? 0) - (counts[likeKey.plugin(a)] ?? 0));
+	// Most liked or highest score first; ties keep the docs' order. The community's plugins have no score yet, so by score they keep theirs.
+	for (const list of [shown, community]) {
+		if (sort === 'likes') list.sort((a, b) => (counts[likeKey.plugin(b)] ?? 0) - (counts[likeKey.plugin(a)] ?? 0));
+		if (sort === 'score') list.sort((a, b) => scoreRank(likeKey.plugin(b)) - scoreRank(likeKey.plugin(a)));
+	}
 	const chips = [
 		{ key: 'all' as const, label: `${t.all} · ${PLUGINS.length}` },
 		{ key: 'web' as const, label: `${t.surf_web} · ${PLUGINS.filter((p) => p.surface !== 'native').length}` },
@@ -76,7 +79,10 @@ function PluginsPage() {
 								</h2>
 								<span className={`surf surf-${p.surface}`}>{surfLabel[p.surface]}</span>
 							</div>
-							<LikeButton item={likeKey.plugin(p)} name={p.name} className='like-btn like-end' />
+							<span className='like-end card-acts'>
+								<ScoreButton item={likeKey.plugin(p)} name={p.name} />
+								<LikeButton item={likeKey.plugin(p)} name={p.name} className='like-btn' />
+							</span>
 						</div>
 						<p className='show-desc'>{pick(p.desc, lang)}</p>
 						{setup.length > 0 && (
@@ -121,14 +127,15 @@ function PluginsPage() {
 						</button>
 					))}
 				</div>
-				{likes !== 'off' && (
+				{(likes !== 'off' || HAS_SCORES) && (
 					<div className='sort'>
 						<label htmlFor='sort' className='sort-label'>
 							{t.sort}
 						</label>
-						<select id='sort' value={byLikes ? 'likes' : 'default'} onChange={(e) => setByLikes(e.target.value === 'likes')} className='sort-select'>
+						<select id='sort' value={sort ?? 'default'} onChange={(e) => setSearch({ sort: e.target.value === 'default' ? undefined : (e.target.value as typeof sort) })} className='sort-select'>
 							<option value='default'>{t.sort_def}</option>
-							<option value='likes'>{t.sort_likes}</option>
+							{likes !== 'off' && <option value='likes'>{t.sort_likes}</option>}
+							{HAS_SCORES && <option value='score'>{t.sort_score}</option>}
 						</select>
 					</div>
 				)}

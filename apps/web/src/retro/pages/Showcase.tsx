@@ -1,10 +1,11 @@
-import { APPS, type AppKind, fill, likeKey, pick } from '@awesome-mygo/catalog';
+import { APPS, type AppKind, HAS_SCORES, fill, likeKey, pick } from '@awesome-mygo/catalog';
 import { Link, useNavigate, useSearch } from '@tanstack/react-router';
 import { AppLink } from '../../components/bits';
 import { LikeButton } from '../../components/Like';
+import { ScoreChip } from '../../components/Score';
 import { useLang, useT } from '../../lib/lang';
 import { useLikes } from '../../lib/likes';
-import { type AppSort, DEFAULT_SORT, groupChips, sortApps } from '../../lib/showcase';
+import { DEFAULT_SORT, groupChips, shownSort, sortApps } from '../../lib/showcase';
 import { useSite } from '../../lib/site';
 import { AppIcon, Note, StatusBar, Win, btnGo, btnSm, iconLabel, likeBtn, lnk, seg, select, well } from '../ui';
 import { noShot } from './AppPage';
@@ -36,8 +37,7 @@ export function Showcase() {
 	const author = authorParam ?? null;
 	const setAuthor = (name: string | null) => setFilter({ author: name ?? undefined });
 	const { status: likes, counts } = useLikes();
-	// With likes off there is no most-liked order to show, whatever the link says.
-	const sort: AppSort = sortParam === 'likes' && likes === 'off' ? DEFAULT_SORT : (sortParam ?? DEFAULT_SORT);
+	const sort = shownSort(sortParam, likes);
 
 	const kinds = [
 		{ key: 'all', label: t.all, n: APPS.length },
@@ -88,6 +88,7 @@ export function Showcase() {
 							<option value='natural'>{t.sort_natural}</option>
 							<option value='newest'>{t.sort_new}</option>
 							{likes !== 'off' && <option value='likes'>{t.sort_likes}</option>}
+							{HAS_SCORES && <option value='score'>{t.sort_score}</option>}
 						</select>
 					</label>
 				</div>
@@ -145,6 +146,7 @@ export function Showcase() {
 									<span className='mt-1 flex min-w-0 items-center gap-1.5'>
 										<AppIcon app={a} size={24} />
 										<span className={`truncate ${iconLabel}`}>{a.name}</span>
+										<ScoreChip item={likeKey.app(a)} name={a.name} className='ml-auto shrink-0' />
 									</span>
 									<span className='truncate pl-[30px] leading-[14px] text-muted'>{a.author}</span>
 									<span className='sr-only'>{pick(a.desc, lang)}</span>

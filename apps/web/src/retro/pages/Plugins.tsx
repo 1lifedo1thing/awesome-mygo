@@ -1,6 +1,7 @@
 import { CLI_CMDS, COMMUNITY_PLUGINS, PLUGINS, PLUGINS_DOC, type PluginSurface, fill, likeKey, pick } from '@awesome-mygo/catalog';
 import { useNavigate, useSearch } from '@tanstack/react-router';
 import { LikeButton } from '../../components/Like';
+import { ScoreButton } from '../../components/Score';
 import { useLang, useT } from '../../lib/lang';
 import { useSite } from '../../lib/site';
 import { DesktopIcons } from '../DesktopIcons';
@@ -88,6 +89,7 @@ function Explorer() {
 							</span>
 						</a>
 						<LikeButton item={likeKey.plugin(p)} name={p.name} className={likeBtn} size={12} />
+						<ScoreButton item={likeKey.plugin(p)} name={p.name} />
 					</li>
 				))}
 			</ul>

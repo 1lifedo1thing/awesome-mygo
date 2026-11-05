@@ -1,6 +1,7 @@
-import { type App, APPS, type LangCode, appGroup, appSource, authorProfile, fill, hostOf, likeKey, pick } from '@awesome-mygo/catalog';
+import { type App, APPS, HAS_SCORES, type LangCode, appGroup, appSource, authorProfile, entryScore, fill, hostOf, likeKey, pick } from '@awesome-mygo/catalog';
 import { Link } from '@tanstack/react-router';
 import { useLang, useT } from '../lib/lang';
+import { scoreTotal } from '../lib/score';
 import { appBadgeMarkdown } from '../lib/seo';
 import { useSite } from '../lib/site';
 import { AppLink, type AppView, MonoTile, appView } from './bits';
@@ -42,6 +43,7 @@ export function AppFacts({ view, kindLabel }: { view: AppView; kindLabel: string
 	const src = appSource(app);
 	const profile = authorProfile(app.author);
 	const group = appGroup(app);
+	const score = entryScore(likeKey.app(app));
 	return (
 		<dl className='facts'>
 			<dt>{t.f_author}</dt>
@@ -84,6 +86,13 @@ export function AppFacts({ view, kindLabel }: { view: AppView; kindLabel: string
 					<dd>
 						<time dateTime={app.added}>{addedOn(app.added, lang)}</time>
 					</dd>
+				</>
+			)}
+			{/* Once the workflow has recorded scores, an app it has not measured yet says so; before that the row is left out. The total links to its breakdown further down the page. */}
+			{HAS_SCORES && (
+				<>
+					<dt>{t.score}</dt>
+					<dd>{score ? <a href='#score'>{`${scoreTotal(score)}/100`}</a> : t.score_pending}</dd>
 				</>
 			)}
 		</dl>
