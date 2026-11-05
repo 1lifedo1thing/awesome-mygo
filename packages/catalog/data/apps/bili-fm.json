@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "bili-fm",
+	"name": "Bili FM",
+	"author": "vst93",
+	"kind": "native",
+	"category": "MultimediaApplication",
+	"url": "https://github.com/vst93/bili-fm",
+	"repo": "vst93/bili-fm",
+	"summary": {
+		"en": "A desktop player for Bilibili videos as audio, with playlists, subtitles and segment skipping.",
+		"zh-CN": "把 B 站视频当音频听的桌面播放器：订阅、歌单、弹幕、字幕与广告分段跳过。",
+		"zh-TW": "把 B 站影片當音訊聽的桌面播放器：訂閱、播放清單、彈幕、字幕與廣告片段跳過。",
+		"ja": "Bilibili の動画を音声として聴くデスクトッププレーヤー。登録、プレイリスト、弾幕、字幕、区間スキップに対応。",
+		"ko": "Bilibili 영상을 오디오로 듣는 데스크톱 플레이어. 구독, 재생목록, 탄막, 자막, 구간 건너뛰기를 지원합니다."
+	},
+	"description": {
+		"en": "A cross-platform app for listening to Bilibili videos instead of watching them, drawn with MyGo's native UI. It plays search results, subscriptions, favorites and playlists, with subtitles, chapters, a danmaku list and SponsorBlock-style segment skipping, on a pure Go audio engine that needs no webview. It runs on Windows, macOS and Linux and updates itself.",
+		"zh-CN": "以 MyGo 原生 UI 绘制的跨平台应用，把 B 站视频当作音频来听。搜索结果、订阅、收藏与播放列表都能播放，支持字幕、章节、弹幕列表和社区广告分段跳过；音频由纯 Go 引擎处理，不需要 webview。支持 Windows、macOS 与 Linux，可在应用内更新。",
+		"zh-TW": "以 MyGo 原生 UI 繪製的跨平台應用程式，把 B 站影片當作音訊來聽。搜尋結果、訂閱、收藏與播放清單都能播放，支援字幕、章節、彈幕清單和社群廣告片段跳過；音訊由純 Go 引擎處理，不需要 webview。支援 Windows、macOS 與 Linux，可在應用程式內更新。",
+		"ja": "MyGo のネイティブ UI で描かれた、Bilibili の動画を「聴く」ためのクロスプラットフォームアプリ。検索結果、登録、お気に入り、プレイリストを再生でき、字幕、チャプター、弾幕一覧、コミュニティによる広告区間のスキップに対応します。音声は純 Go のエンジンで処理し、webview を必要としません。Windows、macOS、Linux で動き、アプリ内で更新できます。",
+		"ko": "MyGo의 네이티브 UI로 그린, Bilibili 영상을 보는 대신 듣기 위한 크로스플랫폼 앱입니다. 검색 결과, 구독, 즐겨찾기, 재생목록을 재생하며 자막, 챕터, 탄막 목록, 커뮤니티 기반 광고 구간 건너뛰기를 지원합니다. 오디오는 순수 Go 엔진으로 처리해 webview가 필요 없습니다. Windows, macOS, Linux에서 동작하며 앱 안에서 업데이트됩니다."
+	},
+	"icon": {
+		"file": "bili-fm.webp"
+	},
+	"screenshot": "bili-fm.webp",
+	"added": "2026-11-05T05:07:41Z"
+}
