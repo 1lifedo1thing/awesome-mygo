@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "ottr",
+	"name": "Ottr",
+	"author": "QinYangWang",
+	"kind": "native",
+	"group": "media",
+	"url": "https://github.com/QinYangWang/ottr",
+	"repo": "QinYangWang/ottr",
+	"summary": {
+		"en": "A Windows screen recorder with offline live subtitles, translation, AI summaries and a library.",
+		"zh-CN": "Windows 录屏工具，离线实时字幕，支持翻译、AI 摘要和本地视频库。",
+		"zh-TW": "Windows 螢幕錄影工具，離線即時字幕，支援翻譯、AI 摘要與本機影片庫。",
+		"ja": "オフラインのライブ字幕、翻訳、AI 要約、ライブラリを備えた Windows 用画面録画アプリ。",
+		"ko": "오프라인 실시간 자막, 번역, AI 요약, 라이브러리를 갖춘 Windows 화면 녹화 앱."
+	},
+	"description": {
+		"en": "A Windows screen recorder drawn with MyGo's native UI, with no web view. It transcribes offline with sherpa-onnx and shows subtitles live while recording, translates through online providers, writes AI summaries with a remote model and keeps everything in a local SQLite library. It needs FFmpeg installed; packaging, in-window playback and other platforms are still on the roadmap.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 录屏工具，没有 Web 视图。它借助 sherpa-onnx 离线转写，录制时实时显示字幕，可通过在线服务翻译、调用远程模型生成 AI 摘要，所有内容存入本地 SQLite 视频库。需要系统安装 FFmpeg；打包、窗口内播放和其他平台支持仍在路线图中。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows 螢幕錄影工具，沒有 Web 視圖。它藉助 sherpa-onnx 離線轉寫，錄影時即時顯示字幕，可透過線上服務翻譯、呼叫遠端模型產生 AI 摘要，所有內容存入本機 SQLite 影片庫。需要系統安裝 FFmpeg；打包、視窗內播放與其他平台支援仍在路線圖中。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows 用画面録画アプリ。Web ビューはありません。sherpa-onnx によるオフライン文字起こしで録画中に字幕をリアルタイム表示し、オンラインサービスでの翻訳とリモートモデルによる AI 要約を行い、すべてをローカルの SQLite ライブラリに保存します。FFmpeg のインストールが必要で、パッケージ化、ウィンドウ内再生、他プラットフォーム対応はまだロードマップ上にあります。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows 화면 녹화 앱으로, 웹 뷰가 없습니다. sherpa-onnx로 오프라인 전사를 하며 녹화 중 자막을 실시간으로 보여 주고, 온라인 서비스로 번역하고 원격 모델로 AI 요약을 만들며, 모든 내용을 로컬 SQLite 라이브러리에 저장합니다. FFmpeg 설치가 필요하며, 패키징, 창 내 재생, 다른 플랫폼 지원은 아직 로드맵에 있습니다."
+	},
+	"icon": {
+		"file": "ottr.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "ottr.webp",
+	"added": "2026-11-05T11:28:55Z"
+}
