@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { type Verdict, branchFor, configNear, entryFor, groupHits, isDue, isSamplePath, listedAs, listedFrom, moduleOf, normalizeLink, quiet, remember, reposOfEntry, requiresMygo, uniqueSlug, withoutFailed } from './find.ts';
+import { type Verdict, branchFor, configNear, entryFor, goModsIn, groupHits, isDue, isSamplePath, listedAs, listedFrom, moduleOf, normalizeLink, quiet, remember, reposInImportedBy, reposOfEntry, requiresMygo, uniqueSlug, withoutFailed } from './find.ts';
 
 describe('what the site lists', () => {
 	it('takes every repository an entry points at, in lower case', () => {
@@ -68,6 +68,18 @@ describe('code search hits', () => {
 			['caelyreth/untie', ['contrib/mygo/go.mod']],
 			['AstraFoundry/Arion', ['go.mod', 'apps/desktop/go.mod']],
 		]);
+	});
+
+	it('finds the go.mod files of a repository found another way', () => {
+		expect(goModsIn(['README.md', 'shell/go.mod', 'go.mod', 'shell/main.go'])).toEqual(['go.mod', 'shell/go.mod']);
+		expect(goModsIn(['go.mod', 'third_party/mygo/go.mod', 'examples/demo/go.mod'])).toEqual(['go.mod']);
+		expect(goModsIn(['web/package.json'])).toEqual([]);
+	});
+
+	it('reads the repositories pkg.go.dev lists as importers', () => {
+		const html = '<a href="/github.com/egoist/mygo/ui">x</a><a href="/github.com/yldm-tech/nodra">nodra</a><a href="/github.com/yldm-tech/nodra/persist">p</a><a href="/github.com/Licoy/sshyard/internal/app?tab=doc">s</a><a href="/golang.org/x/sys">sys</a>';
+		expect(reposInImportedBy(html)).toEqual(['yldm-tech/nodra', 'Licoy/sshyard']);
+		expect(reposInImportedBy('')).toEqual([]);
 	});
 
 	it('takes only a go.mod that requires MyGo itself', () => {
