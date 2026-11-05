@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "lan-share",
+	"name": "LAN Share",
+	"author": "renyijiu",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/renyijiu/lan-share",
+	"repo": "renyijiu/lan-share",
+	"summary": {
+		"en": "Shares a folder read-only over SMB with projectors and TV boxes on your local network.",
+		"zh-CN": "把一个文件夹以只读 SMB 共享给局域网里的投影仪和电视盒子。",
+		"zh-TW": "把一個資料夾以唯讀 SMB 分享給區域網路裡的投影機和電視盒。",
+		"ja": "フォルダーを読み取り専用の SMB 共有で LAN 内のプロジェクターや TV ボックスに公開。",
+		"ko": "폴더를 읽기 전용 SMB로 로컬 네트워크의 프로젝터와 TV 박스에 공유합니다."
+	},
+	"description": {
+		"en": "A desktop app drawn with MyGo's native UI that shares one folder over SMB, read-only, with projectors, TV boxes and other devices on the local network. It runs its own Go SMB server instead of the system's file sharing, and devices can only read: no writing, deleting or transcoding. It is developed and tested mainly on macOS, with working builds for Windows and Linux.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的桌面应用，把电脑上的一个文件夹以只读 SMB 共享给局域网里的投影仪、电视盒子等设备。SMB 服务由 Go 实现，不依赖系统自带的文件共享；设备只能读取，不提供写入、删除或转码。目前主要在 macOS 上开发和验证，Windows 与 Linux 提供可运行的构建。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的桌面應用程式，把電腦上的一個資料夾以唯讀 SMB 分享給區域網路裡的投影機、電視盒等裝置。SMB 服務以 Go 實作，不依賴系統內建的檔案分享；裝置只能讀取，不提供寫入、刪除或轉檔。目前主要在 macOS 上開發與驗證，Windows 與 Linux 提供可執行的建置版本。",
+		"ja": "MyGo のネイティブ UI で描かれたデスクトップアプリで、パソコンのフォルダーをひとつ、読み取り専用の SMB 共有としてローカルネットワーク上のプロジェクターや TV ボックスなどに公開します。SMB サーバーは Go で実装され、OS 標準のファイル共有には頼りません。デバイスは読み取りのみで、書き込み、削除、トランスコードはできません。主に macOS で開発・検証されており、Windows と Linux 向けにも動作するビルドがあります。",
+		"ko": "MyGo의 네이티브 UI로 그린 데스크톱 앱으로, 컴퓨터의 폴더 하나를 읽기 전용 SMB 공유로 로컬 네트워크의 프로젝터, TV 박스 등에 내보냅니다. SMB 서버는 Go로 구현되어 운영체제의 파일 공유 기능에 의존하지 않으며, 기기는 읽기만 할 수 있고 쓰기, 삭제, 트랜스코딩은 지원하지 않습니다. 주로 macOS에서 개발·검증되었고 Windows와 Linux용 실행 가능한 빌드도 제공합니다."
+	},
+	"icon": {
+		"file": "lan-share.webp"
+	},
+	"screenshot": "lan-share.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T12:11:10Z"
+}
