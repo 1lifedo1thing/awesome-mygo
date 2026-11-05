@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "kopi",
+	"name": "Kopi",
+	"author": "zucchiniEvader",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/zucchiniEvader/kopi",
+	"repo": "zucchiniEvader/kopi",
+	"summary": {
+		"en": "A minimal native code editor with language servers, run and debug, a terminal and Git.",
+		"zh-CN": "极简原生代码编辑器：语言服务器、运行与调试、终端和 Git。",
+		"zh-TW": "極簡原生程式碼編輯器：語言伺服器、執行與除錯、終端機和 Git。",
+		"ja": "言語サーバー、実行とデバッグ、ターミナル、Git を備えたミニマルなネイティブコードエディター。",
+		"ko": "언어 서버, 실행·디버그, 터미널, Git을 갖춘 미니멀 네이티브 코드 에디터."
+	},
+	"description": {
+		"en": "A minimal code editor for macOS, Windows and Linux, drawn on the GPU by MyGo's native UI, with no web view and no JavaScript. It edits some 90 languages with the language servers on the machine, runs and debugs Java, Go, Python, Node, C, C++, Rust and Swift programs from VS Code's launch.json, and has a terminal and Git changes, commits, pulls and pushes.",
+		"zh-CN": "由 MyGo 原生 UI 在 GPU 上绘制的极简代码编辑器，支持 macOS、Windows 与 Linux，没有 Web 视图，也没有 JavaScript。可编辑约 90 种语言并调用本机的语言服务器，按 VS Code 的 launch.json 运行和调试 Java、Go、Python、Node、C、C++、Rust 与 Swift 程序，还带终端，能查看、提交、拉取和推送 Git 改动。",
+		"zh-TW": "由 MyGo 原生 UI 在 GPU 上繪製的極簡程式碼編輯器，支援 macOS、Windows 與 Linux，沒有 Web 視圖，也沒有 JavaScript。可編輯約 90 種語言並呼叫本機的語言伺服器，依 VS Code 的 launch.json 執行與除錯 Java、Go、Python、Node、C、C++、Rust 與 Swift 程式，還內建終端機，能檢視、提交、拉取和推送 Git 變更。",
+		"ja": "MyGo のネイティブ UI で GPU 描画される、macOS・Windows・Linux 向けのミニマルなコードエディター。Web ビューも JavaScript もありません。約 90 の言語をマシン上の言語サーバーとともに編集でき、VS Code の launch.json で Java、Go、Python、Node、C、C++、Rust、Swift のプログラムを実行・デバッグします。ターミナルを備え、Git の変更の確認、コミット、プル、プッシュもできます。",
+		"ko": "MyGo의 네이티브 UI로 GPU에서 그리는 macOS·Windows·Linux용 미니멀 코드 에디터로, 웹 뷰도 JavaScript도 없습니다. 약 90개 언어를 컴퓨터에 설치된 언어 서버와 함께 편집하고, VS Code의 launch.json으로 Java, Go, Python, Node, C, C++, Rust, Swift 프로그램을 실행·디버그합니다. 터미널이 있고 Git 변경 사항을 확인, 커밋, 풀, 푸시할 수 있습니다."
+	},
+	"icon": {
+		"file": "kopi.webp"
+	},
+	"screenshot": "kopi.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T16:49:05Z"
+}
