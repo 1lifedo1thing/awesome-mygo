@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "nomo",
+	"name": "Nomo",
+	"author": "ZeroDevi1",
+	"kind": "native",
+	"group": "notes",
+	"url": "https://github.com/ZeroDevi1/nomo-mygo",
+	"repo": "ZeroDevi1/nomo-mygo",
+	"summary": {
+		"en": "A local-first Markdown editor with LaTeX and Typst preview, rewritten in Go with a native UI.",
+		"zh-CN": "本地优先的 Markdown 编辑器，可预览 LaTeX 与 Typst，用 Go 原生重写。",
+		"zh-TW": "本機優先的 Markdown 編輯器，可預覽 LaTeX 與 Typst，以 Go 原生重寫。",
+		"ja": "LaTeX と Typst も見られる、Go 製のローカルファースト Markdown エディター。",
+		"ko": "LaTeX와 Typst 미리보기를 갖춘 로컬 우선 Markdown 편집기. Go로 네이티브하게 다시 작성."
+	},
+	"description": {
+		"en": "A rewrite of Nomo, a Tauri-based Markdown editor, in pure Go with MyGo's native UI and no WebView or Node.js, for Windows, macOS and Linux. It edits Markdown with live preview, source or split view, tables, math and Mermaid diagrams, previews .tex and .typ files, and exports to HTML, PDF and Word.",
+		"zh-CN": "将基于 Tauri 的 Markdown 编辑器 Nomo 用纯 Go 与 MyGo 原生 UI 重写，不依赖 WebView 与 Node.js，支持 Windows、macOS 与 Linux。Markdown 可即时预览、源码或双栏编辑，支持表格、公式与 Mermaid 图表；还能预览 .tex 与 .typ 文件，并导出 HTML、PDF 与 Word。",
+		"zh-TW": "將以 Tauri 打造的 Markdown 編輯器 Nomo 用純 Go 與 MyGo 原生 UI 重寫，不依賴 WebView 與 Node.js，支援 Windows、macOS 與 Linux。Markdown 可即時預覽、原始碼或雙欄編輯，支援表格、公式與 Mermaid 圖表；還能預覽 .tex 與 .typ 檔案，並匯出 HTML、PDF 與 Word。",
+		"ja": "Tauri 製の Markdown エディター Nomo を、純粋な Go と MyGo のネイティブ UI で書き直したもの。WebView も Node.js も使わず、Windows、macOS、Linux で動きます。Markdown はライブプレビュー、ソース、2 ペインで編集でき、表、数式、Mermaid 図に対応。.tex と .typ ファイルもプレビューでき、HTML、PDF、Word に書き出せます。",
+		"ko": "Tauri 기반 Markdown 편집기 Nomo를 순수 Go와 MyGo 네이티브 UI로 다시 작성했으며, WebView와 Node.js 없이 Windows, macOS, Linux에서 동작합니다. Markdown을 실시간 미리보기, 소스, 분할 보기로 편집하고 표, 수식, Mermaid 다이어그램을 지원하며, .tex와 .typ 파일을 미리 보고 HTML, PDF, Word로 내보냅니다."
+	},
+	"icon": {
+		"file": "nomo.webp"
+	},
+	"screenshot": "nomo.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T11:50:47Z"
+}
