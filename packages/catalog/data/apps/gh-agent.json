@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "gh-agent",
+	"name": "GH Agent",
+	"author": "ayuayue",
+	"kind": "web",
+	"group": "agents",
+	"url": "https://github.com/ayuayue/gh-agent",
+	"repo": "ayuayue/gh-agent",
+	"summary": {
+		"en": "Hands GitHub issues and PRs to local coding agents and queues their replies and fixes for review.",
+		"zh-CN": "把 GitHub issue 与 PR 交给本机 agent 处理，回复和改动等你审核。",
+		"zh-TW": "把 GitHub issue 與 PR 交給本機 agent 處理，回覆和改動等你審核。",
+		"ja": "GitHub の issue と PR をローカル AI エージェントに任せ、返信と修正を承認待ちに回す。",
+		"ko": "GitHub 이슈와 PR을 로컬 코딩 에이전트에 맡기고, 답글과 수정은 검토 대기열에 올립니다."
+	},
+	"description": {
+		"en": "The tray app of gh-agent, built with MyGo and a React web frontend; a separate CLI shares its core. It polls GitHub, hands issues and PRs to a local coding agent over ACP (CodeBuddy, Codex, Claude Code or pi), and queues each drafted reply and code diff for review; nothing is posted until you approve. Commits go to a local branch via a git worktree and are never pushed.",
+		"zh-CN": "gh-agent 的托盘应用，以 MyGo 加 React 网页前端构建，同一内核另有独立的 CLI。它轮询 GitHub，经 ACP 把 issue 和 PR 交给本机 agent（CodeBuddy、Codex、Claude Code 或 pi），草稿回复和代码 diff 进入待审，批准后才发出。改动在独立的 git worktree 中提交到本地分支，不会推送。",
+		"zh-TW": "gh-agent 的系統匣應用程式，以 MyGo 加 React 網頁前端打造，同一核心另有獨立的 CLI。它輪詢 GitHub，經 ACP 把 issue 和 PR 交給本機 agent（CodeBuddy、Codex、Claude Code 或 pi），草稿回覆和程式碼 diff 進入待審，核准後才送出。改動在獨立的 git worktree 中提交到本機分支，不會推送。",
+		"ja": "gh-agent のトレイアプリで、MyGo と React の Web フロントエンドで作られています。同じコアを使う CLI は別にあります。GitHub をポーリングし、issue と PR を ACP 経由でローカルのエージェント（CodeBuddy、Codex、Claude Code、pi）に渡し、返信の下書きとコードの差分を承認待ちに並べ、承認するまで投稿しません。変更は別の git worktree でローカルブランチにコミットされ、プッシュはされません。",
+		"ko": "gh-agent의 트레이 앱으로, MyGo와 React 웹 프런트엔드로 만들었으며 같은 코어를 쓰는 CLI는 따로 있습니다. GitHub를 폴링해 issue와 PR을 ACP로 로컬 에이전트(CodeBuddy, Codex, Claude Code, pi)에 넘기고, 답글 초안과 코드 diff를 검토 대기열에 올려 승인해야만 게시합니다. 변경은 별도의 git worktree에서 로컬 브랜치에 커밋되며 푸시하지 않습니다."
+	},
+	"icon": {
+		"file": "gh-agent.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "gh-agent.webp",
+	"added": "2026-11-05T12:11:10Z"
+}
