@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "vfox-plus",
+	"name": "vfox-plus",
+	"author": "version-fox",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/version-fox/vfox-plus",
+	"repo": "version-fox/vfox-plus",
+	"summary": {
+		"en": "A desktop front end for the vfox version manager: browse, install and manage SDK versions.",
+		"zh-CN": "vfox 版本管理器的桌面图形界面，用来浏览、安装和管理各种 SDK 版本。",
+		"zh-TW": "vfox 版本管理工具的桌面圖形介面，用來瀏覽、安裝和管理各種 SDK 版本。",
+		"ja": "vfox のデスクトップ版 GUI。SDK のバージョンを探してインストール・管理できる。",
+		"ko": "vfox 버전 관리자의 데스크톱 GUI. SDK 버전을 둘러보고 설치하고 관리합니다."
+	},
+	"description": {
+		"en": "A graphical front end for vfox, the cross-platform version manager, drawn with MyGo's native UI in the Material 3 Expressive design language. It shows the installed and available versions of each SDK, installs them as tasks you can follow and cancel, and browses the plugin registry. MyGo builds the desktop app; the project's web interface, Android app and Docker gateway are made separately.",
+		"zh-CN": "跨平台版本管理器 vfox 的图形前端，用 MyGo 原生 UI 绘制，采用 Material 3 Expressive 设计语言。可查看每个 SDK 已安装和可安装的版本，安装以任务形式进行，能随时查看进度或取消，还可以浏览插件仓库。MyGo 构建的是桌面版，项目中的 Web 界面、Android 应用和 Docker 网关另行实现。",
+		"zh-TW": "跨平台版本管理工具 vfox 的圖形前端，以 MyGo 原生 UI 繪製，採用 Material 3 Expressive 設計語言。可查看每個 SDK 已安裝與可安裝的版本，安裝以工作形式進行，能隨時查看進度或取消，也能瀏覽外掛登錄庫。MyGo 建置的是桌面版，專案中的 Web 介面、Android 應用程式與 Docker 閘道另行實作。",
+		"ja": "クロスプラットフォームのバージョンマネージャー vfox のための GUI フロントエンドで、MyGo のネイティブ UI により Material 3 Expressive のデザインで描かれています。SDK ごとにインストール済みとインストール可能なバージョンを表示し、インストールは進行を確認したり取り消したりできるタスクとして実行され、プラグインレジストリも閲覧できます。MyGo で作られているのはデスクトップ版で、Web インターフェース、Android アプリ、Docker ゲートウェイは別に作られています。",
+		"ko": "크로스 플랫폼 버전 관리자 vfox의 그래픽 프런트엔드로, MyGo의 네이티브 UI를 써서 Material 3 Expressive 디자인 언어로 그렸습니다. SDK마다 설치된 버전과 설치할 수 있는 버전을 보여 주고, 설치는 진행 상황을 확인하거나 취소할 수 있는 작업으로 처리하며, 플러그인 레지스트리도 둘러볼 수 있습니다. MyGo로 만든 것은 데스크톱 앱이고, 웹 인터페이스와 Android 앱, Docker 게이트웨이는 따로 만들어졌습니다."
+	},
+	"icon": {
+		"file": "vfox-plus.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "vfox-plus.webp",
+	"added": "2026-11-05T04:16:52Z"
+}
