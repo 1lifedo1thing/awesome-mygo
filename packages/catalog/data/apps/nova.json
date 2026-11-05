@@ -5,6 +5,7 @@
 	"author": "yaffalhakim1",
 	"kind": "native",
 	"category": "GameApplication",
+	"group": "game",
 	"url": "https://github.com/yaffalhakim1/nova",
 	"repo": "yaffalhakim1/nova",
 	"summary": {

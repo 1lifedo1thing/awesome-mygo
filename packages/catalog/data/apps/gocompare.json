@@ -5,6 +5,7 @@
 	"author": "jhzhang09",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "dev",
 	"url": "https://github.com/jhzhang09/gocompare",
 	"repo": "jhzhang09/gocompare",
 	"summary": {

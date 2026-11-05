@@ -5,6 +5,7 @@
 	"author": "HeroSizy",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "dev",
 	"url": "https://mytwig.herosizy.dev",
 	"summary": {
 		"en": "A Git client for macOS, Windows and Linux.",

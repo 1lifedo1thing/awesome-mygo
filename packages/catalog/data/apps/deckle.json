@@ -5,6 +5,7 @@
 	"author": "sorrycc",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "notes",
 	"url": "https://github.com/sorrycc/Deckle",
 	"repo": "sorrycc/Deckle",
 	"summary": {

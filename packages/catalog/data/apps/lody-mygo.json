@@ -5,6 +5,7 @@
 	"author": "lbr77",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "agents",
 	"url": "https://github.com/lbr77/lody-mygo",
 	"repo": "lbr77/lody-mygo",
 	"summary": {

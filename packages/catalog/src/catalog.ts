@@ -91,39 +91,47 @@ export type AppKind = 'native' | 'web';
 export const APP_CATEGORIES = ['BusinessApplication', 'CommunicationApplication', 'DesignApplication', 'DeveloperApplication', 'EducationalApplication', 'EntertainmentApplication', 'FinanceApplication', 'GameApplication', 'HealthApplication', 'LifestyleApplication', 'MultimediaApplication', 'ReferenceApplication', 'SecurityApplication', 'UtilitiesApplication'] as const;
 export type AppCategory = (typeof APP_CATEGORIES)[number];
 
-// What visitors browse the showcase by: a handful of groups over the schema.org categories, so a group never holds only one or two apps for long. An app without a category is `other`.
-export const APP_GROUPS = ['dev', 'media', 'utility', 'chat', 'game', 'design', 'other'] as const;
+// What visitors browse the showcase by: groups of the site's own, set in each entry's group (and picked by the model for a new one), as the schema.org categories are too broad to tell a proxy client from a disk cleaner. Ordered as the showcase's chips break ties; an app with neither a group nor a category is `other`.
+export const APP_GROUPS = ['agents', 'dev', 'ai', 'network', 'notes', 'system', 'devices', 'media', 'game', 'chat', 'other'] as const;
 export type AppGroup = (typeof APP_GROUPS)[number];
+// The groups an entry can name, as its schema's enum does.
+export type EntryGroup = Exclude<AppGroup, 'other'>;
+export const ENTRY_GROUPS = APP_GROUPS.filter((g): g is EntryGroup => g !== 'other');
 
-const GROUP_OF: Record<AppCategory, Exclude<AppGroup, 'other'>> = {
+// The group of an entry that names only a category, as one written before groups were.
+const GROUP_OF: Record<AppCategory, EntryGroup> = {
 	DeveloperApplication: 'dev',
 	MultimediaApplication: 'media',
 	EntertainmentApplication: 'media',
-	UtilitiesApplication: 'utility',
-	BusinessApplication: 'utility',
-	FinanceApplication: 'utility',
-	LifestyleApplication: 'utility',
-	ReferenceApplication: 'utility',
-	SecurityApplication: 'utility',
-	HealthApplication: 'utility',
-	EducationalApplication: 'utility',
+	UtilitiesApplication: 'system',
+	BusinessApplication: 'notes',
+	FinanceApplication: 'system',
+	LifestyleApplication: 'system',
+	ReferenceApplication: 'notes',
+	SecurityApplication: 'network',
+	HealthApplication: 'system',
+	EducationalApplication: 'notes',
 	CommunicationApplication: 'chat',
 	GameApplication: 'game',
-	DesignApplication: 'design',
+	DesignApplication: 'media',
 };
 
-// The category a submission gets when its author picks a group.
-export const GROUP_CATEGORY: Record<Exclude<AppGroup, 'other'>, AppCategory> = {
+// The schema.org category an app's structured data names when its entry gives a group but no category, as a new one does.
+export const GROUP_CATEGORY: Record<EntryGroup, AppCategory> = {
+	agents: 'DeveloperApplication',
 	dev: 'DeveloperApplication',
+	ai: 'UtilitiesApplication',
+	network: 'UtilitiesApplication',
+	notes: 'BusinessApplication',
+	system: 'UtilitiesApplication',
+	devices: 'UtilitiesApplication',
 	media: 'MultimediaApplication',
-	utility: 'UtilitiesApplication',
-	chat: 'CommunicationApplication',
 	game: 'GameApplication',
-	design: 'DesignApplication',
+	chat: 'CommunicationApplication',
 };
 
-export function appGroup(app: { category?: AppCategory }): AppGroup {
-	return app.category ? GROUP_OF[app.category] : 'other';
+export function appGroup(app: { group?: EntryGroup; category?: AppCategory }): AppGroup {
+	return app.group ?? (app.category ? GROUP_OF[app.category] : 'other');
 }
 
 export function isAppGroup(v: unknown): v is AppGroup {
@@ -135,7 +143,9 @@ export interface App {
 	name: string;
 	author: string;
 	kind: AppKind;
-	// For structured data only; an entry without one names no category.
+	// The showcase's group (appGroup).
+	group?: EntryGroup;
+	// For structured data only: the entry's own, or else its group's (GROUP_CATEGORY).
 	category?: AppCategory;
 	// The app's homepage: its website, or its repository when it has none.
 	url: string;
@@ -171,7 +181,8 @@ const readProvisional = (r: Reader, allowed: readonly ProvisionalImage[]): Provi
 };
 
 const readApp = (r: Reader): App => {
-	r.only(['$schema', 'slug', 'name', 'author', 'kind', 'category', 'url', 'repo', 'summary', 'description', 'screenshot', 'icon', 'provisional', 'added']);
+	r.only(['$schema', 'slug', 'name', 'author', 'kind', 'category', 'group', 'url', 'repo', 'summary', 'description', 'screenshot', 'icon', 'provisional', 'added']);
+	const group = r.raw.group === undefined ? undefined : r.oneOf('group', ENTRY_GROUPS);
 	const icon = r.raw.icon as { ailogo?: unknown; file?: unknown } | undefined;
 	let iconUrl: string | undefined;
 	if (icon !== undefined) {
@@ -184,7 +195,8 @@ const readApp = (r: Reader): App => {
 		name: r.str('name'),
 		author: r.str('author'),
 		kind: r.oneOf('kind', ['native', 'web'] as const),
-		category: r.raw.category === undefined ? undefined : r.oneOf('category', APP_CATEGORIES),
+		group,
+		category: r.raw.category === undefined ? (group ? GROUP_CATEGORY[group] : undefined) : r.oneOf('category', APP_CATEGORIES),
 		url: r.url('url'),
 		repo: r.raw.repo === undefined ? undefined : r.match('repo', REPO, 'owner/name'),
 		desc: r.text('summary'),

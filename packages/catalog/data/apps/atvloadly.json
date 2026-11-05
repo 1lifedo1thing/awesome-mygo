@@ -5,6 +5,7 @@
 	"author": "bitxeno",
 	"kind": "web",
 	"category": "UtilitiesApplication",
+	"group": "devices",
 	"url": "https://github.com/bitxeno/atvloadly",
 	"repo": "bitxeno/atvloadly",
 	"summary": {

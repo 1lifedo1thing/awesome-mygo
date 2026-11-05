@@ -5,6 +5,7 @@
 	"author": "douglarek",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "system",
 	"url": "https://github.com/douglarek/kacha",
 	"repo": "douglarek/kacha",
 	"summary": {

@@ -5,6 +5,7 @@
 	"author": "laojianzi",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "dev",
 	"url": "https://github.com/laojianzi/aster",
 	"repo": "laojianzi/aster",
 	"summary": {

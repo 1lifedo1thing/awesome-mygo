@@ -5,6 +5,7 @@
 	"author": "getan",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "agents",
 	"url": "https://golder-cli.pages.dev",
 	"repo": "getan/golder",
 	"summary": {

@@ -1,4 +1,4 @@
-import { APP_CATEGORIES, CatalogError, type EntryDraft, SUBMIT_CATS, type SubmitCat, buildEntry, entryProblem, pastedEntryProblem, pastedName, pastedShotRepo, shotRepo, takesShot } from '@awesome-mygo/catalog';
+import { ENTRY_GROUPS, SUBMIT_CATS, CatalogError, type EntryDraft, type SubmitCat, buildEntry, entryProblem, pastedEntryProblem, pastedName, pastedShotRepo, shotRepo, takesShot } from '@awesome-mygo/catalog';
 import { UPLOAD_MAX_BYTES } from '@awesome-mygo/enrich/source';
 import { createFileRoute } from '@tanstack/react-router';
 import { env } from 'cloudflare:workers';
@@ -60,15 +60,15 @@ function parseSubmission(text: string): Submission | undefined {
 	if (r.entry !== undefined) return r.entry && typeof r.entry === 'object' && !Array.isArray(r.entry) ? { cat, token, kind: 'entry', entry: r.entry as Record<string, unknown> } : undefined;
 	const mode = r.mode === 'web' ? 'web' : r.mode === 'native' || r.mode === undefined ? 'native' : undefined;
 	const [name, author, url, desc, repo, screenshot] = [str('name'), str('author') ?? '', str('url'), str('desc') ?? '', str('repo'), str('screenshot')];
-	// A showcase entry may name its category; anything not in the schema's list is refused rather than dropped.
-	const category = r.category === undefined ? undefined : APP_CATEGORIES.find((c) => c === r.category);
-	if (r.category !== undefined && (!category || cat !== 'showcase')) return undefined;
+	// A showcase entry may name its group; anything not in the schema's list is refused rather than dropped.
+	const group = r.group === undefined ? undefined : ENTRY_GROUPS.find((g) => g === r.group);
+	if (r.group !== undefined && (!group || cat !== 'showcase')) return undefined;
 	// Only a showcase app has a repository besides its link.
 	if (r.repo !== undefined && (repo === undefined || cat !== 'showcase')) return undefined;
 	// A screenshot link only for what shows one; entryProblem judges the link itself.
 	if (r.screenshot !== undefined && (screenshot === undefined || !takesShot(cat))) return undefined;
 	if (!mode || name === undefined || url === undefined) return undefined;
-	return { cat, token, kind: 'form', mode, draft: { name, author, url, desc, category, repo, screenshot } };
+	return { cat, token, kind: 'form', mode, draft: { name, author, url, desc, group, repo, screenshot } };
 }
 
 // The screenshot of what is submitted, when it needs one: an app, UI components or state management with neither a link nor an upload from the form. undefined when the repository has one the submission workflow will take, 'shot' when nothing would show. A GitHub failure here does not hold the submission back: the workflow looks again.

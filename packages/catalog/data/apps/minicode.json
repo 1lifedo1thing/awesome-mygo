@@ -5,6 +5,7 @@
 	"author": "oysterhyd",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "agents",
 	"url": "https://github.com/oysterhyd/minicode",
 	"repo": "oysterhyd/minicode",
 	"summary": {

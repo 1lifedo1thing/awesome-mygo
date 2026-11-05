@@ -5,6 +5,7 @@
 	"author": "VeinsureLee",
 	"kind": "native",
 	"category": "CommunicationApplication",
+	"group": "chat",
 	"url": "https://github.com/VeinsureLee/BYR-Client",
 	"repo": "VeinsureLee/BYR-Client",
 	"summary": {

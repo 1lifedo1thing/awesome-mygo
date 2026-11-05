@@ -5,6 +5,7 @@
 	"author": "he-music",
 	"kind": "web",
 	"category": "MultimediaApplication",
+	"group": "media",
 	"url": "https://github.com/he-music/HE-Music",
 	"repo": "he-music/HE-Music",
 	"summary": {

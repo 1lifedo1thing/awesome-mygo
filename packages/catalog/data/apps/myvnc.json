@@ -5,6 +5,7 @@
 	"author": "si-mods",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "system",
 	"url": "https://github.com/si-mods/MyVNC",
 	"repo": "si-mods/MyVNC",
 	"summary": {

@@ -53,7 +53,22 @@
 				"SecurityApplication",
 				"UtilitiesApplication"
 			],
-			"description": "What kind of app it is, as a schema.org applicationCategory that Google accepts. The app page's structured data names it; leave out when none fits."
+			"description": "What kind of app it is, as a schema.org applicationCategory that Google accepts, for the app page's structured data. Leave out to take the group's (GROUP_CATEGORY in src/catalog.ts)."
+		},
+		"group": {
+			"enum": [
+				"agents",
+				"dev",
+				"ai",
+				"network",
+				"notes",
+				"system",
+				"devices",
+				"media",
+				"game",
+				"chat"
+			],
+			"description": "The showcase's group: agents for tools for AI coding agents (terminals and workspaces for them, their usage, quotas and skills); dev for other developer tools (Git, editors, terminals, SSH, databases, API clients, cloud storage); ai for AI assistants (chat clients, writing, translation, voice input, local models); network for proxy and VPN clients; notes for notes, documents and reading (Markdown, PDF, OCR, RSS); system for system and file utilities (cleaning, files, clipboard, screenshots, remote desktop, menu bar tools); devices for hardware and the smart home (chargers, monitors, peripherals, Home Assistant); media for music, video, audio and images; game for games and their launchers; chat for messaging, mail and notifications. The completing script picks it when the submission names none."
 		},
 		"url": {
 			"$ref": "common.schema.json#/$defs/url",

@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { repoIcons, repoShotSources, shotProblem, stagedShot, stagedShotOf, addedFiles, appNameFrom, cleanTags, formDefaults, homepageOf, hasAllLanguages, markProvisional, iconCut, iconOf, isArtwork, isBanner, isPortrait, isSquarish, lengthCaps, overCaps, joinRepoPath, scriptConfig, parseMygoConfig, pickMygoConfig, readmeImages, repoOfEntry, repoScreenshots, resolveImage, schemaEnum, setCategory, sniffImage, submittedScreenshot } from './source.ts';
+import { repoIcons, repoShotSources, shotProblem, stagedShot, stagedShotOf, addedFiles, appNameFrom, cleanTags, formDefaults, homepageOf, hasAllLanguages, markProvisional, iconCut, iconOf, isArtwork, isBanner, isPortrait, isSquarish, lengthCaps, overCaps, joinRepoPath, scriptConfig, parseMygoConfig, pickMygoConfig, readmeImages, repoOfEntry, repoScreenshots, resolveImage, schemaEnum, setCategory, setGroup, sniffImage, submittedScreenshot } from './source.ts';
 
 describe('app names', () => {
 	it('takes mygo.json’s spelling of the same name only', () => {
@@ -224,9 +224,22 @@ describe('README images', () => {
 });
 
 describe("the form's defaults", () => {
+	it("puts an app's group after its category, or else its kind", () => {
+		const withCategory: Record<string, unknown> = { slug: 'a', kind: 'native', category: 'GameApplication', url: 'https://a.dev' };
+		setGroup(withCategory, 'game');
+		expect(Object.keys(withCategory)).toEqual(['slug', 'kind', 'category', 'group', 'url']);
+		const bare: Record<string, unknown> = { slug: 'b', kind: 'web', url: 'https://b.dev' };
+		setGroup(bare, 'notes');
+		expect(Object.keys(bare)).toEqual(['slug', 'kind', 'group', 'url']);
+		setGroup(bare, 'system');
+		expect(bare.group).toBe('system');
+		expect(Object.keys(bare)).toEqual(['slug', 'kind', 'group', 'url']);
+	});
+
 	it('asks the model for what the form fills in without asking, while it holds the default', () => {
-		expect(formDefaults('app', { kind: 'native' })).toEqual({ choices: ['category'], tags: false });
-		expect(formDefaults('app', { kind: 'native', category: 'GameApplication' })).toEqual({ choices: [], tags: false });
+		expect(formDefaults('app', { kind: 'native' })).toEqual({ choices: ['group'], tags: false });
+		expect(formDefaults('app', { kind: 'native', category: 'GameApplication' })).toEqual({ choices: ['group'], tags: false });
+		expect(formDefaults('app', { kind: 'native', group: 'game' })).toEqual({ choices: [], tags: false });
 		// flagicons, submitted through the form: an icon set left at theme.
 		expect(formDefaults('ui', { tag: 'theme', surface: 'native' })).toEqual({ choices: ['tag', 'surface'], tags: false });
 		expect(formDefaults('ui', { tag: 'icons', surface: 'native' })).toEqual({ choices: ['surface'], tags: false });

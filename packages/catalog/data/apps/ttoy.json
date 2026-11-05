@@ -5,6 +5,7 @@
 	"author": "zrcoder",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "dev",
 	"url": "https://github.com/zrcoder/ttoy",
 	"repo": "zrcoder/ttoy",
 	"summary": {

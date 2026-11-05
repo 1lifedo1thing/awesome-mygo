@@ -5,6 +5,7 @@
 	"author": "lsj5031",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "notes",
 	"url": "https://github.com/lsj5031/joplin-lite",
 	"repo": "lsj5031/joplin-lite",
 	"summary": {

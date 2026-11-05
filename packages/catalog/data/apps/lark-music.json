@@ -5,6 +5,7 @@
 	"author": "ca-x",
 	"kind": "web",
 	"category": "MultimediaApplication",
+	"group": "media",
 	"url": "https://github.com/ca-x/lark",
 	"repo": "ca-x/lark",
 	"summary": {

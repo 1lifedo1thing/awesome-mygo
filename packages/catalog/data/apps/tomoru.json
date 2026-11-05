@@ -5,6 +5,7 @@
 	"author": "ACAne0320",
 	"kind": "native",
 	"category": "MultimediaApplication",
+	"group": "media",
 	"url": "https://tomoru.acane.dev",
 	"repo": "ACAne0320/Tomoru",
 	"summary": {

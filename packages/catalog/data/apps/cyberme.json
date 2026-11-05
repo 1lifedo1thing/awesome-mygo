@@ -5,6 +5,7 @@
 	"author": "wherexml",
 	"kind": "web",
 	"category": "BusinessApplication",
+	"group": "ai",
 	"url": "https://github.com/wherexml/CyberMe",
 	"repo": "wherexml/CyberMe",
 	"summary": {

@@ -5,6 +5,7 @@
 	"author": "hehehai",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "ai",
 	"url": "https://actnow.dev/auralink",
 	"repo": "hehehai/Auralink",
 	"summary": {

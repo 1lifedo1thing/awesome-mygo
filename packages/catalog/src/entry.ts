@@ -1,5 +1,5 @@
 import { CatalogError } from './validate';
-import { APP_KIND, APPS, ARTICLE_KIND, ARTICLES, type AppCategory, COMMUNITY_PLUGINS, DATA_DIR, type Kind, PLUGIN_KIND, PLUGINS, STATE_KIND, STATE_SOLUTIONS, UI_KIND, UI_LIBS, hostOf, readEntry, readEntryFile } from './catalog';
+import { APP_KIND, APPS, ARTICLE_KIND, ARTICLES, COMMUNITY_PLUGINS, DATA_DIR, type EntryGroup, type Kind, PLUGIN_KIND, PLUGINS, STATE_KIND, STATE_SOLUTIONS, UI_KIND, UI_LIBS, hostOf, readEntry, readEntryFile } from './catalog';
 
 // Submission form: it writes the JSON entry for the category. The site's bot opens a pull request with it, or a contributor with a GitHub account sends it as an issue or adds it themselves. Every entry gets a file of its own, data/<dir>/<slug>.json, so entries submitted together never conflict.
 
@@ -68,8 +68,8 @@ export interface EntryDraft {
 	desc: string;
 	// Showcase only: the app's GitHub repository link, for an open-source app. Optional, since an app need not be open source.
 	repo?: string;
-	// Showcase only: the app's schema.org category, from the group its author picked. Left out when none was picked.
-	category?: AppCategory;
+	// Showcase only: the showcase group its author picked. Left out when none was picked; the submission workflow picks one then.
+	group?: EntryGroup;
 	// An app, UI components or state management (takesShot): a link to a screenshot, for a project whose README and repository show none. Not part of the entry: the bot passes it to the submission workflow in the pull request, which downloads it into apps/web/public/shots. The form can upload an image instead, which the bot puts on the pull request's branch.
 	screenshot?: string;
 }
@@ -145,7 +145,7 @@ export function buildEntry(cat: SubmitCat, d: EntryDraft, mode: 'native' | 'web'
 	const repo = repoOf(url);
 	switch (cat) {
 		case 'showcase':
-			return { slug: entrySlug(name, url), name, author, kind: mode, ...(d.category ? { category: d.category } : {}), url, ...(repoOf(d.repo ?? '') ? { repo: repoOf(d.repo ?? '') } : {}), summary, description: summary };
+			return { slug: entrySlug(name, url), name, author, kind: mode, ...(d.group ? { group: d.group } : {}), url, ...(repoOf(d.repo ?? '') ? { repo: repoOf(d.repo ?? '') } : {}), summary, description: summary };
 		case 'ui':
 			return { slug: entrySlug(name, url), name, author, tag: 'theme', surface: 'native', summary, repo: repo ?? 'owner/name', url };
 		case 'state':

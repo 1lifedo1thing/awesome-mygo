@@ -1,4 +1,4 @@
-import { DATA_DIR, GROUP_CATEGORY, SUBMIT_CATS, fill } from '@awesome-mygo/catalog';
+import { DATA_DIR, ENTRY_GROUPS, SUBMIT_CATS, fill } from '@awesome-mygo/catalog';
 import type { ReactNode } from 'react';
 import { useDialog } from '../lib/dialog';
 import { useT } from '../lib/lang';
@@ -12,7 +12,7 @@ const input = 'block h-[30px] w-full min-w-0 rounded-md border border-line bg-hi
 const off = 'disabled:cursor-not-allowed disabled:bg-face disabled:text-lo';
 
 // The showcase groups a submission can pick, without Other. Optional: a second press clears the pick.
-const GROUPS = Object.keys(GROUP_CATEGORY) as (keyof typeof GROUP_CATEGORY)[];
+const GROUPS = ENTRY_GROUPS;
 
 export function RetroSubmit() {
 	const { modal } = useSite();
@@ -191,7 +191,7 @@ function Dialog() {
 								<span className='mb-1 block text-muted'>{t.m_group}</span>
 								<div role='radiogroup' aria-label={t.m_group} className='flex flex-wrap gap-x-2 gap-y-1'>
 									{GROUPS.map((g) => (
-										<Radio key={g} checked={form.category === GROUP_CATEGORY[g]} onSelect={() => setFormField('category', form.category === GROUP_CATEGORY[g] ? undefined : GROUP_CATEGORY[g])}>
+										<Radio key={g} checked={form.group === g} onSelect={() => setFormField('group', form.group === g ? undefined : g)}>
 											{t[`grp_${g}`]}
 										</Radio>
 									))}

@@ -5,6 +5,7 @@
 	"author": "mcxen",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "system",
 	"url": "https://github.com/mcxen/WinExplorer",
 	"repo": "mcxen/WinExplorer",
 	"summary": {

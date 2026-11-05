@@ -5,6 +5,7 @@
 	"author": "egoist",
 	"kind": "native",
 	"category": "GameApplication",
+	"group": "game",
 	"url": "https://github.com/egoist/2048",
 	"summary": {
 		"en": "The 2048 puzzle; its WebAssembly build also runs in the browser.",

@@ -5,6 +5,7 @@
 	"author": "version-fox",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "dev",
 	"url": "https://github.com/version-fox/vfox-plus",
 	"repo": "version-fox/vfox-plus",
 	"summary": {

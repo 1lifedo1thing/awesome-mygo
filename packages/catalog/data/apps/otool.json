@@ -5,6 +5,7 @@
 	"author": "welllog",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "dev",
 	"url": "https://github.com/welllog/otool",
 	"repo": "welllog/otool",
 	"summary": {

@@ -5,6 +5,7 @@
 	"author": "marukolibro",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "network",
 	"url": "https://marukolibro.github.io/Hop/",
 	"repo": "marukolibro/Hop",
 	"summary": {

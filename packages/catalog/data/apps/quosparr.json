@@ -5,6 +5,7 @@
 	"author": "Licoy",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "agents",
 	"url": "https://quosparr.com",
 	"repo": "Licoy/Quosparr",
 	"summary": {

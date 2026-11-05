@@ -5,6 +5,7 @@
 	"author": "xiyaowong",
 	"kind": "native",
 	"category": "MultimediaApplication",
+	"group": "media",
 	"url": "https://github.com/xiyaowong/framepicker",
 	"repo": "xiyaowong/framepicker",
 	"summary": {

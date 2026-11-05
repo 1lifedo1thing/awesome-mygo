@@ -5,6 +5,7 @@
 	"author": "oneo-me",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "dev",
 	"url": "https://github.com/oneo-me/onegit",
 	"repo": "oneo-me/onegit",
 	"summary": {

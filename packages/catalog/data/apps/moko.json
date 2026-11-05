@@ -5,6 +5,7 @@
 	"author": "qzz0518",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "devices",
 	"url": "https://qzz0518.github.io/moko/",
 	"repo": "qzz0518/moko",
 	"summary": {

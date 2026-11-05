@@ -5,6 +5,7 @@
 	"author": "pteich",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "dev",
 	"url": "https://github.com/pteich/us3ui",
 	"summary": {
 		"en": "A lightweight storage browser for S3-compatible services, SFTP and FTP/FTPS.",

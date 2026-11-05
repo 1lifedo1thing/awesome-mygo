@@ -5,6 +5,7 @@
 	"author": "qzz0518",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "devices",
 	"url": "https://github.com/qzz0518/Moniflip",
 	"repo": "qzz0518/Moniflip",
 	"summary": {

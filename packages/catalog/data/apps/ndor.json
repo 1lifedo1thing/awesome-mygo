@@ -5,6 +5,7 @@
 	"author": "zrcoder",
 	"kind": "native",
 	"category": "MultimediaApplication",
+	"group": "dev",
 	"url": "https://ndor.netlify.app",
 	"repo": "zrcoder/ndor",
 	"summary": {

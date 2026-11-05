@@ -5,6 +5,7 @@
 	"author": "younland",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "dev",
 	"url": "https://github.com/younland/apigo",
 	"summary": {
 		"en": "A cross-platform API client drawn with native UI, in the vein of Hoppscotch, fully offline.",

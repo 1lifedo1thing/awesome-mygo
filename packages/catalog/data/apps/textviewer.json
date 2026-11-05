@@ -5,6 +5,7 @@
 	"author": "Oranjekop",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "notes",
 	"url": "https://github.com/Oranjekop/TextViewer",
 	"repo": "Oranjekop/TextViewer",
 	"summary": {

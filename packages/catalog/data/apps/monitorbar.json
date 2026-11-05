@@ -5,6 +5,7 @@
 	"author": "Binaryify",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "devices",
 	"url": "https://github.com/Binaryify/MonitorBar",
 	"repo": "Binaryify/MonitorBar",
 	"summary": {

@@ -5,6 +5,7 @@
 	"author": "hehehai",
 	"kind": "native",
 	"category": "MultimediaApplication",
+	"group": "media",
 	"url": "https://actnow.dev/audiosmith",
 	"repo": "hehehai/AudioSmith",
 	"summary": {

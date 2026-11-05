@@ -5,6 +5,7 @@
 	"author": "mcxen",
 	"kind": "native",
 	"category": "MultimediaApplication",
+	"group": "media",
 	"url": "https://github.com/mcxen/lumiwerk",
 	"repo": "mcxen/lumiwerk",
 	"summary": {

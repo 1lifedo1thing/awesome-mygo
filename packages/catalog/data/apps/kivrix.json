@@ -5,6 +5,7 @@
 	"author": "cuikaipeng",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "dev",
 	"url": "https://github.com/cuikaipeng/kivrix",
 	"repo": "cuikaipeng/kivrix",
 	"summary": {

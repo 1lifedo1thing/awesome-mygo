@@ -5,6 +5,7 @@
 	"author": "hyoban",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "dev",
 	"url": "https://github.com/hyoban/peek",
 	"repo": "hyoban/peek",
 	"summary": {

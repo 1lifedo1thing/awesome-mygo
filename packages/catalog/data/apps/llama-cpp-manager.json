@@ -5,6 +5,7 @@
 	"author": "bunnywaffle",
 	"kind": "web",
 	"category": "DeveloperApplication",
+	"group": "ai",
 	"url": "https://github.com/bunnywaffle/llama-manager",
 	"repo": "bunnywaffle/llama-manager",
 	"summary": {

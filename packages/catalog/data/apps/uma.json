@@ -5,6 +5,7 @@
 	"author": "egoist",
 	"kind": "native",
 	"category": "BusinessApplication",
+	"group": "dev",
 	"url": "https://github.com/egoist/uma",
 	"summary": {
 		"en": "A menu bar app showing your Umami websites and visitors.",

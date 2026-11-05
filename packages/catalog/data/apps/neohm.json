@@ -5,6 +5,7 @@
 	"author": "oneo-me",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "devices",
 	"url": "https://oneo-me.github.io/neohm/",
 	"repo": "oneo-me/neohm",
 	"summary": {

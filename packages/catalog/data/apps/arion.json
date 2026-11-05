@@ -5,6 +5,7 @@
 	"author": "AstraFoundry",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "ai",
 	"url": "https://arion.astrafoundry.si",
 	"repo": "AstraFoundry/Arion",
 	"summary": {

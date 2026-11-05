@@ -5,6 +5,7 @@
 	"author": "Simqiqi",
 	"kind": "native",
 	"category": "MultimediaApplication",
+	"group": "media",
 	"url": "https://github.com/Simqiqi/simqiqi-music",
 	"repo": "Simqiqi/simqiqi-music",
 	"summary": {

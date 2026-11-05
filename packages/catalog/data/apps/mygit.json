@@ -5,6 +5,7 @@
 	"author": "Binaryify",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "dev",
 	"url": "https://binaryify.com/mygit/",
 	"repo": "Binaryify/MyGit",
 	"summary": {

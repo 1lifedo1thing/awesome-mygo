@@ -5,6 +5,7 @@
 	"author": "wanan9999",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "devices",
 	"url": "https://github.com/wanan9999/android-tools",
 	"repo": "wanan9999/android-tools",
 	"summary": {

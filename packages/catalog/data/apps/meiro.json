@@ -5,6 +5,7 @@
 	"author": "elianiva",
 	"kind": "native",
 	"category": "MultimediaApplication",
+	"group": "media",
 	"url": "https://meiro.elianiva.com",
 	"repo": "elianiva/meiro",
 	"summary": {

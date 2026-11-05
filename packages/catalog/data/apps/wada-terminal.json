@@ -5,6 +5,7 @@
 	"author": "xleotranx",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "agents",
 	"url": "https://github.com/xleotranx/wada-terminal",
 	"repo": "xleotranx/wada-terminal",
 	"summary": {

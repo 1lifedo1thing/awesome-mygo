@@ -5,6 +5,7 @@
 	"author": "FlashVCP",
 	"kind": "native",
 	"category": "MultimediaApplication",
+	"group": "media",
 	"url": "https://github.com/FlashVCP/FlashMusic",
 	"repo": "FlashVCP/FlashMusic",
 	"summary": {

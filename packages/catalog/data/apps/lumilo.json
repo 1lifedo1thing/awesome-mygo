@@ -5,6 +5,7 @@
 	"author": "kotuke",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "ai",
 	"url": "https://github.com/kotuke/lumilo",
 	"summary": {
 		"en": "A macOS menu-bar panel for local LLM engines.",

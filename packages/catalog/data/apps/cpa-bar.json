@@ -5,6 +5,7 @@
 	"author": "Licoy",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "agents",
 	"url": "https://github.com/Licoy/CPA-Bar",
 	"repo": "Licoy/CPA-Bar",
 	"summary": {

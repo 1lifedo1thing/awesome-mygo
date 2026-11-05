@@ -5,6 +5,7 @@
 	"author": "AstraFoundry",
 	"kind": "web",
 	"category": "UtilitiesApplication",
+	"group": "network",
 	"url": "https://usekumo.app",
 	"repo": "AstraFoundry/KumoApp",
 	"summary": {

@@ -5,6 +5,7 @@
 	"author": "owocc",
 	"kind": "web",
 	"category": "MultimediaApplication",
+	"group": "media",
 	"url": "https://github.com/owocc/bowerbird",
 	"repo": "owocc/bowerbird",
 	"summary": {

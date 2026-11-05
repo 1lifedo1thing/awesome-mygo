@@ -5,6 +5,7 @@
 	"author": "echoVic",
 	"kind": "web",
 	"category": "UtilitiesApplication",
+	"group": "system",
 	"url": "https://cleanzo.echovic.com",
 	"repo": "echoVic/cleanzo",
 	"summary": {

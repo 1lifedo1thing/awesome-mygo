@@ -5,6 +5,7 @@
 	"author": "sogud",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "notes",
 	"url": "https://github.com/sogud/catview",
 	"repo": "sogud/catview",
 	"summary": {

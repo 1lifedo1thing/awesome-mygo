@@ -5,6 +5,7 @@
 	"author": "Nigh",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "system",
 	"url": "https://github.com/Nigh/ReSoBackup",
 	"repo": "Nigh/ReSoBackup",
 	"summary": {

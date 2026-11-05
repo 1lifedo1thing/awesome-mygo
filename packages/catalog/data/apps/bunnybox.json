@@ -5,6 +5,7 @@
 	"author": "lesnolie",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "network",
 	"url": "https://github.com/lesnolie/bunnybox",
 	"repo": "lesnolie/bunnybox",
 	"summary": {

@@ -5,6 +5,7 @@
 	"author": "voidksa",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "system",
 	"url": "https://loaderly.app/",
 	"repo": "voidksa/BootEase",
 	"summary": {

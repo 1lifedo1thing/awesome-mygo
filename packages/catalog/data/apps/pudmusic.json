@@ -5,6 +5,7 @@
 	"author": "ShellMonster",
 	"kind": "native",
 	"category": "MultimediaApplication",
+	"group": "media",
 	"url": "https://github.com/ShellMonster/PudMusic",
 	"repo": "ShellMonster/PudMusic",
 	"summary": {

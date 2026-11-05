@@ -5,6 +5,7 @@
 	"author": "FaintGhost",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "devices",
 	"url": "https://faintghost.github.io/mac2mqtt/",
 	"repo": "FaintGhost/mac2mqtt",
 	"summary": {

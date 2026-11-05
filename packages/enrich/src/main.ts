@@ -6,7 +6,7 @@ import { DEFAULT_MODEL, README_LIMIT, type LlmConfig, writeCopy } from './copy.t
 import { github } from './github.ts';
 import { downloadImage, writeCard, writeIcon, writeShot } from './image.ts';
 import { type RepoFacts, type ShotSource, firstShot, ownIcon, repoFacts as readRepoFacts } from './repo.ts';
-import { type ChoiceField, ENTRY_DIRS, STAGED_SHOTS, type Entry, type EntryKind, addedFiles, appNameFrom, formDefaults, hasAllLanguages, homepageOf, markProvisional, repoOfEntry, repoShotSources, schemaEnum, setCategory, sniffImage, stagedShotOf, submittedScreenshot } from './source.ts';
+import { type ChoiceField, ENTRY_DIRS, STAGED_SHOTS, type Entry, type EntryKind, addedFiles, appNameFrom, formDefaults, hasAllLanguages, homepageOf, markProvisional, repoOfEntry, repoShotSources, schemaEnum, setCategory, setGroup, sniffImage, stagedShotOf, submittedScreenshot } from './source.ts';
 
 // Run by .github/workflows/enrich-submission.yml on a pull request the submission bot opened, and by discover.ts on each entry it proposes. It finds the entries the branch adds, then for each fills in what the form cannot ask for: an app's icon (from its mygo.json); the screenshot of an app, a UI library or a state management library (the first landscape one in its README, or else in a screenshot folder of the repository); a UI library's or state management library's homepage (from the repository's settings); what the form fills in with a default (an app's category, a UI library's tag and surface, a plugin's surface, the tags of state management and plugins), picked by the model; and the copy in every site language. An entry with a repository is never left without an image: an app without an icon of its own gets its owner's GitHub avatar, and an entry without a screenshot gets the repository's social preview, or else a card drawn here from the owner's avatar, and the report says so. It changes files in the working tree and writes a Markdown report for the pull request; the workflow runs the catalog checks and commits.
 //
@@ -112,11 +112,11 @@ function addHomepage(entry: Entry, facts: RepoFacts): void {
 	say(`- Homepage: ${home}, from the repository's settings.`);
 }
 
-const FIELD_NAMES: Record<ChoiceField | 'tags', string> = { category: 'Category', tag: 'Tag', surface: 'Surface', tags: 'Tags' };
+const FIELD_NAMES: Record<ChoiceField | 'tags', string> = { category: 'Category', group: 'Group', tag: 'Tag', surface: 'Surface', tags: 'Tags' };
 
 // What the report says of a field the form filled in with a default that the model did not pick: an app with no category fails the catalog checks, the rest still pass at the default but are likely wrong.
 function unpicked(field: ChoiceField | 'tags', entry: Entry, why: string): string {
-	if (field === 'category') return `- Category: none submitted, and none picked, ${why}. **Add one before merging.**`;
+	if (field === 'group' || field === 'category') return `- ${FIELD_NAMES[field]}: none submitted, and none picked, ${why}. **Add one before merging.**`;
 	return `- ${FIELD_NAMES[field]}: left at the form's default, ${JSON.stringify(entry[field])}, ${why}. Check it before merging.`;
 }
 
@@ -138,7 +138,7 @@ async function addCopy(cfg: LlmConfig | undefined, kind: EntryKind, entry: Entry
 		const schema: unknown = picks.choices.length ? JSON.parse(await readFile(join(ROOT, DATA_DIR, `schema/${kind}.schema.json`), 'utf8')) : undefined;
 		const choices = picks.choices.map((field) => {
 			const allowed = schemaEnum(schema, field);
-			return { field, values: field === 'category' ? allowed.filter((c) => used.has(c)) : allowed };
+			return { field, values: field === 'group' ? allowed.filter((g) => used.has(g)) : allowed };
 		});
 		const copy = await writeCopy(cfg, { kind, entry, readme: facts?.readme?.text, mygoConfig: facts?.mygo ? { path: facts.mygo.path, text: facts.mygo.text } : undefined, examples, choices, tags: picks.tags });
 		entry.summary = copy.summary;
@@ -150,9 +150,10 @@ async function addCopy(cfg: LlmConfig | undefined, kind: EntryKind, entry: Entry
 			if (pick) {
 				const was = entry[field];
 				if (field === 'category') setCategory(entry, pick);
+				else if (field === 'group') setGroup(entry, pick);
 				else entry[field] = pick;
 				say(`- ${FIELD_NAMES[field]}: ${pick}, picked by the model, as the form ${was === undefined ? 'leaves it out' : `left it at ${JSON.stringify(was)}`}. Check it.`);
-			} else say(unpicked(field, entry, `as the model's pick${bad ? ` (${bad})` : ''} is not one ${field === 'category' ? 'the apps on the site have' : 'the schema allows'}`));
+			} else say(unpicked(field, entry, `as the model's pick${bad ? ` (${bad})` : ''} is not one ${field === 'group' ? "of the showcase's groups" : 'the schema allows'}`));
 		}
 		if (picks.tags && copy.tags) {
 			entry.tags = copy.tags;
@@ -215,14 +216,14 @@ async function main(): Promise<void> {
 	const single = added.reduce((n, a) => n + a.names.length, 0) === 1;
 	const pr = single && env.PR && env.GITHUB_REPOSITORY ? await github<{ body: string | null }>(`/repos/${env.GITHUB_REPOSITORY}/pulls/${env.PR}`) : undefined;
 	const submitted = single ? submittedScreenshot(pr?.body) : undefined;
-	// The categories of the apps already on the site: a new app picks its own from them.
+	// The showcase groups that have apps already: a new app picks its own from them, as a group of a single app fails the catalog checks.
 	const used = new Set<string>();
 	const appsDir = `${DATA_DIR}/${ENTRY_DIRS.app}`;
 	const { stdout: listedApps } = await run('git', ['ls-tree', '--name-only', `${BASE_REF}:${appsDir}`], { cwd: ROOT, maxBuffer: 4 * 1024 * 1024 });
 	for (const name of listedApps.split('\n').filter((n) => n.endsWith('.json'))) {
 		const { stdout } = await run('git', ['show', `${BASE_REF}:${appsDir}/${name}`], { cwd: ROOT, maxBuffer: 4 * 1024 * 1024 });
-		const category = (JSON.parse(stdout) as Entry).category;
-		if (typeof category === 'string') used.add(category);
+		const group = (JSON.parse(stdout) as Entry).group;
+		if (typeof group === 'string') used.add(group);
 	}
 	for (const { kind, dir, known, names } of added) {
 		const read = async (name: string) => JSON.parse(await readFile(join(ROOT, dir, name), 'utf8')) as Entry;

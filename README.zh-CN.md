@@ -54,7 +54,7 @@ pnpm preview      # 在 Workers 运行时中运行生产构建
 
 作品、UI 组件和状态管理都需要截图。访客填好仓库链接后，表单会请 Worker（`/api/shot`）按 submission workflow 自己的规则（`packages/enrich/src/source.ts`）检查仓库里有没有它会采用的截图；没有，或者作品没有仓库时，表单会要求提供一张，Worker 也会拒绝没有截图的提交。访客可以上传图片（PNG、JPEG 或 WebP，5 MB 以内，横版且宽度至少 600 像素），也可以填图片链接。上传的图片会以 `submissions/<slug>.<ext>` 提交到 PR 的分支上并显示在 PR 里，workflow 把它转成站点用的 WebP 后删除。这项检查按 IP 限流，每分钟 20 次。
 
-bot 开出 PR 后，*Complete submission* workflow 会补上表单问不到的内容：应用图标，按 MyGo 的查找方式取（`mygo.json` 的 `icon`，没有则用 `resources/icon.png`；如果是 `mygo init` 生成的 MyGo 默认图标就不加）、README 里第一张不是图标或其他方形 logo 的截图，以及五种语言的简介和介绍。UI 组件和状态管理也会照同样的方式补截图，并从仓库设置里补 homepage；表单填了默认值的字段（应用的分类、UI 组件的 `tag` 和 `surface`、插件的 `surface`、状态管理和插件的 `tags`）由模型在写文案时一并选定。它会跑 catalog 检查，以 bot 身份推到同一分支，并在 PR 里留言说明做了什么；合并前仍需维护者审核。需要在仓库的 Actions 设置里配置 secret：`SUBMIT_APP_PRIVATE_KEY`（App 的 PKCS#8 私钥，与 Worker 用的相同）、`LLM_API_KEY`（Anthropic Messages API 的密钥），走网关时再加 `LLM_BASE_URL`；以及变量 `SUBMIT_APP_CLIENT_ID`（App 的 Client ID）。变量 `LLM_MODEL` 可以换模型（默认 `claude-opus-5-5`）。没有 `LLM_API_KEY` 时文案保持提交时的样子。
+bot 开出 PR 后，*Complete submission* workflow 会补上表单问不到的内容：应用图标，按 MyGo 的查找方式取（`mygo.json` 的 `icon`，没有则用 `resources/icon.png`；如果是 `mygo init` 生成的 MyGo 默认图标就不加）、README 里第一张不是图标或其他方形 logo 的截图，以及五种语言的简介和介绍。UI 组件和状态管理也会照同样的方式补截图，并从仓库设置里补 homepage；表单填了默认值的字段（应用在作品集里的分组 `group`，没有另写分类时分类随分组而定、UI 组件的 `tag` 和 `surface`、插件的 `surface`、状态管理和插件的 `tags`）由模型在写文案时一并选定。它会跑 catalog 检查，以 bot 身份推到同一分支，并在 PR 里留言说明做了什么；合并前仍需维护者审核。需要在仓库的 Actions 设置里配置 secret：`SUBMIT_APP_PRIVATE_KEY`（App 的 PKCS#8 私钥，与 Worker 用的相同）、`LLM_API_KEY`（Anthropic Messages API 的密钥），走网关时再加 `LLM_BASE_URL`；以及变量 `SUBMIT_APP_CLIENT_ID`（App 的 Client ID）。变量 `LLM_MODEL` 可以换模型（默认 `claude-opus-5-5`）。没有 `LLM_API_KEY` 时文案保持提交时的样子。
 
 ## 收录项目
 

@@ -5,6 +5,7 @@
 	"author": "0xletleon",
 	"kind": "native",
 	"category": "UtilitiesApplication",
+	"group": "devices",
 	"url": "https://github.com/0xletleon/ThunderstrikeControllerTool",
 	"repo": "0xletleon/ThunderstrikeControllerTool",
 	"summary": {

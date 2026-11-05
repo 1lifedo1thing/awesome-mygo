@@ -5,6 +5,7 @@
 	"author": "sorrycc",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "agents",
 	"url": "https://github.com/sorrycc/CCGuanjia",
 	"repo": "sorrycc/CCGuanjia",
 	"summary": {

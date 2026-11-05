@@ -5,6 +5,7 @@
 	"author": "zhengchalei",
 	"kind": "web",
 	"category": "GameApplication",
+	"group": "game",
 	"url": "https://github.com/zhengchalei/LeagueAkari-MyGo",
 	"repo": "zhengchalei/LeagueAkari-MyGo",
 	"summary": {

@@ -5,6 +5,7 @@
 	"author": "RSK21X",
 	"kind": "native",
 	"category": "ReferenceApplication",
+	"group": "notes",
 	"url": "https://github.com/RSK21X/GoRss",
 	"repo": "RSK21X/GoRss",
 	"summary": {

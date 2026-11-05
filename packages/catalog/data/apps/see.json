@@ -5,6 +5,7 @@
 	"author": "wibus-wee",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "dev",
 	"url": "https://github.com/wibus-wee/see",
 	"repo": "wibus-wee/see",
 	"summary": {

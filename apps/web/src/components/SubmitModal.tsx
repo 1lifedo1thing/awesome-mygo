@@ -1,11 +1,11 @@
-import { DATA_DIR, GROUP_CATEGORY, SUBMIT_CATS, fill } from '@awesome-mygo/catalog';
+import { DATA_DIR, ENTRY_GROUPS, SUBMIT_CATS, fill } from '@awesome-mygo/catalog';
 import { useDialog } from '../lib/dialog';
 import { useT } from '../lib/lang';
 import { useSite } from '../lib/site';
 import { Captcha, useSubmit } from '../lib/submit';
 import { CloseIcon } from './bits';
 
-const GROUPS = Object.keys(GROUP_CATEGORY) as (keyof typeof GROUP_CATEGORY)[];
+const GROUPS = ENTRY_GROUPS;
 
 export function SubmitModal() {
 	const { modal } = useSite();
@@ -185,10 +185,10 @@ function Modal() {
 					{!viaJson && isShow && (
 						<div className='stack-8'>
 							<span className='field-label'>{t.m_group}</span>
-							{/* Optional: a second press clears it, and the entry then names no category. */}
+							{/* Optional: a second press clears it, and the entry then names no group, which the submission workflow picks. */}
 							<div className='cat-opts' role='radiogroup' aria-label={t.m_group}>
 								{GROUPS.map((g) => (
-									<button key={g} type='button' role='radio' aria-checked={form.category === GROUP_CATEGORY[g]} className='cat-opt' onClick={() => setFormField('category', form.category === GROUP_CATEGORY[g] ? undefined : GROUP_CATEGORY[g])}>
+									<button key={g} type='button' role='radio' aria-checked={form.group === g} className='cat-opt' onClick={() => setFormField('group', form.group === g ? undefined : g)}>
 										{t[`grp_${g}`]}
 									</button>
 								))}

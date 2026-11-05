@@ -5,6 +5,7 @@
 	"author": "egoist",
 	"kind": "native",
 	"category": "DeveloperApplication",
+	"group": "dev",
 	"url": "https://github.com/egoist/godiff",
 	"summary": {
 		"en": "A minimal Git diff viewer and committer.",
