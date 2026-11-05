@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mediago",
+	"name": "MediaGo",
+	"author": "jyuuroku16",
+	"kind": "native",
+	"group": "media",
+	"url": "https://github.com/jyuuroku16/mediago",
+	"repo": "jyuuroku16/mediago",
+	"summary": {
+		"en": "A native macOS media downloader: menu bar panel, sniffing browser and batch episode downloads.",
+		"zh-CN": "原生 macOS 媒体下载工具：菜单栏面板、嗅探浏览器，支持分集批量下载。",
+		"zh-TW": "原生 macOS 媒體下載工具：選單列面板、嗅探瀏覽器，支援分集批次下載。",
+		"ja": "ネイティブな macOS 用メディアダウンローダー。メニューバーや内蔵ブラウザーからシリーズも一括取得。",
+		"ko": "네이티브 macOS 미디어 다운로더. 메뉴 막대 패널, 스니핑 브라우저, 에피소드 일괄 다운로드."
+	},
+	"description": {
+		"en": "A macOS media sniffer and downloader drawn with MyGo's native UI, with no Electron; only its tabbed browser uses WKWebView. Parse a URL from the menu bar panel or the browser, pick a format or episodes from a series such as a Bilibili multi-P collection, and queue the downloads. It relies on yt-dlp and ffmpeg, installing them in the app if missing, and keeps a library of downloads.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 媒体嗅探与下载工具，没有 Electron，只有内置的多标签浏览器使用 WKWebView。可在菜单栏面板或浏览器中解析网址，选择格式，或从 Bilibili 多 P 合集等系列中挑选分集，再加入下载队列。它依赖 yt-dlp 和 ffmpeg，缺少时可在应用内一键安装，并用媒体库管理已下载的文件。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS 媒體嗅探與下載工具，沒有 Electron，只有內建的多分頁瀏覽器使用 WKWebView。可在選單列面板或瀏覽器中解析網址，選擇格式，或從 Bilibili 多 P 合集等系列中挑選集數，再加入下載佇列。它依賴 yt-dlp 和 ffmpeg，缺少時可在應用程式內一鍵安裝，並以媒體庫管理已下載的檔案。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS 用のメディアスニッファー兼ダウンローダー。Electron は使わず、WKWebView を使うのは内蔵のタブブラウザーだけです。メニューバーのパネルかブラウザーで URL を解析し、フォーマットや、Bilibili の複数 P 動画のようなシリーズのエピソードを選んでキューに入れます。yt-dlp と ffmpeg を使い、なければアプリ内でインストールでき、ダウンロード済みのファイルはメディアライブラリで管理します。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS용 미디어 스니퍼 겸 다운로더로, Electron 없이 내장 탭 브라우저만 WKWebView를 씁니다. 메뉴 막대 패널이나 브라우저에서 URL을 분석해 포맷을 고르거나 Bilibili 멀티 P 모음 같은 시리즈에서 에피소드를 골라 대기열에 넣습니다. yt-dlp와 ffmpeg를 사용하며 없으면 앱 안에서 설치할 수 있고, 내려받은 파일은 미디어 라이브러리로 관리합니다."
+	},
+	"icon": {
+		"file": "mediago.webp"
+	},
+	"screenshot": "mediago.webp",
+	"added": "2026-11-05T16:49:05Z"
+}
