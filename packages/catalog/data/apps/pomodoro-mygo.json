@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "pomodoro-mygo",
+	"name": "番茄钟",
+	"author": "azzliang6",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/azzliang6/pomodoro-mygo",
+	"repo": "azzliang6/pomodoro-mygo",
+	"summary": {
+		"en": "A Pomodoro timer with focus and break modes, presets and an always-on-top mini window.",
+		"zh-CN": "番茄钟计时器：专注与休息模式、时长预设，还有置顶的迷你窗口。",
+		"zh-TW": "番茄鐘計時器：專注與休息模式、時長預設，還有置頂的迷你視窗。",
+		"ja": "集中と休憩のモード、プリセット、常に最前面のミニウィンドウを備えたポモドーロタイマー。",
+		"ko": "집중·휴식 모드와 프리셋, 항상 위에 뜨는 미니 창을 갖춘 뽀모도로 타이머."
+	},
+	"description": {
+		"en": "A Pomodoro timer for Windows drawn with MyGo's native UI, with no WebView, in a dark theme with a Simplified Chinese interface. It runs focus, short break and long break sessions with adjustable lengths and three presets, shrinks to an always-on-top mini window and notifies you when a session ends. Only a Windows build is offered, and the installer is unsigned.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 番茄钟，没有 WebView，深色主题，界面为简体中文。支持专注、短休息、长休息三种模式，时长可调并带三个预设；可缩成无边框、永远置顶的迷你窗口，每段结束时弹出系统通知。目前只提供 Windows 构建，安装包未做代码签名。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows 番茄鐘，沒有 WebView，深色主題，介面為簡體中文。支援專注、短休息、長休息三種模式，時長可調並附三組預設；可縮成無邊框、永遠置頂的迷你視窗，每段結束時跳出系統通知。目前只提供 Windows 版本，安裝程式未經程式碼簽署。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows 用ポモドーロタイマー。WebView はなく、ダークテーマで画面は簡体字中国語です。集中・短い休憩・長い休憩の 3 モードで時間を調整でき、プリセットも 3 つあります。枠なしで常に最前面のミニウィンドウに縮められ、セッション終了時には通知が出ます。現在は Windows 版のみで、インストーラーはコード署名されていません。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows용 뽀모도로 타이머로, WebView 없이 다크 테마와 중국어 간체 화면을 씁니다. 집중, 짧은 휴식, 긴 휴식 세 가지 모드의 시간을 조절할 수 있고 프리셋 세 개를 제공하며, 테두리 없이 항상 위에 뜨는 미니 창으로 줄일 수 있고 세션이 끝나면 알림을 띄웁니다. 현재 Windows 빌드만 있으며 설치 프로그램은 코드 서명되지 않았습니다."
+	},
+	"icon": {
+		"file": "pomodoro-mygo.webp"
+	},
+	"screenshot": "pomodoro-mygo.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T15:15:40Z"
+}
