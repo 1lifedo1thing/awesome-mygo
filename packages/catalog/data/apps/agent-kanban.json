@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "agent-kanban",
+	"name": "Agent Kanban",
+	"author": "lzhgus",
+	"kind": "native",
+	"group": "agents",
+	"url": "https://agent-kanban.lzhgus.com",
+	"repo": "lzhgus/agent-kanban",
+	"summary": {
+		"en": "Kanban board for Claude Code, Copilot CLI and Antigravity, with each task on its own git branch.",
+		"zh-CN": "让 Claude Code 等编程智能体在看板上干活，每个任务一条 git 分支。",
+		"zh-TW": "讓 Claude Code 等程式代理在看板上工作，每個任務一條 git 分支。",
+		"ja": "Claude Code などのエージェントをかんばんで動かし、タスクごとに git ブランチを切る。",
+		"ko": "Claude Code 등 코딩 에이전트를 칸반에서 실행하고 작업마다 git 브랜치를 나눕니다."
+	},
+	"description": {
+		"en": "A macOS app drawn with MyGo's native UI that runs Claude Code, GitHub Copilot CLI and Antigravity as kanban tasks, each on its own git branch, using the CLIs you have already signed in to. Agents can plan first, review each other's work, ask you questions and hand each other subtasks, and the board shows token usage and plan quotas. So far only Claude Code support is fully tested.",
+		"zh-CN": "macOS 应用，由 MyGo 原生 UI 绘制，把 Claude Code、GitHub Copilot CLI 和 Antigravity 当作看板上的任务来运行，每个任务在一条 git 分支上，直接使用你已登录的命令行工具。智能体可以先做计划、互相审查、向你提问并互派子任务，看板上还能看到 token 用量与套餐额度。目前只有 Claude Code 已充分测试。",
+		"zh-TW": "macOS 應用程式，由 MyGo 原生 UI 繪製，把 Claude Code、GitHub Copilot CLI 和 Antigravity 當成看板上的任務來執行，每個任務在一條 git 分支上，使用你已登入的命令列工具。代理可以先做計畫、互相審查、向你提問並互派子任務，看板上也能看到 token 用量與方案額度。目前只有 Claude Code 已充分測試。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS アプリ。Claude Code、GitHub Copilot CLI、Antigravity をかんばんのタスクとして動かし、タスクごとに git ブランチを分けます。ログイン済みの CLI をそのまま使います。エージェントは先に計画を立て、互いの作業をレビューし、質問したりサブタスクを渡し合ったりでき、トークン使用量とプランの枠も確認できます。十分にテストされているのは今のところ Claude Code のみです。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS 앱으로, Claude Code, GitHub Copilot CLI, Antigravity를 칸반 보드의 작업으로 실행하고 작업마다 git 브랜치를 따로 둡니다. 이미 로그인한 CLI를 그대로 씁니다. 에이전트는 먼저 계획하고 서로 리뷰하며 질문하거나 하위 작업을 넘길 수 있고, 토큰 사용량과 요금제 한도도 보여 줍니다. 현재 충분히 테스트된 것은 Claude Code뿐입니다."
+	},
+	"icon": {
+		"file": "agent-kanban.webp"
+	},
+	"screenshot": "agent-kanban.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T11:50:47Z"
+}
