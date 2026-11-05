@@ -1,0 +1,23 @@
+{
+	"$schema": "../schema/ui.schema.json",
+	"slug": "nuxtui-go",
+	"name": "NuxtUI Go",
+	"author": "josexy",
+	"tag": "theme",
+	"surface": "native",
+	"summary": {
+		"en": "A Go component library for MyGo native UI in the style of Nuxt UI v4: buttons, forms, tables, trees, charts and app layouts, with light and dark modes, 26 color palettes and 2,015 Lucide icons.",
+		"zh-CN": "Nuxt UI v4 风格的 MyGo 原生 UI 组件库，提供按钮、表单、表格、图表与应用布局，支持明暗模式、26 套色板与 Lucide 图标。",
+		"zh-TW": "Nuxt UI v4 風格的 MyGo 原生 UI 元件庫，提供按鈕、表單、表格、圖表與應用程式版面，支援深淺色模式、26 組色盤與 Lucide 圖示。",
+		"ja": "Nuxt UI v4 風の MyGo ネイティブ UI 向けコンポーネントライブラリ。ボタン、フォーム、テーブル、グラフ、レイアウトを備え、明暗モード、26 種のカラーパレット、Lucide アイコン付き。",
+		"ko": "Nuxt UI v4 스타일의 MyGo 네이티브 UI 컴포넌트 라이브러리. 버튼, 폼, 테이블, 차트, 앱 레이아웃을 갖추고 라이트와 다크 모드, 26가지 색상 팔레트, Lucide 아이콘을 지원합니다."
+	},
+	"repo": "josexy/nuxt-ui-go",
+	"url": "https://github.com/josexy/nuxt-ui-go",
+	"homepage": "https://nuxtuigo.gofunc.site/",
+	"screenshot": "nuxtui-go.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T03:22:12Z"
+}
