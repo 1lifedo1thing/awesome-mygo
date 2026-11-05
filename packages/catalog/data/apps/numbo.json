@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "numbo",
+	"name": "Numbo",
+	"author": "benpops89",
+	"kind": "web",
+	"group": "game",
+	"url": "https://github.com/benpops89/numbo",
+	"repo": "benpops89/numbo",
+	"summary": {
+		"en": "A desktop 90-ball bingo caller that reads out each number with its traditional call.",
+		"zh-CN": "桌面 90 球宾果叫号器，用传统叫法念出每个号码。",
+		"zh-TW": "桌面 90 球賓果叫號器，以傳統叫法唸出每個號碼。",
+		"ja": "デスクトップ用の 90 ボールビンゴコーラー。各番号を伝統のコールで読み上げる。",
+		"ko": "데스크톱용 90볼 빙고 호출기. 각 번호를 전통 콜과 함께 읽어 줍니다."
+	},
+	"description": {
+		"en": "A 90-ball bingo caller that reads each number aloud with its traditional UK call and highlights it on a grid of all 90, while players mark their own paper cards. Call numbers by hand, or let auto mode call them at an interval set on a slider. The draws run in Go behind a Preact web frontend in MyGo, and only a Linux package is built so far.",
+		"zh-CN": "90 球宾果叫号器，用传统的英式叫法念出每个号码，并在 90 个号码的网格上标亮；玩家在自己的纸卡上划号。可以手动叫号，也可以开启自动模式，用滑块设定间隔。抽号逻辑在 Go 中运行，界面是 MyGo 中的 Preact Web 前端；目前只构建 Linux 安装包。",
+		"zh-TW": "90 球賓果叫號器，以傳統的英式叫法唸出每個號碼，並在 90 個號碼的方格上標亮；玩家在自己的紙卡上劃號。可以手動叫號，也可以開啟自動模式，用滑桿設定間隔。抽號邏輯在 Go 中執行，介面是 MyGo 中的 Preact Web 前端；目前只建置 Linux 安裝套件。",
+		"ja": "90 ボールのビンゴ用コーラー。各番号を英国伝統のコールとともに読み上げ、90 個の番号が並ぶグリッドで強調表示します。プレイヤーは手元の紙のカードに印を付けます。手動で呼ぶことも、スライダーで間隔を決めて自動で呼ぶこともできます。抽選は Go で動き、画面は MyGo 上の Preact による Web フロントエンドです。現時点でビルドされるのは Linux 向けパッケージのみです。",
+		"ko": "90볼 빙고 호출기로, 각 번호를 영국 전통 콜과 함께 소리 내어 읽고 90개 번호 격자에 표시합니다. 플레이어는 각자 종이 카드에 표시합니다. 직접 호출하거나, 슬라이더로 간격을 정해 자동 모드로 호출할 수 있습니다. 추첨은 Go에서 돌아가고 화면은 MyGo의 Preact 웹 프런트엔드이며, 현재는 Linux용 패키지만 빌드됩니다."
+	},
+	"icon": {
+		"file": "numbo.webp"
+	},
+	"screenshot": "numbo.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T11:50:47Z"
+}
