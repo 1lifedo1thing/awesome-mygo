@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "sweep",
+	"name": "Sweep",
+	"author": "yaffalhakim1",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://yaffalhakim1.github.io/sweep/",
+	"repo": "yaffalhakim1/sweep",
+	"summary": {
+		"en": "A Windows tool that maps build folders like node_modules and target by size and deletes them.",
+		"zh-CN": "Windows 工具：找出 node_modules、target 等构建目录并删除。",
+		"zh-TW": "Windows 工具：找出 node_modules、target 等建置目錄並刪除。",
+		"ja": "node_modules や target などのビルド出力を探して削除する Windows アプリ。",
+		"ko": "node_modules, target 같은 빌드 폴더를 찾아 지우는 Windows 앱."
+	},
+	"description": {
+		"en": "A Windows app drawn with MyGo's native UI, with no webview. It finds regenerable build output from Rust, Node, Python, Gradle, Android, Xcode and CMake across the disk, maps it as a treemap, lists it with paths, sizes and age, and deletes what you pick after a confirmation. A folder counts only when the build system's own files sit beside it, and removal is permanent, not to the Recycle Bin.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 应用，没有 Web 视图。它在整个磁盘上查找 Rust、Node、Python、Gradle、Android、Xcode 与 CMake 留下的可再生构建产物，用矩形树图和附带路径、大小与修改时间的列表展示，确认后删除你选中的目录。只有旁边存在对应构建系统的文件时，目录才会被认定；删除是永久性的，不会移到回收站。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows 應用程式，沒有 Web 視圖。它在整個磁碟上尋找 Rust、Node、Python、Gradle、Android、Xcode 與 CMake 留下的可重新產生的建置產物，以矩形樹狀圖和附上路徑、大小與修改時間的清單呈現，確認後刪除你選取的目錄。只有旁邊存在對應建置系統的檔案時，目錄才會被認定；刪除是永久性的，不會移到資源回收筒。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows アプリで、Web ビューはありません。Rust、Node、Python、Gradle、Android、Xcode、CMake が残す再生成可能なビルド出力をディスク全体から探し、ツリーマップと、パス・サイズ・更新時期つきの一覧で示して、確認のうえ選んだものを削除します。対応するビルドシステムのファイルが隣にあるフォルダーだけを対象とし、削除はごみ箱を経由しない完全削除です。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows 앱으로, 웹 뷰가 없습니다. Rust, Node, Python, Gradle, Android, Xcode, CMake가 남긴 재생성 가능한 빌드 산출물을 디스크 전체에서 찾아 트리맵과 경로, 크기, 수정 시점이 담긴 목록으로 보여 주고, 확인을 거쳐 선택한 항목을 삭제합니다. 해당 빌드 시스템의 파일이 옆에 있는 폴더만 대상으로 삼으며, 휴지통을 거치지 않고 영구 삭제합니다."
+	},
+	"icon": {
+		"file": "sweep.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "sweep.webp",
+	"added": "2026-11-05T03:22:12Z"
+}
