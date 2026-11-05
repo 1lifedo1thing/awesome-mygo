@@ -1,0 +1,13 @@
+{
+	"$schema": "../schema/ui.schema.json",
+	"slug": "flagicons",
+	"name": "flagicons",
+	"author": "xiyaowong",
+	"tag": "theme",
+	"summary": {
+		"en": "Country flags for the native UI of MyGo apps"
+	},
+	"repo": "xiyaowong/flagicons",
+	"url": "https://github.com/xiyaowong/flagicons",
+	"added": "2026-11-05T01:09:05Z"
+}
