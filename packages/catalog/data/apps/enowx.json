@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "enowx",
+	"name": "enowX",
+	"author": "enowdev",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://enowx.ai",
+	"repo": "enowdev/enowx",
+	"summary": {
+		"en": "Runs and manages several AI coding agents in parallel, on your machine or your own servers.",
+		"zh-CN": "在本机或自己的服务器上并行运行和管理多个 AI 编程智能体。",
+		"zh-TW": "在本機或自己的伺服器上並行執行與管理多個 AI 程式設計代理。",
+		"ja": "複数の AI コーディングエージェントを、手元のマシンや自前のサーバーで並行して動かし管理。",
+		"ko": "여러 AI 코딩 에이전트를 내 컴퓨터나 직접 운영하는 서버에서 병렬로 실행하고 관리합니다."
+	},
+	"description": {
+		"en": "A desktop app written in Go and drawn with MyGo's native UI that runs coding agents such as Claude Code, Codex and OpenCode in real terminals, each session on its own git branch and worktree. Agents can run on a server you reach over SSH or Tailscale while the laptop shows their terminals, chats, diffs and previews. It runs on macOS, Windows and Linux, with no account or telemetry.",
+		"zh-CN": "用 Go 编写、由 MyGo 原生 UI 绘制的桌面应用，在真实终端中运行 Claude Code、Codex、OpenCode 等编程智能体，每个会话都有独立的 git 分支和工作树。智能体可以跑在通过 SSH 或 Tailscale 连接的服务器上，笔记本只负责显示它们的终端、对话、差异和预览。支持 macOS、Windows 与 Linux，无需账号，也没有遥测。",
+		"zh-TW": "用 Go 撰寫、由 MyGo 原生 UI 繪製的桌面應用程式，在真正的終端機中執行 Claude Code、Codex、OpenCode 等程式設計代理，每個工作階段都有獨立的 git 分支和工作樹。代理可以在透過 SSH 或 Tailscale 連線的伺服器上執行，筆電只負責顯示它們的終端機、對話、差異和預覽。支援 macOS、Windows 與 Linux，不需帳號，也沒有遙測。",
+		"ja": "Go で書かれ MyGo のネイティブ UI で描かれたアプリで、Claude Code、Codex、OpenCode などのエージェントを実際のターミナルで動かし、セッションごとに git のブランチとワークツリーを分けます。エージェントは SSH や Tailscale でつないだサーバーで動かし、ノートPC 側でそのターミナル、チャット、差分、プレビューを見られます。macOS、Windows、Linux に対応し、アカウント不要で、テレメトリーもありません。",
+		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 앱으로, Claude Code, Codex, OpenCode 같은 코딩 에이전트를 실제 터미널에서 실행하며 세션마다 자체 git 브랜치와 워크트리를 씁니다. 에이전트는 SSH나 Tailscale로 연결한 서버에서 돌리고, 노트북에서는 터미널, 채팅, diff, 미리보기를 볼 수 있습니다. macOS, Windows, Linux를 지원하며 계정도 텔레메트리도 없습니다."
+	},
+	"added": "2026-11-05T00:55:21Z",
+	"icon": {
+		"file": "enowx.webp"
+	},
+	"screenshot": "enowx.webp"
+}
