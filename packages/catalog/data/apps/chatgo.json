@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "chatgo",
+	"name": "ChatGo",
+	"author": "tk103331",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/tk103331/ChatGo",
+	"repo": "tk103331/ChatGo",
+	"summary": {
+		"en": "A native AI chat client for many model providers, with agents, MCP tools and a built-in terminal.",
+		"zh-CN": "支持多家模型服务商的原生 AI 聊天客户端，带 Agent、MCP 工具与内置终端。",
+		"zh-TW": "支援多家模型服務商的原生 AI 聊天用戶端，附 Agent、MCP 工具與內建終端機。",
+		"ja": "多数のモデルプロバイダーに対応したネイティブ AI チャット。Agent、MCP、ターミナル内蔵。",
+		"ko": "여러 모델 제공자를 지원하는 네이티브 AI 채팅 앱. Agent, MCP 도구, 내장 터미널 포함."
+	},
+	"description": {
+		"en": "An AI chat client for Windows, macOS and Linux, drawn with MyGo's native UI. It talks to OpenAI, Anthropic, Ollama and other providers or any OpenAI-compatible API, runs custom agents with built-in tools, MCP servers and Skills, or local coding CLIs over ACP, and searches local documents offline. Chats are grouped by workspace beside a file preview, a Git panel and a terminal.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 AI 聊天客户端，支持 Windows、macOS 与 Linux。可接入 OpenAI、Anthropic、Ollama 等服务商及任何 OpenAI 兼容 API，能运行带内置工具、MCP 服务器和 Skills 的自定义 Agent，也能通过 ACP 调用本地编程 CLI，并离线检索本地文档。会话按工作区分组，旁边有文件预览、Git 面板和终端。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 AI 聊天用戶端，支援 Windows、macOS 與 Linux。可串接 OpenAI、Anthropic、Ollama 等服務商及任何 OpenAI 相容 API，能執行帶內建工具、MCP 伺服器和 Skills 的自訂 Agent，也能透過 ACP 呼叫本機程式設計 CLI，並離線檢索本機文件。對話依工作區分組，旁邊有檔案預覽、Git 面板和終端機。",
+		"ja": "MyGo のネイティブ UI で描かれた、Windows・macOS・Linux 向けの AI チャットクライアント。OpenAI、Anthropic、Ollama などのプロバイダーや OpenAI 互換 API に接続し、組み込みツール・MCP サーバー・Skills を使うカスタム Agent や、ACP 経由のローカルなコーディング CLI を動かせます。ローカル文書のオフライン検索にも対応し、会話はワークスペースごとにまとまり、ファイルプレビュー、Git パネル、ターミナルを横に開けます。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows·macOS·Linux용 AI 채팅 클라이언트입니다. OpenAI, Anthropic, Ollama 등 여러 제공자와 OpenAI 호환 API에 연결하고, 내장 도구·MCP 서버·Skills를 쓰는 사용자 지정 Agent나 ACP를 통한 로컬 코딩 CLI를 실행합니다. 로컬 문서를 오프라인으로 검색할 수 있고, 대화는 워크스페이스별로 묶이며 파일 미리보기, Git 패널, 터미널을 옆에 띄울 수 있습니다."
+	},
+	"icon": {
+		"file": "chatgo.webp"
+	},
+	"screenshot": "chatgo.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T03:32:35Z"
+}
