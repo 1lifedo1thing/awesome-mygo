@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "smartar-desktop",
+	"name": "SmartAR Desktop",
+	"author": "308K",
+	"kind": "web",
+	"group": "notes",
+	"url": "https://github.com/308K/my-doubtful-go",
+	"repo": "308K/my-doubtful-go",
+	"summary": {
+		"en": "An offline accounts receivable tool: cleans Excel ledgers, ages balances and estimates bad debt.",
+		"zh-CN": "离线应收账款工具：清洗 Excel 台账，分析账龄并计提坏账。",
+		"zh-TW": "離線應收帳款工具：整理 Excel 帳冊，分析帳齡並提列呆帳。",
+		"ja": "オフラインの売掛金管理ツール。Excel の台帳を整え、エイジング分析と貸倒引当金を計算。",
+		"ko": "오프라인 매출채권 도구. Excel 원장을 정리하고 채권 연령을 분석해 대손충당금을 계산합니다."
+	},
+	"description": {
+		"en": "An offline accounts receivable workbench for Windows, macOS and Linux, built with MyGo and a React web frontend. It cleans an Excel receivables ledger, removing blank, subtotal and duplicate rows and filling missing values, ages each balance against a report date you set, and charts aging and bad debt risk. Exports are five-sheet workbooks driven by native Excel formulas.",
+		"zh-CN": "离线使用的应收账款工作台，支持 Windows、macOS 与 Linux，由 MyGo 搭配 React Web 前端构建。它清洗 Excel 应收台账，剔除空白行、小计行与重复单据并补全缺失值，按可调整的基准日测算账龄，并以图表呈现账龄与坏账风险；导出的工作簿共五张工作表，全部由 Excel 原生公式驱动。",
+		"zh-TW": "離線使用的應收帳款工作台，支援 Windows、macOS 與 Linux，以 MyGo 搭配 React Web 前端打造。它整理 Excel 應收帳款明細，移除空白列、小計列與重複單據並補齊缺漏值，依可調整的基準日計算帳齡，並以圖表呈現帳齡與呆帳風險；匯出的活頁簿共五張工作表，全由 Excel 原生公式驅動。",
+		"ja": "Windows・macOS・Linux でオフライン動作する売掛金管理ツールで、MyGo と React の Web フロントエンドで作られています。Excel の売掛金台帳から空白行・小計行・重複伝票を取り除いて欠損値を補い、指定した基準日で債権年齢を算出して、エイジングと貸倒れリスクをグラフで示します。書き出すワークブックは 5 シート構成で、すべて Excel の数式で計算されます。",
+		"ko": "Windows, macOS, Linux에서 오프라인으로 동작하는 매출채권 작업 도구로, MyGo와 React 웹 프런트엔드로 만들었습니다. Excel 매출채권 원장에서 빈 행, 소계 행, 중복 전표를 걸러 내고 누락 값을 채운 뒤, 지정한 기준일로 채권 연령을 계산하고 연령 분포와 대손 위험을 차트로 보여 줍니다. 내보내는 통합 문서는 5개 시트로 구성되며 모두 Excel 기본 수식으로 계산됩니다."
+	},
+	"icon": {
+		"file": "smartar-desktop.webp"
+	},
+	"screenshot": "smartar-desktop.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-05T14:23:33Z"
+}
