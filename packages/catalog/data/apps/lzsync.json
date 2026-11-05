@@ -1,0 +1,28 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "lzsync",
+	"name": "LZSync",
+	"author": "ShineBreaker",
+	"kind": "web",
+	"group": "game",
+	"url": "https://github.com/ShineBreaker/LZSync",
+	"repo": "ShineBreaker/LZSync",
+	"summary": {
+		"en": "Shares beatmaps, skins, scores and settings between osu!lazer and its forks on one machine.",
+		"zh-CN": "在 osu!lazer 及其分支之间共享曲库、皮肤、成绩和设置。",
+		"zh-TW": "在 osu!lazer 及其分支之間共享曲庫、皮膚、成績和設定。",
+		"ja": "osu!lazer とそのフォーク間で譜面、スキン、スコア、設定を共有。",
+		"ko": "osu!lazer와 포크 사이에서 비트맵, 스킨, 점수, 설정을 공유합니다."
+	},
+	"description": {
+		"en": "A desktop tool for running official osu!lazer next to forks such as DeltaLazer, Ez2Lazer and g0v0. It collects beatmaps, skins, scores and settings into a local hub with a single file store, then links chosen items into any fork, adapting them to its schema and backing up client.realm first. The interface is a TypeScript and Vite web frontend on MyGo, with builds for Windows, macOS and Linux.",
+		"zh-CN": "让官方 osu!lazer 与 DeltaLazer、Ez2Lazer、g0v0 等分支在同一台电脑上共用数据的桌面工具。它把曲库、皮肤、成绩和设置收集到本地中心库和单一文件存储，再以文件链接部署到任一分支，写入前按目标分支的结构调整数据并备份 client.realm。界面用 TypeScript 与 Vite 写成，运行在 MyGo 的 Web 前端上，提供 Windows、macOS 与 Linux 版本。",
+		"zh-TW": "讓官方 osu!lazer 與 DeltaLazer、Ez2Lazer、g0v0 等分支在同一台電腦上共用資料的桌面工具。它把曲庫、皮膚、成績和設定收集到本機中心庫與單一檔案儲存區，再以檔案連結部署到任一分支，寫入前依目標分支的結構調整資料並備份 client.realm。介面以 TypeScript 與 Vite 撰寫，執行於 MyGo 的 Web 前端，提供 Windows、macOS 與 Linux 版本。",
+		"ja": "公式の osu!lazer と DeltaLazer、Ez2Lazer、g0v0 などのフォークを同じマシンで使うためのデスクトップツール。譜面、スキン、スコア、設定をローカルのハブと一つのファイルストアに集め、選んだ項目をファイルリンクで任意のフォークに配置します。書き込み前に相手のスキーマに合わせてデータを調整し、client.realm をバックアップします。UI は TypeScript と Vite で作られ、MyGo の Web フロントエンドで動き、Windows・macOS・Linux 版があります。",
+		"ko": "공식 osu!lazer와 DeltaLazer, Ez2Lazer, g0v0 같은 포크를 한 컴퓨터에서 쓰기 위한 데스크톱 도구입니다. 비트맵, 스킨, 점수, 설정을 로컬 허브와 하나의 파일 저장소에 모은 뒤 원하는 항목을 파일 링크로 어느 포크에든 배포하며, 쓰기 전에 대상 스키마에 맞게 데이터를 바꾸고 client.realm을 백업합니다. UI는 TypeScript와 Vite로 만든 MyGo 웹 프런트엔드이며 Windows, macOS, Linux용이 있습니다."
+	},
+	"icon": {
+		"file": "lzsync.webp"
+	},
+	"added": "2026-11-05T14:23:33Z"
+}
