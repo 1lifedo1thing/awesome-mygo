@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "kim-quy",
+	"name": "Kim Quy",
+	"author": "msongd",
+	"kind": "native",
+	"category": "UtilitiesApplication",
+	"url": "https://github.com/msongd/kimquy",
+	"repo": "msongd/kimquy",
+	"summary": {
+		"en": "A macOS menu-bar app that searches your files by meaning, entirely on your Mac.",
+		"zh-CN": "macOS 菜单栏应用，按语义搜索本机文件，全程在本地运行。",
+		"zh-TW": "macOS 選單列 App，依語意搜尋本機檔案，全程在本機執行。",
+		"ja": "ファイルを意味で検索する macOS のメニューバーアプリ。処理はすべて Mac の中で完結。",
+		"ko": "파일을 의미로 검색하는 macOS 메뉴 막대 앱. 모든 처리가 Mac 안에서 이뤄집니다."
+	},
+	"description": {
+		"en": "A menu-bar app for macOS 14 on Apple Silicon that searches text, Office documents, images, PDFs, audio and video by meaning, with no account and no cloud. Only the window is drawn with MyGo's native UI; indexing runs in a separate Go daemon that FSEvents keeps current, and the EmbeddingGemma 2 model runs on the GPU through a Swift and MLX helper. A semctl command line is included.",
+		"zh-CN": "适用于 Apple Silicon 上 macOS 14 及以上的菜单栏应用，按语义搜索文本、Office 文档、图片、PDF、音频和视频，无需账号，不经云端。只有窗口由 MyGo 原生 UI 绘制；索引由独立的 Go 守护进程完成，借助 FSEvents 保持更新，EmbeddingGemma 2 模型则由 Swift 与 MLX 编写的辅助程序在 GPU 上运行。另附 semctl 命令行工具。",
+		"zh-TW": "適用於 Apple Silicon 上 macOS 14 以上的選單列 App，依語意搜尋文字、Office 文件、圖片、PDF、音訊和影片，不需帳號，也不經雲端。只有視窗由 MyGo 原生 UI 繪製；索引由獨立的 Go 常駐程式負責，透過 FSEvents 保持更新，EmbeddingGemma 2 模型則由 Swift 與 MLX 撰寫的輔助程式在 GPU 上執行。另附 semctl 命令列工具。",
+		"ja": "Apple Silicon の macOS 14 以降で動くメニューバーアプリで、テキスト、Office 文書、画像、PDF、音声、動画を意味で検索します。アカウントもクラウドも不要です。MyGo のネイティブ UI で描かれているのはウィンドウ部分だけで、インデックス作成は FSEvents で変更を追う別の Go デーモンが担い、EmbeddingGemma 2 モデルは Swift と MLX で書かれた補助プログラムが GPU 上で動かします。semctl コマンドラインも付属します。",
+		"ko": "Apple Silicon의 macOS 14 이상에서 동작하는 메뉴 막대 앱으로, 텍스트, Office 문서, 이미지, PDF, 오디오, 비디오를 의미로 검색합니다. 계정도 클라우드도 필요 없습니다. MyGo의 네이티브 UI로 그린 것은 창뿐이며, 인덱싱은 FSEvents로 변경을 추적하는 별도의 Go 데몬이 맡고, EmbeddingGemma 2 모델은 Swift와 MLX로 만든 보조 프로그램이 GPU에서 실행합니다. semctl 명령줄 도구도 함께 제공됩니다."
+	},
+	"icon": {
+		"file": "kim-quy.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "kim-quy.webp",
+	"added": "2026-11-05T04:16:52Z"
+}
