@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "see",
+	"name": "See",
+	"author": "wibus-wee",
+	"kind": "native",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/wibus-wee/see",
+	"repo": "wibus-wee/see",
+	"summary": {
+		"en": "A native source code reader with search, symbols, git diffs and history, and a terminal.",
+		"zh-CN": "原生源代码阅读器，带搜索、符号、Git 差异与历史，以及终端。",
+		"zh-TW": "原生原始碼閱讀器，具備搜尋、符號、Git 差異與歷史，以及終端機。",
+		"ja": "検索、シンボル、Git の差分と履歴、ターミナルを備えたネイティブなソースコードリーダー。",
+		"ko": "검색, 심볼, Git 차이와 기록, 터미널을 갖춘 네이티브 소스 코드 리더."
+	},
+	"description": {
+		"en": "A source code reader for macOS, Windows and Linux, written in Go and drawn with MyGo's native UI, with no web view. Open a folder for its tree, tabs, search, symbols and a terminal in one window; Go, TypeScript and JavaScript get definitions, references and hover help through language servers it can install. It also stages, commits and diffs changes and shows git history as a graph.",
+		"zh-CN": "适用于 macOS、Windows 与 Linux 的源代码阅读器，用 Go 编写、由 MyGo 原生 UI 绘制，没有 Web 视图。打开文件夹即可在同一窗口中使用文件树、标签页、搜索、符号和终端；Go、TypeScript 与 JavaScript 可借助它能安装的语言服务器跳转定义、查找引用、查看悬停提示。它还能暂存、提交和比较改动，并以图形方式浏览 Git 历史。",
+		"zh-TW": "適用於 macOS、Windows 與 Linux 的原始碼閱讀器，用 Go 撰寫、由 MyGo 原生 UI 繪製，沒有 Web 視圖。開啟資料夾即可在同一個視窗中使用檔案樹、分頁、搜尋、符號和終端機；Go、TypeScript 與 JavaScript 可透過它能安裝的語言伺服器跳至定義、尋找參考、查看懸停說明。它也能暫存、提交和比對變更，並以圖形方式瀏覽 Git 歷史。",
+		"ja": "Go で書かれ、MyGo のネイティブ UI で描かれた macOS・Windows・Linux 向けのソースコードリーダー。Web ビューはありません。フォルダーを開くと、ファイルツリー、タブ、検索、シンボル、ターミナルがひとつのウィンドウにそろいます。Go・TypeScript・JavaScript では、アプリからインストールできる言語サーバーを通じて定義、参照、ホバーヘルプを使えます。変更のステージ、コミット、差分表示や、Git 履歴のグラフ表示にも対応します。",
+		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 macOS·Windows·Linux용 소스 코드 리더로, 웹 뷰가 없습니다. 폴더를 열면 파일 트리, 탭, 검색, 심볼, 터미널을 한 창에서 쓸 수 있고, Go·TypeScript·JavaScript는 앱에서 설치할 수 있는 언어 서버를 통해 정의, 참조, 호버 도움말을 제공합니다. 변경 사항을 스테이징하고 커밋하고 비교하며, Git 기록을 그래프로 볼 수 있습니다."
+	},
+	"icon": {
+		"file": "see.webp"
+	},
+	"screenshot": "see.webp",
+	"added": "2026-11-05T01:50:45Z"
+}
