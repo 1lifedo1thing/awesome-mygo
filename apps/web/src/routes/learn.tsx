@@ -22,7 +22,7 @@ function LearnPage() {
 				<a key={ar.url} className='tile bg-[radial-gradient(rgba(255,255,255,0.07)_1px,transparent_1px)] bg-size-[22px_22px] rv relative flex flex-col gap-4 overflow-hidden rounded-[20px] border border-line-2 bg-panel p-9 hover:border-cyan max-sm:p-6' href={ar.url} target='_blank' rel='noopener' {...tilt}>
 					<span className='glare' aria-hidden='true' />
 					<span className='font-mono text-[12px] text-cyan'>{fill(t.article_k, { x: ar.site })}</span>
-					<span lang='en' className='max-w-[760px] font-display text-[length:clamp(30px,4vw,48px)] leading-[1.05] font-extrabold tracking-[-0.03em] wrap-break-word'>
+					<span lang='en' className='font-display text-[length:clamp(30px,4vw,48px)] leading-[1.05] font-extrabold tracking-[-0.03em] wrap-break-word'>
 						{ar.title}
 					</span>
 					<span className='arrow text-[15px] font-semibold text-cyan'>{t.read_full}</span>
