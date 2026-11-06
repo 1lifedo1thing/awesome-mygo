@@ -11,6 +11,7 @@
 		"enrich": "node src/main.ts",
 		"discover": "node src/discover.ts",
 		"verify": "node src/verify.ts",
+		"prune": "node src/prune.ts",
 		"score": "node src/score.ts",
 		"typecheck": "tsc --noEmit",
 		"test": "vitest run"
