@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "fsearch-gui",
+	"name": "FSearch GUI",
+	"author": "aouyitanaka",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/aouyitanaka/Fsearch-Mygo-GUI",
+	"repo": "aouyitanaka/Fsearch-Mygo-GUI",
+	"summary": {
+		"en": "A native macOS front end for fsearch: searches file names and contents across the whole disk.",
+		"zh-CN": "fsearch 的原生 macOS 前端，在整个磁盘中搜索文件名与文件内容。",
+		"zh-TW": "fsearch 的原生 macOS 前端，在整顆磁碟中搜尋檔名與檔案內容。",
+		"ja": "fsearch のネイティブな macOS フロントエンド。ディスク全体のファイル名と中身を検索。",
+		"ko": "fsearch용 네이티브 macOS 프런트엔드. 디스크 전체에서 파일 이름과 내용을 검색합니다."
+	},
+	"description": {
+		"en": "A macOS front end for fsearch's whole-disk file search, drawn with MyGo's native UI, no web view; fsearch itself is a separate daemon the app bundles and starts if none is running. It searches file names as you type, typo-tolerant, or inside files through fsearch's index, and opens results, reveals them in Finder or copies their paths. The first run indexes the whole disk, in about a minute.",
+		"zh-CN": "fsearch 全盘文件搜索的 macOS 前端，由 MyGo 原生 UI 绘制，不用 Web 视图；fsearch 本身是独立的守护进程，随应用打包，未运行时由应用启动。可边输入边模糊搜索文件名（容错拼写），或借助 fsearch 的索引搜索文件内容，结果可直接打开、在 Finder 中显示或复制路径。首次运行会为整个磁盘建立索引，约需一分钟。",
+		"zh-TW": "fsearch 全磁碟檔案搜尋的 macOS 前端，由 MyGo 原生 UI 繪製，不使用 Web 視圖；fsearch 本身是獨立的常駐程式，隨應用程式打包，未執行時由應用程式啟動。可邊輸入邊模糊搜尋檔名（容許錯字），或透過 fsearch 的索引搜尋檔案內容，結果可直接開啟、在 Finder 中顯示或複製路徑。首次執行會為整顆磁碟建立索引，約需一分鐘。",
+		"ja": "fsearch によるディスク全体のファイル検索を使う macOS 向けフロントエンド。MyGo のネイティブ UI で描かれ、Web ビューは使いません。fsearch 本体は別のデーモンで、アプリに同梱され、動いていなければアプリが起動します。入力に合わせてファイル名をあいまい検索するほか、fsearch のインデックスでファイルの中身も検索でき、結果は開く、Finder で表示、パスをコピーができます。初回はディスク全体のインデックス作成に約1分かかります。",
+		"ko": "fsearch의 디스크 전체 파일 검색을 위한 macOS 프런트엔드로, MyGo의 네이티브 UI로 그렸고 웹 뷰는 쓰지 않습니다. fsearch 자체는 별도의 데몬이며 앱에 함께 들어 있고, 실행 중이 아니면 앱이 시작합니다. 입력하는 대로 파일 이름을 오타까지 감안해 찾거나 fsearch 인덱스로 파일 내용을 검색하고, 결과를 열거나 Finder에서 보거나 경로를 복사할 수 있습니다. 첫 실행 때는 디스크 전체를 색인하느라 1분 정도 걸립니다."
+	},
+	"icon": {
+		"file": "fsearch-gui.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "fsearch-gui.webp",
+	"added": "2026-11-06T04:56:38Z"
+}
