@@ -9,11 +9,11 @@
 	"url": "https://github.com/contursofran/contr",
 	"repo": "contursofran/contr",
 	"summary": {
-		"en": "A native macOS client for herdr-core: agent terminals grouped by project, one card for what needs you, and plan usage.",
+		"en": "A native macOS client for herdr-core: agent terminals by project, a card for what needs you, plan usage.",
 		"zh-CN": "herdr-core 的原生 macOS 客户端：按项目分组的智能体终端、一张汇总待你处理事项的卡片，以及套餐用量。",
 		"zh-TW": "herdr-core 的原生 macOS 用戶端：依專案分組的代理程式終端機、一張彙整待你處理事項的卡片，以及方案用量。",
-		"ja": "herdr-core のネイティブ macOS クライアント。プロジェクトごとのエージェント端末、対応が必要なことをまとめるカード、プラン使用量。",
-		"ko": "herdr-core용 네이티브 macOS 클라이언트. 프로젝트별 에이전트 터미널, 처리할 일을 모은 카드, 플랜 사용량을 제공합니다."
+		"ja": "herdr-core のネイティブ macOS クライアント。プロジェクト別のエージェント端末、対応カード、プラン使用量。",
+		"ko": "herdr-core용 네이티브 macOS 클라이언트. 프로젝트별 에이전트 터미널, 할 일 카드, 플랜 사용량."
 	},
 	"description": {
 		"en": "A herdr-core (hc) client for macOS on Apple silicon, written in Go with MyGo's native UI, in a frosted glass window. The sidebar lists projects with their orchestrator and worker agents and their status. The middle shows the selected agent's terminal, with tabs, search and a notch that collects questions and to-dos from every agent. The right panel shows the file tree with each file's diff, the agent's context and the Claude and Codex plan usage. Dark and Light themes. A work in progress.",
