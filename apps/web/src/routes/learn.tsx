@@ -13,7 +13,7 @@ function LearnPage() {
 	const t = useT();
 	const lang = useLang();
 	return (
-		<section className='page enter gap-10'>
+		<section className='page enter gap-10 max-sm:gap-6'>
 			<div className='flex flex-col gap-3.5'>
 				<span className='kicker'>~/LEARN</span>
 				<h1 className='page-h1'>{t.learn_h}</h1>

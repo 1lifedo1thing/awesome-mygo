@@ -15,7 +15,7 @@ export const showName = 'm-0 truncate text-[17px] font-black tracking-[-0.01em]'
 export const showBy = 'truncate text-[13px] text-fg-3';
 export const showDesc = 'flex-auto text-[14px] leading-[1.6] text-fg-2';
 
-// A UI library's, a state solution's or a plugin's card: a window whose title bar names the entry and may end in a link (`bar`), the project's screenshot under the bar when it has one (`shot`), and the body.
+// A UI library's, a state solution's or a plugin's card: a window whose title bar names the entry and may end in a link (`bar`), the project's screenshot under the bar when it has one (`shot`), and the body, 14px in from the card's edges below sm instead of 18px.
 export function EntryCard({ label, bar, shot, children }: { label: string; bar?: ReactNode; shot?: ReactNode; children: ReactNode }) {
 	return (
 		<article className='win card'>
@@ -23,7 +23,7 @@ export function EntryCard({ label, bar, shot, children }: { label: string; bar?:
 				{bar}
 			</WinBar>
 			{shot}
-			<div className='flex flex-auto flex-col gap-3 p-[18px]'>{children}</div>
+			<div className='flex flex-auto flex-col gap-3 p-[18px] max-sm:gap-2.5 max-sm:p-3.5'>{children}</div>
 		</article>
 	);
 }

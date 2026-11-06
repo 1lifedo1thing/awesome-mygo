@@ -95,7 +95,7 @@ function PluginsPage() {
 		);
 	};
 	return (
-		<section className='page enter gap-10'>
+		<section className='page enter gap-10 max-sm:gap-6'>
 			<div className='flex flex-col gap-3.5'>
 				<span className='kicker' lang='en'>~/PLUGINS · {PLUGINS.length} OFFICIAL</span>
 				<h1 className='page-h1'>{t.nav_plugins}</h1>
