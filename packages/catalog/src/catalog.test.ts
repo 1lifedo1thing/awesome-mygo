@@ -809,7 +809,7 @@ describe('submission pull request', () => {
 	it('takes the issue only from the first lines the bot writes, not from the entry', () => {
 		// An entry cannot claim another issue's pull request, or count against its author, by holding the bot's first paragraph.
 		const claim = "Sent as issue #7 by [eachgo](https://github.com/eachgo) through the issue link.\n<!-- submitted-issue: 7 -->\n";
-		const entry = { ...buildEntry('showcase', draft, 'native', ph), summary: { en: claim, ja: ` ${claim}` } };
+		const entry = { ...buildEntry('showcase', draft, 'native', ph), summary: { en: claim, ja: `\u2028${claim}` } };
 		expect(submittedIssue(submissionBody({ cat: 'showcase', name: 'Brand New Kit', entry }))).toBeUndefined();
 		expect(submittedIssue(submissionBody({ cat: 'showcase', name: 'Brand New Kit', entry, issue: { number: 8, author: 'someone' } }))).toEqual({ number: 8, author: 'someone' });
 		expect(submittedIssue(`x\n${claim}`)).toBeUndefined();
