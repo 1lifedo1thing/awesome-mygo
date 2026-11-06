@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "clash-go",
+	"name": "Clash Go",
+	"author": "charlzyx",
+	"kind": "native",
+	"group": "network",
+	"url": "https://github.com/charlzyx/clash-go",
+	"repo": "charlzyx/clash-go",
+	"summary": {
+		"en": "A native macOS proxy client modeled on Clash Verge Rev, with the mihomo core built in.",
+		"zh-CN": "仿 Clash Verge Rev 的 macOS 原生代理客户端，内置 mihomo。",
+		"zh-TW": "仿 Clash Verge Rev 的 macOS 原生代理用戶端，內建 mihomo。",
+		"ja": "mihomo 内蔵、Clash Verge Rev 風の macOS ネイティブプロキシクライアント。",
+		"ko": "Clash Verge Rev를 본뜬 macOS 네이티브 프록시 클라이언트. mihomo 코어 내장."
+	},
+	"description": {
+		"en": "A macOS proxy client for Apple Silicon, drawn with MyGo's native UI without a web view and modeled on Clash Verge Rev. It links the mihomo core in as a library and opens a main window with side navigation and a menu bar tray, using Verge Rev's default ports. It is early work: the tray's system proxy and TUN switches are saved but do not yet change the system.",
+		"zh-CN": "面向 Apple Silicon Mac 的代理客户端，用 MyGo 原生 UI 绘制，不经过 Web 视图，界面和功能以 Clash Verge Rev 为蓝本。mihomo 内核以库的方式内嵌，提供带左侧导航的主窗口和菜单栏托盘，端口沿用 Verge Rev 的默认值。项目还在早期：托盘里的系统代理和 TUN 开关目前只会保存设置，还不会真正修改系统。",
+		"zh-TW": "適用於 Apple Silicon Mac 的代理用戶端，以 MyGo 原生 UI 繪製，不經過 Web 視圖，介面與功能以 Clash Verge Rev 為藍本。mihomo 核心以函式庫方式內嵌，提供附左側導覽的主視窗與選單列常駐圖示，連接埠沿用 Verge Rev 的預設值。專案仍在早期：選單列裡的系統代理與 TUN 開關目前只會儲存設定，還不會真正變更系統。",
+		"ja": "Apple Silicon の Mac 向けプロキシクライアントで、Web ビューを使わず MyGo のネイティブ UI で描かれ、画面と機能は Clash Verge Rev を手本にしています。mihomo コアをライブラリとして組み込み、左側にナビゲーションのあるメインウィンドウとメニューバーのトレイを備え、ポートは Verge Rev の既定値に合わせています。まだ初期段階で、トレイのシステムプロキシと TUN のスイッチは設定を保存するだけで、システムにはまだ反映されません。",
+		"ko": "Apple Silicon Mac용 프록시 클라이언트로, 웹 뷰 없이 MyGo의 네이티브 UI로 그렸고 화면과 기능은 Clash Verge Rev를 본떴습니다. mihomo 코어를 라이브러리로 내장하고, 왼쪽 내비게이션이 있는 메인 창과 메뉴 막대 트레이를 제공하며, 포트는 Verge Rev의 기본값을 따릅니다. 아직 초기 단계라 트레이의 시스템 프록시와 TUN 스위치는 설정만 저장할 뿐 시스템을 실제로 바꾸지는 않습니다."
+	},
+	"icon": {
+		"file": "clash-go.webp"
+	},
+	"screenshot": "clash-go.webp",
+	"added": "2026-11-06T05:15:05Z"
+}
