@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "burrow-diikhanh",
+	"name": "Burrow",
+	"author": "DiiKhanh",
+	"kind": "web",
+	"group": "system",
+	"url": "https://github.com/DiiKhanh/burrow",
+	"repo": "DiiKhanh/burrow",
+	"summary": {
+		"en": "Cleans junk files on macOS, shows what fills the disk and displays your Mac's live health.",
+		"zh-CN": "macOS 清理工具：清除垃圾文件，查看磁盘占用，实时显示系统状态。",
+		"zh-TW": "macOS 清理工具：清除垃圾檔案，查看磁碟佔用，即時顯示系統狀態。",
+		"ja": "macOS の不要ファイルを掃除し、ディスクの中身と Mac の状態をリアルタイムで表示。",
+		"ko": "macOS의 불필요한 파일을 정리하고 디스크 사용량과 Mac 상태를 실시간으로 보여 줍니다."
+	},
+	"description": {
+		"en": "A macOS app for Apple Silicon, built with MyGo and a React web frontend, that frees disk space and shows the Mac's live health. It bundles a pinned copy of Mole to find junk, lets you review it down to single paths, deletes caches and logs and sends the rest to the Trash. Space shows what fills the disk folder by folder, and Status shows CPU, memory, battery and thermal health each second.",
+		"zh-CN": "面向 Apple Silicon 的 macOS 应用，用 MyGo 搭配 React Web 前端构建，用于释放磁盘空间并实时查看 Mac 的健康状况。它内置固定版本的 Mole 来查找垃圾文件，可逐组细看到单个路径，缓存和日志直接删除，其余移到废纸篓。Space 按文件夹显示磁盘占用，Status 每秒刷新 CPU、内存、电池和温度状态。",
+		"zh-TW": "適用於 Apple Silicon 的 macOS 應用程式，以 MyGo 搭配 React 網頁前端打造，用來釋放磁碟空間並即時查看 Mac 的健康狀態。它內建固定版本的 Mole 來找出垃圾檔案，可逐組檢視到單一路徑，快取與日誌直接刪除，其餘移到垃圾桶。Space 依資料夾顯示磁碟佔用，Status 每秒更新 CPU、記憶體、電池與溫度狀態。",
+		"ja": "Apple Silicon 向けの macOS アプリで、MyGo と React の Web フロントエンドで作られています。ディスクの空きを増やし、Mac の状態をリアルタイムで表示します。固定バージョンの Mole を同梱して不要ファイルを探し、グループごとに個々のパスまで確認でき、キャッシュとログは削除、それ以外はゴミ箱へ移します。Space はフォルダー単位でディスクの使用状況を、Status は CPU、メモリ、バッテリー、温度の状態を毎秒表示します。",
+		"ko": "Apple Silicon용 macOS 앱으로, MyGo와 React 웹 프런트엔드로 만들었습니다. 디스크 공간을 확보하고 Mac의 상태를 실시간으로 보여 줍니다. 고정 버전의 Mole을 내장해 불필요한 파일을 찾고, 그룹별로 개별 경로까지 검토할 수 있으며, 캐시와 로그는 삭제하고 나머지는 휴지통으로 옮깁니다. Space는 폴더별 디스크 사용량을, Status는 CPU, 메모리, 배터리, 발열 상태를 매초 보여 줍니다."
+	},
+	"icon": {
+		"file": "burrow-diikhanh.webp"
+	},
+	"screenshot": "burrow-diikhanh.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-06T03:34:18Z"
+}
