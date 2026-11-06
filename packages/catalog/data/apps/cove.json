@@ -21,9 +21,6 @@
 		"ja": "MyGo のネイティブ UI で描かれ、Web ビューを使わない macOS 13 以降向けのチャットクライアント。OpenAI 互換のエンドポイントにつながり、OpenAI・Anthropic・DeepSeek・OpenRouter・xAI・Ollama のプリセットを備え、返信は届くそばから Markdown として表示されます。チャットは JSONL で Mac 内に保存され、API キーはログインキーチェーンに保管されます。",
 		"ko": "MyGo의 네이티브 UI로 그린, 웹 뷰를 쓰지 않는 macOS 13 이상용 채팅 클라이언트입니다. OpenAI 호환 엔드포인트에 연결하고 OpenAI, Anthropic, DeepSeek, OpenRouter, xAI, Ollama 프리셋을 갖추었으며, 답변은 도착하는 대로 Markdown으로 표시됩니다. 대화는 Mac에 JSONL로 저장되고 API 키는 로그인 키체인에 보관됩니다."
 	},
-	"provisional": [
-		"screenshot"
-	],
 	"screenshot": "cove.webp",
 	"icon": {
 		"file": "cove.webp"
