@@ -1,0 +1,17 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "switchhosts-native",
+	"name": "SwitchHosts Native",
+	"author": "SatanKiss",
+	"kind": "native",
+	"group": "network",
+	"url": "https://github.com/SatanKiss/SwitchHost-mygo",
+	"repo": "SatanKiss/SwitchHost-mygo",
+	"summary": {
+		"en": "A rewrite of SwitchHosts with MyGo's native UI: switch, merge and refresh hosts files on Windows."
+	},
+	"description": {
+		"en": "A rewrite of oldj's SwitchHosts drawn with MyGo's pure-Go native UI, with no WebView or Node. It keeps local and remote hosts lists, merges the ones that are on into the system hosts file, refreshes remote lists, and asks for administrator rights only when it writes. Windows builds for x64 and ARM64."
+	},
+	"added": "2026-11-06T01:05:06Z"
+}
