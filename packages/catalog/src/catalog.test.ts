@@ -268,6 +268,9 @@ describe('validation of contributed entries', () => {
 	it('names the file and field of each mistake', () => {
 		expect(read({ ...ok, summary: { 'zh-CN': '工具' } })).toThrow(/apps\/kit.json \(Kit\): summary.en is required/);
 		expect(read({ ...ok, summary: { en: 'A kit.', fr: 'Un kit.' } })).toThrow(/summary.fr is not a site language/);
+		for (const lineBreak of ['\n', '\r', '\u2028', '\u2029']) expect(read({ ...ok, summary: { en: `A kit.${lineBreak}On two lines.` } })).toThrow(/summary.en must be a single line/);
+		expect(read({ ...ok, name: 'Two\nlines' })).toThrow(/name must be a single line/);
+		expect(() => new Reader('apps/kit.json', { tags: ['one', 'two\nlines'] }).strings('tags')).toThrow(/tags must be a list of single-line strings/);
 		expect(read({ ...ok, url: 'http://x.dev' })).toThrow(/url must be an https link/);
 		expect(read({ ...ok, kind: 'electron' })).toThrow(/kind must be one of native, web/);
 		expect(read({ ...ok, descripton: 'typo' })).toThrow(/descripton is not a known field/);

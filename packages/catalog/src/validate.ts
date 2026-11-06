@@ -5,6 +5,7 @@ import { LANGS, type Text } from './lang';
 export class CatalogError extends Error {}
 
 type Raw = Record<string, unknown>;
+const LINE_BREAK = /[\r\n\u2028\u2029]/;
 
 export class Reader {
 	// file names where the entry comes from: its data file, or `entry` for one not filed yet.
@@ -21,6 +22,7 @@ export class Reader {
 	str(field: string): string {
 		const v = this.raw[field];
 		if (typeof v !== 'string' || !v.trim()) this.fail(field, 'must be a non-empty string');
+		if (LINE_BREAK.test(v)) this.fail(field, 'must be a single line');
 		return v;
 	}
 
@@ -57,6 +59,7 @@ export class Reader {
 	strings(field: string, min = 0): string[] {
 		const v = this.raw[field];
 		if (!Array.isArray(v) || v.length < min || v.some((x) => typeof x !== 'string' || !x.trim())) this.fail(field, min ? `must be a list of at least ${min} non-empty strings` : 'must be a list of non-empty strings');
+		if (v.some((x) => LINE_BREAK.test(x as string))) this.fail(field, 'must be a list of single-line strings');
 		return v as string[];
 	}
 
@@ -67,6 +70,7 @@ export class Reader {
 		for (const [lang, s] of entries) {
 			if (!LANGS.some((l) => l.code === lang)) this.fail(`${field}.${lang}`, `is not a site language (${LANGS.map((l) => l.code).join(', ')})`);
 			if (typeof s !== 'string' || !s.trim()) this.fail(`${field}.${lang}`, 'must be a non-empty string');
+			if (LINE_BREAK.test(s)) this.fail(`${field}.${lang}`, 'must be a single line');
 		}
 		if (!(v as Raw).en) this.fail(`${field}.en`, 'is required: English is the fallback for every other language');
 		return v as Text;
