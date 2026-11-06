@@ -94,7 +94,8 @@ const PROBLEM_TEXT: Record<ShotProblem, string> = {
 export function checkUpload(bytes: Uint8Array): { format: 'png' | 'jpeg' | 'webp' } | { problem: string } {
 	if (bytes.length > UPLOAD_MAX_BYTES) return { problem: `the screenshot is larger than ${UPLOAD_MAX_BYTES / 1024 / 1024} MB` };
 	const format = sniffImage(bytes);
-	if (!format) return { problem: 'the screenshot must be a PNG, JPEG or WebP image' };
+	// Repository GIF demos can supply a still frame to the enrichment workflow, but the form deliberately keeps uploads to static formats.
+	if (!format || format === 'gif') return { problem: 'the screenshot must be a PNG, JPEG or WebP image' };
 	const size = sizeOf(bytes);
 	if (!size) return { problem: 'the screenshot could not be read as an image' };
 	const problem = shotProblem(size.width, size.height);

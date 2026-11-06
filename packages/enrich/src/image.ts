@@ -58,10 +58,10 @@ export async function isDefaultIcon(img: Downloaded): Promise<boolean> {
 
 export interface Downloaded {
 	bytes: Uint8Array;
-	format: 'png' | 'jpeg' | 'webp';
+	format: 'png' | 'jpeg' | 'webp' | 'gif';
 }
 
-// The file at url when it is a PNG, JPEG or WebP no larger than 10 MB, judged by its bytes; undefined otherwise.
+// The file at url when it is a supported raster image no larger than 10 MB, judged by its bytes; undefined otherwise.
 export async function downloadImage(url: string): Promise<Downloaded | undefined> {
 	const img = await fetchImage(url);
 	return typeof img === 'string' ? undefined : img;
@@ -80,7 +80,7 @@ export async function fetchImage(url: string): Promise<Downloaded | string> {
 	const bytes = new Uint8Array(await res.arrayBuffer());
 	if (bytes.length > MAX_BYTES) return 'over 10 MB';
 	const format = sniffImage(bytes);
-	return format ? { bytes, format } : 'not a PNG, JPEG or WebP';
+	return format ? { bytes, format } : 'not a PNG, JPEG, WebP or GIF';
 }
 
 // The fonts a drawn card's text can use, the first that exists: DejaVu on the Ubuntu runners, Helvetica or Arial on a Mac.

@@ -67,7 +67,7 @@ export async function ownIcon(slug: string, facts: RepoFacts): Promise<{ path: s
 	if ('why' in src) return src;
 	const url = src.url;
 	const img = await downloadImage(url);
-	if (!img) return { why: `\`${src.path}\` could not be downloaded as a PNG, JPEG or WebP under 10 MB` };
+	if (!img) return { why: `\`${src.path}\` could not be downloaded as a supported raster image under 10 MB` };
 	if (await isDefaultIcon(img)) return { why: `\`${src.path}\` is MyGo's default icon (as \`mygo init\` leaves it)`, url };
 	if (!(await writeIcon(img, join(ROOT, PUBLIC, 'icons', `${slug}.webp`)))) return { why: `\`${src.path}\` is smaller than 128 px`, url };
 	return src;
