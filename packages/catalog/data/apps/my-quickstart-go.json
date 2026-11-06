@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "my-quickstart-go",
+	"name": "My Quickstart Go",
+	"author": "xiaozhu1337",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/xiaozhu1337/my-quickstart-go",
+	"repo": "xiaozhu1337/my-quickstart-go",
+	"summary": {
+		"en": "A native launcher that sorts apps, files, folders, URLs and commands into searchable groups.",
+		"zh-CN": "原生启动器，把应用、文件、文件夹、网址和命令归入可搜索的分组。",
+		"zh-TW": "原生啟動器，把應用程式、檔案、資料夾、網址和指令歸入可搜尋的群組。",
+		"ja": "アプリ、ファイル、フォルダー、URL、コマンドを検索できるグループにまとめるネイティブなランチャー。",
+		"ko": "앱, 파일, 폴더, URL, 명령을 검색 가능한 그룹으로 정리하는 네이티브 런처."
+	},
+	"description": {
+		"en": "A launcher for Windows, macOS and Linux drawn with MyGo's native UI, with no browser or WebView. It keeps apps, files, folders, URLs and shell commands in groups you can search and reorder by dragging, with arguments and environment variables per entry. It sits in the tray with an optional global hotkey, stores everything in local SQLite and imports data from its earlier Tauri version.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows、macOS 与 Linux 启动器，不用浏览器，也没有 WebView。应用、文件、文件夹、网址和 shell 命令按分组存放，可以搜索、拖动排序，每个条目都能设置参数与环境变量。它常驻托盘，可设全局快捷键，数据保存在本地 SQLite，还能导入此前 Tauri 版本的数据。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows、macOS 與 Linux 啟動器，不用瀏覽器，也沒有 WebView。應用程式、檔案、資料夾、網址和 shell 指令依群組存放，可以搜尋、拖曳排序，每個項目都能設定參數與環境變數。它常駐系統匣，可設全域快捷鍵，資料儲存在本機 SQLite，還能匯入先前 Tauri 版本的資料。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows・macOS・Linux 向けのランチャー。ブラウザーも WebView も使いません。アプリ、ファイル、フォルダー、URL、シェルコマンドをグループにまとめ、検索やドラッグでの並べ替えができ、項目ごとに引数と環境変数を設定できます。トレイに常駐し、グローバルホットキーも設定でき、データはローカルの SQLite に保存されます。以前の Tauri 版のデータも取り込めます。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows, macOS, Linux용 런처로, 브라우저도 WebView도 쓰지 않습니다. 앱, 파일, 폴더, URL, 셸 명령을 그룹으로 묶어 검색하고 드래그로 순서를 바꿀 수 있으며, 항목마다 인수와 환경 변수를 지정할 수 있습니다. 트레이에 상주하고 전역 단축키를 설정할 수 있으며, 데이터는 로컬 SQLite에 저장하고 이전 Tauri 버전의 데이터도 가져옵니다."
+	},
+	"icon": {
+		"file": "my-quickstart-go.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "my-quickstart-go.webp",
+	"added": "2026-11-06T06:33:05Z"
+}
