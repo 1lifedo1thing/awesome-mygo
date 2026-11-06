@@ -20,8 +20,5 @@
 		"ko": "Go만 있으면 되는 MyGo 네이티브 UI 앱 템플릿으로, Node 없이 라이브 리로드, git 훅, lint, 테스트, .app/.dmg 패키징을 갖췄습니다."
 	},
 	"screenshot": "mygo-template.webp",
-	"provisional": [
-		"screenshot"
-	],
 	"added": "2026-11-06T05:48:54Z"
 }
