@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "dumpingground",
+	"name": "DumpingGround",
+	"author": "villatothesea",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/villatothesea/DumpingGround",
+	"repo": "villatothesea/DumpingGround",
+	"summary": {
+		"en": "Windows maintenance tool: hardware, processes, disk usage, startup items and safe cleanup.",
+		"zh-CN": "Windows 维护工具：硬件概览、进程、磁盘占用、启动项与安全清理。",
+		"zh-TW": "Windows 維護工具：硬體概覽、處理程序、磁碟用量、啟動項目與安全清理。",
+		"ja": "Windows 用メンテナンスツール。ハードウェア、プロセス、ディスク、起動項目、安全な整理。",
+		"ko": "Windows 유지 관리 도구: 하드웨어, 프로세스, 디스크, 시작 프로그램, 안전한 정리."
+	},
+	"description": {
+		"en": "A Windows maintenance utility drawn with MyGo's native UI. It shows live hardware figures and SSD health, lists processes, maps disk usage as a treemap, switches startup apps, services and tasks on and off without deleting them, and cleans Rust build artifacts, Windows junk and uninstall leftovers. Files go to the Recycle Bin, registry keys are backed up first, and it runs as administrator.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 维护工具。它实时显示硬件状态与 SSD 健康度，查看进程，以矩形树图分析磁盘占用；自启动的应用、服务和计划任务只开关、不删除条目；还能清理 Rust 构建产物、Windows 垃圾文件与卸载残留。文件删除进回收站，注册表项先备份再删，程序以管理员权限运行。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows 維護工具。它即時顯示硬體狀態與 SSD 健康度，檢視處理程序，以矩形樹狀圖分析磁碟用量；自動啟動的應用程式、服務和排程工作只開關、不刪除項目；還能清理 Rust 建置產物、Windows 垃圾檔案與解除安裝殘留。刪除的檔案會進資源回收筒，登錄機碼先備份再刪，程式以系統管理員權限執行。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows 用メンテナンスツール。ハードウェアの状態と SSD の健康状態をリアルタイムで表示し、プロセスを一覧にし、ディスク使用量をツリーマップで示します。スタートアップのアプリ、サービス、タスクはエントリを消さずにオン・オフを切り替え、Rust のビルド成果物、Windows の不要ファイル、アンインストール後の残骸を片付けます。ファイルはごみ箱へ送り、レジストリは先にバックアップし、管理者権限で動きます。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows 유지 관리 도구입니다. 하드웨어 상태와 SSD 건강 정보를 실시간으로 보여 주고, 프로세스를 살펴보며, 디스크 사용량을 트리맵으로 보여 줍니다. 시작 프로그램, 서비스, 예약 작업은 항목을 지우지 않고 켜고 끄며, Rust 빌드 산출물, Windows 불필요 파일, 제거 후 남은 흔적을 정리합니다. 파일은 휴지통으로 보내고 레지스트리는 먼저 백업하며, 관리자 권한으로 실행됩니다."
+	},
+	"icon": {
+		"file": "dumpingground.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "dumpingground.webp",
+	"added": "2026-11-06T09:35:08Z"
+}
