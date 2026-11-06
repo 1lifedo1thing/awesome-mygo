@@ -1,0 +1,19 @@
+{
+	"$schema": "../schema/ai.schema.json",
+	"slug": "mygo-acrylic",
+	"name": "mygo-acrylic",
+	"author": "cc-hearts",
+	"url": "https://github.com/cc-hearts/skills/tree/main/mygo-acrylic",
+	"repo": "cc-hearts/skills",
+	"type": "skill",
+	"install": "npx skills add cc-hearts/skills --skill mygo-acrylic",
+	"tags": [
+		"skills",
+		"design",
+		"acrylic"
+	],
+	"summary": {
+		"en": "An agent skill for an acrylic look in MyGo native UI: system frosted materials, a tinted window and translucent cards, with a Go component package."
+	},
+	"added": "2026-11-06T05:49:10Z"
+}
