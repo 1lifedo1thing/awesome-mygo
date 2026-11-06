@@ -6,24 +6,19 @@ import { useSite } from '../lib/site';
 import { switchTheme } from '../lib/theme';
 import { GitHubMark, Logo, SearchIcon } from './bits';
 
-// The sections the header's row and the retro look's menu bar show: they have room for six, with the search box and the buttons beside them on one row.
+// Every section, in the order of the home page's tiles: the header's row, the retro look's menu bar and both footers show them all.
 export const NAV = [
 	{ to: '/', key: 'nav_home' },
 	{ to: '/ui', key: 'nav_ui' },
 	{ to: '/state', key: 'nav_state' },
+	{ to: '/templates', key: 'nav_templates' },
+	{ to: '/ai', key: 'nav_ai' },
 	{ to: '/plugins', key: 'nav_plugins' },
 	{ to: '/showcase', key: 'nav_showcase' },
 	{ to: '/learn', key: 'nav_learn' },
 ] as const;
 
-// The newer sections, which the header's row has no room for: they are in its burger panel, the footer, the retro look's menu, search and the home page's tiles.
-const MORE_NAV = [
-	{ to: '/templates', key: 'nav_templates', more: true },
-	{ to: '/ai', key: 'nav_ai', more: true },
-] as const;
-
-// Every section, in the order of the home page's tiles after the first three.
-export const SITE_NAV = [...NAV.slice(0, 3), ...MORE_NAV, ...NAV.slice(3)];
+export const SITE_NAV = NAV;
 
 export function Header({ scrolled }: { scrolled: boolean }) {
 	const t = useT();
@@ -63,11 +58,11 @@ export function Header({ scrolled }: { scrolled: boolean }) {
 			className={`sticky top-0 z-20 border-b border-line bg-bg/82 backdrop-blur-[14px] [transition:box-shadow_0.3s] data-[scrolled=true]:shadow-[0_10px_40px_rgba(0,0,0,0.45)] ${menu ? 'max-md:max-h-dvh max-md:overflow-y-auto max-md:overscroll-contain' : ''}`}
 			data-scrolled={scrolled}
 		>
-			{/* Between the burger breakpoint and 1240px the brand, the nav and the header actions share one row; the search button drops its label and the gaps tighten there, so English and Japanese still fit one row down to 1100px. Below md (phones) the header is one compact row of the brand, search, submit and the burger: the language, look and GitHub buttons move into the burger's panel, and the gaps, buttons and brand shrink so English still fits at 360px. */}
+			{/* The brand, the eight sections and the header actions share one row from the burger breakpoint up: the search button is as wide as its label, and between the burger breakpoint and 1288px, where the row reaches its full 1240px, the brand shows only its logo, the search button drops its label and the gaps tighten, so every language fits one row down to 1100px. Below md (phones) the header is one compact row of the brand, search, submit and the burger: the language, look and GitHub buttons move into the burger's panel, and the gaps, buttons and brand shrink so English still fits at 360px. */}
 			<div className='mx-auto flex max-w-[1240px] flex-wrap items-center gap-x-5 gap-y-2.5 px-6 py-2.5 max-hdr:gap-x-3.5 max-md:gap-x-1.5 max-md:py-2 max-sm:px-4'>
 				<Link to='/' aria-label={t.a_home} className='flex min-h-11 items-center gap-2.5 p-0 text-fg no-underline max-md:mr-auto max-md:min-h-10 max-md:gap-2 max-md:[&_img]:size-7'>
 					<Logo />
-					<span className='font-display text-[20px] font-extrabold tracking-[-0.035em] max-md:text-[clamp(16px,4.44vw,18px)]'>
+					<span className='font-display text-[20px] font-extrabold tracking-[-0.035em] max-hdr:nav:hidden max-md:text-[clamp(16px,4.44vw,18px)]'>
 						Awesome <span className='text-cyan'>MyGo</span>
 					</span>
 				</Link>
@@ -82,7 +77,7 @@ export function Header({ scrolled }: { scrolled: boolean }) {
 						<Link
 							key={n.to}
 							to={n.to}
-							className={`${'more' in n ? 'nav:hidden ' : ''}box-border inline-flex min-h-[38px] items-center rounded-lg border-0 bg-transparent px-3.5 py-0 text-[14px] font-medium text-fg-2 no-underline [transition:background_0.15s,color_0.15s] hover:bg-white/6 hover:text-fg data-[status=active]:bg-fg data-[status=active]:font-bold data-[status=active]:text-bg max-nav:min-h-12 max-nav:justify-start`}
+							className={`box-border inline-flex min-h-[38px] items-center rounded-lg border-0 bg-transparent px-2.5 py-0 text-[14px] font-medium text-fg-2 no-underline [transition:background_0.15s,color_0.15s] hover:bg-white/6 hover:text-fg data-[status=active]:bg-fg data-[status=active]:font-bold data-[status=active]:text-bg max-nav:min-h-12 max-nav:justify-start`}
 							activeOptions={{ exact: true, includeSearch: false }}
 							onClick={() => setMenu(false)}
 						>
@@ -94,7 +89,7 @@ export function Header({ scrolled }: { scrolled: boolean }) {
 				<div className='flex items-center gap-2 max-nav:ml-auto max-md:contents'>
 					<button
 						type='button'
-						className='btn-g flex min-h-11 min-w-[170px] items-center gap-2.5 rounded-[10px] border border-line-2 bg-well px-3.5 py-0 text-[14px] text-fg-2 hover:border-fg hover:bg-white/4 hover:text-fg max-hdr:min-w-0 max-md:size-10 max-md:min-h-10 max-md:justify-center max-md:px-0'
+						className='btn-g flex min-h-11 items-center gap-2.5 rounded-[10px] border border-line-2 bg-well px-3.5 py-0 text-[14px] text-fg-2 hover:border-fg hover:bg-white/4 hover:text-fg max-hdr:min-w-0 max-md:size-10 max-md:min-h-10 max-md:justify-center max-md:px-0'
 						onClick={openPalette}
 						aria-label={t.search_label}
 					>
