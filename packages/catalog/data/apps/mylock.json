@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mylock",
+	"name": "MyLock",
+	"author": "BabyLy233",
+	"kind": "native",
+	"group": "game",
+	"url": "https://github.com/BabyLy233/MyLock",
+	"repo": "BabyLy233/MyLock",
+	"summary": {
+		"en": "A native Deadlock mod manager that installs GameBanana mods, toggles them and launches via Steam.",
+		"zh-CN": "原生 Deadlock 模组管理器：安装、开关 GameBanana 模组并启动游戏。",
+		"zh-TW": "原生 Deadlock 模組管理器：安裝、開關 GameBanana 模組並啟動遊戲。",
+		"ja": "Deadlock の Mod を GameBanana から導入・切り替えし、起動するネイティブアプリ。",
+		"ko": "네이티브 Deadlock 모드 관리자. GameBanana 모드 설치·전환, Steam으로 실행."
+	},
+	"description": {
+		"en": "A Deadlock mod manager drawn with MyGo's native UI, with no web view. It browses GameBanana, installs VPKs from zip, rar and 7z archives, toggles them per profile, manages hero skins, checks mods for updates and starts the game through Steam. It reads and writes the same manifests as the Tauri-based Deadlock Mod Manager, so each recognizes mods the other installed.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Deadlock 模组管理器，不使用 WebView。它可以浏览 GameBanana，从 zip、rar、7z 压缩包中安装 VPK，按配置档开关模组，管理角色皮肤，检查模组更新，并通过 Steam 启动游戏。它与基于 Tauri 的 Deadlock Mod Manager 读写相同的清单格式，双方能识别彼此安装的模组。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Deadlock 模組管理器，不使用 WebView。它可以瀏覽 GameBanana，從 zip、rar、7z 壓縮檔中安裝 VPK，依設定檔開關模組，管理角色外觀，檢查模組更新，並透過 Steam 啟動遊戲。它與以 Tauri 打造的 Deadlock Mod Manager 讀寫相同的清單格式，雙方能辨識彼此安裝的模組。",
+		"ja": "MyGo のネイティブ UI で描かれた Deadlock 用の Mod マネージャーで、WebView は使いません。GameBanana の Mod を閲覧し、zip・rar・7z アーカイブから VPK を取り出して導入、プロファイルごとにオン・オフを切り替え、ヒーローのスキン管理や Mod の更新確認を行い、Steam 経由でゲームを起動します。Tauri 製の Deadlock Mod Manager と同じマニフェスト形式を読み書きするため、互いに導入した Mod を認識できます。",
+		"ko": "MyGo의 네이티브 UI로 그린 Deadlock 모드 관리자로, WebView를 쓰지 않습니다. GameBanana에서 모드를 둘러보고 zip, rar, 7z 압축 파일의 VPK를 설치하며, 프로필별로 모드를 켜고 끄고, 영웅 스킨을 관리하고, 모드 업데이트를 확인한 뒤 Steam으로 게임을 실행합니다. Tauri 기반 Deadlock Mod Manager와 같은 매니페스트 형식을 읽고 쓰므로 서로 설치한 모드를 인식합니다."
+	},
+	"icon": {
+		"file": "mylock.webp"
+	},
+	"screenshot": "mylock.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-06T06:33:05Z"
+}
