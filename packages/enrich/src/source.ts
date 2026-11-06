@@ -101,7 +101,7 @@ export function repoIcons(paths: readonly string[]): string[] {
 		.filter((p) => {
 			const parts = p.split('/');
 			const file = parts.pop() ?? '';
-			return name.test(file) && !foreign.test(p) && parts.every((d) => folder.test(d) || /^(?:app|desktop|src)$/i.test(d));
+			return name.test(file) && !foreign.test(p) && parts.every((d) => folder.test(d) || /^(?:app|desktop|mygo|src)$/i.test(d));
 		})
 		.sort((a, b) => size(b) - size(a) || a.split('/').length - b.split('/').length || a.localeCompare(b));
 }
@@ -167,6 +167,7 @@ export function repoShotSources(r: { repo: string; branch: string; paths: readon
 	return [
 		{ from: 'the README', urls: r.readme ? readmeImages(r.readme.text).map((src) => resolveImage(src, r.repo, r.branch, (r.readme as { path: string }).path)).filter(keep) : [], tries: 8 },
 		{ from: 'a screenshot folder in the repository', urls: repoScreenshots(r.paths).map((p) => rawUrl(r.repo, r.branch, p)).filter(keep), tries: 6 },
+		{ from: 'another likely screenshot file in the repository', urls: repoLikelyScreenshots(r.paths).map((p) => rawUrl(r.repo, r.branch, p)).filter(keep), tries: 12 },
 	];
 }
 
@@ -185,6 +186,18 @@ export function repoScreenshots(paths: readonly string[]): string[] {
 	const image = /\.(png|jpe?g|webp)$/i;
 	const english = (p: string) => (/\/en(-[a-z]+)?\//i.test(p) ? 0 : 1);
 	return paths.filter((p) => inFolder.test(p) && image.test(p) && !p.includes('node_modules/')).sort((a, b) => english(a) - english(b) || a.localeCompare(b));
+}
+
+// Likely window images outside a folder literally called screenshots. Many projects keep them under docs/assets, a website's public directory or UI baseline fixtures and call them preview, demo, overview, dashboard or similar. The name must say what the image is likely to show, and branding and small UI assets are excluded; dimensions are still checked by firstShot before one is used.
+export function repoLikelyScreenshots(paths: readonly string[]): string[] {
+	const image = /\.(png|jpe?g|webp)$/i;
+	const skipFolder = /(^|\/)(node_modules|vendor|third_party|dist|build)(\/|$)/i;
+	const branding = /(^|[-_.\/])(icons?|logos?|favicons?|badges?|avatars?|emojis?|flags?|brands?|banners?|heroes?|covers?|splash|social|og[-_.]?images?|backdrops?|backgrounds?|wallpapers?|tray|marks?)([-_.\/]|$)/i;
+	const likely = /(^|[-_.])(screenshots?|screen[-_.]?shots?|previews?|demos?|showcases?|windows?|overviews?|dashboards?|galleries?|interfaces?|pages?|modes?|activities?|pictures?|settings|home|main|ui)([-_.0-9]|$)/i;
+	const english = (p: string) => (/\/en(-[a-z]+)?\//i.test(p) ? 0 : 1);
+	return paths
+		.filter((p) => image.test(p) && !skipFolder.test(p) && !branding.test(p) && likely.test(p.slice(p.lastIndexOf('/') + 1)))
+		.sort((a, b) => english(a) - english(b) || a.localeCompare(b));
 }
 
 // The values a field may take in one of the catalog's schemas (properties.<field>.enum), such as an app's categories in app.schema.json.

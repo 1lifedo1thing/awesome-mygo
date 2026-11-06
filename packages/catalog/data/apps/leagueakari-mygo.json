@@ -23,6 +23,9 @@
 		"ko": "LeagueAkari를 바탕으로 한 중국 서버 League of Legends용 Windows 도우미입니다. WeGame 클라이언트를 자동으로 찾아 아군과 상대의 티어와 최근 전적을 보여 주고 챔피언 선택을 도우며, 자동화 기능은 기본적으로 꺼져 있습니다. MyGo가 Electron 호스트를 대신해 기존 Vue 화면을 Go 백엔드와 WebView2로 띄우고, 상주 Mini 창은 MyGo의 네이티브 UI로 그립니다."
 	},
 	"screenshot": "leagueakari-mygo.webp",
+	"icon": {
+		"file": "leagueakari-mygo.webp"
+	},
 	"provisional": [
 		"screenshot"
 	],

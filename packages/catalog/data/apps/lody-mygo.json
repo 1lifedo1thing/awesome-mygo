@@ -22,8 +22,12 @@
 		"ja": "Lody の非公式 macOS クライアント。Go で書かれ、MyGo のネイティブ UI で GPU に直接描画されており、Web ビューはありません。Lody の主な機能をひととおり備え、マシンとプロジェクトごとにまとめたチャット、コードのハイライトや図を含むストリーミング Markdown、スケジュールタスク、Lody デーモン経由での各マシンのターミナル・ファイル・Git を扱えます。Lody アカウントと macOS 12 以降が必要です。",
 		"ko": "Lody의 비공식 macOS 클라이언트로, Go로 작성하고 MyGo의 네이티브 UI로 GPU에 직접 그리며 웹 뷰가 없습니다. Lody의 주요 기능을 갖추어 머신과 프로젝트별로 묶인 대화, 코드 하이라이트와 다이어그램을 담은 스트리밍 Markdown, 예약 작업, Lody 데몬을 통한 각 머신의 터미널·파일·Git을 다룹니다. Lody 계정과 macOS 12 이상이 필요합니다."
 	},
-	"added": "2026-11-04T12:28:00Z",
+	"screenshot": "lody-mygo.webp",
 	"icon": {
 		"file": "lody-mygo.webp"
-	}
+	},
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-04T12:28:00Z"
 }

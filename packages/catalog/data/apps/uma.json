@@ -22,5 +22,13 @@
 		"ja": "Umami アカウントのサイトと訪問者を表示するメニューバーアプリ。",
 		"ko": "Umami 계정의 웹사이트와 방문자를 보여주는 메뉴 막대 앱."
 	},
+	"screenshot": "uma.webp",
+	"icon": {
+		"file": "uma.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
 	"added": "2026-11-04T02:24:49Z"
 }

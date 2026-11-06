@@ -22,6 +22,12 @@
 		"ja": "Bilibili、YouTube、小紅書、Douyin、小宇宙のポッドキャスト、RSS、Web 記事をまとめて読めるローカルファーストのリーダー。React のフロントエンドを MyGo で動かしています。動画やポッドキャストは字幕、またはローカルやクラウドで作った文字起こしと並べて再生でき、タイムスタンプや引用、画面キャプチャに結びつけたメモは Obsidian 向けの Markdown で書き出せます。macOS、Windows、Linux で動き、Docker サーバーとしても使えます。",
 		"ko": "Bilibili, YouTube, 샤오훙수, Douyin, 샤오위저우 팟캐스트, RSS, 웹 글을 한곳에서 읽는 로컬 우선 리더로, React 프런트엔드를 MyGo 위에서 실행합니다. 동영상과 팟캐스트는 자막이나 로컬·클라우드에서 만든 전사본과 나란히 재생되고, 타임스탬프, 인용문, 캡처한 화면에 연결한 메모는 Obsidian용 Markdown으로 내보낼 수 있습니다. macOS, Windows, Linux에서 실행되며 Docker 서버로도 쓸 수 있습니다."
 	},
-	"added": "2026-11-05T00:47:16Z",
-	"screenshot": "tangentry.webp"
+	"screenshot": "tangentry.webp",
+	"icon": {
+		"file": "tangentry.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"added": "2026-11-05T00:47:16Z"
 }
