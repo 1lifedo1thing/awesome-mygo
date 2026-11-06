@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "textrouter",
+	"name": "TextRouter",
+	"author": "dandibbert",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/dandibbert/textrouter",
+	"repo": "dandibbert/textrouter",
+	"summary": {
+		"en": "A TextSoap-style text cleaner for macOS: clipboard cleanup, batch replace rules and action chains.",
+		"zh-CN": "TextSoap 风格的 macOS 文本清理工具，清理剪贴板、批量替换、动作链。",
+		"zh-TW": "TextSoap 風格的 macOS 文字清理工具，清理剪貼簿、批次取代、動作鏈。",
+		"ja": "TextSoap 風の macOS テキスト整形ツール。クリップボード整理、一括置換、アクションチェーン。",
+		"ko": "TextSoap 스타일의 macOS 텍스트 정리 도구. 클립보드 정리, 일괄 바꾸기, 동작 체인."
+	},
+	"description": {
+		"en": "A TextSoap-style text cleaner for macOS, written in Go with MyGo's native UI. It reads the clipboard each time it is activated, previews a cleaner's changes as you hover over it, explains regexes in find and replace, and runs ordered batch replace rules and step-by-step action chains. It implements 163 of TextSoap 9's 189 built-in cleaners and imports TextSoap cleaner libraries.",
+		"zh-CN": "仿 TextSoap 的 macOS 文本清理工具，用 Go 编写，界面由 MyGo 原生 UI 绘制。每次激活都会读取最新剪贴板，鼠标悬停在清理器上即可预览改动；查找替换会逐段解释正则，批量替换是按顺序执行的规则表，动作链可逐步搭建并查看每步结果。TextSoap 9 的 189 个内置清理器已实现 163 个，也能导入 TextSoap 清理器库。",
+		"zh-TW": "仿 TextSoap 的 macOS 文字清理工具，以 Go 撰寫，介面由 MyGo 原生 UI 繪製。每次啟用都會讀取最新剪貼簿，滑鼠停在清理器上即可預覽改動；尋找取代會逐段解釋正規表示式，批次取代是依序執行的規則表，動作鏈可逐步組建並檢視每一步的結果。TextSoap 9 的 189 個內建清理器已實作 163 個，也能匯入 TextSoap 清理器庫。",
+		"ja": "TextSoap 風の macOS 用テキスト整形ツールで、Go で書かれ MyGo のネイティブ UI で描かれています。起動や切り替えのたびに最新のクリップボードを読み込み、クリーナーにカーソルを合わせるだけで変更をプレビューできます。検索・置換では正規表現を部分ごとに解説し、一括置換は上から順に適用するルール表、アクションチェーンは一歩ずつ組み立てて確認できます。TextSoap 9 の内蔵クリーナー 189 個のうち 163 個を実装し、TextSoap のクリーナーライブラリも読み込めます。",
+		"ko": "TextSoap 스타일의 macOS 텍스트 정리 도구로, Go로 작성하고 MyGo의 네이티브 UI로 그렸습니다. 활성화할 때마다 클립보드를 읽어 오고, 클리너에 마우스를 올리면 바뀔 내용을 미리 보여 줍니다. 찾기와 바꾸기에서는 정규식을 풀어 설명하며, 순서대로 적용되는 일괄 바꾸기 규칙 표와 단계별 동작 체인을 지원합니다. TextSoap 9 내장 클리너 189개 중 163개를 구현했습니다."
+	},
+	"icon": {
+		"file": "textrouter.webp"
+	},
+	"screenshot": "textrouter.webp",
+	"added": "2026-11-06T05:15:05Z"
+}
