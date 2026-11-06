@@ -24,9 +24,6 @@
 	"icon": {
 		"file": "gofolio.webp"
 	},
-	"provisional": [
-		"icon"
-	],
 	"screenshot": "gofolio.webp",
 	"added": "2026-11-05T15:28:05Z"
 }
