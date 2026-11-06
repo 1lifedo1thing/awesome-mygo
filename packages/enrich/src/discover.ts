@@ -4,12 +4,12 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { promisify } from 'node:util';
 import { DEFAULT_MODEL, type LlmConfig } from './copy.ts';
-import { BRANCH_PREFIX, type CodeHit, KIND_LABELS, type Listed, MYGO_MODULE, RECHECK_DAYS, type Seen, branchFor, configNear, entryFor, goModsIn, groupHits, isDue, isYoung, isSamplePath, listedAs, listedFrom, moduleOf, quiet, remember, reposInImportedBy, requiresMygo, tooNewToJudge, uniqueSlug, withoutFailed } from './find.ts';
+import { AWESOME_LISTS, BRANCH_PREFIX, type CodeHit, KIND_LABELS, type Listed, MYGO_MODULE, RECHECK_DAYS, type Seen, branchFor, configNear, entryFor, goModsIn, groupHits, isDue, isYoung, isSamplePath, listedAs, listedFrom, moduleOf, quiet, remember, reposInImportedBy, reposInMarkdown, requiresMygo, tooNewToJudge, uniqueSlug, withoutFailed } from './find.ts';
 import { github, rawFile } from './github.ts';
 import { ENTRY_DIRS, type Entry, type EntryKind } from './source.ts';
 import { triage } from './triage.ts';
 
-// Run by .github/workflows/discover.yml once a day. It looks for projects whose go.mod requires MyGo and that the site does not list yet: through GitHub's code search for such go.mod files, and, as that search leaves out repositories it has not indexed, through code search for MyGo configurations, repository search for READMEs that name MyGo and for repositories named after it, and pkg.go.dev's importers; a repository found any way but the first has its go.mod checked before anything else. It asks the model whether each belongs on the site and as what, and opens a pull request for each one that does, completed as a submission is (main.ts: icon, screenshot, category and copy in every site language) and checked by the catalog's tests. A maintainer merges or closes it; a repository whose branch has had a pull request is never proposed again.
+// Run by .github/workflows/discover.yml once a day. It looks for projects whose go.mod requires MyGo and that the site does not list yet: through GitHub's code search for such go.mod files, and, as that search leaves out repositories it has not indexed, through code search for MyGo configurations, repository search for READMEs that name MyGo and for repositories named after it, pkg.go.dev's importers, and the repositories other curated lists of MyGo projects link to (AWESOME_LISTS in find.ts); a repository found any way but the first has its go.mod checked before anything else. It asks the model whether each belongs on the site and as what, and opens a pull request for each one that does, completed as a submission is (main.ts: icon, screenshot, category and copy in every site language) and checked by the catalog's tests. A maintainer merges or closes it; a repository whose branch has had a pull request is never proposed again.
 //
 // The script works in the repository's working tree, checked out at main and clean, with origin/main fetched: for each proposal it checks out a branch of its own from origin/main, commits and pushes it, and leaves the tree detached at origin/main.
 //
@@ -33,7 +33,7 @@ const REVIEWER = env.REVIEWER?.trim() || undefined;
 const now = new Date();
 
 // Where a repository can be found, as the report names them.
-const SOURCES = { goMod: 'a go.mod that names MyGo', config: 'a MyGo configuration', readme: 'a README that names MyGo', name: 'a name, description or topic', pkgGoDev: 'pkg.go.dev' } as const;
+const SOURCES = { goMod: 'a go.mod that names MyGo', config: 'a MyGo configuration', readme: 'a README that names MyGo', name: 'a name, description or topic', pkgGoDev: 'pkg.go.dev', awesome: 'another list of MyGo projects' } as const;
 
 const report: string[] = [];
 const say = (line: string): void => {
@@ -149,6 +149,13 @@ async function importedBy(): Promise<string[]> {
 	const res = await fetch(`https://pkg.go.dev/${MYGO_MODULE}?tab=importedby`, { signal: AbortSignal.timeout(30_000) });
 	if (!res.ok) throw new Error(`pkg.go.dev answered ${res.status}`);
 	return reposInImportedBy(await res.text());
+}
+
+// The repositories the README of another list of MyGo projects links to, but not that list nor this site.
+async function linkedFrom(list: string): Promise<string[]> {
+	const readme = await github<{ content: string; encoding: string }>(`/repos/${list}/readme`);
+	if (!readme) throw new Error('no README');
+	return reposInMarkdown(Buffer.from(readme.content, readme.encoding === 'base64' ? 'base64' : 'utf8').toString('utf8'), [list, SITE]);
 }
 
 interface RepoMeta {
@@ -388,6 +395,13 @@ async function main(): Promise<void> {
 		for (const repo of await importedBy()) add(repo, SOURCES.pkgGoDev);
 	} catch (err) {
 		say(`pkg.go.dev could not be read (${err instanceof Error ? err.message : String(err)}), so its importers were left out of this run.\n`);
+	}
+	for (const list of AWESOME_LISTS) {
+		try {
+			for (const repo of await linkedFrom(list)) add(repo, SOURCES.awesome);
+		} catch (err) {
+			say(`${list} could not be read (${err instanceof Error ? err.message : String(err)}), so its links were left out of this run.\n`);
+		}
 	}
 	const bySource = Object.values(SOURCES).map((src) => `${[...found.values()].filter((f) => f.sources.includes(src)).length} ${src}`);
 	const due = [...found.values()].filter((f) => isDue(seen[f.repo.toLowerCase()], now));
