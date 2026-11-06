@@ -14,7 +14,15 @@
 		"bun"
 	],
 	"summary": {
-		"en": "A MyGo starter with a React Router SPA, coss UI and Tailwind CSS v4 on Bun, with Go services bound through the typed client."
+		"en": "A MyGo starter with a React Router SPA, coss UI and Tailwind CSS v4 on Bun, and Go services called through a generated typed client.",
+		"zh-CN": "基于 Bun 的 MyGo 入门模板，使用 React Router SPA、coss UI 和 Tailwind CSS v4，前端通过生成的类型化客户端调用 Go 服务。",
+		"zh-TW": "以 Bun 執行的 MyGo 入門範本，採用 React Router SPA、coss UI 與 Tailwind CSS v4，前端透過自動產生的型別化用戶端呼叫 Go 服務。",
+		"ja": "React Router の SPA、coss UI、Tailwind CSS v4 を Bun で使う MyGo のスターター。Go のサービスは生成された型付きクライアントから呼び出す。",
+		"ko": "Bun 기반으로 React Router SPA, coss UI, Tailwind CSS v4를 쓰는 MyGo 스타터로, 생성된 타입 클라이언트로 Go 서비스를 호출합니다."
 	},
+	"screenshot": "starter-mygo-react-router.webp",
+	"provisional": [
+		"screenshot"
+	],
 	"added": "2026-11-06T05:48:59Z"
 }
