@@ -13,7 +13,15 @@
 		"no-node"
 	],
 	"summary": {
-		"en": "A template for native MyGo apps that needs only Go: tools pinned in the module, live reload, git hooks, lint and .app/.dmg packaging."
+		"en": "A native UI MyGo template that needs only Go, no Node: live reload, git hooks, lint, tests and .app/.dmg packaging.",
+		"zh-CN": "只需 Go 的 MyGo 原生 UI 应用模板，无需 Node，带实时重载、git 钩子、lint、测试及 .app/.dmg 打包。",
+		"zh-TW": "只需要 Go 的 MyGo 原生 UI 應用程式範本，不必安裝 Node，內建即時重載、git hooks、lint、測試與 .app/.dmg 打包。",
+		"ja": "Go だけで使える MyGo ネイティブ UI アプリのテンプレート。Node は不要で、ライブリロード、git フック、lint、テスト、.app/.dmg のパッケージングを備える。",
+		"ko": "Go만 있으면 되는 MyGo 네이티브 UI 앱 템플릿으로, Node 없이 라이브 리로드, git 훅, lint, 테스트, .app/.dmg 패키징을 갖췄습니다."
 	},
+	"screenshot": "mygo-template.webp",
+	"provisional": [
+		"screenshot"
+	],
 	"added": "2026-11-06T05:48:54Z"
 }
