@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "raydock",
+	"name": "RayDock",
+	"author": "jnnbimo",
+	"kind": "native",
+	"group": "network",
+	"url": "https://github.com/jnnbimo/RayDock",
+	"repo": "jnnbimo/RayDock",
+	"summary": {
+		"en": "A Windows proxy client for Xray-core with subscriptions, system proxy, TUN mode and proxy chains.",
+		"zh-CN": "Xray-core 的 Windows 客户端：订阅、系统代理、TUN 模式与代理链。",
+		"zh-TW": "Xray-core 的 Windows 用戶端：訂閱、系統代理、TUN 模式與代理鏈。",
+		"ja": "Xray-core の Windows クライアント。購読管理、TUN モード、プロキシチェーンに対応。",
+		"ko": "Xray-core 기반 Windows 클라이언트. 구독, TUN 모드, 프록시 체인 지원."
+	},
+	"description": {
+		"en": "A Windows x64 proxy client for Xray-core, drawn with MyGo's native UI. It imports share links, Base64 subscriptions and Clash / Mihomo YAML for VLESS, VMess, Trojan, Hysteria2 and other protocols, runs as a system proxy or in TUN mode with custom routing rules, and sets proxy chains per group. It ships with Xray and Wintun but provides no nodes or subscriptions.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows x64 代理客户端，基于 Xray-core。可导入分享链接、Base64 订阅和 Clash / Mihomo YAML，支持 VLESS、VMess、Trojan、Hysteria2 等协议，提供系统代理与 TUN 模式、自定义路由规则，以及按分组设置的代理链。发行包自带 Xray 与 Wintun，但不提供节点或订阅。",
+		"zh-TW": "以 MyGo 原生 UI 繪製的 Windows x64 代理用戶端，基於 Xray-core。可匯入分享連結、Base64 訂閱與 Clash / Mihomo YAML，支援 VLESS、VMess、Trojan、Hysteria2 等協定，提供系統代理與 TUN 模式、自訂路由規則，以及依群組設定的代理鏈。發行包內含 Xray 與 Wintun，但不提供節點或訂閱。",
+		"ja": "MyGo のネイティブ UI で描かれた、Xray-core を使う Windows x64 用プロキシクライアント。共有リンク、Base64 購読、Clash / Mihomo YAML を読み込み、VLESS、VMess、Trojan、Hysteria2 などのプロトコルに対応します。システムプロキシや TUN モードで独自のルーティングルールとともに動き、グループごとにプロキシチェーンを設定できます。Xray と Wintun を同梱していますが、ノードや購読は提供しません。",
+		"ko": "MyGo의 네이티브 UI로 그린 Xray-core 기반 Windows x64 프록시 클라이언트입니다. 공유 링크, Base64 구독, Clash / Mihomo YAML을 가져오며 VLESS, VMess, Trojan, Hysteria2 등 여러 프로토콜을 지원합니다. 시스템 프록시나 TUN 모드로 사용자 지정 라우팅 규칙과 함께 동작하고, 그룹별로 프록시 체인을 설정할 수 있습니다. Xray와 Wintun을 함께 제공하지만 노드나 구독은 제공하지 않습니다."
+	},
+	"icon": {
+		"file": "raydock.webp"
+	},
+	"screenshot": "raydock.webp",
+	"added": "2026-11-06T03:54:55Z"
+}
