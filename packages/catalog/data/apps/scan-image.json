@@ -25,8 +25,5 @@
 		"file": "scan-image.webp"
 	},
 	"screenshot": "scan-image.webp",
-	"provisional": [
-		"screenshot"
-	],
 	"added": "2026-11-06T07:59:41Z"
 }
