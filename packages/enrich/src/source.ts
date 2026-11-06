@@ -343,13 +343,13 @@ export function readmeImages(md: string): string[] {
 // Badges and other images that are never a screenshot of the app.
 const NOT_A_SHOT = /(^|\.)(img\.shields\.io|badge\.fury\.io|badgen\.net|codecov\.io|goreportcard\.com|pkg\.go\.dev|deepwiki\.com)$/;
 
-// Whether an image's path says it is not a screenshot of the app: a hero image, banner, cover, logo or social preview, which a README often puts first (LunaBox's screenshot/hero.png), a file under a branding or icon directory, or a link to a community, a sponsor page or a QR code.
+// Whether an image's path says it is not a screenshot of the app: a hero image, banner, cover, logo or social preview, which a README often puts first (LunaBox's screenshot/hero.png), a file under a branding, icon or design-reference directory, or a link to a community, a sponsor page or a QR code.
 export function isArtwork(url: string): boolean {
 	const parts = url.split(/[?#]/)[0].toLowerCase().split('/').filter(Boolean);
 	const file = parts.pop() ?? '';
 	const words = file.replace(/\.[a-z0-9]+$/, '').split(/[-_.\s]+/);
 	const art = ['hero', 'banner', 'cover', 'logo', 'og', 'social', 'community', 'qq', 'telegram', 'discord', 'wechat', 'weixin', 'sponsor', 'sponsors', 'donate', 'qr', 'qrcode', 'badge'];
-	const artFolders = /^(?:brand|branding|icons?|logos?|badges?|avatars?|social)$/;
+	const artFolders = /(^|[-_.])(?:brand(?:ing)?|icons?|logos?|badges?|avatars?|social|references?)([-_.]|$)/;
 	return parts.some((part) => artFolders.test(part)) || words.some((w) => art.includes(w));
 }
 

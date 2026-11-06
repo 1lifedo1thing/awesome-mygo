@@ -85,6 +85,7 @@ describe('the repository', () => {
 		expect(isArtwork('https://example.com/assets/app_logo.png')).toBe(true);
 		expect(isArtwork('https://example.com/docs/og-image.png')).toBe(true);
 		expect(isArtwork('https://raw.githubusercontent.com/ConteMan/cubbix/main/brand/dist/dark-1024.png')).toBe(true);
+		expect(isArtwork('https://raw.githubusercontent.com/zeokeel/ZeoKeel-Super-Agent/main/design/dsh-reference/dsh-home.png')).toBe(true);
 		expect(isArtwork('https://raw.githubusercontent.com/Saramanda9988/LunaBox/main/screenshot/home-img.png')).toBe(false);
 		expect(isArtwork('https://example.com/docs/preview/home_en.png')).toBe(false);
 		expect(isArtwork('https://example.com/covered-calls.png')).toBe(false);
