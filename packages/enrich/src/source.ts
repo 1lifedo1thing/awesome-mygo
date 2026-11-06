@@ -15,6 +15,11 @@ export function addedFiles(base: readonly string[], head: readonly string[]): st
 	return head.filter((name) => name.endsWith('.json') && !known.has(name)).sort();
 }
 
+// The entry files both the base branch and the branch have, which the copy reads as examples of the site's voice: only JSON files, as a directory may hold others, such as the .gitkeep of a category with no entry yet, which is empty and no entry.
+export function knownFiles(base: readonly string[], head: readonly string[]): string[] {
+	return base.filter((name) => name.endsWith('.json') && head.includes(name));
+}
+
 export type Entry = Record<string, unknown>;
 
 // owner/name of the entry's GitHub repository: its `repo` field, or else its link when that is a repository.
