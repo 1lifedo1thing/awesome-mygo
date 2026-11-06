@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "snip",
+	"name": "snip",
+	"author": "0froq",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/0froq/snip",
+	"repo": "0froq/snip",
+	"summary": {
+		"en": "A macOS clipboard manager that shows each copied text as a floating card to paste by shortcut.",
+		"zh-CN": "macOS 剪贴板管理器：每段复制的文字变成浮动卡片，用快捷键粘贴。",
+		"zh-TW": "macOS 剪貼簿管理工具：每段複製的文字變成浮動卡片，用快捷鍵貼上。",
+		"ja": "コピーしたテキストを浮かぶカードにして、ショートカットでペーストできる macOS 用クリップボード管理。",
+		"ko": "복사한 텍스트를 떠 있는 카드로 보여 주고 단축키로 붙여 넣는 macOS 클립보드 관리자."
+	},
+	"description": {
+		"en": "A clipboard manager prototype for macOS on Apple Silicon, drawn with MyGo's native UI with no web view. Each plain text you copy opens a small floating card near the selection or cursor, and global shortcuts or a leader key pick and paste cards, which needs Accessibility access. Cards are hidden from screen recordings and mask passwords and API keys; images and files are ignored.",
+		"zh-CN": "一款用 MyGo 原生 UI 绘制、不含 Web 视图的 macOS 剪贴板管理器原型，面向 Apple Silicon。每次复制纯文本，都会在选中文字或光标附近弹出一张浮动卡片，可用全局快捷键或引导键选中并粘贴，粘贴需要辅助功能权限。卡片不会出现在屏幕录制中，并会遮蔽密码与 API 密钥；不支持图片和文件。",
+		"zh-TW": "一款以 MyGo 原生 UI 繪製、不含 Web 視圖的 macOS 剪貼簿管理工具原型，適用 Apple Silicon。每次複製純文字，都會在選取文字或游標附近跳出一張浮動卡片，可用全域快捷鍵或前導鍵選取並貼上，貼上需要輔助使用權限。卡片不會出現在螢幕錄影中，並會遮蔽密碼與 API 金鑰；不支援圖片和檔案。",
+		"ja": "MyGo のネイティブ UI で描かれた、Web ビューを使わない Apple Silicon Mac 向けクリップボードマネージャーの試作版。プレーンテキストをコピーするたびに、選択範囲かカーソルの近くに小さなフローティングカードが現れ、グローバルショートカットやリーダーキーで選んでペーストできます（アクセシビリティ権限が必要）。カードは画面収録に映らず、パスワードや API キーは伏せて表示されます。画像やファイルは扱いません。",
+		"ko": "MyGo의 네이티브 UI로 그린, 웹 뷰 없는 Apple Silicon Mac용 클립보드 관리자 프로토타입입니다. 일반 텍스트를 복사할 때마다 선택한 텍스트나 커서 근처에 작은 플로팅 카드가 뜨고, 전역 단축키나 리더 키로 골라 붙여 넣을 수 있으며 붙여넣기에는 손쉬운 사용 권한이 필요합니다. 카드는 화면 녹화에 나타나지 않고 비밀번호와 API 키를 가려 보여 주며, 이미지와 파일은 다루지 않습니다."
+	},
+	"icon": {
+		"file": "snip.webp"
+	},
+	"screenshot": "snip.webp",
+	"added": "2026-11-06T04:56:38Z"
+}
