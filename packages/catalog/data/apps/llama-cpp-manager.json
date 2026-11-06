@@ -26,8 +26,5 @@
 		"file": "llama-cpp-manager.webp"
 	},
 	"screenshot": "llama-cpp-manager.webp",
-	"provisional": [
-		"screenshot"
-	],
 	"added": "2026-11-05T03:32:35Z"
 }
