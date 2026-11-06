@@ -26,8 +26,5 @@
 		"file": "rediscli.webp"
 	},
 	"screenshot": "rediscli.webp",
-	"provisional": [
-		"screenshot"
-	],
 	"added": "2026-11-05T05:57:31Z"
 }
