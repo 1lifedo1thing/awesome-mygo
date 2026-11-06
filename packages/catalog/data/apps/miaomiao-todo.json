@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "miaomiao-todo",
+	"name": "喵喵の清单",
+	"author": "rppig42",
+	"kind": "web",
+	"group": "notes",
+	"url": "https://github.com/rppig42/miaomiao-todo",
+	"repo": "rppig42/miaomiao-todo",
+	"summary": {
+		"en": "A TickTick-style to-do app for Mac, with natural-language input, repeat rules and iCloud sync.",
+		"zh-CN": "仿 TickTick 的 Mac 待办应用，自然语言添加任务，iCloud 同步。",
+		"zh-TW": "仿 TickTick 的 Mac 待辦 App，以自然語言新增任務，iCloud 同步。",
+		"ja": "TickTick 風の Mac 向け ToDo アプリ。自然言語で追加でき、iCloud で同期。",
+		"ko": "TickTick 스타일의 Mac용 할 일 앱. 자연어 입력, 반복 규칙, iCloud 동기화."
+	},
+	"description": {
+		"en": "The Mac version of a TickTick-style to-do app, built with MyGo around a Preact web frontend; the iPhone version is a separate Swift app. Tasks can be added in natural language and repeat by workdays and Chinese public holidays, the lunar calendar or an Ebbinghaus schedule. It works offline and syncs through iCloud, with no server of its own. Needs macOS 14 or later.",
+		"zh-CN": "仿 TickTick 待办应用的 Mac 版，用 MyGo 搭配 Preact 网页前端构建；iPhone 版是另外用 Swift 写的 App。任务可以用自然语言添加，能按工作日与法定节假日、农历或艾宾浩斯曲线重复。离线也能用，通过 iCloud 同步，没有自己的服务器。需要 macOS 14 或更新版本。",
+		"zh-TW": "仿 TickTick 待辦 App 的 Mac 版，以 MyGo 搭配 Preact 網頁前端打造；iPhone 版是另外用 Swift 寫的 App。任務可用自然語言新增，能依工作日與中國法定假日、農曆或艾賓浩斯曲線重複。離線也能使用，透過 iCloud 同步，沒有自己的伺服器。需要 macOS 14 或更新版本。",
+		"ja": "TickTick 風の ToDo アプリの Mac 版で、MyGo と Preact の Web フロントエンドで作られています。iPhone 版は Swift で別に作られたアプリです。タスクは自然言語で追加でき、平日と中国の法定休日、旧暦、エビングハウスの間隔で繰り返せます。オフラインでも使え、自前のサーバーを持たず iCloud で同期します。macOS 14 以降が必要です。",
+		"ko": "TickTick 스타일 할 일 앱의 Mac 버전으로, MyGo와 Preact 웹 프런트엔드로 만들었습니다. iPhone 버전은 Swift로 따로 만든 앱입니다. 할 일은 자연어로 추가하고, 평일과 중국 법정 공휴일, 음력, 에빙하우스 간격에 맞춰 반복할 수 있습니다. 오프라인에서도 쓸 수 있고 자체 서버 없이 iCloud로 동기화합니다. macOS 14 이상이 필요합니다."
+	},
+	"icon": {
+		"file": "miaomiao-todo.webp"
+	},
+	"screenshot": "miaomiao-todo.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-06T06:33:05Z"
+}
