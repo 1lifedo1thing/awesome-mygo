@@ -40,7 +40,8 @@ function addedOn(added: string, lang: LangCode): string {
 	return new Intl.DateTimeFormat(lang, { dateStyle: 'medium', timeZone: 'UTC' }).format(new Date(added));
 }
 
-const urlDd = 'font-mono text-[13px] break-all max-sm:wrap-anywhere max-sm:[word-break:normal]';
+// Keep URLs breakable when a narrow column needs it, but let the browser use normal punctuation opportunities first.
+const urlDd = 'font-mono text-[13px] wrap-anywhere [word-break:normal]';
 
 export function AppFacts({ view, kindLabel }: { view: AppView; kindLabel: string }) {
 	const t = useT();
