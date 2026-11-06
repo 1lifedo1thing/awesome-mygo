@@ -21,8 +21,5 @@
 		"ko": "네이티브 UI를 쓰는 순수 Go MyGo 앱용 GitHub 템플릿으로, 현지화, 테스트, 크로스 컴파일, 패키징 스크립트가 갖춰져 있습니다."
 	},
 	"screenshot": "template-mygo-app.webp",
-	"provisional": [
-		"screenshot"
-	],
 	"added": "2026-11-06T05:48:49Z"
 }

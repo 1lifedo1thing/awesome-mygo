@@ -21,8 +21,5 @@
 		"ko": "Bun 기반으로 React Router SPA, coss UI, Tailwind CSS v4를 쓰는 MyGo 스타터로, 생성된 타입 클라이언트로 Go 서비스를 호출합니다."
 	},
 	"screenshot": "starter-mygo-react-router.webp",
-	"provisional": [
-		"screenshot"
-	],
 	"added": "2026-11-06T05:48:59Z"
 }
