@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "gamesave-manager",
+	"name": "GameSave Manager",
+	"author": "ZeroDevi1",
+	"kind": "web",
+	"group": "game",
+	"url": "https://github.com/ZeroDevi1/gamesave-manager",
+	"repo": "ZeroDevi1/gamesave-manager",
+	"summary": {
+		"en": "Backs up, restores and versions Windows game saves, with sync to cloud drives, Alist and WebDAV.",
+		"zh-CN": "Windows 游戏存档的备份、恢复与版本管理，可同步到网盘和 WebDAV。",
+		"zh-TW": "Windows 遊戲存檔的備份、還原與版本管理，可同步至雲端硬碟與 WebDAV。",
+		"ja": "Windows のゲームセーブをバックアップ・復元・バージョン管理し、クラウドや WebDAV と同期。",
+		"ko": "Windows 게임 세이브 백업·복원·버전 관리, 클라우드 드라이브·WebDAV 동기화."
+	},
+	"description": {
+		"en": "A Windows game save manager built with MyGo, with a React frontend in WebView2. It finds installed games and their save paths, makes full or incremental ZIP backups, restores them, keeps a version history and checks save integrity with SHA256. Backups sync to Baidu, Quark and other drives, Alist/OpenList and WebDAV. It replaces an earlier Tauri version and keeps its data folder.",
+		"zh-CN": "用 MyGo 构建的 Windows 游戏存档管理工具，前端是运行在 WebView2 中的 React。它扫描已安装的游戏及其存档路径，将存档全量或增量备份为 ZIP 压缩包，可快速恢复，保留版本历史，并用 SHA256 校验完整性。备份可同步到百度、夸克等网盘以及 Alist/OpenList 和 WebDAV。它取代了早先的 Tauri 版本，沿用原有数据目录，升级无需迁移。",
+		"zh-TW": "以 MyGo 打造的 Windows 遊戲存檔管理工具，前端是執行於 WebView2 中的 React。它掃描已安裝的遊戲及其存檔路徑，將存檔完整或增量備份為 ZIP 壓縮檔，可快速還原，保留版本紀錄，並以 SHA256 檢查完整性。備份可同步至百度、夸克等雲端硬碟，以及 Alist/OpenList 與 WebDAV。它取代了先前的 Tauri 版本，沿用原本的資料目錄，升級不必搬移。",
+		"ja": "MyGo で作られた Windows 用のゲームセーブ管理ツールで、フロントエンドは WebView2 上の React です。インストール済みのゲームとセーブの場所を見つけ、セーブを ZIP にフルまたは増分でバックアップし、復元、バージョン履歴の保持、SHA256 による整合性チェックを行います。バックアップは百度や夸克などのネットドライブ、Alist/OpenList、WebDAV と同期できます。以前の Tauri 版に代わるもので、データフォルダーもそのまま使えます。",
+		"ko": "MyGo로 만든 Windows용 게임 세이브 관리 도구로, 프런트엔드는 WebView2에서 동작하는 React입니다. 설치된 게임과 세이브 경로를 찾아 ZIP으로 전체 또는 증분 백업하고, 복원과 버전 기록 관리, SHA256 무결성 검사를 합니다. 백업은 바이두, 쿼크 등 클라우드 드라이브와 Alist/OpenList, WebDAV에 동기화됩니다. 이전 Tauri 버전을 대체하며 기존 데이터 폴더를 그대로 씁니다."
+	},
+	"icon": {
+		"file": "gamesave-manager.webp"
+	},
+	"screenshot": "gamesave-manager.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-06T09:35:08Z"
+}
