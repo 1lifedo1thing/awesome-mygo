@@ -50,12 +50,12 @@ function UiPage() {
 			<FilterBar>
 				<FilterChips label={t.a_filter}>
 					{chips.map((c) => (
-						<FilterChip key={c.key ?? 'all'} onClick={() => setFilter({ tag: c.key })} pressed={tag === c.key}>
-							{`${c.label} · ${c.n}`}
+						<FilterChip key={c.key ?? 'all'} onClick={() => setFilter({ tag: c.key })} pressed={tag === c.key} count={c.n} title={c.label}>
+							{c.label}
 						</FilterChip>
 					))}
 				</FilterChips>
-				<FilterSelects>
+				<FilterSelects grouped>
 					<FilterSelect id='surface' label={t.f_ui} value={surface ?? 'all'} onChange={(v) => setFilter({ surface: v === 'all' ? undefined : (v as 'web' | 'native') })}>
 						<option value='all'>{`${t.all} · ${UI_LIBS.length}`}</option>
 						<option value='native'>{`${t.surf_native} · ${nNative}`}</option>
