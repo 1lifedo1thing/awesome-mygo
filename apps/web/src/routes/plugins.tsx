@@ -99,7 +99,8 @@ function PluginsPage() {
 			<div className='flex flex-col gap-3.5'>
 				<span className='kicker' lang='en'>~/PLUGINS · {PLUGINS.length} OFFICIAL</span>
 				<h1 className='page-h1'>{t.nav_plugins}</h1>
-				<p className='page-p max-w-[720px]'>{t.plug_p}</p>
+				{/* Below sm the lead paragraph is left out: on a phone it took four lines ahead of the list, whose heading and cards already say what the page holds. */}
+				<p className='page-p max-sm:hidden max-w-[720px]'>{t.plug_p}</p>
 			</div>
 			<FilterBar>
 				<FilterChips label={t.a_filter}>

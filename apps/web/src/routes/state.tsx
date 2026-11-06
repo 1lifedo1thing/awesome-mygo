@@ -44,7 +44,8 @@ function StatePage() {
 					~/STATE · {listed ? t.cat_state_count.replace('{n}', String(STATE_SOLUTIONS.length)) : t.cat_state_badge}
 				</span>
 				<h1 className='page-h1'>{t.cat_state_name}</h1>
-				<p className='page-p max-w-[740px]'>{t.state_p}</p>
+				{/* Below sm the lead paragraph is left out: on a phone it took four lines ahead of the list, whose heading and cards already say what the page holds. */}
+				<p className='page-p max-sm:hidden max-w-[740px]'>{t.state_p}</p>
 			</div>
 
 			{listed && (
