@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "zakki",
+	"name": "Zakki",
+	"author": "gomeen",
+	"kind": "native",
+	"group": "notes",
+	"url": "https://github.com/gomeen/Zakki",
+	"repo": "gomeen/Zakki",
+	"summary": {
+		"en": "Markdown quick notes in colored tabs for macOS and Windows, called up with a global hotkey.",
+		"zh-CN": "Markdown 速记便签，用彩色标签分页，全局热键随时呼出。",
+		"zh-TW": "Markdown 速記便籤，以彩色標籤分頁，全域快速鍵隨時叫出。",
+		"ja": "色分けタブで Markdown を書き留める速記メモアプリ。グローバルホットキーで呼び出せる。",
+		"ko": "색깔 탭에 Markdown을 적어 두는 빠른 메모 앱. 전역 단축키로 바로 불러옵니다."
+	},
+	"description": {
+		"en": "A quick-notes app for macOS and Windows drawn with MyGo's native UI, with no web view, in a single binary. Each colored tab holds one Markdown note, edited Typora-style in place with tables, checkable to-dos and highlighted code. All tabs are autosaved to one zakki.json that can sit in a git repo with auto-commit and push, and a global hotkey and tray icon keep it at hand.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 与 Windows 速记应用，没有 HTML、JS 或 Web 视图，单个二进制文件。每个彩色标签存一段 Markdown，以 Typora 式所见即所得编辑，支持表格、可勾选待办和代码着色。所有标签自动保存到同一个 zakki.json，放进 git 仓库还能自动提交推送；全局热键与托盘让它随叫随到。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS 與 Windows 速記應用程式，沒有 HTML、JS 或 Web 視圖，單一執行檔。每個彩色標籤存一段 Markdown，以 Typora 式所見即所得編輯，支援表格、可勾選待辦事項和程式碼著色。所有標籤自動儲存到同一個 zakki.json，放進 git 儲存庫還能自動提交與推送；全域快速鍵與系統匣讓它隨叫隨到。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS・Windows 向けの速記アプリ。HTML も JS も Web ビューもない単一バイナリです。色分けされたタブごとに Markdown のノートを持ち、Typora 風の WYSIWYG で書け、表、チェックできる ToDo、コードの色付けに対応します。すべてのタブはひとつの zakki.json に自動保存され、git リポジトリに置けば自動でコミットとプッシュもできます。グローバルホットキーとトレイからいつでも呼び出せます。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS·Windows용 빠른 메모 앱으로, HTML도 JS도 웹 뷰도 없는 단일 바이너리입니다. 색깔 탭마다 Markdown 노트 하나를 담아 Typora처럼 WYSIWYG로 편집하며, 표, 체크할 수 있는 할 일, 코드 색상 강조를 지원합니다. 모든 탭은 zakki.json 하나에 자동 저장되고, git 저장소에 두면 자동 커밋과 푸시도 됩니다. 전역 단축키와 트레이로 언제든 불러올 수 있습니다."
+	},
+	"icon": {
+		"file": "zakki.webp"
+	},
+	"screenshot": "zakki.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-06T03:34:18Z"
+}
