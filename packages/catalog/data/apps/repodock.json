@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "repodock",
+	"name": "RepoDock",
+	"author": "javatoai",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/javatoai/repodock",
+	"repo": "javatoai/repodock",
+	"summary": {
+		"en": "Searches, clones, creates and publishes your GitHub repositories, then opens them in Codex.",
+		"zh-CN": "搜索、克隆、新建和发布 GitHub 仓库，再用 Codex 打开的原生启动器。",
+		"zh-TW": "搜尋、複製、新建與發佈 GitHub 儲存庫，再用 Codex 開啟的原生啟動器。",
+		"ja": "GitHub リポジトリを検索・クローン・作成・公開し、Codex で開くネイティブランチャー。",
+		"ko": "GitHub 저장소를 검색, 클론, 생성, 게시하고 Codex로 여는 네이티브 런처."
+	},
+	"description": {
+		"en": "A GitHub project launcher for Windows and macOS, drawn with MyGo's native UI. It searches your public and private repositories, clones them into a project folder, creates new repositories or publishes existing folders, and opens them in the Codex desktop app. It works through your local Git and gh login, and its interface is currently Chinese only.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 与 macOS GitHub 项目启动器。它能搜索你名下的公开与私人仓库并克隆到项目目录，也能新建仓库或发布已有目录，再交给 Codex 桌面应用打开。它沿用本机的 Git 和 gh 登录，界面目前只有中文。",
+		"zh-TW": "以 MyGo 原生 UI 繪製的 Windows 與 macOS GitHub 專案啟動器。它能搜尋你名下的公開與私人儲存庫並複製到專案資料夾，也能新建儲存庫或發佈既有資料夾，再交給 Codex 桌面應用程式開啟。它沿用本機的 Git 與 gh 登入，介面目前只有中文。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows・macOS 向けの GitHub プロジェクトランチャー。自分の公開・非公開リポジトリを検索してプロジェクトフォルダーにクローンし、新しいリポジトリの作成や既存フォルダーの公開もでき、Codex デスクトップアプリで開きます。ローカルの Git と gh のログインを使い、画面は今のところ中国語のみです。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows·macOS용 GitHub 프로젝트 런처입니다. 내 공개·비공개 저장소를 검색해 프로젝트 폴더에 클론하고, 새 저장소를 만들거나 기존 폴더를 게시한 뒤 Codex 데스크톱 앱에서 엽니다. 로컬 Git과 gh 로그인을 그대로 사용하며, 화면은 현재 중국어만 지원합니다."
+	},
+	"icon": {
+		"file": "repodock.webp"
+	},
+	"screenshot": "repodock.webp",
+	"added": "2026-11-06T07:59:41Z"
+}
