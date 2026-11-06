@@ -72,7 +72,7 @@ function AppPage() {
 						</span>
 					</p>
 					<h1 className='m-0 font-display text-[length:clamp(40px,5.4vw,72px)] leading-[1.02] font-black tracking-[-0.04em] wrap-anywhere'>{app.name}</h1>
-					<p className='m-0 max-w-[60ch] text-[19px] leading-[1.6] text-fg-2 max-sm:text-[17px]'>{pick(app.desc, lang)}</p>
+					<p className='m-0 text-[19px] leading-[1.6] text-fg-2 max-sm:text-[17px]'>{pick(app.desc, lang)}</p>
 					<AppActions app={app} />
 				</div>
 			</header>

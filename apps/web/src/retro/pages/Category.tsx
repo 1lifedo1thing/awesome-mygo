@@ -36,7 +36,7 @@ function CategoryDesk({ cat, path, copy, items }: { cat: SubmitCat; path: string
 					</span>
 				</div>
 				<div className={`${well} px-5 pt-4 pb-[18px]`}>
-					<p className='m-0 max-w-[40em] leading-[22px]'>{copy.lead}</p>
+					<p className='m-0 leading-[22px]'>{copy.lead}</p>
 				</div>
 				<StatusBar>
 					<span>{copy.desc}</span>

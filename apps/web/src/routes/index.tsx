@@ -201,11 +201,10 @@ function Hero() {
 					</span>
 				</h1>
 
-				<p className={`m-0 max-w-[600px] text-[17px] leading-[1.75] text-fg-2 ${POP_2}`}>
-					<span className='block max-tab:inline'>{t.hero_p}</span>
-					{/* Where the two sentences run together on a phone, word-spaced languages need a space between them. */}
+				<p className={`m-0 text-[17px] leading-[1.75] text-fg-2 ${POP_2}`}>
+					{t.hero_p}
 					{words && ' '}
-					<span className='block max-tab:inline'>{t.hero_p2}</span>
+					{t.hero_p2}
 				</p>
 
 				{/* Below 640px the tabs and the copy button share the first line and the command takes the whole second line, where it scrolls inside its box. */}
@@ -335,7 +334,7 @@ function Categories() {
 						{t.cats_h}
 					</h2>
 				</div>
-				<p className='m-0 max-w-[380px] text-[15px] text-fg-3'>{t.cats_src}</p>
+				<p className='m-0 text-[15px] text-fg-3'>{t.cats_src}</p>
 			</div>
 			<div className='grid grid-cols-12 gap-4'>
 				{cats.map((c, k) => (
@@ -351,9 +350,9 @@ function Categories() {
 							</span>
 							<span className={`font-display text-[120px] leading-[0.85] font-extrabold tracking-[-0.06em] max-sm:text-[88px] ${c.numTone}`}>{pad2(c.n)}</span>
 							<span className='flex w-full items-end justify-between gap-4'>
-								<span className='flex flex-col gap-1.5'>
+								<span className='flex min-w-0 flex-1 flex-col gap-1.5'>
 									<span className='text-[26px] font-black tracking-[-0.02em] max-sm:text-[22px]'>{c.name}</span>
-									<span className='max-w-[400px] text-[14px] leading-[1.6] text-fg-2'>{c.desc}</span>
+									<span className='text-[14px] leading-[1.6] text-fg-2'>{c.desc}</span>
 								</span>
 								<span className='arrow flex size-11 flex-[0_0_44px] items-center justify-center rounded-full border border-line-3 text-[18px] text-cyan' aria-hidden='true'>
 									→

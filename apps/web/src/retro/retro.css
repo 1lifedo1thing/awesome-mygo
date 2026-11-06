@@ -59,10 +59,6 @@
 		background: linear-gradient(160deg, #7f9ea9 0%, var(--color-desk) 45%, var(--color-desk-lo) 100%) fixed;
 		-webkit-font-smoothing: antialiased;
 	}
-	p,
-	dd {
-		text-wrap: pretty;
-	}
 	::selection {
 		background: rgb(91 75 216 / 0.22);
 	}

@@ -50,7 +50,7 @@ function Welcome() {
 						</span>
 					))}
 				</h1>
-				<p className='m-0 max-w-[36em]'>
+				<p className='m-0'>
 					{t.hero_p}
 					{langDef(lang).words && ' '}
 					{t.hero_p2}

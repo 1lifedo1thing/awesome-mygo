@@ -30,7 +30,7 @@ export function State() {
 					</span>
 				</div>
 				<div className={`${well} px-5 pt-4 pb-[18px]`}>
-					<p className='m-0 max-w-[40em] leading-[22px]'>{t.state_p}</p>
+					<p className='m-0 leading-[22px]'>{t.state_p}</p>
 				</div>
 				<StatusBar>
 					<span>{t.cat_state_desc}</span>

@@ -67,7 +67,7 @@ export function Ui() {
 				</div>
 				<div className='grid gap-1 desk:min-h-0 desk:flex-1 desk:grid-cols-[200px_minmax(0,1fr)] desk:grid-rows-[minmax(0,1fr)]'>
 					<div className={`${well} relative px-5 pt-4 pb-[18px] desk:overflow-y-auto desk:px-3.5 desk:pt-3 desk:pb-3.5`}>
-						<p className='m-0 mb-3 max-w-[42em] leading-[22px]'>{t.ui_p}</p>
+						<p className='m-0 mb-3 leading-[22px]'>{t.ui_p}</p>
 						<a className={lnk} href={NATIVE_UI_DOCS} target='_blank' rel='noopener'>
 							{t.ui_builtin}
 						</a>
