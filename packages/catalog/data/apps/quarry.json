@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "quarry",
+	"name": "Quarry",
+	"author": "Prit36",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/Prit36/quarry-disk-analyzer",
+	"repo": "Prit36/quarry-disk-analyzer",
+	"summary": {
+		"en": "A native Windows disk space analyzer: folder tree, treemap, file search and duplicate finder.",
+		"zh-CN": "原生 Windows 磁盘空间分析工具：文件夹树、树状图、文件搜索与重复文件查找。",
+		"zh-TW": "原生 Windows 磁碟空間分析工具：資料夾樹、樹狀圖、檔案搜尋與重複檔案查找。",
+		"ja": "ネイティブな Windows 用ディスク容量アナライザー。ツリー表示、ツリーマップ、重複ファイル検出。",
+		"ko": "네이티브 Windows 디스크 공간 분석 도구. 폴더 트리, 트리맵, 검색, 중복 파일 찾기."
+	},
+	"description": {
+		"en": "A Windows disk space analyzer drawn with MyGo's native UI on Direct3D, with no web view. As administrator it reads NTFS drives straight from the master file table; otherwise it walks the folders. It shows a size-sorted folder tree beside a treemap colored by file type, searches by name, size, date or path, and finds duplicate files, optionally verified with SHA-256.",
+		"zh-CN": "用 MyGo 原生 UI 基于 Direct3D 绘制的 Windows 磁盘空间分析工具，没有 Web 视图。以管理员身份运行时直接读取 NTFS 主文件表（MFT），否则逐个遍历文件夹。按大小排序的文件夹树旁配有按文件类型着色的树状图，可按名称、大小、日期或路径搜索，还能查找重复文件，并可选用 SHA-256 校验内容。",
+		"zh-TW": "以 MyGo 原生 UI 透過 Direct3D 繪製的 Windows 磁碟空間分析工具，沒有 Web 視圖。以系統管理員身分執行時直接讀取 NTFS 主檔案表（MFT），否則逐一走訪資料夾。依大小排序的資料夾樹旁配有依檔案類型上色的樹狀圖，可依名稱、大小、日期或路徑搜尋，也能找出重複檔案，並可選擇以 SHA-256 驗證內容。",
+		"ja": "MyGo のネイティブ UI で Direct3D により描かれた Windows 用ディスク容量アナライザー。Web ビューはありません。管理者として実行すると NTFS ドライブをマスターファイルテーブル（MFT）から直接読み取り、それ以外はフォルダーを順にたどります。サイズ順のフォルダーツリーとファイルの種類で色分けしたツリーマップを並べて表示し、名前・サイズ・日付・パスで検索でき、重複ファイルも探せます。必要なら SHA-256 で内容を照合します。",
+		"ko": "MyGo의 네이티브 UI로 Direct3D 위에 그린 Windows 디스크 공간 분석 도구로, 웹 뷰가 없습니다. 관리자 권한으로 실행하면 NTFS 드라이브를 마스터 파일 테이블(MFT)에서 직접 읽고, 그렇지 않으면 폴더를 하나씩 탐색합니다. 크기순 폴더 트리 옆에 파일 형식별로 색을 입힌 트리맵을 보여 주고, 이름·크기·날짜·경로로 검색하며, 중복 파일을 찾아 필요하면 SHA-256으로 내용을 확인합니다."
+	},
+	"icon": {
+		"file": "quarry.webp"
+	},
+	"screenshot": "quarry.webp",
+	"added": "2026-11-06T05:15:05Z"
+}
