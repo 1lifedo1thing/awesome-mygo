@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mycode",
+	"name": "MyCode",
+	"author": "hunghg255",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://docs-mu-roan.vercel.app",
+	"repo": "hunghg255/mycode",
+	"summary": {
+		"en": "A small native code editor with Git tools, a built-in terminal, split columns and Markdown preview.",
+		"zh-CN": "小巧的原生代码编辑器，自带 Git 工具、内置终端、分栏编辑与 Markdown 预览。",
+		"zh-TW": "小巧的原生程式碼編輯器，內建 Git 工具、終端機、分欄編輯與 Markdown 預覽。",
+		"ja": "Git、ターミナル、分割表示、Markdown プレビューを備えた軽量なネイティブコードエディター。",
+		"ko": "Git 도구, 내장 터미널, 분할 열, Markdown 미리보기를 갖춘 네이티브 코드 편집기."
+	},
+	"description": {
+		"en": "A code editor written in Go and drawn on the GPU with MyGo's native UI, with no webview or Electron, about 18 MB packaged. It splits the editor into columns, runs Ghostty's terminal emulator in a panel or a tab, stages, commits and diffs with Git, with a commit graph, and previews Markdown beside the source. It needs macOS 13 or later and also builds for Linux and Windows.",
+		"zh-CN": "用 Go 编写、由 MyGo 原生 UI 在 GPU 上绘制的代码编辑器，没有 WebView，也没有 Electron，打包后约 18 MB。编辑器可分栏并排，终端采用 Ghostty 的模拟器，可放在底部面板或标签页中；Git 视图支持暂存、提交、差异对比和提交图，Markdown 可在源码旁实时预览。需要 macOS 13 或更高版本，也可构建 Linux 与 Windows 版。",
+		"zh-TW": "用 Go 撰寫、由 MyGo 原生 UI 在 GPU 上繪製的程式碼編輯器，沒有 WebView，也沒有 Electron，打包後約 18 MB。編輯器可分欄並排，終端機採用 Ghostty 的模擬器，可放在底部面板或分頁中；Git 檢視支援暫存、提交、差異比對和提交圖，Markdown 可在原始碼旁即時預覽。需要 macOS 13 以上版本，也可建置 Linux 與 Windows 版。",
+		"ja": "Go で書かれ、MyGo のネイティブ UI で GPU に描画するコードエディター。WebView も Electron もなく、パッケージ後は約 18 MB です。エディターを列に分割して並べられ、ターミナルは Ghostty のエミュレーターをパネルかタブで使えます。Git ビューでステージ、コミット、差分、コミットグラフを扱え、Markdown はソースの横でプレビューできます。macOS 13 以降が必要で、Linux と Windows 向けにもビルドできます。",
+		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 GPU에서 그리는 코드 편집기로, 웹뷰도 Electron도 없으며 패키지 크기는 약 18MB입니다. 편집기를 열로 나눠 나란히 쓰고, Ghostty의 터미널 에뮬레이터를 패널이나 탭에서 실행하며, Git 뷰에서 스테이징, 커밋, 차이 비교, 커밋 그래프를 다루고 Markdown을 소스 옆에서 미리 봅니다. macOS 13 이상이 필요하며 Linux와 Windows용으로도 빌드됩니다."
+	},
+	"icon": {
+		"file": "mycode.webp"
+	},
+	"screenshot": "mycode.webp",
+	"added": "2026-11-06T04:56:38Z"
+}
