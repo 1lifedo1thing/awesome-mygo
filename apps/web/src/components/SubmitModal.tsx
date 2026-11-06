@@ -21,7 +21,7 @@ const TIP = 'm-0 text-[13px] text-fg-3';
 // A bordered secondary button; with .btn-g its hover is restated here, as these utilities outrank .btn-g's hover rule.
 const LINE_BTN = 'btn-g min-h-[46px] rounded-[10px] border border-line-3 bg-transparent px-[18px] py-0 text-[14px] font-bold text-fg hover:not-disabled:border-fg hover:not-disabled:bg-white/4 hover:not-disabled:text-fg disabled:cursor-not-allowed disabled:text-fg-3';
 // The footer's buttons; below md they share the row under the hint and fill it.
-const FOOT_BTN = 'inline-flex min-h-[46px] items-center rounded-[10px] px-5 py-0 text-[14px] no-underline max-md:flex-auto max-md:justify-center max-md:text-center max-md:wrap-anywhere';
+const FOOT_BTN = 'inline-flex min-h-[46px] items-center rounded-[10px] px-5 py-0 text-[14px] no-underline max-md:flex-auto max-md:justify-center max-md:text-center';
 const HINT = 'm-0 min-w-0 flex-[1_1_200px] text-[13px] leading-[1.5] max-md:basis-full';
 
 // Keyed by the WebMCP fills (lib/webmcp.ts), so each one opens a fresh dialog.
@@ -110,7 +110,7 @@ function Modal() {
 	return (
 		<div className='fade fixed inset-0 z-50 flex items-center justify-center bg-[rgba(5,7,9,0.7)] p-4 backdrop-blur-[6px] max-md:items-end max-md:p-0 max-md:pt-[calc(12px+env(safe-area-inset-top))]'>
 			<div ref={ref} role='dialog' aria-modal='true' aria-labelledby='dlg' aria-describedby={agentFilled ? 'sub-agent' : undefined} className='enter box-border flex max-h-[calc(100dvh-32px)] w-full max-w-[580px] flex-col overflow-hidden rounded-[20px] border border-line-3 bg-panel shadow-[0_40px_120px_rgba(0,0,0,0.6)] max-md:max-h-[calc(100dvh-12px-env(safe-area-inset-top))] max-md:max-w-none max-md:rounded-b-none max-md:border-x-0 max-md:border-b-0'>
-				<div className='flex min-h-0 flex-auto flex-col gap-[18px] overflow-auto px-[30px] pt-[30px] pb-[22px] max-md:overscroll-contain max-md:px-6 max-md:wrap-anywhere max-sm:px-4 max-xs:pt-[22px] max-xs:pb-[18px]'>
+				<div className='flex min-h-0 flex-auto flex-col gap-[18px] overflow-auto px-[30px] pt-[30px] pb-[22px] max-md:overscroll-contain max-md:px-6 max-sm:px-4 max-xs:pt-[22px] max-xs:pb-[18px]'>
 					<div className='flex items-start justify-between gap-3'>
 						<div className='flex flex-col gap-1.5'>
 							<h2 id='dlg' className='m-0 text-[26px] font-black tracking-[-0.02em]'>
