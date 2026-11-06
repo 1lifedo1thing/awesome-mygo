@@ -3,7 +3,7 @@ import { DEFAULT_SORT, groupChips, shownSort, sortApps, validateShowcaseSearch }
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { AppLink, KindTag, MonoTile, WinBar, appView } from '../components/bits';
 import { showBy, showDesc, showGrid, showId, showIdText, showName } from '../components/EntryCard';
-import { FilterBar, FilterSelect, FilterSelects, OverflowChips } from '../components/FilterBar';
+import { FilterBar, FilterChip, FilterChips, FilterSelect, FilterSelects } from '../components/FilterBar';
 import { LikeButton } from '../components/Like';
 import { ScoreBar } from '../components/Score';
 import { useLang, useT } from '../lib/lang';
@@ -46,14 +46,16 @@ function ShowcasePage() {
 				<span className='font-display text-[120px] leading-[0.8] font-extrabold tracking-[-0.06em] text-cyan tabular-nums max-sm:text-[72px]'>{pad2(list.length)}</span>
 			</div>
 			<FilterBar>
-				<OverflowChips
-					label={t.a_cats}
-					moreLabel={t.f_more}
-					items={[
-						{ key: 'all', label: `${t.all} · ${ofKind.length}`, pressed: !group, onSelect: () => setFilter({ cat: undefined }) },
-						...chips.map((c) => ({ key: c.key, label: `${t[`grp_${c.key}`]} · ${c.apps.length}`, pressed: group === c.key, onSelect: () => setFilter({ cat: c.key }) })),
-					]}
-				/>
+				<FilterChips label={t.a_cats}>
+					<FilterChip onClick={() => setFilter({ cat: undefined })} pressed={!group} count={ofKind.length} title={t.all}>
+						{t.all}
+					</FilterChip>
+					{chips.map((c) => (
+						<FilterChip key={c.key} onClick={() => setFilter({ cat: c.key })} pressed={group === c.key} count={c.apps.length} title={t[`grp_${c.key}`]}>
+							{t[`grp_short_${c.key}`]}
+						</FilterChip>
+					))}
+				</FilterChips>
 				<FilterSelects grouped>
 					<FilterSelect id='ui' label={t.f_ui} value={kind ?? 'all'} onChange={(v) => setFilter({ ui: v === 'all' ? undefined : (v as AppKind) })}>
 						<option value='all'>{`${t.all} · ${APPS.length}`}</option>
