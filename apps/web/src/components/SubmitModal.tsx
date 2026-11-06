@@ -117,9 +117,9 @@ function Modal() {
 								{t.m_title}
 							</h2>
 							<p className='m-0 text-[14px] text-fg-2'>{bot.enabled ? t.m_desc_bot : t.m_desc}</p>
-							{/* How to let an AI fill the form in with the page's WebMCP tools (lib/webmcp.ts), the tool's name kept on one line; left out once one has, as the note below then says so. */}
+							{/* How to let an AI fill the form in with the page's WebMCP tools (lib/webmcp.ts), the tool's name kept on one line; left out once one has, as the note below then says so, and on a touch screen, as WebMCP's origin trial and the extension are desktop Chrome's. */}
 							{!agentFilled && (
-								<p className={TIP}>
+								<p className={`${TIP} pointer-coarse:hidden`}>
 									{t.sub_ai.split('{x}')[0]}
 									<code className='font-mono whitespace-nowrap text-fg-2'>fill-submission</code>
 									{t.sub_ai.split('{x}')[1]}{' '}
