@@ -6,6 +6,7 @@ export class CatalogError extends Error {}
 
 type Raw = Record<string, unknown>;
 const LINE_BREAK = /[\r\n\u2028\u2029]/;
+const INVISIBLE_WRAP = /[\u200b\u2060\ufeff]/;
 
 export class Reader {
 	// file names where the entry comes from: its data file, or `entry` for one not filed yet.
@@ -23,6 +24,7 @@ export class Reader {
 		const v = this.raw[field];
 		if (typeof v !== 'string' || !v.trim()) this.fail(field, 'must be a non-empty string');
 		if (LINE_BREAK.test(v)) this.fail(field, 'must be a single line');
+		if (INVISIBLE_WRAP.test(v)) this.fail(field, 'must not contain invisible wrap controls');
 		return v;
 	}
 
@@ -60,6 +62,7 @@ export class Reader {
 		const v = this.raw[field];
 		if (!Array.isArray(v) || v.length < min || v.some((x) => typeof x !== 'string' || !x.trim())) this.fail(field, min ? `must be a list of at least ${min} non-empty strings` : 'must be a list of non-empty strings');
 		if (v.some((x) => LINE_BREAK.test(x as string))) this.fail(field, 'must be a list of single-line strings');
+		if (v.some((x) => INVISIBLE_WRAP.test(x as string))) this.fail(field, 'must not contain invisible wrap controls');
 		return v as string[];
 	}
 
@@ -71,6 +74,7 @@ export class Reader {
 			if (!LANGS.some((l) => l.code === lang)) this.fail(`${field}.${lang}`, `is not a site language (${LANGS.map((l) => l.code).join(', ')})`);
 			if (typeof s !== 'string' || !s.trim()) this.fail(`${field}.${lang}`, 'must be a non-empty string');
 			if (LINE_BREAK.test(s)) this.fail(`${field}.${lang}`, 'must be a single line');
+			if (INVISIBLE_WRAP.test(s)) this.fail(`${field}.${lang}`, 'must not contain invisible wrap controls');
 		}
 		if (!(v as Raw).en) this.fail(`${field}.en`, 'is required: English is the fallback for every other language');
 		return v as Text;

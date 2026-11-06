@@ -97,7 +97,7 @@ describe('catalog data', () => {
 	});
 
 	it('keeps UI copy free of manual line breaks and invisible wrap hints', () => {
-		for (const L of LANGS) for (const [key, value] of Object.entries(LOCALES[L.code])) expect(value, `${L.code} ${key}`).not.toMatch(/[\r\n\u2028\u2029\u200b]/);
+		for (const L of LANGS) for (const [key, value] of Object.entries(LOCALES[L.code])) expect(value, `${L.code} ${key}`).not.toMatch(/[\r\n\u2028\u2029\u200b\u2060\ufeff]/);
 	});
 
 	// Which apps have which kind of icon is the data's business: the submission bot takes an app's icon from where MyGo finds it and leaves it out when it is MyGo's default one from mygo init, and it reports which in the pull request.
@@ -271,6 +271,11 @@ describe('validation of contributed entries', () => {
 		for (const lineBreak of ['\n', '\r', '\u2028', '\u2029']) expect(read({ ...ok, summary: { en: `A kit.${lineBreak}On two lines.` } })).toThrow(/summary.en must be a single line/);
 		expect(read({ ...ok, name: 'Two\nlines' })).toThrow(/name must be a single line/);
 		expect(() => new Reader('apps/kit.json', { tags: ['one', 'two\nlines'] }).strings('tags')).toThrow(/tags must be a list of single-line strings/);
+		for (const control of ['\u200b', '\u2060', '\ufeff']) {
+			expect(read({ ...ok, summary: { en: `A kit.${control}With a hidden wrap control.` } })).toThrow(/summary.en must not contain invisible wrap controls/);
+			expect(read({ ...ok, name: `Two${control}parts` })).toThrow(/name must not contain invisible wrap controls/);
+			expect(() => new Reader('apps/kit.json', { tags: ['one', `two${control}parts`] }).strings('tags')).toThrow(/tags must not contain invisible wrap controls/);
+		}
 		expect(read({ ...ok, url: 'http://x.dev' })).toThrow(/url must be an https link/);
 		expect(read({ ...ok, kind: 'electron' })).toThrow(/kind must be one of native, web/);
 		expect(read({ ...ok, descripton: 'typo' })).toThrow(/descripton is not a known field/);
