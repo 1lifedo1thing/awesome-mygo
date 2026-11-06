@@ -12,12 +12,9 @@
 		"ja": "Nuxt UI v4 風の MyGo ネイティブ UI 向けコンポーネントライブラリ。ボタン、フォーム、テーブル、グラフ、レイアウトを備え、明暗モード、26 種のカラーパレット、Lucide アイコン付き。",
 		"ko": "Nuxt UI v4 스타일의 MyGo 네이티브 UI 컴포넌트 라이브러리. 버튼, 폼, 테이블, 차트, 앱 레이아웃을 갖추고 라이트와 다크 모드, 26가지 색상 팔레트, Lucide 아이콘을 지원합니다."
 	},
+	"screenshot": "nuxtui-go.webp",
 	"repo": "josexy/nuxt-ui-go",
 	"url": "https://github.com/josexy/nuxt-ui-go",
 	"homepage": "https://nuxtuigo.gofunc.site/",
-	"screenshot": "nuxtui-go.webp",
-	"provisional": [
-		"screenshot"
-	],
 	"added": "2026-11-05T03:22:12Z"
 }

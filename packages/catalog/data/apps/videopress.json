@@ -21,12 +21,9 @@
 		"ja": "FFmpeg を使った Windows 10/11 向けの動画圧縮ツール。MyGo のネイティブ UI で描かれ、コマンドラインからも使えます。3 段階の画質プリセットを備え、NVENC・QSV・AMF を検出するとハードウェアエンコードを使い、複数ファイルを並行して圧縮し、GIF・APNG・WebP の書き出しもできます。エクスプローラーの右クリックメニューから圧縮でき、FFmpeg は同梱されませんが初回起動時に自動でダウンロードできます。",
 		"ko": "FFmpeg 기반의 Windows 10/11용 동영상 압축 도구로, MyGo의 네이티브 UI로 그렸으며 명령줄에서도 쓸 수 있습니다. 세 가지 화질 프리셋을 제공하고, NVENC·QSV·AMF가 감지되면 하드웨어 인코딩을 사용하며, 여러 파일을 동시에 압축하고 GIF·APNG·WebP로 내보낼 수 있습니다. 탐색기 오른쪽 클릭 메뉴에서 바로 압축할 수 있고, FFmpeg는 포함되지 않지만 첫 실행 때 자동으로 내려받을 수 있습니다."
 	},
+	"screenshot": "videopress.webp",
 	"icon": {
 		"file": "videopress.webp"
 	},
-	"screenshot": "videopress.webp",
-	"provisional": [
-		"screenshot"
-	],
 	"added": "2026-11-06T05:15:05Z"
 }

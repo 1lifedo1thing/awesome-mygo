@@ -21,12 +21,9 @@
 		"ja": "MyGo のネイティブ UI が Direct3D 11 で描画する Windows アプリで、WebView2 もブラウザーも別途のバックエンドも要りません。NetEase Cloud Music の人気プレイリストから懐メロや定番曲を優先して1曲をランダムに選び、1000 いいね以上の人気コメントを優先して、カバー、アーティスト、アルバム、元のプレイリストとともに表示します。非公式アプリで、曲の再生やダウンロードはできません。",
 		"ko": "MyGo의 네이티브 UI가 Direct3D 11로 그리는 Windows 앱으로, WebView2나 브라우저, 별도 백엔드가 필요 없습니다. NetEase Cloud Music의 인기 플레이리스트에서 추억의 명곡을 우선해 곡을 무작위로 고르고, 좋아요 1000개 이상의 인기 댓글을 우선해 커버, 아티스트, 앨범, 출처 플레이리스트와 함께 보여 줍니다. 비공식 앱이며 노래 재생이나 다운로드는 지원하지 않습니다."
 	},
+	"screenshot": "musiccomments.webp",
 	"icon": {
 		"file": "musiccomments.webp"
 	},
-	"screenshot": "musiccomments.webp",
-	"provisional": [
-		"screenshot"
-	],
 	"added": "2026-11-06T03:54:55Z"
 }

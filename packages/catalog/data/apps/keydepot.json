@@ -21,12 +21,9 @@
 		"ja": "SSH や PGP などの秘密鍵を保管するデスクトップ用の金庫アプリで、MyGo のネイティブ UI で描かれ、macOS・Windows・Linux 向けのビルドがあります。鍵は AES-256-GCM で暗号化して一つのローカルファイルに収め、プロジェクトごとにまとめます。パスワードか、macOS では Touch ID で開き、アカウントもクラウド同期もありません。現在はベータ版で、第三者によるセキュリティ監査は受けておらず、Windows 版と Linux 版はまだ検証されていません。",
 		"ko": "SSH, PGP 등 개인 키를 보관하는 데스크톱 금고 앱으로, MyGo의 네이티브 UI로 그렸으며 macOS, Windows, Linux용 빌드가 있습니다. 키는 AES-256-GCM으로 암호화해 로컬 파일 하나에 담고 프로젝트별로 묶으며, 비밀번호나 macOS에서는 Touch ID로 잠금을 풉니다. 계정도 클라우드 동기화도 없습니다. 아직 베타 버전으로 독립적인 보안 검토를 거치지 않았고, Windows와 Linux 빌드는 아직 테스트되지 않았습니다."
 	},
+	"screenshot": "keydepot.webp",
 	"icon": {
 		"file": "keydepot.webp"
 	},
-	"screenshot": "keydepot.webp",
-	"provisional": [
-		"screenshot"
-	],
 	"added": "2026-11-05T12:11:10Z"
 }

@@ -21,12 +21,9 @@
 		"ja": "MyGo のネイティブ UI で描かれたポータブルな Windows ランチャー。WebView も HTML も JavaScript も使いません。プログラム、ファイル、フォルダーをタブに並べ、ドラッグ＆ドロップで追加して起動・停止でき、管理者として実行することもできます。プログラムごとの実行時間は自動で記録されます。ウィンドウを閉じても標準ではシステムトレイに残り、データはアプリの隣の JSON ファイルに保存され、手で編集すると自動で再読み込みされます。",
 		"ko": "MyGo의 네이티브 UI로 그린 휴대용 Windows 런처로, WebView도 HTML도 JavaScript도 쓰지 않습니다. 프로그램, 파일, 폴더를 탭에 정리하고 끌어다 놓아 추가하며, 실행과 중지, 관리자 권한 실행을 지원하고 프로그램별 실행 시간을 자동으로 기록합니다. 기본적으로 창을 닫아도 시스템 트레이에 남고, 데이터는 앱 옆의 JSON 파일에 저장되며 직접 수정하면 자동으로 다시 불러옵니다."
 	},
+	"screenshot": "mygo-launcher.webp",
 	"icon": {
 		"file": "mygo-launcher.webp"
 	},
-	"screenshot": "mygo-launcher.webp",
-	"provisional": [
-		"screenshot"
-	],
 	"added": "2026-11-05T14:05:27Z"
 }

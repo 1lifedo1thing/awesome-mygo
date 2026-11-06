@@ -22,12 +22,9 @@
 		"ja": "Apple シリコン搭載 Mac 向けの、herdr-core（hc）のミニマルなクライアント。Go で書かれ、MyGo のネイティブ UI を使っています。左にスペース、リポジトリ、ワークツリーと実行中のエージェントを状態付きで並べ、中央に選んだエージェントの hc ターミナル、右には issue や PR ごとに段階と対応が必要な事項を示し、その場で返答できるボードを置きます。下部には Claude と Codex のプラン使用量、CPU、メモリを表示します。",
 		"ko": "Apple 실리콘 Mac용 herdr-core(hc) 미니멀 클라이언트로, Go로 작성하고 MyGo의 네이티브 UI를 사용합니다. 왼쪽에는 스페이스, 저장소, 워크트리와 실행 중인 에이전트를 상태와 함께 보여 주고, 가운데에는 선택한 에이전트의 hc 터미널을, 오른쪽에는 issue나 PR마다 단계와 처리할 일을 보여 주고 바로 답할 수 있는 보드를 둡니다. 아래쪽에는 Claude와 Codex 플랜 사용량, CPU, 메모리가 표시됩니다."
 	},
+	"screenshot": "contr.webp",
 	"icon": {
 		"file": "contr.webp"
 	},
-	"screenshot": "contr.webp",
-	"provisional": [
-		"screenshot"
-	],
 	"added": "2026-11-05T04:00:52Z"
 }

@@ -22,12 +22,9 @@
 		"ja": "Go で書かれ、MyGo のネイティブ UI で描かれた Home Assistant コントローラー。macOS ではメニューバー、Windows と Linux ではトレイに常駐します。パネルには部屋ごとにデバイスがタイルで並び、クリックでオン・オフできます。各デバイスのページで明るさや色、位置を変えられ、エアコンは風量、風向、Eco Mode、Sleep まで操作できます。Home Assistant の長期アクセストークンで接続します。",
 		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 Home Assistant 컨트롤러로, macOS에서는 메뉴 막대에, Windows와 Linux에서는 트레이에 상주합니다. 패널에는 기기가 방별 타일로 놓여 클릭 한 번으로 켜고 끄며, 기기별 페이지에서 밝기, 색, 위치를 바꾸고, 에어컨은 풍량, 풍향, Eco Mode, Sleep까지 조절합니다. Home Assistant의 장기 액세스 토큰으로 연결합니다."
 	},
+	"screenshot": "neohm.webp",
 	"icon": {
 		"file": "neohm.webp"
 	},
-	"screenshot": "neohm.webp",
-	"provisional": [
-		"screenshot"
-	],
 	"added": "2026-11-05T02:29:36Z"
 }

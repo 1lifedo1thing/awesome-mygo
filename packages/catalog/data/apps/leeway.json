@@ -21,12 +21,9 @@
 		"ja": "AI コーディングの残り枠を、利用量・残高・リセット時刻とあわせて確認できます。対応は deepseek、kimi、grok、codex、cursor、opencode-go、commandcode。CLI が中心で、スクリプトやエージェント向けに JSON を出力します。MyGo がビルドするのはネイティブウィンドウ版の macOS .app だけで、プロバイダーごとのカードと履歴を表示します。CLI は通常の Go ビルドで、同じコアを使います。",
 		"ko": "AI 코딩 할당량이 얼마나 남았는지 사용량, 잔액, 리셋 시각과 함께 보여 주며 deepseek, kimi, grok, codex, cursor, opencode-go, commandcode를 지원합니다. CLI가 중심이고 스크립트와 에이전트용 JSON을 출력합니다. MyGo는 네이티브 창인 macOS .app만 빌드하며, 이 창은 프로바이더별 카드와 사용 기록을 보여 줍니다. CLI는 일반 Go 빌드로 같은 코어를 씁니다."
 	},
+	"screenshot": "leeway.webp",
 	"icon": {
 		"file": "leeway.webp"
 	},
-	"screenshot": "leeway.webp",
-	"provisional": [
-		"screenshot"
-	],
 	"added": "2026-11-05T15:37:24Z"
 }

@@ -79,11 +79,13 @@ describe('the repository', () => {
 		expect(isBanner(0, 0)).toBe(false);
 	});
 
-	it('tells artwork from screenshots by file name', () => {
+	it('tells artwork from screenshots by path and file name', () => {
 		expect(isArtwork('https://raw.githubusercontent.com/Saramanda9988/LunaBox/main/screenshot/hero.png')).toBe(true);
 		expect(isArtwork('https://example.com/img/banner-dark.webp?v=2')).toBe(true);
 		expect(isArtwork('https://example.com/assets/app_logo.png')).toBe(true);
 		expect(isArtwork('https://example.com/docs/og-image.png')).toBe(true);
+		expect(isArtwork('https://raw.githubusercontent.com/ConteMan/cubbix/main/brand/dist/dark-1024.png')).toBe(true);
+		expect(isArtwork('https://raw.githubusercontent.com/zeokeel/ZeoKeel-Super-Agent/main/design/dsh-reference/dsh-home.png')).toBe(true);
 		expect(isArtwork('https://raw.githubusercontent.com/Saramanda9988/LunaBox/main/screenshot/home-img.png')).toBe(false);
 		expect(isArtwork('https://example.com/docs/preview/home_en.png')).toBe(false);
 		expect(isArtwork('https://example.com/covered-calls.png')).toBe(false);
@@ -180,7 +182,7 @@ describe('repository screenshots', () => {
 
 	it('finds likely screenshots outside specially named folders without taking branding assets', () => {
 		const paths = ['docs/ui-baselines/windows/dashboard-empty.png', 'docs/design-mockup/pages.png', 'assets/demo-tools.png', 'website/public/main.webp', 'assets/icon-preview.png', 'assets/banner-demo.jpg', 'assets/backdrop.jpg', 'frontend/public/wails.png', 'dist/screenshots/app.png', 'node_modules/x/docs/overview.png'];
-		expect(repoLikelyScreenshots(paths)).toEqual(['assets/demo-tools.png', 'docs/design-mockup/pages.png', 'docs/ui-baselines/windows/dashboard-empty.png', 'website/public/main.webp']);
+		expect(repoLikelyScreenshots(paths)).toEqual(['docs/ui-baselines/windows/dashboard-empty.png', 'website/public/main.webp', 'assets/demo-tools.png', 'docs/design-mockup/pages.png']);
 	});
 });
 

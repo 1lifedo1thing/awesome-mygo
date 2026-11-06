@@ -22,12 +22,9 @@
 		"ja": "ローカルの Codex と Claude Code の使用状況を見る Windows x64 向けモニター。トークン、リクエスト、キャッシュヒット率、API 料金換算の推定コスト、5 時間・週ごとの利用枠、アクティビティカレンダーを各エージェントのローカルログから集計し、外部への送信はしません。メインウィンドウは MyGo のネイティブ UI で描かれ、透明なデスクトップウィジェットは Go と Win32 で別に作られています。",
 		"ko": "로컬 Codex와 Claude Code 사용량을 보는 Windows x64용 모니터입니다. 토큰, 요청, 캐시 적중률, API 가격 기준 예상 비용, 5시간·주간 한도, 활동 캘린더를 각 에이전트의 로컬 로그에서 집계하며 외부 원격 측정은 없습니다. 메인 창은 MyGo의 네이티브 UI로 그리고, 투명한 데스크톱 위젯은 Go와 Win32로 따로 만들었습니다."
 	},
+	"screenshot": "agentmeter.webp",
 	"icon": {
 		"file": "agentmeter.webp"
 	},
-	"provisional": [
-		"icon"
-	],
-	"screenshot": "agentmeter.webp",
 	"added": "2026-11-05T04:00:52Z"
 }

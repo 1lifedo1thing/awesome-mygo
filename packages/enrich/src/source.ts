@@ -195,9 +195,16 @@ export function repoLikelyScreenshots(paths: readonly string[]): string[] {
 	const branding = /(^|[-_.\/])(icons?|logos?|favicons?|badges?|avatars?|emojis?|flags?|brands?|banners?|heroes?|covers?|splash|social|og[-_.]?images?|backdrops?|backgrounds?|wallpapers?|tray|marks?)([-_.\/]|$)/i;
 	const likely = /(^|[-_.])(screenshots?|screen[-_.]?shots?|previews?|demos?|showcases?|windows?|overviews?|dashboards?|galleries?|interfaces?|pages?|modes?|activities?|pictures?|settings|home|main|ui)([-_.0-9]|$)/i;
 	const english = (p: string) => (/\/en(-[a-z]+)?\//i.test(p) ? 0 : 1);
+	// Prefer a complete window or dashboard over the small icon and menu-bar previews that design repositories often keep by the dozen. Dimensions are unknown until download, so a useful name gets the first attempts.
+	const preferred = [/screens?hot/i, /window/i, /dashboard/i, /\bmain\b/i, /\bhome\b/i, /settings/i, /overview/i, /interface/i, /showcase/i, /demo/i, /preview/i, /pages?/i, /gallery/i, /activities?/i, /modes?/i, /pictures?/i, /(^|[-_.])ui([-_.0-9]|$)/i];
+	const rank = (p: string) => {
+		const file = p.slice(p.lastIndexOf('/') + 1);
+		const found = preferred.findIndex((pattern) => pattern.test(file));
+		return found < 0 ? preferred.length : found;
+	};
 	return paths
 		.filter((p) => image.test(p) && !skipFolder.test(p) && !branding.test(p) && likely.test(p.slice(p.lastIndexOf('/') + 1)))
-		.sort((a, b) => english(a) - english(b) || a.localeCompare(b));
+		.sort((a, b) => rank(a) - rank(b) || english(a) - english(b) || a.localeCompare(b));
 }
 
 // The values a field may take in one of the catalog's schemas (properties.<field>.enum), such as an app's categories in app.schema.json.
@@ -336,12 +343,14 @@ export function readmeImages(md: string): string[] {
 // Badges and other images that are never a screenshot of the app.
 const NOT_A_SHOT = /(^|\.)(img\.shields\.io|badge\.fury\.io|badgen\.net|codecov\.io|goreportcard\.com|pkg\.go\.dev|deepwiki\.com)$/;
 
-// Whether an image's file name says it is not a screenshot of the app: a hero image, banner, cover, logo or social preview, which a README often puts first (LunaBox's screenshot/hero.png), or a link to a community, a sponsor page or a QR code.
+// Whether an image's path says it is not a screenshot of the app: a hero image, banner, cover, logo or social preview, which a README often puts first (LunaBox's screenshot/hero.png), a file under a branding, icon or design-reference directory, or a link to a community, a sponsor page or a QR code.
 export function isArtwork(url: string): boolean {
-	const file = (url.split(/[?#]/)[0].split('/').pop() ?? '').toLowerCase();
+	const parts = url.split(/[?#]/)[0].toLowerCase().split('/').filter(Boolean);
+	const file = parts.pop() ?? '';
 	const words = file.replace(/\.[a-z0-9]+$/, '').split(/[-_.\s]+/);
 	const art = ['hero', 'banner', 'cover', 'logo', 'og', 'social', 'community', 'qq', 'telegram', 'discord', 'wechat', 'weixin', 'sponsor', 'sponsors', 'donate', 'qr', 'qrcode', 'badge'];
-	return words.some((w) => art.includes(w));
+	const artFolders = /(^|[-_.])(?:brand(?:ing)?|icons?|logos?|badges?|avatars?|social|references?)([-_.]|$)/;
+	return parts.some((part) => artFolders.test(part)) || words.some((w) => art.includes(w));
 }
 
 // Where to download a README image from: a link inside the repository becomes its raw file on the default branch, a link elsewhere is kept as long as it is https. SVGs, badges and workflow status images are skipped.
