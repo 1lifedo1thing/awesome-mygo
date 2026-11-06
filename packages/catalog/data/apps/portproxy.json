@@ -1,0 +1,19 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "portproxy",
+	"name": "PortProxy",
+	"author": "vicnoah",
+	"kind": "native",
+	"group": "network",
+	"url": "https://github.com/vicnoah/PortProxy",
+	"repo": "vicnoah/PortProxy",
+	"summary": {
+		"en": "A Windows manager for netsh interface portproxy, with rules that keep working after the app closes.",
+		"zh-CN": "Windows 端口代理管理工具，用 MyGo 原生 UI 重写；规则写进系统的 portproxy，关掉软件也照样生效。"
+	},
+	"description": {
+		"en": "A Go rewrite of PortProxyGUI on MyGo's native UI: it reads and writes the real Windows portproxy registry keys and keeps its SQLite config.db interchangeable with the original app, then adds group management, live search, status and type filters, column sorting and import/export. A two-field rule is enough to publish a service running in WSL 2 to the rest of the LAN while WSL sits behind NAT. English and Simplified Chinese UI, an NSIS installer and signed auto-updates.",
+		"zh-CN": "用 MyGo 原生 UI 重写的 PortProxyGUI：直接读写 Windows 的 portproxy 注册表键，SQLite 配置库与原版完全互通，并补上分组管理、全局搜索、状态与类型筛选、列排序以及导入导出。WSL 2 处在 NAT 后面时，填两个字段就能把它里面的服务发布到局域网其它电脑。界面中英双语，提供 NSIS 安装包与签名自动更新。"
+	},
+	"added": "2026-11-06T18:02:10Z"
+}
