@@ -1,0 +1,19 @@
+{
+	"$schema": "../schema/ai.schema.json",
+	"slug": "mygo-mcp",
+	"name": "MyGo MCP",
+	"author": "auron-labs",
+	"url": "https://github.com/auron-labs/mygo-mcp",
+	"repo": "auron-labs/mygo-mcp",
+	"type": "mcp",
+	"install": "go get github.com/auron-labs/mygo-mcp@latest",
+	"tags": [
+		"mcp",
+		"testing",
+		"automation"
+	],
+	"summary": {
+		"en": "A Go library that lets an MCP client inspect, click, type into and screenshot MyGo views in headless fixtures, without a desktop window."
+	},
+	"added": "2026-11-06T05:49:15Z"
+}
