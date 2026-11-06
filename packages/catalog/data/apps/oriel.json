@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "oriel",
+	"name": "Oriel",
+	"author": "yangflow",
+	"kind": "native",
+	"group": "notes",
+	"url": "https://github.com/yangflow/oriel",
+	"repo": "yangflow/oriel",
+	"summary": {
+		"en": "An RSS and RSSHub reader that puts articles, videos, social posts and images in one timeline.",
+		"zh-CN": "RSS 与 RSSHub 阅读器：文章、视频、社交动态和图片汇入同一条时间线。",
+		"zh-TW": "RSS 與 RSSHub 閱讀器：文章、影片、社群貼文和圖片匯入同一條時間軸。",
+		"ja": "RSS と RSSHub のリーダー。記事、動画、SNS の投稿、画像をひとつのタイムラインに。",
+		"ko": "기사, 동영상, 소셜 게시물, 이미지를 하나의 타임라인에 모으는 RSS·RSSHub 리더."
+	},
+	"description": {
+		"en": "An RSS and RSSHub reader for macOS, Windows and Linux, written in Go with MyGo's native UI and no browser engine. Articles, videos, social posts and images share one timeline, articles open in a native reader with their full text, and everything stays in a SQLite file of yours. The same program runs headless as oriel serve on a home server, and the desktop app can connect to it.",
+		"zh-CN": "用 Go 编写、由 MyGo 原生 UI 绘制的 RSS 与 RSSHub 阅读器，支持 macOS、Windows 和 Linux，内部没有浏览器引擎。文章、视频、社交动态和图片排在同一条时间线上，文章在原生阅读器中显示全文，数据都保存在你自己的 SQLite 文件里。同一个程序也能以 oriel serve 在家用服务器上无窗口运行，桌面端可以连接过去。",
+		"zh-TW": "用 Go 撰寫、由 MyGo 原生 UI 繪製的 RSS 與 RSSHub 閱讀器，支援 macOS、Windows 和 Linux，內部沒有瀏覽器引擎。文章、影片、社群貼文和圖片排在同一條時間軸上，文章在原生閱讀器中顯示全文，資料都保存在你自己的 SQLite 檔案裡。同一個程式也能以 oriel serve 在家用伺服器上無視窗執行，桌面端可以連線過去。",
+		"ja": "Go で書かれ、MyGo のネイティブ UI で描かれた macOS・Windows・Linux 向けの RSS・RSSHub リーダー。ブラウザエンジンは内蔵していません。記事、動画、SNS の投稿、画像がひとつのタイムラインに並び、記事はネイティブのリーダーで全文を読めます。データはすべて手元の SQLite ファイルに保存されます。同じプログラムを oriel serve としてホームサーバーでウィンドウなしに動かし、デスクトップアプリからそこへ接続することもできます。",
+		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 macOS·Windows·Linux용 RSS·RSSHub 리더로, 브라우저 엔진을 내장하지 않습니다. 기사, 동영상, 소셜 게시물, 이미지가 하나의 타임라인에 모이고, 기사는 네이티브 리더에서 전문으로 읽을 수 있으며, 데이터는 모두 내 SQLite 파일에 저장됩니다. 같은 프로그램을 oriel serve로 홈 서버에서 창 없이 실행하고 데스크톱 앱에서 접속할 수도 있습니다."
+	},
+	"icon": {
+		"file": "oriel.webp"
+	},
+	"screenshot": "oriel.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-06T04:56:38Z"
+}
