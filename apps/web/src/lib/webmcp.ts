@@ -28,7 +28,7 @@ export const readOriginTrial = createIsomorphicFn()
 	.server((): string | undefined => env.WEBMCP_ORIGIN_TRIAL || undefined)
 	.client((): string | undefined => document.querySelector<HTMLMetaElement>('meta[http-equiv="origin-trial"]')?.content || undefined);
 
-// A browser extension through which a visitor's AI reaches these tools on any Chrome, with no flag or origin-trial token: MCP-B Agent puts its own document.modelContext into every page at document_start, and the tools register with it (checked with 1.1.0.243 on 2026-11-06). Both submit dialogs name it in their note on letting an AI fill the form in.
+// A browser extension for a visitor whose AI does not read Chrome's own WebMCP, which the origin-trial token turns on for the site: MCP-B Agent puts its own document.modelContext into every page at document_start, and the tools register with it. On 2026-11-06, against production with the token live, the tools reached both native WebMCP on Chromium 156 and MCP-B Agent 1.1.0.243 in a browser that had it installed. Both submit dialogs link it at the end of their note on letting an AI fill the form in.
 export const WEBMCP_EXTENSION = { name: 'MCP-B Agent', url: 'https://chromewebstore.google.com/detail/daohopfhkdelnpemnhlekblhnikhdhfa' };
 
 type Site = ReturnType<typeof useSite>;
