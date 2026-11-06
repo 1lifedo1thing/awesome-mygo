@@ -5,7 +5,7 @@ import { useSite } from '../../lib/site';
 import { DesktopIcons } from '../DesktopIcons';
 import { StatusBar, Win, btn, btnGo, btnSm, seg, well } from '../ui';
 
-// Headline size per language, so the longest line of r_h1 fits the README window (540px of text at the desktop width): a CJK character is a full em, bold Latin a little over half.
+// Headline size per language, so each script stays readable while the README window wraps it naturally: a CJK character is a full em, bold Latin a little over half.
 const H1_SIZE: Record<LangCode, string> = {
 	'zh-CN': 'text-[40px] leading-[48px] desk:text-[64px] desk:leading-[72px]',
 	'zh-TW': 'text-[40px] leading-[48px] desk:text-[64px] desk:leading-[72px]',
@@ -30,25 +30,19 @@ export function Home() {
 function Welcome() {
 	const t = useT();
 	const lang = useLang();
-	const lines = t.r_h1.split('\n');
 	return (
 		<Win title='README.md' level={2} className='order-1'>
 			<div className={`${well} relative px-5 pt-[22px] pb-[18px] desk:px-9 desk:pt-6 desk:pb-6`}>
 				<h1 className={`my-3 font-bold tracking-tight desk:mt-1 desk:mb-4 ${H1_SIZE[lang]}`}>
-					{lines.map((line, i) => (
-						<span key={line} className='block whitespace-nowrap'>
-							{line.split(/(\bGo\b)/).map((part, j) =>
-								part === 'Go' ? (
-									<mark key={j} className='mx-[0.06em] rounded-[0.18em] bg-ink px-[0.14em] text-yel'>
-										Go
-									</mark>
-								) : (
-									part
-								),
-							)}
-							{i < lines.length - 1 && ' '}
-						</span>
-					))}
+					{t.r_h1.split(/(\bGo\b)/).map((part, i) =>
+						part === 'Go' ? (
+							<mark key={i} className='mx-[0.06em] rounded-[0.18em] bg-ink px-[0.14em] text-yel'>
+								Go
+							</mark>
+						) : (
+							part
+						),
+					)}
 				</h1>
 				<p className='m-0'>
 					{t.hero_p}

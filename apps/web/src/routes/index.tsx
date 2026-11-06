@@ -1,6 +1,6 @@
 import { AI_TOOLS, APPS, INSTALL_CMDS, INSTALL_TABS, type InstallTab, MYGO_SITE, PLUGINS, STATE_SOLUTIONS, TEMPLATES, UI_LIBS, appBySlug, fill, langDef, pad2, pick } from '@awesome-mygo/catalog';
 import { Link, createFileRoute, useNavigate } from '@tanstack/react-router';
-import { type CSSProperties, type PointerEvent, useRef } from 'react';
+import { type CSSProperties, Fragment, type PointerEvent, useRef } from 'react';
 import { AppLink, KindTag, MonoTile, WinBar, appView } from '../components/bits';
 import { useLang, useT } from '../lib/lang';
 import { prefersReducedMotion, tilt, useCountUp } from '../lib/motion';
@@ -55,7 +55,7 @@ function mustApp(slug: string) {
 
 // The headline as groups of animated characters. A group never wraps inside: a word in word-spaced languages, the text between two \u200b marks in CJK ones.
 function tokens(str: string, byWord: boolean, start: number, step: number) {
-	const groups = byWord ? str.split(' ').map((w, i, arr) => [w + (i < arr.length - 1 ? ' ' : '')]) : str.split('\u200b').map((g) => Array.from(g));
+	const groups = byWord ? str.split(' ').map((w) => [w]) : str.split('\u200b').map((g) => Array.from(g));
 	let n = 0;
 	return groups.map((g) => g.map((c) => ({ c, d: start + n++ * step })));
 }
@@ -173,30 +173,36 @@ function Hero() {
 					<span className='arrow text-fg group-hover:[transform:translateX(4px)]'>→</span>
 				</Link>
 
-				{/* CJK headlines keep their natural spacing; only the word-spaced languages are tightened. Below sm a CJK headline is sized by the screen width: the Japanese first line, ten glyphs that may not break, is wider than a 360px screen at the 38px floor. */}
+				{/* CJK headlines keep their natural spacing; only the word-spaced languages are tightened. Below sm a CJK headline is sized by the screen width: the Japanese opening phrase has ten glyphs that may not break and is wider than a 360px screen at the 38px floor. */}
 				<h1 aria-label={plain(`${t.h1_1} ${t.h1_2}`)} className='m-0 text-[length:clamp(38px,4.7vw,68px)] leading-[1.16] font-extrabold data-[words=true]:text-[length:clamp(36px,4.4vw,62px)] data-[words=true]:tracking-[-0.03em] max-sm:text-[length:min(38px,9vw)] max-sm:data-[words=true]:text-[36px]' data-words={words}>
-					<span aria-hidden='true' className='block'>
+					<span aria-hidden='true'>
 						{l1.map((g, i) => (
-							<span key={i} className='whitespace-nowrap'>
-								{g.map((ch) => (
-									<span key={ch.d} className={CH} style={{ animationDelay: `${ch.d}ms` }}>
-										{ch.c}
-									</span>
-								))}
-							</span>
+							<Fragment key={i}>
+								{words && i > 0 && ' '}
+								<span className='inline-block whitespace-nowrap'>
+									{g.map((ch) => (
+										<span key={ch.d} className={CH} style={{ animationDelay: `${ch.d}ms` }}>
+											{ch.c}
+										</span>
+									))}
+								</span>
+							</Fragment>
 						))}
 					</span>
-					{/* Invisible between the two block lines, but keeps the text of word-spaced languages from reading "Go,all". */}
+					{/* The two phrases differ only in colour; both stay inline so the available width decides where the heading wraps. */}
 					{words && ' '}
-					<span aria-hidden='true' className='block text-cyan [text-shadow:0_0_40px_rgba(63,211,245,0.25)]'>
+					<span aria-hidden='true' className='text-cyan [text-shadow:0_0_40px_rgba(63,211,245,0.25)]'>
 						{l2.map((g, i) => (
-							<span key={i} className='whitespace-nowrap'>
-								{g.map((ch) => (
-									<span key={ch.d} className={CH} style={{ animationDelay: `${ch.d}ms` }}>
-										{ch.c}
-									</span>
-								))}
-							</span>
+							<Fragment key={i}>
+								{words && i > 0 && ' '}
+								<span className='inline-block whitespace-nowrap'>
+									{g.map((ch) => (
+										<span key={ch.d} className={CH} style={{ animationDelay: `${ch.d}ms` }}>
+											{ch.c}
+										</span>
+									))}
+								</span>
+							</Fragment>
 						))}
 					</span>
 				</h1>

@@ -96,6 +96,10 @@ describe('catalog data', () => {
 		}
 	});
 
+	it('keeps UI copy free of manual line breaks', () => {
+		for (const L of LANGS) for (const [key, value] of Object.entries(LOCALES[L.code])) expect(value, `${L.code} ${key}`).not.toMatch(/[\r\n]/);
+	});
+
 	// Which apps have which kind of icon is the data's business: the submission bot takes an app's icon from where MyGo finds it and leaves it out when it is MyGo's default one from mygo init, and it reports which in the pull request.
 	it('takes icons from ai-logo or a local official icon named after the app', () => {
 		for (const a of APPS) {
