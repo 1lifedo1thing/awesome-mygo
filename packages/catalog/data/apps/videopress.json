@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "videopress",
+	"name": "Videopress",
+	"author": "Shirolin",
+	"kind": "native",
+	"group": "media",
+	"url": "https://github.com/Shirolin/videopress/releases",
+	"repo": "Shirolin/videopress",
+	"summary": {
+		"en": "A Windows video compressor built on FFmpeg, with presets, GPU encoding, GIF export and a CLI.",
+		"zh-CN": "Windows 视频压缩工具，基于 FFmpeg，支持 GPU 编码和动图导出。",
+		"zh-TW": "Windows 影片壓縮工具，基於 FFmpeg，支援 GPU 編碼與動圖匯出。",
+		"ja": "FFmpeg を使った Windows 用動画圧縮ツール。GPU エンコード、GIF 書き出しに対応。",
+		"ko": "FFmpeg 기반 Windows 동영상 압축 도구. GPU 인코딩, GIF 내보내기, 명령줄 지원."
+	},
+	"description": {
+		"en": "A video compressor for Windows 10 and 11 built on FFmpeg, drawn with MyGo's native UI and also usable from the command line. It offers three quality presets, uses NVENC, QSV or AMF hardware encoding when found, compresses files in parallel and exports GIF, APNG or WebP. It adds an Explorer context-menu entry; FFmpeg is not bundled but can be downloaded on first run.",
+		"zh-CN": "基于 FFmpeg 的 Windows 10/11 视频压缩工具，界面由 MyGo 原生 UI 绘制，也可在命令行中使用。内置三档质量预设，检测到 NVENC、QSV 或 AMF 时自动启用硬件编码，支持多文件并发压缩，并可导出 GIF、APNG 或 WebP 动图。可在资源管理器右键菜单中直接压缩；不内置 FFmpeg，但首次启动时可自动下载。",
+		"zh-TW": "以 FFmpeg 為基礎的 Windows 10/11 影片壓縮工具，介面由 MyGo 原生 UI 繪製，也能在命令列中使用。內建三種品質預設，偵測到 NVENC、QSV 或 AMF 時自動啟用硬體編碼，支援多檔案並行壓縮，並可匯出 GIF、APNG 或 WebP 動圖。可從檔案總管右鍵選單直接壓縮；未內建 FFmpeg，但首次啟動時可自動下載。",
+		"ja": "FFmpeg を使った Windows 10/11 向けの動画圧縮ツール。MyGo のネイティブ UI で描かれ、コマンドラインからも使えます。3 段階の画質プリセットを備え、NVENC・QSV・AMF を検出するとハードウェアエンコードを使い、複数ファイルを並行して圧縮し、GIF・APNG・WebP の書き出しもできます。エクスプローラーの右クリックメニューから圧縮でき、FFmpeg は同梱されませんが初回起動時に自動でダウンロードできます。",
+		"ko": "FFmpeg 기반의 Windows 10/11용 동영상 압축 도구로, MyGo의 네이티브 UI로 그렸으며 명령줄에서도 쓸 수 있습니다. 세 가지 화질 프리셋을 제공하고, NVENC·QSV·AMF가 감지되면 하드웨어 인코딩을 사용하며, 여러 파일을 동시에 압축하고 GIF·APNG·WebP로 내보낼 수 있습니다. 탐색기 오른쪽 클릭 메뉴에서 바로 압축할 수 있고, FFmpeg는 포함되지 않지만 첫 실행 때 자동으로 내려받을 수 있습니다."
+	},
+	"icon": {
+		"file": "videopress.webp"
+	},
+	"screenshot": "videopress.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-06T05:15:05Z"
+}
