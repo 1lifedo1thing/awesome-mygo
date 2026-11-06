@@ -132,6 +132,7 @@
 	"f_no": "No.",
 	"open_x": "Open {x} ↗",
 	"copy_link": "Copy link",
+	"f_more": "More",
 	"more_by": "More by {x}",
 	"app_kind": "Desktop app built with Go",
 	"app_shot": "screenshot",
