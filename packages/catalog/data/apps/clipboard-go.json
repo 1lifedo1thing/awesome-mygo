@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "clipboard-go",
+	"name": "Clipboard-go",
+	"author": "1e4DouWine",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/1e4DouWine/clipboard_go",
+	"repo": "1e4DouWine/clipboard_go",
+	"summary": {
+		"en": "A clipboard history tool with global hotkeys and quick paste, keeping entries in SQLite.",
+		"zh-CN": "支持全局快捷键和快速粘贴的剪贴板历史工具，记录存于 SQLite。",
+		"zh-TW": "支援全域快捷鍵與快速貼上的剪貼簿歷史工具，紀錄存於 SQLite。",
+		"ja": "グローバルホットキーとクイックペーストを備え、履歴を SQLite に保存するクリップボードツール。",
+		"ko": "전역 단축키와 빠른 붙여넣기를 갖추고 기록을 SQLite에 저장하는 클립보드 도구."
+	},
+	"description": {
+		"en": "A clipboard history tool drawn with MyGo's native UI. It keeps what you copy in a SQLite database and uses global hotkeys and quick paste to bring earlier entries back.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的剪贴板历史工具。复制过的内容保存在 SQLite 数据库中，可通过全局快捷键和快速粘贴把之前的条目调出来。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的剪貼簿歷史工具。複製過的內容會存放在 SQLite 資料庫中，可透過全域快捷鍵與快速貼上叫回先前的項目。",
+		"ja": "MyGo のネイティブ UI で描かれたクリップボード履歴ツール。コピーした内容を SQLite データベースに保存し、グローバルホットキーとクイックペーストで以前の項目をすぐに呼び出せます。",
+		"ko": "MyGo의 네이티브 UI로 그린 클립보드 기록 도구입니다. 복사한 내용을 SQLite 데이터베이스에 저장하고, 전역 단축키와 빠른 붙여넣기로 이전 항목을 다시 불러옵니다."
+	},
+	"icon": {
+		"file": "clipboard-go.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "clipboard-go.webp",
+	"added": "2026-11-06T07:59:41Z"
+}
