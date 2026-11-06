@@ -121,7 +121,7 @@ function Ask({ cat, copy, listed }: { cat: SubmitCat; copy: CategoryCopy; listed
 		<section aria-labelledby={id} className='mx-1 grid grid-cols-[40px_1fr] gap-x-4 gap-y-2.5 rounded-xl border border-line bg-face p-3.5 shadow-win desk:col-span-5 desk:col-start-2 desk:row-start-2 desk:m-0 desk:mt-6 desk:ml-4 desk:px-[18px] desk:pt-4 desk:pb-3.5'>
 			<PixelIcon name='inbox' scale={2} className='mt-1' />
 			<div>
-				<h2 id={id} className='m-0 mb-1 text-xl leading-7 font-semibold text-balance [&:lang(ko)]:break-keep'>
+				<h2 id={id} className='m-0 mb-1 text-xl leading-7 font-semibold [&:lang(ko)]:break-keep'>
 					{listed ? copy.more : copy.emptyH}
 				</h2>
 				<p className='m-0'>{copy.emptyP}</p>

@@ -66,7 +66,7 @@ function Resources() {
 					<li key={r.key} className='min-w-0'>
 						<a href={r.url} target='_blank' rel='noopener' className='group grid justify-items-center gap-1 px-1 py-2 text-center no-underline'>
 							<PixelIcon name={RES_ICON[r.key]} scale={2} />
-							<span className={`${iconLabel} text-balance`}>{t[r.key]}</span>
+							<span className={iconLabel}>{t[r.key]}</span>
 							<span lang='en' className='max-w-full truncate font-mono text-faint'>
 								{hostOf(r.url)}
 							</span>

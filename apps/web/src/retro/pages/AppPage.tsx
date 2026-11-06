@@ -205,7 +205,7 @@ function Page({ app }: { app: App }) {
 					<div className='relative grid content-start gap-4 desk:col-start-1 desk:row-span-2 desk:row-start-1 desk:min-h-0 desk:overflow-y-auto'>
 						<AppShot view={v} priority fit />
 						<p className='m-0 leading-[22px] [&:lang(ko)]:break-keep'>{pick(app.about, lang)}</p>
-						<ScoreBreakdown item={likeKey.app(app)} id='score' className='max-w-[48em]' />
+						<ScoreBreakdown item={likeKey.app(app)} id='score' />
 					</div>
 					<div className='grid content-start gap-3.5 desk:col-start-2 desk:row-start-2 desk:flex desk:min-h-0 desk:flex-col'>
 						<AppFacts view={v} />
