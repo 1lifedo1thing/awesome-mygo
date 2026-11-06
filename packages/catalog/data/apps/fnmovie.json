@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "fnmovie",
+	"name": "哞哩影院",
+	"author": "biaobiaobiao108",
+	"kind": "native",
+	"group": "media",
+	"url": "https://biaobiaobiao108.github.io/fnmovie/",
+	"repo": "biaobiaobiao108/fnmovie",
+	"summary": {
+		"en": "A native Windows client for browsing and playing movies and shows from your 飞牛影视 (fnOS) server.",
+		"zh-CN": "原生 Windows 客户端，浏览并播放飞牛影视服务器上的电影与剧集。",
+		"zh-TW": "原生 Windows 用戶端，瀏覽並播放飞牛影视伺服器上的電影與影集。",
+		"ja": "飞牛影视サーバーの映画やドラマを閲覧・再生できる、ネイティブな Windows クライアント。",
+		"ko": "飞牛影视 서버의 영화와 TV 시리즈를 둘러보고 재생하는 네이티브 Windows 클라이언트."
+	},
+	"description": {
+		"en": "A Windows x64 client for a fnOS (飞牛影视) media server, drawn with MyGo's native UI, with video played by libmpv and no WebView. You sign in to your own server, browse movies and TV shows by library in a poster grid, search by title, and see the synopsis, ratings, cast and episodes before playing. Playback picks up where you left off, and progress syncs back to the server.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows x64 飞牛影视客户端，视频由 libmpv 播放，不使用 WebView。登录自己的飞牛影视服务器后，可按影视库以海报网格浏览电影与剧集、按片名搜索，播放前查看简介、评分、演职人员和分集。播放会从上次的进度继续，观看进度也会同步回服务器。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows x64 飞牛影视用戶端，影片由 libmpv 播放，不使用 WebView。登入自己的飞牛影视伺服器後，可依影視庫以海報網格瀏覽電影與影集、依片名搜尋，播放前查看簡介、評分、演職人員和分集。播放會從上次的進度接續，觀看進度也會同步回伺服器。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows x64 向けの飞牛影视クライアント。動画は libmpv で再生し、WebView は使いません。自分の飞牛影视サーバーにログインすると、ライブラリごとに映画やドラマをポスターのグリッドで閲覧したり、タイトルで検索したりでき、再生前にあらすじ、評価、キャスト、エピソードを確認できます。再生は前回の位置から再開され、視聴の進み具合はサーバーに同期されます。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows x64용 飞牛影视 클라이언트로, 동영상은 libmpv로 재생하며 WebView를 쓰지 않습니다. 자신의 飞牛影视 서버에 로그인하면 라이브러리별로 영화와 TV 시리즈를 포스터 그리드로 둘러보고 제목으로 검색할 수 있으며, 재생 전에 줄거리, 평점, 출연진, 에피소드를 확인할 수 있습니다. 재생은 마지막 위치부터 이어지고, 시청 진행 상황은 서버에 동기화됩니다."
+	},
+	"icon": {
+		"file": "fnmovie.webp"
+	},
+	"screenshot": "fnmovie.webp",
+	"added": "2026-11-06T03:54:55Z"
+}
