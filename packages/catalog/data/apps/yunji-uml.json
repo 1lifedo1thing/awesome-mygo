@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "yunji-uml",
+	"name": "云吉 UML",
+	"author": "kiwiflydream",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/kiwiflydream/yunji-uml",
+	"repo": "kiwiflydream/yunji-uml",
+	"summary": {
+		"en": "Write PlantUML, Mermaid or Flowchart.js diagrams as text and preview them as you type.",
+		"zh-CN": "用 PlantUML、Mermaid、Flowchart.js 写图，边写边看。",
+		"zh-TW": "用 PlantUML、Mermaid、Flowchart.js 寫圖，邊寫邊看。",
+		"ja": "PlantUML・Mermaid・Flowchart.js の図をテキストで書き、その場でプレビュー。",
+		"ko": "PlantUML, Mermaid, Flowchart.js로 다이어그램을 쓰며 바로 미리 보기."
+	},
+	"description": {
+		"en": "A text diagram editor for macOS, Windows and Linux: write PlantUML, Mermaid or Flowchart.js and see it rendered locally as you type, with templates, reusable styles, version history and PNG or SVG export. The interface is MyGo's native UI; on macOS the editor stays AppKit, while Windows and Linux use MyGo's editor and the system WebView for offline rendering.",
+		"zh-CN": "面向 macOS、Windows 与 Linux 的文本图表编辑器：用 PlantUML、Mermaid 或 Flowchart.js 写图，边写边在本地渲染预览，提供模板、可复用样式、历史版本以及 PNG、SVG 导出。界面采用 MyGo 原生 UI；macOS 上编辑器仍为 AppKit，Windows 与 Linux 使用 MyGo 编辑器，并由系统 WebView 离线渲染。",
+		"zh-TW": "適用 macOS、Windows 與 Linux 的文字圖表編輯器：以 PlantUML、Mermaid 或 Flowchart.js 寫圖，邊寫邊在本機算繪預覽，提供範本、可重複使用的樣式、歷史版本，以及 PNG、SVG 匯出。介面採用 MyGo 原生 UI；macOS 上的編輯器仍是 AppKit，Windows 與 Linux 則使用 MyGo 編輯器，並由系統 WebView 離線算繪。",
+		"ja": "macOS・Windows・Linux 向けのテキスト図エディター。PlantUML、Mermaid、Flowchart.js で書いた図を入力しながらローカルでプレビューでき、テンプレート、再利用できるスタイル、履歴、PNG・SVG 書き出しを備えます。UI は MyGo のネイティブ UI で、macOS ではエディターに AppKit を使い、Windows と Linux では MyGo のエディターとシステムの WebView によるオフライン描画を使います。",
+		"ko": "macOS, Windows, Linux용 텍스트 다이어그램 편집기입니다. PlantUML, Mermaid, Flowchart.js로 쓴 다이어그램을 입력하면서 로컬에서 미리 보고, 템플릿, 재사용 가능한 스타일, 버전 기록, PNG·SVG 내보내기를 제공합니다. 화면은 MyGo의 네이티브 UI이며, macOS에서는 편집기에 AppKit을 쓰고 Windows와 Linux에서는 MyGo 편집기와 시스템 WebView 오프라인 렌더링을 씁니다."
+	},
+	"icon": {
+		"file": "yunji-uml.webp"
+	},
+	"screenshot": "yunji-uml.webp",
+	"added": "2026-11-06T03:34:18Z"
+}
