@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "gzist-netkeeper",
+	"name": "GZIST NetKeeper",
+	"author": "xiaomai1011",
+	"kind": "native",
+	"group": "network",
+	"url": "https://xiaomai1011.github.io/GZIST-NetKeeper/",
+	"repo": "xiaomai1011/GZIST-NetKeeper",
+	"summary": {
+		"en": "Keeps you logged in to the Guangzhou Institute of Science and Technology campus network.",
+		"zh-CN": "托盘常驻，自动登录广州理工学院校园网，掉线后自动重连。",
+		"zh-TW": "常駐系統匣，自動登入廣州理工學院校園網路，斷線後自動重新連線。",
+		"ja": "広州理工学院のキャンパスネットワークに自動ログインし、切断時に再接続するトレイアプリ。",
+		"ko": "광저우이공학원 캠퍼스 네트워크에 자동 로그인하고 끊기면 다시 연결하는 트레이 앱."
+	},
+	"description": {
+		"en": "A tray app for macOS, Windows and Linux that logs in to the Guangzhou Institute of Science and Technology campus network with your student ID and password, checks the connection every 10 seconds and logs back in when it drops. It stops retrying when the server rejects the password, keeps the password in the system credential store, and is drawn with MyGo's native UI, without a web view.",
+		"zh-CN": "适用于 macOS、Windows 与 Linux 的托盘应用（macOS 上在菜单栏），填一次学号和密码即可自动登录广州理工学院校园网，每 10 秒检查一次网络，掉线后自动重新认证。服务器拒绝密码时会暂停重试，密码存放在系统凭据库中；界面由 MyGo 原生 UI 绘制，不使用 Web 视图。",
+		"zh-TW": "適用於 macOS、Windows 與 Linux 的系統匣應用程式（macOS 上在選單列），填一次學號和密碼即可自動登入廣州理工學院校園網路，每 10 秒檢查一次網路，斷線後自動重新認證。伺服器拒絕密碼時會暫停重試，密碼存放在系統憑證庫中；介面由 MyGo 原生 UI 繪製，不使用 Web 視圖。",
+		"ja": "macOS・Windows・Linux 向けのトレイアプリ（macOS ではメニューバー）。学籍番号とパスワードを一度入力すれば広州理工学院のキャンパスネットワークに自動でログインし、10 秒ごとに接続を確認して、切断されると再認証します。サーバーがパスワードを拒否した場合は再試行を止め、パスワードはシステムの資格情報ストアに保存します。MyGo のネイティブ UI で描かれ、Web ビューは使いません。",
+		"ko": "macOS, Windows, Linux용 트레이 앱(macOS에서는 메뉴 막대)입니다. 학번과 비밀번호를 한 번 입력하면 광저우이공학원 캠퍼스 네트워크에 자동으로 로그인하고, 10초마다 연결을 확인해 끊기면 다시 인증합니다. 서버가 비밀번호를 거부하면 재시도를 멈추며, 비밀번호는 시스템 자격 증명 저장소에 보관합니다. MyGo의 네이티브 UI로 그렸고 웹 뷰를 쓰지 않습니다."
+	},
+	"icon": {
+		"file": "gzist-netkeeper.webp"
+	},
+	"screenshot": "gzist-netkeeper.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-06T03:34:18Z"
+}
