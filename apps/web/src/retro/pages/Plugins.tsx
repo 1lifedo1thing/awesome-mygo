@@ -140,7 +140,7 @@ function Community() {
 	const { openSubmit } = useSite();
 	return (
 		<Note title={t.r_note} className='mx-1 desk:col-span-4 desk:col-start-9 desk:row-start-2 desk:m-0 desk:mt-12 desk:ml-8 desk:-mr-2'>
-			<h2 className='m-0 mb-2.5 text-xl leading-7 font-semibold text-balance [&:lang(ko)]:break-keep'>{fill(t.comm_h, { n: COMMUNITY_PLUGINS.length })}</h2>
+			<h2 className='m-0 mb-2.5 text-xl leading-7 font-semibold [&:lang(ko)]:break-keep'>{fill(t.comm_h, { n: COMMUNITY_PLUGINS.length })}</h2>
 			<p className='m-0 mb-3'>{t.comm_p}</p>
 			<div className='flex flex-wrap items-center gap-2.5'>
 				<a className={btn} href={PLUGINS_DOC} target='_blank' rel='noopener'>

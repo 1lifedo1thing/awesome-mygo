@@ -144,7 +144,7 @@ function CtaNote() {
 	const { openSubmit } = useSite();
 	return (
 		<Note title={t.r_note} className='mx-1 desk:hidden min-[1261px]:mx-0 min-[1261px]:mt-16 min-[1261px]:block'>
-			<p className='m-0 mb-3.5 text-xl leading-7 font-semibold text-balance [&:lang(ko)]:break-keep'>{t.ui_cta}</p>
+			<p className='m-0 mb-3.5 text-xl leading-7 font-semibold [&:lang(ko)]:break-keep'>{t.ui_cta}</p>
 			<button type='button' className={btnGo} onClick={() => openSubmit('ui')}>
 				{t.sub_ui}
 			</button>
