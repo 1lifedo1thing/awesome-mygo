@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "win-xinai-de-tools-mygo",
+	"name": "Win-XinAi-De-Tools-MyGo",
+	"author": "logdns",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/logdns/Win-XinAi-De-Tools",
+	"repo": "logdns/Win-XinAi-De-Tools",
+	"summary": {
+		"en": "A Windows tool for firewall rules, adapters, SMB, WSL, Hyper-V and a temporary HTTP server.",
+		"zh-CN": "Windows 工具，管理防火墙、SMB、WSL、Hyper-V、临时 HTTP 服务。",
+		"zh-TW": "Windows 工具，管理防火牆、SMB、WSL、Hyper-V、臨時 HTTP 服務。",
+		"ja": "ファイアウォール、SMB、WSL、Hyper-V、一時 HTTP 配信の Windows ツール。",
+		"ko": "방화벽, SMB, WSL, Hyper-V, 임시 HTTP 서버를 다루는 Windows 도구."
+	},
+	"description": {
+		"en": "The MyGo edition of Win-XinAi-De-Tools, a Windows utility that manages firewall rules, adapters, SMB, WSL, Hyper-V and a temporary HTTP server. It draws native Go controls rather than a WebView, runs on x64 and ARM64 and bundles a .NET system engine; the original edition is built with WinUI 3. Both change the same Windows settings and run as administrator.",
+		"zh-CN": "Win-XinAi-De-Tools 的 MyGo 版，一款管理防火墙规则、网卡、SMB、WSL、Hyper-V 与临时 HTTP 服务的 Windows 工具。它使用原生 Go 控件而非 WebView，支持 x64 与 ARM64，并内置 .NET 系统引擎；原版则基于 WinUI 3 构建。两个版本修改的是同一套 Windows 配置，需以管理员身份运行。",
+		"zh-TW": "Win-XinAi-De-Tools 的 MyGo 版，一款管理防火牆規則、網路卡、SMB、WSL、Hyper-V 與臨時 HTTP 服務的 Windows 工具。它使用原生 Go 控制項而非 WebView，支援 x64 與 ARM64，並內建 .NET 系統引擎；原版則以 WinUI 3 打造。兩個版本修改的是同一套 Windows 設定，需以系統管理員身分執行。",
+		"ja": "Win-XinAi-De-Tools の MyGo 版で、ファイアウォールルール、ネットワークアダプター、SMB、WSL、Hyper-V、一時 HTTP サーバーを管理する Windows ツールです。WebView ではなく Go のネイティブコントロールで描かれ、x64 と ARM64 に対応し、.NET のシステムエンジンを同梱します。元の版は WinUI 3 で作られています。どちらの版も同じ Windows の設定を変更し、管理者として実行します。",
+		"ko": "Win-XinAi-De-Tools의 MyGo 버전으로, 방화벽 규칙, 네트워크 어댑터, SMB, WSL, Hyper-V, 임시 HTTP 서버를 관리하는 Windows 도구입니다. WebView 대신 Go 네이티브 컨트롤로 그려지고 x64와 ARM64를 지원하며 .NET 시스템 엔진을 포함합니다. 원래 버전은 WinUI 3로 만들어졌습니다. 두 버전은 같은 Windows 설정을 바꾸며 관리자 권한으로 실행합니다."
+	},
+	"icon": {
+		"file": "win-xinai-de-tools-mygo.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "win-xinai-de-tools-mygo.webp",
+	"added": "2026-11-06T07:59:41Z"
+}
