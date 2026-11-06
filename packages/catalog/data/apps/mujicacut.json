@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mujicacut",
+	"name": "MujicaCut",
+	"author": "HycJack",
+	"kind": "native",
+	"group": "media",
+	"url": "https://github.com/HycJack/mujicacut",
+	"repo": "HycJack/mujicacut",
+	"summary": {
+		"en": "A CapCut-style video editor demo: a four-track timeline for moving, trimming and splitting clips.",
+		"zh-CN": "剪映风格的视频编辑器 demo：在四轨时间轴上移动、修剪和分割片段。",
+		"zh-TW": "剪映風格的影片編輯器 demo：在四軌時間軸上移動、修剪與分割片段。",
+		"ja": "CapCut 風の動画編集アプリのデモ。4 トラックのタイムラインでクリップを移動・トリム・分割。",
+		"ko": "CapCut 스타일 동영상 편집기 데모. 4트랙 타임라인에서 클립을 옮기고 자르고 나눕니다."
+	},
+	"description": {
+		"en": "A CapCut-style video editor demo drawn with MyGo's native GPU UI and the MujicaUI component library, with no WebView, HTML or JavaScript. Clips on a four-track timeline can be moved, trimmed, split and snapped, with undo, and the project exports as EDL JSON. It has no decoder: previews are generated placeholder frames, and it does not render a finished video.",
+		"zh-CN": "剪映风格的视频编辑器 demo，由 MyGo 原生 GPU 自绘 UI 与 MujicaUI 组件库构建，没有 WebView、HTML 和 JavaScript。四轨时间轴上的片段可以拖拽移动、修剪、分割和吸附对齐，支持撤销重做，项目可导出为 EDL JSON。它没有解码器，预览画面是程序合成的示意图，也不能渲染成片。",
+		"zh-TW": "剪映風格的影片編輯器 demo，以 MyGo 原生 GPU 自繪 UI 與 MujicaUI 元件庫打造，沒有 WebView、HTML 和 JavaScript。四軌時間軸上的片段可拖曳移動、修剪、分割並吸附對齊，支援復原與重做，專案可匯出為 EDL JSON。它沒有解碼器，預覽畫面是程式合成的示意圖，也無法算繪成片。",
+		"ja": "CapCut 風の動画編集アプリのデモで、MyGo のネイティブな GPU 描画 UI と MujicaUI コンポーネントライブラリで作られており、WebView も HTML も JavaScript も使いません。4 トラックのタイムライン上でクリップを移動・トリム・分割・スナップでき、取り消しにも対応し、プロジェクトは EDL JSON として書き出せます。デコーダーはなく、プレビューはプログラムで合成した仮の映像で、完成した動画のレンダリングはできません。",
+		"ko": "CapCut 스타일의 동영상 편집기 데모로, MyGo의 네이티브 GPU 렌더링 UI와 MujicaUI 컴포넌트 라이브러리로 만들었으며 WebView, HTML, JavaScript를 쓰지 않습니다. 4트랙 타임라인에서 클립을 옮기고 트리밍하고 분할하고 스냅할 수 있고, 실행 취소를 지원하며 프로젝트를 EDL JSON으로 내보냅니다. 디코더가 없어 미리보기는 프로그램으로 합성한 임시 화면이고, 완성된 영상으로 렌더링하지는 않습니다."
+	},
+	"icon": {
+		"file": "mujicacut.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "mujicacut.webp",
+	"added": "2026-11-06T09:35:08Z"
+}
