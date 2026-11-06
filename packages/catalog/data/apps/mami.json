@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mami",
+	"name": "Mami",
+	"author": "margbug01",
+	"kind": "native",
+	"group": "ai",
+	"url": "https://margbug01.github.io/mami/",
+	"repo": "margbug01/mami",
+	"summary": {
+		"en": "Dictation and in-place selection translation with speech and LLM providers you choose.",
+		"zh-CN": "语音输入并原地翻译选中文字，使用你自己选的语音与大模型服务。",
+		"zh-TW": "語音輸入並就地翻譯選取文字，使用你自選的語音與大型語言模型服務。",
+		"ja": "音声入力と選択テキストのその場翻訳。音声認識と LLM は自分で選んだサービスを使用。",
+		"ko": "음성 입력과 선택한 텍스트의 제자리 번역. 직접 고른 음성·LLM 서비스를 사용합니다."
+	},
+	"description": {
+		"en": "A tray and menu bar app for Windows 10/11 and macOS 12+, drawn with MyGo's native UI. Tap a key and talk, and your speech lands in the box you are typing in with fillers and self-corrections removed; select text in an input box to translate it in place. Recognition, polishing and translation use endpoints and keys you choose, and audio and text go only to them.",
+		"zh-CN": "常驻 Windows 托盘与 macOS 菜单栏的小工具，由 MyGo 原生 UI 绘制，支持 Windows 10/11 与 macOS 12 及以上。按一下按键开口说话，识别出的文字会去掉口头禅和改口，直接粘贴进正在输入的文本框；在输入框里选中文字，即可原地翻译。语音识别、润色和翻译都使用你自己选择的接口与密钥，音频和文字只发送给这些服务商。",
+		"zh-TW": "常駐 Windows 系統匣與 macOS 選單列的小工具，由 MyGo 原生 UI 繪製，支援 Windows 10/11 與 macOS 12 以上。按一下按鍵開口說話，辨識出的文字會去掉口頭禪和改口，直接貼進正在輸入的文字框；在輸入框中選取文字，即可就地翻譯。語音辨識、潤飾和翻譯都使用你自行選擇的端點與金鑰，音訊和文字只會傳送給這些服務供應商。",
+		"ja": "Windows のトレイと macOS のメニューバーに常駐するアプリで、MyGo のネイティブ UI で描かれています。Windows 10/11 と macOS 12 以降に対応。キーを押して話すと、フィラーや言い直しを除いた文章が入力中の欄に貼り付けられ、入力欄で選んだテキストはその場で翻訳できます。音声認識、整形、翻訳には自分で選んだエンドポイントとキーを使い、音声とテキストはそのプロバイダーにだけ送られます。",
+		"ko": "Windows 트레이와 macOS 메뉴 막대에 상주하는 앱으로, MyGo의 네이티브 UI로 그렸으며 Windows 10/11과 macOS 12 이상을 지원합니다. 키를 누르고 말하면 군말과 고쳐 말한 부분을 걷어낸 문장이 입력 중인 칸에 붙여 넣어지고, 입력란에서 선택한 텍스트는 그 자리에서 번역됩니다. 음성 인식, 다듬기, 번역은 직접 고른 엔드포인트와 키를 쓰며, 음성과 텍스트는 해당 제공자에게만 전송됩니다."
+	},
+	"icon": {
+		"file": "mami.webp"
+	},
+	"screenshot": "mami.webp",
+	"added": "2026-11-06T03:54:55Z"
+}
