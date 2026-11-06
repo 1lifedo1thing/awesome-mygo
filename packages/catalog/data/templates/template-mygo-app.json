@@ -14,7 +14,15 @@
 		"packaging"
 	],
 	"summary": {
-		"en": "A GitHub template for pure-Go MyGo apps with native UI: localization, tests, cross-compilation and packaging scripts set up."
+		"en": "A GitHub template for pure-Go MyGo apps with native UI, set up with localization, tests, cross-compilation and packaging scripts.",
+		"zh-CN": "用于纯 Go 原生界面 MyGo 应用的 GitHub 模板，已配置好本地化、测试、交叉编译和打包脚本。",
+		"zh-TW": "適用於純 Go 原生介面 MyGo 應用程式的 GitHub 範本，已設定好在地化、測試、交叉編譯與打包腳本。",
+		"ja": "ネイティブ UI を使う純粋な Go の MyGo アプリ向け GitHub テンプレート。ローカライズ、テスト、クロスコンパイル、パッケージングのスクリプトを用意済み。",
+		"ko": "네이티브 UI를 쓰는 순수 Go MyGo 앱용 GitHub 템플릿으로, 현지화, 테스트, 크로스 컴파일, 패키징 스크립트가 갖춰져 있습니다."
 	},
+	"screenshot": "template-mygo-app.webp",
+	"provisional": [
+		"screenshot"
+	],
 	"added": "2026-11-06T05:48:49Z"
 }
