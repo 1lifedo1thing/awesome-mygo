@@ -24,9 +24,6 @@
 	"icon": {
 		"file": "mycast.webp"
 	},
-	"provisional": [
-		"icon"
-	],
 	"screenshot": "mycast.webp",
 	"added": "2026-11-05T17:24:29Z"
 }

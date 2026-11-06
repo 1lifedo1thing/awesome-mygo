@@ -24,9 +24,6 @@
 	"icon": {
 		"file": "my-vm.webp"
 	},
-	"provisional": [
-		"icon"
-	],
 	"screenshot": "my-vm.webp",
 	"added": "2026-11-06T06:33:05Z"
 }
