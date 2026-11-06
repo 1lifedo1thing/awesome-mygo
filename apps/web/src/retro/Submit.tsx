@@ -274,7 +274,7 @@ function Dialog() {
 									<summary className='mb-1 w-fit cursor-pointer text-muted'>
 										{t.m_preview} · <span lang='en'>{`${DATA_DIR}/${file}`}</span>
 									</summary>
-									<pre lang='en' className='m-0 max-h-[200px] overflow-auto rounded-lg bg-ink px-3 py-2.5 font-mono break-all whitespace-pre-wrap text-paper'>
+									<pre lang='en' className='m-0 max-h-[200px] overflow-auto rounded-lg bg-ink px-3 py-2.5 font-mono wrap-anywhere [word-break:normal] whitespace-pre-wrap text-paper'>
 										{entry}
 									</pre>
 								</details>
