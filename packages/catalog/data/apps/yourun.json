@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "yourun",
+	"name": "YouRun",
+	"author": "gantrol",
+	"kind": "web",
+	"group": "dev",
+	"url": "https://apps.microsoft.com/store/detail/9MWXXGC8H67D?cid=DevShareMCLPCS",
+	"repo": "gantrol/YouRun",
+	"summary": {
+		"en": "Save, start, stop and watch the output of your projects' dev commands, from a window or a CLI.",
+		"zh-CN": "在窗口或命令行中保存、启动、停止本地项目的开发命令并查看输出。",
+		"zh-TW": "在視窗或命令列中儲存、啟動、停止本機專案的開發指令並查看輸出。",
+		"ja": "ローカルプロジェクトの開発コマンドを保存・起動・停止し、出力を確認。ウィンドウでも CLI でも。",
+		"ko": "로컬 프로젝트의 개발 명령을 저장·실행·중지하고 출력을 확인하는 앱과 CLI."
+	},
+	"description": {
+		"en": "A Windows app with a MyGo WebView frontend that gathers local projects' dev, run and packaging commands in one place, plus a CLI returning JSON for scripts and agents. Each command runs in its own process and keeps going if the window closes or crashes. MyGo builds the Windows edition; the source's entry points for other platforms and window frameworks are not yet verified.",
+		"zh-CN": "基于 MyGo WebView 网页前端的 Windows 应用，把本地项目的开发、运行和打包命令集中到一处，并附带返回 JSON 的命令行，供脚本和智能体调用。每条命令由独立进程运行，窗口关闭或崩溃后仍会继续。MyGo 构建的是 Windows 版；源码中其他平台和窗口框架的构建入口尚未验证。",
+		"zh-TW": "以 MyGo WebView 網頁前端打造的 Windows 應用程式，把本機專案的開發、執行與打包指令集中在一處，並附有回傳 JSON 的命令列工具，供腳本與代理程式呼叫。每條指令由獨立行程執行，視窗關閉或當掉後仍會繼續。MyGo 建置的是 Windows 版；原始碼中其他平台與視窗框架的建置入口尚未經過驗證。",
+		"ja": "MyGo の WebView で Web フロントエンドを表示する Windows アプリ。ローカルプロジェクトの開発・実行・パッケージングのコマンドを一か所にまとめ、スクリプトやエージェント向けに JSON を返す CLI も備えます。各コマンドは独立したプロセスで動くため、ウィンドウを閉じてもクラッシュしても実行が続きます。MyGo でビルドするのは Windows 版で、ソースにある他のプラットフォームやウィンドウフレームワーク向けのビルドはまだ検証されていません。",
+		"ko": "MyGo의 WebView에 웹 프런트엔드를 띄우는 Windows 앱으로, 로컬 프로젝트의 개발·실행·패키징 명령을 한곳에 모으고 스크립트와 에이전트를 위해 JSON을 반환하는 CLI도 제공합니다. 각 명령은 독립된 프로세스에서 실행되어 창을 닫거나 앱이 비정상 종료되어도 계속 돌아갑니다. MyGo로 빌드하는 것은 Windows 버전이며, 소스에 있는 다른 플랫폼과 창 프레임워크용 빌드는 아직 검증되지 않았습니다."
+	},
+	"icon": {
+		"file": "yourun.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "yourun.webp",
+	"added": "2026-11-06T06:33:05Z"
+}
