@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "ai-usage",
+	"name": "AI Usage",
+	"author": "ixxxxoooo",
+	"kind": "native",
+	"group": "agents",
+	"url": "https://github.com/ixxxxoooo/ai-usage",
+	"repo": "ixxxxoooo/ai-usage",
+	"summary": {
+		"en": "A macOS menu bar app that shows Cursor request usage, DeepSeek balance and Antigravity quotas.",
+		"zh-CN": "在 macOS 菜单栏查看 Cursor 用量、DeepSeek 余额等 AI 额度。",
+		"zh-TW": "在 macOS 選單列查看 Cursor 用量、DeepSeek 餘額等 AI 額度。",
+		"ja": "macOS のメニューバーで Cursor の利用量や DeepSeek の残高などを確認できるアプリ。",
+		"ko": "macOS 메뉴 막대에서 Cursor 사용량과 DeepSeek 잔액 등을 확인하는 앱."
+	},
+	"description": {
+		"en": "A macOS menu bar app drawn with MyGo's native UI, with no WebView or Electron. It shows Cursor requests left and the reset date, DeepSeek balance and daily bills, and a running Antigravity's model quotas, with a larger panel for per-request details and charts. It keeps its data on the Mac and notifies you as Cursor usage nears its limit or the DeepSeek balance runs low.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 菜单栏应用，没有 WebView，也没有 Electron。它显示 Cursor 剩余请求次数与重置日期、DeepSeek 余额与每日账单，以及本机运行中的 Antigravity 各模型额度，展开大面板可查看逐条请求明细和图表。数据只存在本机，Cursor 用量逼近上限或 DeepSeek 余额偏低时会发通知。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS 選單列應用程式，沒有 WebView，也沒有 Electron。它顯示 Cursor 剩餘請求次數與重置日期、DeepSeek 餘額與每日帳單，以及本機執行中的 Antigravity 各模型額度，展開大面板可查看逐筆請求明細和圖表。資料只存在本機，Cursor 用量逼近上限或 DeepSeek 餘額偏低時會發出通知。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS のメニューバーアプリで、WebView も Electron も使いません。Cursor の残りリクエスト数とリセット日、DeepSeek の残高と日別の請求、起動中の Antigravity のモデルごとの残り枠を表示し、大きなパネルではリクエストごとの明細とグラフを確認できます。データは Mac 内に保存し、上限が近づいたり残高が減ったりすると通知します。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS 메뉴 막대 앱으로, WebView도 Electron도 쓰지 않습니다. Cursor의 남은 요청 수와 초기화 날짜, DeepSeek 잔액과 일별 청구, 실행 중인 Antigravity의 모델별 남은 할당량을 보여 주고, 큰 패널에서 요청별 내역과 차트를 볼 수 있습니다. 데이터는 Mac에만 저장하며, 한도에 가까워지거나 잔액이 줄면 알림을 보냅니다."
+	},
+	"icon": {
+		"file": "ai-usage.webp"
+	},
+	"screenshot": "ai-usage.webp",
+	"added": "2026-11-06T05:15:05Z"
+}
