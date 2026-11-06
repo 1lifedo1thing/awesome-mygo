@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "tavu",
+	"name": "Tavu",
+	"author": "ychuo",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/ychuo/tavu",
+	"repo": "ychuo/tavu",
+	"summary": {
+		"en": "A native macOS workspace with a terminal, file editor and Git review for your local projects.",
+		"zh-CN": "原生 macOS 工作区：终端、文件编辑与 Git 改动审阅集于一处。",
+		"zh-TW": "原生 macOS 工作區：終端機、檔案編輯與 Git 變更審閱集於一處。",
+		"ja": "ターミナル、ファイル編集、Git の変更レビューをまとめたネイティブな macOS ワークスペース。",
+		"ko": "터미널, 파일 편집, Git 변경 검토를 한곳에 모은 네이티브 macOS 작업 공간."
+	},
+	"description": {
+		"en": "A macOS workspace for Apple Silicon, drawn with MyGo's native UI, with a terminal, a file editor and Git review side by side. The terminal runs real shells in tabs and split panes through libghostty-vt; you can preview Markdown and images, stage hunks, commit and push, and drag review comments into a terminal. Files stay local, with no built-in AI service, account or telemetry.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 工作区，面向 Apple Silicon Mac，把终端、文件编辑和 Git 审阅放在一起。终端基于 libghostty-vt，运行真实的 shell，支持标签页和分屏；可预览 Markdown 与图片，按区块暂存、提交和推送，还能把审阅评论拖进终端。文件留在本地，没有内置 AI 服务、账号或遥测。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS 工作區，適用 Apple Silicon Mac，把終端機、檔案編輯和 Git 審閱放在一起。終端機基於 libghostty-vt，執行真正的 shell，支援分頁和分割窗格；可預覽 Markdown 與圖片，按區塊暫存、提交和推送，還能把審閱留言拖進終端機。檔案留在本機，沒有內建 AI 服務、帳號或遙測。",
+		"ja": "MyGo のネイティブ UI で描かれた Apple Silicon Mac 向けの macOS ワークスペースで、ターミナル、ファイル編集、Git のレビューを一か所にまとめています。ターミナルは libghostty-vt による本物のシェルで、タブと分割ペインに対応。Markdown や画像のプレビュー、ハンク単位のステージ、コミットとプッシュができ、レビューコメントはターミナルへドラッグできます。ファイルはローカルに留まり、AI サービス、アカウント、テレメトリーは組み込まれていません。",
+		"ko": "MyGo의 네이티브 UI로 그린 Apple Silicon Mac용 macOS 작업 공간으로, 터미널, 파일 편집, Git 검토를 한곳에 모았습니다. 터미널은 libghostty-vt 기반의 실제 셸을 탭과 분할 창으로 실행하고, Markdown과 이미지 미리보기, 헝크 단위 스테이징, 커밋과 푸시를 지원하며 검토 코멘트를 터미널로 끌어 놓을 수 있습니다. 파일은 로컬에 남고 내장 AI 서비스, 계정, 텔레메트리가 없습니다."
+	},
+	"icon": {
+		"file": "tavu.webp"
+	},
+	"screenshot": "tavu.webp",
+	"added": "2026-11-06T03:34:18Z"
+}
