@@ -11,7 +11,7 @@ import type { LangCode } from './lang';
 //
 // Notes on some keys, since JSON has no comments:
 // - app_desc_tail follows an app's one-line summary in its page's meta description.
-// - h1_1 and h1_2 are the home headline. In the CJK files \u200b marks where a line may wrap; the hero keeps the text between two marks on one line. hero_p and hero_p2 are the two sentences under it.
+// - h1_1 and h1_2 are the two differently coloured phrases of the home headline. They stay inline so the browser decides where it wraps. hero_p and hero_p2 are the two sentences under it.
 // - r_h1 is the home headline in the retro look. It has no manual line breaks; the README window wraps it to the space it has.
 // - title_* and desc_* are search snippets: each page's <title> topic (title_home is the whole home title) and meta description. They name the topic people search for; the visible headings stay short.
 // - kw_* are each page's <meta name="keywords">, comma-separated: kw_app follows an app's name on its page. They are phrasings people search in that language (see PAGE_KEYWORDS in apps/web/src/lib/seo.ts), each naming Go or Golang beside MyGo.

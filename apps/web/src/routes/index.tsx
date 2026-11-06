@@ -1,6 +1,6 @@
 import { AI_TOOLS, APPS, INSTALL_CMDS, INSTALL_TABS, type InstallTab, MYGO_SITE, PLUGINS, STATE_SOLUTIONS, TEMPLATES, UI_LIBS, appBySlug, fill, langDef, pad2, pick } from '@awesome-mygo/catalog';
 import { Link, createFileRoute, useNavigate } from '@tanstack/react-router';
-import { type CSSProperties, Fragment, type PointerEvent, useRef } from 'react';
+import { type CSSProperties, type PointerEvent, useRef } from 'react';
 import { AppLink, KindTag, MonoTile, WinBar, appView } from '../components/bits';
 import { useLang, useT } from '../lib/lang';
 import { prefersReducedMotion, tilt, useCountUp } from '../lib/motion';
@@ -27,8 +27,8 @@ const POP_3 = 'animate-[pop_0.7s_cubic-bezier(0.2,0.9,0.25,1.15)_0.55s_both] mot
 const POP_WIN_2 = 'animate-[pop_0.7s_cubic-bezier(0.2,0.9,0.25,1.15)_0.35s_backwards] motion-reduce:animate-none';
 const POP_WIN_3 = 'animate-[pop_0.7s_cubic-bezier(0.2,0.9,0.25,1.15)_0.55s_backwards] motion-reduce:animate-none';
 
-// A headline character arriving; each one's delay is set inline.
-const CH = 'inline-block whitespace-pre animate-[chin_1s_cubic-bezier(0.2,0.8,0.2,1)_both] motion-reduce:animate-none';
+// The headline arriving as one block, so its text remains plain inline content and the browser owns every line break.
+const HEADLINE_IN = 'animate-[chin_1s_cubic-bezier(0.2,0.8,0.2,1)_both] motion-reduce:animate-none';
 
 // Placement of the four floating app windows on the 1200px wall below the hero: the near pair in the middle, the far pair at the edges. The far pair goes below 1000px, the near pair below 700px (with the whole stage). Each window floats on its own phase of the same bob.
 const HERO_APPS = [
@@ -52,15 +52,6 @@ function mustApp(slug: string) {
 	if (!app) throw new Error(`Unknown app slug: ${slug}`);
 	return app;
 }
-
-// The headline as groups of animated characters. A group never wraps inside: a word in word-spaced languages, the text between two \u200b marks in CJK ones.
-function tokens(str: string, byWord: boolean, start: number, step: number) {
-	const groups = byWord ? str.split(' ').map((w) => [w]) : str.split('\u200b').map((g) => Array.from(g));
-	let n = 0;
-	return groups.map((g) => g.map((c) => ({ c, d: start + n++ * step })));
-}
-
-const plain = (s: string) => s.replaceAll('\u200b', '');
 
 function HomePage() {
 	const t = useT();
@@ -136,9 +127,6 @@ function Hero() {
 	const heroRef = useRef<HTMLElement>(null);
 	const e = useCountUp();
 	const words = langDef(lang).words;
-	const step1 = words ? 110 : 55;
-	const l1 = tokens(t.h1_1, words, 100, step1);
-	const l2 = tokens(t.h1_2, words, 100 + l1.flat().length * step1 + 150, words ? 130 : 70);
 
 	const onMove = (ev: PointerEvent<HTMLElement>) => {
 		const el = heroRef.current;
@@ -173,38 +161,11 @@ function Hero() {
 					<span className='arrow text-fg group-hover:[transform:translateX(4px)]'>→</span>
 				</Link>
 
-				{/* CJK headlines keep their natural spacing; only the word-spaced languages are tightened. Below sm a CJK headline is sized by the screen width: the Japanese opening phrase has ten glyphs that may not break and is wider than a 360px screen at the 38px floor. */}
-				<h1 aria-label={plain(`${t.h1_1} ${t.h1_2}`)} className='m-0 text-[length:clamp(38px,4.7vw,68px)] leading-[1.16] font-extrabold data-[words=true]:text-[length:clamp(36px,4.4vw,62px)] data-[words=true]:tracking-[-0.03em] max-sm:text-[length:min(38px,9vw)] max-sm:data-[words=true]:text-[36px]' data-words={words}>
-					<span aria-hidden='true'>
-						{l1.map((g, i) => (
-							<Fragment key={i}>
-								{words && i > 0 && ' '}
-								<span className='inline-block whitespace-nowrap'>
-									{g.map((ch) => (
-										<span key={ch.d} className={CH} style={{ animationDelay: `${ch.d}ms` }}>
-											{ch.c}
-										</span>
-									))}
-								</span>
-							</Fragment>
-						))}
-					</span>
-					{/* The two phrases differ only in colour; both stay inline so the available width decides where the heading wraps. */}
+				{/* The phrases differ only in colour; they remain plain inline text so the available width decides every wrap. */}
+				<h1 className={`m-0 text-[length:clamp(38px,4.7vw,68px)] leading-[1.16] font-extrabold data-[words=true]:text-[length:clamp(36px,4.4vw,62px)] data-[words=true]:tracking-[-0.03em] max-sm:text-[length:min(38px,9vw)] max-sm:data-[words=true]:text-[36px] ${HEADLINE_IN}`} data-words={words}>
+					{t.h1_1}
 					{words && ' '}
-					<span aria-hidden='true' className='text-cyan [text-shadow:0_0_40px_rgba(63,211,245,0.25)]'>
-						{l2.map((g, i) => (
-							<Fragment key={i}>
-								{words && i > 0 && ' '}
-								<span className='inline-block whitespace-nowrap'>
-									{g.map((ch) => (
-										<span key={ch.d} className={CH} style={{ animationDelay: `${ch.d}ms` }}>
-											{ch.c}
-										</span>
-									))}
-								</span>
-							</Fragment>
-						))}
-					</span>
+					<span className='text-cyan [text-shadow:0_0_40px_rgba(63,211,245,0.25)]'>{t.h1_2}</span>
 				</h1>
 
 				<p className={`m-0 text-[17px] leading-[1.75] text-fg-2 ${POP_2}`}>
