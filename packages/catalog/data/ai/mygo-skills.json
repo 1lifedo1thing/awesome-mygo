@@ -13,7 +13,12 @@
 		"web"
 	],
 	"summary": {
-		"en": "Agent skills for building MyGo apps: app structure and tests, components, desktop services, web frontends, motion and drawing."
+		"en": "Agent skills for building MyGo apps: app structure and tests, components, desktop services, web frontends, motion and custom drawing.",
+		"zh-CN": "用于开发 MyGo 应用的智能体技能集，涵盖应用结构与测试、组件、桌面服务、Web 前端、动效和自定义绘制。",
+		"zh-TW": "開發 MyGo 應用程式用的代理技能集，涵蓋應用程式架構與測試、元件、桌面服務、Web 前端、動態效果和自訂繪圖。",
+		"ja": "MyGo アプリ開発向けのエージェントスキル集。アプリの構成とテスト、コンポーネント、デスクトップサービス、Web フロントエンド、モーション、カスタム描画を扱う。",
+		"ko": "MyGo 앱 개발을 위한 에이전트 스킬 모음으로, 앱 구조와 테스트, 컴포넌트, 데스크톱 서비스, 웹 프런트엔드, 모션, 커스텀 그리기를 다룹니다."
 	},
+	"screenshot": "mygo-skills.webp",
 	"added": "2026-11-06T05:49:05Z"
 }
