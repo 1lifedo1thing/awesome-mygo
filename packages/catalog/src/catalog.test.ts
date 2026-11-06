@@ -192,7 +192,11 @@ describe('catalog data', () => {
 		expect(authorProfile('egoist')).toBe('https://github.com/egoist');
 		// video-downloader is in github.com/fazi-gondal: 'Faizan' is a name, not that login.
 		expect(authorProfile('Faizan')).toBeUndefined();
-		expect(authorProfile('echoVic')).toBeUndefined();
+		// An author whose apps all live on their own domains has no proven login, whatever their repositories are called; one app at github.com/<login> proves it. Given apps, as the site's own change whenever a project is added.
+		const ownDomain = [{ author: 'someone', url: 'https://reef.someone.dev' }];
+		expect(authorProfile('someone', ownDomain)).toBeUndefined();
+		expect(authorProfile('someone', [...ownDomain, { author: 'someone', url: 'https://github.com/Someone/curl' }])).toBe('https://github.com/someone');
+		expect(authorProfile('someone', [{ author: 'someone', url: 'https://github.com/other/curl' }])).toBeUndefined();
 	});
 
 	it('strips the scheme and trailing slash for display', () => {
