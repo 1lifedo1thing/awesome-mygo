@@ -9,18 +9,18 @@
 	"url": "https://github.com/nyakang/nyadb",
 	"repo": "nyakang/nyadb",
 	"summary": {
-		"en": "A native database workbench for connection profiles and read-only MySQL browsing.",
-		"zh-CN": "原生数据库工作台：管理连接配置，只读浏览 MySQL 数据库、表和数据。",
-		"zh-TW": "原生資料庫工作台：管理連線設定，唯讀瀏覽 MySQL 資料庫、資料表與資料。",
-		"ja": "接続を管理し、MySQL のデータベースとデータを読み取り専用で閲覧するネイティブなデータベースツール。",
-		"ko": "연결을 관리하고 MySQL 데이터베이스와 데이터를 읽기 전용으로 보는 네이티브 DB 도구."
+		"en": "A native MySQL, PostgreSQL, SQLite and ClickHouse workbench for SQL queries and database browsing.",
+		"zh-CN": "原生数据库工作台，支持 MySQL、PostgreSQL、SQLite、ClickHouse 连接与 SQL 执行。",
+		"zh-TW": "原生資料庫工作台，支援 MySQL、PostgreSQL、SQLite、ClickHouse 連線與 SQL 執行。",
+		"ja": "MySQL・PostgreSQL・SQLite・ClickHouse に対応した、SQL を実行できるデータベースツール。",
+		"ko": "MySQL, PostgreSQL, SQLite, ClickHouse 연결과 SQL 실행을 지원하는 네이티브 DB 도구."
 	},
 	"description": {
-		"en": "A database workbench for Windows, macOS and Linux, drawn with a fork of MyGo's native UI. It saves MySQL, PostgreSQL and SQLite connection profiles without passwords and browses MySQL databases, tables and data read-only, with server-side filtering and paging. Only MySQL connects for now, and the SQL editor only simulates execution.",
-		"zh-CN": "以 MyGo 原生 UI 的分支版本绘制的数据库工作台，面向 Windows、macOS 与 Linux。可保存 MySQL、PostgreSQL 和 SQLite 连接配置（不保存密码），并以只读方式浏览 MySQL 的数据库、表结构和数据，筛选与分页在服务端完成。目前只有 MySQL 能真正连接，SQL 编辑器的执行结果为模拟。",
-		"zh-TW": "以 MyGo 原生 UI 的分支版本繪製的資料庫工作台，支援 Windows、macOS 與 Linux。可儲存 MySQL、PostgreSQL 和 SQLite 連線設定（不儲存密碼），並以唯讀方式瀏覽 MySQL 的資料庫、資料表結構與資料，篩選與分頁在伺服器端完成。目前只有 MySQL 能實際連線，SQL 編輯器的執行結果為模擬。",
-		"ja": "MyGo のネイティブ UI のフォーク版で描かれた、Windows・macOS・Linux 向けのデータベースワークベンチ。MySQL・PostgreSQL・SQLite の接続プロファイルをパスワード抜きで保存し、MySQL のデータベース、テーブル構造、データを読み取り専用で閲覧できます。フィルターとページングはサーバー側で行います。現時点で実際に接続できるのは MySQL のみで、SQL エディターの実行結果はシミュレーションです。",
-		"ko": "MyGo 네이티브 UI의 포크 버전으로 그린 Windows·macOS·Linux용 데이터베이스 워크벤치입니다. MySQL, PostgreSQL, SQLite 연결 프로필을 비밀번호 없이 저장하고, MySQL 데이터베이스와 테이블 구조, 데이터를 읽기 전용으로 탐색하며 필터링과 페이징은 서버 쪽에서 처리합니다. 지금은 MySQL만 실제로 연결되고, SQL 편집기의 실행 결과는 시뮬레이션입니다."
+		"en": "A database workbench for Windows, macOS and Linux, built with Go and the NyaDB fork of MyGo Native UI. It supports live connections to MySQL, PostgreSQL, SQLite and ClickHouse, SQL execution in a multi-tab editor, database object browsing and a shared data grid with filtering, sorting, paging and export. MySQL, PostgreSQL and SQLite support data editing and tools such as table design, import and backup/restore where available; the ClickHouse data grid is read-only. Connection profiles are managed locally, with optional credential storage in the system vault.",
+		"zh-CN": "使用 Go 和 NyaDB 的 MyGo Native UI 分支构建的数据库工作台，面向 Windows、macOS 与 Linux。支持连接 MySQL、PostgreSQL、SQLite 和 ClickHouse，提供可实际执行查询的多标签 SQL 编辑器、数据库对象浏览，以及支持筛选、排序、分页和导出的共享数据网格。MySQL、PostgreSQL 和 SQLite 支持数据编辑，并在功能可用时提供表设计、导入、备份与恢复等工具；ClickHouse 的数据网格为只读。连接配置在本地管理，凭据可选择保存在系统凭据库中。",
+		"zh-TW": "使用 Go 和 NyaDB 的 MyGo Native UI 分支建置的資料庫工作台，支援 Windows、macOS 與 Linux。可連線至 MySQL、PostgreSQL、SQLite 和 ClickHouse，提供可實際執行查詢的多分頁 SQL 編輯器、資料庫物件瀏覽，以及支援篩選、排序、分頁和匯出的共用資料網格。MySQL、PostgreSQL 和 SQLite 支援資料編輯，並在功能可用時提供資料表設計、匯入、備份與還原等工具；ClickHouse 的資料網格為唯讀。連線設定在本機管理，憑證可選擇儲存在系統憑證庫中。",
+		"ja": "Go と NyaDB の MyGo Native UI フォークで構築した、Windows・macOS・Linux 向けのデータベースワークベンチ。MySQL・PostgreSQL・SQLite・ClickHouse に接続でき、クエリを実行する複数タブの SQL エディター、データベースオブジェクトの閲覧、フィルター・並べ替え・ページング・エクスポートに対応した共通のデータグリッドを備えています。MySQL・PostgreSQL・SQLite ではデータ編集や、対応範囲に応じてテーブル設計、インポート、バックアップと復元などのツールを利用できます。ClickHouse のデータグリッドは読み取り専用です。接続プロファイルをローカルで管理し、認証情報は任意でシステムの資格情報ストアに保存できます。",
+		"ko": "Go와 NyaDB의 MyGo Native UI 포크로 만든 Windows·macOS·Linux용 데이터베이스 워크벤치입니다. MySQL, PostgreSQL, SQLite, ClickHouse에 연결하며, 쿼리를 실행하는 다중 탭 SQL 편집기, 데이터베이스 객체 탐색, 필터링·정렬·페이징·내보내기를 지원하는 공통 데이터 그리드를 제공합니다. MySQL, PostgreSQL, SQLite에서는 데이터 편집과 지원 범위에 따른 테이블 설계, 가져오기, 백업·복원 등의 도구를 사용할 수 있으며, ClickHouse의 데이터 그리드는 읽기 전용입니다. 연결 프로필은 로컬에서 관리하고, 자격 증명은 선택적으로 시스템 자격 증명 저장소에 보관할 수 있습니다."
 	},
 	"icon": {
 		"file": "nyadb.webp"
