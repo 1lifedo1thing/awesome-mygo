@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "nvflasher",
+	"name": "nvflasher",
+	"author": "ca-x",
+	"kind": "web",
+	"group": "devices",
+	"url": "https://github.com/ca-x/nvflasher",
+	"repo": "ca-x/nvflasher",
+	"summary": {
+		"en": "Prepares and flashes NVIDIA Jetson devices through NVIDIA's official Linux for Tegra scripts.",
+		"zh-CN": "调用 NVIDIA 官方脚本为 Jetson 设备准备系统并刷机。",
+		"zh-TW": "呼叫 NVIDIA 官方腳本，為 Jetson 裝置準備系統並燒錄。",
+		"ja": "NVIDIA 公式スクリプトで Jetson デバイスを準備し、書き込むアプリ。",
+		"ko": "NVIDIA 공식 스크립트로 Jetson 기기를 준비하고 플래싱하는 앱."
+	},
+	"description": {
+		"en": "An NVIDIA Jetson flashing app with a web frontend on MyGo. It wraps NVIDIA's Linux for Tegra scripts instead of its own flashing protocol: it checks the host, downloads and verifies the BSP, flashes a board directly or from an MFI package, and provisions the rootfs with users, packages and scripts. Flashing needs Linux x86_64 and root; on Windows and macOS only SSH recovery and downloads work.",
+		"zh-CN": "用 MyGo 加 Web 前端构建的 NVIDIA Jetson 刷机工具，调用 NVIDIA 官方的 Linux for Tegra 脚本，自身不实现刷机协议。它会检查主机环境，下载并校验 BSP，直接刷写或用 MFI 包刷写设备，并用用户、软件包和 chroot 脚本定制 rootfs。刷机需要 Linux x86_64 与 root 权限；在 Windows 和 macOS 上只能使用 SSH 强制恢复和镜像下载。",
+		"zh-TW": "以 MyGo 搭配 Web 前端打造的 NVIDIA Jetson 燒錄工具，呼叫 NVIDIA 官方的 Linux for Tegra 腳本，本身不實作燒錄協定。它會檢查主機環境，下載並驗證 BSP，直接燒錄或以 MFI 套件燒錄裝置，並透過使用者、套件與 chroot 腳本客製 rootfs。燒錄需要 Linux x86_64 與 root 權限；在 Windows 和 macOS 上只能使用 SSH 強制復原與映像下載。",
+		"ja": "MyGo と Web フロントエンドで作られた NVIDIA Jetson 用の書き込みツール。独自のプロトコルは持たず、NVIDIA 公式の Linux for Tegra スクリプトを呼び出します。ホストの確認、BSP の取得と検証、直接または MFI パッケージでの書き込み、rootfs の構成ができます。書き込みには Linux x86_64 と root 権限が必要で、Windows と macOS では SSH リカバリーとダウンロードのみです。",
+		"ko": "MyGo와 웹 프런트엔드로 만든 NVIDIA Jetson 플래싱 도구로, 자체 플래싱 프로토콜 없이 NVIDIA 공식 Linux for Tegra 스크립트를 실행합니다. 호스트 환경을 점검하고 BSP를 내려받아 검증하며, 보드를 직접 또는 MFI 패키지로 플래싱하고 사용자, 패키지, chroot 스크립트로 rootfs를 구성합니다. 플래싱에는 Linux x86_64와 root 권한이 필요하며, Windows와 macOS에서는 SSH 강제 복구와 다운로드만 됩니다."
+	},
+	"icon": {
+		"file": "nvflasher.webp"
+	},
+	"screenshot": "nvflasher.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-06T09:35:08Z"
+}
