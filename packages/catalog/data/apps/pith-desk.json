@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "pith-desk",
+	"name": "Pith Desk",
+	"author": "minifish-org",
+	"kind": "web",
+	"group": "agents",
+	"url": "https://github.com/minifish-org/pith-desk",
+	"repo": "minifish-org/pith-desk",
+	"summary": {
+		"en": "A desktop workspace for an AI agent on local folders, with file diffs, tool approvals and MCP.",
+		"zh-CN": "在本地文件夹中与 AI 代理协作的桌面工作区，支持文件差异、工具审批和 MCP。",
+		"zh-TW": "在本機資料夾與 AI 代理協作的桌面工作區，支援檔案差異、工具核准與 MCP。",
+		"ja": "ローカルフォルダーで AI エージェントと作業するデスクトップ環境。差分表示、ツール承認、MCP に対応。",
+		"ko": "로컬 폴더에서 AI 에이전트와 작업하는 데스크톱 작업 공간. 파일 diff, 도구 승인, MCP 지원."
+	},
+	"description": {
+		"en": "A workspace for an AI agent built on the Pith Go library: pick a folder, connect a model provider by API key or OAuth, and review file diffs and tool calls before they run, with MCP tools, a terminal and file previews beside the conversation. MyGo builds the macOS and Linux desktop app around a TypeScript frontend; a headless Server mode for the browser is built without MyGo.",
+		"zh-CN": "基于 Pith Go 库的 AI 代理工作区：选择文件夹，用 API 密钥或 OAuth 连接模型服务，在执行前审阅文件差异和工具调用，对话旁还有 MCP 工具、终端和文件预览。macOS 与 Linux 桌面版由 MyGo 构建，界面用 TypeScript 编写；在浏览器中使用的无界面 Server 模式则不依赖 MyGo。",
+		"zh-TW": "以 Pith Go 函式庫打造的 AI 代理工作區：選擇資料夾，用 API 金鑰或 OAuth 連接模型服務，在執行前審閱檔案差異與工具呼叫，對話旁還有 MCP 工具、終端機與檔案預覽。macOS 與 Linux 桌面版由 MyGo 建置，介面以 TypeScript 撰寫；透過瀏覽器使用的無介面 Server 模式則不依賴 MyGo。",
+		"ja": "Go ライブラリ Pith を使った AI エージェント用ワークスペース。フォルダーを選び、API キーか OAuth でモデルプロバイダーに接続し、ファイルの差分やツール呼び出しを実行前に確認できます。会話の横には MCP ツール、ターミナル、ファイルプレビューが並びます。macOS・Linux 向けのデスクトップ版は MyGo と TypeScript のフロントエンドで作られ、ブラウザーから使うヘッドレスの Server モードは MyGo なしで動きます。",
+		"ko": "Go 라이브러리 Pith 기반의 AI 에이전트 작업 공간입니다. 폴더를 고르고 API 키나 OAuth로 모델 제공자에 연결한 뒤 파일 diff와 도구 호출을 실행 전에 검토하며, 대화 옆에서 MCP 도구, 터미널, 파일 미리보기를 쓸 수 있습니다. macOS·Linux 데스크톱 앱은 MyGo와 TypeScript 프런트엔드로 만들었고, 브라우저로 쓰는 헤드리스 Server 모드는 MyGo 없이 동작합니다."
+	},
+	"icon": {
+		"file": "pith-desk.webp"
+	},
+	"screenshot": "pith-desk.webp",
+	"added": "2026-11-06T03:54:55Z"
+}
