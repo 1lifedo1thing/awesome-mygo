@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "copiggy",
+	"name": "Copiggy",
+	"author": "ychuo",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/ychuo/copiggy",
+	"repo": "ychuo/copiggy",
+	"summary": {
+		"en": "A native macOS menu bar clipboard manager with typed cards, previews, pinning and Paste Guard.",
+		"zh-CN": "原生 macOS 菜单栏剪贴板管理器，分类卡片、预览、置顶，还能防止误粘贴。",
+		"zh-TW": "原生 macOS 選單列剪貼簿管理工具，分類卡片、預覽、釘選，還能防止貼錯地方。",
+		"ja": "macOS のメニューバーで使うクリップボード管理。種類別カード、プレビュー、ピン留め、誤ペースト防止。",
+		"ko": "macOS 메뉴 막대 클립보드 관리자. 유형별 카드, 미리보기, 고정, 잘못된 붙여넣기 방지."
+	},
+	"description": {
+		"en": "A menu bar clipboard manager for macOS 13 or later on Apple Silicon, drawn with MyGo's native UI; only webpages in link previews use WebKit. It sorts history into cards for 16 content types with search, filters and pins, previews Markdown, images, colors and links before pasting, and its Paste Guard blocks keyboard paste of a protected clip into other apps. History stays on the Mac.",
+		"zh-CN": "常驻菜单栏的 macOS 剪贴板管理器，适用于 Apple Silicon 上的 macOS 13 及以上版本，由 MyGo 原生 UI 绘制，仅链接预览中的网页使用 WebKit。历史按 16 种内容类型分成卡片，可搜索、筛选和置顶，粘贴前可预览 Markdown、图片、颜色和链接；Paste Guard 会阻止受保护的内容通过键盘粘贴到其他应用。历史记录只保存在本机。",
+		"zh-TW": "常駐選單列的 macOS 剪貼簿管理工具，適用於 Apple Silicon 上的 macOS 13 以上版本，由 MyGo 原生 UI 繪製，只有連結預覽中的網頁使用 WebKit。歷史依 16 種內容類型分成卡片，可搜尋、篩選與釘選，貼上前能預覽 Markdown、圖片、顏色和連結；Paste Guard 會阻止受保護的內容以鍵盤貼到其他 App。歷史紀錄只存在本機。",
+		"ja": "Apple Silicon 搭載の macOS 13 以降で動く、メニューバー常駐のクリップボード管理アプリ。MyGo のネイティブ UI で描かれ、WebKit を使うのはリンクプレビュー内の Web ページだけです。履歴は 16 種類の内容ごとのカードに分かれ、検索・絞り込み・ピン留めができ、貼り付ける前に Markdown、画像、色、リンクをプレビューできます。Paste Guard は、保護したクリップがほかのアプリへキーボードで貼り付けられるのを防ぎます。",
+		"ko": "Apple Silicon의 macOS 13 이상에서 동작하는 메뉴 막대 클립보드 관리자로, MyGo의 네이티브 UI로 그렸으며 링크 미리보기 안의 웹 페이지만 WebKit을 씁니다. 기록은 16가지 콘텐츠 유형별 카드로 나뉘어 검색, 필터, 고정을 할 수 있고, 붙여넣기 전에 Markdown, 이미지, 색상, 링크를 미리 볼 수 있습니다. Paste Guard는 보호한 항목이 다른 앱에 키보드로 붙여넣어지지 않게 막습니다."
+	},
+	"icon": {
+		"file": "copiggy.webp"
+	},
+	"screenshot": "copiggy.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-06T09:35:08Z"
+}
