@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "sbdb",
+	"name": "SBDb",
+	"author": "congthien2003",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/congthien2003/dbl",
+	"repo": "congthien2003/dbl",
+	"summary": {
+		"en": "A native PostgreSQL client with a database explorer, editable data grid and SQL editor tabs.",
+		"zh-CN": "原生 PostgreSQL 桌面客户端，带数据库浏览器、可编辑数据表格与 SQL 编辑器。",
+		"zh-TW": "原生 PostgreSQL 桌面用戶端，附資料庫瀏覽器、可編輯資料表格與 SQL 編輯器。",
+		"ja": "PostgreSQL 向けネイティブクライアント。編集可能なデータグリッドと SQL エディター付き。",
+		"ko": "PostgreSQL용 네이티브 클라이언트. 탐색기, 편집 가능한 데이터 그리드, SQL 편집기 제공."
+	},
+	"description": {
+		"en": "A PostgreSQL desktop client written in Go and drawn with MyGo's native UI, with no embedded browser. It saves connection profiles with TLS options and keeps passwords in the OS credential store, browses schemas, tables and views, edits cells with an explicit Save or Revert inside a transaction, and runs SQL in tabs that each hold their own session. Windows is the main target; other databases are planned.",
+		"zh-CN": "用 Go 编写、由 MyGo 原生 UI 绘制的 PostgreSQL 桌面客户端，不内嵌浏览器。可保存带 TLS 选项的连接配置，密码存入系统凭据库；能浏览 schema、表和视图，在事务中编辑单元格并明确保存或撤销，还能在各自拥有独立会话的标签页中执行 SQL。以 Windows 为主要平台，其他数据库仍在计划中。",
+		"zh-TW": "用 Go 撰寫、由 MyGo 原生 UI 繪製的 PostgreSQL 桌面用戶端，不內嵌瀏覽器。可儲存帶 TLS 選項的連線設定，密碼存入系統憑證儲存區；能瀏覽 schema、資料表和檢視，在交易中編輯儲存格並明確儲存或還原，還能在各自擁有獨立工作階段的分頁中執行 SQL。以 Windows 為主要平台，其他資料庫仍在規劃中。",
+		"ja": "Go で書かれ、MyGo のネイティブ UI で描かれた PostgreSQL 用デスクトップクライアント。埋め込みブラウザはありません。TLS オプション付きの接続プロファイルを保存し、パスワードは OS の資格情報ストアに置きます。スキーマ、テーブル、ビューを閲覧し、セルの編集はトランザクション内で明示的に保存または取り消し、SQL はそれぞれ独立したセッションを持つタブで実行できます。主な対象は Windows で、ほかのデータベースは今後の予定です。",
+		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 PostgreSQL 데스크톱 클라이언트로, 내장 브라우저가 없습니다. TLS 옵션을 포함한 연결 프로필을 저장하고 비밀번호는 OS 자격 증명 저장소에 보관합니다. 스키마, 테이블, 뷰를 탐색하고, 셀 편집은 트랜잭션 안에서 명시적으로 저장하거나 되돌리며, SQL은 각자 독립된 세션을 가진 탭에서 실행합니다. 주 대상은 Windows이고 다른 데이터베이스는 계획 중입니다."
+	},
+	"icon": {
+		"file": "sbdb.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "sbdb.webp",
+	"added": "2026-11-06T07:59:41Z"
+}
