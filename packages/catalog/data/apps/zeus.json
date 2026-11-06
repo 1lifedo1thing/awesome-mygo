@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "zeus",
+	"name": "Zeus",
+	"author": "J4ck1e2000",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/J4ck1e2000/Zeus",
+	"repo": "J4ck1e2000/Zeus",
+	"summary": {
+		"en": "A native terminal with split panes, sessions that survive quitting and an SSH-aware file tree.",
+		"zh-CN": "原生终端：支持分屏、退出后仍保留的会话，以及可浏览 SSH 的文件树。",
+		"zh-TW": "原生終端機：支援分割窗格、關閉後仍保留的工作階段，以及可瀏覽 SSH 的檔案樹。",
+		"ja": "分割ペイン、終了後も続くセッション、SSH 対応のファイルツリーを備えたネイティブなターミナル。",
+		"ko": "분할 창, 종료해도 유지되는 세션, SSH를 지원하는 파일 트리를 갖춘 네이티브 터미널."
+	},
+	"description": {
+		"en": "A replica of Superlogical's Rex terminal for macOS and Windows, drawn with MyGo's native UI and its libghostty-vt terminal plugin, with no webview. Shells run in a background session server, so quitting Zeus leaves them running and reopening brings back every tab and split pane. A file tree follows the focused pane through local or SSH directories.",
+		"zh-CN": "仿照 Superlogical 的 Rex 打造的 macOS 与 Windows 终端，由 MyGo 原生 UI 及其基于 libghostty-vt 的终端插件绘制，没有 Web 视图。Shell 运行在后台的会话服务器中，退出 Zeus 后程序继续运行，重新打开时所有标签页和分屏原样恢复。文件树跟随当前窗格，可浏览本地或 SSH 目录。",
+		"zh-TW": "仿照 Superlogical 的 Rex 打造的 macOS 與 Windows 終端機，由 MyGo 原生 UI 及其基於 libghostty-vt 的終端機外掛繪製，沒有 Web 視圖。Shell 在背景的工作階段伺服器中執行，關閉 Zeus 後程式持續運作，重新開啟時所有分頁與分割窗格原樣恢復。檔案樹會跟隨目前的窗格，可瀏覽本機或 SSH 目錄。",
+		"ja": "Superlogical の Rex を再現した macOS・Windows 向けターミナル。MyGo のネイティブ UI と libghostty-vt ベースのターミナルプラグインで描かれ、Web ビューはありません。シェルはバックグラウンドのセッションサーバーで動くため、Zeus を終了しても実行は続き、再び開くとすべてのタブと分割ペインが元どおりに戻ります。ファイルツリーはフォーカス中のペインに合わせて、ローカルや SSH のディレクトリを表示します。",
+		"ko": "Superlogical의 Rex를 재현한 macOS·Windows용 터미널로, MyGo의 네이티브 UI와 libghostty-vt 기반 터미널 플러그인으로 그려 웹 뷰가 없습니다. 셸은 백그라운드 세션 서버에서 실행되어 Zeus를 종료해도 계속 돌아가고, 다시 열면 모든 탭과 분할 창이 그대로 돌아옵니다. 파일 트리는 포커스된 창을 따라 로컬이나 SSH 디렉터리를 보여 줍니다."
+	},
+	"icon": {
+		"file": "zeus.webp"
+	},
+	"screenshot": "zeus.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-06T04:56:38Z"
+}
