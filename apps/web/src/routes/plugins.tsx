@@ -56,9 +56,9 @@ function PluginsPage() {
 		if (sort === 'score') list.sort((a, b) => compareByScore(likeKey.plugin(a), likeKey.plugin(b)));
 	}
 	const chips = [
-		{ key: 'all' as const, label: `${t.all} · ${PLUGINS.length}` },
-		{ key: 'web' as const, label: `${t.surf_web} · ${PLUGINS.filter((p) => p.surface !== 'native').length}` },
-		{ key: 'native' as const, label: `${t.surf_native} · ${PLUGINS.filter((p) => p.surface !== 'web').length}` },
+		{ key: 'all' as const, label: t.all, n: PLUGINS.length },
+		{ key: 'web' as const, label: t.surf_web, n: PLUGINS.filter((p) => p.surface !== 'native').length },
+		{ key: 'native' as const, label: t.surf_native, n: PLUGINS.filter((p) => p.surface !== 'web').length },
 	];
 	// One plugin's card, as the official ones and the community's are shown alike.
 	const card = (p: Plugin, k: number) => {
@@ -105,13 +105,13 @@ function PluginsPage() {
 			<FilterBar>
 				<FilterChips label={t.a_filter}>
 					{chips.map((c) => (
-						<FilterChip key={c.key} onClick={() => setSurface(c.key)} pressed={surface === c.key}>
+						<FilterChip key={c.key} onClick={() => setSurface(c.key)} pressed={surface === c.key} count={c.n} title={c.label}>
 							{c.label}
 						</FilterChip>
 					))}
 				</FilterChips>
 				{(likes !== 'off' || HAS_SCORES) && (
-					<FilterSelects>
+					<FilterSelects grouped>
 						<FilterSelect id='sort' label={t.sort} value={sort} onChange={(v) => setSearch({ sort: v === fallback ? undefined : (v as typeof sort) })}>
 							<option value='docs'>{t.sort_def}</option>
 							{likes !== 'off' && <option value='likes'>{t.sort_likes}</option>}

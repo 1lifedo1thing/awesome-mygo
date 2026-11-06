@@ -50,9 +50,9 @@ export function FilterChip({ pressed, onClick, count, title, children }: { press
 	);
 }
 
-// The selects of a bar. On the showcase they stay together at the bar's end (`grouped`); on the other pages each is an item of the bar itself. Below md they share one row, each taking half of it, a lone one too.
+// The selects of a bar. Every listing keeps them together at the bar's end (`grouped`), beside or under the chips; without it each is an item of the bar itself, which the bar's spacing pulled apart, one in the middle and one at the end. Below md they share one row, each taking half of it, a lone one too.
 export function FilterSelects({ grouped = false, children }: { grouped?: boolean; children: ReactNode }) {
-	return <div className={grouped ? 'flex flex-wrap items-center gap-x-4 gap-y-3 max-md:flex-nowrap max-md:gap-3' : 'flex gap-3 md:contents'}>{children}</div>;
+	return <div className={grouped ? 'flex flex-wrap items-center gap-x-4 gap-y-3 md:ml-auto max-md:flex-nowrap max-md:gap-3' : 'flex gap-3 md:contents'}>{children}</div>;
 }
 
 // A labelled select. Below md its text is 16px, the smallest size at which iOS does not zoom the page when the select is tapped, and the label goes above it, so the select has its half of the row to itself in every language.
