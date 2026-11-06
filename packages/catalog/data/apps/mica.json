@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mica",
+	"name": "Mica",
+	"author": "everpcpc",
+	"kind": "native",
+	"group": "chat",
+	"url": "https://everpcpc.github.io/mica/",
+	"repo": "everpcpc/mica",
+	"summary": {
+		"en": "A native Gmail client for macOS: three-pane reading, multiple accounts, scheduled send and snooze.",
+		"zh-CN": "原生 macOS Gmail 客户端：三栏布局、多账户、定时发送与稍后提醒。",
+		"zh-TW": "原生 macOS Gmail 用戶端：三欄版面、多帳號、排程傳送與稍後提醒。",
+		"ja": "macOS 向けネイティブ Gmail クライアント。3 ペイン、複数アカウント、予約送信、スヌーズ。",
+		"ko": "macOS용 네이티브 Gmail 클라이언트. 3단 화면, 여러 계정, 예약 발송, 다시 알림."
+	},
+	"description": {
+		"en": "A Gmail client for macOS drawn with MyGo's native UI, with HTML mail shown in sandboxed web views. It works with several Gmail accounts in a three-pane window or a merged All Inboxes, caches loaded mail for offline browsing, schedules sends, snoozes conversations, and manages Gmail labels and filters. A demo mailbox lets you try it without a Google account.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS Gmail 客户端，HTML 邮件在沙盒化的 WebView 中显示。可在三栏窗口或合并的收件箱中处理多个 Gmail 账户，已加载的邮件会缓存下来供离线浏览；支持定时发送、稍后提醒，以及管理 Gmail 标签和过滤器。自带演示邮箱，不连接 Google 账户也能试用。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS Gmail 用戶端，HTML 郵件在沙盒化的 WebView 中顯示。可在三欄視窗或合併的收件匣中處理多個 Gmail 帳號，已載入的郵件會快取起來供離線瀏覽；支援排程傳送、稍後提醒，以及管理 Gmail 標籤和篩選器。內建示範信箱，不連結 Google 帳號也能試用。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS 向け Gmail クライアントで、HTML メールはサンドボックス化された WebView で表示します。複数の Gmail アカウントを 3 ペインのウィンドウや統合された受信トレイで扱え、読み込んだメールはオフラインでも閲覧できるようキャッシュされます。予約送信やスヌーズ、Gmail のラベルとフィルターの管理にも対応し、デモ用メールボックスで Google アカウントなしに試せます。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS용 Gmail 클라이언트로, HTML 메일은 샌드박스된 WebView에서 표시합니다. 여러 Gmail 계정을 3단 창이나 통합 받은편지함에서 다루고, 불러온 메일은 캐시해 오프라인에서도 볼 수 있습니다. 예약 발송과 다시 알림, Gmail 라벨과 필터 관리를 지원하며, 데모 메일함으로 Google 계정 없이 써 볼 수 있습니다."
+	},
+	"icon": {
+		"file": "mica.webp"
+	},
+	"screenshot": "mica.webp",
+	"added": "2026-11-06T05:15:05Z"
+}
