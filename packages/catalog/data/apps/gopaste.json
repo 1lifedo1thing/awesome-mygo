@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "gopaste",
+	"name": "GoPaste",
+	"author": "viewhang",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/viewhang/go_paste",
+	"repo": "viewhang/go_paste",
+	"summary": {
+		"en": "A native clipboard manager for macOS and Windows with searchable history, lists and quick paste.",
+		"zh-CN": "原生 macOS 与 Windows 剪贴板管理器：可搜索的历史、列表与快速粘贴。",
+		"zh-TW": "原生 macOS 與 Windows 剪貼簿管理工具：可搜尋的歷史、清單與快速貼上。",
+		"ja": "macOS・Windows 向けのネイティブなクリップボード管理アプリ。履歴の検索とリスト整理に対応。",
+		"ko": "macOS·Windows용 네이티브 클립보드 관리자. 기록 검색, 목록, 빠른 붙여넣기."
+	},
+	"description": {
+		"en": "A clipboard manager for macOS and Windows drawn with MyGo's native UI, with no WebView. It keeps a history of copied text, images, links, colors and files, which you can search, sort into lists or filter with smart lists, and pastes items as plain text or converted to formats such as Markdown or HEX colors. It opens as a bottom bar or as a panel beside the cursor.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 与 Windows 剪贴板管理器，没有 WebView。它记录复制过的文本、图片、链接、颜色和文件，可以搜索历史、整理到列表或用智能列表筛选，粘贴时可选纯文本，或转换为 Markdown、HEX 颜色等格式。界面可以是底部栏，也可以是在光标旁弹出的面板。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS 與 Windows 剪貼簿管理工具，沒有 WebView。它記錄複製過的文字、圖片、連結、顏色和檔案，可搜尋歷史、整理到清單或以智慧清單篩選，貼上時可選純文字，或轉換成 Markdown、HEX 色碼等格式。介面可以是底部列，也可以是在游標旁開啟的面板。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS・Windows 向けのクリップボードマネージャー。WebView は使いません。コピーしたテキスト、画像、リンク、色、ファイルを履歴に残し、検索したり、リストに整理したり、スマートリストで絞り込んだりできます。貼り付けはプレーンテキストのほか、Markdown や HEX カラーなどの形式に変換しても行えます。画面下部のバーか、カーソルの横に開くパネルで使えます。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS·Windows용 클립보드 관리자로, WebView를 쓰지 않습니다. 복사한 텍스트, 이미지, 링크, 색상, 파일을 기록으로 남겨 검색하거나 목록으로 정리하거나 스마트 목록으로 걸러 볼 수 있고, 일반 텍스트나 Markdown, HEX 색상 같은 형식으로 바꿔 붙여 넣을 수 있습니다. 화면 아래 바나 커서 옆에 열리는 패널로 사용합니다."
+	},
+	"icon": {
+		"file": "gopaste.webp"
+	},
+	"screenshot": "gopaste.webp",
+	"added": "2026-11-06T05:15:05Z"
+}
