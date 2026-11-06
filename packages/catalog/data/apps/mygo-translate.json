@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mygo-translate",
+	"name": "MyGo 翻译",
+	"author": "Honghurumeng",
+	"kind": "native",
+	"group": "ai",
+	"url": "https://github.com/Honghurumeng/mygo-translate",
+	"repo": "Honghurumeng/mygo-translate",
+	"summary": {
+		"en": "A desktop translator with Google Translate, a MyMemory fallback and screenshot OCR on macOS.",
+		"zh-CN": "桌面翻译工具：Google 翻译为主、MyMemory 兜底，macOS 可截图识字。",
+		"zh-TW": "桌面翻譯工具：Google 翻譯為主、MyMemory 備援，macOS 可截圖識字。",
+		"ja": "Google 翻訳と予備の MyMemory で訳すデスクトップアプリ。macOS では画像の文字も認識。",
+		"ko": "Google 번역에 MyMemory를 더한 데스크톱 번역기. macOS에선 스크린샷 OCR도 지원."
+	},
+	"description": {
+		"en": "A desktop translator drawn with MyGo's native UI, with no web view, HTML or JavaScript. It translates into 33 languages and can detect the source language, using Google Translate and switching to MyMemory when that fails; long texts are split by sentence, translated two chunks at a time and joined back in order, and a translation can be cancelled. On macOS, pasting a screenshot into the source box reads its text with Apple's Vision.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的桌面翻译工具，没有 WebView，也没有 HTML 和 JavaScript。支持 33 种目标语言，可自动检测原文语言，以 Google 翻译为主，失败时自动改用 MyMemory；长文本按句子分段、两段并发翻译后按原顺序拼回，翻译中可随时取消。在 macOS 上，把截图粘贴进原文框即可用系统的 Vision 识别其中的文字。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的桌面翻譯工具，沒有 WebView，也沒有 HTML 和 JavaScript。支援 33 種目標語言，可自動偵測原文語言，以 Google 翻譯為主，失敗時自動改用 MyMemory；長文字依句子分段、兩段並行翻譯後按原順序拼回，翻譯中可隨時取消。在 macOS 上，把截圖貼進原文框即可用系統的 Vision 辨識其中的文字。",
+		"ja": "MyGo のネイティブ UI で描かれたデスクトップ翻訳アプリ。WebView も HTML や JavaScript もありません。33 の訳文言語に対応し、原文の言語は自動判定でき、Google 翻訳を使って失敗したときは MyMemory に切り替えます。長文は文単位で分割して 2 つずつ並行に訳し、元の順に戻します。翻訳中の取り消しも可能です。macOS では原文欄にスクリーンショットを貼り付けると、Vision で文字を認識します。",
+		"ko": "MyGo의 네이티브 UI로 그린 데스크톱 번역기로, WebView도 HTML이나 JavaScript도 없습니다. 33개 대상 언어를 지원하고 원문 언어를 자동 감지하며, Google 번역을 쓰다가 실패하면 MyMemory로 전환합니다. 긴 글은 문장 단위로 나눠 두 조각씩 동시에 번역한 뒤 원래 순서대로 합치고, 번역 중에 취소할 수도 있습니다. macOS에서는 원문 칸에 스크린샷을 붙여 넣으면 Vision으로 글자를 인식합니다."
+	},
+	"icon": {
+		"file": "mygo-translate.webp"
+	},
+	"screenshot": "mygo-translate.webp",
+	"added": "2026-11-06T09:35:08Z"
+}
