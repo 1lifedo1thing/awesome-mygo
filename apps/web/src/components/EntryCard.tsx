@@ -12,6 +12,8 @@ export const showGrid = 'grid grid-cols-[repeat(auto-fill,minmax(min(100%,260px)
 export const showId = 'flex items-center gap-3';
 export const showIdText = 'flex min-w-0 flex-col gap-[3px]';
 export const showName = 'm-0 truncate text-[17px] font-black tracking-[-0.01em]';
+// The name in a card's head, beside its score and like buttons: up to two lines, breaking where the name allows (a space or a hyphen), so a long name such as starter-mygo-react-router reads whole instead of ending in an ellipsis after a few letters.
+export const cardName = 'm-0 line-clamp-2 text-[17px] leading-[1.25] font-black tracking-[-0.01em] [overflow-wrap:anywhere]';
 export const showBy = 'truncate text-[13px] text-fg-3';
 export const showDesc = 'flex-auto text-[14px] leading-[1.6] text-fg-2';
 
@@ -55,7 +57,7 @@ export function CardHead({ as: H, name, href, item, tile, children }: { as: 'h2'
 		<div className={showId}>
 			{tile}
 			<div className={showIdText}>
-				<H className={showName}>
+				<H className={cardName}>
 					<a className='text-inherit no-underline hover:text-cyan' href={href} target='_blank' rel='noopener'>
 						{name}
 					</a>
