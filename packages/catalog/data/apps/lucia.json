@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "lucia",
+	"name": "Lucia",
+	"author": "LoTwT",
+	"kind": "native",
+	"group": "game",
+	"url": "https://github.com/LoTwT/lucia",
+	"repo": "LoTwT/lucia",
+	"summary": {
+		"en": "A desktop pet for macOS and Windows: an animated whale, or characters from animated WebP packs.",
+		"zh-CN": "macOS 与 Windows 桌宠：默认是一只动画鲸鱼，可导入动画 WebP 角色包。",
+		"zh-TW": "macOS 與 Windows 桌寵：預設是一隻動畫鯨魚，可匯入動畫 WebP 角色包。",
+		"ja": "macOS・Windows 向けデスクトップペット。クジラのほか、アニメ WebP のキャラも追加可能。",
+		"ko": "macOS·Windows용 데스크톱 펫. 기본 고래 외에 WebP 캐릭터 팩도 가져옵니다."
+	},
+	"description": {
+		"en": "A desktop pet for macOS and Windows, drawn on the GPU with MyGo's native UI and no WebView. It starts with a built-in animated whale, and character packs made of transparent animated WebP can be imported as zip files from its console; each pack is checked on import and takes over right away, without a restart. If a pack goes missing or is damaged, the pet falls back to the whale.",
+		"zh-CN": "用 MyGo 原生 UI 在 GPU 上绘制的 macOS 与 Windows 桌宠，不使用 WebView。默认是一只内置的动画鲸鱼，也可以在控制台导入由透明动画 WebP 组成的 zip 角色包；导入时会先校验，成功后无需重启即可切换。素材包缺失或损坏时会回退到内置鲸鱼。",
+		"zh-TW": "用 MyGo 原生 UI 在 GPU 上繪製的 macOS 與 Windows 桌寵，不使用 WebView。預設是一隻內建的動畫鯨魚，也可以在控制台匯入由透明動畫 WebP 組成的 zip 角色包；匯入時會先校驗，成功後不必重新啟動即可切換。素材包遺失或損毀時會退回內建鯨魚。",
+		"ja": "MyGo のネイティブ UI で GPU 描画される macOS・Windows 向けのデスクトップペットで、WebView は使いません。標準では内蔵のクジラがアニメーションし、透過アニメーション WebP でできたキャラクターパックを zip でコンソールから読み込めます。読み込み時に検証され、成功すれば再起動なしで切り替わります。パックが見つからない、または壊れている場合は内蔵のクジラに戻ります。",
+		"ko": "MyGo의 네이티브 UI로 GPU에서 그리는 macOS·Windows용 데스크톱 펫으로, WebView를 쓰지 않습니다. 기본으로 내장된 고래가 움직이며, 투명 애니메이션 WebP로 만든 캐릭터 팩을 콘솔에서 zip으로 가져올 수 있습니다. 가져올 때 검증을 거치고, 성공하면 재시작 없이 바로 바뀝니다. 팩이 없거나 손상되면 내장 고래로 돌아갑니다."
+	},
+	"icon": {
+		"file": "lucia.webp"
+	},
+	"screenshot": "lucia.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-06T05:15:05Z"
+}
