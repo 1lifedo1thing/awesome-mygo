@@ -1,0 +1,17 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "curlgo",
+	"name": "CurlGo",
+	"author": "echoVic",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/echoVic/curlgo",
+	"repo": "echoVic/curlgo",
+	"summary": {
+		"en": "A lightweight local API client with a native UI: HTTP, SSE and WebSocket requests, with curl import and export."
+	},
+	"description": {
+		"en": "A lightweight local API client drawn with MyGo's native UI. It sends HTTP, SSE and WebSocket requests, imports and exports curl and Postman or Bruno collections, and keeps environments, secrets, cookies and history on the machine with no account. An optional command-line tool runs the same requests."
+	},
+	"added": "2026-11-06T00:53:33Z"
+}
