@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "voxt",
+	"name": "Voxt",
+	"author": "sgl-project",
+	"kind": "native",
+	"group": "ai",
+	"url": "https://sgl-project.github.io/sglang-omni/",
+	"repo": "sgl-project/sglang-omni",
+	"summary": {
+		"en": "A Mac voice input tool: transcribes speech locally or remotely and refines the text with an LLM.",
+		"zh-CN": "Mac 语音输入工具：在本地或远程识别语音，再用 LLM 润色文字。",
+		"zh-TW": "Mac 語音輸入工具：在本機或遠端辨識語音，再用 LLM 潤飾文字。",
+		"ja": "Mac 用の音声入力ツール。音声をローカルかリモートで文字にし、LLM で整える。",
+		"ko": "Mac용 음성 입력 도구. 음성을 로컬이나 원격으로 받아쓰고 LLM으로 다듬습니다."
+	},
+	"description": {
+		"en": "A Mac voice input tool drawn with MyGo's native UI. It transcribes speech, then refines the text with an LLM and your own system prompts so technical terms come out right, with fully local or remote inference. Voxt lives in the SGLang-Omni repository and uses that serving runtime for faster local recognition on Apple Silicon; MyGo builds only the Mac app, not the runtime.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Mac 语音输入工具。它先把语音转成文字，再用 LLM 和你自己的系统提示词润色，让技术术语也能写对；推理可完全在本地进行，也可交给远程模型。Voxt 位于 SGLang-Omni 仓库中，借助这一推理服务运行时在 Apple Silicon 上加快本地识别；MyGo 只构建这个 Mac 应用，不包括运行时本身。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Mac 語音輸入工具。它先把語音轉成文字，再用 LLM 和你自訂的系統提示詞潤飾，讓技術術語也能寫對；推論可完全在本機進行，也可交給遠端模型。Voxt 位於 SGLang-Omni 儲存庫中，借助這套推論服務執行環境在 Apple Silicon 上加快本機辨識；MyGo 只建置這個 Mac 應用程式，不包括執行環境本身。",
+		"ja": "MyGo のネイティブ UI で描かれた Mac 用の音声入力ツール。音声を文字に起こし、LLM と自分のシステムプロンプトで整えるので、技術用語も正確に入力できます。推論は完全にローカルでもリモートでも行えます。Voxt は SGLang-Omni のリポジトリにあり、そのサービングランタイムで Apple Silicon 上のローカル認識を高速化しています。MyGo がビルドするのは Mac アプリだけで、ランタイムは含みません。",
+		"ko": "MyGo의 네이티브 UI로 그린 Mac용 음성 입력 도구입니다. 음성을 텍스트로 받아쓴 뒤 LLM과 직접 정한 시스템 프롬프트로 다듬어 기술 용어도 정확하게 입력되며, 추론은 완전히 로컬에서 하거나 원격 모델에 맡길 수 있습니다. Voxt는 SGLang-Omni 저장소 안에 있고 그 서빙 런타임으로 Apple Silicon에서 로컬 인식을 빠르게 합니다. MyGo는 Mac 앱만 빌드하며 런타임은 포함하지 않습니다."
+	},
+	"icon": {
+		"file": "voxt.webp"
+	},
+	"screenshot": "voxt.webp",
+	"added": "2026-11-06T07:59:41Z"
+}
