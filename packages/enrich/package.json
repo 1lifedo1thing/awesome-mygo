@@ -8,6 +8,7 @@
 		"./source": "./src/source.ts"
 	},
 	"scripts": {
+		"backfill-images": "node src/backfill-images.ts",
 		"enrich": "node src/main.ts",
 		"discover": "node src/discover.ts",
 		"verify": "node src/verify.ts",

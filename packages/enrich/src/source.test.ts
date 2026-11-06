@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { repoIcons, repoShotSources, shotProblem, stagedShot, stagedShotOf, addedFiles, appNameFrom, knownFiles, cleanTags, formDefaults, homepageOf, hasAllLanguages, markProvisional, iconCut, iconOf, isArtwork, isBanner, isPortrait, isSquarish, lengthCaps, overCaps, joinRepoPath, scriptConfig, parseMygoConfig, pickMygoConfig, readmeImages, repoOfEntry, repoScreenshots, resolveImage, schemaEnum, setCategory, setGroup, sniffImage, submittedScreenshot } from './source.ts';
+import { repoIcons, repoLikelyScreenshots, repoShotSources, shotProblem, stagedShot, stagedShotOf, addedFiles, appNameFrom, knownFiles, cleanTags, formDefaults, homepageOf, hasAllLanguages, markProvisional, iconCut, iconOf, isArtwork, isBanner, isPortrait, isSquarish, lengthCaps, overCaps, joinRepoPath, scriptConfig, parseMygoConfig, pickMygoConfig, readmeImages, repoOfEntry, repoScreenshots, resolveImage, schemaEnum, setCategory, setGroup, sniffImage, submittedScreenshot } from './source.ts';
 
 describe('app names', () => {
 	it('takes mygo.json’s spelling of the same name only', () => {
@@ -177,6 +177,11 @@ describe('repository screenshots', () => {
 		expect(repoScreenshots(paths)).toEqual(['website/public/shots/en/clipboard.png', 'website/public/shots/en/translate.png', 'docs/screenshots/main.webp', 'Screens/Main.JPG', 'website/public/shots/zh/clipboard.png']);
 		expect(repoScreenshots(['README.md', 'assets/logo.png', 'myshots/a.png'])).toEqual([]);
 	});
+
+	it('finds likely screenshots outside specially named folders without taking branding assets', () => {
+		const paths = ['docs/ui-baselines/windows/dashboard-empty.png', 'docs/design-mockup/pages.png', 'assets/demo-tools.png', 'website/public/main.webp', 'assets/icon-preview.png', 'assets/banner-demo.jpg', 'assets/backdrop.jpg', 'frontend/public/wails.png', 'dist/screenshots/app.png', 'node_modules/x/docs/overview.png'];
+		expect(repoLikelyScreenshots(paths)).toEqual(['assets/demo-tools.png', 'docs/design-mockup/pages.png', 'docs/ui-baselines/windows/dashboard-empty.png', 'website/public/main.webp']);
+	});
 });
 
 describe('categories', () => {
@@ -289,6 +294,7 @@ describe('icons without a MyGo configuration', () => {
 		expect(repoIcons(['icon.png', 'build/appicon.png', 'build/icon_512x512.png'])).toEqual(['icon.png', 'build/appicon.png', 'build/icon_512x512.png']);
 		expect(repoIcons(['examples/demo/resources/icon.png', 'node_modules/x/icon.png', 'docs/icon.png', 'internal/ui/icon.png'])).toEqual([]);
 		expect(repoIcons(['desktop/assets/icon.png'])).toEqual(['desktop/assets/icon.png']);
+		expect(repoIcons(['mygo/assets/icon.png'])).toEqual(['mygo/assets/icon.png']);
 	});
 });
 
@@ -310,7 +316,7 @@ describe('screenshots as the form, its Worker and the workflow judge them', () =
 		expect(stagedShotOf([], 'bunnybox')).toBeUndefined();
 	});
 
-	it("lists a repository's README images, then its screenshot folders, each once", () => {
+	it("lists a repository's README images, screenshot folders and other likely screenshots, each once", () => {
 		const sources = repoShotSources({
 			repo: 'o/app',
 			branch: 'main',
@@ -320,10 +326,12 @@ describe('screenshots as the form, its Worker and the workflow judge them', () =
 		expect(sources).toEqual([
 			{ from: 'the README', urls: ['https://raw.githubusercontent.com/o/app/main/docs/screenshots/main.png', 'https://raw.githubusercontent.com/o/app/main/assets/hero.png', 'https://example.com/b.png'], tries: 8 },
 			{ from: 'a screenshot folder in the repository', urls: [], tries: 6 },
+			{ from: 'another likely screenshot file in the repository', urls: [], tries: 12 },
 		]);
 		expect(repoShotSources({ repo: 'o/app', branch: 'main', paths: [] })).toEqual([
 			{ from: 'the README', urls: [], tries: 8 },
 			{ from: 'a screenshot folder in the repository', urls: [], tries: 6 },
+			{ from: 'another likely screenshot file in the repository', urls: [], tries: 12 },
 		]);
 	});
 });

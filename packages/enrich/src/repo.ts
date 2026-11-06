@@ -52,12 +52,13 @@ export const rawUrl = (facts: RepoFacts, path: string) => rawRepoUrl(facts.repo,
 
 // Where the app's own icon is: where MyGo takes it from, or, without a MyGo configuration to name it (as in a repository that keeps MyGo as a submodule), an icon file where projects usually keep one (guessed); why there is none otherwise.
 export function iconSource(facts: RepoFacts): { path: string; url: string; guessed: boolean } | { why: string } {
-	const found = facts.mygo ? undefined : repoIcons(facts.paths)[0];
-	if (!facts.mygo && !found) return { why: 'the repository has neither a MyGo configuration (mygo.json or mygo.config.ts) nor an icon file where projects usually keep one' };
-	const src = facts.mygo ? iconOf(facts.mygo.path, facts.mygo.json, facts.paths) : { path: found as string };
-	if (!src) return { why: `neither \`${facts.mygo?.path}\` nor resources/ beside it has an icon` };
-	if ('macOnly' in src) return { why: `the app's only icon is \`${src.macOnly}\` (macos.icon), which cannot be converted here` };
-	return { path: src.path, url: rawUrl(facts, src.path), guessed: found !== undefined };
+	const configured = facts.mygo ? iconOf(facts.mygo.path, facts.mygo.json, facts.paths) : undefined;
+	if (configured && !('macOnly' in configured)) return { path: configured.path, url: rawUrl(facts, configured.path), guessed: false };
+	const found = repoIcons(facts.paths)[0];
+	if (found) return { path: found, url: rawUrl(facts, found), guessed: true };
+	if (!facts.mygo) return { why: 'the repository has neither a MyGo configuration (mygo.json or mygo.config.ts) nor an icon file where projects usually keep one' };
+	if (!configured) return { why: `neither \`${facts.mygo.path}\` nor resources/ beside it has an icon` };
+	return { why: `the app's only icon is \`${configured.macOnly}\` (macos.icon), which cannot be converted here` };
 }
 
 // The app's own icon (iconSource), written as the app's icon file. Returns the file it came from when there was one, so the screenshot search can pass over the same image, and why there is none otherwise.

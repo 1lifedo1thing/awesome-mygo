@@ -100,6 +100,16 @@ export async function writeCard(avatar: Downloaded, label: string, out: string):
 	);
 }
 
+// A repository card when even the owner's avatar is unavailable, such as a deleted repository owned by a deleted account. It keeps the catalog from rendering an empty media area and is marked as a stand-in by the caller.
+export async function writeTextCard(label: string, out: string): Promise<void> {
+	const font = CARD_FONTS.find((f) => existsSync(f));
+	await magick([
+		'-size', '1200x630', 'xc:#0b1220',
+		...(font ? ['-font', font, '-fill', '#3fd3f5', '-pointsize', '140', '-gravity', 'center', '-annotate', '+0-60', label.charAt(0).toUpperCase(), '-fill', '#e6edf3', '-pointsize', '46', '-annotate', '+0+105', label] : []),
+		'-strip', '-quality', '82', '-define', 'webp:method=6', `webp:${out}`,
+	]);
+}
+
 // Runs fn on the image written to a temporary file, named with its real format so ImageMagick reads it as nothing else, in a directory fn may also write to.
 async function withInput<T>(img: Downloaded, fn: (input: string, dir: string) => Promise<T>): Promise<T> {
 	const dir = await mkdtemp(join(tmpdir(), 'enrich-'));
@@ -114,13 +124,13 @@ async function withInput<T>(img: Downloaded, fn: (input: string, dir: string) =>
 
 const size = (input: string) => magick(['-ping', input, '-format', '%w %h', 'info:']);
 
-// Writes the icon to out as the site's 256 px WebP. A macOS icon sits on a plate inside transparent margins with a faint shadow; the box around its mostly opaque pixels is that plate, so the icon is cut to it and centred on a square, as the official icons in apps/web/public/icons are. Returns false for an icon too small to use.
-export async function writeIcon(img: Downloaded, out: string): Promise<boolean> {
+// Writes the icon to out as the site's 256 px WebP. A macOS icon sits on a plate inside transparent margins with a faint shadow; the box around its mostly opaque pixels is that plate, so the icon is cut to it and centred on a square, as the official icons in apps/web/public/icons are. Returns false for an icon smaller than min; callers use the 128 px default for project icons, while a last-resort owner avatar may opt into upscaling a smaller source.
+export async function writeIcon(img: Downloaded, out: string, min = ICON_MIN): Promise<boolean> {
 	return withInput(img, async (input) => {
 		const [w, h] = (await size(input)).split(' ').map(Number);
-		if (Math.min(w, h) < ICON_MIN) return false;
+		if (Math.min(w, h) < min) return false;
 		const { crop, side } = iconCut(await magick([input, '-alpha', 'extract', '-threshold', '50%', '-format', '%@', 'info:']), w, h);
-		if (side < ICON_MIN) return false;
+		if (side < min) return false;
 		await magick([input, ...(crop ? ['-crop', crop, '+repage'] : []), '-background', 'none', '-gravity', 'center', '-extent', `${side}x${side}`, '-resize', '256x256', '-strip', '-quality', '90', '-define', 'webp:method=6', `webp:${out}`]);
 		return true;
 	});
@@ -135,4 +145,25 @@ export async function writeShot(img: Downloaded, out: string): Promise<'ok' | 'n
 		await magick([input, '-resize', '1200x>', '-strip', '-quality', '82', '-define', 'webp:method=6', `webp:${out}`]);
 		return 'ok';
 	});
+}
+
+// Writes up to three narrow or portrait project screenshots as one landscape contact sheet. Tray apps often document real UI only as tall panels; keeping those panels is more useful than replacing them with a generic repository card.
+export async function writeShotCollage(images: readonly Downloaded[], out: string): Promise<boolean> {
+	if (!images.length) return false;
+	const dir = await mkdtemp(join(tmpdir(), 'enrich-collage-'));
+	try {
+		const inputs: string[] = [];
+		for (const [i, img] of images.slice(0, 3).entries()) {
+			const file = join(dir, `${i}.${img.format}`);
+			await writeFile(file, img.bytes);
+			inputs.push(`${img.format}:${file}[0]`);
+		}
+		await magick([
+			...inputs.flatMap((input) => ['(', input, '-resize', '340x640>', '-background', 'none', '-gravity', 'center', '-extent', '360x660', ')']),
+			'+append', '-background', '#0b1220', '-gravity', 'center', '-extent', '1200x750', '-strip', '-quality', '82', '-define', 'webp:method=6', `webp:${out}`,
+		]);
+		return true;
+	} finally {
+		await rm(dir, { recursive: true, force: true });
+	}
 }
