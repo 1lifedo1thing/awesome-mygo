@@ -438,6 +438,20 @@ describe('search snippets', () => {
 		});
 	});
 
+	it('gives every page keywords that pair MyGo with Go and repeat no phrase', () => {
+		const KEYWORDS = ['kw_home', 'kw_ui', 'kw_state', 'kw_plugins', 'kw_showcase', 'kw_learn', 'kw_app'] as const;
+		for (const L of LANGS) {
+			for (const key of KEYWORDS) {
+				const terms = LOCALES[L.code][key].split(', ');
+				expect(terms.every((x) => x.trim() === x && x.length > 0), `${key} ${L.code}`).toBe(true);
+				expect(new Set(terms).size, `${key} ${L.code}`).toBe(terms.length);
+				expect(terms.length, `${key} ${L.code}`).toBeLessThanOrEqual(10);
+				// MyGo alone searches as the BanG Dream! band, so a page's keywords also name Go or Golang.
+				expect(terms.some((x) => /\bGo(lang)?\b/.test(x)), `${key} ${L.code}`).toBe(true);
+			}
+		}
+	});
+
 	it('gives every app page its own description that fits the snippet', () => {
 		for (const L of LANGS) {
 			const descs = APPS.map((a) => appDescription(a, L.code));

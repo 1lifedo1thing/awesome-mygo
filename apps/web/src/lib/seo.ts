@@ -11,6 +11,9 @@ const WEBSITE = { '@type': 'WebSite', '@id': `${SITE_URL}/#website`, name: SITE_
 export type SitePath = '/' | '/ui' | '/state' | '/plugins' | '/showcase' | '/learn';
 export const SITE_PATHS: readonly SitePath[] = ['/', '/ui', '/state', '/plugins', '/showcase', '/learn'];
 
+// Each page's <meta name="keywords">: the phrasings people search for Go desktop development in the page's language, taken from Google, Baidu and Bing autocomplete in 2026-11 (golang 桌面应用开发, golang gui framework, go gui アプリ, golang gui 추천…). Google ignores the tag; Baidu and Bing still read it a little. MyGo always comes with Go or Golang, as the name alone searches as the BanG Dream! band MyGO!!!!!.
+const PAGE_KEYWORDS: Record<SitePath, StringKey> = { '/': 'kw_home', '/ui': 'kw_ui', '/state': 'kw_state', '/plugins': 'kw_plugins', '/showcase': 'kw_showcase', '/learn': 'kw_learn' };
+
 // An app's own page.
 export type AppPath = `/apps/${string}`;
 export const appPath = (slug: string): AppPath => `/apps/${slug}`;
@@ -72,7 +75,7 @@ export function pageHead(p: PageSeo) {
 		);
 	}
 
-	return headTags({ lang, path: p.path, title, desc, imageAlt: tr.og_alt, jsonLd });
+	return headTags({ lang, path: p.path, title, desc, keywords: tr[PAGE_KEYWORDS[p.path]], imageAlt: tr.og_alt, jsonLd });
 }
 
 // The head of an app's own page. The title stays short: the name and a localized descriptor, as names such as Pulse or Kero say little alone. The description is the app's one-line summary followed by its author and the Go and MyGo context (appDescription).
@@ -105,7 +108,7 @@ export function appHead(app: App, langParam: LangCode | undefined) {
 		]),
 	];
 
-	return headTags({ lang, path, title, desc, image: `${SITE_URL}${appCardPath(app.slug)}`, imageAlt: `${app.name} — ${tr.app_kind}`, jsonLd });
+	return headTags({ lang, path, title, desc, keywords: `${app.name}, ${tr.kw_app}`, image: `${SITE_URL}${appCardPath(app.slug)}`, imageAlt: `${app.name} — ${tr.app_kind}`, jsonLd });
 }
 
 interface HeadTags {
@@ -113,6 +116,7 @@ interface HeadTags {
 	path: SitePath | AppPath;
 	title: string;
 	desc: string;
+	keywords: string;
 	// Absolute URL of a 1200×630 PNG; the site's share image when undefined.
 	image?: string;
 	// Localized, for og:image:alt and twitter:image:alt.
@@ -127,6 +131,7 @@ function headTags(h: HeadTags) {
 		meta: [
 			{ title: h.title },
 			{ name: 'description', content: h.desc },
+			{ name: 'keywords', content: h.keywords },
 			{ name: 'robots', content: 'index, follow, max-image-preview:large' },
 			{ property: 'og:type', content: 'website' },
 			{ property: 'og:site_name', content: SITE_NAME },
