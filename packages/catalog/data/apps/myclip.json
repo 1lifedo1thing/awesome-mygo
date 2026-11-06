@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "myclip",
+	"name": "MyClip",
+	"author": "L92-Labs",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/L92-Labs/myclip",
+	"repo": "L92-Labs/myclip",
+	"summary": {
+		"en": "Local-only menu bar clipboard history with search, pins, a paste stack and image OCR.",
+		"zh-CN": "只存本机的菜单栏剪贴板历史：支持搜索、固定、批量粘贴和图片文字识别。",
+		"zh-TW": "只存本機的選單列剪貼簿歷史：支援搜尋、釘選、批次貼上與圖片文字辨識。",
+		"ja": "メニューバーのローカル専用クリップボード履歴。検索、ピン留め、まとめ貼り付け、画像の OCR に対応。",
+		"ko": "메뉴 막대에서 쓰는 로컬 전용 클립보드 기록. 검색, 고정, 연속 붙여넣기, 이미지 OCR 지원."
+	},
+	"description": {
+		"en": "A local-only menu bar clipboard history for macOS, Linux and Windows, drawn with MyGo's native UI. It keeps text, images and files, searches them exactly, fuzzily or by regular expression, reads text in copied images on your computer, and pastes one clip or a stack of them into the app you were in. Copies from password managers are skipped unread, and nothing goes online.",
+		"zh-CN": "只存本机的菜单栏剪贴板历史，支持 macOS、Linux 与 Windows，由 MyGo 原生 UI 绘制。它保存文本、图片和文件，可精确、模糊或用正则表达式搜索，在本机识别复制图片中的文字，并把单条或成组的内容粘贴到刚才使用的应用中。密码管理器复制的内容不读取直接跳过，全程不联网。",
+		"zh-TW": "只存本機的選單列剪貼簿歷史，支援 macOS、Linux 與 Windows，由 MyGo 原生 UI 繪製。它保存文字、圖片和檔案，可精確、模糊或用正規表示式搜尋，在本機辨識複製圖片中的文字，並把單筆或成組的內容貼到剛才使用的應用程式中。密碼管理器複製的內容不讀取直接略過，全程不連網。",
+		"ja": "macOS・Linux・Windows 向けの、メニューバーで使うローカル専用クリップボード履歴で、MyGo のネイティブ UI で描かれています。テキスト、画像、ファイルを保存し、完全一致・あいまい・正規表現で検索でき、コピーした画像の文字も手元で読み取ります。選んだ項目や複数の項目をまとめて、直前に使っていたアプリに貼り付けます。パスワードマネージャーからのコピーは中身を読まずに除外し、ネットワークには接続しません。",
+		"ko": "macOS, Linux, Windows용 메뉴 막대 클립보드 기록 앱으로, 데이터를 로컬에만 두며 MyGo의 네이티브 UI로 그렸습니다. 텍스트, 이미지, 파일을 저장하고 정확 일치, 퍼지, 정규식으로 검색하며, 복사한 이미지 속 글자도 기기에서 인식합니다. 항목 하나나 여러 항목을 묶어 직전에 쓰던 앱에 붙여 넣습니다. 비밀번호 관리자의 복사는 읽지 않고 건너뛰며, 네트워크에 연결하지 않습니다."
+	},
+	"icon": {
+		"file": "myclip.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "myclip.webp",
+	"added": "2026-11-06T05:15:05Z"
+}
