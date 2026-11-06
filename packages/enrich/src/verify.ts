@@ -2,13 +2,14 @@ import { execFile } from 'node:child_process';
 import { readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { promisify } from 'node:util';
-import { MYGO_MODULE, goModsIn, quiet, requiresMygo } from './find.ts';
-import { github, rawFile } from './github.ts';
+import { MYGO_MODULE, quiet } from './find.ts';
+import { github } from './github.ts';
+import { currentRepo, namedInCode, usesMygo } from './listed.ts';
 import { type ShotSource, firstShot, iconSource, ownIcon, repoFacts } from './repo.ts';
 import { ENTRY_DIRS, type Entry, homepageOf, repoOfEntry, repoShotSources } from './source.ts';
 import { type BranchPull, VERIFY_PREFIX, changeKey, changeMarker, dropProvisional, movedRepo, pastPulls, setAfter, verifyBranch } from './verify-plan.ts';
 
-// Run by .github/workflows/verify.yml once a week. It looks up the GitHub repository of every entry that names one (apps, UI libraries, state management and community plugins) and opens a pull request for each entry whose repository says it has changed, with only what the repository states, never a judgment: an entry whose repository is gone (deleted, made private or disabled by GitHub) is removed with its images; one GitHub moved (renamed or transferred) gets its new owner/name in the fields that named the old; a UI library or state management library without a homepage gets the one its repository's settings now give; and an image that stands in for the project's own (the entry's provisional list) is replaced once the project has its own, by the rules main.ts takes images by. What needs a maintainer's judgment is only reported: an archived repository, and one in which no go.mod requires MyGo any more.
+// Run by .github/workflows/verify.yml once a week. It looks up the GitHub repository of every entry that names one (apps, UI libraries, state management and community plugins) and opens a pull request for each entry whose repository says it has changed, with only what the repository states, never a judgment: an entry whose repository is gone (deleted, made private or disabled by GitHub) is removed with its images; one GitHub moved (renamed or transferred) gets its new owner/name in the fields that named the old; a UI library or state management library without a homepage gets the one its repository's settings now give; and an image that stands in for the project's own (the entry's provisional list) is replaced once the project has its own, by the rules main.ts takes images by. What needs a maintainer's judgment is only reported: an archived repository, and one in which no go.mod requires MyGo any more; prune.ts proposes taking those off, in a pull request a maintainer merges.
 //
 // Each entry has one pull request at a time, on its own branch (verify/<dir>/<slug>), so each fix is merged or closed on its own. An entry with an open one is left alone until it is merged or closed; a change a maintainer closed is not proposed again, while a different one is. Like discover.ts, it works in the repository's working tree, checked out at main and clean, with origin/main fetched, and leaves the tree detached at origin/main.
 //
@@ -37,7 +38,6 @@ const say = (line: string): void => {
 };
 
 const git = (...args: string[]) => run('git', args, { cwd: ROOT, maxBuffer: 16 * 1024 * 1024 });
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const tail = (text: string, n: number) => (text.length > n ? `…${text.slice(-n)}` : text);
 const codeBlock = (text: string) => `\`\`\`\`\n${text.replace(/````/g, '```')}\n\`\`\`\``;
 
@@ -51,16 +51,6 @@ interface Listed {
 	file: string;
 	entry: Entry;
 	repo: string;
-}
-
-interface RepoInfo {
-	full_name: string;
-	html_url: string;
-	archived: boolean;
-	disabled: boolean;
-	private: boolean;
-	homepage: string | null;
-	default_branch: string;
 }
 
 // What the check found that a pull request changes.
@@ -92,30 +82,10 @@ async function listedEntries(): Promise<Listed[]> {
 	return out;
 }
 
-// The repository as GitHub has it now, after a rename or transfer, which the API follows; undefined when it is gone. A 404 is asked again after a pause, as a repository that is there now and then answers one.
-async function current(repo: string): Promise<RepoInfo | undefined> {
-	const first = await github<RepoInfo>(`/repos/${repo}`);
-	if (first) return first;
-	await sleep(5000);
-	return github<RepoInfo>(`/repos/${repo}`);
-}
-
-// Whether a go.mod of the repository's own still requires MyGo; undefined when its tree is too large to tell.
-async function usesMygo(info: RepoInfo): Promise<boolean | undefined> {
-	const tree = await github<{ tree: { path: string; type: string }[]; truncated: boolean }>(`/repos/${info.full_name}/git/trees/${encodeURIComponent(info.default_branch)}?recursive=1`);
-	if (!tree) return undefined;
-	const paths = tree.tree.filter((t) => t.type === 'blob').map((t) => t.path);
-	for (const path of goModsIn(paths).slice(0, 5)) {
-		const text = await rawFile(info.full_name, info.default_branch, path);
-		if (text !== undefined && requiresMygo(text)) return true;
-	}
-	return tree.truncated ? undefined : false;
-}
-
 // What the entry's repository says has changed, and what only a maintainer can judge (notes).
 async function check(l: Listed): Promise<{ fix?: Fix; notes: string[] }> {
 	const notes: string[] = [];
-	const info = await current(l.repo);
+	const info = await currentRepo(l.repo);
 	if (!info) return { fix: { remove: 'its repository is gone: GitHub answers 404 for it, as for a deleted repository or one made private', images: [] }, notes };
 	if (info.disabled) return { fix: { remove: 'GitHub has disabled its repository', images: [] }, notes };
 	if (info.private) return { fix: { remove: 'its repository is private now', images: [] }, notes };
@@ -191,15 +161,6 @@ async function apply(l: Listed, fix: Fix): Promise<{ changes: string[]; lines: s
 	}
 	if (changes.length) await writeFile(join(ROOT, l.file), entryText(entry));
 	return { changes, lines };
-}
-
-// The source files, outside the catalog's data and tests, that name the entry's slug in quotes, such as the home page's featured apps or the apps whose copy sets the voice of new ones: removing the entry would break them at run time, which the catalog checks do not see.
-async function namedInCode(slug: string): Promise<string[]> {
-	const { stdout } = await git('grep', '-l', '-E', `['"]${slug}['"]`, BASE_REF, '--', 'apps/web/src', 'packages/*/src/*', ':(exclude)*.test.ts').catch((err: { code?: number; stdout?: string }) => (err.code === 1 ? { stdout: '' } : Promise.reject(err)));
-	return stdout
-		.split('\n')
-		.filter(Boolean)
-		.map((line) => line.slice(line.indexOf(':') + 1));
 }
 
 // Pushing the branch or opening the pull request failed: a fault on GitHub's side or in this workflow.
@@ -299,7 +260,7 @@ async function main(): Promise<void> {
 			const owner = SITE.split('/')[0];
 			const prs = (await github<BranchPull[]>(`/repos/${SITE}/pulls?state=all&per_page=100&head=${encodeURIComponent(`${owner}:${verifyBranch(l.dir, l.slug)}`)}`)) ?? [];
 			if (fix.remove) {
-				const uses = await namedInCode(l.slug);
+				const uses = await namedInCode(ROOT, BASE_REF, l.slug);
 				if (uses.length) {
 					lines.look.push(`- ${link}: ${fix.remove}, but ${uses.map((f) => `\`${f}\``).join(', ')} name${uses.length === 1 ? 's' : ''} its slug, so it is not removed here; take it out there first`);
 					continue;
