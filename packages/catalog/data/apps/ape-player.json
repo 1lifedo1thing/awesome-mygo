@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "ape-player",
+	"name": "Ape Player",
+	"author": "myoula",
+	"kind": "native",
+	"group": "media",
+	"url": "https://github.com/myoula/ape-player",
+	"repo": "myoula/ape-player",
+	"summary": {
+		"en": "A Linux Emby player: browses your libraries and plays video with libmpv inside a native window.",
+		"zh-CN": "Linux 上的 Emby 播放器：浏览媒体库，在原生窗口内用 libmpv 播放视频。",
+		"zh-TW": "Linux 上的 Emby 播放器：瀏覽媒體庫，在原生視窗內以 libmpv 播放影片。",
+		"ja": "Linux 向け Emby プレーヤー。ライブラリを閲覧し、libmpv で動画をウィンドウ内に再生。",
+		"ko": "Linux용 Emby 플레이어. 라이브러리를 둘러보고 libmpv로 창 안에서 영상을 재생합니다."
+	},
+	"description": {
+		"en": "An Emby player for Linux (amd64) whose interface is drawn entirely with MyGo's native UI, with video rendered inside the window by libmpv and OpenGL, and no web view or separate player window. It signs in to several Emby servers, browses libraries with search, filters and Continue Watching, lets you pick the video version, audio track and subtitles, and plays the original file without server transcoding.",
+		"zh-CN": "Linux（amd64）上的 Emby 播放器，界面完全由 MyGo 原生 UI 绘制，视频由 libmpv 与 OpenGL 在窗口内渲染，没有 WebView，也不弹出外部播放窗口。可添加多个 Emby 来源，在媒体库中搜索、筛选、排序并查看继续观看；播放前可选择视频版本、音轨和字幕，直接播放原始文件，不经服务器转码。",
+		"zh-TW": "Linux（amd64）上的 Emby 播放器，介面完全由 MyGo 原生 UI 繪製，影片由 libmpv 與 OpenGL 在視窗內算繪，沒有 WebView，也不另開外部播放視窗。可新增多個 Emby 來源，在媒體庫中搜尋、篩選、排序並查看繼續觀看；播放前可選擇影片版本、音軌與字幕，直接播放原始檔案，不經伺服器轉碼。",
+		"ja": "Linux（amd64）向けの Emby プレーヤー。画面はすべて MyGo のネイティブ UI で描かれ、動画は libmpv と OpenGL でウィンドウ内に描画されます。WebView も外部の再生ウィンドウもありません。複数の Emby サーバーを登録でき、ライブラリの検索・絞り込み・並べ替えや「続きを見る」に対応し、映像バージョン・音声トラック・字幕を選んで、サーバーでのトランスコードなしに元のファイルを再生します。",
+		"ko": "Linux(amd64)용 Emby 플레이어로, 화면 전체를 MyGo의 네이티브 UI로 그리고 영상은 libmpv와 OpenGL로 창 안에서 렌더링합니다. WebView도 별도 재생 창도 없습니다. 여러 Emby 서버를 등록해 라이브러리를 검색·필터·정렬하고 이어 보기를 보여 주며, 영상 버전·오디오 트랙·자막을 골라 서버 트랜스코딩 없이 원본 파일을 재생합니다."
+	},
+	"icon": {
+		"file": "ape-player.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "ape-player.webp",
+	"added": "2026-11-06T09:35:08Z"
+}
