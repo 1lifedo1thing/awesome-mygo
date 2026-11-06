@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "scan-image",
+	"name": "Scan Image",
+	"author": "huynhkinhao1910",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/huynhkinhao1910/scan-image",
+	"repo": "huynhkinhao1910/scan-image",
+	"summary": {
+		"en": "Fast filename search for NAS shares on macOS, from an index kept on your Mac.",
+		"zh-CN": "macOS 上的 NAS 文件名快速搜索，索引保存在本机。",
+		"zh-TW": "macOS 上的 NAS 檔名快速搜尋，索引存在本機。",
+		"ja": "NAS 上のファイルを名前ですばやく探す macOS アプリ。インデックスは Mac 側に保持。",
+		"ko": "NAS 파일을 이름으로 빠르게 찾는 macOS 앱. 인덱스는 Mac에 보관합니다."
+	},
+	"description": {
+		"en": "A macOS file search for NAS shares, drawn with MyGo's native UI with no web view. It mounts SMB shares or opens a local folder, scans once and keeps the index in memory and on the Mac, so filename search, ignoring case and Vietnamese accents, works even without the VPN. It rescans changed folders from the menu bar every 30 minutes and can upload results to S3.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS NAS 文件搜索工具，不使用 WebView。它可挂载 SMB 共享或打开本地文件夹，扫描一次后把索引保存在内存和本机上，按文件名搜索时不区分大小写和越南语声调，未连 VPN 也能用。它常驻菜单栏，每 30 分钟重新扫描有变化的目录，还能把搜索结果上传到 S3。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS NAS 檔案搜尋工具，不使用 WebView。它可掛載 SMB 共用或開啟本機資料夾，掃描一次後把索引保存在記憶體與本機上，依檔名搜尋時不分大小寫與越南語聲調，未連 VPN 也能用。它常駐選單列，每 30 分鐘重新掃描有變動的資料夾，還能把搜尋結果上傳到 S3。",
+		"ja": "MyGo のネイティブ UI で描かれた、NAS 上のファイルを探す macOS アプリ。WebView は使いません。SMB 共有をマウントするかローカルフォルダーを選ぶと一度だけスキャンし、インデックスをメモリと Mac 上に保持するので、大文字・小文字やベトナム語の声調記号を区別しないファイル名検索が VPN なしでも使えます。メニューバーに常駐して 30 分ごとに変更のあったフォルダーを再スキャンし、検索結果を S3 にアップロードすることもできます。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS용 NAS 파일 검색 앱으로, 웹 뷰를 쓰지 않습니다. SMB 공유를 마운트하거나 로컬 폴더를 골라 한 번 스캔하고 인덱스를 메모리와 Mac에 보관하므로, 대소문자와 베트남어 성조 표시를 구분하지 않는 파일 이름 검색이 VPN 없이도 됩니다. 메뉴 막대에 머물며 30분마다 바뀐 폴더를 다시 스캔하고, 검색 결과를 S3에 올릴 수도 있습니다."
+	},
+	"icon": {
+		"file": "scan-image.webp"
+	},
+	"screenshot": "scan-image.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-06T07:59:41Z"
+}
