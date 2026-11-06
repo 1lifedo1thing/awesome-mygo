@@ -9,7 +9,7 @@ export const MYGO_MODULE = 'github.com/egoist/mygo';
 export const BRANCH_PREFIX = 'discover/';
 
 // Each kind's name in a pull request title, as the submission bot writes it (SUBMIT_LABELS in packages/catalog).
-export const KIND_LABELS: Record<EntryKind, string> = { app: 'app', ui: 'UI components', state: 'state management', plugin: 'plugin' };
+export const KIND_LABELS: Record<EntryKind, string> = { app: 'app', ui: 'UI components', state: 'state management', template: 'template', ai: 'AI tool', plugin: 'plugin' };
 
 // Every GitHub repository an entry points at, as lower-case owner/name: its repo field, its GitHub links and a plugin's Go import path.
 export function reposOfEntry(entry: Entry): string[] {
@@ -176,6 +176,8 @@ export interface Verdict {
 	kind: string;
 	tag: string;
 	surface: string;
+	// For an AI tool: skill, mcp, rules or other.
+	type: string;
 	tags: string[];
 }
 
@@ -215,6 +217,20 @@ export function entryFor(v: Verdict, info: RepoInfo, slug: string): { kind: Entr
 		case 'state': {
 			const tags = cleanTags(v.tags);
 			return { kind: 'state', entry: { slug, name, author, summary, repo: info.repo, url: info.htmlUrl, ...(homepage ? { homepage } : {}), install: `go get ${info.module ?? `github.com/${info.repo}`}@latest`, tags: tags.length ? tags : ['state'] } };
+		}
+		case 'template': {
+			const surface = v.surface.trim().toLowerCase();
+			if (!['web', 'native', 'both'].includes(surface)) return { error: `the model gave no template surface (${v.surface || 'empty'})` };
+			const tags = cleanTags(v.tags);
+			return { kind: 'template', entry: { slug, name, author, summary, repo: info.repo, url: info.htmlUrl, ...(homepage ? { homepage } : {}), surface, use: `gh repo create my-app --template ${info.repo} --clone`, tags: tags.length ? tags : ['template'] } };
+		}
+		case 'ai': {
+			const type = v.type.trim().toLowerCase();
+			if (!['skill', 'mcp', 'rules', 'other'].includes(type)) return { error: `the model gave no AI tool type (${v.type || 'empty'})` };
+			const tags = cleanTags(v.tags);
+			// An MCP server or library in Go installs with go get; the others are files an agent reads, which the skills CLI copies in.
+			const install = type === 'mcp' ? `go get ${info.module ?? `github.com/${info.repo}`}@latest` : `npx skills add ${info.repo}`;
+			return { kind: 'ai', entry: { slug, name, author, summary, repo: info.repo, url: info.htmlUrl, ...(homepage ? { homepage } : {}), type, install, tags: tags.length ? tags : ['ai'] } };
 		}
 		case 'plugin': {
 			const surface = v.surface.trim().toLowerCase();

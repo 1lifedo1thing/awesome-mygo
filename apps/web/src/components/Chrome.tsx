@@ -3,7 +3,7 @@ import { Link } from '@tanstack/react-router';
 import { useT } from '../lib/lang';
 import { useSite } from '../lib/site';
 import { Docky, GitHubMark } from './bits';
-import { NAV } from './Header';
+import { SITE_NAV } from './Header';
 
 export function Footer() {
 	const t = useT();
@@ -16,7 +16,7 @@ export function Footer() {
 					Awesome MyGo
 				</span>
 				<nav aria-label={t.a_site_nav} className='flex flex-wrap gap-x-6 gap-y-2.5 text-[14px] font-semibold max-md:gap-y-0'>
-					{NAV.map((n) => (
+					{SITE_NAV.map((n) => (
 						<Link key={n.to} to={n.to} className='text-fg-2 no-underline hover:text-cyan max-md:inline-flex max-md:min-h-10 max-md:items-center'>
 							{t[n.key]}
 						</Link>

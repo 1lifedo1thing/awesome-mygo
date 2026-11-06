@@ -1,13 +1,13 @@
 // What can be learned about a submitted entry from the catalog files and the project's repository, without touching the network: pure functions, so they are tested on their own.
 
 // What an entry is, for its copy: an app, which also has a description besides the one-line summary, or an entry of another category the submission bot files. Articles have no copy to complete.
-export type EntryKind = 'app' | 'ui' | 'state' | 'plugin';
+export type EntryKind = 'app' | 'ui' | 'state' | 'template' | 'ai' | 'plugin';
 
 // The directory under the catalog's data that holds each kind's files, one per entry, named after its slug.
-export const ENTRY_DIRS: Record<EntryKind, string> = { app: 'apps', ui: 'ui', state: 'state', plugin: 'plugins' };
+export const ENTRY_DIRS: Record<EntryKind, string> = { app: 'apps', ui: 'ui', state: 'state', template: 'templates', ai: 'ai', plugin: 'plugins' };
 
 // What each kind is, for the model writing its copy.
-export const KIND_NAMES: Record<EntryKind, string> = { app: 'an app in the showcase', ui: 'a UI component library, theme or icon set', state: 'a state management library', plugin: 'a MyGo plugin' };
+export const KIND_NAMES: Record<EntryKind, string> = { app: 'an app in the showcase', ui: 'a UI component library, theme or icon set', state: 'a state management library', template: 'a template that MyGo apps start from', ai: 'an AI tool for building MyGo apps (an agent skill, an MCP server or rules for coding agents)', plugin: 'a MyGo plugin' };
 
 // The files in head that base does not have: the entries a branch adds to a directory.
 export function addedFiles(base: readonly string[], head: readonly string[]): string[] {
@@ -189,17 +189,18 @@ export function schemaEnum(schema: unknown, field: string): string[] {
 }
 
 // A field the model picks from the values its schema allows.
-export type ChoiceField = 'category' | 'group' | 'tag' | 'surface';
+export type ChoiceField = 'category' | 'group' | 'tag' | 'surface' | 'type';
 
 // What the values of each field mean, for the model picking one; the same words as the discover workflow's triage.
 export const CHOICE_HINTS: Record<ChoiceField, string> = {
 	category: 'the one that best says what the app is for',
 	group: "the showcase's group that best says what the app is for: agents for tools for AI coding agents (terminals and workspaces for them, their usage, quotas and skills); dev for other developer tools (Git, editors, terminals, SSH, databases, API clients, cloud storage); ai for AI assistants (chat clients, writing, translation, voice input, local models); network for proxy and VPN clients; notes for notes, documents and reading (Markdown, PDF, OCR, RSS); system for system and file utilities (cleaning, files, clipboard, screenshots, remote desktop, menu bar tools); devices for hardware and the smart home (chargers, monitors, peripherals, Home Assistant); media for music, video, audio and images; game for games and their launchers; chat for messaging, mail and notifications",
 	tag: 'theme for a component library or theme, retro for one in a retro style, icons for an icon set',
-	surface: 'web when it serves web pages (a JavaScript package), native when it works with the native UI (Go), both when it has a part for each',
+	surface: 'web when it serves web pages (a JavaScript package) or, for a template, starts apps whose windows show a web frontend; native when it works with or starts apps of the native UI (Go); both when it has a part for each',
+	type: 'skill for an agent skill (a SKILL.md), mcp for an MCP server or library, rules for instructions for coding agents (AGENTS.md, Cursor rules), other for anything else',
 };
 
-// What the model picks along with the copy: the fields the site's form fills in without asking (buildEntry in packages/catalog), as long as they still hold its default. An app's showcase group, which the form leaves out unless its author picked one (its schema.org category then follows from the group); a UI library's tag and surface, which it sets to theme and native; a plugin's surface, which it sets to web; and the tags of a state management library (just state) and of a plugin (none). An entry the discover workflow adds was triaged with these already, and one still at the default is only picked again.
+// What the model picks along with the copy: the fields the site's form fills in without asking (buildEntry in packages/catalog), as long as they still hold its default. An app's showcase group, which the form leaves out unless its author picked one (its schema.org category then follows from the group); a UI library's tag and surface, which it sets to theme and native; a template's surface, which it sets to native; an AI tool's type, which it sets to skill; a plugin's surface, which it sets to web; and the tags of a state management library (just state), a template (just template), an AI tool (just ai) and a plugin (none). An entry the discover workflow adds was triaged with these already, and one still at the default is only picked again.
 export function formDefaults(kind: EntryKind, entry: Entry): { choices: ChoiceField[]; tags: boolean } {
 	const tags = Array.isArray(entry.tags) ? entry.tags : [];
 	const at = (field: ChoiceField, def?: string) => (entry[field] === undefined || entry[field] === def ? [field] : []);
@@ -210,6 +211,10 @@ export function formDefaults(kind: EntryKind, entry: Entry): { choices: ChoiceFi
 			return { choices: [...at('tag', 'theme'), ...at('surface', 'native')], tags: false };
 		case 'state':
 			return { choices: [], tags: tags.length === 0 || (tags.length === 1 && tags[0] === 'state') };
+		case 'template':
+			return { choices: at('surface', 'native'), tags: tags.length === 0 || (tags.length === 1 && tags[0] === 'template') };
+		case 'ai':
+			return { choices: at('type', 'skill'), tags: tags.length === 0 || (tags.length === 1 && tags[0] === 'ai') };
 		case 'plugin':
 			return { choices: at('surface', 'web'), tags: tags.length === 0 };
 	}

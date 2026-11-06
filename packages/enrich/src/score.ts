@@ -31,7 +31,7 @@ const say = (line: string): void => {
 };
 const cell = (s: string) => s.replace(/\|/g, '\\|');
 
-// Every entry the site scores, from data/{apps,ui,state,plugins}/*.json as the catalog reads them, with the official plugins only, as LIKE_KEYS has them.
+// Every entry the site scores, from data/{apps,ui,state,templates,ai,plugins}/*.json as the catalog reads them, with the official plugins only, as LIKE_KEYS has them.
 async function scoredEntries(): Promise<Scored[]> {
 	const out: Scored[] = [];
 	for (const [kind, dir] of Object.entries(ENTRY_DIRS) as [EntryKind, string][]) {

@@ -16,6 +16,8 @@ English · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) ·
 - **Plugins**: the official plugins, marked by the kind of window they serve (web pages, native UI or both), plus the `mygo-cli` toolchain.
 - **UI components**: component libraries, themes and icons made for MyGo apps.
 - **State**: state management for MyGo apps, beside MyGo's own bound services, channels and typed events.
+- **Templates**: projects to start a MyGo app from, with a frontend stack, tests, CI or packaging set up.
+- **AI tools**: agent skills, MCP servers and rules that help AI coding agents build MyGo apps.
 - **Learn**: the official guides, community articles and the official resources.
 - **Search** across everything with <kbd>⌘K</kbd> / <kbd>Ctrl+K</kbd>, and a form that writes the entry for a project you want listed.
 
@@ -28,7 +30,7 @@ A pnpm monorepo, served by [TanStack Start](https://tanstack.com/start) on [Clou
 | Path | What it holds |
 |---|---|
 | `apps/web` | The site: React 19, TanStack Start (server rendering) and Vite with `@cloudflare/vite-plugin`. `wrangler.jsonc` deploys it to `awesomemygo.dev`. |
-| `packages/catalog` | The data: `data/*.json` (apps, UI components, state solutions, plugins, articles, guides) and their JSON Schemas, the UI copy in five languages, search and the submit form's entries. Its tests validate every entry. |
+| `packages/catalog` | The data: `data/*.json` (apps, UI components, state solutions, templates, AI tools, plugins, articles, guides) and their JSON Schemas, the UI copy in five languages, search and the submit form's entries. Its tests validate every entry. |
 | `packages/enrich` | Completes a pull request the submission bot opens: the app's icon from its repository, its screenshot from the image uploaded or the link given in the form, or else from the repository, and its copy in all five languages (written with Claude). Run by `.github/workflows/enrich-submission.yml`. Once a week `.github/workflows/verify.yml` also checks every listed project's repository and opens a pull request per entry for what the repository says has changed: a deleted, private or disabled repository removes the entry, a renamed or transferred one updates it, a missing homepage is added and a stand-in image is replaced once the project has its own; an archived repository, or one no longer built with MyGo, is only listed in the run's summary. |
 
 App icons come from [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo), served by its CDN; the few apps it does not list use their official icon from `apps/web/public/icons/`.
@@ -54,7 +56,7 @@ Direct submissions from the form go through a GitHub App installed on this repos
 
 Stable Chrome turns WebMCP on, and with it the submit form's tools, for the site's visitors only through an origin trial. Register the production origin (`https://awesomemygo.dev`) for the WebMCP trial at [developer.chrome.com/origintrials](https://developer.chrome.com/origintrials/) and set the token with `wrangler secret put WEBMCP_ORIGIN_TRIAL` in `apps/web`: every page then carries it in a `<meta http-equiv="origin-trial">` tag, and without it none does. The token expires with the trial; register again then, or remove the secret.
 
-An app, UI components or state management needs a screenshot. Once the visitor has typed the repository's link, the form asks the Worker (`/api/shot`) whether the repository has one the submission workflow would take, judged by the workflow's own rules (`packages/enrich/src/source.ts`); when it has none, or an app has no repository, the form asks for one, and the Worker refuses the submission without it. The visitor uploads an image (PNG, JPEG or WebP, at most 5 MB, landscape and at least 600 pixels wide) or gives a link to one. An uploaded image goes on the pull request's branch as `submissions/<slug>.<ext>` and shows in the pull request; the workflow turns it into the site's WebP and removes it. The check is limited to 20 a minute per IP.
+An app, UI components, state management, a template or an AI tool needs a screenshot. Once the visitor has typed the repository's link, the form asks the Worker (`/api/shot`) whether the repository has one the submission workflow would take, judged by the workflow's own rules (`packages/enrich/src/source.ts`); when it has none, or an app has no repository, the form asks for one, and the Worker refuses the submission without it. The visitor uploads an image (PNG, JPEG or WebP, at most 5 MB, landscape and at least 600 pixels wide) or gives a link to one. An uploaded image goes on the pull request's branch as `submissions/<slug>.<ext>` and shows in the pull request; the workflow turns it into the site's WebP and removes it. The check is limited to 20 a minute per IP.
 
 When the bot opens a pull request, the *Complete submission* workflow fills in what the form cannot ask for: the app's icon where MyGo looks for it (`icon` in `mygo.json`, else `resources/icon.png`; none when that is MyGo's default icon, as `mygo init` leaves it), the first screenshot in its README that is not the icon or another square logo, and the summary and description in all five languages. For UI components and state management it adds the screenshot in the same way and the homepage from the repository's settings, and for what the form fills in with a default (an app's showcase `group`, from which its category follows unless it names one, a UI library's `tag` and `surface`, a plugin's `surface`, the `tags` of state management and plugins) the model picks a value along with the copy. It runs the catalog checks, pushes to the same branch as the bot and comments what it did; a maintainer still reviews the result before merging. It needs, in the repository's Actions settings, the secrets `SUBMIT_APP_PRIVATE_KEY` (the app's PKCS#8 key, as for the Worker), `LLM_API_KEY` (an Anthropic Messages API key) and, for a gateway, `LLM_BASE_URL`, and the variable `SUBMIT_APP_CLIENT_ID` (the app's client ID); the variable `LLM_MODEL` overrides the model (`claude-opus-5-5`). Without `LLM_API_KEY` the copy stays as submitted.
 
@@ -69,6 +71,8 @@ Every entry is a JSON file of its own under [`packages/catalog/data`](packages/c
 | `apps/<slug>.json` | Apps built with MyGo |
 | `ui/<slug>.json` | UI component libraries |
 | `state/<slug>.json` | State management |
+| `templates/<slug>.json` | Templates |
+| `ai/<slug>.json` | AI tools |
 | `plugins/<slug>.json` | Plugins |
 | `articles/<slug>.json` | Articles |
 | `docs/<slug>.json` | MyGo's guides |
@@ -95,7 +99,7 @@ An app's file, `apps/my-app.json`, looks like this:
 }
 ```
 
-- The file is named after `slug`. `added` is when the entry joined the site, in UTC; the site bot sets it, and by hand you write the current time. Every category but the guides has it: the showcase can list apps newest first by it, and UI libraries, state management, articles and community plugins are listed oldest first. Official plugins and the guides are listed by name. Keeping each entry in its own file means pull requests that add entries at the same time never conflict.
+- The file is named after `slug`. `added` is when the entry joined the site, in UTC; the site bot sets it, and by hand you write the current time. Every category but the guides has it: the showcase can list apps newest first by it, and UI libraries, state management, templates, AI tools, articles and community plugins are listed oldest first. Official plugins and the guides are listed by name. Keeping each entry in its own file means pull requests that add entries at the same time never conflict.
 - The other categories' files have the same `$schema`, `slug` and (but for the guides) `added` around their fields; their schemas in `data/schema/` list the fields.
 - `url` is the app's homepage: its website, or its repository if it has none; it need not be on GitHub. An open-source app adds its GitHub repository as `repo` (`owner/name`); a closed-source one leaves it out.
 - Text fields hold one string per language. `en` is required; `zh-CN`, `zh-TW`, `ja` and `ko` are optional, and a missing language shows the English text.

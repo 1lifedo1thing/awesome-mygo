@@ -32,11 +32,20 @@ export function FilterChips({ label, children }: { label: string; children: Reac
 	);
 }
 
-// Below md a chip that is not pressed takes the panel's fill, which the bar no longer draws there, so it does not fade into the hero behind it.
-export function FilterChip({ pressed, onClick, children }: { pressed: boolean; onClick: () => void; children: ReactNode }) {
+// Below md a chip that is not pressed takes the panel's fill, which the bar no longer draws there, so it does not fade into the hero behind it. A chip given a count is a compact one, for a long list that should stay on one row from md up: its name is a short one, with the full name as its tooltip and accessible name, and the count follows in small muted figures from 1280px up, and below md, where the row scrolls.
+export function FilterChip({ pressed, onClick, count, title, children }: { pressed: boolean; onClick: () => void; count?: number; title?: string; children: ReactNode }) {
+	const compact = count !== undefined;
 	return (
-		<button type='button' className='min-h-10 rounded-full border border-line-3 bg-transparent px-[18px] py-0 text-[14px] font-semibold text-fg-2 transition-[border-color,background] duration-150 ease-[ease] hover:border-fg aria-pressed:border-cyan aria-pressed:bg-cyan aria-pressed:text-bg max-md:shrink-0 max-md:whitespace-nowrap max-md:not-aria-pressed:bg-well/90' onClick={onClick} aria-pressed={pressed}>
+		<button
+			type='button'
+			className={`min-h-10 shrink-0 rounded-full border border-line-3 bg-transparent py-0 text-[14px] font-semibold whitespace-nowrap text-fg-2 transition-[border-color,background] duration-150 ease-[ease] hover:border-fg aria-pressed:border-cyan aria-pressed:bg-cyan aria-pressed:text-bg max-md:not-aria-pressed:bg-well/90 ${compact ? 'px-[18px] md:px-3 md:text-[13px] md:max-split:px-2.5' : 'px-[18px]'}`}
+			onClick={onClick}
+			aria-pressed={pressed}
+			title={title}
+			aria-label={compact && title ? `${title} · ${count}` : undefined}
+		>
 			{children}
+			{compact && <span className='ml-1.5 text-[12px] tabular-nums opacity-60 md:max-xl:hidden'>{count}</span>}
 		</button>
 	);
 }

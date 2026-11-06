@@ -111,15 +111,15 @@ export function useSubmit() {
 	// A result or an error belongs to what was submitted; editing the form clears it.
 	useEffect(() => setStatus({ kind: 'idle' }), [form.cat, form.mode, form.name, form.author, form.url, form.repo, form.screenshot, form.desc, form.group, form.via, form.json, shotFile]);
 
-	const catLabel: Record<SubmitCat, string> = { ui: t.cat_ui_name, state: t.cat_state_name, plugin: t.nav_plugins, showcase: t.cat_show_name, article: t.article };
+	const catLabel: Record<SubmitCat, string> = { ui: t.cat_ui_name, state: t.cat_state_name, template: t.cat_tpl_name, ai: t.cat_ai_name, plugin: t.nav_plugins, showcase: t.cat_show_name, article: t.article };
 	const isShow = form.cat === 'showcase';
 	const max = descMax(form.cat);
 	const urlBad = urlTouched && isBadUrl(form.url);
 	const repoBad = isShow && repoTouched && isBadRepo(form.repo ?? '');
-	// An app, UI components and state management show a screenshot, which the form asks for when their repository has none.
+	// An app, UI components, state management, a template and an AI tool show a screenshot, which the form asks for when their repository has none.
 	const withShot = takesShot(form.cat);
 	const shotBad = withShot && shotTouched && isBadShot(form.screenshot ?? '');
-	// What the main link is: a showcase app's homepage, the repository of a UI library or state solution, or just a link.
+	// What the main link is: a showcase app's homepage, the repository of a UI library, state solution, template or AI tool, or just a link.
 	const urlLabel = isShow ? t.m_home : needsRepo(form.cat) ? t.m_gh : t.m_link;
 	// A pasted entry: what it is, and what keeps it from being submitted as an entry of the picked category.
 	const viaJson = form.via === 'json';

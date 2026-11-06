@@ -10,11 +10,13 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AiRouteImport } from './routes/ai'
 import { Route as LearnRouteImport } from './routes/learn'
 import { Route as PluginsRouteImport } from './routes/plugins'
 import { Route as ShowcaseRouteImport } from './routes/showcase'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as StateRouteImport } from './routes/state'
+import { Route as TemplatesRouteImport } from './routes/templates'
 import { Route as UiRouteImport } from './routes/ui'
 import { Route as ApiLikesRouteImport } from './routes/api/likes'
 import { Route as ApiShotRouteImport } from './routes/api/shot'
@@ -24,6 +26,11 @@ import { Route as AppsSlugRouteImport } from './routes/apps/$slug'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AiRoute = AiRouteImport.update({
+  id: '/ai',
+  path: '/ai',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LearnRoute = LearnRouteImport.update({
@@ -49,6 +56,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const StateRoute = StateRouteImport.update({
   id: '/state',
   path: '/state',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TemplatesRoute = TemplatesRouteImport.update({
+  id: '/templates',
+  path: '/templates',
   getParentRoute: () => rootRouteImport,
 } as any)
 const UiRoute = UiRouteImport.update({
@@ -79,11 +91,13 @@ const AppsSlugRoute = AppsSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ai': typeof AiRoute
   '/learn': typeof LearnRoute
   '/plugins': typeof PluginsRoute
   '/showcase': typeof ShowcaseRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/state': typeof StateRoute
+  '/templates': typeof TemplatesRoute
   '/ui': typeof UiRoute
   '/api/likes': typeof ApiLikesRoute
   '/api/shot': typeof ApiShotRoute
@@ -92,11 +106,13 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ai': typeof AiRoute
   '/learn': typeof LearnRoute
   '/plugins': typeof PluginsRoute
   '/showcase': typeof ShowcaseRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/state': typeof StateRoute
+  '/templates': typeof TemplatesRoute
   '/ui': typeof UiRoute
   '/api/likes': typeof ApiLikesRoute
   '/api/shot': typeof ApiShotRoute
@@ -106,11 +122,13 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ai': typeof AiRoute
   '/learn': typeof LearnRoute
   '/plugins': typeof PluginsRoute
   '/showcase': typeof ShowcaseRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/state': typeof StateRoute
+  '/templates': typeof TemplatesRoute
   '/ui': typeof UiRoute
   '/api/likes': typeof ApiLikesRoute
   '/api/shot': typeof ApiShotRoute
@@ -121,11 +139,13 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/ai'
     | '/learn'
     | '/plugins'
     | '/showcase'
     | '/sitemap.xml'
     | '/state'
+    | '/templates'
     | '/ui'
     | '/api/likes'
     | '/api/shot'
@@ -134,11 +154,13 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/ai'
     | '/learn'
     | '/plugins'
     | '/showcase'
     | '/sitemap.xml'
     | '/state'
+    | '/templates'
     | '/ui'
     | '/api/likes'
     | '/api/shot'
@@ -147,11 +169,13 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/ai'
     | '/learn'
     | '/plugins'
     | '/showcase'
     | '/sitemap.xml'
     | '/state'
+    | '/templates'
     | '/ui'
     | '/api/likes'
     | '/api/shot'
@@ -161,11 +185,13 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AiRoute: typeof AiRoute
   LearnRoute: typeof LearnRoute
   PluginsRoute: typeof PluginsRoute
   ShowcaseRoute: typeof ShowcaseRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StateRoute: typeof StateRoute
+  TemplatesRoute: typeof TemplatesRoute
   UiRoute: typeof UiRoute
   ApiLikesRoute: typeof ApiLikesRoute
   ApiShotRoute: typeof ApiShotRoute
@@ -180,6 +206,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ai': {
+      id: '/ai'
+      path: '/ai'
+      fullPath: '/ai'
+      preLoaderRoute: typeof AiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/learn': {
@@ -215,6 +248,13 @@ declare module '@tanstack/react-router' {
       path: '/state'
       fullPath: '/state'
       preLoaderRoute: typeof StateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/templates': {
+      id: '/templates'
+      path: '/templates'
+      fullPath: '/templates'
+      preLoaderRoute: typeof TemplatesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ui': {
@@ -257,11 +297,13 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AiRoute: AiRoute,
   LearnRoute: LearnRoute,
   PluginsRoute: PluginsRoute,
   ShowcaseRoute: ShowcaseRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   StateRoute: StateRoute,
+  TemplatesRoute: TemplatesRoute,
   UiRoute: UiRoute,
   ApiLikesRoute: ApiLikesRoute,
   ApiShotRoute: ApiShotRoute,

@@ -128,7 +128,7 @@ describe('proposals', () => {
 		expect(uniqueSlug('Pulse', 'someone/pulse', new Set(['pulse', 'pulse-someone']))).toBe('pulse-someone-2');
 	});
 
-	const verdict = (v: Partial<Verdict>): Verdict => ({ verdict: 'app', reason: '', name: 'LunaBox', summary: 'A box.', kind: 'native', tag: '', surface: '', tags: [], ...v });
+	const verdict = (v: Partial<Verdict>): Verdict => ({ verdict: 'app', reason: '', name: 'LunaBox', summary: 'A box.', kind: 'native', tag: '', surface: '', type: '', tags: [], ...v });
 	const info = { repo: 'Saramanda9988/LunaBox', htmlUrl: 'https://github.com/Saramanda9988/LunaBox', homepage: '', module: 'github.com/Saramanda9988/LunaBox/apps/desktop' };
 
 	it('writes an app entry, linking its homepage only when it is https', () => {
@@ -154,6 +154,15 @@ describe('proposals', () => {
 			kind: 'plugin',
 			entry: { mark: 'Un', official: false, surface: 'both', import: info.module, tags: ['stream'], docs: info.htmlUrl },
 		});
+		expect(entryFor(verdict({ verdict: 'template', surface: 'web', tags: ['React'] }), info, 'x')).toMatchObject({
+			kind: 'template',
+			entry: { surface: 'web', use: 'gh repo create my-app --template Saramanda9988/LunaBox --clone', tags: ['react'], repo: info.repo, url: info.htmlUrl },
+		});
+		expect(entryFor(verdict({ verdict: 'template', surface: '' }), info, 'x')).toEqual({ error: 'the model gave no template surface (empty)' });
+		expect(entryFor(verdict({ verdict: 'template', surface: 'native' }), info, 'x')).toMatchObject({ entry: { tags: ['template'] } });
+		expect(entryFor(verdict({ verdict: 'ai', type: 'MCP', tags: ['testing'] }), info, 'x')).toMatchObject({ kind: 'ai', entry: { type: 'mcp', install: `go get ${info.module}@latest`, tags: ['testing'] } });
+		expect(entryFor(verdict({ verdict: 'ai', type: 'skill' }), info, 'x')).toMatchObject({ kind: 'ai', entry: { type: 'skill', install: 'npx skills add Saramanda9988/LunaBox', tags: ['ai'] } });
+		expect(entryFor(verdict({ verdict: 'ai', type: 'plugin' }), info, 'x')).toEqual({ error: 'the model gave no AI tool type (plugin)' });
 		expect(entryFor(verdict({ verdict: 'Skip' }), info, 'x')).toEqual({ error: "the model's verdict is Skip" });
 		expect(entryFor(verdict({ name: ' ' }), info, 'x')).toEqual({ error: 'the model gave no name or summary' });
 	});

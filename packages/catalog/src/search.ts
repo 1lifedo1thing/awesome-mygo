@@ -1,8 +1,8 @@
-import { APPS, ARTICLES, COMMUNITY_PLUGINS, PLUGINS, STATE_SOLUTIONS, UI_LIBS } from './catalog';
+import { AI_TOOLS, APPS, ARTICLES, COMMUNITY_PLUGINS, PLUGINS, STATE_SOLUTIONS, TEMPLATES, UI_LIBS } from './catalog';
 import { type LangCode, type Text, pick } from './lang';
 import { t } from './translate';
 
-export type SearchCat = 'ui' | 'state' | 'plugin' | 'showcase' | 'article';
+export type SearchCat = 'ui' | 'state' | 'template' | 'ai' | 'plugin' | 'showcase' | 'article';
 
 export type SearchTarget = { type: 'url'; url: string } | { type: 'page'; path: '/plugins' } | { type: 'app'; slug: string };
 
@@ -28,6 +28,12 @@ export function buildSearchIndex(lang: LangCode): SearchItem[] {
 	}
 	for (const st of STATE_SOLUTIONS) {
 		items.push({ cat: 'state', name: st.name, desc: pick(st.desc, lang), target: { type: 'url', url: st.homepage ?? st.url }, hay: [st.name, st.author, all(st.desc), ...st.tags].join(' ') });
+	}
+	for (const x of TEMPLATES) {
+		items.push({ cat: 'template', name: x.name, desc: pick(x.desc, lang), target: { type: 'url', url: x.homepage ?? x.url }, hay: [x.name, x.author, all(x.desc), ...x.tags].join(' ') });
+	}
+	for (const x of AI_TOOLS) {
+		items.push({ cat: 'ai', name: x.name, desc: pick(x.desc, lang), target: { type: 'url', url: x.homepage ?? x.url }, hay: [x.name, x.author, all(x.desc), x.type, ...x.tags].join(' ') });
 	}
 	for (const p of [...PLUGINS, ...COMMUNITY_PLUGINS]) {
 		items.push({ cat: 'plugin', name: p.name, desc: pick(p.desc, lang), target: { type: 'url', url: p.url }, hay: [p.name, all(p.desc), ...p.tags].join(' ') });

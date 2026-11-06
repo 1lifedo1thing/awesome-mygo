@@ -89,7 +89,7 @@ function formOf(sub: AgentSubmission): SubmitForm {
 const checkTool: ModelContextTool = {
 	name: 'check-submission',
 	title: 'Check a catalog submission',
-	description: 'Checks an entry for the Awesome MyGo catalog without changing the page: an app built with MyGo (showcase), a UI component library, state management, a plugin or an article. Give its fields, or a whole entry as JSON. Returns ok, the problems that would keep it from being submitted (missing or invalid fields, already listed, a screenshot its repository lacks) and the entry and file it would become.',
+	description: 'Checks an entry for the Awesome MyGo catalog without changing the page: an app built with MyGo (showcase), a UI component library, state management, a template, an AI tool, a plugin or an article. Give its fields, or a whole entry as JSON. Returns ok, the problems that would keep it from being submitted (missing or invalid fields, already listed, a screenshot its repository lacks) and the entry and file it would become.',
 	inputSchema: AGENT_INPUT_SCHEMA,
 	annotations: { readOnlyHint: true },
 	async execute(input) {

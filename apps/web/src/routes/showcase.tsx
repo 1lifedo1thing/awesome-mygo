@@ -47,12 +47,12 @@ function ShowcasePage() {
 			</div>
 			<FilterBar>
 				<FilterChips label={t.a_cats}>
-					<FilterChip onClick={() => setFilter({ cat: undefined })} pressed={!group}>
-						{`${t.all} · ${ofKind.length}`}
+					<FilterChip onClick={() => setFilter({ cat: undefined })} pressed={!group} count={ofKind.length} title={t.all}>
+						{t.all}
 					</FilterChip>
 					{chips.map((c) => (
-						<FilterChip key={c.key} onClick={() => setFilter({ cat: c.key })} pressed={group === c.key}>
-							{`${t[`grp_${c.key}`]} · ${c.apps.length}`}
+						<FilterChip key={c.key} onClick={() => setFilter({ cat: c.key })} pressed={group === c.key} count={c.apps.length} title={t[`grp_${c.key}`]}>
+							{t[`grp_short_${c.key}`]}
 						</FilterChip>
 					))}
 				</FilterChips>

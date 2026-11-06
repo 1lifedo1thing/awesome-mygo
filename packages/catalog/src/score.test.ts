@@ -248,5 +248,8 @@ describe('scoreKey', () => {
 		expect(scoreKey('plugin', { slug: 'sqlite' })).toBe('plugin:sqlite');
 		expect(scoreKey('ui', { slug: 'kit', repo: 'someone/kit' })).toBe('ui:someone/kit');
 		expect(scoreKey('state', { slug: 'store', repo: 'someone/store' })).toBe('state:someone/store');
+		expect(scoreKey('template', { slug: 'starter', repo: 'someone/starter' })).toBe('template:someone/starter');
+		// Several AI tools may share a repository, so theirs is by slug.
+		expect(scoreKey('ai', { slug: 'mygo-usage', repo: 'someone/skills' })).toBe('ai:mygo-usage');
 	});
 });

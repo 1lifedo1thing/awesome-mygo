@@ -5,9 +5,11 @@ import docSchema from '../data/schema/doc.schema.json';
 import pluginSchema from '../data/schema/plugin.schema.json';
 import scoresSchema from '../data/schema/scores.schema.json';
 import stateSchema from '../data/schema/state.schema.json';
+import templateSchema from '../data/schema/template.schema.json';
+import aiSchema from '../data/schema/ai.schema.json';
 import uiSchema from '../data/schema/ui.schema.json';
 import scoresFile from '../data/scores.json';
-import { AILOGO_CDN, APP_CATEGORIES, APP_GROUPS, APP_KIND, APPS, ARTICLE_KIND, DOC_KIND, ENTRY_GROUPS, type EntryGroup, GROUP_CATEGORY, PLUGIN_KIND, STATE_KIND, UI_KIND, appGroup, appSource, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, authorProfile, byAdded, byName, byNewest, hostOf, readAppEntry, readAppFile, readApps, readEntry, readDocs, readEntryFile, readPlugins, readUiLibs } from './catalog';
+import { AI_KIND, AI_TOOL_TYPES, AI_TOOLS, AILOGO_CDN, APP_CATEGORIES, APP_GROUPS, APP_KIND, APPS, ARTICLE_KIND, DOC_KIND, ENTRY_GROUPS, type EntryGroup, GROUP_CATEGORY, PLUGIN_KIND, STATE_KIND, TEMPLATE_KIND, TEMPLATES, UI_KIND, appGroup, appSource, ARTICLES, COMMUNITY_PLUGINS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, authorProfile, byAdded, byName, byNewest, hostOf, readAppEntry, readAppFile, readApps, readEntry, readDocs, readEntryFile, readAiTools, readPlugins, readTemplates, readUiLibs } from './catalog';
 import { AGENT_FIELDS, AGENT_INPUT_SCHEMA, AGENT_MAX_BYTES, type AgentSubmission, ENTRY_PLACEHOLDERS, MAX_SUBMISSION, SUBMIT_CATS, SUBMIT_KINDS, type SubmitCat, agentSubmissionReport, alreadyListed, buildEntry, codeFence, descMax, editUrl, entryCats, entryFileText, entryPath, entryProblem, guessFromLink, isBadShot, isBadUrl, isEntryComplete, issueMarker, issueUrl, jsonEntry, missingFields, parseEntryJson, parseSubmission, pastedEntryProblem, pastedName, pastedShotRepo, placeholderProblem, readAgentSubmission, shotRepo, slugify, submissionBody, submissionFromIssue, submittedIssue, takesShot, withScheme } from './entry';
 import { LANGS, type LangCode, type Text, fill, langRedirectScript, negotiateLang, pick, validateRootSearch } from './lang';
 import { buildSearchIndex, searchCatalog } from './search';
@@ -30,12 +32,14 @@ const KINDS = [
 	[APP_KIND, appSchema],
 	[UI_KIND, uiSchema],
 	[STATE_KIND, stateSchema],
+	[TEMPLATE_KIND, templateSchema],
+	[AI_KIND, aiSchema],
 	[PLUGIN_KIND, pluginSchema],
 	[ARTICLE_KIND, articleSchema],
 	[DOC_KIND, docSchema],
 ] as unknown as [typeof APP_KIND, ItemSchema][];
-const SCHEMA_OF: Record<SubmitCat, ItemSchema> = { showcase: APP_SCHEMA, ui: uiSchema, state: stateSchema, plugin: pluginSchema, article: articleSchema } as unknown as Record<SubmitCat, ItemSchema>;
-const texts = (): Text[] => [...APPS.flatMap((a) => [a.desc, a.about]), ...UI_LIBS.map((l) => l.desc), ...STATE_SOLUTIONS.map((s) => s.desc), ...PLUGINS.map((p) => p.desc), ...COMMUNITY_PLUGINS.map((p) => p.desc), ...DOCS.map((d) => d.desc)];
+const SCHEMA_OF: Record<SubmitCat, ItemSchema> = { showcase: APP_SCHEMA, ui: uiSchema, state: stateSchema, template: templateSchema, ai: aiSchema, plugin: pluginSchema, article: articleSchema } as unknown as Record<SubmitCat, ItemSchema>;
+const texts = (): Text[] => [...APPS.flatMap((a) => [a.desc, a.about]), ...UI_LIBS.map((l) => l.desc), ...STATE_SOLUTIONS.map((s) => s.desc), ...TEMPLATES.map((x) => x.desc), ...AI_TOOLS.map((x) => x.desc), ...PLUGINS.map((p) => p.desc), ...COMMUNITY_PLUGINS.map((p) => p.desc), ...DOCS.map((d) => d.desc)];
 
 describe('catalog data', () => {
 	it('loads every data file', () => {
@@ -47,7 +51,7 @@ describe('catalog data', () => {
 	});
 
 	it('links only to https URLs', () => {
-		for (const u of [...APPS.map((a) => a.url), ...UI_LIBS.map((l) => l.url), ...PLUGINS.map((p) => p.url), ...DOCS.map((d) => d.url), ...STATE_SOLUTIONS.map((s) => s.url), ...ARTICLES.map((a) => a.url)]) {
+		for (const u of [...APPS.map((a) => a.url), ...UI_LIBS.map((l) => l.url), ...PLUGINS.map((p) => p.url), ...DOCS.map((d) => d.url), ...STATE_SOLUTIONS.map((s) => s.url), ...TEMPLATES.map((x) => x.url), ...AI_TOOLS.map((x) => x.url), ...ARTICLES.map((a) => a.url)]) {
 			expect(u.startsWith('https://')).toBe(true);
 		}
 	});
@@ -101,7 +105,7 @@ describe('catalog data', () => {
 	});
 
 	it('has every screenshot and local icon it names in apps/web/public', () => {
-		const files = [...APPS.flatMap((a) => [a.image, a.icon?.startsWith('/') ? a.icon : undefined]), ...UI_LIBS.map((l) => l.image), ...STATE_SOLUTIONS.map((s) => s.image)];
+		const files = [...APPS.flatMap((a) => [a.image, a.icon?.startsWith('/') ? a.icon : undefined]), ...UI_LIBS.map((l) => l.image), ...STATE_SOLUTIONS.map((s) => s.image), ...TEMPLATES.map((x) => x.image), ...AI_TOOLS.map((x) => x.image)];
 		for (const f of files) if (f) expect(existsSync(new URL(f.slice(1), PUBLIC)), f).toBe(true);
 	});
 
@@ -128,8 +132,22 @@ describe('catalog data', () => {
 		expect(() => readDocs({ 'cli.json': { ...doc, added: '2026-11-04T12:00:00Z' } })).toThrow(/added is not a known field/);
 	});
 
-	it('lists libraries, state management, articles and community plugins oldest first, official plugins and guides by name', () => {
-		for (const list of [UI_LIBS, STATE_SOLUTIONS, ARTICLES, COMMUNITY_PLUGINS]) for (let i = 1; i < list.length; i++) expect(byAdded(list[i - 1], list[i]), list[i].slug).toBeLessThan(0);
+	it('reads templates by their repository and AI tools by their link, which may be a folder', () => {
+		const tpl = { $schema: '../schema/template.schema.json', slug: 'starter', name: 'Starter', author: 'someone', summary: { en: 'A starter.' }, repo: 'someone/starter', url: 'https://github.com/someone/starter', surface: 'web', use: 'gh repo create my-app --template someone/starter --clone', tags: ['react'], added: '2026-11-04T12:00:00Z' };
+		expect(readTemplates({ 'starter.json': tpl })[0]).toMatchObject({ surface: 'web', use: tpl.use, tags: ['react'] });
+		expect(() => readTemplates({ 'starter.json': tpl, 'starter-2.json': { ...tpl, slug: 'starter-2' } })).toThrow(/templates\/: two entries have repo "someone\/starter"/);
+		expect(() => readEntryFile(TEMPLATE_KIND, 'starter.json', { ...tpl, use: undefined })).toThrow(/use/);
+		expect(() => readEntryFile(TEMPLATE_KIND, 'starter.json', { ...tpl, surface: 'desktop' })).toThrow(/surface/);
+		const skill = { $schema: '../schema/ai.schema.json', slug: 'mygo-usage', name: 'mygo-usage', author: 'someone', summary: { en: 'A skill.' }, repo: 'someone/skills', url: 'https://github.com/someone/skills/tree/main/skills/mygo-usage', type: 'skill', install: 'npx skills add someone/skills --skill mygo-usage', tags: ['skill'], added: '2026-11-04T12:00:00Z' };
+		const other = { ...skill, slug: 'mygo-motion', name: 'mygo-motion', url: 'https://github.com/someone/skills/tree/main/skills/mygo-motion' };
+		expect(readAiTools({ 'mygo-usage.json': skill, 'mygo-motion.json': other }).map((x) => x.slug)).toEqual(['mygo-motion', 'mygo-usage']);
+		expect(() => readAiTools({ 'mygo-usage.json': skill, 'copy.json': { ...skill, slug: 'copy' } })).toThrow(/ai\/: two entries have url/);
+		expect(() => readEntryFile(AI_KIND, 'mygo-usage.json', { ...skill, type: 'plugin' })).toThrow(/type/);
+		expect(AI_TOOL_TYPES).toEqual(['skill', 'mcp', 'rules', 'other']);
+	});
+
+	it('lists libraries, state management, templates, AI tools, articles and community plugins oldest first, official plugins and guides by name', () => {
+		for (const list of [UI_LIBS, STATE_SOLUTIONS, TEMPLATES, AI_TOOLS, ARTICLES, COMMUNITY_PLUGINS]) for (let i = 1; i < list.length; i++) expect(byAdded(list[i - 1], list[i]), list[i].slug).toBeLessThan(0);
 		for (let i = 1; i < PLUGINS.length; i++) expect(byName(PLUGINS[i - 1], PLUGINS[i]), PLUGINS[i].slug).toBeLessThan(0);
 		for (let i = 1; i < DOCS.length; i++) expect(DOCS[i - 1].title.localeCompare(DOCS[i].title, 'en', { sensitivity: 'base' }), DOCS[i].slug).toBeLessThan(0);
 		const plugin = { $schema: '../schema/plugin.schema.json', mark: 'Kt', surface: 'web', tags: [], docs: 'https://x.dev', summary: { en: 'A kit.' } };
@@ -225,7 +243,7 @@ describe('showcase groups', () => {
 
 describe('like keys', () => {
 	it('gives every likeable entry its own key', () => {
-		expect(LIKE_KEYS.size).toBe(APPS.length + UI_LIBS.length + STATE_SOLUTIONS.length + PLUGINS.length);
+		expect(LIKE_KEYS.size).toBe(APPS.length + UI_LIBS.length + STATE_SOLUTIONS.length + TEMPLATES.length + AI_TOOLS.length + PLUGINS.length);
 		expect(LIKE_KEYS.has(likeKey.app(APPS[0]))).toBe(true);
 		expect(LIKE_KEYS.has('app:not-an-app')).toBe(false);
 	});
@@ -414,6 +432,8 @@ describe('search snippets', () => {
 		['title_home', 'desc_home'],
 		['title_ui', 'desc_ui'],
 		['title_state', 'desc_state'],
+		['title_templates', 'desc_templates'],
+		['title_ai', 'desc_ai'],
 		['title_plugins', 'desc_plugins'],
 		['title_showcase', 'desc_showcase'],
 		['title_learn', 'desc_learn'],
@@ -439,7 +459,7 @@ describe('search snippets', () => {
 	});
 
 	it('gives every page keywords that pair MyGo with Go and repeat no phrase', () => {
-		const KEYWORDS = ['kw_home', 'kw_ui', 'kw_state', 'kw_plugins', 'kw_showcase', 'kw_learn', 'kw_app'] as const;
+		const KEYWORDS = ['kw_home', 'kw_ui', 'kw_state', 'kw_templates', 'kw_ai', 'kw_plugins', 'kw_showcase', 'kw_learn', 'kw_app'] as const;
 		for (const L of LANGS) {
 			for (const key of KEYWORDS) {
 				const terms = LOCALES[L.code][key].split(', ');
@@ -599,6 +619,16 @@ describe('submission entry', () => {
 	it('derives the install command of a state solution from its repo', () => {
 		expect(buildEntry('state', draft, 'native', ph).install).toBe('go get github.com/someone/my-kit');
 	});
+
+	it('derives how to start from a template, and how to install an AI tool, from its repo', () => {
+		expect(buildEntry('template', draft, 'native', ph)).toMatchObject({ repo: 'someone/my-kit', surface: 'native', use: 'gh repo create my-app --template someone/my-kit --clone', tags: ['template'] });
+		expect(buildEntry('ai', draft, 'native', ph)).toMatchObject({ repo: 'someone/my-kit', type: 'skill', install: 'npx skills add someone/my-kit', tags: ['ai'] });
+		// Without a repository link the command is the form's placeholder, which an issue cannot send.
+		const noRepo = { ...draft, url: '' };
+		expect(placeholderProblem(buildEntry('template', noRepo, 'native', ph))).toMatch(/placeholder/);
+		expect(placeholderProblem(buildEntry('ai', noRepo, 'native', ph))).toMatch(/placeholder/);
+		for (const cat of ['template', 'ai'] as const) expect(entryProblem(cat, { ...draft, url: 'https://my-kit.dev' })).toMatch(/GitHub repository/);
+	});
 });
 
 describe('bot submission', () => {
@@ -660,7 +690,7 @@ describe('bot submission', () => {
 	});
 
 	it('looks for the screenshot in the repository of an app or a library', () => {
-		expect([takesShot('showcase'), takesShot('ui'), takesShot('state'), takesShot('plugin'), takesShot('article')]).toEqual([true, true, true, false, false]);
+		expect([takesShot('showcase'), takesShot('ui'), takesShot('state'), takesShot('template'), takesShot('ai'), takesShot('plugin'), takesShot('article')]).toEqual([true, true, true, true, true, false, false]);
 		expect(shotRepo('showcase', { url: 'https://my-kit.dev', repo: 'https://github.com/someone/my-kit' })).toBe('someone/my-kit');
 		expect(shotRepo('showcase', { url: 'https://github.com/someone/my-kit' })).toBe('someone/my-kit');
 		// A closed-source app has no repository to look in.
@@ -783,7 +813,7 @@ describe('submission issue', () => {
 	// The issue body the form's issue link opens with, as lib/submit.tsx builds it, with the category's name in lang.
 	const issueBody = (cat: SubmitCat, d: typeof draft & { screenshot?: string }, entry: string, lang: LangCode = 'en') => {
 		const t = LOCALES[lang];
-		const label = { ui: t.cat_ui_name, state: t.cat_state_name, plugin: t.nav_plugins, showcase: t.cat_show_name, article: t.article }[cat];
+		const label = { ui: t.cat_ui_name, state: t.cat_state_name, template: t.cat_tpl_name, ai: t.cat_ai_name, plugin: t.nav_plugins, showcase: t.cat_show_name, article: t.article }[cat];
 		return new URL(issueUrl('https://github.com/yldm-tech/awesome-mygo', cat, label, d, entry, { name: t.m_name })).searchParams.get('body') ?? '';
 	};
 	const fenced = (path: string, json: string, after = '') => `作品展示: \`packages/catalog/data/${path}\`\n\n\`\`\`json\n${json}\n\`\`\`\n${after}`;
@@ -821,7 +851,7 @@ describe('submission issue', () => {
 		// A slug the file could not be named after is the entry's check to name.
 		expect(submissionFromIssue(fenced('apps/Bad Slug.json', app({ slug: 'Bad Slug' })))).toEqual({ problem: expect.stringMatching(/slug/) });
 		// The catalog's single file per category, before every entry had its own (#21).
-		expect(submissionFromIssue(fenced('apps.json', app()))).toEqual({ problem: expect.stringMatching(/a file of its own, `packages\/catalog\/data\/<ui\|state\|plugins\|apps\|articles>\/<slug>\.json`/) });
+		expect(submissionFromIssue(fenced('apps.json', app()))).toEqual({ problem: expect.stringMatching(/a file of its own, `packages\/catalog\/data\/<ui\|state\|templates\|ai\|plugins\|apps\|articles>\/<slug>\.json`/) });
 		expect(submissionFromIssue(fenced('docs/x.json', app()))).toEqual({ problem: expect.stringMatching(/a file of its own/) });
 	});
 
@@ -1064,6 +1094,8 @@ describe('scores', () => {
 		for (const a of APPS) expect(scoreKey('app', a)).toBe(likeKey.app(a));
 		for (const l of UI_LIBS) expect(scoreKey('ui', l)).toBe(likeKey.ui(l));
 		for (const s of STATE_SOLUTIONS) expect(scoreKey('state', s)).toBe(likeKey.state(s));
+		for (const x of TEMPLATES) expect(scoreKey('template', x)).toBe(likeKey.template(x));
+		for (const x of AI_TOOLS) expect(scoreKey('ai', x)).toBe(likeKey.ai(x));
 		for (const p of PLUGINS) expect(scoreKey('plugin', p)).toBe(likeKey.plugin(p));
 		expect([...SCORE_TARGETS.keys()].sort()).toEqual([...LIKE_KEYS].sort());
 		for (const p of COMMUNITY_PLUGINS) {

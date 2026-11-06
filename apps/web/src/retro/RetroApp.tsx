@@ -2,7 +2,7 @@ import { DEFAULT_LANG, LANGS, MYGO_REPO, type RootSearch, SITE_REPO, langDef } f
 import { Link, useLocation, useMatches } from '@tanstack/react-router';
 import { type ComponentType, useEffect, useRef, useState } from 'react';
 import { GitHubMark } from '../components/bits';
-import { NAV } from '../components/Header';
+import { NAV, SITE_NAV } from '../components/Header';
 import { useLang, useSetLang, useT } from '../lib/lang';
 import { useSite } from '../lib/site';
 import { switchTheme } from '../lib/theme';
@@ -16,6 +16,7 @@ import { NotFound } from './pages/NotFound';
 import { Plugins } from './pages/Plugins';
 import { Showcase } from './pages/Showcase';
 import { State } from './pages/State';
+import { AiTools, Templates } from './pages/Category';
 import { Ui } from './pages/Ui';
 import { btnGoSm, btnSm, lnk } from './ui';
 
@@ -24,6 +25,8 @@ const PAGES: Record<string, ComponentType> = {
 	'/': Home,
 	'/ui': Ui,
 	'/state': State,
+	'/templates': Templates,
+	'/ai': AiTools,
 	'/plugins': Plugins,
 	'/showcase': Showcase,
 	'/learn': Learn,
@@ -156,7 +159,7 @@ function MenuBar() {
 					{t.menu}
 				</button>
 				<div role='menu' aria-label={t.a_cats} hidden={!navMenu.open} className={`${dropdown} right-auto left-0`}>
-					{NAV.map((n) => (
+					{SITE_NAV.map((n) => (
 						<Link key={n.to} to={n.to} role='menuitem' activeOptions={{ exact: true, includeSearch: false }} className={dropItem}>
 							{t[n.key]}
 						</Link>

@@ -2,8 +2,8 @@ import { type EntryDraft, type RootSearch, type SubmitCat, appBySlug } from '@aw
 import { useNavigate, useRouter, useSearch } from '@tanstack/react-router';
 import { type ReactNode, createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 
-// `plug:<slug>:go` and `plug:<slug>:npm` are a plugin card's setup lines.
-export type CopyKey = 'cmd' | 'cmd0' | 'cmd1' | 'det' | 'line' | 'badge' | `plug:${string}` | `state:${string}`;
+// `plug:<slug>:go` and `plug:<slug>:npm` are a plugin card's setup lines; `state:`, `template:` and `ai:` and a slug the install or start line of a card on those pages.
+export type CopyKey = 'cmd' | 'cmd0' | 'cmd1' | 'det' | 'line' | 'badge' | `plug:${string}` | `state:${string}` | `template:${string}` | `ai:${string}`;
 
 export interface SubmitForm extends EntryDraft {
 	cat: SubmitCat;

@@ -1,6 +1,6 @@
 name: Announce on X and to the project
 
-# Every app, plugin, UI library or state management solution a push to main adds (a new file in packages/catalog/data/apps, plugins, ui or state; a renamed one is not new) is posted to X with packages/announce, as a post of its own with the entry's page on the site as its only link, so X shows the page's card: what was listed and by whom (the owner's X account when their GitHub profile names one), its summary, its stars and how much the site lists now. Each entry is a job of its own, one at a time, so re-running the failed jobs of a run posts only what was not posted. Each job waits for the site to list the entry before it posts, since Workers Builds deploys main on its own. After the post, or when X refuses it (as it does once the account's credits are spent), the job opens an issue on the project's own GitHub repository saying it was listed, with its page on the site, the post on X, the README badge's Markdown to link back, and where its score will show with what would raise it, from its license and releases on GitHub (packages/announce/src/issue.ts); a repository is told once, and not at all when its issues are off, it is archived, or it belongs to this site's owner or to MyGo's author (egoist), whose projects are MyGo's own. A post X refused fails its job once the issue is open, so re-running the failed jobs posts it without opening the issue twice. Run it by hand to post entries again, to see their posts and issues without posting or opening them, or with issue_only to open just the issues of entries announced before the workflow opened any.
+# Every app, plugin, UI library, state management solution, template or AI tool a push to main adds (a new file in packages/catalog/data/apps, plugins, ui, state, templates or ai; a renamed one is not new) is posted to X with packages/announce, as a post of its own with the entry's page on the site as its only link, so X shows the page's card: what was listed and by whom (the owner's X account when their GitHub profile names one), its summary, its stars and how much the site lists now. Each entry is a job of its own, one at a time, so re-running the failed jobs of a run posts only what was not posted. Each job waits for the site to list the entry before it posts, since Workers Builds deploys main on its own. After the post, or when X refuses it (as it does once the account's credits are spent), the job opens an issue on the project's own GitHub repository saying it was listed, with its page on the site, the post on X, the README badge's Markdown to link back, and where its score will show with what would raise it, from its license and releases on GitHub (packages/announce/src/issue.ts); a repository is told once, and not at all when its issues are off, it is archived, or it belongs to this site's owner or to MyGo's author (egoist), whose projects are MyGo's own. A post X refused fails its job once the issue is open, so re-running the failed jobs posts it without opening the issue twice. Run it by hand to post entries again, to see their posts and issues without posting or opening them, or with issue_only to open just the issues of entries announced before the workflow opened any.
 #
 # Secrets: X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN and X_ACCESS_SECRET, the OAuth 1.0a keys of an X app with read and write permission, the access token generated for the account that posts. Without them nothing is posted, and the issue goes without a post. NOTIFY_GITHUB_TOKEN, a classic personal access token with the public_repo scope of the account the issues come from: neither this workflow's token nor a GitHub App's can open an issue on a repository they are not installed on. Without it the issues are only printed.
 
@@ -12,6 +12,8 @@ on:
       - packages/catalog/data/plugins/*.json
       - packages/catalog/data/ui/*.json
       - packages/catalog/data/state/*.json
+      - packages/catalog/data/templates/*.json
+      - packages/catalog/data/ai/*.json
   workflow_dispatch:
     inputs:
       entries:
@@ -48,7 +50,7 @@ jobs:
           if [[ "$GITHUB_EVENT_NAME" == workflow_dispatch ]]; then
             list=$(tr -s ' \t' '\n' <<< "$INPUT")
           else
-            list=$(git diff --name-only --diff-filter=A -M "$BEFORE" "$GITHUB_SHA" -- 'packages/catalog/data/apps/*.json' 'packages/catalog/data/plugins/*.json' 'packages/catalog/data/ui/*.json' 'packages/catalog/data/state/*.json' | sed 's#^packages/catalog/data/##')
+            list=$(git diff --name-only --diff-filter=A -M "$BEFORE" "$GITHUB_SHA" -- 'packages/catalog/data/apps/*.json' 'packages/catalog/data/plugins/*.json' 'packages/catalog/data/ui/*.json' 'packages/catalog/data/state/*.json' 'packages/catalog/data/templates/*.json' 'packages/catalog/data/ai/*.json' | sed 's#^packages/catalog/data/##')
           fi
           entries=$(jq -Rnc '[inputs | select(length > 0)]' <<< "$list")
           echo "Entries: $entries"

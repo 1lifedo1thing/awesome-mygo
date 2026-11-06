@@ -11,14 +11,15 @@ const README_LIMIT = 20_000;
 
 // Plain strings rather than z.enum, as in copy.ts: an enum is only a hint to structured outputs, and entryFor checks the values instead.
 const verdictSchema = z.object({
-	verdict: z.string().describe('app, ui, state, plugin or skip'),
+	verdict: z.string().describe('app, ui, state, template, ai, plugin or skip'),
 	reason: z.string(),
 	name: z.string(),
 	summary: z.string(),
 	kind: z.string().describe('For an app: native or web. Otherwise an empty string.'),
 	tag: z.string().describe('For ui: theme, retro or icons. Otherwise an empty string.'),
-	surface: z.string().describe('For ui or a plugin: web, native or both. Otherwise an empty string.'),
-	tags: z.array(z.string()).describe('For state or plugin: one to four short lowercase tags. Otherwise empty.'),
+	surface: z.string().describe('For ui, a template or a plugin: web, native or both. Otherwise an empty string.'),
+	type: z.string().describe('For ai: skill, mcp, rules or other. Otherwise an empty string.'),
+	tags: z.array(z.string()).describe('For state, template, ai or plugin: one to four short lowercase tags. Otherwise empty.'),
 });
 
 const SYSTEM = `You review GitHub repositories for awesomemygo.dev, a directory of what is built with MyGo (github.com/egoist/mygo), a Go toolkit for desktop apps with a native UI or a web frontend. Each repository you get has a go.mod that requires MyGo and is not listed on the site yet. Decide whether it belongs there, and as what.
@@ -27,16 +28,19 @@ verdict, one of:
 - app: an application people can download or build and use: a window, a menu bar or tray app, a launcher. What MyGo builds must be the app people use, or one of its versions: the whole app, its desktop client, or its build for one platform (a Windows port of a Swift app, the desktop app of a self-hosted server). It is not an app here when MyGo draws only a minor part of one built with something else, such as its settings window, an installer or a tray icon that opens its interface in the browser, or when the window only loads a website hosted elsewhere and adds nothing of its own.
 - ui: a UI component library, theme or icon set for MyGo apps.
 - state: a state management library for MyGo apps.
+- template: a project people start their own MyGo app from, such as a GitHub template repository or a starter with a frontend stack, tests, CI or packaging set up, whose README says to copy or fork it. It is not a template when it is an app people use as it is, or little more than what mygo init creates.
+- ai: a tool that exists to help AI coding agents build MyGo apps: an agent skill (a SKILL.md), an MCP server or library that lets an agent drive or inspect MyGo apps, or rules for coding agents (AGENTS.md, Cursor rules) about MyGo. Not an AI app built with MyGo, which is an app.
 - plugin: a MyGo plugin, a Go package that adds a capability to MyGo apps (often with a frontend package beside it).
-- skip: anything else. Skip MyGo itself and copies of it; mirrors, copies and renamed forks of another project that add nothing of their own, whose description says so (an unofficial or read-only mirror) or whose README sends you to another home for the code or the install; examples, templates, starters, tutorials, benchmarks and tests; projects that are little more than what mygo init creates or whose README does not say what they do; libraries of a kind the site has no section for; and projects whose main purpose is plainly to harm others or break the law.
+- skip: anything else. Skip MyGo itself and copies of it; mirrors, copies and renamed forks of another project that add nothing of their own, whose description says so (an unofficial or read-only mirror) or whose README sends you to another home for the code or the install; examples, tutorials, benchmarks and tests; projects that are little more than what mygo init creates or whose README does not say what they do; libraries of a kind the site has no section for; and projects whose main purpose is plainly to harm others or break the law.
 
 For a fit, also give:
 - name: the project's name as it writes it (mygo.json's name, the README's title), not its repository's name in lower case unless that is how it writes itself.
 - summary: one plain English line of at most 120 characters for the site's cards that says what it does. When MyGo builds only one version of a larger project, say which (the Windows version, the desktop client), so the card does not claim the rest. No marketing language, no Markdown, no emoji.
 - kind (app): web when its windows show a web frontend (its configuration has devUrl, devCommand, buildCommand or frontendDist, or the app loads pages it builds with a JavaScript framework); native when they draw MyGo's native UI (mygo.json without those fields, Go code that builds the UI).
 - tag (ui): theme for a component library or theme, retro for one in a retro style, icons for an icon set.
-- surface (ui, plugin): web when it serves web pages (a JavaScript package), native when it works with the native UI (Go), both when it has a part for each.
-- tags (state, plugin): one to four short lowercase words.
+- surface (ui, plugin): web when it serves web pages (a JavaScript package), native when it works with the native UI (Go), both when it has a part for each. (template): web when the apps it starts show a web frontend, native when they draw MyGo's native UI, both when it offers each.
+- type (ai): skill for an agent skill, mcp for an MCP server or library, rules for instructions for coding agents, other for anything else.
+- tags (state, template, ai, plugin): one to four short lowercase words.
 
 reason: for the maintainer reviewing the pull request, in English, one or two sentences: what shows the project is built with MyGo, and why it fits or is skipped. Say how much of the project MyGo builds when it is not all of it. Mention doubts here too, such as a project that looks unfinished or a kind that is hard to tell.
 

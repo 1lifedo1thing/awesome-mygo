@@ -16,6 +16,8 @@
 - **插件**：官方插件，标明适用于网页、原生 UI 还是两者，另有 `mygo-cli` 工具链。
 - **UI 组件**：为 MyGo 应用做的组件库、主题与图标。
 - **状态管理**：MyGo 应用的状态方案，以及 MyGo 自带的绑定服务、通道和类型化事件。
+- **模板**：开发 MyGo 应用的起点，前端技术栈、测试、CI 或打包都已配好。
+- **AI 工具**：帮助 AI 编程助手开发 MyGo 应用的 agent skill、MCP 服务与规则。
 - **文档**：官方指南、社区文章和官方资源。
 - 用 <kbd>⌘K</kbd> / <kbd>Ctrl+K</kbd> **搜索**全部内容；想收录某个项目时，提交表单会替你写好条目。
 
@@ -28,7 +30,7 @@ pnpm monorepo，由 [TanStack Start](https://tanstack.com/start) 运行在 [Clou
 | 路径 | 内容 |
 |---|---|
 | `apps/web` | 站点：React 19、TanStack Start（服务端渲染），以及带 `@cloudflare/vite-plugin` 的 Vite。`wrangler.jsonc` 把它部署到 `awesomemygo.dev`。 |
-| `packages/catalog` | 数据：`data/*.json`（应用、UI 组件、状态方案、插件、文章、指南）及其 JSON Schema，五种语言的界面文案，搜索与提交表单的条目。测试会校验每个条目。 |
+| `packages/catalog` | 数据：`data/*.json`（应用、UI 组件、状态方案、模板、AI 工具、插件、文章、指南）及其 JSON Schema，五种语言的界面文案，搜索与提交表单的条目。测试会校验每个条目。 |
 | `packages/enrich` | 补全提交 bot 开的 PR：从项目仓库取应用图标，截图优先用表单里上传的图片或填的链接、否则从仓库取，并用 Claude 写五种语言的文案。由 `.github/workflows/enrich-submission.yml` 运行。`.github/workflows/verify.yml` 每周还会核验所有已收录项目的仓库，仓库有变化的条目各开一个 PR：仓库被删除、转为私有或被停用时下架条目，被改名或转移时更新条目，补上缺少的 homepage，项目有了自己的图片后替换临时图；仓库被归档或不再用 MyGo 构建时只在运行摘要里列出。 |
 
 应用图标来自 [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo)，由它的 CDN 提供；它未收录的少数应用使用 `apps/web/public/icons/` 里的官方图标。
@@ -54,7 +56,7 @@ pnpm preview      # 在 Workers 运行时中运行生产构建
 
 稳定版 Chrome 只有通过 origin trial，才会为本站访客开启 WebMCP，提交表单的工具也随之可用。在 [developer.chrome.com/origintrials](https://developer.chrome.com/origintrials/) 为正式站点的 origin（`https://awesomemygo.dev`）注册 WebMCP 试用，然后在 `apps/web` 下用 `wrangler secret put WEBMCP_ORIGIN_TRIAL` 设置拿到的 token：此后每个页面都会在 `<meta http-equiv="origin-trial">` 标签里带上它，不设置就不带。token 随试用结束而失效，届时重新注册，或删掉这个 secret。
 
-作品、UI 组件和状态管理都需要截图。访客填好仓库链接后，表单会请 Worker（`/api/shot`）按 submission workflow 自己的规则（`packages/enrich/src/source.ts`）检查仓库里有没有它会采用的截图；没有，或者作品没有仓库时，表单会要求提供一张，Worker 也会拒绝没有截图的提交。访客可以上传图片（PNG、JPEG 或 WebP，5 MB 以内，横版且宽度至少 600 像素），也可以填图片链接。上传的图片会以 `submissions/<slug>.<ext>` 提交到 PR 的分支上并显示在 PR 里，workflow 把它转成站点用的 WebP 后删除。这项检查按 IP 限流，每分钟 20 次。
+作品、UI 组件、状态管理、模板和 AI 工具都需要截图。访客填好仓库链接后，表单会请 Worker（`/api/shot`）按 submission workflow 自己的规则（`packages/enrich/src/source.ts`）检查仓库里有没有它会采用的截图；没有，或者作品没有仓库时，表单会要求提供一张，Worker 也会拒绝没有截图的提交。访客可以上传图片（PNG、JPEG 或 WebP，5 MB 以内，横版且宽度至少 600 像素），也可以填图片链接。上传的图片会以 `submissions/<slug>.<ext>` 提交到 PR 的分支上并显示在 PR 里，workflow 把它转成站点用的 WebP 后删除。这项检查按 IP 限流，每分钟 20 次。
 
 bot 开出 PR 后，*Complete submission* workflow 会补上表单问不到的内容：应用图标，按 MyGo 的查找方式取（`mygo.json` 的 `icon`，没有则用 `resources/icon.png`；如果是 `mygo init` 生成的 MyGo 默认图标就不加）、README 里第一张不是图标或其他方形 logo 的截图，以及五种语言的简介和介绍。UI 组件和状态管理也会照同样的方式补截图，并从仓库设置里补 homepage；表单填了默认值的字段（应用在作品集里的分组 `group`，没有另写分类时分类随分组而定、UI 组件的 `tag` 和 `surface`、插件的 `surface`、状态管理和插件的 `tags`）由模型在写文案时一并选定。它会跑 catalog 检查，以 bot 身份推到同一分支，并在 PR 里留言说明做了什么；合并前仍需维护者审核。需要在仓库的 Actions 设置里配置 secret：`SUBMIT_APP_PRIVATE_KEY`（App 的 PKCS#8 私钥，与 Worker 用的相同）、`LLM_API_KEY`（Anthropic Messages API 的密钥），走网关时再加 `LLM_BASE_URL`；以及变量 `SUBMIT_APP_CLIENT_ID`（App 的 Client ID）。变量 `LLM_MODEL` 可以换模型（默认 `claude-opus-5-5`）。没有 `LLM_API_KEY` 时文案保持提交时的样子。
 
@@ -67,6 +69,8 @@ bot 开出 PR 后，*Complete submission* workflow 会补上表单问不到的�
 | `apps/<slug>.json` | 用 MyGo 做的应用 |
 | `ui/<slug>.json` | UI 组件库 |
 | `state/<slug>.json` | 状态管理 |
+| `templates/<slug>.json` | 模板 |
+| `ai/<slug>.json` | AI 工具 |
 | `plugins/<slug>.json` | 插件 |
 | `articles/<slug>.json` | 文章 |
 | `docs/<slug>.json` | MyGo 官方指南 |
@@ -93,7 +97,7 @@ bot 开出 PR 后，*Complete submission* workflow 会补上表单问不到的�
 }
 ```
 
-- 文件名与 `slug` 相同。`added` 是条目加入站点的时间（UTC），站点 bot 会自动填写，手动添加时写当前时间。除官方指南外每个类别都有这个字段：作品集可以按它把最新的应用排在前面，UI 组件库、状态管理、文章和社区插件按它从早到晚排列；官方插件和官方指南按名字排列。每个条目一个文件，所以同时添加条目的多个 PR 不会互相冲突。
+- 文件名与 `slug` 相同。`added` 是条目加入站点的时间（UTC），站点 bot 会自动填写，手动添加时写当前时间。除官方指南外每个类别都有这个字段：作品集可以按它把最新的应用排在前面，UI 组件库、状态管理、模板、AI 工具、文章和社区插件按它从早到晚排列；官方插件和官方指南按名字排列。每个条目一个文件，所以同时添加条目的多个 PR 不会互相冲突。
 - 其他类别的文件同样在字段外带 `$schema`、`slug` 和 `added`（官方指南没有 `added`），具体字段见 `data/schema/` 里对应的 schema。
 - `url` 是应用主页：官网，没有官网就填仓库地址，不要求在 GitHub 上。开源应用再用 `repo` 填 GitHub 仓库（`owner/name`），闭源应用不填。
 - 文本字段按语言各写一份。`en` 必填；`zh-CN`、`zh-TW`、`ja`、`ko` 可选，缺少的语言显示英文。

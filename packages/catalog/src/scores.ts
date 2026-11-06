@@ -1,5 +1,5 @@
 import scoresJson from '../data/scores.json';
-import { APPS, PLUGINS, STATE_SOLUTIONS, UI_LIBS } from './catalog';
+import { AI_TOOLS, APPS, PLUGINS, STATE_SOLUTIONS, TEMPLATES, UI_LIBS } from './catalog';
 import { ACTIVITY_WEEKS, type Score, type ScoreSignals, type ScoreTarget, scoreKey, scoreOf, scoreTarget } from './score';
 import { CatalogError, Reader } from './validate';
 
@@ -16,7 +16,7 @@ const SCHEMA = './schema/scores.schema.json';
 // The fields of an entry's signals, as ScoreSignals names them; data/schema/scores.schema.json describes the same.
 export const SCORE_FIELDS = ['repo', 'path', 'stars', 'weeks', 'activeWeeks', 'license', 'osi', 'released', 'releaseDays', 'archived', 'likes'] as const satisfies readonly (keyof ScoreSignals)[];
 
-const KEY = /^(app|ui|state|plugin):\S+$/;
+const KEY = /^(app|ui|state|template|ai|plugin):\S+$/;
 const REPO = /^[^/\s]+\/[^/\s]+$/;
 const DAY = /^\d{4}-\d{2}-\d{2}$/;
 // The most release days a record can have: they are counted in the ACTIVITY_WEEKS full weeks before asOf, at most one a day.
@@ -79,7 +79,7 @@ export function readScores(json: unknown): ScoresFile {
 	if (!raw || typeof raw !== 'object' || Array.isArray(raw)) r.fail('entries', 'must be an object of signals by entry key');
 	const entries: Record<string, ScoreSignals> = {};
 	for (const [key, s] of Object.entries(raw)) {
-		if (!KEY.test(key)) r.fail(`entries.${key}`, 'is not an entry key: app:<slug>, ui:<owner/name>, state:<owner/name> or plugin:<slug>');
+		if (!KEY.test(key)) r.fail(`entries.${key}`, 'is not an entry key: app:<slug>, ui:<owner/name>, state:<owner/name>, template:<owner/name>, ai:<slug> or plugin:<slug>');
 		entries[key] = readSignals(key, s);
 	}
 	if (asOf === null && Object.keys(entries).length) r.fail('asOf', 'is required once there are entries: their weeks and releases are counted up to it');
@@ -91,6 +91,9 @@ export const SCORE_TARGETS: ReadonlyMap<string, ScoreTarget> = new Map([
 	...APPS.map((a) => [scoreKey('app', a), scoreTarget({ repo: a.repo, url: a.url })] as const),
 	...UI_LIBS.map((l) => [scoreKey('ui', l), scoreTarget({ repo: l.repo })] as const),
 	...STATE_SOLUTIONS.map((s) => [scoreKey('state', s), scoreTarget({ repo: s.repo })] as const),
+	...TEMPLATES.map((x) => [scoreKey('template', x), scoreTarget({ repo: x.repo })] as const),
+	// An AI tool in a folder of its repository is measured by that folder.
+	...AI_TOOLS.map((x) => [scoreKey('ai', x), scoreTarget({ repo: x.repo, url: x.url })] as const),
 	...PLUGINS.map((p) => [scoreKey('plugin', p), scoreTarget({ url: p.url, goImport: p.goImport })] as const),
 ]);
 

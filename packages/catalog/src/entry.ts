@@ -1,17 +1,17 @@
 import { CatalogError } from './validate';
-import { APP_KIND, APPS, ARTICLE_KIND, ARTICLES, COMMUNITY_PLUGINS, DATA_DIR, ENTRY_GROUPS, type EntryGroup, type Kind, PLUGIN_KIND, PLUGINS, SITE_REPO, SITE_URL, STATE_KIND, STATE_SOLUTIONS, UI_KIND, UI_LIBS, hostOf, readEntry, readEntryFile } from './catalog';
+import { AI_KIND, AI_TOOLS, APP_KIND, APPS, ARTICLE_KIND, ARTICLES, COMMUNITY_PLUGINS, DATA_DIR, ENTRY_GROUPS, type EntryGroup, type Kind, PLUGIN_KIND, PLUGINS, SITE_REPO, SITE_URL, STATE_KIND, STATE_SOLUTIONS, TEMPLATE_KIND, TEMPLATES, UI_KIND, UI_LIBS, hostOf, readEntry, readEntryFile } from './catalog';
 import { LOCALES } from './strings';
 
 // Submission form: it writes the JSON entry for the category. The site's bot opens a pull request with it, or a contributor with a GitHub account sends it as an issue or adds it themselves. Every entry gets a file of its own, data/<dir>/<slug>.json, so entries submitted together never conflict.
 
-export const SUBMIT_CATS = ['ui', 'state', 'plugin', 'showcase', 'article'] as const;
+export const SUBMIT_CATS = ['ui', 'state', 'template', 'ai', 'plugin', 'showcase', 'article'] as const;
 export type SubmitCat = (typeof SUBMIT_CATS)[number];
 
 // The files each category's entries go in.
-export const SUBMIT_KINDS: Record<SubmitCat, Kind<{ slug: string; added?: string }>> = { showcase: APP_KIND, ui: UI_KIND, state: STATE_KIND, plugin: PLUGIN_KIND, article: ARTICLE_KIND };
+export const SUBMIT_KINDS: Record<SubmitCat, Kind<{ slug: string; added?: string }>> = { showcase: APP_KIND, ui: UI_KIND, state: STATE_KIND, template: TEMPLATE_KIND, ai: AI_KIND, plugin: PLUGIN_KIND, article: ARTICLE_KIND };
 
 // Each category's name in a pull request title.
-export const SUBMIT_LABELS: Record<SubmitCat, string> = { showcase: 'app', ui: 'UI components', state: 'state management', plugin: 'plugin', article: 'article' };
+export const SUBMIT_LABELS: Record<SubmitCat, string> = { showcase: 'app', ui: 'UI components', state: 'state management', template: 'template', ai: 'AI tool', plugin: 'plugin', article: 'article' };
 
 // When an entry is filed: now, in UTC to the second.
 const now = () => new Date().toISOString().replace(/\.\d{3}Z$/, 'Z');
@@ -53,7 +53,7 @@ export function entryFileText(cat: SubmitCat, entry: Record<string, unknown>, ad
 	return `${JSON.stringify(file, null, '\t')}\n`;
 }
 
-// The name of the entry on the site that entry would repeat, by the field its category keeps unique across files (an app's or plugin's slug, a library's repository, an article's link), or undefined. A new slug is checked against the repository itself, as a file of that name.
+// The name of the entry on the site that entry would repeat, by the field its category keeps unique across files (an app's or plugin's slug, a library's or template's repository, an AI tool's or article's link), or undefined. A new slug is checked against the repository itself, as a file of that name.
 export function alreadyListed(cat: SubmitCat, entry: Record<string, unknown>): string | undefined {
 	switch (cat) {
 		case 'showcase':
@@ -62,6 +62,10 @@ export function alreadyListed(cat: SubmitCat, entry: Record<string, unknown>): s
 			return UI_LIBS.find((l) => l.repo === entry.repo)?.name;
 		case 'state':
 			return STATE_SOLUTIONS.find((s) => s.repo === entry.repo)?.name;
+		case 'template':
+			return TEMPLATES.find((x) => x.repo === entry.repo)?.name;
+		case 'ai':
+			return AI_TOOLS.find((x) => x.url === entry.url)?.name;
 		case 'plugin':
 			return [...PLUGINS, ...COMMUNITY_PLUGINS].find((p) => p.slug === entry.slug)?.name;
 		case 'article':
@@ -77,14 +81,14 @@ export function descMax(cat: SubmitCat): number {
 export interface EntryDraft {
 	name: string;
 	author: string;
-	// The showcase's homepage, a plugin's docs, an article; for UI components and state management, the GitHub repository.
+	// The showcase's homepage, a plugin's docs, an article; for UI components, state management, a template and an AI tool, the GitHub repository (an AI tool's may be its folder in one).
 	url: string;
 	desc: string;
 	// Showcase only: the app's GitHub repository link, for an open-source app. Optional, since an app need not be open source.
 	repo?: string;
 	// Showcase only: the showcase group its author picked. Left out when none was picked; the submission workflow picks one then.
 	group?: EntryGroup;
-	// An app, UI components or state management (takesShot): a link to a screenshot, for a project whose README and repository show none. Not part of the entry: the bot passes it to the submission workflow in the pull request, which downloads it into apps/web/public/shots. The form can upload an image instead, which the bot puts on the pull request's branch.
+	// An app, UI components, state management, a template or an AI tool (takesShot): a link to a screenshot, for a project whose README and repository show none. Not part of the entry: the bot passes it to the submission workflow in the pull request, which downloads it into apps/web/public/shots. The form can upload an image instead, which the bot puts on the pull request's branch.
 	screenshot?: string;
 }
 
@@ -117,7 +121,7 @@ function entrySlug(name: string, url: string): string {
 	return slugify(repoOf(url)?.split('/')[1] ?? url.replace(/^https:\/\//, '').slice(0, 60));
 }
 
-// owner/name of a GitHub link, which UI libraries and state management ask for.
+// owner/name of a GitHub link, which UI libraries, state management, templates and AI tools ask for.
 export function repoOf(url: string): string | undefined {
 	const m = /^https:\/\/github\.com\/([^/\s]+)\/([^/\s#?]+)/.exec(url.trim());
 	return m ? `${m[1]}/${m[2].replace(/\.git$/, '')}` : undefined;
@@ -151,7 +155,7 @@ export function missingFields(cat: SubmitCat, d: EntryDraft): DraftField[] {
 }
 
 // What buildEntry writes for a field the form left empty, besides the name and description it is given in the visitor's language. The form's issue link is there before the form is complete, so an issue can still hold them (placeholderProblem).
-export const ENTRY_PLACEHOLDERS = { author: 'your-github-login', url: 'https://…', repo: 'owner/name', install: 'go get …' } as const;
+export const ENTRY_PLACEHOLDERS = { author: 'your-github-login', url: 'https://…', repo: 'owner/name', install: 'go get …', use: 'gh repo create my-app --template owner/name --clone', aiInstall: 'npx skills add owner/name' } as const;
 
 // The entry as it goes into its data file. Missing fields show as placeholders, so the preview always has the final shape.
 export function buildEntry(cat: SubmitCat, d: EntryDraft, mode: 'native' | 'web', placeholders: { name: string; desc: string }): Record<string, unknown> {
@@ -167,6 +171,10 @@ export function buildEntry(cat: SubmitCat, d: EntryDraft, mode: 'native' | 'web'
 			return { slug: entrySlug(name, url), name, author, tag: 'theme', surface: 'native', summary, repo: repo ?? ENTRY_PLACEHOLDERS.repo, url };
 		case 'state':
 			return { slug: entrySlug(name, url), name, author, summary, repo: repo ?? ENTRY_PLACEHOLDERS.repo, url, install: repo ? `go get github.com/${repo}` : ENTRY_PLACEHOLDERS.install, tags: ['state'] };
+		case 'template':
+			return { slug: entrySlug(name, url), name, author, summary, repo: repo ?? ENTRY_PLACEHOLDERS.repo, url, surface: 'native', use: repo ? `gh repo create my-app --template ${repo} --clone` : ENTRY_PLACEHOLDERS.use, tags: ['template'] };
+		case 'ai':
+			return { slug: entrySlug(name, url), name, author, summary, repo: repo ?? ENTRY_PLACEHOLDERS.repo, url, type: 'skill', install: repo ? `npx skills add ${repo}` : ENTRY_PLACEHOLDERS.aiInstall, tags: ['ai'] };
 		case 'plugin':
 			return { slug: entrySlug(name, url), name, mark: name.replace(/\s/g, '').slice(0, 2), official: false, surface: 'web', tags: [], docs: url, summary };
 		case 'article':
@@ -192,9 +200,9 @@ export function isBadRepo(link: string): boolean {
 	return link.trim().length > 0 && !repoOf(link);
 }
 
-// UI components and state management are listed by their GitHub repository.
+// UI components, state management, templates and AI tools are listed by their GitHub repository.
 export function needsRepo(cat: SubmitCat): boolean {
-	return cat === 'ui' || cat === 'state';
+	return cat === 'ui' || cat === 'state' || cat === 'template' || cat === 'ai';
 }
 
 // The categories whose cards show a screenshot, which the form asks for when the project's repository has none to take.
@@ -222,9 +230,9 @@ export function entryProblem(cat: SubmitCat, d: EntryDraft): string | undefined 
 	if (d.name.length > 80 || d.author.length > 80 || d.url.length > 300) return 'a field is too long';
 	if ([d.name, d.author, d.url, d.desc].some((v) => /[\u0000-\u001f\u007f]/.test(v))) return 'fields must be a single line of text';
 	if (/\s/.test(d.url.trim())) return 'the link must not contain spaces';
-	if (needsRepo(cat) && !repoOf(d.url)) return 'UI components and state management need a GitHub repository link';
+	if (needsRepo(cat) && !repoOf(d.url)) return 'UI components, state management, templates and AI tools need a GitHub repository link';
 	if (cat === 'showcase' && d.repo?.trim() && (isBadRepo(d.repo) || d.repo.length > 300)) return 'the GitHub repository must be a link like https://github.com/owner/name';
-	if (d.screenshot?.trim() && (!takesShot(cat) || isBadShot(d.screenshot))) return 'the screenshot must be an https link to an image, for an app, UI components or state management';
+	if (d.screenshot?.trim() && (!takesShot(cat) || isBadShot(d.screenshot))) return 'the screenshot must be an https link to an image, for an app, UI components, state management, a template or an AI tool';
 	return undefined;
 }
 
@@ -392,7 +400,7 @@ export function submissionFromIssue(body: string): { cat: SubmitCat; entry: Reco
 	const parsed = parseEntryJson(fence[2]);
 	if ('error' in parsed) return { problem: parsed.error === 'json' ? 'the json code block does not parse as JSON' : 'the json code block must hold one JSON object, the entry' };
 	const shot = ISSUE_SHOT.exec(rest.slice(fence.index + fence[0].length))?.[1];
-	if (shot !== undefined && (!takesShot(cat) || isBadShot(shot))) return { problem: 'the screenshot must be an https link to an image, for an app, UI components or state management' };
+	if (shot !== undefined && (!takesShot(cat) || isBadShot(shot))) return { problem: 'the screenshot must be an https link to an image, for an app, UI components, state management, a template or an AI tool' };
 	// The bot's comment asking for a screenshot shows the line with the form's placeholder link, which passes isBadShot.
 	if (shot === ENTRY_PLACEHOLDERS.url) return { problem: `the Screenshot line still holds the example link ${shot}; put the link to the image in its place` };
 	const problem = pastedEntryProblem(cat, parsed.entry) ?? placeholderProblem(parsed.entry);
@@ -409,13 +417,13 @@ export const AGENT_INPUT_SCHEMA = {
 	type: 'object',
 	required: ['category'],
 	properties: {
-		category: { type: 'string', enum: [...SUBMIT_CATS], description: 'showcase: an app built with MyGo; ui: UI components; state: state management; plugin: a MyGo plugin; article: an article or video about MyGo.' },
+		category: { type: 'string', enum: [...SUBMIT_CATS], description: 'showcase: a MyGo app; ui: UI components; state: state management; template: a MyGo app template; ai: an AI tool for MyGo; plugin; article.' },
 		name: { type: 'string', description: "The project's name as its author writes it; an article's title. At most 80 characters." },
 		author: { type: 'string', description: "The author's GitHub login or name. Not for articles." },
-		url: { type: 'string', description: 'An https link. showcase: homepage or repository; ui, state: the GitHub repository; plugin: its docs; article: the article.' },
+		url: { type: 'string', description: 'An https link. showcase: homepage or repository; ui, state, template, ai: the GitHub repository; plugin: its docs; article: the article.' },
 		desc: { type: 'string', description: 'One plain English sentence on what it is for: at most 300 characters for showcase, 120 otherwise. Not for articles.' },
 		repo: { type: 'string', description: "showcase only: the app's GitHub repository link, when url is its homepage." },
-		screenshot: { type: 'string', description: "showcase, ui, state only: an https link to a screenshot image, needed when the repository's README shows none." },
+		screenshot: { type: 'string', description: "showcase, ui, state, template, ai only: an https link to a screenshot, needed when the repository's README shows none." },
 		group: { type: 'string', enum: [...ENTRY_GROUPS], description: 'showcase only: agents (tools for AI coding agents), dev, ai (assistants), network (proxy, VPN), notes, system, devices, media, game, chat.' },
 		mode: { type: 'string', enum: ['native', 'web'], description: 'showcase only: native when its windows draw MyGo native UI, web when they show a web frontend. Defaults to native.' },
 		entry: { type: 'object', description: "Instead of the fields: a whole entry in the category's JSON format, as in packages/catalog/data on GitHub, without screenshot or icon.file." },
@@ -466,7 +474,7 @@ export function readAgentSubmission(input: unknown): { submission: AgentSubmissi
 		const appOnly = fields.filter((k) => k === 'repo' || k === 'group' || k === 'mode');
 		if (appOnly.length > 0) problems.push(`${appOnly.join(', ')}: only an app (showcase) takes ${appOnly.length > 1 ? 'these' : 'this'}`);
 	}
-	if (cat && !takesShot(cat) && input.screenshot !== undefined) problems.push('screenshot: only showcase, ui and state take one');
+	if (cat && !takesShot(cat) && input.screenshot !== undefined) problems.push(`screenshot: only ${SUBMIT_CATS.filter(takesShot).join(', ')} take one`);
 	if (cat === 'article') {
 		const extra = fields.filter((k) => k === 'author' || k === 'desc');
 		if (extra.length > 0) problems.push(`${extra.join(', ')}: an article takes no ${extra.join(' or ')}`);
@@ -486,7 +494,7 @@ export interface AgentReport {
 }
 
 // The site's entries of the categories alreadyListed tells apart by their link, by their slugs, which name their files: another entry under the same name would need the same file. An app's and a plugin's slug is what alreadyListed compares already.
-const LISTED_SLUGS: Partial<Record<SubmitCat, () => readonly { slug: string }[]>> = { ui: () => UI_LIBS, state: () => STATE_SOLUTIONS, article: () => ARTICLES };
+const LISTED_SLUGS: Partial<Record<SubmitCat, () => readonly { slug: string }[]>> = { ui: () => UI_LIBS, state: () => STATE_SOLUTIONS, template: () => TEMPLATES, ai: () => AI_TOOLS, article: () => ARTICLES };
 
 // Why the bot would refuse entry as a repeat, as openSubmission does: an entry the site lists under the field its category keeps unique (alreadyListed), or a file of its slug. known says which of the two the fields given so far decide; an unknown one is not looked up, as entry holds a placeholder there. The bundled catalog is the deployed one, so an entry merged since then is only caught on sending.
 function repeats(cat: SubmitCat, entry: Record<string, unknown>, known: { slug: boolean; link: boolean }): string[] {
@@ -513,7 +521,7 @@ export function agentSubmissionReport(sub: AgentSubmission): AgentReport {
 	// The entry's file check after the form's rules, as openSubmission writes the file only once it passes: entryProblem takes a link that is only https://, which the file refuses, as it does an article whose link has no host or a repository link with no name.
 	const problem = badUrl ? `url must be an https link, got ${JSON.stringify(draft.url)}` : (entryProblem(cat, whole) ?? fileProblem(cat, buildEntry(cat, whole, mode, { name: '', desc: '' })));
 	const entry = buildEntry(cat, draft, mode, STAND_IN);
-	// The slug comes from the name, or from the link when the name has no Latin letter or digit; a library and an article are told apart by their link.
+	// The slug comes from the name, or from the link when the name has no Latin letter or digit; a library, a template, an AI tool and an article are told apart by their link.
 	const known = { slug: !missing.includes('name') && (!missing.includes('url') || /[a-z0-9]/i.test(draft.name)), link: !missing.includes('url') };
 	const problems = problem ? [problem] : repeats(cat, entry, known);
 	const needs = missing.length > 0 ? [`still needed: ${missing.join(', ')}${missing.includes('url') ? ' (url must be an https link)' : ''}`] : [];

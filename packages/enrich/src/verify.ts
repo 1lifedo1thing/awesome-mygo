@@ -123,7 +123,7 @@ async function check(l: Listed): Promise<{ fix?: Fix; notes: string[] }> {
 	if (info.full_name.toLowerCase() !== l.repo.toLowerCase()) fix.moved = { from: l.repo, to: info.full_name };
 	if (info.archived) notes.push('its repository is archived');
 	if ((await usesMygo(info)) === false) notes.push(`no go.mod in its repository requires ${MYGO_MODULE} any more`);
-	if ((l.dir === ENTRY_DIRS.ui || l.dir === ENTRY_DIRS.state) && l.entry.homepage === undefined) {
+	if ((l.dir === ENTRY_DIRS.ui || l.dir === ENTRY_DIRS.state || l.dir === ENTRY_DIRS.template || l.dir === ENTRY_DIRS.ai) && l.entry.homepage === undefined) {
 		const home = homepageOf(info.homepage, info.full_name);
 		if (home) fix.homepage = home;
 	}
@@ -184,7 +184,7 @@ async function apply(l: Listed, fix: Fix): Promise<{ changes: string[]; lines: s
 				if (hit) {
 					dropProvisional(entry, 'screenshot');
 					changes.push(`screenshot: ${hit.url}`);
-					lines.push(`- Screenshot: ${hit.url} from ${hit.from}, in place of the stand-in. Check that it shows the ${l.dir === ENTRY_DIRS.app ? 'app' : 'library'}.${skipped.length ? ` It passed over ${skipped.join(', ')}.` : ''}`);
+					lines.push(`- Screenshot: ${hit.url} from ${hit.from}, in place of the stand-in. Check that it shows the ${l.dir === ENTRY_DIRS.app ? 'app' : l.dir === ENTRY_DIRS.template ? 'template' : l.dir === ENTRY_DIRS.ai ? 'tool' : 'library'}.${skipped.length ? ` It passed over ${skipped.join(', ')}.` : ''}`);
 				} else lines.push(`- Screenshot: still the stand-in, as ${skipped.length ? `none of the project's images is a screenshot: ${skipped.join(', ')}` : 'the project has no image in its README, its screenshot folders or a social preview of its own'}.`);
 			}
 		}

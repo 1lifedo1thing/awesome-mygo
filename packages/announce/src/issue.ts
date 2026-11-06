@@ -34,8 +34,8 @@ export function badgeMarkdown(kind: EntryKind, entry: Entry): string {
 	return `[![Listed on Awesome MyGo](${SITE_URL}/badge.svg)](${sitePage(kind, entry)})`;
 }
 
-const KIND_EN: Record<EntryKind, string> = { app: 'in the showcase', ui: 'among the UI components', state: 'among the state management solutions', plugin: 'among the plugins' };
-const KIND_ZH: Record<EntryKind, string> = { app: '作品', ui: 'UI 组件', state: '状态管理', plugin: '插件' };
+const KIND_EN: Record<EntryKind, string> = { app: 'in the showcase', ui: 'among the UI components', state: 'among the state management solutions', template: 'among the templates', ai: 'among the AI tools', plugin: 'among the plugins' };
+const KIND_ZH: Record<EntryKind, string> = { app: '作品', ui: 'UI 组件', state: '状态管理', template: '模板', ai: 'AI 工具', plugin: '插件' };
 
 // What the entry's page lacks that the project can give: a screenshot, for the kinds whose card shows one, and an icon, for an app, which shows a letter tile without one.
 export function missingImages(kind: EntryKind, entry: Entry): { screenshot: boolean; icon: boolean } {

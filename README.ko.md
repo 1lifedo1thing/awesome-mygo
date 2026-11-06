@@ -16,6 +16,8 @@
 - **플러그인**: 공식 플러그인. 웹 페이지, 네이티브 UI, 또는 둘 다 중 어디에 쓰는지 표시하며, `mygo-cli` 툴체인도 소개합니다.
 - **UI 컴포넌트**: MyGo 앱을 위한 컴포넌트 라이브러리, 테마, 아이콘.
 - **상태 관리**: MyGo 앱의 상태 관리 솔루션과 MyGo에 내장된 바인딩 서비스, 채널, 타입 이벤트.
+- **템플릿**: 프런트엔드 스택, 테스트, CI, 패키징이 갖춰진 MyGo 앱의 출발점.
+- **AI 도구**: AI 코딩 에이전트가 MyGo 앱을 만들도록 돕는 스킬, MCP 서버, 규칙.
 - **문서**: 공식 가이드, 커뮤니티 글, 공식 자료.
 - <kbd>⌘K</kbd> / <kbd>Ctrl+K</kbd>로 모든 내용을 **검색**할 수 있고, 수록하고 싶은 프로젝트가 있으면 제출 양식이 항목을 대신 작성해 줍니다.
 
@@ -28,7 +30,7 @@ pnpm 모노레포이며, [TanStack Start](https://tanstack.com/start)가 [Cloudf
 | 경로 | 내용 |
 |---|---|
 | `apps/web` | 사이트: React 19, TanStack Start(서버 렌더링), `@cloudflare/vite-plugin`을 쓰는 Vite. `wrangler.jsonc`로 `awesomemygo.dev`에 배포합니다. |
-| `packages/catalog` | 데이터: `data/*.json`(앱, UI 컴포넌트, 상태 관리 솔루션, 플러그인, 글, 가이드)과 그 JSON Schema, 5개 언어의 UI 문구, 검색, 제출 양식의 항목. 테스트로 모든 항목을 검증합니다. |
+| `packages/catalog` | 데이터: `data/*.json`(앱, UI 컴포넌트, 상태 관리 솔루션, 템플릿, AI 도구, 플러그인, 글, 가이드)과 그 JSON Schema, 5개 언어의 UI 문구, 검색, 제출 양식의 항목. 테스트로 모든 항목을 검증합니다. |
 | `packages/enrich` | 제출 bot이 연 풀 리퀘스트를 완성합니다: 프로젝트 저장소에서 앱 아이콘을, 양식에서 업로드한 이미지나 적은 링크(없으면 저장소)에서 스크린샷을 가져오고, 5개 언어 문구를 Claude로 씁니다. `.github/workflows/enrich-submission.yml`이 실행합니다. 또한 `.github/workflows/verify.yml`이 매주 등재된 모든 프로젝트의 저장소를 확인하고, 저장소가 바뀐 항목마다 풀 리퀘스트를 엽니다: 저장소가 삭제·비공개·비활성화되면 항목을 내리고, 이름이 바뀌거나 이전되면 항목을 고치고, 없는 homepage를 채우고, 프로젝트 자체 이미지가 생기면 임시 이미지를 바꿉니다. 보관된 저장소나 더 이상 MyGo로 만들지 않는 저장소는 실행 요약에만 적습니다. |
 
 앱 아이콘은 [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo)의 CDN에서 가져옵니다. ai-logo에 없는 일부 앱은 `apps/web/public/icons/`의 공식 아이콘을 씁니다.
@@ -54,7 +56,7 @@ pnpm preview      # 프로덕션 빌드를 Workers 런타임에서 실행
 
 안정 버전 Chrome은 origin trial을 통해서만 사이트 방문자에게 WebMCP와 그에 따른 제출 양식의 도구를 켭니다. [developer.chrome.com/origintrials](https://developer.chrome.com/origintrials/)에서 실제 사이트의 오리진(`https://awesomemygo.dev`)을 WebMCP 트라이얼에 등록하고, `apps/web`에서 `wrangler secret put WEBMCP_ORIGIN_TRIAL`로 토큰을 설정합니다. 그러면 모든 페이지가 `<meta http-equiv="origin-trial">` 태그로 토큰을 담고, 설정하지 않으면 담지 않습니다. 토큰은 트라이얼이 끝나면 만료되므로, 그때 다시 등록하거나 시크릿을 삭제합니다.
 
-앱, UI 컴포넌트, 상태 관리에는 스크린샷이 필요합니다. 방문자가 저장소 링크를 입력하면 양식이 Worker(`/api/shot`)에 submission workflow 자체의 규칙(`packages/enrich/src/source.ts`)으로 저장소에 쓸 수 있는 스크린샷이 있는지 확인합니다. 없거나 앱에 저장소가 없으면 양식이 한 장을 요구하고, Worker도 스크린샷 없는 제출을 받지 않습니다. 방문자는 이미지(PNG, JPEG, WebP, 5MB 이하, 가로이며 너비 600픽셀 이상)를 업로드하거나 이미지 링크를 입력합니다. 업로드한 이미지는 `submissions/<slug>.<ext>`로 풀 리퀘스트 브랜치에 올라가 풀 리퀘스트에 표시되고, workflow가 사이트용 WebP로 바꾼 뒤 지웁니다. 이 확인은 IP마다 분당 20회로 제한됩니다.
+앱, UI 컴포넌트, 상태 관리, 템플릿, AI 도구에는 스크린샷이 필요합니다. 방문자가 저장소 링크를 입력하면 양식이 Worker(`/api/shot`)에 submission workflow 자체의 규칙(`packages/enrich/src/source.ts`)으로 저장소에 쓸 수 있는 스크린샷이 있는지 확인합니다. 없거나 앱에 저장소가 없으면 양식이 한 장을 요구하고, Worker도 스크린샷 없는 제출을 받지 않습니다. 방문자는 이미지(PNG, JPEG, WebP, 5MB 이하, 가로이며 너비 600픽셀 이상)를 업로드하거나 이미지 링크를 입력합니다. 업로드한 이미지는 `submissions/<slug>.<ext>`로 풀 리퀘스트 브랜치에 올라가 풀 리퀘스트에 표시되고, workflow가 사이트용 WebP로 바꾼 뒤 지웁니다. 이 확인은 IP마다 분당 20회로 제한됩니다.
 
 bot이 풀 리퀘스트를 열면 *Complete submission* 워크플로가 양식으로는 물을 수 없는 부분을 채웁니다: MyGo와 같은 방식으로 찾은 앱 아이콘(`mygo.json`의 `icon`, 없으면 `resources/icon.png`. `mygo init`이 넣은 MyGo 기본 아이콘이면 넣지 않습니다), README에서 아이콘이나 다른 정사각형 로고가 아닌 첫 스크린샷, 5개 언어의 요약과 설명입니다. UI 컴포넌트와 상태 관리에도 같은 방식으로 스크린샷을 붙이고 저장소 설정의 homepage를 채웁니다. 양식이 기본값으로 채우는 항목(앱의 쇼케이스 그룹 `group`. 카테고리를 따로 쓰지 않으면 그룹에서 정해집니다. UI 라이브러리의 `tag`와 `surface`, 플러그인의 `surface`, 상태 관리와 플러그인의 `tags`)은 모델이 문구와 함께 고릅니다. catalog 검사를 실행하고, bot으로 같은 브랜치에 푸시하고, 무엇을 했는지 댓글로 남깁니다. 병합 전 검토는 여전히 관리자가 합니다. 저장소의 Actions 설정에 시크릿 `SUBMIT_APP_PRIVATE_KEY`(App의 PKCS#8 개인 키, Worker와 같은 것), `LLM_API_KEY`(Anthropic Messages API 키), 게이트웨이를 쓴다면 `LLM_BASE_URL`을, 변수 `SUBMIT_APP_CLIENT_ID`(App의 Client ID)를 설정합니다. 변수 `LLM_MODEL`로 모델을 바꿀 수 있습니다(기본값 `claude-opus-5-5`). `LLM_API_KEY`가 없으면 문구는 제출된 그대로입니다.
 
@@ -67,6 +69,8 @@ bot이 풀 리퀘스트를 열면 *Complete submission* 워크플로가 양식�
 | `apps/<slug>.json` | MyGo로 만든 앱 |
 | `ui/<slug>.json` | UI 컴포넌트 라이브러리 |
 | `state/<slug>.json` | 상태 관리 |
+| `templates/<slug>.json` | 템플릿 |
+| `ai/<slug>.json` | AI 도구 |
 | `plugins/<slug>.json` | 플러그인 |
 | `articles/<slug>.json` | 글 |
 | `docs/<slug>.json` | MyGo 공식 가이드 |
@@ -93,7 +97,7 @@ bot이 풀 리퀘스트를 열면 *Complete submission* 워크플로가 양식�
 }
 ```
 
-- 파일 이름은 `slug`와 같습니다. `added`는 항목이 사이트에 들어온 시각(UTC)으로, 사이트 bot이 채우며 직접 추가할 때는 현재 시각을 씁니다. 공식 가이드를 뺀 모든 카테고리에 있으며, 쇼케이스는 이것으로 최신 앱부터 보여 줄 수 있고 UI 컴포넌트 라이브러리, 상태 관리, 글, 커뮤니티 플러그인은 오래된 순으로 나열됩니다. 공식 플러그인과 공식 가이드는 이름순입니다. 항목마다 파일이 따로 있어서 동시에 항목을 추가하는 풀 리퀘스트끼리 충돌하지 않습니다.
+- 파일 이름은 `slug`와 같습니다. `added`는 항목이 사이트에 들어온 시각(UTC)으로, 사이트 bot이 채우며 직접 추가할 때는 현재 시각을 씁니다. 공식 가이드를 뺀 모든 카테고리에 있으며, 쇼케이스는 이것으로 최신 앱부터 보여 줄 수 있고 UI 컴포넌트 라이브러리, 상태 관리, 템플릿, AI 도구, 글, 커뮤니티 플러그인은 오래된 순으로 나열됩니다. 공식 플러그인과 공식 가이드는 이름순입니다. 항목마다 파일이 따로 있어서 동시에 항목을 추가하는 풀 리퀘스트끼리 충돌하지 않습니다.
 - 다른 카테고리의 파일도 같은 `$schema`, `slug`, `added`를 가지며(공식 가이드에는 `added`가 없습니다), 필드는 `data/schema/`의 각 스키마에 있습니다.
 - `url`은 앱의 홈페이지입니다. 공식 웹사이트, 없으면 저장소 주소이며 GitHub가 아니어도 됩니다. 오픈 소스 앱은 `repo`에 GitHub 저장소(`owner/name`)를 적고, 비공개 소스 앱은 생략합니다.
 - 텍스트 필드는 언어별로 하나씩 씁니다. `en`은 필수이고 `zh-CN`, `zh-TW`, `ja`, `ko`는 선택이며, 빠진 언어에서는 영어가 표시됩니다.
