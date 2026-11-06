@@ -88,7 +88,7 @@ function AppPage() {
 						<h2 id='app-about-h' className={secH}>
 							{t.app_about}
 						</h2>
-						<p className='m-0 max-w-[68ch] text-[17px] leading-[1.8] text-fg-2'>{pick(app.about, lang)}</p>
+						<p className='m-0 text-[17px] leading-[1.8] text-fg-2'>{pick(app.about, lang)}</p>
 					</section>
 				</div>
 				<aside className='sticky top-24 flex flex-col gap-7 max-split:static'>
