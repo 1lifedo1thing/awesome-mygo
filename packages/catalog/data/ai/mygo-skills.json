@@ -1,0 +1,19 @@
+{
+	"$schema": "../schema/ai.schema.json",
+	"slug": "mygo-skills",
+	"name": "MyGo Skills",
+	"author": "transmit-bug",
+	"url": "https://github.com/transmit-bug/mygo-skills",
+	"repo": "transmit-bug/mygo-skills",
+	"type": "skill",
+	"install": "npx skills add transmit-bug/mygo-skills",
+	"tags": [
+		"skills",
+		"native-ui",
+		"web"
+	],
+	"summary": {
+		"en": "Agent skills for building MyGo apps: app structure and tests, components, desktop services, web frontends, motion and drawing."
+	},
+	"added": "2026-11-06T05:49:05Z"
+}
