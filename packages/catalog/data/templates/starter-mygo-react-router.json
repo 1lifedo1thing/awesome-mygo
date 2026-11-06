@@ -1,0 +1,20 @@
+{
+	"$schema": "../schema/template.schema.json",
+	"slug": "starter-mygo-react-router",
+	"name": "Starter MyGo React Router",
+	"author": "Chilfish",
+	"url": "https://github.com/Chilfish/starter-mygo-react-router",
+	"repo": "Chilfish/starter-mygo-react-router",
+	"surface": "web",
+	"use": "gh repo create my-app --template Chilfish/starter-mygo-react-router --clone",
+	"tags": [
+		"react",
+		"react-router",
+		"tailwind",
+		"bun"
+	],
+	"summary": {
+		"en": "A MyGo starter with a React Router SPA, coss UI and Tailwind CSS v4 on Bun, with Go services bound through the typed client."
+	},
+	"added": "2026-11-06T05:48:59Z"
+}
