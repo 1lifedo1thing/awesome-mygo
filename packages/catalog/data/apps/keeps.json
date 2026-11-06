@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "keeps",
+	"name": "Keeps",
+	"author": "reixie",
+	"kind": "native",
+	"group": "media",
+	"url": "https://github.com/reixie/keeps",
+	"repo": "reixie/keeps",
+	"summary": {
+		"en": "A native macOS library that collects images, videos, GIFs and web links into collections.",
+		"zh-CN": "原生 macOS 素材库，把图片、视频、GIF 和网页链接收进合集。",
+		"zh-TW": "原生 macOS 素材庫，把圖片、影片、GIF 和網頁連結收進收藏集。",
+		"ja": "画像・動画・GIF・Web リンクをコレクションにまとめる、ネイティブな macOS ライブラリ。",
+		"ko": "이미지, 동영상, GIF, 웹 링크를 컬렉션으로 모아 두는 네이티브 macOS 라이브러리."
+	},
+	"description": {
+		"en": "A macOS library for saving images, videos, GIFs and web links, drawn with MyGo's native UI, with Swift adapters for media handling and Quick Look. It imports files by file picker, drag and drop or paste, saves links with their titles, preview images and favicons, and sorts captures into collections shown in a masonry grid. The library is kept in a local folder on your Mac.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 素材库，媒体处理和快速查看由 Swift 适配层负责。可通过文件选择器、拖放或剪贴板导入图片和视频，保存网页链接时附带标题、预览图和网站图标，并把内容整理进合集，以瀑布流网格浏览。资料库保存在 Mac 本地的文件夹中。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS 素材庫，媒體處理和快速查看由 Swift 轉接層負責。可透過檔案選擇器、拖放或剪貼簿匯入圖片和影片，儲存網頁連結時附帶標題、預覽圖和網站圖示，並把內容整理進收藏集，以瀑布流網格瀏覽。資料庫儲存在 Mac 本機的資料夾中。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS 用のライブラリで、メディア処理と Quick Look には Swift のアダプターを使います。ファイル選択、ドラッグ＆ドロップ、クリップボードから画像や動画を取り込み、Web リンクはタイトル、プレビュー画像、ファビコン付きで保存して、コレクションに整理しメーソンリーグリッドで眺められます。ライブラリは Mac 上のローカルフォルダーに保存されます。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS용 라이브러리로, 미디어 처리와 Quick Look에는 Swift 어댑터를 씁니다. 파일 선택기, 드래그 앤 드롭, 클립보드로 이미지와 동영상을 가져오고, 웹 링크는 제목, 미리보기 이미지, 파비콘과 함께 저장하며, 컬렉션으로 정리해 메이슨리 그리드로 둘러볼 수 있습니다. 라이브러리는 Mac의 로컬 폴더에 저장됩니다."
+	},
+	"icon": {
+		"file": "keeps.webp"
+	},
+	"screenshot": "keeps.webp",
+	"added": "2026-11-06T03:54:55Z"
+}
