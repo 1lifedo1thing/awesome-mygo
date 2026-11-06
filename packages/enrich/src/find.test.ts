@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { NEW_REPO_DAYS, type Verdict, branchFor, configNear, entryFor, goModsIn, groupHits, isDue, isSamplePath, isYoung, listedAs, listedFrom, moduleOf, normalizeLink, quiet, remember, reposInImportedBy, reposOfEntry, requiresMygo, tooNewToJudge, uniqueSlug, withoutFailed } from './find.ts';
+import { NEW_REPO_DAYS, type Verdict, branchFor, configNear, entryFor, goModsIn, groupHits, isDue, isSamplePath, isYoung, listedAs, listedFrom, moduleOf, normalizeLink, quiet, remember, reposInImportedBy, reposInMarkdown, reposOfEntry, requiresMygo, tooNewToJudge, uniqueSlug, withoutFailed } from './find.ts';
 
 describe('what the site lists', () => {
 	it('takes every repository an entry points at, in lower case', () => {
@@ -80,6 +80,20 @@ describe('code search hits', () => {
 		const html = '<a href="/github.com/egoist/mygo/ui">x</a><a href="/github.com/yldm-tech/nodra">nodra</a><a href="/github.com/yldm-tech/nodra/persist">p</a><a href="/github.com/Licoy/sshyard/internal/app?tab=doc">s</a><a href="/golang.org/x/sys">sys</a>';
 		expect(reposInImportedBy(html)).toEqual(['yldm-tech/nodra', 'Licoy/sshyard']);
 		expect(reposInImportedBy('')).toEqual([]);
+	});
+
+	it('reads the repositories a list links to', () => {
+		const md = [
+			'# Awesome MyGo',
+			'[![stars](https://img.shields.io/github/stars/agnogad/awesome-mygo)](https://github.com/agnogad/awesome-mygo)',
+			'- [Snip](https://github.com/0froq/snip) - snippets. [releases](https://github.com/0froq/snip/releases)',
+			'- [Gloss](https://github.com/CarlOpenLab/Gloss#readme), built on [MyGo](https://github.com/egoist/mygo).',
+			'- clone https://github.com/DiiKhanh/burrow.git or see github.com/gomeen/Zakki.',
+			'- [Sponsor](https://github.com/sponsors/egoist) · [topic](https://github.com/topics/mygo) · [org](https://github.com/orgs/yldm-tech/repositories)',
+			'- [same, other case](https://github.com/0FROQ/Snip)',
+		].join('\n');
+		expect(reposInMarkdown(md, ['agnogad/awesome-mygo'])).toEqual(['0froq/snip', 'CarlOpenLab/Gloss', 'DiiKhanh/burrow', 'gomeen/Zakki']);
+		expect(reposInMarkdown('')).toEqual([]);
 	});
 
 	it('takes only a go.mod that requires MyGo itself', () => {

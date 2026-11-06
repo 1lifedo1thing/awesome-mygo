@@ -99,6 +99,27 @@ export function reposInImportedBy(html: string): string[] {
 	return [...out.values()];
 }
 
+// The other curated lists of MyGo projects. Their READMEs link to projects that GitHub's code search has not indexed, whose go.mod discover could not find otherwise (of the 99 repositories they linked that the site did not list on 2026-11-06, 68 had a go.mod that requires MyGo and none was indexed); each linked repository has its go.mod checked as one found another way.
+export const AWESOME_LISTS = ['agnogad/awesome-mygo', 'echoVic/awesome-mygo-apps', 'zachzhao1984/awesome-mygo', 'fksune/awesome-mygo'] as const;
+
+// The first parts of github.com paths that are GitHub's own pages, not owners of repositories.
+const GITHUB_PAGES = new Set(['about', 'apps', 'collections', 'enterprise', 'features', 'login', 'marketplace', 'orgs', 'pricing', 'settings', 'site', 'sponsors', 'topics', 'users']);
+
+// The GitHub repositories a Markdown text links to, as owner/name, each once in the order it first appears, whatever follows the name (/issues, /releases, #readme): not MyGo itself, nor the repositories in skip.
+export function reposInMarkdown(markdown: string, skip: readonly string[] = []): string[] {
+	const skipped = new Set([MYGO_MODULE.replace('github.com/', ''), ...skip].map((r) => r.toLowerCase()));
+	const out = new Map<string, string>();
+	for (const m of markdown.matchAll(/github\.com\/([A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)\/([\w.-]+)/g)) {
+		const owner = m[1];
+		const name = m[2].replace(/\.git$/, '').replace(/\.+$/, '');
+		const repo = `${owner}/${name}`;
+		const key = repo.toLowerCase();
+		if (!name || GITHUB_PAGES.has(owner.toLowerCase()) || skipped.has(key) || out.has(key)) continue;
+		out.set(key, repo);
+	}
+	return [...out.values()];
+}
+
 // Whether a go.mod requires MyGo itself, not a module whose path merely starts the same (github.com/egoist/mygo-cli) or a comment that names it.
 export function requiresMygo(gomod: string): boolean {
 	const stripped = gomod.replace(/\/\/.*$/gm, '');
