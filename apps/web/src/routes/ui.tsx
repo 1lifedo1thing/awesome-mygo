@@ -42,7 +42,7 @@ function UiPage() {
 				<span className='kicker' lang='en'>~/UI · {UI_LIBS.length} LIBRARIES</span>
 				<h1 className='page-h1'>{t.cat_ui_name}</h1>
 				{/* Below sm the lead paragraph is left out: on a phone it took four lines ahead of the list, whose heading and cards already say what the page holds. */}
-				<p className='page-p max-sm:hidden max-w-[700px]'>{t.ui_p}</p>
+				<p className='page-p max-sm:hidden'>{t.ui_p}</p>
 				<a className='self-start text-[15px] font-semibold no-underline' href={NATIVE_UI_DOCS} target='_blank' rel='noopener'>
 					{t.ui_builtin}
 				</a>

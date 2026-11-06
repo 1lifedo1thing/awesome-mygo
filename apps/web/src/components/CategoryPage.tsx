@@ -67,7 +67,7 @@ export function CategoryPage({ cat, copy, items }: { cat: SubmitCat; copy: Categ
 				</span>
 				<h1 className='page-h1'>{copy.name}</h1>
 				{/* As on the state page, the lead paragraph is left out on a phone, where the cards already say what the page holds. */}
-				<p className='page-p max-sm:hidden max-w-[740px]'>{copy.lead}</p>
+				<p className='page-p max-sm:hidden'>{copy.lead}</p>
 			</div>
 
 			{listed && (
@@ -121,7 +121,7 @@ export function CategoryPage({ cat, copy, items }: { cat: SubmitCat; copy: Categ
 				<div className='bg-[radial-gradient(rgba(255,255,255,0.07)_1px,transparent_1px)] bg-size-[22px_22px] rv flex flex-col items-center gap-4 rounded-[20px] border border-dashed border-amber bg-bg/60 px-7 py-14 text-center max-sm:px-5 max-sm:py-10'>
 					<Docky variant='laptop' />
 					<h2 className='m-0 text-[28px] font-black tracking-[-0.02em] max-sm:text-[24px]'>{copy.emptyH}</h2>
-					<p className='m-0 max-w-[580px] text-[15px] leading-[1.75] text-fg-2'>{copy.emptyP}</p>
+					<p className='m-0 text-[15px] leading-[1.75] text-fg-2'>{copy.emptyP}</p>
 					<button type='button' className={btnAmber} onClick={() => openSubmit(cat)}>
 						{copy.submit}
 					</button>
