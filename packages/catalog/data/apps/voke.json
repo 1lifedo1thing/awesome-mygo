@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "voke",
+	"name": "Voke",
+	"author": "zyition",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/zyition/voke",
+	"repo": "zyition/voke",
+	"summary": {
+		"en": "A keyboard-first Windows launcher: pinyin fuzzy search, clipboard history, window switching.",
+		"zh-CN": "键盘优先的 Windows 启动器：拼音模糊搜索、剪贴板历史、窗口切换。",
+		"zh-TW": "鍵盤優先的 Windows 啟動器：拼音模糊搜尋、剪貼簿紀錄、視窗切換。",
+		"ja": "キーボード中心の Windows ランチャー。ピンインあいまい検索、クリップボード履歴、ウィンドウ切り替え。",
+		"ko": "키보드 중심의 Windows 런처. 병음 퍼지 검색, 클립보드 기록, 창 전환을 지원합니다."
+	},
+	"description": {
+		"en": "A keyboard-first Windows launcher like PowerToys Run, drawn with MyGo's native UI: a single tray executable with no .NET, WebView or external runtime. It opens Start menu apps with pinyin and fuzzy matching, switches windows and keeps clipboard history, and its 11 built-in plugins include a calculator, Windows Terminal profiles, recent Zed and VS Code workspaces and Keep Awake.",
+		"zh-CN": "类似 PowerToys Run 的键盘优先 Windows 启动器，由 MyGo 原生 UI 绘制，只有一个常驻系统托盘的可执行文件，不依赖 .NET、WebView 或其他运行时。它用拼音和模糊匹配启动开始菜单中的应用，可切换窗口、保存剪贴板历史；11 个内置插件还包括计算器、Windows Terminal 配置文件、最近的 Zed 与 VS Code 工作区以及保持唤醒。",
+		"zh-TW": "類似 PowerToys Run 的鍵盤優先 Windows 啟動器，由 MyGo 原生 UI 繪製，只有一個常駐系統匣的執行檔，不依賴 .NET、WebView 或其他執行環境。它以拼音與模糊比對啟動開始功能表中的應用程式，可切換視窗、保留剪貼簿紀錄；11 個內建外掛還包括計算機、Windows Terminal 設定檔、最近的 Zed 與 VS Code 工作區以及保持喚醒。",
+		"ja": "PowerToys Run に似たキーボード中心の Windows ランチャーで、MyGo のネイティブ UI で描かれています。システムトレイに常駐する単一の実行ファイルで、.NET も WebView も外部ランタイムも要りません。スタートメニューのアプリをピンインやあいまい一致で起動し、ウィンドウ切り替えやクリップボード履歴も扱えます。内蔵プラグインは 11 個で、電卓、Windows Terminal のプロファイル、Zed・VS Code の最近のワークスペース、スリープ防止などがあります。",
+		"ko": "PowerToys Run과 비슷한 키보드 중심 Windows 런처로, MyGo의 네이티브 UI로 그렸습니다. 시스템 트레이에 상주하는 실행 파일 하나뿐이며 .NET, WebView, 외부 런타임이 필요 없습니다. 시작 메뉴 앱을 병음과 퍼지 매칭으로 실행하고 창 전환과 클립보드 기록을 지원하며, 11개의 내장 플러그인에는 계산기, Windows Terminal 프로필, 최근 Zed·VS Code 작업 공간, 절전 방지 등이 있습니다."
+	},
+	"icon": {
+		"file": "voke.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "voke.webp",
+	"added": "2026-11-06T03:54:55Z"
+}
