@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "my-vm",
+	"name": "My VM",
+	"author": "xiaozhu1337",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/xiaozhu1337/my-vm",
+	"repo": "xiaozhu1337/my-vm",
+	"summary": {
+		"en": "Runs Windows and Linux VMs on Hyper-V, with snapshot branches, shared clipboard and folders.",
+		"zh-CN": "Hyper-V 虚拟机管理器，支持快照分支、剪贴板与文件夹共享。",
+		"zh-TW": "Hyper-V 虛擬機管理工具，支援快照分支、剪貼簿與資料夾共用。",
+		"ja": "Hyper-V で Windows と Linux の VM を管理。スナップショット分岐に対応。",
+		"ko": "Hyper-V에서 Windows와 Linux VM을 실행합니다. 스냅샷 분기와 폴더 공유 지원."
+	},
+	"description": {
+		"en": "A virtual machine manager for Windows x64 hosts, built on Hyper-V's Host Compute Service and drawn with MyGo's native UI. It runs Windows and Linux guests, keeps branching snapshots with RAM and device state, opens GNOME or KDE Plasma desktops in enhanced sessions with a shared clipboard, and shares host folders. The interface is currently in Simplified Chinese.",
+		"zh-CN": "面向 Windows x64 主机的虚拟机管理器，基于 Hyper-V 的 Host Compute Service，界面由 MyGo 原生 UI 绘制。可运行 Windows 与 Linux 虚拟机，快照连同内存与设备状态一起保存并可分支；增强会话可连接 GNOME 或 KDE Plasma 桌面并共享剪贴板，还能共享主机文件夹。界面目前为简体中文。",
+		"zh-TW": "適用於 Windows x64 主機的虛擬機管理工具，建構於 Hyper-V 的 Host Compute Service，介面由 MyGo 原生 UI 繪製。可執行 Windows 與 Linux 虛擬機，快照連同記憶體與裝置狀態一起保存並可分支；增強工作階段可連上 GNOME 或 KDE Plasma 桌面並共用剪貼簿，也能共用主機資料夾。介面目前僅有簡體中文。",
+		"ja": "Windows x64 ホスト向けの仮想マシンマネージャー。Hyper-V の Host Compute Service を使い、画面は MyGo のネイティブ UI で描かれています。Windows と Linux のゲストを動かし、メモリとデバイスの状態ごとスナップショットを保存して分岐できます。拡張セッションでは GNOME や KDE Plasma のデスクトップにつながり、クリップボードとホストのフォルダーを共有できます。UI は現在簡体字中国語のみです。",
+		"ko": "Windows x64 호스트용 가상 머신 관리자로, Hyper-V의 Host Compute Service 위에 만들어졌고 화면은 MyGo의 네이티브 UI로 그립니다. Windows와 Linux 게스트를 실행하고, 메모리와 장치 상태까지 담은 스냅샷을 분기로 관리합니다. 향상된 세션으로 GNOME이나 KDE Plasma 데스크톱에 연결해 클립보드를 공유하고, 호스트 폴더도 공유할 수 있습니다. 현재 UI는 중국어 간체로만 제공됩니다."
+	},
+	"icon": {
+		"file": "my-vm.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "my-vm.webp",
+	"added": "2026-11-06T06:33:05Z"
+}
