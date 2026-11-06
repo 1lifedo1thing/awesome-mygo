@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { repoIcons, repoShotSources, shotProblem, stagedShot, stagedShotOf, addedFiles, appNameFrom, cleanTags, formDefaults, homepageOf, hasAllLanguages, markProvisional, iconCut, iconOf, isArtwork, isBanner, isPortrait, isSquarish, lengthCaps, overCaps, joinRepoPath, scriptConfig, parseMygoConfig, pickMygoConfig, readmeImages, repoOfEntry, repoScreenshots, resolveImage, schemaEnum, setCategory, setGroup, sniffImage, submittedScreenshot } from './source.ts';
+import { repoIcons, repoShotSources, shotProblem, stagedShot, stagedShotOf, addedFiles, appNameFrom, knownFiles, cleanTags, formDefaults, homepageOf, hasAllLanguages, markProvisional, iconCut, iconOf, isArtwork, isBanner, isPortrait, isSquarish, lengthCaps, overCaps, joinRepoPath, scriptConfig, parseMygoConfig, pickMygoConfig, readmeImages, repoOfEntry, repoScreenshots, resolveImage, schemaEnum, setCategory, setGroup, sniffImage, submittedScreenshot } from './source.ts';
 
 describe('app names', () => {
 	it('takes mygo.json’s spelling of the same name only', () => {
@@ -44,6 +44,9 @@ describe('submitted entries', () => {
 	it('finds the entry files a branch adds', () => {
 		expect(addedFiles(['2048.json', 'nova.json', ''], ['nova.json', 'saundo.json', '2048.json', 'pinup.json', '.DS_Store'])).toEqual(['pinup.json', 'saundo.json']);
 		expect(addedFiles(['nova.json'], ['nova.json'])).toEqual([]);
+		// The examples of a new category's first entry: its directory holds only a .gitkeep, which is empty and must not be read as an entry.
+		expect(knownFiles(['.gitkeep', ''], ['.gitkeep', 'first.json'])).toEqual([]);
+		expect(knownFiles(['.gitkeep', 'a.json', 'gone.json'], ['.gitkeep', 'a.json', 'b.json'])).toEqual(['a.json']);
 		expect(addedFiles([], ['onevra.json'])).toEqual(['onevra.json']);
 	});
 

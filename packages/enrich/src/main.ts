@@ -6,7 +6,7 @@ import { DEFAULT_MODEL, README_LIMIT, type LlmConfig, writeCopy } from './copy.t
 import { github } from './github.ts';
 import { downloadImage, writeCard, writeIcon, writeShot } from './image.ts';
 import { type RepoFacts, type ShotSource, firstShot, ownIcon, repoFacts as readRepoFacts } from './repo.ts';
-import { type ChoiceField, ENTRY_DIRS, STAGED_SHOTS, type Entry, type EntryKind, addedFiles, appNameFrom, formDefaults, hasAllLanguages, homepageOf, markProvisional, repoOfEntry, repoShotSources, schemaEnum, setCategory, setGroup, sniffImage, stagedShotOf, submittedScreenshot } from './source.ts';
+import { type ChoiceField, ENTRY_DIRS, STAGED_SHOTS, type Entry, type EntryKind, addedFiles, appNameFrom, knownFiles, formDefaults, hasAllLanguages, homepageOf, markProvisional, repoOfEntry, repoShotSources, schemaEnum, setCategory, setGroup, sniffImage, stagedShotOf, submittedScreenshot } from './source.ts';
 
 // Run by .github/workflows/enrich-submission.yml on a pull request the submission bot opened, and by discover.ts on each entry it proposes. It finds the entries the branch adds, then for each fills in what the form cannot ask for: an app's icon (from its mygo.json); the screenshot of an app, a UI library or a state management library (the first landscape one in its README, or else in a screenshot folder of the repository); a UI library's or state management library's homepage (from the repository's settings); what the form fills in with a default (an app's category, a UI library's tag and surface, a plugin's surface, the tags of state management and plugins), picked by the model; and the copy in every site language. An entry with a repository is never left without an image: an app without an icon of its own gets its owner's GitHub avatar, and an entry without a screenshot gets the repository's social preview, or else a card drawn here from the owner's avatar, and the report says so. It changes files in the working tree and writes a Markdown report for the pull request; the workflow runs the catalog checks and commits.
 //
@@ -207,8 +207,8 @@ async function main(): Promise<void> {
 		const dir = `${DATA_DIR}/${ENTRY_DIRS[kind]}`;
 		const { stdout: listed } = await run('git', ['ls-tree', '--name-only', `${BASE_REF}:${dir}`], { cwd: ROOT, maxBuffer: 4 * 1024 * 1024 });
 		const head = await readdir(join(ROOT, dir));
-		// Only the files the branch still has: one it deletes or renames cannot be read as an example.
-		const known = listed.split('\n').filter((name) => name && head.includes(name));
+		// Only the entry files the branch still has: one it deletes or renames cannot be read as an example.
+		const known = knownFiles(listed.split('\n'), head);
 		const names = addedFiles(known, head);
 		if (names.length) added.push({ kind, dir, known, names });
 	}
