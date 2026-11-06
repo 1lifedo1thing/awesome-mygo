@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "musiccomments",
+	"name": "网易云随机热评",
+	"author": "ZypherChan",
+	"kind": "native",
+	"group": "media",
+	"url": "https://github.com/ZypherChan/MusicComments",
+	"repo": "ZypherChan/MusicComments",
+	"summary": {
+		"en": "Shows a popular comment on a random song picked from NetEase Cloud Music's hot playlists.",
+		"zh-CN": "从网易云音乐热门歌单随机抽一首歌，展示它的一条高赞热评。",
+		"zh-TW": "從網易雲音樂熱門歌單隨機抽一首歌，顯示它的一則高讚熱評。",
+		"ja": "NetEase Cloud Music の人気プレイリストから1曲を選び、その人気コメントを表示。",
+		"ko": "NetEase Cloud Music 인기 플레이리스트에서 곡을 골라 인기 댓글을 보여 줍니다."
+	},
+	"description": {
+		"en": "A Windows app drawn with MyGo's native UI through Direct3D 11, with no WebView2, browser or backend to deploy. Each draw picks a random song from NetEase Cloud Music's hot playlists, favoring nostalgic and classic ones, and shows a comment with 1000 or more likes where it can find one, alongside the cover, artist, album and source playlist. It is unofficial and does not play or download songs.",
+		"zh-CN": "用 MyGo 原生 UI 通过 Direct3D 11 绘制的 Windows 应用，无需 WebView2、浏览器或单独部署后端。每次从网易云音乐的热门歌单中随机抽一首歌，偏重怀旧与经典老歌，优先展示 1000 赞以上的热评，并显示封面、歌手、专辑和来源歌单，支持网易云评论表情。这是非官方应用，不提供播放或下载。",
+		"zh-TW": "以 MyGo 原生 UI 透過 Direct3D 11 繪製的 Windows 應用程式，不需 WebView2、瀏覽器或另外部署後端。每次從網易雲音樂的熱門歌單隨機抽一首歌，偏重懷舊與經典老歌，優先顯示 1000 讚以上的熱評，並列出封面、歌手、專輯與來源歌單，支援網易雲評論表情。這是非官方應用程式，不提供播放或下載。",
+		"ja": "MyGo のネイティブ UI が Direct3D 11 で描画する Windows アプリで、WebView2 もブラウザーも別途のバックエンドも要りません。NetEase Cloud Music の人気プレイリストから懐メロや定番曲を優先して1曲をランダムに選び、1000 いいね以上の人気コメントを優先して、カバー、アーティスト、アルバム、元のプレイリストとともに表示します。非公式アプリで、曲の再生やダウンロードはできません。",
+		"ko": "MyGo의 네이티브 UI가 Direct3D 11로 그리는 Windows 앱으로, WebView2나 브라우저, 별도 백엔드가 필요 없습니다. NetEase Cloud Music의 인기 플레이리스트에서 추억의 명곡을 우선해 곡을 무작위로 고르고, 좋아요 1000개 이상의 인기 댓글을 우선해 커버, 아티스트, 앨범, 출처 플레이리스트와 함께 보여 줍니다. 비공식 앱이며 노래 재생이나 다운로드는 지원하지 않습니다."
+	},
+	"icon": {
+		"file": "musiccomments.webp"
+	},
+	"screenshot": "musiccomments.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-06T03:54:55Z"
+}
