@@ -5,7 +5,7 @@
 	"author": "sgl-project",
 	"kind": "native",
 	"group": "ai",
-	"url": "https://sgl-project.github.io/sglang-omni/",
+	"url": "https://github.com/sgl-project/sglang-omni/tree/main/Voxt",
 	"repo": "sgl-project/sglang-omni",
 	"summary": {
 		"en": "A Mac voice input tool: transcribes speech locally or remotely and refines the text with an LLM.",
