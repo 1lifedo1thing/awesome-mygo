@@ -175,14 +175,14 @@ describe('submitted screenshot', () => {
 describe('repository screenshots', () => {
 	it("lists the images in a repository's screenshot folders, English ones first", () => {
 		// popMind's README has no image; its website's screenshots are in the repository.
-		const paths = ['README.md', 'internal/assets/tray.png', 'website/public/og.png', 'website/public/shots/zh/clipboard.png', 'website/public/shots/en/translate.png', 'website/public/shots/en/clipboard.png', 'website/public/shots/en/notes.txt', 'docs/screenshots/main.webp', 'node_modules/x/screenshots/a.png', 'Screens/Main.JPG'];
-		expect(repoScreenshots(paths)).toEqual(['website/public/shots/en/clipboard.png', 'website/public/shots/en/translate.png', 'docs/screenshots/main.webp', 'Screens/Main.JPG', 'website/public/shots/zh/clipboard.png']);
+		const paths = ['README.md', 'internal/assets/tray.png', 'website/public/og.png', 'website/public/shots/zh/clipboard.png', 'website/public/shots/en/translate.png', 'website/public/shots/en/clipboard.png', 'website/public/shots/en/notes.txt', 'docs/screenshots/demo.gif', 'docs/screenshots/main.webp', 'node_modules/x/screenshots/a.png', 'Screens/Main.JPG'];
+		expect(repoScreenshots(paths)).toEqual(['website/public/shots/en/clipboard.png', 'website/public/shots/en/translate.png', 'docs/screenshots/demo.gif', 'docs/screenshots/main.webp', 'Screens/Main.JPG', 'website/public/shots/zh/clipboard.png']);
 		expect(repoScreenshots(['README.md', 'assets/logo.png', 'myshots/a.png'])).toEqual([]);
 	});
 
 	it('finds likely screenshots outside specially named folders without taking branding assets', () => {
-		const paths = ['docs/ui-baselines/windows/dashboard-empty.png', 'docs/design-mockup/pages.png', 'assets/demo-tools.png', 'website/public/main.webp', 'assets/icon-preview.png', 'assets/banner-demo.jpg', 'assets/backdrop.jpg', 'frontend/public/wails.png', 'dist/screenshots/app.png', 'node_modules/x/docs/overview.png'];
-		expect(repoLikelyScreenshots(paths)).toEqual(['docs/ui-baselines/windows/dashboard-empty.png', 'website/public/main.webp', 'assets/demo-tools.png', 'docs/design-mockup/pages.png']);
+		const paths = ['docs/ui-baselines/windows/dashboard-empty.png', 'docs/design-mockup/pages.png', 'assets/demo-tools.png', 'website/public/main.webp', 'docs/demo.gif', 'assets/icon-preview.png', 'assets/banner-demo.jpg', 'assets/backdrop.jpg', 'frontend/public/wails.png', 'dist/screenshots/app.png', 'node_modules/x/docs/overview.png'];
+		expect(repoLikelyScreenshots(paths)).toEqual(['docs/ui-baselines/windows/dashboard-empty.png', 'website/public/main.webp', 'assets/demo-tools.png', 'docs/demo.gif', 'docs/design-mockup/pages.png']);
 	});
 });
 
@@ -237,6 +237,7 @@ describe('README images', () => {
 		expect(sniffImage(new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0]))).toBe('png');
 		expect(sniffImage(new Uint8Array([0xff, 0xd8, 0xff, 0xe0]))).toBe('jpeg');
 		expect(sniffImage(new Uint8Array([0x52, 0x49, 0x46, 0x46, 0, 0, 0, 0, 0x57, 0x45, 0x42, 0x50]))).toBe('webp');
+		expect(sniffImage(new TextEncoder().encode('GIF89a'))).toBe('gif');
 		expect(sniffImage(new TextEncoder().encode('<svg xmlns="http://www.w3.org/2000/svg"/>'))).toBeUndefined();
 	});
 });

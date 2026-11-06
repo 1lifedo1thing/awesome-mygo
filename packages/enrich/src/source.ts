@@ -183,14 +183,14 @@ export function submittedScreenshot(body: string | null | undefined): string | u
 // Images in the repository's screenshot folders (screenshots/, screenshot/, screens/ or shots/, at any depth), for an app whose README shows none that fits: a project often keeps them for its website instead (popMind's are in website/public/shots/en/). Folders for English come first where there are folders per language, then the rest in path order.
 export function repoScreenshots(paths: readonly string[]): string[] {
 	const inFolder = /(^|\/)(screenshots?|screens|shots)\//i;
-	const image = /\.(png|jpe?g|webp)$/i;
+	const image = /\.(png|jpe?g|webp|gif)$/i;
 	const english = (p: string) => (/\/en(-[a-z]+)?\//i.test(p) ? 0 : 1);
 	return paths.filter((p) => inFolder.test(p) && image.test(p) && !p.includes('node_modules/')).sort((a, b) => english(a) - english(b) || a.localeCompare(b));
 }
 
 // Likely window images outside a folder literally called screenshots. Many projects keep them under docs/assets, a website's public directory or UI baseline fixtures and call them preview, demo, overview, dashboard or similar. The name must say what the image is likely to show, and branding and small UI assets are excluded; dimensions are still checked by firstShot before one is used.
 export function repoLikelyScreenshots(paths: readonly string[]): string[] {
-	const image = /\.(png|jpe?g|webp)$/i;
+	const image = /\.(png|jpe?g|webp|gif)$/i;
 	const skipFolder = /(^|\/)(node_modules|vendor|third_party|dist|build)(\/|$)/i;
 	const branding = /(^|[-_.\/])(icons?|logos?|favicons?|badges?|avatars?|emojis?|flags?|brands?|banners?|heroes?|covers?|splash|social|og[-_.]?images?|backdrops?|backgrounds?|wallpapers?|tray|marks?)([-_.\/]|$)/i;
 	const likely = /(^|[-_.])(screenshots?|screen[-_.]?shots?|previews?|demos?|showcases?|windows?|overviews?|dashboards?|galleries?|interfaces?|pages?|modes?|activities?|pictures?|settings|home|main|ui)([-_.0-9]|$)/i;
@@ -372,11 +372,12 @@ export function resolveImage(src: string, repo: string, branch: string, readmePa
 	return path ? `https://raw.githubusercontent.com/${repo}/${branch}/${path.split('/').map(encodeURIComponent).join('/')}` : undefined;
 }
 
-// The image format from a file's first bytes. Only these three are handed to ImageMagick, whatever the server or the file name claims.
-export function sniffImage(bytes: Uint8Array): 'png' | 'jpeg' | 'webp' | undefined {
+// The image format from a file's first bytes. Only these formats are handed to ImageMagick, whatever the server or the file name claims. A GIF is read at its first frame, so a project's animated UI demo can supply a still screenshot.
+export function sniffImage(bytes: Uint8Array): 'png' | 'jpeg' | 'webp' | 'gif' | undefined {
 	const at = (i: number, ...b: number[]) => b.every((x, j) => bytes[i + j] === x);
 	if (at(0, 0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a)) return 'png';
 	if (at(0, 0xff, 0xd8, 0xff)) return 'jpeg';
 	if (at(0, 0x52, 0x49, 0x46, 0x46) && at(8, 0x57, 0x45, 0x42, 0x50)) return 'webp';
+	if (at(0, 0x47, 0x49, 0x46, 0x38) && (at(4, 0x37, 0x61) || at(4, 0x39, 0x61))) return 'gif';
 	return undefined;
 }
