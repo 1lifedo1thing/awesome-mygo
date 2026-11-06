@@ -3,6 +3,7 @@ import { useDialog } from '../lib/dialog';
 import { useT } from '../lib/lang';
 import { useSite } from '../lib/site';
 import { Captcha, useSubmit } from '../lib/submit';
+import { WEBMCP_EXTENSION } from '../lib/webmcp';
 import { CloseIcon } from './bits';
 
 const GROUPS = ENTRY_GROUPS;
@@ -116,6 +117,17 @@ function Modal() {
 								{t.m_title}
 							</h2>
 							<p className='m-0 text-[14px] text-fg-2'>{bot.enabled ? t.m_desc_bot : t.m_desc}</p>
+							{/* How to let an AI fill the form in with the page's WebMCP tools (lib/webmcp.ts), the tool's name kept on one line; left out once one has, as the note below then says so. */}
+							{!agentFilled && (
+								<p className={TIP}>
+									{t.sub_ai.split('{x}')[0]}
+									<code className='font-mono whitespace-nowrap text-fg-2'>fill-submission</code>
+									{t.sub_ai.split('{x}')[1]}{' '}
+									<a className='whitespace-nowrap text-cyan no-underline hover:text-cyan-2 hover:underline' href={WEBMCP_EXTENSION.url} target='_blank' rel='noopener'>
+										{WEBMCP_EXTENSION.name} ↗
+									</a>
+								</p>
+							)}
 						</div>
 						<button type='button' className='btn-g flex size-11 flex-[0_0_44px] items-center justify-center rounded-[10px] border border-line-3 bg-transparent p-0 text-fg hover:border-fg hover:bg-white/4' onClick={closeSubmit} aria-label={t.close}>
 							<CloseIcon size={18} />

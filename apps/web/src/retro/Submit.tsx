@@ -4,6 +4,7 @@ import { useDialog } from '../lib/dialog';
 import { useT } from '../lib/lang';
 import { useSite } from '../lib/site';
 import { Captcha, useSubmit } from '../lib/submit';
+import { WEBMCP_EXTENSION } from '../lib/webmcp';
 import { PixelIcon, Win, btn, btnGo, lnk, well } from './ui';
 
 // A text field sized for a form row (the shared `field` is the 24px toolbar control); a bad value turns its frame red.
@@ -122,7 +123,20 @@ function Dialog() {
 					<div className={`${well} grid gap-4 px-4 pt-4 pb-5 desk:px-5`}>
 						<div className='grid grid-cols-[36px_1fr] items-center gap-3 border-b border-line pb-3 desk:grid-cols-[48px_1fr]'>
 							<PixelIcon name='inbox' scale={3} className='size-9 desk:size-12' />
-							<p className='m-0'>{bot.enabled ? t.m_desc_bot : t.m_desc}</p>
+							<div className='grid gap-1'>
+								<p className='m-0'>{bot.enabled ? t.m_desc_bot : t.m_desc}</p>
+								{/* How to let an AI fill the form in with the page's WebMCP tools (lib/webmcp.ts), the tool's name kept on one line; left out once one has, as the note below then says so. */}
+								{!agentFilled && (
+									<p className='m-0 text-muted'>
+										{t.sub_ai.split('{x}')[0]}
+										<code className='font-mono whitespace-nowrap'>fill-submission</code>
+										{t.sub_ai.split('{x}')[1]}{' '}
+										<a className={`${lnk} whitespace-nowrap`} href={WEBMCP_EXTENSION.url} target='_blank' rel='noopener'>
+											{WEBMCP_EXTENSION.name} ↗
+										</a>
+									</p>
+								)}
+							</div>
 						</div>
 						{agentFilled && <p id='sub-agent' className='m-0 rounded-lg border border-[#ecd98a] bg-note px-3 py-2.5 font-medium'>{t.sub_agent}</p>}
 

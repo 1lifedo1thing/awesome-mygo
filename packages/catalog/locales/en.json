@@ -178,6 +178,7 @@
 	"sub_need": "Still needed: {x}",
 	"sub_wait": "Checking you are not a bot…",
 	"sub_agent": "Filled in by an AI agent: check every field before you send it.",
+	"sub_ai": "Let an AI fill this in: with a WebMCP browser extension, your AI can call this page’s {x} tool, and you check the form and send it.",
 	"m_via": "Enter it as",
 	"m_via_form": "Form",
 	"m_via_json": "Paste JSON",
