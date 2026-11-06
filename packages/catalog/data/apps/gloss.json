@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "gloss",
+	"name": "Gloss",
+	"author": "CarlOpenLab",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://carlopenlab.github.io/Gloss/",
+	"repo": "CarlOpenLab/Gloss",
+	"summary": {
+		"en": "A native Git client for reviewing diffs, with AI risk scans and AI-written commit messages.",
+		"zh-CN": "原生 Git 客户端，用于审阅 diff，可用 AI 扫描风险并生成提交信息。",
+		"zh-TW": "原生 Git 用戶端，用來審閱 diff，可用 AI 掃描風險並產生提交訊息。",
+		"ja": "diff のレビュー向けネイティブ Git クライアント。AI でリスク検査とコミットメッセージ作成。",
+		"ko": "diff 검토용 네이티브 Git 클라이언트. AI로 위험을 점검하고 커밋 메시지를 씁니다."
+	},
+	"description": {
+		"en": "A Git client for macOS, Windows and Linux drawn with MyGo's native UI, with no web view, in a single binary of about 20 MB. It reviews diffs one file at a time with word-level highlights and hunk or line-range staging, draws a branch graph and resolves conflicts inline. An LLM you choose, including local Ollama models, scans staged changes for risks and drafts commit messages.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Git 客户端，支持 macOS、Windows 与 Linux，没有 Web 视图，单个可执行文件约 20 MB。它逐个文件审阅 diff，提供词级高亮，可按 hunk 或行范围暂存，绘制分支拓扑图，并能在界面内直接解决冲突。你选择的大模型（包括本地 Ollama 模型）会扫描暂存改动中的风险，并起草提交信息。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Git 用戶端，支援 macOS、Windows 與 Linux，沒有 Web 視圖，單一執行檔約 20 MB。它逐一檔案審閱 diff，提供字詞層級標示，可依 hunk 或行範圍暫存，繪製分支拓撲圖，並能在介面內直接解決衝突。你選擇的大型語言模型（包括本機 Ollama 模型）會掃描暫存變更中的風險，並草擬提交訊息。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS・Windows・Linux 向けの Git クライアント。Web ビューはなく、約 20 MB の単一バイナリです。diff を 1 ファイルずつ単語単位のハイライト付きでレビューし、hunk や行範囲ごとにステージでき、ブランチのグラフ表示やコンフリクトのその場での解決もできます。選んだ LLM（ローカルの Ollama モデルも可）がステージした変更のリスクを洗い出し、コミットメッセージを下書きします。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS·Windows·Linux용 Git 클라이언트로, 웹 뷰 없이 약 20MB의 단일 바이너리입니다. diff를 파일 단위로 단어 수준 하이라이트와 함께 검토하고 hunk나 줄 범위 단위로 스테이징하며, 브랜치 그래프를 그리고 충돌을 그 자리에서 해결합니다. 직접 고른 LLM(로컬 Ollama 모델 포함)이 스테이징한 변경의 위험을 찾아내고 커밋 메시지 초안을 씁니다."
+	},
+	"icon": {
+		"file": "gloss.webp"
+	},
+	"screenshot": "gloss.webp",
+	"added": "2026-11-06T03:34:18Z"
+}
