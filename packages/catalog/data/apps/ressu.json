@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "ressu",
+	"name": "Ressu",
+	"author": "sdttttt",
+	"kind": "web",
+	"group": "notes",
+	"url": "https://github.com/sdttttt/ressu",
+	"repo": "sdttttt/ressu",
+	"summary": {
+		"en": "A desktop RSS reader for RSS, Atom and JSON Feed, with a three-pane layout for reading.",
+		"zh-CN": "桌面 RSS 阅读器，支持 RSS、Atom 与 JSON Feed，三栏布局阅读。",
+		"zh-TW": "桌面 RSS 閱讀器，支援 RSS、Atom 與 JSON Feed，三欄版面閱讀。",
+		"ja": "RSS・Atom・JSON Feed に対応した、3 ペイン構成のデスクトップ RSS リーダー。",
+		"ko": "RSS, Atom, JSON Feed를 지원하는 3단 레이아웃 데스크톱 RSS 리더."
+	},
+	"description": {
+		"en": "A desktop RSS reader aimed first at Windows, then Linux and macOS, with a SolidJS frontend running in the system web view through MyGo and fetching, parsing and storage done in Go. It subscribes to RSS, Atom and JSON Feed, refreshes at startup or on demand, and shows articles in a resizable three-pane layout with unread and starred filters and a dark mode. Data is kept as JSON files.",
+		"zh-CN": "主要面向 Windows、其次兼顾 Linux 与 macOS 的桌面 RSS 阅读器，前端用 SolidJS 写成，通过 MyGo 运行在系统 WebView 中，抓取、解析与存储都在 Go 侧完成。支持订阅 RSS、Atom 和 JSON Feed，可在启动时或手动刷新；文章在可拖拽调整的三栏布局中阅读，带未读与星标筛选和暗色模式，数据以 JSON 文件保存。",
+		"zh-TW": "主要面向 Windows、其次兼顧 Linux 與 macOS 的桌面 RSS 閱讀器，前端以 SolidJS 撰寫，透過 MyGo 執行於系統 WebView 中，抓取、解析與儲存都在 Go 端完成。支援訂閱 RSS、Atom 與 JSON Feed，可於啟動時或手動重新整理；文章在可拖曳調整的三欄版面中閱讀，具備未讀與星號篩選及深色模式，資料以 JSON 檔案儲存。",
+		"ja": "主に Windows 向けで、Linux と macOS にも対応するデスクトップ RSS リーダー。SolidJS で書いたフロントエンドを MyGo 経由でシステムの WebView で動かし、取得・解析・保存は Go 側で行います。RSS・Atom・JSON Feed を購読でき、起動時または手動で更新し、幅を変えられる 3 ペイン画面で、未読・スター付きの絞り込みやダークモードを使って読めます。データは JSON ファイルに保存されます。",
+		"ko": "주로 Windows를, 그다음으로 Linux와 macOS를 대상으로 하는 데스크톱 RSS 리더입니다. SolidJS로 만든 프런트엔드를 MyGo를 통해 시스템 WebView에서 실행하고, 가져오기·파싱·저장은 Go 쪽에서 처리합니다. RSS, Atom, JSON Feed를 구독해 시작할 때나 수동으로 새로 고치며, 크기를 조절할 수 있는 3단 레이아웃에서 읽지 않음·별표 필터와 다크 모드로 읽을 수 있고, 데이터는 JSON 파일로 저장됩니다."
+	},
+	"icon": {
+		"file": "ressu.webp"
+	},
+	"screenshot": "ressu.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-06T06:33:05Z"
+}
