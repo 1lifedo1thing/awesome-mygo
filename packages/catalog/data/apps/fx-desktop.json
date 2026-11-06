@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "fx-desktop",
+	"name": "fx Desktop",
+	"author": "sluke",
+	"kind": "native",
+	"group": "agents",
+	"url": "https://github.com/sluke/fx-desktop",
+	"repo": "sluke/fx-desktop",
+	"summary": {
+		"en": "An unofficial native desktop client for the fx coding agent, with sessions and workspace tools.",
+		"zh-CN": "非官方的 fx 编程智能体原生桌面客户端，含会话历史与工作区工具。",
+		"zh-TW": "非官方的 fx 程式設計代理原生桌面用戶端，含工作階段紀錄與工作區工具。",
+		"ja": "fx コーディングエージェント用の非公式ネイティブクライアント。セッション履歴付き。",
+		"ko": "fx 코딩 에이전트용 비공식 네이티브 데스크톱 클라이언트. 세션 기록과 워크스페이스 도구 포함."
+	},
+	"description": {
+		"en": "A community desktop client for the fx coding agent on macOS 13+ and Linux, drawn with MyGo's native UI; it is not an official Vercel Labs release. It connects to fx over ACP, renders conversations, tool output and permission requests natively, and lets you search and resume saved sessions. A side panel shows workspace files and live git changes with a quick commit box.",
+		"zh-CN": "面向 fx 编程智能体的社区桌面客户端，支持 macOS 13+ 与 Linux，由 MyGo 原生 UI 绘制，并非 Vercel Labs 官方发布。它通过 ACP 连接 fx，以原生界面呈现对话、工具输出和权限请求，可以搜索并恢复已保存的会话；侧栏显示工作区文件和实时 git 变更，还能直接快速提交。",
+		"zh-TW": "面向 fx 程式設計代理的社群桌面用戶端，支援 macOS 13+ 與 Linux，由 MyGo 原生 UI 繪製，並非 Vercel Labs 官方釋出。它透過 ACP 連接 fx，以原生介面呈現對話、工具輸出與權限請求，可搜尋並接續已儲存的工作階段；側欄顯示工作區檔案與即時 git 變更，還能直接快速提交。",
+		"ja": "fx コーディングエージェント向けのコミュニティ製デスクトップクライアント。macOS 13 以降と Linux に対応し、MyGo のネイティブ UI で描かれています。Vercel Labs の公式リリースではありません。ACP で fx に接続して会話、ツール出力、権限リクエストをネイティブに表示し、保存済みのセッションを検索して再開できます。サイドパネルではワークスペースのファイルと git の変更をリアルタイムで確認し、そのままコミットできます。",
+		"ko": "fx 코딩 에이전트를 위한 커뮤니티 데스크톱 클라이언트로, macOS 13 이상과 Linux에서 동작하며 MyGo의 네이티브 UI로 그렸습니다. Vercel Labs의 공식 릴리스는 아닙니다. ACP로 fx에 연결해 대화, 도구 출력, 권한 요청을 네이티브로 보여 주고, 저장된 세션을 검색해 이어서 작업할 수 있습니다. 사이드 패널에서는 워크스페이스 파일과 실시간 git 변경 사항을 보고 바로 커밋할 수 있습니다."
+	},
+	"icon": {
+		"file": "fx-desktop.webp"
+	},
+	"screenshot": "fx-desktop.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-06T03:34:18Z"
+}
