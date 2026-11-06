@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "rubick",
+	"name": "Rubick",
+	"author": "a8b7",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/a8b7/Rubick",
+	"repo": "a8b7/Rubick",
+	"summary": {
+		"en": "A native macOS app for managing Docker hosts, containers, images, volumes, networks and Compose.",
+		"zh-CN": "原生 macOS Docker 管理器：主机、容器、镜像、卷、网络与 Compose。",
+		"zh-TW": "原生 macOS Docker 管理器：主機、容器、映像、卷冊、網路與 Compose。",
+		"ja": "Docker のホスト、コンテナ、イメージ、Compose を扱うネイティブな macOS アプリ。",
+		"ko": "Docker 호스트, 컨테이너, 이미지, Compose를 관리하는 네이티브 macOS 앱."
+	},
+	"description": {
+		"en": "A macOS Docker manager drawn in pure Go with MyGo's native UI, with no web view. It connects to local Docker or to remote hosts over TCP or SSH, and handles containers with live logs, a terminal and resource stats, plus images, volumes, networks and Compose projects. MyGo builds only the desktop app; the optional API server for remote use is built separately.",
+		"zh-CN": "用纯 Go 编写、由 MyGo 原生 UI 绘制的 macOS Docker 管理工具，不使用 WebView。可连接本地 Docker，或通过 TCP、SSH 连接远程主机，管理容器（实时日志、交互式终端、资源统计），以及镜像、卷、网络和 Compose 项目。MyGo 只负责构建桌面 App，供远程场景使用的可选 API 服务另行构建。",
+		"zh-TW": "以純 Go 撰寫、由 MyGo 原生 UI 繪製的 macOS Docker 管理工具，不使用 WebView。可連接本機 Docker，或透過 TCP、SSH 連線遠端主機，管理容器（即時日誌、互動式終端機、資源統計），以及映像、卷冊、網路和 Compose 專案。MyGo 只負責建置桌面 App，供遠端情境使用的選用 API 服務另行建置。",
+		"ja": "純粋な Go で書かれ、MyGo のネイティブ UI で描かれた macOS 用の Docker 管理アプリで、WebView は使いません。ローカルの Docker のほか、TCP や SSH 経由でリモートのホストにも接続でき、コンテナをリアルタイムのログ、対話式ターミナル、リソース統計とともに管理し、イメージ、ボリューム、ネットワーク、Compose プロジェクトも扱えます。MyGo でビルドされるのはデスクトップアプリだけで、リモート向けの任意の API サーバーは別にビルドします。",
+		"ko": "순수 Go로 작성하고 MyGo의 네이티브 UI로 그린 macOS용 Docker 관리 앱으로, WebView를 쓰지 않습니다. 로컬 Docker는 물론 TCP나 SSH로 원격 호스트에도 연결하며, 실시간 로그, 대화형 터미널, 리소스 통계와 함께 컨테이너를 관리하고 이미지, 볼륨, 네트워크, Compose 프로젝트도 다룹니다. MyGo로 빌드하는 것은 데스크톱 앱뿐이며, 원격용 선택 API 서버는 따로 빌드합니다."
+	},
+	"icon": {
+		"file": "rubick.webp"
+	},
+	"screenshot": "rubick.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-06T07:59:41Z"
+}
