@@ -25,8 +25,7 @@
 		"file": "gh-agent.webp"
 	},
 	"provisional": [
-		"icon",
-		"screenshot"
+		"icon"
 	],
 	"screenshot": "gh-agent.webp",
 	"added": "2026-11-05T12:11:10Z"
