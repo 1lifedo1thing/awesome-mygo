@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "denova",
+	"name": "Denova",
+	"author": "alfredxw",
+	"kind": "web",
+	"group": "ai",
+	"url": "https://denova-ai.com/",
+	"repo": "alfredxw/denova",
+	"summary": {
+		"en": "An AI workbench for novel writing and role-play stories, with agents and a lore library.",
+		"zh-CN": "面向小说写作与角色扮演游戏的 AI 创作工作台，内置 Agent 与资料库。",
+		"zh-TW": "面向小說寫作與角色扮演遊戲的 AI 創作工作台，內建 Agent 與資料庫。",
+		"ja": "小説執筆とロールプレイゲームのための AI 創作ワークベンチ。エージェントと資料庫を内蔵。",
+		"ko": "소설 집필과 롤플레이 게임을 위한 AI 창작 작업대. 에이전트와 설정 자료집 내장."
+	},
+	"description": {
+		"en": "An AI workbench for writing novels and playing branching role-play stories, both drawing on one lore library, Skills and local version history. Its agents read and edit project files, and their changes can be reviewed and undone. MyGo builds the desktop app, with a web frontend, for Apple Silicon Macs and Windows x64; the browser version for Windows, macOS and Linux ships separately.",
+		"zh-CN": "面向小说写作与 AI 角色扮演游戏的创作工作台，写作与可分支的互动故事共用资料库、Skills 和本地版本管理。Agent 能读取并修改项目文件，所有改动都可审阅和撤销。MyGo 以 Web 前端构建的是桌面版，支持 Apple Silicon 的 macOS 与 Windows x64；支持 Windows、macOS 和 Linux 的浏览器版另行分发。",
+		"zh-TW": "面向小說寫作與 AI 角色扮演遊戲的創作工作台，寫作與可分支的互動故事共用資料庫、Skills 和本機版本管理。Agent 能讀取並修改專案檔案，所有改動都可審閱和復原。MyGo 以 Web 前端建置的是桌面版，支援 Apple Silicon 的 macOS 與 Windows x64；支援 Windows、macOS 和 Linux 的瀏覽器版另行發布。",
+		"ja": "小説執筆と AI ロールプレイゲームのための創作ワークベンチ。執筆と分岐するインタラクティブストーリーで、資料庫、Skills、ローカルのバージョン管理を共有します。エージェントはプロジェクトのファイルを読み書きし、変更はすべて確認・取り消しできます。MyGo がビルドするのは Web フロントエンドのデスクトップ版で、Apple Silicon の macOS と Windows x64 向けです。Windows・macOS・Linux 対応のブラウザ版は別に配布されています。",
+		"ko": "소설 집필과 AI 롤플레이 게임을 위한 창작 작업대로, 집필과 분기형 인터랙티브 스토리가 설정 자료집, Skills, 로컬 버전 관리를 함께 씁니다. 에이전트가 프로젝트 파일을 읽고 고치며, 모든 변경은 검토하고 되돌릴 수 있습니다. MyGo는 웹 프런트엔드로 Apple Silicon macOS와 Windows x64용 데스크톱 버전을 빌드하고, Windows·macOS·Linux용 브라우저 버전은 따로 배포됩니다."
+	},
+	"icon": {
+		"file": "denova.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "denova.webp",
+	"added": "2026-11-06T04:56:38Z"
+}
