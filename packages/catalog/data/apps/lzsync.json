@@ -21,8 +21,12 @@
 		"ja": "公式の osu!lazer と DeltaLazer、Ez2Lazer、g0v0 などのフォークを同じマシンで使うためのデスクトップツール。譜面、スキン、スコア、設定をローカルのハブと一つのファイルストアに集め、選んだ項目をファイルリンクで任意のフォークに配置します。書き込み前に相手のスキーマに合わせてデータを調整し、client.realm をバックアップします。UI は TypeScript と Vite で作られ、MyGo の Web フロントエンドで動き、Windows・macOS・Linux 版があります。",
 		"ko": "공식 osu!lazer와 DeltaLazer, Ez2Lazer, g0v0 같은 포크를 한 컴퓨터에서 쓰기 위한 데스크톱 도구입니다. 비트맵, 스킨, 점수, 설정을 로컬 허브와 하나의 파일 저장소에 모은 뒤 원하는 항목을 파일 링크로 어느 포크에든 배포하며, 쓰기 전에 대상 스키마에 맞게 데이터를 바꾸고 client.realm을 백업합니다. UI는 TypeScript와 Vite로 만든 MyGo 웹 프런트엔드이며 Windows, macOS, Linux용이 있습니다."
 	},
+	"screenshot": "lzsync.webp",
 	"icon": {
 		"file": "lzsync.webp"
 	},
+	"provisional": [
+		"screenshot"
+	],
 	"added": "2026-11-05T14:23:33Z"
 }

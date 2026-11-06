@@ -22,6 +22,7 @@
 		"ja": "MyGo のネイティブ UI で描かれた Windows・macOS 向けのディスク分析・システムクリーナー。WebView も Electron も使いません。Windows では NTFS の $MFT を直接読んでドライブ全体を数秒で索引化し、一時ファイルやブラウザー、パッケージマネージャー、AI ツールのキャッシュを削除し、アプリのアンインストール後に残ったファイルも探し出します。削除したファイルはごみ箱に入らず、元に戻せません。",
 		"ko": "MyGo의 네이티브 UI로 그린 Windows·macOS용 디스크 분석 및 시스템 정리 도구로, WebView도 Electron도 쓰지 않습니다. Windows에서는 NTFS $MFT를 직접 읽어 드라이브 전체를 몇 초 만에 색인하고, 임시 파일과 브라우저, 패키지 관리자, AI 도구의 캐시를 지우며, 앱을 제거한 뒤 남은 파일도 찾아 줍니다. 삭제한 파일은 휴지통에 들어가지 않아 되돌릴 수 없습니다."
 	},
+	"screenshot": "quickcleaner.webp",
 	"icon": {
 		"file": "quickcleaner.webp"
 	},
