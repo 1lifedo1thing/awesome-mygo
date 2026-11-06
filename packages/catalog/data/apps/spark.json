@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "spark",
+	"name": "Spark",
+	"author": "zackzhou-work",
+	"kind": "native",
+	"group": "agents",
+	"url": "https://github.com/zackzhou-work/spark-go",
+	"repo": "zackzhou-work/spark-go",
+	"summary": {
+		"en": "A macOS window showing the live status of Claude Desktop, Codex, pi and Cursor agent sessions.",
+		"zh-CN": "macOS 小窗实时显示 Claude、Codex、pi、Cursor 的智能体会话状态。",
+		"zh-TW": "macOS 視窗即時顯示 Claude、Codex、pi、Cursor 的代理狀態。",
+		"ja": "Claude・Codex・pi・Cursor のセッション状態を常時表示する macOS ウィンドウ。",
+		"ko": "Claude, Codex, pi, Cursor 에이전트 세션 상태를 보여 주는 macOS 창."
+	},
+	"description": {
+		"en": "A small macOS window drawn with MyGo's native UI that shows the live state of Claude Desktop Code tab sessions, Codex threads, pi sessions and local Cursor agents: working, waiting on you, unread or done. It reads each agent's own session files, with optional hooks for permission prompts, and clicking a row jumps back to the session.",
+		"zh-CN": "一个用 MyGo 原生 UI 绘制的 macOS 小窗口，实时显示 Claude Desktop Code 标签页的会话、Codex 线程、pi 会话和本地 Cursor 智能体的状态：进行中、等你处理、未读或已完成。它读取各智能体自己的会话文件，可选安装钩子来捕捉权限请求，点击某一行即可跳回对应会话。",
+		"zh-TW": "一個用 MyGo 原生 UI 繪製的 macOS 小視窗，即時顯示 Claude Desktop Code 分頁的工作階段、Codex 討論串、pi 工作階段與本機 Cursor 代理的狀態：進行中、等你處理、未讀或已完成。它讀取各代理自己的工作階段檔案，可選擇安裝 hook 來捕捉權限請求，點一下某一列就能跳回對應的工作階段。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS 用の小さなウィンドウで、Claude Desktop の Code タブのセッション、Codex のスレッド、pi のセッション、ローカルの Cursor エージェントの状態を、作業中、対応待ち、未読、完了としてリアルタイムに表示します。各エージェント自身のセッションファイルを読み取り、権限確認の検出には任意でフックを入れられます。行をクリックするとそのセッションに戻れます。",
+		"ko": "MyGo의 네이티브 UI로 그린 작은 macOS 창으로, Claude Desktop Code 탭의 세션, Codex 스레드, pi 세션, 로컬 Cursor 에이전트의 상태를 작업 중, 응답 대기, 읽지 않음, 완료로 실시간 보여 줍니다. 각 에이전트의 세션 파일을 직접 읽고, 권한 요청을 잡아내기 위한 훅은 선택해서 설치할 수 있으며, 행을 클릭하면 해당 세션으로 돌아갑니다."
+	},
+	"icon": {
+		"file": "spark.webp"
+	},
+	"screenshot": "spark.webp",
+	"added": "2026-11-06T06:33:05Z"
+}
