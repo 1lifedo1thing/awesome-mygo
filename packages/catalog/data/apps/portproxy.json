@@ -8,12 +8,22 @@
 	"url": "https://github.com/vicnoah/PortProxy",
 	"repo": "vicnoah/PortProxy",
 	"summary": {
-		"en": "A Windows manager for netsh interface portproxy, with rules that keep working after the app closes.",
-		"zh-CN": "Windows 端口代理管理工具，用 MyGo 原生 UI 重写；规则写进系统的 portproxy，关掉软件也照样生效。"
+		"en": "A native Windows manager for netsh interface portproxy forwarding rules.",
+		"zh-CN": "管理 Windows portproxy 端口转发规则的原生工具。",
+		"zh-TW": "管理 Windows portproxy 連接埠轉送規則的原生工具。",
+		"ja": "netsh interface portproxy のルールを管理する Windows ネイティブアプリ。",
+		"ko": "netsh interface portproxy 규칙을 관리하는 네이티브 Windows 앱."
 	},
 	"description": {
-		"en": "A Go rewrite of PortProxyGUI on MyGo's native UI: it reads and writes the real Windows portproxy registry keys and keeps its SQLite config.db interchangeable with the original app, then adds group management, live search, status and type filters, column sorting and import/export. A two-field rule is enough to publish a service running in WSL 2 to the rest of the LAN while WSL sits behind NAT. English and Simplified Chinese UI, an NSIS installer and signed auto-updates.",
-		"zh-CN": "用 MyGo 原生 UI 重写的 PortProxyGUI：直接读写 Windows 的 portproxy 注册表键，SQLite 配置库与原版完全互通，并补上分组管理、全局搜索、状态与类型筛选、列排序以及导入导出。WSL 2 处在 NAT 后面时，填两个字段就能把它里面的服务发布到局域网其它电脑。界面中英双语，提供 NSIS 安装包与签名自动更新。"
+		"en": "A Windows manager for netsh interface portproxy rules, drawn with MyGo's native UI as a full reimplementation of PortProxyGUI. It reads and writes the real portproxy registry keys, sorts rules into groups with live search and filters, and exchanges its SQLite config.db with the original app through import and export. A two-field rule makes a WSL 2 service reachable from other machines on the LAN.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows netsh interface portproxy 规则管理器，完整重写了 PortProxyGUI。它直接读写系统的 portproxy 注册表键，支持分组、实时搜索与筛选，SQLite 配置库 config.db 可通过导入导出与原版互换。WSL 2 里的服务只需建一条填两个字段的规则，就能让局域网其他电脑访问。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows netsh interface portproxy 規則管理器，完整重寫了 PortProxyGUI。它直接讀寫系統的 portproxy 登錄機碼，支援分組、即時搜尋與篩選，SQLite 設定庫 config.db 可透過匯入匯出與原版互換。WSL 2 裡的服務只需建一條填兩個欄位的規則，就能讓區域網路其他電腦連線。",
+		"ja": "MyGo のネイティブ UI で描かれた、netsh interface portproxy のルールを管理する Windows アプリで、PortProxyGUI を完全に作り直したものです。portproxy のレジストリキーを直接読み書きし、ルールをグループに分けて検索・絞り込みができ、SQLite の config.db はインポートとエクスポートで元のアプリとやり取りできます。2 項目のルールだけで、WSL 2 内のサービスに LAN の他のマシンから接続できます。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows용 netsh interface portproxy 규칙 관리 앱으로, PortProxyGUI를 완전히 새로 구현했습니다. portproxy 레지스트리 키를 읽고 쓰며, 규칙을 그룹으로 나누어 검색·필터할 수 있고, SQLite config.db는 가져오기와 내보내기로 원래 앱과 주고받을 수 있습니다. 두 칸짜리 규칙 하나로 WSL 2 안의 서비스를 LAN의 다른 컴퓨터에서 쓸 수 있습니다."
 	},
+	"icon": {
+		"file": "portproxy.webp"
+	},
+	"screenshot": "portproxy.webp",
 	"added": "2026-11-06T18:02:10Z"
 }
