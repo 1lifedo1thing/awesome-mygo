@@ -22,12 +22,9 @@
 		"ja": "MyGo のネイティブ UI で描かれた macOS のメニューバー用ツールボックスで、JSON エディターは埋め込みの Web ページで動きます。指定した時間、指定の時刻、または選んだプロセスが終わるまで Mac をスリープさせず、最前面に固定できる JSON ウィンドウでは this 式を使って JavaScript でデータを処理できます。どちらもメニュー、コマンドパレット、cubbix:// URL、同梱の cubbix CLI から操作できます。",
 		"ko": "MyGo의 네이티브 UI로 그린 macOS 메뉴 막대 도구 모음으로, JSON 편집기는 내장 웹 페이지에서 동작합니다. 정한 시간 동안, 지정한 시각까지, 또는 선택한 프로세스가 끝날 때까지 Mac이 잠자기에 들지 않게 하고, 항상 위에 고정할 수 있는 JSON 창에서는 this 표현식으로 JavaScript를 써서 데이터를 처리합니다. 두 기능 모두 메뉴, 명령 팔레트, cubbix:// URL, 함께 들어 있는 cubbix CLI로 다룰 수 있습니다."
 	},
+	"screenshot": "cubbix.webp",
 	"icon": {
 		"file": "cubbix.webp"
 	},
-	"screenshot": "cubbix.webp",
-	"provisional": [
-		"screenshot"
-	],
 	"added": "2026-11-05T05:38:23Z"
 }

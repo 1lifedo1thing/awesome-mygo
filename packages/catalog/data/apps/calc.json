@@ -22,12 +22,9 @@
 		"ja": "Windows 11 の電卓のレイアウトと動作を再現した Linux・Windows 向けの電卓で、MyGo のネイティブ UI で描かれています。HTML も JavaScript も Web ビューも使いません。計算は正確な10進演算で、結果は指数表記にせず全桁を表示します。表示欄には直接入力や貼り付けができ、どのキーボード配列でも使え、小数点は 1.5 と 1,5 を切り替えられます。",
 		"ko": "Windows 11 계산기의 배치와 동작을 따른 Linux·Windows용 계산기로, MyGo의 네이티브 UI로 그려 HTML도 JavaScript도 웹 뷰도 쓰지 않습니다. 정확한 십진 연산으로 계산하고 지수 표기 없이 모든 자릿수를 보여 주며, 표시창에 바로 입력하거나 붙여 넣을 수 있고 어떤 키보드 배열에서도 동작합니다. 소수점은 1.5와 1,5 중에서 고를 수 있습니다."
 	},
+	"screenshot": "calc.webp",
 	"icon": {
 		"file": "calc.webp"
 	},
-	"screenshot": "calc.webp",
-	"provisional": [
-		"screenshot"
-	],
 	"added": "2026-11-05T03:47:54Z"
 }
