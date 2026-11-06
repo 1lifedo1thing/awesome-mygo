@@ -12,11 +12,8 @@
 		"ja": "MyGo ネイティブ UI 向けのローソク足チャートコンポーネント。出来高、MA、MACD、BOLL、KDJ、パンとズーム、描画ツール、売買マーカー、リプレイに対応。",
 		"ko": "MyGo 네이티브 UI용 캔들스틱 차트 컴포넌트로, 거래량, MA, MACD, BOLL, KDJ, 패닝·줌, 그리기 도구, 매매 마커, 리플레이를 지원합니다."
 	},
+	"screenshot": "k-line.webp",
 	"repo": "shenjing023/KLineChart-go",
 	"url": "https://github.com/shenjing023/KLineChart-go",
-	"screenshot": "k-line.webp",
-	"provisional": [
-		"screenshot"
-	],
 	"added": "2026-11-05T14:40:59Z"
 }
