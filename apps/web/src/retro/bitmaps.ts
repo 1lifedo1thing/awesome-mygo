@@ -28,6 +28,8 @@ export const EMBLEMS = {
 	plug: [".k..k.", ".k..k.", "kkkkkk", ".kkkk.", "..kk.."],
 	ui: [".kkkk.", "k..kkk", "k..kkk", ".kkkk.", "......"],
 	state: ["......", ".k...k", "k.k.k.", "...k..", "......"],
+	template: ["kkkkkk", "k..k.k", "kkkkkk", "k..k.k", "kkkkkk"],
+	ai: ["..k...", ".kkk.k", "kkkkk.", ".kkk.k", "..k..."],
 } as const satisfies Record<string, readonly string[]>;
 
 export type EmblemName = keyof typeof EMBLEMS;
@@ -38,6 +40,8 @@ export const FOLDER_PAL = {
 	yellow: ["#fff0a8", "#ffd23f"],
 	purple: ["#c4bcf7", "#8577f0"],
 	green: ["#cdeec0", "#77cf6c"],
+	orange: ["#ffd9b0", "#f29b45"],
+	pink: ["#f8c6dd", "#e872a8"],
 } as const satisfies Record<string, readonly [string, string]>;
 
 export type FolderColor = keyof typeof FOLDER_PAL;

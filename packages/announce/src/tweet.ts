@@ -2,8 +2,8 @@
 
 export const SITE_URL = 'https://awesomemygo.dev';
 
-export type EntryKind = 'app' | 'ui' | 'state' | 'plugin';
-export const ENTRY_DIRS: Record<EntryKind, string> = { app: 'apps', ui: 'ui', state: 'state', plugin: 'plugins' };
+export type EntryKind = 'app' | 'ui' | 'state' | 'template' | 'ai' | 'plugin';
+export const ENTRY_DIRS: Record<EntryKind, string> = { app: 'apps', ui: 'ui', state: 'state', template: 'templates', ai: 'ai', plugin: 'plugins' };
 
 export type Entry = Record<string, unknown>;
 export type Counts = Record<EntryKind, number>;
@@ -55,6 +55,10 @@ export function kindLabel(kind: EntryKind, entry: Entry): string {
 			return 'UI 组件';
 		case 'state':
 			return '状态管理';
+		case 'template':
+			return '模板';
+		case 'ai':
+			return 'AI 工具';
 		case 'plugin':
 			return entry.official === true ? '官方插件' : '社区插件';
 	}
@@ -62,7 +66,7 @@ export function kindLabel(kind: EntryKind, entry: Entry): string {
 
 // Where the entry is on the site: an app's own page, or its category's page, which lists the rest.
 export function sitePage(kind: EntryKind, entry: Entry): string {
-	return kind === 'app' ? `${SITE_URL}/apps/${String(entry.slug)}` : `${SITE_URL}/${kind === 'plugin' ? 'plugins' : kind}`;
+	return kind === 'app' ? `${SITE_URL}/apps/${String(entry.slug)}` : `${SITE_URL}/${kind === 'plugin' ? 'plugins' : kind === 'template' ? 'templates' : kind}`;
 }
 
 // The entry's GitHub repository: its repo field, or else its link when that is a repository.
@@ -86,9 +90,11 @@ export interface PostInput {
 	counts: Counts;
 }
 
+// The numbers the post ends with. Templates and AI tools are named only once the site lists some, so the line stays short while they are new.
 export function statsLine(counts: Counts): string {
-	const total = counts.app + counts.plugin + counts.ui + counts.state;
-	return `已收录 ${total} 项：作品 ${counts.app} · 插件 ${counts.plugin} · UI 组件 ${counts.ui} · 状态管理 ${counts.state}`;
+	const total = counts.app + counts.plugin + counts.ui + counts.state + counts.template + counts.ai;
+	const newer = [...(counts.template ? [`模板 ${counts.template}`] : []), ...(counts.ai ? [`AI 工具 ${counts.ai}`] : [])];
+	return [`已收录 ${total} 项：作品 ${counts.app}`, `插件 ${counts.plugin}`, `UI 组件 ${counts.ui}`, `状态管理 ${counts.state}`, ...newer].join(' · ');
 }
 
 // The post's text, its summary cut short with … when the whole would weigh more than X allows. Throws when even without a summary it would.

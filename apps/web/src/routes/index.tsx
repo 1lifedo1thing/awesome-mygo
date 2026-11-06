@@ -1,4 +1,4 @@
-import { APPS, INSTALL_CMDS, INSTALL_TABS, type InstallTab, MYGO_SITE, PLUGINS, STATE_SOLUTIONS, UI_LIBS, appBySlug, fill, langDef, pad2, pick } from '@awesome-mygo/catalog';
+import { AI_TOOLS, APPS, INSTALL_CMDS, INSTALL_TABS, type InstallTab, MYGO_SITE, PLUGINS, STATE_SOLUTIONS, TEMPLATES, UI_LIBS, appBySlug, fill, langDef, pad2, pick } from '@awesome-mygo/catalog';
 import { Link, createFileRoute, useNavigate } from '@tanstack/react-router';
 import { type CSSProperties, type PointerEvent, useRef } from 'react';
 import { AppLink, KindTag, MonoTile, WinBar, appView } from '../components/bits';
@@ -315,11 +315,16 @@ function HeroCode() {
 function Categories() {
 	const t = useT();
 	const nState = STATE_SOLUTIONS.length;
+	const nTpl = TEMPLATES.length;
+	const nAi = AI_TOOLS.length;
 	const cats = [
 		{ to: '/showcase', span: 'col-span-7', name: t.cat_show_name, path: '~/showcase', n: APPS.length, numTone: 'text-cyan', badge: t.cat_show_badge, amber: false, pulse: false, desc: t.cat_show_desc },
 		{ to: '/plugins', span: 'col-span-5', name: t.nav_plugins, path: '~/plugins', n: PLUGINS.length, numTone: 'text-fg', badge: t.cat_plug_badge, amber: false, pulse: false, desc: fill(t.cat_plug_desc, { n: PLUGINS.length }) },
 		{ to: '/ui', span: 'col-span-5', name: t.cat_ui_name, path: '~/ui', n: UI_LIBS.length, numTone: 'text-fg', badge: fill(t.cat_ui_badge, { n: UI_LIBS.length }), amber: false, pulse: false, desc: t.cat_ui_desc },
 		{ to: '/state', span: 'col-span-7', name: t.cat_state_name, path: '~/state', n: nState, numTone: nState ? 'text-fg' : 'text-line-3', badge: nState ? fill(t.cat_state_count, { n: nState }) : t.cat_state_badge, amber: true, pulse: nState === 0, desc: t.cat_state_desc },
+		// The newer categories share a row, amber while they wait for their first entries, as state did.
+		{ to: '/templates', span: 'col-span-6', name: t.cat_tpl_name, path: '~/templates', n: nTpl, numTone: nTpl ? 'text-fg' : 'text-line-3', badge: nTpl ? fill(t.cat_tpl_count, { n: nTpl }) : t.cat_tpl_badge, amber: true, pulse: nTpl === 0, desc: t.cat_tpl_desc },
+		{ to: '/ai', span: 'col-span-6', name: t.cat_ai_name, path: '~/ai', n: nAi, numTone: nAi ? 'text-fg' : 'text-line-3', badge: nAi ? fill(t.cat_ai_count, { n: nAi }) : t.cat_ai_badge, amber: true, pulse: nAi === 0, desc: t.cat_ai_desc },
 	] as const;
 	return (
 		<section aria-labelledby='cats' className={`${SEC} pt-22 pb-10 max-sm:pt-16`}>

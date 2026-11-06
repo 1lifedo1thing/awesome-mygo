@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { type Counts, ENTRY_DIRS, type Entry, type EntryKind, MAX_WEIGHT, SITE_URL, composePost, githubUrl, kindLabel, sitePage, statsLine, weightedLength } from './tweet.ts';
 
 const DATA_DIR = join(import.meta.dirname, '../../catalog/data');
-const COUNTS: Counts = { app: 40, plugin: 12, ui: 6, state: 1 };
+const COUNTS: Counts = { app: 40, plugin: 12, ui: 6, state: 1, template: 0, ai: 0 };
 const urlsIn = (text: string) => text.match(/https:\/\/\S+?(?=（|\s|$)/g) ?? [];
 
 describe('weighted length', () => {
@@ -30,6 +30,15 @@ describe('links', () => {
 		expect(sitePage('ui', { slug: 'x' })).toBe(`${SITE_URL}/ui`);
 		expect(sitePage('state', { slug: 'x' })).toBe(`${SITE_URL}/state`);
 		expect(sitePage('plugin', { slug: 'x' })).toBe(`${SITE_URL}/plugins`);
+		expect(sitePage('template', { slug: 'x' })).toBe(`${SITE_URL}/templates`);
+		expect(sitePage('ai', { slug: 'x' })).toBe(`${SITE_URL}/ai`);
+	});
+
+	it('names templates and AI tools in the numbers only once the site lists some', () => {
+		expect(statsLine({ app: 40, plugin: 12, ui: 6, state: 1, template: 0, ai: 0 })).toBe('已收录 59 项：作品 40 · 插件 12 · UI 组件 6 · 状态管理 1');
+		expect(statsLine({ app: 40, plugin: 12, ui: 6, state: 1, template: 2, ai: 3 })).toBe('已收录 64 项：作品 40 · 插件 12 · UI 组件 6 · 状态管理 1 · 模板 2 · AI 工具 3');
+		expect(kindLabel('template', {})).toBe('模板');
+		expect(kindLabel('ai', {})).toBe('AI 工具');
 	});
 
 	it('names official and community plugins apart', () => {
@@ -68,7 +77,7 @@ describe('the post', () => {
 			const dir = join(DATA_DIR, ENTRY_DIRS[kind]);
 			for (const file of (await readdir(dir)).filter((f) => f.endsWith('.json'))) {
 				const e = JSON.parse(await readFile(join(dir, file), 'utf8')) as Entry;
-				const text = composePost({ kind, entry: e, stars: 12345, counts: { app: 999, plugin: 999, ui: 999, state: 999 } });
+				const text = composePost({ kind, entry: e, stars: 12345, counts: { app: 999, plugin: 999, ui: 999, state: 999, template: 999, ai: 999 } });
 				expect(weightedLength(text, urlsIn(text)), `${kind}/${file}`).toBeLessThanOrEqual(MAX_WEIGHT);
 				// X shows a card for the first link, so the site's page comes first, then the repository when there is one, and no link from the entry's own copy.
 				const github = githubUrl(e);

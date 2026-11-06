@@ -2,7 +2,7 @@ import type { Text } from './lang';
 import type { StringKey } from './strings';
 import { CatalogError, Reader, unique } from './validate';
 
-// The entries live in packages/catalog/data, one file each in their category's directory (apps/, ui/, state/, plugins/, articles/, docs/), named after the entry's slug, so submissions that arrive together never touch the same file. data/schema/ describes their fields. Data sources: egoist/mygo (website/src/showcase.ts, docs/) and each project's own README.
+// The entries live in packages/catalog/data, one file each in their category's directory (apps/, ui/, state/, templates/, ai/, plugins/, articles/, docs/), named after the entry's slug, so submissions that arrive together never touch the same file. data/schema/ describes their fields. Data sources: egoist/mygo (website/src/showcase.ts, docs/) and each project's own README.
 
 export const SITE_URL = 'https://awesomemygo.dev';
 export const MYGO_SITE = 'https://mygo.egoist.dev';
@@ -355,6 +355,113 @@ export function readStateSolutions(files: Record<string, unknown>): StateSolutio
 }
 
 export const STATE_SOLUTIONS: readonly StateSolution[] = readStateSolutions(byFileName(import.meta.glob<unknown>('../data/state/*.json', { eager: true, import: 'default' })));
+
+// ---- templates (data/templates/<slug>.json) ----
+
+// A project that MyGo apps start from: a template repository or a starter, with what it sets up already (a frontend stack, packaging, tests). Not an app: what people use is the app they make from it.
+export interface Template {
+	slug: string;
+	name: string;
+	author: string;
+	desc: Text;
+	repo: string;
+	url: string;
+	homepage?: string;
+	// The kind of window the apps it starts have.
+	surface: Surface;
+	// The command that starts a project from it.
+	use: string;
+	tags: readonly string[];
+	image?: string;
+	// The images that stand in until the project gives its own (readProvisional).
+	provisional?: ProvisionalImage[];
+	added?: string;
+}
+
+const readTemplate = (r: Reader): Template => {
+	r.only(['$schema', 'slug', 'name', 'author', 'summary', 'repo', 'url', 'homepage', 'surface', 'use', 'tags', 'screenshot', 'provisional', 'added']);
+	return {
+		slug: readSlug(r),
+		name: r.str('name'),
+		author: r.str('author'),
+		desc: r.text('summary'),
+		repo: r.match('repo', REPO, 'owner/name'),
+		url: r.url('url'),
+		homepage: r.optUrl('homepage'),
+		surface: r.oneOf('surface', SURFACES),
+		use: r.str('use'),
+		tags: r.strings('tags', 1),
+		image: shot(r.raw.screenshot === undefined ? undefined : r.match('screenshot', SHOT, 'a .webp or .svg file name')),
+		provisional: readProvisional(r, ['screenshot']),
+		added: readAdded(r),
+	};
+};
+
+export const TEMPLATE_KIND: Kind<Template> = { dir: 'templates', schema: '../schema/template.schema.json', dated: true, read: readTemplate };
+
+// The templates of data/templates/, keyed by file name, the oldest first.
+export function readTemplates(files: Record<string, unknown>): Template[] {
+	const templates = readEntryFiles(TEMPLATE_KIND, files).sort(byAdded);
+	unique(TEMPLATE_KIND.dir, templates, 'repo', (x) => x.repo);
+	return templates;
+}
+
+export const TEMPLATES: readonly Template[] = readTemplates(byFileName(import.meta.glob<unknown>('../data/templates/*.json', { eager: true, import: 'default' })));
+
+// ---- AI tools (data/ai/<slug>.json) ----
+
+// What an AI tool is: an agent skill (a SKILL.md and what it comes with), an MCP server or library, rules for coding agents (AGENTS.md, Cursor rules), or something else that helps an AI build MyGo apps.
+export const AI_TOOL_TYPES = ['skill', 'mcp', 'rules', 'other'] as const;
+export type AiToolType = (typeof AI_TOOL_TYPES)[number];
+
+// A tool that helps AI coding agents build MyGo apps. Several may live in one repository, as the skills of a collection do, so it is told apart by its link, which may point at its folder.
+export interface AiTool {
+	slug: string;
+	name: string;
+	author: string;
+	desc: Text;
+	repo: string;
+	url: string;
+	homepage?: string;
+	type: AiToolType;
+	// The command that installs it.
+	install: string;
+	tags: readonly string[];
+	image?: string;
+	// The images that stand in until the project gives its own (readProvisional).
+	provisional?: ProvisionalImage[];
+	added?: string;
+}
+
+const readAiTool = (r: Reader): AiTool => {
+	r.only(['$schema', 'slug', 'name', 'author', 'summary', 'repo', 'url', 'homepage', 'type', 'install', 'tags', 'screenshot', 'provisional', 'added']);
+	return {
+		slug: readSlug(r),
+		name: r.str('name'),
+		author: r.str('author'),
+		desc: r.text('summary'),
+		repo: r.match('repo', REPO, 'owner/name'),
+		url: r.url('url'),
+		homepage: r.optUrl('homepage'),
+		type: r.oneOf('type', AI_TOOL_TYPES),
+		install: r.str('install'),
+		tags: r.strings('tags', 1),
+		image: shot(r.raw.screenshot === undefined ? undefined : r.match('screenshot', SHOT, 'a .webp or .svg file name')),
+		provisional: readProvisional(r, ['screenshot']),
+		added: readAdded(r),
+	};
+};
+
+export const AI_KIND: Kind<AiTool> = { dir: 'ai', schema: '../schema/ai.schema.json', dated: true, read: readAiTool };
+
+// The AI tools of data/ai/, keyed by file name, the oldest first.
+export function readAiTools(files: Record<string, unknown>): AiTool[] {
+	const tools = readEntryFiles(AI_KIND, files).sort(byAdded);
+	unique(AI_KIND.dir, tools, 'url', (x) => x.url);
+	return tools;
+}
+
+export const AI_TOOLS: readonly AiTool[] = readAiTools(byFileName(import.meta.glob<unknown>('../data/ai/*.json', { eager: true, import: 'default' })));
 
 // ---- plugins (data/plugins/<slug>.json) ----
 

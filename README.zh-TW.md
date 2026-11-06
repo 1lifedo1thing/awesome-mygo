@@ -16,6 +16,8 @@
 - **外掛**：官方外掛，標明適用於網頁、原生 UI 還是兩者，另有 `mygo-cli` 工具鏈。
 - **UI 元件**：為 MyGo 應用打造的元件庫、主題與圖示。
 - **狀態管理**：MyGo 應用的狀態方案，以及 MyGo 內建的綁定服務、通道和型別化事件。
+- **範本**：開發 MyGo 應用的起點，前端技術棧、測試、CI 或打包都已設定好。
+- **AI 工具**：幫助 AI 程式設計助理開發 MyGo 應用的 agent skill、MCP 服務與規則。
 - **文件**：官方指南、社群文章和官方資源。
 - 用 <kbd>⌘K</kbd> / <kbd>Ctrl+K</kbd> **搜尋**全部內容；想收錄某個專案時，提交表單會替你寫好條目。
 
@@ -28,7 +30,7 @@ pnpm monorepo，由 [TanStack Start](https://tanstack.com/start) 執行在 [Clou
 | 路徑 | 內容 |
 |---|---|
 | `apps/web` | 網站：React 19、TanStack Start（伺服器端渲染），以及帶 `@cloudflare/vite-plugin` 的 Vite。`wrangler.jsonc` 把它部署到 `awesomemygo.dev`。 |
-| `packages/catalog` | 資料：`data/*.json`（應用、UI 元件、狀態方案、外掛、文章、指南）及其 JSON Schema，五種語言的介面文案，搜尋與提交表單的條目。測試會驗證每個條目。 |
+| `packages/catalog` | 資料：`data/*.json`（應用、UI 元件、狀態方案、範本、AI 工具、外掛、文章、指南）及其 JSON Schema，五種語言的介面文案，搜尋與提交表單的條目。測試會驗證每個條目。 |
 | `packages/enrich` | 補全提交 bot 開的 PR：從專案倉庫取應用圖示，截圖優先用表單裡上傳的圖片或填的連結、否則從倉庫取，並用 Claude 寫五種語言的文案。由 `.github/workflows/enrich-submission.yml` 執行。`.github/workflows/verify.yml` 每週還會核驗所有已收錄專案的倉庫，倉庫有變化的條目各開一個 PR：倉庫被刪除、轉為私有或被停用時下架條目，被改名或轉移時更新條目，補上缺少的 homepage，專案有了自己的圖片後替換臨時圖；倉庫被封存或不再用 MyGo 建置時只在執行摘要裡列出。 |
 
 應用圖示來自 [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo)，由它的 CDN 提供；它未收錄的少數應用使用 `apps/web/public/icons/` 裡的官方圖示。
@@ -54,7 +56,7 @@ pnpm preview      # 在 Workers 執行環境中執行正式建置
 
 穩定版 Chrome 只有透過 origin trial，才會為本站訪客開啟 WebMCP，提交表單的工具也隨之可用。在 [developer.chrome.com/origintrials](https://developer.chrome.com/origintrials/) 為正式網站的 origin（`https://awesomemygo.dev`）註冊 WebMCP 試用，然後在 `apps/web` 下用 `wrangler secret put WEBMCP_ORIGIN_TRIAL` 設定拿到的 token：此後每個頁面都會在 `<meta http-equiv="origin-trial">` 標籤裡帶上它，不設定就不帶。token 隨試用結束而失效，屆時重新註冊，或刪掉這個 secret。
 
-作品、UI 元件和狀態管理都需要截圖。訪客填好倉庫連結後，表單會請 Worker（`/api/shot`）依 submission workflow 自己的規則（`packages/enrich/src/source.ts`）檢查倉庫裡有沒有它會採用的截圖；沒有，或者作品沒有倉庫時，表單會要求提供一張，Worker 也會拒絕沒有截圖的提交。訪客可以上傳圖片（PNG、JPEG 或 WebP，5 MB 以內，橫向且寬度至少 600 像素），也可以填圖片連結。上傳的圖片會以 `submissions/<slug>.<ext>` 提交到 PR 的分支上並顯示在 PR 裡，workflow 把它轉成站點用的 WebP 後刪除。這項檢查依 IP 限流，每分鐘 20 次。
+作品、UI 元件、狀態管理、範本和 AI 工具都需要截圖。訪客填好倉庫連結後，表單會請 Worker（`/api/shot`）依 submission workflow 自己的規則（`packages/enrich/src/source.ts`）檢查倉庫裡有沒有它會採用的截圖；沒有，或者作品沒有倉庫時，表單會要求提供一張，Worker 也會拒絕沒有截圖的提交。訪客可以上傳圖片（PNG、JPEG 或 WebP，5 MB 以內，橫向且寬度至少 600 像素），也可以填圖片連結。上傳的圖片會以 `submissions/<slug>.<ext>` 提交到 PR 的分支上並顯示在 PR 裡，workflow 把它轉成站點用的 WebP 後刪除。這項檢查依 IP 限流，每分鐘 20 次。
 
 bot 開出 PR 後，*Complete submission* workflow 會補上表單問不到的內容：應用圖示，依 MyGo 的查找方式取（`mygo.json` 的 `icon`，沒有則用 `resources/icon.png`；如果是 `mygo init` 產生的 MyGo 預設圖示就不加）、README 裡第一張不是圖示或其他方形 logo 的截圖，以及五種語言的簡介和介紹。UI 元件和狀態管理也會照同樣的方式補截圖，並從倉庫設定裡補 homepage；表單填了預設值的欄位（應用在作品集裡的分組 `group`，沒有另寫分類時分類隨分組而定、UI 元件的 `tag` 和 `surface`、外掛的 `surface`、狀態管理和外掛的 `tags`）由模型在寫文案時一併選定。它會跑 catalog 檢查，以 bot 身分推到同一分支，並在 PR 裡留言說明做了什麼；合併前仍需維護者審核。需要在倉庫的 Actions 設定裡配置 secret：`SUBMIT_APP_PRIVATE_KEY`（App 的 PKCS#8 私鑰，與 Worker 用的相同）、`LLM_API_KEY`（Anthropic Messages API 的金鑰），走閘道時再加 `LLM_BASE_URL`；以及變數 `SUBMIT_APP_CLIENT_ID`（App 的 Client ID）。變數 `LLM_MODEL` 可以換模型（預設 `claude-opus-5-5`）。沒有 `LLM_API_KEY` 時文案維持提交時的樣子。
 
@@ -67,6 +69,8 @@ bot 開出 PR 後，*Complete submission* workflow 會補上表單問不到的�
 | `apps/<slug>.json` | 用 MyGo 做的應用 |
 | `ui/<slug>.json` | UI 元件庫 |
 | `state/<slug>.json` | 狀態管理 |
+| `templates/<slug>.json` | 範本 |
+| `ai/<slug>.json` | AI 工具 |
 | `plugins/<slug>.json` | 外掛 |
 | `articles/<slug>.json` | 文章 |
 | `docs/<slug>.json` | MyGo 官方指南 |
@@ -93,7 +97,7 @@ bot 開出 PR 後，*Complete submission* workflow 會補上表單問不到的�
 }
 ```
 
-- 檔名與 `slug` 相同。`added` 是條目加入網站的時間（UTC），網站 bot 會自動填寫，手動新增時寫目前時間。除官方指南外每個類別都有這個欄位：作品集可以依它把最新的應用排在前面，UI 元件庫、狀態管理、文章和社群外掛依它從早到晚排列；官方外掛和官方指南依名稱排列。每個條目一個檔案，所以同時新增條目的多個 PR 不會互相衝突。
+- 檔名與 `slug` 相同。`added` 是條目加入網站的時間（UTC），網站 bot 會自動填寫，手動新增時寫目前時間。除官方指南外每個類別都有這個欄位：作品集可以依它把最新的應用排在前面，UI 元件庫、狀態管理、範本、AI 工具、文章和社群外掛依它從早到晚排列；官方外掛和官方指南依名稱排列。每個條目一個檔案，所以同時新增條目的多個 PR 不會互相衝突。
 - 其他類別的檔案同樣在欄位外帶 `$schema`、`slug` 和 `added`（官方指南沒有 `added`），具體欄位見 `data/schema/` 裡對應的 schema。
 - `url` 是應用首頁：官網，沒有官網就填倉庫網址，不要求在 GitHub 上。開源應用再用 `repo` 填 GitHub 倉庫（`owner/name`），閉源應用不填。
 - 文字欄位依語言各寫一份。`en` 必填；`zh-CN`、`zh-TW`、`ja`、`ko` 可選，缺少的語言顯示英文。

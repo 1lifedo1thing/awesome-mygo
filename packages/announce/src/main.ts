@@ -6,7 +6,7 @@ import { composeIssue, ISSUE_TITLE, isScored, newestRelease, notTold, projectRep
 import { type Counts, ENTRY_DIRS, type Entry, type EntryKind, composePost, githubUrl, sitePage } from './tweet.ts';
 import { scoreKey } from '../../catalog/src/score.ts';
 
-// Run by .github/workflows/announce.yml once for each entry a push to main adds: node src/main.ts <dir>/<slug>.json, the path under packages/catalog/data (apps/, ui/, state/ or plugins/). It waits until the site lists the entry, so the links work, then posts it to X and opens an issue on the project's repository saying it was listed, with its page, the post, the README badge, and where its score will show with what would raise it (issue.ts).
+// Run by .github/workflows/announce.yml once for each entry a push to main adds: node src/main.ts <dir>/<slug>.json, the path under packages/catalog/data (apps/, ui/, state/, templates/, ai/ or plugins/). It waits until the site lists the entry, so the links work, then posts it to X and opens an issue on the project's repository saying it was listed, with its page, the post, the README badge, and where its score will show with what would raise it (issue.ts).
 //
 // Environment: X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN and X_ACCESS_SECRET (the posting account's OAuth 1.0a keys; without them nothing is posted, and the issue goes without a post); NOTIFY_GITHUB_TOKEN (a classic personal access token with the public_repo scope of the account that opens the issues, as neither the workflow's token nor a GitHub App's can open one on a repository they are not installed on; without it the issue is only printed); DRY_RUN=true to only print both anyway; ISSUE_ONLY=true to open the issue without posting, for an entry announced before issues were opened (the argument may then end in =<its post on X>, which the issue links to); WAIT_SECONDS (how long to wait for the site, default 900; 0 skips the check); GITHUB_TOKEN for the repository's stars, license and releases (the last of which GraphQL answers only with a token) and its owner's X account; GITHUB_REPOSITORY_OWNER, whose own repositories are not told; and GITHUB_STEP_SUMMARY.
 
@@ -22,7 +22,7 @@ function kindOf(dir: string): EntryKind {
 
 async function counts(): Promise<Counts> {
 	const n = async (kind: EntryKind) => (await readdir(join(DATA_DIR, ENTRY_DIRS[kind]))).filter((f) => f.endsWith('.json')).length;
-	return { app: await n('app'), ui: await n('ui'), state: await n('state'), plugin: await n('plugin') };
+	return { app: await n('app'), ui: await n('ui'), state: await n('state'), template: await n('template'), ai: await n('ai'), plugin: await n('plugin') };
 }
 
 // Whether data/scores.json has a record of the entry under the key the site reads its score by (scoreKey), so the site shows its score already. A file that cannot be read gives false, with a warning: the issue then says the score shows from the next measurement, which is not worth holding it back.

@@ -10,6 +10,8 @@ const JUMPS = [
 	{ to: '/', key: 'nav_home' },
 	{ to: '/ui', key: 'cat_ui_name' },
 	{ to: '/state', key: 'cat_state_name' },
+	{ to: '/templates', key: 'cat_tpl_name' },
+	{ to: '/ai', key: 'cat_ai_name' },
 	{ to: '/plugins', key: 'nav_plugins' },
 	{ to: '/showcase', key: 'cat_show_name' },
 	{ to: '/learn', key: 'learn_h' },
@@ -40,7 +42,7 @@ function Find({ onClose, onApp, onSubmit }: { onClose: () => void; onApp: (slug:
 	const index = useMemo(() => buildSearchIndex(lang), [lang]);
 	const results = searchCatalog(index, q);
 	const hasQuery = q.trim() !== '';
-	const catLabel: Record<SearchCat, string> = { ui: t.cat_ui_name, state: t.cat_state_name, plugin: t.nav_plugins, showcase: t.cat_show_name, article: t.article };
+	const catLabel: Record<SearchCat, string> = { ui: t.cat_ui_name, state: t.cat_state_name, template: t.cat_tpl_name, ai: t.cat_ai_name, plugin: t.nav_plugins, showcase: t.cat_show_name, article: t.article };
 
 	const go = (to: (typeof JUMPS)[number]['to']) => {
 		onClose();

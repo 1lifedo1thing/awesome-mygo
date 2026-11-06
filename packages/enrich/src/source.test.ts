@@ -254,6 +254,10 @@ describe("the form's defaults", () => {
 		expect(formDefaults('ui', { tag: 'icons', surface: 'both' })).toEqual({ choices: [], tags: false });
 		expect(formDefaults('state', { tags: ['state'] })).toEqual({ choices: [], tags: true });
 		expect(formDefaults('state', { tags: ['store', 'reactive'] })).toEqual({ choices: [], tags: false });
+		expect(formDefaults('template', { surface: 'native', tags: ['template'] })).toEqual({ choices: ['surface'], tags: true });
+		expect(formDefaults('template', { surface: 'web', tags: ['react'] })).toEqual({ choices: [], tags: false });
+		expect(formDefaults('ai', { type: 'skill', tags: ['ai'] })).toEqual({ choices: ['type'], tags: true });
+		expect(formDefaults('ai', { type: 'mcp', tags: ['testing'] })).toEqual({ choices: [], tags: false });
 		expect(formDefaults('plugin', { surface: 'web', tags: [] })).toEqual({ choices: ['surface'], tags: true });
 		expect(formDefaults('plugin', { surface: 'native', tags: ['shaders'] })).toEqual({ choices: [], tags: false });
 	});

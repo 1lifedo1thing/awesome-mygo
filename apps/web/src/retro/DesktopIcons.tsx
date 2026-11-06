@@ -1,4 +1,4 @@
-import { APPS, DOCS, PLUGINS, STATE_SOLUTIONS, UI_LIBS } from '@awesome-mygo/catalog';
+import { AI_TOOLS, APPS, DOCS, PLUGINS, STATE_SOLUTIONS, TEMPLATES, UI_LIBS } from '@awesome-mygo/catalog';
 import { Link } from '@tanstack/react-router';
 import type { ReactNode } from 'react';
 import { useT } from '../lib/lang';
@@ -35,6 +35,12 @@ export function DesktopIcons({ className }: { className: string }) {
 			</Link>
 			<Link to='/state' className={item}>
 				<Icon art={<Folder emblem='state' color='green' />} name={t.nav_state} count={STATE_SOLUTIONS.length} />
+			</Link>
+			<Link to='/templates' className={item}>
+				<Icon art={<Folder emblem='template' color='orange' />} name={t.nav_templates} count={TEMPLATES.length} />
+			</Link>
+			<Link to='/ai' className={item}>
+				<Icon art={<Folder emblem='ai' color='pink' />} name={t.nav_ai} count={AI_TOOLS.length} />
 			</Link>
 			<Link to='/learn' className={item}>
 				<Icon art={<PixelIcon name='page' scale={3} />} name={t.nav_learn} count={DOCS.length} />

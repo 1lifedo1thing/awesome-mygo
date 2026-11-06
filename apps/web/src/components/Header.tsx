@@ -6,6 +6,7 @@ import { useSite } from '../lib/site';
 import { switchTheme } from '../lib/theme';
 import { GitHubMark, Logo, SearchIcon } from './bits';
 
+// The sections the header's row and the retro look's menu bar show: they have room for six, with the search box and the buttons beside them on one row.
 export const NAV = [
 	{ to: '/', key: 'nav_home' },
 	{ to: '/ui', key: 'nav_ui' },
@@ -14,6 +15,15 @@ export const NAV = [
 	{ to: '/showcase', key: 'nav_showcase' },
 	{ to: '/learn', key: 'nav_learn' },
 ] as const;
+
+// The newer sections, which the header's row has no room for: they are in its burger panel, the footer, the retro look's menu, search and the home page's tiles.
+const MORE_NAV = [
+	{ to: '/templates', key: 'nav_templates', more: true },
+	{ to: '/ai', key: 'nav_ai', more: true },
+] as const;
+
+// Every section, in the order of the home page's tiles after the first three.
+export const SITE_NAV = [...NAV.slice(0, 3), ...MORE_NAV, ...NAV.slice(3)];
 
 export function Header({ scrolled }: { scrolled: boolean }) {
 	const t = useT();
@@ -68,11 +78,11 @@ export function Header({ scrolled }: { scrolled: boolean }) {
 					data-open={menu}
 					aria-label={t.a_cats}
 				>
-					{NAV.map((n) => (
+					{SITE_NAV.map((n) => (
 						<Link
 							key={n.to}
 							to={n.to}
-							className='box-border inline-flex min-h-[38px] items-center rounded-lg border-0 bg-transparent px-3.5 py-0 text-[14px] font-medium text-fg-2 no-underline [transition:background_0.15s,color_0.15s] hover:bg-white/6 hover:text-fg data-[status=active]:bg-fg data-[status=active]:font-bold data-[status=active]:text-bg max-nav:min-h-12 max-nav:justify-start'
+							className={`${'more' in n ? 'nav:hidden ' : ''}box-border inline-flex min-h-[38px] items-center rounded-lg border-0 bg-transparent px-3.5 py-0 text-[14px] font-medium text-fg-2 no-underline [transition:background_0.15s,color_0.15s] hover:bg-white/6 hover:text-fg data-[status=active]:bg-fg data-[status=active]:font-bold data-[status=active]:text-bg max-nav:min-h-12 max-nav:justify-start`}
 							activeOptions={{ exact: true, includeSearch: false }}
 							onClick={() => setMenu(false)}
 						>

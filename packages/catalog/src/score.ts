@@ -141,6 +141,6 @@ export function scoreTarget(e: { repo?: string; url?: string; goImport?: string 
 }
 
 // The key an entry's signals are kept under in scores.json: the same as its like key (likes.ts), so likes and scores line up.
-export function scoreKey(kind: 'app' | 'ui' | 'state' | 'plugin', e: { slug: string; repo?: string }): string {
-	return kind === 'app' || kind === 'plugin' ? `${kind}:${e.slug}` : `${kind}:${e.repo}`;
+export function scoreKey(kind: 'app' | 'ui' | 'state' | 'template' | 'ai' | 'plugin', e: { slug: string; repo?: string }): string {
+	return kind === 'app' || kind === 'plugin' || kind === 'ai' ? `${kind}:${e.slug}` : `${kind}:${e.repo}`;
 }

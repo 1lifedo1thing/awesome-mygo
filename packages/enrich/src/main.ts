@@ -103,7 +103,7 @@ async function addScreenshot(entry: Entry, slug: string, what: string, facts: Re
 	say(!facts ? `- Screenshot: none added, as the entry has no GitHub repository to take one from. ${none}` : `- Screenshot: none added, as the repository has no image and GitHub gave no social preview. ${none}`);
 }
 
-// A UI library's or state management library's homepage, its website, demo or docs, which the form does not ask for: the one in the repository's settings, unless that is the repository itself.
+// A UI library's, state management library's, template's or AI tool's homepage, its website, demo or docs, which the form does not ask for: the one in the repository's settings, unless that is the repository itself.
 function addHomepage(entry: Entry, facts: RepoFacts): void {
 	if (entry.homepage !== undefined) return say('- Homepage: kept the one submitted.');
 	const home = homepageOf(facts.homepage, facts.repo);
@@ -112,7 +112,7 @@ function addHomepage(entry: Entry, facts: RepoFacts): void {
 	say(`- Homepage: ${home}, from the repository's settings.`);
 }
 
-const FIELD_NAMES: Record<ChoiceField | 'tags', string> = { category: 'Category', group: 'Group', tag: 'Tag', surface: 'Surface', tags: 'Tags' };
+const FIELD_NAMES: Record<ChoiceField | 'tags', string> = { category: 'Category', group: 'Group', tag: 'Tag', surface: 'Surface', type: 'Type', tags: 'Tags' };
 
 // What the report says of a field the form filled in with a default that the model did not pick: an app with no category fails the catalog checks, the rest still pass at the default but are likely wrong.
 function unpicked(field: ChoiceField | 'tags', entry: Entry, why: string): string {
@@ -167,8 +167,8 @@ async function addCopy(cfg: LlmConfig | undefined, kind: EntryKind, entry: Entry
 	}
 }
 
-// Fills in one added entry, in place: for an app its name, icon and screenshot from its repository, for a UI library or state management library its homepage and screenshot, and for every kind the copy.
-// used: the categories of the apps on the site. submitted: the screenshot link from the site's form, for an app, a UI library or state management.
+// Fills in one added entry, in place: for an app its name, icon and screenshot from its repository, for a UI library, state management library, template or AI tool its homepage and screenshot, and for every kind the copy.
+// used: the categories of the apps on the site. submitted: the screenshot link from the site's form, for an app, a UI library, state management, a template or an AI tool.
 async function complete(cfg: LlmConfig | undefined, kind: EntryKind, where: string, entry: Entry, examples: Entry[], used: ReadonlySet<string>, submitted?: string): Promise<void> {
 	const staged = stagedShotOf(await readdir(join(ROOT, STAGED_SHOTS)).catch(() => []), String(entry.slug));
 	say(`### ${String(entry.name ?? entry.slug ?? '?')} (\`${where}\`)`);
@@ -185,9 +185,9 @@ async function complete(cfg: LlmConfig | undefined, kind: EntryKind, where: stri
 		}
 		const iconUrl = facts ? await addIcon(entry, slug, facts) : undefined;
 		await addScreenshot(entry, slug, 'the app', facts, iconUrl, submitted, staged);
-	} else if (kind === 'ui' || kind === 'state') {
+	} else if (kind === 'ui' || kind === 'state' || kind === 'template' || kind === 'ai') {
 		if (facts) addHomepage(entry, facts);
-		await addScreenshot(entry, String(entry.slug), 'the library', facts, undefined, submitted, staged);
+		await addScreenshot(entry, String(entry.slug), kind === 'template' ? 'the template' : kind === 'ai' ? 'the tool' : 'the library', facts, undefined, submitted, staged);
 	}
 	await addCopy(cfg, kind, entry, facts, examples, used);
 }
