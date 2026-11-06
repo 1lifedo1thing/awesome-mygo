@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "wslpilot",
+	"name": "WSLPilot",
+	"author": "YuanZhe-99",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/YuanZhe-99/WSLPilot",
+	"repo": "YuanZhe-99/WSLPilot",
+	"summary": {
+		"en": "Manages WSL distributions, WSL Containers, Compose projects, settings and backups on Windows 11.",
+		"zh-CN": "在 Windows 11 上管理 WSL 发行版、WSL 容器、Compose 项目与备份。",
+		"zh-TW": "在 Windows 11 上管理 WSL 發行版、WSL 容器、Compose 專案與備份。",
+		"ja": "Windows 11 で WSL のディストリビューション、コンテナー、バックアップを管理。",
+		"ko": "Windows 11에서 WSL 배포판, 컨테이너, Compose 프로젝트, 백업을 관리합니다."
+	},
+	"description": {
+		"en": "A Windows 11 front end for the wsl.exe and wslc.exe that come with WSL, drawn with MyGo's native UI and needing no Docker Desktop. It installs, moves, resizes and shrinks distributions, edits .wslconfig and wsl.conf as forms, runs containers and compose.yaml projects on WSL Containers, and makes backups you can restore on another PC. Container features need WSL 3.0 or later.",
+		"zh-CN": "WSL 自带的 wsl.exe 与 wslc.exe 的 Windows 11 图形前端，由 MyGo 原生 UI 绘制，不需要 Docker Desktop。可以安装、迁移发行版，调整并压缩其磁盘，以表单编辑 .wslconfig 与 wsl.conf，在 WSL 容器上运行容器和 compose.yaml 项目；备份还能在其它电脑上恢复。容器功能需要 WSL 3.0 及以上。",
+		"zh-TW": "WSL 內建的 wsl.exe 與 wslc.exe 的 Windows 11 圖形前端，由 MyGo 原生 UI 繪製，不需要 Docker Desktop。可以安裝、搬移發行版，調整並壓縮其磁碟，以表單編輯 .wslconfig 與 wsl.conf，在 WSL 容器上執行容器和 compose.yaml 專案；備份也能在其他電腦上還原。容器功能需要 WSL 3.0 以上版本。",
+		"ja": "WSL に付属する wsl.exe と wslc.exe を操作する Windows 11 向けのフロントエンドで、MyGo のネイティブ UI で描かれ、Docker Desktop は不要です。ディストリビューションのインストール、移動、ディスクのサイズ変更や縮小、.wslconfig と wsl.conf のフォームでの編集、WSL Containers 上でのコンテナーと compose.yaml プロジェクトの実行ができ、バックアップは別の PC でも復元できます。コンテナー機能には WSL 3.0 以降が必要です。",
+		"ko": "WSL에 포함된 wsl.exe와 wslc.exe를 다루는 Windows 11용 프런트엔드로, MyGo의 네이티브 UI로 그렸으며 Docker Desktop이 필요 없습니다. 배포판의 설치, 이동, 디스크 크기 조정과 축소, .wslconfig와 wsl.conf의 양식 편집, WSL Containers에서 컨테이너와 compose.yaml 프로젝트 실행을 지원합니다. 백업은 다른 PC에서도 복원할 수 있습니다. 컨테이너 기능에는 WSL 3.0 이상이 필요합니다."
+	},
+	"icon": {
+		"file": "wslpilot.webp"
+	},
+	"screenshot": "wslpilot.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-06T00:48:04Z"
+}
