@@ -21,12 +21,9 @@
 		"ja": "macOS・Windows・Linux 向けのトレイアプリ（macOS ではメニューバー）。学籍番号とパスワードを一度入力すれば広州理工学院のキャンパスネットワークに自動でログインし、10 秒ごとに接続を確認して、切断されると再認証します。サーバーがパスワードを拒否した場合は再試行を止め、パスワードはシステムの資格情報ストアに保存します。MyGo のネイティブ UI で描かれ、Web ビューは使いません。",
 		"ko": "macOS, Windows, Linux용 트레이 앱(macOS에서는 메뉴 막대)입니다. 학번과 비밀번호를 한 번 입력하면 광저우이공학원 캠퍼스 네트워크에 자동으로 로그인하고, 10초마다 연결을 확인해 끊기면 다시 인증합니다. 서버가 비밀번호를 거부하면 재시도를 멈추며, 비밀번호는 시스템 자격 증명 저장소에 보관합니다. MyGo의 네이티브 UI로 그렸고 웹 뷰를 쓰지 않습니다."
 	},
+	"screenshot": "gzist-netkeeper.webp",
 	"icon": {
 		"file": "gzist-netkeeper.webp"
 	},
-	"screenshot": "gzist-netkeeper.webp",
-	"provisional": [
-		"screenshot"
-	],
 	"added": "2026-11-06T03:34:18Z"
 }
