@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mouse-mapper",
+	"name": "Mouse Mapper",
+	"author": "fondoger",
+	"kind": "native",
+	"group": "devices",
+	"url": "https://github.com/fondoger/mouse-mapper",
+	"repo": "fondoger/mouse-mapper",
+	"summary": {
+		"en": "Maps your mouse's back and forward side buttons to keys and shortcuts on Windows and macOS.",
+		"zh-CN": "在 Windows 与 macOS 上把鼠标前进、后退侧键映射为按键或快捷键。",
+		"zh-TW": "在 Windows 與 macOS 上把滑鼠前進、後退側鍵對應為按鍵或快捷鍵。",
+		"ja": "Windows と macOS で、マウスの戻る・進むボタンをキーやショートカットに割り当てる。",
+		"ko": "Windows와 macOS에서 마우스 뒤로·앞으로 버튼을 키나 단축키에 할당합니다."
+	},
+	"description": {
+		"en": "A Windows and macOS utility drawn with MyGo's native UI, with no web view or JavaScript runtime. It maps the mouse's back and forward buttons to a key, shortcut or held modifier, with an optional separate long-press action, and can switch to a chosen input method before sending a shortcut. It keeps running in the background, with a tray icon you can hide and an option to start at login.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 与 macOS 工具，不依赖 WebView 或 JavaScript 运行时。它把鼠标的前进、后退侧键映射为单个按键、组合键或按住的修饰键，可另设长按动作，也能在发送快捷键前切换到指定输入法。关闭窗口后继续在后台运行，托盘图标可隐藏，并可随登录启动。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows 與 macOS 工具，不依賴 WebView 或 JavaScript 執行環境。它把滑鼠的前進、後退側鍵對應為單一按鍵、組合鍵或按住的修飾鍵，可另設長按動作，也能在送出快捷鍵前切換到指定輸入法。關閉視窗後仍在背景執行，系統匣圖示可隱藏，並可隨登入啟動。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows・macOS 向けのユーティリティ。WebView も JavaScript ランタイムも使いません。マウスの戻る・進むボタンを単一キー、ショートカット、押したままの修飾キーに割り当て、別に長押しの動作も設定できます。ショートカットを送る前に指定した入力方式へ切り替えることも可能です。ウィンドウを閉じてもバックグラウンドで動き、トレイアイコンは隠せて、ログイン時の起動にも対応します。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows·macOS용 유틸리티로, WebView나 JavaScript 런타임을 쓰지 않습니다. 마우스의 뒤로·앞으로 버튼을 단일 키, 단축키, 누르고 있는 보조 키에 할당하고, 길게 누르기 동작을 따로 지정할 수 있으며, 단축키를 보내기 전에 지정한 입력기로 전환할 수도 있습니다. 창을 닫아도 백그라운드에서 동작하고, 트레이 아이콘은 숨길 수 있으며 로그인 시 자동 실행도 지원합니다."
+	},
+	"icon": {
+		"file": "mouse-mapper.webp"
+	},
+	"screenshot": "mouse-mapper.webp",
+	"added": "2026-11-06T07:59:41Z"
+}
