@@ -13,7 +13,12 @@
 		"acrylic"
 	],
 	"summary": {
-		"en": "An agent skill for an acrylic look in MyGo native UI: system frosted materials, a tinted window and translucent cards, with a Go component package."
+		"en": "An agent skill for an acrylic, frosted look in MyGo native UI apps: a system-material window backdrop, translucent cards and a ready-to-copy Go component package.",
+		"zh-CN": "为 MyGo 原生 UI 应用打造亚克力磨砂外观的智能体技能，包括系统材质窗口底、半透明卡片，以及可直接复制使用的 Go 组件包。",
+		"zh-TW": "為 MyGo 原生 UI 應用程式打造壓克力霧面外觀的代理技能，包含系統材質視窗底、半透明卡片，以及可直接複製使用的 Go 元件套件。",
+		"ja": "MyGo のネイティブ UI アプリをアクリル調のすりガラス風にするエージェントスキル。システムマテリアルのウィンドウ背景、半透明のカード、そのままコピーして使える Go コンポーネントパッケージを備えます。",
+		"ko": "MyGo 네이티브 UI 앱에 아크릴 반투명 유리 질감을 입히는 에이전트 스킬입니다. 시스템 재질 창 배경, 반투명 카드, 그대로 복사해 쓰는 Go 컴포넌트 패키지를 제공합니다."
 	},
+	"screenshot": "mygo-acrylic.webp",
 	"added": "2026-11-06T05:49:10Z"
 }
