@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "vitals",
+	"name": "Vitals",
+	"author": "xbenduan",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/xbenduan/vitals",
+	"repo": "xbenduan/vitals",
+	"summary": {
+		"en": "A macOS menu bar monitor for CPU, memory, GPU, network and battery, with app cleanup tools.",
+		"zh-CN": "macOS 菜单栏监控：CPU、内存、GPU、网络与电池，附应用清理工具。",
+		"zh-TW": "macOS 選單列監控：CPU、記憶體、GPU、網路與電池，附應用程式清理工具。",
+		"ja": "CPU・メモリ・GPU・ネットワーク・電池を表示し、アプリも整理できる macOS メニューバーアプリ。",
+		"ko": "CPU, 메모리, GPU, 네트워크, 배터리를 보여 주고 앱도 정리하는 macOS 메뉴바 앱."
+	},
+	"description": {
+		"en": "A macOS 13+ menu bar app drawn with MyGo's native UI. It shows CPU, memory, GPU and network rates live in the menu bar, and battery charge, health and cycle count on a MacBook. It lists each app's memory use and can quit one app to free it, and uninstalls apps with their related files by moving everything to the Trash. It is not yet notarized by Apple.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 13+ 菜单栏工具。菜单栏实时显示 CPU、内存、GPU 与网络速率，在 MacBook 上还能查看电量、健康度和循环次数。它列出各应用的内存占用，可退出单个应用释放内存；卸载时连同关联文件一并移入废纸篓。目前尚未经过 Apple 公证。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS 13+ 選單列工具。選單列即時顯示 CPU、記憶體、GPU 與網路速率，在 MacBook 上還能查看電量、健康度和循環次數。它列出各應用程式的記憶體用量，可結束單一應用程式以釋放記憶體；解除安裝時連同相關檔案一併移到垃圾桶。目前尚未經過 Apple 公證。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS 13 以降向けのメニューバーツール。CPU・メモリ・GPU・ネットワーク速度をメニューバーにリアルタイム表示し、MacBook ではバッテリー残量、健全性、充放電回数も確認できます。アプリごとのメモリ使用量を一覧して個別に終了でき、アンインストール時は関連ファイルごとゴミ箱へ移します。Apple の公証はまだ受けていません。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS 13 이상용 메뉴 막대 도구입니다. CPU, 메모리, GPU, 네트워크 속도를 메뉴 막대에 실시간으로 보여 주고, MacBook에서는 배터리 잔량, 상태, 사이클 수도 확인할 수 있습니다. 앱별 메모리 사용량을 보고 앱 하나를 종료해 메모리를 확보할 수 있으며, 앱을 지울 때는 관련 파일까지 모두 휴지통으로 옮깁니다. 아직 Apple 공증을 받지 않았습니다."
+	},
+	"icon": {
+		"file": "vitals.webp"
+	},
+	"screenshot": "vitals.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-06T03:34:18Z"
+}
