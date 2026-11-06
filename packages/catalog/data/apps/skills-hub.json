@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "skills-hub",
+	"name": "Skills Hub",
+	"author": "Riablo",
+	"kind": "web",
+	"group": "agents",
+	"url": "https://github.com/Riablo/skills-hub",
+	"repo": "Riablo/skills-hub",
+	"summary": {
+		"en": "Manages agent skills in one store and installs them globally or per project, locally or over SSH.",
+		"zh-CN": "集中管理 Agent Skills，分发到全局或各个项目，本机和 SSH 主机都行。",
+		"zh-TW": "集中管理 Agent Skills，分發到全域或各個專案，本機和 SSH 主機皆可。",
+		"ja": "Agent Skills をまとめて管理し、全体や各プロジェクトに配布。SSH 先にも対応。",
+		"ko": "Agent Skills를 한곳에서 관리하고 전역이나 프로젝트별로 설치합니다. SSH도 지원."
+	},
+	"description": {
+		"en": "A macOS app for Agent Skills, built on MyGo with a React web frontend. It installs skills into one store from skills.sh's npx skills add commands or a local folder, then links them globally or copies them into projects, on this machine or on SSH hosts. It shows which projects are behind the store and can pin skills to manual or automatic invocation in Claude Code and Codex.",
+		"zh-CN": "管理 Agent Skills 的 macOS 应用，基于 MyGo 与 React 网页前端构建。粘贴 skills.sh 上的 npx skills add 命令或关联本地文件夹，就能把技能集中到一个仓库，再用软链接分发到全局，或复制到各个项目，本机和 SSH 主机都支持。它会标出哪些项目落后于仓库，还能为 Claude Code 和 Codex 把技能固定为手动或自动触发。",
+		"zh-TW": "管理 Agent Skills 的 macOS 應用程式，以 MyGo 與 React 網頁前端打造。貼上 skills.sh 的 npx skills add 指令或連結本機資料夾，就能把技能集中到一個儲存庫，再用符號連結分發到全域，或複製到各個專案，本機和 SSH 主機都支援。它會標出哪些專案落後於儲存庫，還能為 Claude Code 和 Codex 把技能固定為手動或自動觸發。",
+		"ja": "Agent Skills を管理する macOS アプリで、MyGo と React の Web フロントエンドで作られています。skills.sh の npx skills add コマンドを貼り付けるかローカルフォルダーを関連付けてスキルを一つのストアに集め、グローバルにはシンボリックリンクで、各プロジェクトにはコピーで配布します。手元のマシンでも SSH ホストでも使えます。ストアより古いプロジェクトを示し、Claude Code と Codex での手動・自動呼び出しも固定できます。",
+		"ko": "Agent Skills를 관리하는 macOS 앱으로, MyGo와 React 웹 프런트엔드로 만들었습니다. skills.sh의 npx skills add 명령을 붙여 넣거나 로컬 폴더를 연결해 스킬을 하나의 저장소에 모으고, 전역에는 심볼릭 링크로, 각 프로젝트에는 복사로 배포합니다. 로컬과 SSH 호스트 모두 지원합니다. 저장소보다 뒤처진 프로젝트를 보여 주고, Claude Code와 Codex에서 스킬을 수동 또는 자동 호출로 고정할 수 있습니다."
+	},
+	"icon": {
+		"file": "skills-hub.webp"
+	},
+	"screenshot": "skills-hub.webp",
+	"added": "2026-11-06T04:56:38Z"
+}
