@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mu",
+	"name": "Mu",
+	"author": "spachava753",
+	"kind": "native",
+	"group": "agents",
+	"url": "https://github.com/spachava753/mu",
+	"repo": "spachava753/mu",
+	"summary": {
+		"en": "A native desktop client for ACP coding agents, with parallel threads and Git worktrees.",
+		"zh-CN": "面向 ACP 编程智能体的原生桌面客户端，支持多线程并行和 Git worktree。",
+		"zh-TW": "面向 ACP 程式設計代理的原生桌面用戶端，支援平行對話串與 Git worktree。",
+		"ja": "ACP 対応のコーディングエージェント用ネイティブクライアント。複数スレッドを並行して実行。",
+		"ko": "ACP 코딩 에이전트용 네이티브 데스크톱 클라이언트. 여러 스레드를 동시에 실행합니다."
+	},
+	"description": {
+		"en": "A native desktop client for coding agents that speak ACP, written in Go and drawn with MyGo's native UI, for Linux and macOS. It runs several threads at once, each in its own folder or a Git worktree, streams replies with plans, tool calls and diffs, and handles permission requests. Pi works out of the box; Mu installs no agents, does not sandbox them and saves no transcripts.",
+		"zh-CN": "用 Go 编写、由 MyGo 原生 UI 绘制的 ACP 编程智能体桌面客户端，支持 Linux 与 macOS。可同时运行多个线程，每个线程使用独立文件夹或 Git worktree；回复实时流式显示，包括计划、工具调用和 diff，并可处理权限请求。已安装 Pi 即可直接使用；Mu 不安装智能体，也不为其提供沙箱，不保存对话记录。",
+		"zh-TW": "用 Go 撰寫、由 MyGo 原生 UI 繪製的 ACP 程式設計代理桌面用戶端，支援 Linux 與 macOS。可同時執行多個對話串，各自使用獨立資料夾或 Git worktree；回覆即時串流顯示，包含計畫、工具呼叫與 diff，也能處理權限請求。裝好 Pi 即可直接使用；Mu 不會安裝代理，也不提供沙箱，不保存對話紀錄。",
+		"ja": "Go で書かれ、MyGo のネイティブ UI で描かれた、ACP に対応するコーディングエージェント用のデスクトップクライアント。Linux と macOS で動きます。複数のスレッドを同時に走らせ、それぞれ専用フォルダーか Git worktree で作業でき、返答は計画、ツール呼び出し、差分とともにストリーミング表示され、権限の確認にも答えられます。Pi はインストール済みならそのまま使えます。Mu はエージェントをインストールせず、サンドボックス化もせず、会話も保存しません。",
+		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 ACP 코딩 에이전트용 데스크톱 클라이언트로, Linux와 macOS를 지원합니다. 여러 스레드를 동시에 실행하며 각각 별도 폴더나 Git 워크트리에서 작업하고, 응답은 계획, 도구 호출, diff와 함께 스트리밍되며 권한 요청에도 답합니다. Pi가 설치되어 있으면 바로 쓸 수 있으며, Mu는 에이전트를 설치하거나 샌드박스하지 않고 대화 기록도 저장하지 않습니다."
+	},
+	"icon": {
+		"file": "mu.webp"
+	},
+	"screenshot": "mu.webp",
+	"added": "2026-11-06T06:33:05Z"
+}
