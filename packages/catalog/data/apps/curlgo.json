@@ -8,10 +8,22 @@
 	"url": "https://github.com/echoVic/curlgo",
 	"repo": "echoVic/curlgo",
 	"summary": {
-		"en": "A lightweight local API client with a native UI: HTTP, SSE and WebSocket requests, with curl import and export."
+		"en": "A native local API client for HTTP, SSE and WebSocket requests, with curl import and export.",
+		"zh-CN": "原生 API 客户端：HTTP、SSE、WebSocket 请求，curl 导入导出。",
+		"zh-TW": "原生 API 用戶端：HTTP、SSE、WebSocket 請求，curl 匯入匯出。",
+		"ja": "ネイティブな API クライアント。HTTP・SSE・WebSocket と curl の読み書きに対応。",
+		"ko": "네이티브 API 클라이언트. HTTP, SSE, WebSocket과 curl 가져오기·내보내기."
 	},
 	"description": {
-		"en": "A lightweight local API client drawn with MyGo's native UI. It sends HTTP, SSE and WebSocket requests, imports and exports curl and Postman or Bruno collections, and keeps environments, secrets, cookies and history on the machine with no account. An optional command-line tool runs the same requests."
+		"en": "A local API client drawn with MyGo's native UI, with no account needed. It sends HTTP, SSE and WebSocket requests, imports curl and Postman v2.1 or Bruno collections, exports curl and Postman, and keeps environments, encrypted secrets, cookies and history on the machine. An optional CLI runs HTTP requests; the release installer is for macOS Apple Silicon only, and other platforms build from source.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的本地 API 客户端，无需账户。可发送 HTTP、SSE 与 WebSocket 请求，导入 curl 及 Postman v2.1、Bruno 集合，导出 curl 与 Postman 集合，环境、加密机密、Cookie 与历史都保存在本机。另有可选 CLI 执行 HTTP 请求；安装包目前只面向 macOS Apple Silicon，其他平台需从源码构建。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的本機 API 用戶端，無需帳號。可發送 HTTP、SSE 與 WebSocket 請求，匯入 curl 及 Postman v2.1、Bruno 集合，匯出 curl 與 Postman 集合，環境、加密機密、Cookie 與歷史紀錄都存在本機。另有選用的 CLI 可執行 HTTP 請求；安裝檔目前僅提供 macOS Apple Silicon 版，其他平台需從原始碼建置。",
+		"ja": "MyGo のネイティブ UI で描かれた、アカウント不要のローカル API クライアントです。HTTP・SSE・WebSocket のリクエストを送り、curl と Postman v2.1・Bruno のコレクションを読み込み、curl と Postman 形式で書き出せます。環境、暗号化した機密値、Cookie、履歴は手元に保存されます。任意で CLI からも HTTP リクエストを実行できます。配布版は macOS Apple Silicon 用のみで、他はソースからビルドします。",
+		"ko": "MyGo의 네이티브 UI로 그린, 계정이 필요 없는 로컬 API 클라이언트입니다. HTTP, SSE, WebSocket 요청을 보내고 curl과 Postman v2.1·Bruno 컬렉션을 가져오며, curl과 Postman으로 내보냅니다. 환경, 암호화된 비밀 값, 쿠키, 기록은 기기에 저장됩니다. 선택형 CLI도 있으며, 설치 파일은 macOS Apple Silicon용뿐이고 다른 플랫폼은 소스로 빌드합니다."
 	},
+	"icon": {
+		"file": "curlgo.webp"
+	},
+	"screenshot": "curlgo.webp",
 	"added": "2026-11-06T00:53:33Z"
 }
