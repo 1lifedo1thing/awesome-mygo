@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "ds-search",
+	"name": "DS Search",
+	"author": "horizon0514",
+	"kind": "native",
+	"group": "ai",
+	"url": "https://github.com/horizon0514/ds-search",
+	"repo": "horizon0514/ds-search",
+	"summary": {
+		"en": "A macOS menu bar search panel on DeepSeek's APIs, with cited AI answers and cost tracking.",
+		"zh-CN": "macOS 菜单栏搜索面板，基于 DeepSeek API，附 AI 总结与费用统计。",
+		"zh-TW": "macOS 選單列搜尋面板，基於 DeepSeek API，附 AI 摘要與費用統計。",
+		"ja": "DeepSeek の API を使う macOS メニューバー検索パネル。AI 要約と費用管理付き。",
+		"ko": "DeepSeek API 기반 macOS 메뉴 막대 검색 패널. AI 요약과 비용 추적 지원."
+	},
+	"description": {
+		"en": "A macOS menu bar search panel drawn with MyGo's native UI, with no WebView. ⌥Space opens a Spotlight-style panel that searches the web through DeepSeek's Search API, previews pages in reader mode and, on Tab, opens an AI chat that summarizes results with citations and searches again for follow-ups. It uses your own DeepSeek API key and tracks estimated costs; the UI is in Chinese for now.",
+		"zh-CN": "用纯 Go 编写、由 MyGo 原生 UI 绘制的 macOS 菜单栏搜索面板，没有 WebView。按 ⌥空格 唤出 Spotlight 式面板，通过 DeepSeek Search API 搜索网页，可用阅读模式预览正文；按 ⇥ 展开 AI 对话，对结果做带引用的总结，追问时来源不够会自己再搜。需要自备 DeepSeek API Key，并在本机估算费用；目前界面为中文。",
+		"zh-TW": "以純 Go 撰寫、由 MyGo 原生 UI 繪製的 macOS 選單列搜尋面板，沒有 WebView。按 ⌥空格 叫出 Spotlight 式面板，透過 DeepSeek Search API 搜尋網頁，可用閱讀模式預覽內文；按 ⇥ 展開 AI 對話，為結果做附引用的摘要，追問時來源不足會自行再搜尋。需自備 DeepSeek API Key，並在本機估算費用；介面目前為中文。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS のメニューバー検索パネルで、WebView は使いません。⌥Space で Spotlight 風のパネルを開き、DeepSeek Search API でウェブを検索し、リーダーモードで本文をプレビューできます。⇥ で開く AI チャットは結果を出典付きで要約し、追加の質問で情報が足りなければ自ら検索し直します。自分の DeepSeek API キーが必要で、費用は手元で見積もります。現在 UI は中国語のみです。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS 메뉴 막대 검색 패널로, WebView를 쓰지 않습니다. ⌥Space로 Spotlight식 패널을 열어 DeepSeek Search API로 웹을 검색하고 읽기 모드로 미리 봅니다. ⇥로 여는 AI 대화는 결과를 출처와 함께 요약하고, 추가 질문에 출처가 부족하면 스스로 다시 검색합니다. 본인 DeepSeek API 키가 필요하고 비용은 로컬에서 추정하며, UI는 현재 중국어뿐입니다."
+	},
+	"icon": {
+		"file": "ds-search.webp"
+	},
+	"screenshot": "ds-search.webp",
+	"added": "2026-11-06T03:54:55Z"
+}
