@@ -21,12 +21,9 @@
 		"ja": "MyGo のネイティブ UI で描かれたスリープタイマー。Windows x64 と Apple Silicon・Intel の macOS に対応します。最長 24 時間のカウントダウンか時刻を指定し、ウィンドウを閉じればトレイに収まります。時間になると 60 秒間警告を出し、その間に取り消しや 15 分の延長ができ、その後システムにスリープを要求します。既存の電源設定に従い、PC を起こしたままにはしません。",
 		"ko": "MyGo의 네이티브 UI로 그린 절전 타이머로, Windows x64와 Apple Silicon·Intel macOS를 지원합니다. 최대 24시간 카운트다운이나 특정 시각을 정하고 창을 닫으면 트레이로 들어갑니다. 시간이 되면 60초 동안 알려 주며 그사이 취소하거나 15분 미룰 수 있고, 이후 시스템에 절전을 요청합니다. 기존 전원 설정을 따르며 컴퓨터를 깨어 있게 유지하지 않습니다."
 	},
+	"screenshot": "sleepdock.webp",
 	"icon": {
 		"file": "sleepdock.webp"
 	},
-	"screenshot": "sleepdock.webp",
-	"provisional": [
-		"screenshot"
-	],
 	"added": "2026-11-05T17:06:44Z"
 }
