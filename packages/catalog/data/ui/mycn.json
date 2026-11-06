@@ -1,0 +1,19 @@
+{
+	"$schema": "../schema/ui.schema.json",
+	"slug": "mycn",
+	"name": "mycn",
+	"author": "addidotlol",
+	"tag": "theme",
+	"surface": "native",
+	"summary": {
+		"en": "shadcn/ui-style components for MyGo native UI, with buttons, inputs, dialogs, selects, tabs and toasts, and five shadcn theme presets.",
+		"zh-CN": "MyGo 原生 UI 的 shadcn/ui 风格组件库，含按钮、输入框、对话框、标签页等，附五套主题预设。",
+		"zh-TW": "MyGo 原生 UI 的 shadcn/ui 風格元件庫，含按鈕、輸入框、對話框、分頁等，附五套主題預設。",
+		"ja": "MyGo ネイティブ UI 向けの shadcn/ui 風コンポーネント集。ボタン、入力欄、ダイアログ、セレクト、タブ、トーストと 5 種のテーマプリセット付き。",
+		"ko": "MyGo 네이티브 UI용 shadcn/ui 스타일 컴포넌트로, 버튼, 입력, 대화상자, 선택, 탭, 토스트와 다섯 가지 테마 프리셋을 제공합니다."
+	},
+	"repo": "addidotlol/mycn",
+	"url": "https://github.com/addidotlol/mycn",
+	"screenshot": "mycn.webp",
+	"added": "2026-11-06T06:33:05Z"
+}
