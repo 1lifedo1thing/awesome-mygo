@@ -25,5 +25,8 @@
 		"file": "switchhosts-native.webp"
 	},
 	"screenshot": "switchhosts-native.webp",
+	"provisional": [
+		"screenshot"
+	],
 	"added": "2026-11-06T01:05:06Z"
 }
