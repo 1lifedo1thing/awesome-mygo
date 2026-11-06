@@ -20,5 +20,8 @@
 		"ko": "MyGo 앱 개발을 위한 에이전트 스킬 모음으로, 앱 구조와 테스트, 컴포넌트, 데스크톱 서비스, 웹 프런트엔드, 모션, 커스텀 그리기를 다룹니다."
 	},
 	"screenshot": "mygo-skills.webp",
+	"provisional": [
+		"screenshot"
+	],
 	"added": "2026-11-06T05:49:05Z"
 }
