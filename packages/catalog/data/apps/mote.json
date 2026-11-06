@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mote",
+	"name": "Mote",
+	"author": "xinde",
+	"kind": "native",
+	"group": "notes",
+	"url": "https://github.com/xinde/Mote",
+	"repo": "xinde/Mote",
+	"summary": {
+		"en": "A macOS menu bar Markdown notepad and Pomodoro timer, kept in local SQLite.",
+		"zh-CN": "macOS 菜单栏上的 Markdown 记事本和番茄钟，数据存于本机 SQLite。",
+		"zh-TW": "macOS 選單列上的 Markdown 記事本與番茄鐘，資料存於本機 SQLite。",
+		"ja": "macOS のメニューバーで使う Markdown メモ帳とポモドーロタイマー。",
+		"ko": "macOS 메뉴 막대의 Markdown 메모장 겸 뽀모도로 타이머. 로컬 SQLite에 저장."
+	},
+	"description": {
+		"en": "A macOS menu bar notepad and Pomodoro timer built only from MyGo's native components. ⇧⌘M opens a panel from any app to write Markdown with preview and autosave, or pin a note in a window that floats above other apps. The timer counts down in the menu bar and sends a notification when a session ends. Notes and finished sessions stay in local SQLite and are never uploaded.",
+		"zh-CN": "完全用 MyGo 原生组件实现的 macOS 菜单栏记事本与番茄钟。在任意 App 中按 ⇧⌘M 即可呼出面板写 Markdown，支持预览和自动保存，也能把记录钉成浮在其他 App 之上的独立窗口。计时时菜单栏显示倒计时，结束后发送系统通知。记录和完成的专注阶段都保存在本机 SQLite，不会上传。",
+		"zh-TW": "完全以 MyGo 原生元件打造的 macOS 選單列記事本與番茄鐘。在任何 App 中按 ⇧⌘M 就能叫出面板寫 Markdown，支援預覽與自動儲存，也能把記錄釘成浮在其他 App 之上的獨立視窗。計時時選單列會顯示倒數，結束後發送系統通知。記錄與完成的專注階段都存在本機 SQLite，不會上傳。",
+		"ja": "MyGo のネイティブコンポーネントだけで作られた、macOS のメニューバー用メモ帳兼ポモドーロタイマー。どのアプリからでも ⇧⌘M でパネルを開いて Markdown を書け、プレビューと自動保存に対応し、メモを他のアプリの上に浮かぶ別ウィンドウにピン留めすることもできます。タイマーはメニューバーに残り時間を表示し、終了時にシステム通知を送ります。メモと完了したセッションはローカルの SQLite に保存され、アップロードはされません。",
+		"ko": "MyGo의 네이티브 컴포넌트만으로 만든 macOS 메뉴 막대용 메모장 겸 뽀모도로 타이머입니다. 어떤 앱에서든 ⇧⌘M으로 패널을 열어 Markdown을 쓰고 미리보기와 자동 저장을 쓸 수 있으며, 메모를 다른 앱 위에 떠 있는 별도 창으로 고정할 수도 있습니다. 타이머는 메뉴 막대에 남은 시간을 보여 주고 끝나면 시스템 알림을 보냅니다. 메모와 완료한 세션은 로컬 SQLite에 저장되며 업로드되지 않습니다."
+	},
+	"icon": {
+		"file": "mote.webp"
+	},
+	"screenshot": "mote.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-06T07:59:41Z"
+}
