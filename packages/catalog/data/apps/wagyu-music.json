@@ -27,5 +27,9 @@
 		"ja": "Go で書かれ、MyGo のネイティブ UI で描かれた WebView なしのデスクトップクライアントです。NAS 上の飛牛音楽（FN Music）、セルフホストの Songloft、Navidrome・Jellyfin・Gonic などの Subsonic / OpenSubsonic 互換サービスに接続できます。プラットフォームごとにアカウント、プレイリスト、お気に入り、再生設定を分けて保ちながら、下部プレーヤー、再生中ページ、一文字ずつ進む歌詞、キャッシュは共通の体験として使えます。DSD、DTS、FLAC、APE、ALAC、CUE シートをローカルでデコードし、LAN 内の DLNA / UPnP スピーカーやテレビへキャスト、画面上部のノッチにミニプレーヤーを表示することもできます。",
 		"ko": "Go로 작성하고 MyGo의 네이티브 UI로 그린 WebView 없는 데스크톱 클라이언트입니다. NAS의 飛牛 뮤직(FN Music), 자체 호스팅 Songloft, Navidrome·Jellyfin·Gonic 같은 Subsonic / OpenSubsonic 호환 서비스에 연결합니다. 플랫폼마다 계정, 플레이리스트, 즐겨찾기, 재생 설정을 따로 보관하면서 하단 플레이어, 재생 중 화면, 글자 단위 가사, 캐시는 하나의 경험으로 공유합니다. DSD, DTS, FLAC, APE, ALAC, CUE 시트를 로컬에서 디코딩하고, 같은 네트워크의 DLNA / UPnP 스피커와 TV로 전송하며, 화면 상단 노치에 미니 플레이어를 표시할 수 있습니다."
 	},
+	"icon": {
+		"file": "wagyu-music.webp"
+	},
+	"screenshot": "wagyu-music.webp",
 	"added": "2026-11-07T02:39:33Z"
 }
