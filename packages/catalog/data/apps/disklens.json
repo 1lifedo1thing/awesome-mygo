@@ -25,8 +25,5 @@
 		"file": "disklens.webp"
 	},
 	"screenshot": "disklens.webp",
-	"provisional": [
-		"screenshot"
-	],
 	"added": "2026-11-05T09:41:01Z"
 }

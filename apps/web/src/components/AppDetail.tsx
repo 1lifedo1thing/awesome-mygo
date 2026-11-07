@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import { type App, APPS, HAS_SCORES, type LangCode, appGroup, appSource, authorProfile, entryScore, fill, hostOf, likeKey, pick } from '@awesome-mygo/catalog';
 import { Link } from '@tanstack/react-router';
 import { useLang, useT } from '../lib/lang';
@@ -41,17 +40,8 @@ function addedOn(added: string, lang: LangCode): string {
 	return new Intl.DateTimeFormat(lang, { dateStyle: 'medium', timeZone: 'UTC' }).format(new Date(added));
 }
 
-// A URL without its scheme, split after each slash. On a phone each part is its own inline box, so a long URL wraps between its parts (the host, the owner, the repository) rather than mid-word or at a hyphen, and only a part wider than the line wraps inside itself. From sm up the parts are plain text and the column breaks anywhere, as before.
-function urlParts(url: string) {
-	return url.split(/(?<=\/)/).map((part, i) => (
-		<Fragment key={i}>
-			{i > 0 && <wbr />}
-			<span className='max-sm:inline-block max-sm:max-w-full'>{part}</span>
-		</Fragment>
-	));
-}
-
-const urlDd = 'font-mono text-[13px] break-all max-sm:wrap-anywhere max-sm:[word-break:normal]';
+// Keep URLs breakable when a narrow column needs it, but let the browser use normal punctuation opportunities first.
+const urlDd = 'font-mono text-[13px] wrap-break-word';
 
 export function AppFacts({ view, kindLabel }: { view: AppView; kindLabel: string }) {
 	const t = useT();
@@ -84,7 +74,7 @@ export function AppFacts({ view, kindLabel }: { view: AppView; kindLabel: string
 			<dt>{t.f_site}</dt>
 			<dd className={urlDd}>
 				<a href={app.url} target='_blank' rel='noopener'>
-					{urlParts(view.host)}
+					{view.host}
 				</a>
 			</dd>
 			{src && (
@@ -92,7 +82,7 @@ export function AppFacts({ view, kindLabel }: { view: AppView; kindLabel: string
 					<dt>{t.f_src}</dt>
 					<dd className={urlDd}>
 						<a href={src} target='_blank' rel='noopener'>
-							{urlParts(hostOf(src))}
+							{hostOf(src)}
 						</a>
 					</dd>
 				</>

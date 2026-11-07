@@ -79,7 +79,7 @@ function Solutions() {
 							</div>
 						</div>
 						<div className='flex items-center justify-between gap-2 rounded-lg bg-ink py-[3px] pr-[3px] pl-2.5 font-mono text-xs text-paper min-[480px]:col-span-2'>
-							<code lang='en' className='min-w-0 break-all'>
+							<code lang='en' className='min-w-0 wrap-break-word'>
 								<span className='text-sky'>❯ </span>
 								<span className='text-yel'>{s.install}</span>
 							</code>

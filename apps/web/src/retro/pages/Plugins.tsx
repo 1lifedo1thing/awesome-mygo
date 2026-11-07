@@ -115,7 +115,7 @@ function Cli() {
 					const key = i === 0 ? 'cmd0' : 'cmd1';
 					return (
 						<div key={cmd} className='flex items-center justify-between gap-2'>
-							<code lang='en' className='min-w-0 break-all'>
+							<code lang='en' className='min-w-0 wrap-break-word'>
 								<span className='text-sky'>~/code $ </span>
 								<span className='text-yel'>{cmd}</span>
 							</code>

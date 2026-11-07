@@ -26,8 +26,5 @@
 		"file": "byr-client.webp"
 	},
 	"screenshot": "byr-client.webp",
-	"provisional": [
-		"screenshot"
-	],
 	"added": "2026-11-05T03:47:54Z"
 }

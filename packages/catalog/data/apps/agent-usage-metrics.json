@@ -26,8 +26,5 @@
 		"file": "agent-usage-metrics.webp"
 	},
 	"screenshot": "agent-usage-metrics.webp",
-	"provisional": [
-		"screenshot"
-	],
 	"added": "2026-11-05T05:02:32Z"
 }
