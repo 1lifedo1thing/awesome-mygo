@@ -41,7 +41,7 @@ function addedOn(added: string, lang: LangCode): string {
 }
 
 // Keep URLs breakable when a narrow column needs it, but let the browser use normal punctuation opportunities first.
-const urlDd = 'font-mono text-[13px] wrap-anywhere [word-break:normal]';
+const urlDd = 'font-mono text-[13px] wrap-break-word';
 
 export function AppFacts({ view, kindLabel }: { view: AppView; kindLabel: string }) {
 	const t = useT();

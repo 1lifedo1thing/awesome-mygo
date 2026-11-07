@@ -326,7 +326,7 @@ function Modal() {
 								<summary className='w-fit cursor-pointer text-[14px] font-bold text-fg-2 group-open:mb-2.5 hover:text-fg max-md:py-2.5'>
 									{t.m_preview} · <span lang='en'>{`${DATA_DIR}/${file}`}</span>
 								</summary>
-								<pre className='m-0 max-h-[260px] overflow-auto rounded-[10px] border border-line-2 bg-bg px-4 py-3.5 font-mono text-[13px] leading-[1.7] wrap-anywhere [word-break:normal] whitespace-pre-wrap text-fg' lang='en'>
+								<pre className='m-0 max-h-[260px] overflow-auto rounded-[10px] border border-line-2 bg-bg px-4 py-3.5 font-mono text-[13px] leading-[1.7] wrap-break-word whitespace-pre-wrap text-fg' lang='en'>
 									{entry}
 								</pre>
 								<div className='mt-2.5 flex flex-wrap items-center gap-x-3.5 gap-y-2.5'>

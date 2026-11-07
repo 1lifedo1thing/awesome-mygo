@@ -67,13 +67,13 @@ export function AppFacts({ view }: { view: AppView }) {
 			<dt className='text-faint'>{t.f_ui}</dt>
 			<dd className='m-0'>{app.kind === 'native' ? t.surf_native : t.web_fe}</dd>
 			<dt className='text-faint'>{t.f_site}</dt>
-			<dd lang='en' className='m-0 font-mono wrap-anywhere [word-break:normal]'>
+			<dd lang='en' className='m-0 font-mono wrap-break-word'>
 				{view.host}
 			</dd>
 			{src && (
 				<>
 					<dt className='text-faint'>{t.f_src}</dt>
-					<dd lang='en' className='m-0 font-mono wrap-anywhere [word-break:normal]'>
+					<dd lang='en' className='m-0 font-mono wrap-break-word'>
 						<a className={lnk} href={src} target='_blank' rel='noopener'>
 							{hostOf(src)}
 						</a>

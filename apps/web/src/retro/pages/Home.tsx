@@ -102,7 +102,7 @@ function Terminal() {
 				</button>
 			</div>
 			<div className='rounded-lg bg-ink px-4 pt-3.5 pb-4 font-mono text-xs leading-5 text-paper'>
-				<p className='m-0 overflow-hidden wrap-anywhere [word-break:normal] desk:truncate'>
+				<p className='m-0 overflow-hidden wrap-break-word desk:truncate'>
 					<span className='text-sky'>~/code $ </span>
 					<span className='text-yel'>{cmd}</span>
 					<span aria-hidden='true' className='ml-0.5 inline-block h-[13px] w-[7px] animate-blink bg-paper align-[-2px]' />
