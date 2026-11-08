@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "althea",
+	"name": "Althea",
+	"author": "JoaoVitorOli",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/JoaoVitorOli/althea",
+	"repo": "JoaoVitorOli/althea",
+	"summary": {
+		"en": "A keyboard launcher for Windows: find apps, run system commands and do quick math from one hotkey.",
+		"zh-CN": "Windows 键盘启动器：一个快捷键即可查找应用、执行系统命令、快速计算。",
+		"zh-TW": "Windows 鍵盤啟動器：一個快速鍵即可尋找應用程式、執行系統指令、快速計算。",
+		"ja": "Windows 用キーボードランチャー。ひとつのホットキーでアプリ検索、システム操作、計算。",
+		"ko": "Windows용 키보드 런처. 단축키 하나로 앱 검색, 시스템 명령, 계산을 처리합니다."
+	},
+	"description": {
+		"en": "A keyboard launcher for Windows 11 drawn with MyGo's native UI. Alt+Space opens a search bar that fuzzily finds Win32 and Store apps and system commands, learning what you pick, and works as a calculator for percentages, units and currencies. Every feature is a Go extension you can change in a fork, scripts can become commands, and it reaches the network only when you ask.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 11 键盘启动器。按 Alt+Space 打开搜索栏，模糊匹配 Win32 与商店应用及系统命令，并记住你的选择；也能当计算器，算百分比、单位和货币。每项功能都是可在分支中修改的 Go 扩展，脚本也能变成命令；没有遥测，只在你要求时联网。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows 11 鍵盤啟動器。按 Alt+Space 開啟搜尋列，模糊比對 Win32 與市集應用程式及系統指令，並記住你的選擇；也能當計算機，算百分比、單位和貨幣。每項功能都是可在分支中修改的 Go 擴充功能，腳本也能變成指令；沒有遙測，只在你要求時連網。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows 11 用のキーボードランチャー。Alt+Space で開く検索バーから、Win32 アプリやストアアプリ、システムコマンドをあいまい検索で探せ、よく選ぶものを学習します。パーセント、単位、通貨の計算もできます。機能はすべてフォークで変更できる Go の拡張で、スクリプトもコマンドにできます。テレメトリはなく、頼んだときだけネットワークに接続します。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows 11용 키보드 런처입니다. Alt+Space로 여는 검색창에서 Win32 앱과 스토어 앱, 시스템 명령을 퍼지 검색으로 찾고, 자주 고르는 항목을 학습합니다. 백분율, 단위, 통화 계산도 됩니다. 모든 기능은 포크에서 고칠 수 있는 Go 확장이고 스크립트도 명령이 되며, 텔레메트리 없이 요청할 때만 네트워크에 연결합니다."
+	},
+	"icon": {
+		"file": "althea.webp"
+	},
+	"screenshot": "althea.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-08T02:29:20Z"
+}
