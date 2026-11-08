@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "ipatlas",
+	"name": "IPAtlas",
+	"author": "mindfreq",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/mindfreq/ipatlas",
+	"repo": "mindfreq/ipatlas",
+	"summary": {
+		"en": "Subnet calculator and IP address manager with VLSM planning and a live TCP host scanner.",
+		"zh-CN": "子网计算与 IP 地址管理工具，支持 VLSM 规划和实时 TCP 主机扫描。",
+		"zh-TW": "子網路計算與 IP 位址管理工具，支援 VLSM 規劃和即時 TCP 主機掃描。",
+		"ja": "VLSM 計画と TCP ホストスキャンを備えた、サブネット計算・IP アドレス管理ツール。",
+		"ko": "VLSM 설계와 실시간 TCP 호스트 스캔을 갖춘 서브넷 계산·IP 주소 관리 도구."
+	},
+	"description": {
+		"en": "A subnet calculator and IP address manager drawn with MyGo's native UI, with no web view; prebuilt packages are for Windows and Linux. It works out IPv4 subnets and VLSM plans, compresses, expands and splits IPv6 prefixes, and keeps labeled IPv4 networks and addresses in a local SQLite database. A TCP scanner probes five ports to show which addresses answer, with MAC addresses on Linux.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的子网计算与 IP 地址管理工具，没有 Web 视图，提供 Windows 与 Linux 预编译包。它能计算 IPv4 子网、规划 VLSM 分配，压缩、展开和拆分 IPv6 前缀，并把带标签的 IPv4 网络与地址保存在本地 SQLite 数据库中。内置的 TCP 扫描器探测五个端口，显示哪些地址有响应，在 Linux 上还能读取 MAC 地址。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的子網路計算與 IP 位址管理工具，沒有 Web 視圖，提供 Windows 與 Linux 預先編譯的套件。它能計算 IPv4 子網路、規劃 VLSM 配置，壓縮、展開和切分 IPv6 前綴，並把加上標籤的 IPv4 網路與位址存在本機 SQLite 資料庫中。內建的 TCP 掃描器會探測五個連接埠，顯示哪些位址有回應，在 Linux 上還能讀取 MAC 位址。",
+		"ja": "MyGo のネイティブ UI で描かれたサブネット計算・IP アドレス管理ツールで、Web ビューはありません。ビルド済みパッケージは Windows と Linux 向けです。IPv4 サブネットの計算や VLSM の割り当て計画、IPv6 プレフィックスの短縮・展開・分割ができ、ラベルを付けた IPv4 ネットワークとアドレスはローカルの SQLite データベースに保存します。TCP スキャナーは 5 つのポートを調べて応答するアドレスを示し、Linux では MAC アドレスも表示します。",
+		"ko": "MyGo의 네이티브 UI로 그린 서브넷 계산·IP 주소 관리 도구로, 웹 뷰가 없으며 Windows와 Linux용 빌드 패키지를 제공합니다. IPv4 서브넷 계산과 VLSM 할당 설계, IPv6 프리픽스의 축약·확장·분할을 지원하고, 라벨을 붙인 IPv4 네트워크와 주소는 로컬 SQLite 데이터베이스에 저장합니다. TCP 스캐너는 포트 다섯 개를 확인해 응답하는 주소를 보여 주며, Linux에서는 MAC 주소도 표시합니다."
+	},
+	"icon": {
+		"file": "ipatlas.webp"
+	},
+	"screenshot": "ipatlas.webp",
+	"added": "2026-11-08T02:29:20Z"
+}
