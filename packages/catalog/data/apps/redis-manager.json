@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "redis-manager",
+	"name": "Redis Manager",
+	"author": "duanyongcheng",
+	"kind": "web",
+	"group": "dev",
+	"url": "https://github.com/duanyongcheng/redis-manager",
+	"repo": "duanyongcheng/redis-manager",
+	"summary": {
+		"en": "A desktop Redis manager with a key browser, CLI, monitoring charts and four switchable themes.",
+		"zh-CN": "Redis 桌面管理器：键浏览、CLI、监控图表，四套界面主题可切换。",
+		"zh-TW": "Redis 桌面管理工具：鍵瀏覽、CLI、監控圖表，四套介面主題可切換。",
+		"ja": "キーブラウザ、CLI、監視グラフを備えた Redis 用デスクトップ管理ツール。テーマは4種類。",
+		"ko": "키 브라우저, CLI, 모니터링 차트를 갖춘 Redis 데스크톱 관리 도구. 테마 4종 전환."
+	},
+	"description": {
+		"en": "A Redis desktop manager with a web frontend embedded in a Go app by MyGo. It saves and tests connections, browses keys with SCAN, runs commands in a built-in CLI and charts sampled metrics; string values can be shown raw or as JSON, Hex, HTML or Markdown. Passwords go to the system credential store, and the README only describes packaging for macOS.",
+		"zh-CN": "基于 Go 与 MyGo 的 Redis 桌面管理器，界面是嵌入 Go 应用的 Web 前端。可以保存并测试连接，用 SCAN 浏览键，在内置 CLI 中执行命令，并以图表显示采样指标；String 值可按原始、JSON、Hex、HTML 或 Markdown 查看。密码优先存入系统凭据存储，README 只介绍了 macOS 打包。",
+		"zh-TW": "以 Go 與 MyGo 打造的 Redis 桌面管理工具，介面是嵌入 Go 應用程式的 Web 前端。可儲存並測試連線，用 SCAN 瀏覽鍵，在內建 CLI 中執行指令，並以圖表顯示取樣指標；String 值可依原始、JSON、Hex、HTML 或 Markdown 檢視。密碼優先存入系統憑證儲存區，README 只說明了 macOS 打包。",
+		"ja": "Go と MyGo で作られた Redis 用デスクトップ管理ツールで、Go アプリに埋め込まれた Web フロントエンドを使います。接続の保存とテスト、SCAN によるキーの閲覧、内蔵 CLI でのコマンド実行、採取した指標のグラフ表示ができ、String の値は生データ、JSON、Hex、HTML、Markdown で表示できます。パスワードはシステムの資格情報ストアに保存され、README に書かれているのは macOS 向けのパッケージ作成のみです。",
+		"ko": "Go와 MyGo로 만든 Redis 데스크톱 관리 도구로, Go 앱에 내장된 웹 프런트엔드를 씁니다. 연결을 저장하고 테스트하며, SCAN으로 키를 탐색하고, 내장 CLI로 명령을 실행하고, 수집한 지표를 차트로 보여 줍니다. String 값은 원본, JSON, Hex, HTML, Markdown으로 볼 수 있습니다. 비밀번호는 시스템 자격 증명 저장소에 저장되며, README는 macOS 패키징만 설명합니다."
+	},
+	"icon": {
+		"file": "redis-manager.webp"
+	},
+	"screenshot": "redis-manager.webp",
+	"added": "2026-11-08T02:29:20Z"
+}
