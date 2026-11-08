@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "envman",
+	"name": "EnvMan",
+	"author": "zhimoe",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/zhimoe/envMan",
+	"repo": "zhimoe/envMan",
+	"summary": {
+		"en": "A Windows manager for user and system environment variables, with PATH editing, backups and undo.",
+		"zh-CN": "Windows 用户与系统环境变量管理工具，支持逐条编辑 PATH、自动备份和撤销。",
+		"zh-TW": "Windows 使用者與系統環境變數管理工具，可逐條編輯 PATH、自動備份與復原。",
+		"ja": "Windows のユーザー・システム環境変数を管理。PATH の項目編集、バックアップ、取り消しに対応。",
+		"ko": "Windows 사용자·시스템 환경 변수 관리 도구. PATH 항목별 편집, 백업, 실행 취소 지원."
+	},
+	"description": {
+		"en": "A Windows environment variable manager drawn with MyGo's native UI. It shows user and system variables together with which overrides which, splits PATH and other multi-value variables into editable lists, and writes the registry directly rather than through setx, which truncates long values. Each save is backed up first for restore and undo; UAC is asked for only when saving system variables.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 Windows 环境变量管理工具。它同时列出用户变量和系统变量并标出同名覆盖关系，把 PATH 等多值变量拆成可逐条编辑的列表，直接读写注册表，而不用会截断长值的 setx。每次写入前自动备份，可恢复和撤销；只有保存系统变量时才请求 UAC。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 Windows 環境變數管理工具。它同時列出使用者變數與系統變數並標出同名覆蓋關係，把 PATH 等多值變數拆成可逐條編輯的清單，直接讀寫登錄檔，而不使用會截斷長值的 setx。每次寫入前自動備份，可從備份還原，也能復原操作；只有儲存系統變數時才要求 UAC。",
+		"ja": "MyGo のネイティブ UI で描かれた Windows 用の環境変数マネージャー。ユーザー変数とシステム変数を並べて同名の上書き関係を示し、PATH などの複数の値を持つ変数を一項目ずつ編集できるリストに展開します。長い値を切り詰める setx は使わず、レジストリを直接読み書きします。書き込みのたびに自動でバックアップを取って復元と取り消しができ、UAC を求めるのはシステム変数を保存するときだけです。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows 환경 변수 관리 도구입니다. 사용자 변수와 시스템 변수를 함께 보여 주며 같은 이름의 덮어쓰기 관계를 표시하고, PATH 같은 다중 값 변수를 항목별로 편집할 수 있는 목록으로 펼칩니다. 긴 값을 잘라 내는 setx 대신 레지스트리를 직접 읽고 씁니다. 저장할 때마다 먼저 백업해 복원과 실행 취소가 가능하며, UAC는 시스템 변수를 저장할 때만 요청합니다."
+	},
+	"icon": {
+		"file": "envman.webp"
+	},
+	"screenshot": "envman.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-08T02:29:20Z"
+}
