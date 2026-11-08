@@ -1,0 +1,34 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "mojian",
+	"name": "Mojian",
+	"author": "ox0pine",
+	"kind": "native",
+	"platforms": [
+		"win",
+		"linux",
+		"mac"
+	],
+	"group": "dev",
+	"url": "https://github.com/ox0pine/mojian",
+	"repo": "ox0pine/mojian",
+	"summary": {
+		"en": "A quiet plain-text editor for folders, with tiled panes, terminals, Git diffs and SSH projects.",
+		"zh-CN": "安静的纯文本编辑器：直接打开文件夹，分栏、终端、Git 差异与 SSH 远程项目。",
+		"zh-TW": "安靜的純文字編輯器：直接開啟資料夾，分割窗格、終端機、Git 差異與 SSH 遠端專案。",
+		"ja": "フォルダーをそのまま開く静かなテキストエディタ。分割ペイン、ターミナル、Git、SSH に対応。",
+		"ko": "폴더를 그대로 여는 조용한 텍스트 편집기. 분할 창, 터미널, Git, SSH 원격 프로젝트 지원."
+	},
+	"description": {
+		"en": "A plain-text editor for macOS and Linux, drawn with MyGo's native UI (Metal on macOS, GTK 3 on Linux) with no webview. It opens ordinary folders with no database or account; each tab tiles panes that edit files, preview Markdown, images or PDFs, or run terminals that survive quitting the app. It also shows Git diffs and works on folders on SSH hosts in place.",
+		"zh-CN": "用 MyGo 原生 UI 绘制的 macOS 与 Linux 纯文本编辑器，macOS 上用 Metal，Linux 上用 GTK 3，没有 Web 视图。它直接打开普通文件夹，不需要数据库或账号；每个标签页可分成多个窗格，用来编辑文件，预览 Markdown、图片或 PDF，或运行退出应用后仍保留的终端。它还能查看 Git 差异，并通过 SSH 直接编辑远程主机上的文件夹。",
+		"zh-TW": "用 MyGo 原生 UI 繪製的 macOS 與 Linux 純文字編輯器，macOS 上用 Metal，Linux 上用 GTK 3，沒有 Web 視圖。它直接開啟一般資料夾，不需要資料庫或帳號；每個分頁可分割成多個窗格，用來編輯檔案，預覽 Markdown、圖片或 PDF，或執行關閉程式後仍保留的終端機。它也能檢視 Git 差異，並透過 SSH 直接編輯遠端主機上的資料夾。",
+		"ja": "MyGo のネイティブ UI で描かれた macOS・Linux 向けのテキストエディタ。macOS では Metal、Linux では GTK 3 を使い、Web ビューはありません。データベースもアカウントも不要で、普通のフォルダーをそのまま開きます。タブはペインに分割でき、ファイルの編集、Markdown・画像・PDF のプレビュー、アプリを終了しても残るターミナルを並べられます。Git の差分表示や、SSH ホスト上のフォルダーをその場で編集することもできます。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS·Linux용 텍스트 편집기로, macOS에서는 Metal, Linux에서는 GTK 3를 쓰며 웹 뷰가 없습니다. 데이터베이스나 계정 없이 평범한 폴더를 그대로 엽니다. 탭을 여러 창으로 나눠 파일을 편집하고 Markdown, 이미지, PDF를 미리 보거나, 앱을 종료해도 유지되는 터미널을 실행할 수 있습니다. Git 차이를 보여 주고 SSH 호스트의 폴더도 그 자리에서 편집합니다."
+	},
+	"icon": {
+		"file": "mojian.webp"
+	},
+	"screenshot": "mojian.webp",
+	"added": "2026-11-08T09:59:58Z"
+}
