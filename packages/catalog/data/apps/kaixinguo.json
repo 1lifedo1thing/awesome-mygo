@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "kaixinguo",
+	"name": "开心果",
+	"author": "kadaliao",
+	"kind": "native",
+	"group": "media",
+	"url": "https://github.com/kadaliao/kaixinguo",
+	"repo": "kadaliao/kaixinguo",
+	"summary": {
+		"en": "An unofficial, ad-free Mac client for Hongguo short dramas, with search, favorites and resume.",
+		"zh-CN": "红果短剧的非官方 Mac 客户端，无广告，可搜索、收藏和续播。",
+		"zh-TW": "紅果短劇的非官方 Mac 用戶端，無廣告，可搜尋、收藏與接續播放。",
+		"ja": "红果短剧の非公式 Mac クライアント。広告なしで、検索・お気に入り・続きから再生に対応。",
+		"ko": "红果短剧의 비공식 Mac 클라이언트. 광고 없이 검색, 즐겨찾기, 이어 보기를 지원합니다."
+	},
+	"description": {
+		"en": "An unofficial, ad-free macOS client for the Hongguo short drama service, drawn with MyGo's native UI, with a WebView only for playing video. It shows recommendations, rankings and hot searches, resumes each episode where you stopped, plays on into the next episode and season, and keeps favorites and history on your Mac. Episodes that need a Hongguo login cannot be played.",
+		"zh-CN": "红果短剧的非官方 macOS 客户端，没有广告，界面由 MyGo 原生 UI 绘制，只在播放视频时用到 WebView。可浏览推荐、排行榜和热搜，记住每集看到哪里，自动连播下一集和下一季，收藏与观看记录只存在本机。需要登录红果账号的剧集无法观看。",
+		"zh-TW": "紅果短劇的非官方 macOS 用戶端，沒有廣告，介面由 MyGo 原生 UI 繪製，只在播放影片時用到 WebView。可瀏覽推薦、排行榜和熱搜，記住每集看到哪裡，自動連播下一集和下一季，收藏與觀看紀錄只存在本機。需要登入紅果帳號的劇集無法觀看。",
+		"ja": "红果短剧の非公式 macOS クライアント。広告はなく、画面は MyGo のネイティブ UI で描かれ、WebView は動画の再生にだけ使います。おすすめ、ランキング、急上昇の検索ワードを見られ、各話の視聴位置を覚えて次の話や次のシーズンへ自動で進み、お気に入りと視聴履歴は Mac の中だけに保存します。红果のアカウントへのログインが必要な話は視聴できません。",
+		"ko": "红果短剧의 비공식 macOS 클라이언트로, 광고가 없고 화면은 MyGo의 네이티브 UI로 그리며 WebView는 동영상 재생에만 씁니다. 추천, 랭킹, 인기 검색어를 둘러보고, 회차마다 본 위치를 기억해 다음 회차와 다음 시즌으로 자동으로 이어 재생하며, 즐겨찾기와 시청 기록은 Mac에만 저장합니다. 红果 계정 로그인이 필요한 회차는 볼 수 없습니다."
+	},
+	"icon": {
+		"file": "kaixinguo.webp"
+	},
+	"screenshot": "kaixinguo.webp",
+	"added": "2026-11-08T02:29:20Z"
+}
