@@ -10,18 +10,18 @@
 	"url": "https://github.com/real-jacket/orbit",
 	"repo": "real-jacket/orbit",
 	"summary": {
-		"en": "A macOS front end for the mo CLI that cleans caches, uninstalls apps and maps disk usage.",
-		"zh-CN": "mo 命令行工具的 macOS 桌面客户端：清理缓存、卸载应用、分析磁盘占用。",
-		"zh-TW": "mo 命令列工具的 macOS 桌面用戶端：清理快取、解除安裝 App、分析磁碟用量。",
-		"ja": "mo CLI の macOS 向けクライアント。キャッシュ削除やアプリのアンインストール、ディスク分析に。",
-		"ko": "mo CLI용 macOS 데스크톱 클라이언트. 캐시 정리, 앱 제거, 디스크 사용량 분석."
+		"en": "Standalone macOS disk cleaner inspired by the mo CLI: cleans caches, uninstalls apps, maps disk usage.",
+		"zh-CN": "受 mo 命令行工具启发的独立 macOS 磁盘清理应用：清理缓存、卸载应用、分析磁盘占用。",
+		"zh-TW": "受 mo 命令列工具啟發的獨立 macOS 磁碟清理 App：清理快取、解除安裝 App、分析磁碟用量。",
+		"ja": "mo CLI に着想を得た単体の macOS ディスククリーナー。キャッシュ削除、アプリ削除、ディスク分析に。",
+		"ko": "mo CLI에서 영감을 받은 독립형 macOS 디스크 정리 앱. 캐시 정리, 앱 제거, 디스크 사용량 분석."
 	},
 	"description": {
-		"en": "A macOS 13+ client for the mo CLI (tw93/mole), written in Go with MyGo and a web frontend shown in WKWebView. It runs the mo you installed to clean caches, uninstall apps, optimize and purge build artifacts, previews every deletion with dry-run on by default, and adds its own treemap disk analyzer, live system readings and a menu bar item. mo is not bundled; install it separately.",
-		"zh-CN": "面向 mo 命令行工具（tw93/mole）的 macOS 13 及以上版本客户端，用 Go 编写，借助 MyGo 以 WKWebView 承载 Web 前端。它调用你已安装的 mo 来清理缓存、卸载应用、优化系统和清除项目构建产物，每次删除前都会预览，默认只做演练；另有自带的树状图磁盘分析、实时系统数据和菜单栏图标。mo 不随应用附带，需要另行安装。",
-		"zh-TW": "為 mo 命令列工具（tw93/mole）打造的 macOS 13 以上版本用戶端，以 Go 撰寫，透過 MyGo 用 WKWebView 呈現 Web 前端。它呼叫你已安裝的 mo 來清理快取、解除安裝 App、最佳化系統與清除專案建置產物，每次刪除前都會預覽，預設只做模擬執行；另有內建的樹狀圖磁碟分析、即時系統數據與選單列圖示。mo 不隨附，需另行安裝。",
-		"ja": "mo CLI（tw93/mole）のための macOS 13 以降向けクライアント。Go で書かれ、MyGo の WKWebView で Web フロントエンドを表示します。インストール済みの mo を呼び出してキャッシュ削除、アプリのアンインストール、最適化、ビルド成果物の削除を行い、削除前には必ずプレビューを表示し、既定ではドライランで動きます。独自のツリーマップ式ディスク分析、リアルタイムのシステム情報、メニューバー項目も備えます。mo は同梱されないため、別途インストールが必要です。",
-		"ko": "mo CLI(tw93/mole)를 위한 macOS 13 이상용 클라이언트로, Go로 작성하고 MyGo의 WKWebView에 웹 프런트엔드를 띄웁니다. 설치된 mo를 호출해 캐시 정리, 앱 제거, 최적화, 빌드 산출물 정리를 하며, 삭제 전에는 항상 미리 보여 주고 기본값은 드라이런입니다. 자체 트리맵 디스크 분석기, 실시간 시스템 정보, 메뉴 막대 항목도 갖췄습니다. mo는 포함되지 않으므로 따로 설치해야 합니다."
+		"en": "A disk cleaner for macOS 13+ inspired by the mo CLI (tw93/mole), written in Go with MyGo and a web frontend shown in WKWebView. It scans and cleans in-process, so mo does not need to be installed: it clears caches and logs, prunes old AI coding tool versions, uninstalls apps with their leftovers, purges build artifacts and installers, and maps disk usage as a treemap, with live system readings and a menu bar panel. Every removal lists the exact paths first and moves them to the Trash only after you confirm, restorable from the history; the interface is in Chinese and English and the app updates itself.",
+		"zh-CN": "受 mo 命令行工具（tw93/mole）启发的 macOS 13 及以上版本磁盘清理应用，用 Go 编写，借助 MyGo 以 WKWebView 承载 Web 前端。扫描和清理都在应用内完成，无需安装 mo：清理缓存和日志、清理 AI 编程工具的旧版本、连同残留文件卸载应用、清除构建产物和安装包，并以树状图分析磁盘占用，另有实时系统数据和菜单栏面板。每次移除都会先列出具体路径，确认后才移入废纸篓，可在历史记录中恢复；界面支持中文和英文，应用内自动更新。",
+		"zh-TW": "受 mo 命令列工具（tw93/mole）啟發的 macOS 13 以上版本磁碟清理 App，以 Go 撰寫，透過 MyGo 用 WKWebView 呈現 Web 前端。掃描與清理都在 App 內完成，不需安裝 mo：清理快取與日誌、清理 AI 程式設計工具的舊版本、連同殘留檔案解除安裝 App、清除建置產物與安裝檔，並以樹狀圖分析磁碟用量，另有即時系統數據與選單列面板。每次移除都會先列出具體路徑，確認後才移到垃圾桶，可從歷史紀錄還原；介面支援中文與英文，App 內自動更新。",
+		"ja": "mo CLI（tw93/mole）に着想を得た macOS 13 以降向けのディスククリーナー。Go で書かれ、MyGo の WKWebView で Web フロントエンドを表示します。スキャンと削除はアプリ内で完結するため mo のインストールは不要で、キャッシュやログの削除、AI コーディングツールの旧バージョンの整理、残留ファイルを含むアプリのアンインストール、ビルド成果物やインストーラーの削除、ツリーマップによるディスク分析に対応し、リアルタイムのシステム情報とメニューバーパネルも備えます。削除前には対象のパスを必ず表示し、確認後にゴミ箱へ移すので履歴から元に戻せます。UI は中国語と英語に対応し、アプリ内で自動更新されます。",
+		"ko": "mo CLI(tw93/mole)에서 영감을 받은 macOS 13 이상용 디스크 정리 앱으로, Go로 작성하고 MyGo의 WKWebView에 웹 프런트엔드를 띄웁니다. 스캔과 정리를 앱 안에서 처리하므로 mo를 설치할 필요가 없으며, 캐시와 로그 정리, AI 코딩 도구의 이전 버전 정리, 잔여 파일까지 포함한 앱 제거, 빌드 산출물과 설치 파일 정리, 트리맵 디스크 분석을 지원하고 실시간 시스템 정보와 메뉴 막대 패널도 갖췄습니다. 삭제 전에는 항상 정확한 경로를 보여 주고 확인 후에 휴지통으로 옮기므로 기록에서 복원할 수 있습니다. 인터페이스는 중국어와 영어를 지원하고 앱 안에서 자동으로 업데이트됩니다."
 	},
 	"icon": {
 		"file": "orbit.webp"
