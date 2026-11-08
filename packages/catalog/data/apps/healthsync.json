@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "healthsync",
+	"name": "HealthSync",
+	"author": "HeroSizy",
+	"kind": "native",
+	"group": "devices",
+	"url": "https://github.com/HeroSizy/healthsync-server",
+	"repo": "HeroSizy/healthsync-server",
+	"summary": {
+		"en": "Receives Apple Health data from the HealthSync iPhone app into a local SQLite database.",
+		"zh-CN": "把 HealthSync iPhone 应用的健康数据存入本机 SQLite。",
+		"zh-TW": "把 HealthSync iPhone App 的健康資料存入本機 SQLite。",
+		"ja": "HealthSync の iPhone アプリから届く健康データを手元の SQLite に保存。",
+		"ko": "HealthSync iPhone 앱의 건강 데이터를 로컬 SQLite에 저장합니다."
+	},
+	"description": {
+		"en": "The desktop build of healthsync-server for macOS, Windows and Linux, a menu bar app drawn with MyGo's native UI; the headless server and Docker image use a web dashboard instead. It pairs with the HealthSync iPhone app by QR code, receives Apple Health data over Wi-Fi into a local SQLite database with no cloud or account, and lets AI assistants read it through read-only MCP tools.",
+		"zh-CN": "healthsync-server 的桌面版，支持 macOS、Windows 与 Linux，是由 MyGo 原生 UI 绘制的菜单栏应用；无界面服务器和 Docker 镜像则改用网页仪表板。它通过二维码与 HealthSync iPhone 应用配对，经 Wi-Fi 接收 Apple Health 数据，存入本机 SQLite 数据库，无需云服务和账号；AI 助手可通过只读 MCP 工具读取这些数据。",
+		"zh-TW": "healthsync-server 的桌面版，支援 macOS、Windows 與 Linux，是以 MyGo 原生 UI 繪製的選單列 App；無介面伺服器與 Docker 映像檔則改用網頁儀表板。它透過 QR 碼與 HealthSync iPhone App 配對，經 Wi-Fi 接收 Apple Health 資料，存入本機 SQLite 資料庫，不需雲端服務或帳號；AI 助理可透過唯讀 MCP 工具讀取這些資料。",
+		"ja": "healthsync-server のデスクトップ版で、MyGo のネイティブ UI で描かれた macOS・Windows・Linux 向けのメニューバーアプリです。ヘッドレス版と Docker イメージは Web ダッシュボードを使います。HealthSync の iPhone アプリと QR コードでペアリングし、Apple Health のデータを受け取って手元の SQLite に保存します。AI アシスタントは読み取り専用の MCP ツールでデータを読めます。",
+		"ko": "healthsync-server의 데스크톱 버전으로, macOS·Windows·Linux를 지원하며 MyGo의 네이티브 UI로 그린 메뉴 막대 앱입니다. 헤드리스 서버와 Docker 이미지는 대신 웹 대시보드를 씁니다. HealthSync iPhone 앱과 QR 코드로 페어링해 Wi-Fi로 Apple Health 데이터를 받아 내 컴퓨터의 SQLite 데이터베이스에 저장하며, 클라우드나 계정이 필요 없습니다. AI 어시스턴트는 읽기 전용 MCP 도구로 데이터를 읽을 수 있습니다."
+	},
+	"icon": {
+		"file": "healthsync.webp"
+	},
+	"screenshot": "healthsync.webp",
+	"added": "2026-11-08T02:29:20Z"
+}
