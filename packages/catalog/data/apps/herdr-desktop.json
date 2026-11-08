@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "herdr-desktop",
+	"name": "Herdr Desktop",
+	"author": "cxnaive",
+	"kind": "native",
+	"group": "agents",
+	"url": "https://github.com/cxnaive/herder_relay_extra",
+	"repo": "cxnaive/herder_relay_extra",
+	"summary": {
+		"en": "Desktop client for Herdr Relay to control remote coding agents, terminals and workspace files.",
+		"zh-CN": "Herdr Relay 桌面客户端，远程操控编程 Agent、终端与工作区文件。",
+		"zh-TW": "Herdr Relay 桌面用戶端，遠端操控程式設計 Agent、終端機與工作區檔案。",
+		"ja": "Herdr Relay のデスクトップ版。リモートのコーディングエージェントと端末、ファイルを操作。",
+		"ko": "Herdr Relay 데스크톱 클라이언트. 원격 코딩 에이전트, 터미널, 파일을 제어합니다."
+	},
+	"description": {
+		"en": "The Windows and macOS desktop client of Herdr Relay, drawn with MyGo's native UI; the Relay itself and the Herdr Pocket Android app are built otherwise. It lists computers, projects and agents on the left, switches between conversation and interactive terminal in the middle, and browses and downloads workspace files on the right. It is a 0.1.0 development preview with no release installer yet.",
+		"zh-CN": "Herdr Relay 的 Windows 与 macOS 桌面客户端，由 MyGo 原生 UI 绘制；Relay 本身和 Android 应用 Herdr Pocket 另行构建。左侧按电脑、项目和 Agent 导航，中间在对话与交互终端之间切换，右侧浏览并下载工作区文件。目前为 0.1.0 开发预览版，尚无正式安装包。",
+		"zh-TW": "Herdr Relay 的 Windows 與 macOS 桌面用戶端，由 MyGo 原生 UI 繪製；Relay 本身與 Android 應用程式 Herdr Pocket 另行建置。左側依電腦、專案與 Agent 導覽，中間在對話與互動終端機之間切換，右側瀏覽並下載工作區檔案。目前為 0.1.0 開發預覽版，尚無正式安裝檔。",
+		"ja": "Herdr Relay の Windows・macOS 向けデスクトップクライアントで、MyGo のネイティブ UI で描かれています。Relay 本体と Android アプリ Herdr Pocket は別の方法で作られています。左でコンピューター、プロジェクト、Agent を選び、中央で会話と対話型ターミナルを切り替え、右でワークスペースのファイルを閲覧・ダウンロードできます。現在は 0.1.0 の開発プレビューで、正式なインストーラーはまだありません。",
+		"ko": "MyGo의 네이티브 UI로 그린 Herdr Relay의 Windows·macOS 데스크톱 클라이언트이며, Relay 본체와 Android 앱 Herdr Pocket은 다른 방식으로 만들어집니다. 왼쪽에서 컴퓨터, 프로젝트, Agent를 고르고, 가운데에서 대화와 대화형 터미널을 전환하며, 오른쪽에서 워크스페이스 파일을 둘러보고 내려받습니다. 현재 0.1.0 개발 미리보기로, 정식 설치 파일은 아직 없습니다."
+	},
+	"icon": {
+		"file": "herdr-desktop.webp"
+	},
+	"screenshot": "herdr-desktop.webp",
+	"added": "2026-11-08T02:29:20Z"
+}
