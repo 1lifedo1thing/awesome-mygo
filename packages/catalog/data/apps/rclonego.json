@@ -1,0 +1,29 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "rclonego",
+	"name": "RcloneGo",
+	"author": "DeliciousBuding",
+	"kind": "native",
+	"group": "dev",
+	"url": "https://github.com/DeliciousBuding/rclonego#readme",
+	"repo": "DeliciousBuding/rclonego",
+	"summary": {
+		"en": "A native desktop workspace for rclone transfers, mounts and checks, with a CLI and local API.",
+		"zh-CN": "rclone 原生桌面工作台：传输、挂载与校验，附带 CLI 和本地 API。",
+		"zh-TW": "rclone 原生桌面工作區：傳輸、掛載與驗證，附 CLI 與本機 API。",
+		"ja": "rclone 用ネイティブデスクトップアプリ。転送・マウント・検証、CLI とローカル API 付き。",
+		"ko": "rclone 전송, 마운트, 검증을 위한 네이티브 데스크톱 앱. CLI와 로컬 API 포함."
+	},
+	"description": {
+		"en": "An alpha-stage rclone workspace drawn with MyGo's native UI, with packages for Windows, Linux and macOS. It copies, mirrors and checks files between cloud accounts and local folders, runs saved workflows from a queue with schedules and bandwidth limits, and manages mounts. Its CLI and authenticated local API share one scheduler with the GUI.",
+		"zh-CN": "处于 alpha 阶段的 rclone 桌面工作台，由 MyGo 原生 UI 绘制，提供 Windows、Linux 与 macOS 版本。可在云端账户与本地文件夹之间复制、镜像和校验文件，按队列运行已保存的工作流，支持定时与带宽限制，并管理挂载。CLI 与带认证的本地 API 和图形界面共用同一个调度器。",
+		"zh-TW": "處於 alpha 階段的 rclone 桌面工作區，由 MyGo 原生 UI 繪製，提供 Windows、Linux 與 macOS 版本。可在雲端帳號與本機資料夾之間複製、鏡像和驗證檔案，以佇列執行已儲存的工作流程，支援排程與頻寬限制，並管理掛載。CLI 與需驗證的本機 API 和圖形介面共用同一個排程器。",
+		"ja": "MyGo のネイティブ UI で描かれた、アルファ段階の rclone 用デスクトップワークスペース。Windows・Linux・macOS 向けのパッケージがあります。クラウドアカウントとローカルフォルダーの間でファイルのコピー、ミラー、検証を行い、保存したワークフローをスケジュールや帯域制限付きのキューで実行し、マウントも管理します。CLI と認証付きのローカル API は GUI と同じスケジューラーを共有します。",
+		"ko": "MyGo의 네이티브 UI로 그린 알파 단계의 rclone 데스크톱 작업 공간으로, Windows, Linux, macOS용 패키지가 있습니다. 클라우드 계정과 로컬 폴더 사이에서 파일을 복사, 미러링, 검증하고, 저장한 워크플로를 예약과 대역폭 제한이 있는 대기열에서 실행하며 마운트도 관리합니다. CLI와 인증된 로컬 API는 GUI와 같은 스케줄러를 공유합니다."
+	},
+	"icon": {
+		"file": "rclonego.webp"
+	},
+	"screenshot": "rclonego.webp",
+	"added": "2026-11-08T02:29:20Z"
+}
