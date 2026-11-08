@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "klip",
+	"name": "Klip",
+	"author": "Achordchan",
+	"kind": "native",
+	"group": "system",
+	"url": "https://github.com/Achordchan/klip",
+	"repo": "Achordchan/klip",
+	"summary": {
+		"en": "Clipboard history for Windows and macOS: search, pin and annotate copied text, images and files.",
+		"zh-CN": "Windows 与 macOS 剪贴板工具，可搜索、置顶、备注复制过的文字、图片和文件。",
+		"zh-TW": "Windows 與 macOS 剪貼簿工具，可搜尋、置頂、備註複製過的文字、圖片和檔案。",
+		"ja": "Windows・macOS 向けクリップボード管理。コピーした文字・画像・ファイルを検索、ピン留め、メモ。",
+		"ko": "Windows·macOS용 클립보드 관리자. 복사한 텍스트, 이미지, 파일을 검색·고정·메모."
+	},
+	"description": {
+		"en": "A clipboard manager for Windows and macOS whose client is written in Go and drawn with MyGo's native UI. It keeps copied text, images and files to search, annotate, pin and reorder, merges duplicates, and has a shelf for parking files while you drag them. Signing in to an account syncs history across devices through a separate FastAPI backend, which is not built with MyGo.",
+		"zh-CN": "Windows 与 macOS 上的剪贴板管理工具，客户端用 Go 编写，由 MyGo 原生 UI 绘制。它记下复制过的文字、图片和文件，可以搜索、备注、置顶、拖动排序，并合并重复内容，还有临时存放文件的货架。登录账号后可在多台设备间同步历史，同步后端另用 FastAPI 编写，不由 MyGo 构建。",
+		"zh-TW": "Windows 與 macOS 上的剪貼簿管理工具，用戶端以 Go 撰寫，由 MyGo 原生 UI 繪製。它記下複製過的文字、圖片和檔案，可以搜尋、備註、置頂、拖曳排序，並合併重複內容，還有暫放檔案的貨架。登入帳號後可在多台裝置間同步歷史紀錄，同步後端另以 FastAPI 撰寫，不由 MyGo 建置。",
+		"ja": "Windows・macOS 向けのクリップボード管理ツールで、クライアントは Go で書かれ、MyGo のネイティブ UI で描かれています。コピーした文字・画像・ファイルを記録し、検索、メモ、ピン留め、ドラッグでの並べ替えができ、重複はまとめられます。ファイルを一時的に置いておく「棚」もあります。アカウントにログインすると複数の端末で履歴を同期でき、同期用のバックエンドは FastAPI で別に作られており、MyGo は使っていません。",
+		"ko": "Windows와 macOS용 클립보드 관리 도구로, 클라이언트는 Go로 작성하고 MyGo의 네이티브 UI로 그렸습니다. 복사한 텍스트, 이미지, 파일을 기록해 검색, 메모, 고정, 드래그 정렬을 할 수 있고 중복 항목은 합쳐 주며, 파일을 잠시 올려 두는 선반도 있습니다. 계정에 로그인하면 여러 기기에서 기록을 동기화하며, 동기화 백엔드는 FastAPI로 따로 만들어졌고 MyGo로 빌드하지 않습니다."
+	},
+	"icon": {
+		"file": "klip.webp"
+	},
+	"provisional": [
+		"icon",
+		"screenshot"
+	],
+	"screenshot": "klip.webp",
+	"added": "2026-11-08T02:29:20Z"
+}
