@@ -1,0 +1,32 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "ferry",
+	"name": "Ferry",
+	"author": "ayuayue",
+	"kind": "web",
+	"group": "network",
+	"url": "https://github.com/ayuayue/ferry",
+	"repo": "ayuayue/ferry",
+	"summary": {
+		"en": "Sends each Windows app's traffic through HTTP or SOCKS5 proxies, on the ProxyBridge engine.",
+		"zh-CN": "按进程把 Windows 应用的流量转发到 HTTP 或 SOCKS5 代理。",
+		"zh-TW": "依處理程序將 Windows 應用程式的流量轉送至 HTTP 或 SOCKS5 代理。",
+		"ja": "Windows のアプリごとに通信を HTTP・SOCKS5 プロキシへ振り分けるツール。",
+		"ko": "Windows 앱별로 트래픽을 HTTP나 SOCKS5 프록시로 보내는 도구."
+	},
+	"description": {
+		"en": "A Windows app that routes each app's traffic through HTTP or SOCKS5 proxies: a React interface on MyGo's web frontend over the unmodified ProxyBridge 4.3.0 engine and its WinDivert service. It groups connections by process, keeps a live log of new connections, and turns any row into a rule with a right-click. Intercepting needs the engine service, installed with admin rights.",
+		"zh-CN": "Windows 上按进程把流量转发到 HTTP 或 SOCKS5 代理的工具：界面用 React 和 MyGo 的 Web 前端重写，底层沿用未经修改的 ProxyBridge 4.3.0 内核及其 WinDivert 服务。连接按进程汇总，实时日志记录每次新建连接，任意一行右键即可生成规则。要真正拦截流量，需以管理员权限安装引擎服务。",
+		"zh-TW": "Windows 上依處理程序將流量轉送至 HTTP 或 SOCKS5 代理的工具：介面以 React 與 MyGo 的 Web 前端重寫，底層沿用未經修改的 ProxyBridge 4.3.0 核心及其 WinDivert 服務。連線依處理程序彙整，即時日誌記錄每次新建連線，任一列按右鍵即可建立規則。要實際攔截流量，須以管理員權限安裝引擎服務。",
+		"ja": "Windows でアプリごとに通信を HTTP・SOCKS5 プロキシへ振り分けるツール。画面は React と MyGo の Web フロントエンドで作り直され、その下では手を加えていない ProxyBridge 4.3.0 のエンジンと WinDivert サービスが動きます。接続はプロセス単位でまとめられ、新しい接続はリアルタイムのログに残り、どの行も右クリックでルールにできます。通信を実際に横取りするには、管理者権限でエンジンサービスをインストールする必要があります。",
+		"ko": "Windows에서 앱별로 트래픽을 HTTP나 SOCKS5 프록시로 보내는 도구입니다. 화면은 React와 MyGo의 웹 프런트엔드로 새로 만들었고, 그 아래에서는 수정하지 않은 ProxyBridge 4.3.0 엔진과 WinDivert 서비스가 동작합니다. 연결을 프로세스별로 묶어 보여 주고, 새 연결을 실시간 로그로 남기며, 어느 행이든 우클릭으로 규칙을 만들 수 있습니다. 트래픽을 실제로 가로채려면 관리자 권한으로 엔진 서비스를 설치해야 합니다."
+	},
+	"icon": {
+		"file": "ferry.webp"
+	},
+	"screenshot": "ferry.webp",
+	"provisional": [
+		"screenshot"
+	],
+	"added": "2026-11-08T02:29:20Z"
+}
