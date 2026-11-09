@@ -110,7 +110,7 @@ bot 開出 PR 後，*Complete submission* workflow 會補上表單問不到的�
 ## 致謝
 
 - [MyGo](https://github.com/egoist/mygo) 由 [egoist](https://github.com/egoist) 建立（MIT）。作品、外掛和指南的資料以它的倉庫和官網為準。
-- 應用圖示來自 [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo)（MIT）或應用自己的圖示；截圖來自 egoist/mygo 的作品展示和各專案的 README。兩者都歸各應用作者所有，名稱和標誌是其商標，僅用於識別。
+- 應用圖示來自 [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo)（MIT，分支自 LobeHub 的 [lobe-icons](https://github.com/lobehub/lobe-icons)）或應用自己的圖示；截圖來自 egoist/mygo 的作品展示和各專案的 README。兩者都歸各應用作者所有，名稱和標誌是其商標，僅用於識別。
 
 ## 授權
 

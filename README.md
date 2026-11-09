@@ -112,7 +112,7 @@ The UI copy is in `packages/catalog/locales/`, one JSON file per language with t
 ## Credits
 
 - [MyGo](https://github.com/egoist/mygo) is made by [egoist](https://github.com/egoist) (MIT). The showcase, plugin and guide data follows its repository and site.
-- App icons are from [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo) (MIT) or the apps' own icons. Screenshots come from egoist/mygo's showcase and the projects' READMEs. Both belong to the apps' authors; names and logos are their trademarks and are shown to identify them.
+- App icons are from [yldm-tech/ai-logo](https://github.com/yldm-tech/ai-logo) (MIT, a fork of LobeHub's [lobe-icons](https://github.com/lobehub/lobe-icons)) or the apps' own icons. Screenshots come from egoist/mygo's showcase and the projects' READMEs. Both belong to the apps' authors; names and logos are their trademarks and are shown to identify them.
 
 ## License
 
