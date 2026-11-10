@@ -1,0 +1,31 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "miguwave",
+	"name": "MiguWave",
+	"author": "horizon0514",
+	"kind": "native",
+	"platforms": ["win", "mac"],
+	"category": "MultimediaApplication",
+	"group": "media",
+	"url": "https://github.com/horizon0514/MiguWave",
+	"repo": "horizon0514/MiguWave",
+	"summary": {
+		"en": "A third-party Migu Music client for macOS and Windows, drawn with MyGo's native UI.",
+		"zh-CN": "第三方咪咕音乐桌面客户端，界面由 MyGo 原生 UI 绘制。",
+		"zh-TW": "第三方咪咕音樂桌面用戶端，介面由 MyGo 原生 UI 繪製。",
+		"ja": "MyGo のネイティブ UI で描かれた、macOS と Windows 向けのサードパーティ製咪咕音樂クライアント。",
+		"ko": "MyGo 네이티브 UI로 그린 macOS·Windows용 咪咕音乐 서드파티 클라이언트."
+	},
+	"description": {
+		"en": "An open-source desktop client for Migu Music on macOS and Windows. Browse daily recommendations, charts, playlists and artists, follow scrolling lyrics, and switch to a full-screen vinyl stage drawn with GPU shaders. Track changes crossfade like Apple Music, and the next track is prefetched in the background.",
+		"zh-CN": "适用于 macOS 与 Windows 的开源咪咕音乐桌面客户端。可浏览每日推荐、排行榜、歌单与歌手，查看滚动歌词，并切换到由 GPU shader 绘制的全屏黑胶唱机；切歌像 Apple Music 一样交叉淡化，下一首会在后台预取。",
+		"zh-TW": "適用於 macOS 與 Windows 的開源咪咕音樂桌面用戶端。可瀏覽每日推薦、排行榜、歌單與歌手，查看捲動歌詞，並切換到由 GPU shader 繪製的全螢幕黑膠唱機；切歌像 Apple Music 一樣交叉淡化，下一首會在背景預取。",
+		"ja": "macOS と Windows 向けのオープンソース咪咕音樂クライアント。毎日のおすすめ、ランキング、プレイリスト、アーティストを閲覧でき、スクロール歌詞や GPU シェーダーで描く全画面レコードプレーヤーも備えます。曲の切り替えは Apple Music のようにクロスフェードし、次の曲はバックグラウンドで先読みします。",
+		"ko": "macOS와 Windows용 오픈소스 咪咕音乐 데스크톱 클라이언트. 매일 추천, 차트, 플레이리스트, 아티스트를 둘러보고 스크롤 가사와 GPU 셰이더로 그린 전체 화면 턴테이블을 사용할 수 있습니다. 곡 전환은 Apple Music처럼 크로스페이드되며 다음 곡은 백그라운드에서 미리 받아 둡니다."
+	},
+	"screenshot": "miguwave.webp",
+	"icon": {
+		"file": "miguwave.webp"
+	},
+	"added": "2026-11-10T06:56:00Z"
+}
