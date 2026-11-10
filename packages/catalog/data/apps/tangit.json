@@ -1,0 +1,35 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "tangit",
+	"name": "TanGit",
+	"author": "FleetingEcho",
+	"kind": "native",
+	"platforms": [
+		"win",
+		"linux",
+		"mac"
+	],
+	"group": "dev",
+	"category": "DeveloperApplication",
+	"url": "https://github.com/FleetingEcho/TanGit",
+	"repo": "FleetingEcho/TanGit",
+	"summary": {
+		"en": "Native Git desktop app that pairs Lazygit's engine with visual diffs, a commit graph and an editor.",
+		"zh-CN": "用 MyGo 构建的原生 Git 桌面应用，把 Lazygit 的 Git 引擎放进可视化工作区，提供差异对比、提交图和内置编辑器。",
+		"zh-TW": "以 MyGo 打造的原生 Git 桌面應用程式，把 Lazygit 的 Git 引擎放進視覺化工作區，提供差異比對、提交圖與內建編輯器。",
+		"ja": "MyGo 製のネイティブ Git アプリ。Lazygit のエンジンを差分・履歴・エディター付きの作業空間で扱えます。",
+		"ko": "MyGo로 만든 네이티브 Git 앱. Lazygit 엔진과 차이 비교·커밋 그래프·내장 편집기를 한 화면에 담았습니다."
+	},
+	"description": {
+		"en": "TanGit pairs MyGo's native UI with Lazygit's Git engine: stage selected lines, review side-by-side diffs, shape history on a commit graph, resolve conflicts hunk by hunk, and edit code in a built-in editor with language-server support. It builds for macOS, Windows and Linux without Electron or an embedded browser; the download is about 12 MB and memory use about 70 MB.",
+		"zh-CN": "TanGit 用 MyGo 原生界面承载 Lazygit 的 Git 引擎：可暂存选定的代码行、并排查看差异、在提交图上整理历史、逐块解决冲突，并用支持语言服务器的内置编辑器修改代码。它提供 macOS、Windows 和 Linux 版本，没有 Electron 或内嵌浏览器，安装包约 12 MB，内存占用约 70 MB。",
+		"zh-TW": "TanGit 以 MyGo 原生介面承載 Lazygit 的 Git 引擎：可暫存選取的程式碼行、並排檢視差異、在提交圖上整理歷史、逐塊解決衝突，並用支援語言伺服器的內建編輯器修改程式碼。它提供 macOS、Windows 與 Linux 版本，沒有 Electron 或內嵌瀏覽器，安裝檔約 12 MB，記憶體用量約 70 MB。",
+		"ja": "TanGit は MyGo のネイティブ UI に Lazygit の Git エンジンを載せ、選択した行のステージ、並べて見る差分、コミットグラフでの履歴整理、衝突のハンク単位の解決、言語サーバー対応の内蔵エディターでの編集を一つにまとめます。macOS、Windows、Linux 向けにビルドされ、Electron や埋め込みブラウザーは使いません。ダウンロードは約 12 MB、メモリ使用量は約 70 MB です。",
+		"ko": "TanGit은 MyGo의 네이티브 UI에 Lazygit의 Git 엔진을 얹어 선택한 줄만 스테이징하고, 나란히 차이를 보고, 커밋 그래프에서 기록을 정리하며, 충돌을 헝크 단위로 해결하고, 언어 서버를 지원하는 내장 편집기에서 코드를 고칠 수 있습니다. macOS, Windows, Linux용으로 빌드되며 Electron이나 내장 브라우저를 쓰지 않고, 내려받는 파일은 약 12 MB, 메모리 사용량은 약 70 MB입니다."
+	},
+	"icon": {
+		"file": "tangit.webp"
+	},
+	"screenshot": "tangit.webp",
+	"added": "2026-11-10T06:32:18Z"
+}
