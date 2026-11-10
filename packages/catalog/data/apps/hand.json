@@ -1,0 +1,35 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "hand",
+	"name": "Hand",
+	"author": "atqamz",
+	"kind": "native",
+	"platforms": [
+		"linux"
+	],
+	"group": "agents",
+	"url": "https://github.com/atqamz/hand",
+	"repo": "atqamz/hand",
+	"summary": {
+		"en": "A supervisor that runs Claude Code, Codex and other coding agents in parallel git worktrees.",
+		"zh-CN": "监督多个编程智能体在独立 git worktree 中并行工作的工具。",
+		"zh-TW": "監督多個程式設計代理在獨立 git worktree 中並行工作的工具。",
+		"ja": "複数のコーディングエージェントを個別の git worktree で並行して動かす監督ツール。",
+		"ko": "여러 코딩 에이전트를 각자의 git worktree에서 병렬로 돌리는 감독 도구."
+	},
+	"description": {
+		"en": "A supervisor for coding agents: you talk to one supervisor agent, which starts Claude Code, Codex, opencode and other workers in isolated git worktrees, reads their reports and asks you only through decisions. MyGo builds just the desktop window, hand-desktop, which runs on Linux; the hand command line and the browser board are made otherwise, and macOS and Windows use the board in a browser.",
+		"zh-CN": "面向编程智能体的监督工具：你只与一个监督智能体对话，由它在隔离的 git worktree 中启动 Claude Code、Codex、opencode 等工作智能体，阅读它们的报告，只在需要决策时询问你。MyGo 只负责桌面窗口 hand-desktop，仅在 Linux 上提供；hand 命令行与浏览器中的看板另行实现，macOS 与 Windows 上使用浏览器看板。",
+		"zh-TW": "為程式設計代理打造的監督工具：你只與一個監督代理對話，由它在隔離的 git worktree 中啟動 Claude Code、Codex、opencode 等工作代理，閱讀它們的報告，只在需要決策時詢問你。MyGo 只負責桌面視窗 hand-desktop，僅在 Linux 上提供；hand 命令列與瀏覽器中的看板另行實作，macOS 與 Windows 上使用瀏覽器看板。",
+		"ja": "コーディングエージェントの監督ツール。話す相手は監督役のエージェントひとつだけで、それが隔離された git worktree で Claude Code、Codex、opencode などのワーカーを起動し、報告を読み、判断が必要なときだけ質問してきます。MyGo が担うのは Linux 版のみのデスクトップウィンドウ hand-desktop だけで、hand コマンドとブラウザのボードは別の方法で作られています。macOS と Windows ではブラウザのボードを使います。",
+		"ko": "코딩 에이전트를 위한 감독 도구입니다. 감독 에이전트 하나와만 대화하면, 그 에이전트가 격리된 git worktree에서 Claude Code, Codex, opencode 등의 워커를 실행하고 보고서를 읽은 뒤 결정이 필요할 때만 묻습니다. MyGo는 Linux에서만 제공되는 데스크톱 창 hand-desktop만 만들고, hand 명령줄과 브라우저 보드는 다른 방식으로 만들어졌습니다. macOS와 Windows에서는 브라우저 보드를 씁니다."
+	},
+	"icon": {
+		"file": "hand.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "hand.webp",
+	"added": "2026-11-09T02:30:16Z"
+}
