@@ -59,7 +59,7 @@ export type ShotFile = { file: File; preview: string; problem?: string };
 
 const SHOT_TYPES = ['image/png', 'image/jpeg', 'image/webp'];
 
-// The Turnstile widget. A token is good for one submission, so changing `round` renders a fresh widget. It stays out of sight unless Cloudflare needs the visitor to click, so most visitors never see it.
+// The Turnstile widget. A token is good for one submission, so changing `round` renders a fresh widget. It stays out of sight unless Cloudflare needs the visitor to click, so most visitors never see it, and so says nothing when it fails: onFail is called when the script does not load and on every error the widget reports (a hostname the site key does not allow, a network failure, a challenge the visitor did not pass), so that the form can say so instead of waiting for a token that will not come. Turnstile retries some errors by itself; a token that arrives later still reaches onToken.
 export function Captcha({ siteKey, lang, round, onToken, onFail, theme = 'dark', className }: { siteKey: string; lang: LangCode; round: number; onToken: (token: string) => void; onFail: () => void; theme?: 'dark' | 'light'; className?: string }) {
 	const box = useRef<HTMLDivElement>(null);
 	const handlers = useRef({ onToken, onFail });
@@ -78,7 +78,10 @@ export function Captcha({ siteKey, lang, round, onToken, onFail, theme = 'dark',
 					language: lang.toLowerCase(),
 					callback: (token) => handlers.current.onToken(token),
 					'expired-callback': () => handlers.current.onToken(''),
-					'error-callback': () => handlers.current.onToken(''),
+					'error-callback': () => {
+						handlers.current.onToken('');
+						handlers.current.onFail();
+					},
 				});
 				remove = () => ts.remove(id);
 			},
@@ -100,6 +103,8 @@ export function useSubmit() {
 	const bot = useBot();
 	const [token, setToken] = useState('');
 	const [round, setRound] = useState(0);
+	// Set when the bot check failed (Captcha's onFail) and no token has come since; cleared by a token or a retry.
+	const [checkFailed, setCheckFailed] = useState(false);
 	const [status, setStatus] = useState<Status>({ kind: 'idle' });
 	// The link is judged once the visitor leaves the field, not while they are still typing it.
 	const [urlTouched, setUrlTouched] = useState(false);
@@ -223,7 +228,7 @@ export function useSubmit() {
 	const fieldLabel: Record<DraftField, string> = { url: urlLabel, name: t.m_name, author: t.m_author, desc: t.m_desc_l };
 	const missing = [...(viaJson ? [] : missingFields(form.cat, form).map((f) => fieldLabel[f])), ...(shotMissing ? [t.m_shot] : [])];
 	const need = viaJson && !pasted ? fill(t.sub_need, { x: t.m_json }) : missing.length > 0 ? fill(t.sub_need, { x: new Intl.ListFormat(lang, { type: 'conjunction' }).format(missing) }) : '';
-	const hint = status.kind === 'sending' || status.kind === 'done' ? '' : need || (viaJson && jsonError ? t.m_json_fix : shotCheck.kind === 'checking' ? t.m_shot_checking : bot.enabled && !token ? t.sub_wait : '');
+	const hint = status.kind === 'sending' || status.kind === 'done' ? '' : need || (viaJson && jsonError ? t.m_json_fix : shotCheck.kind === 'checking' ? t.m_shot_checking : bot.enabled && !token && !checkFailed ? t.sub_wait : '');
 
 	const errorText = (body: { error?: string; message?: string }): string => {
 		switch (body.error) {
@@ -268,5 +273,19 @@ export function useSubmit() {
 		setRound((n) => n + 1);
 	};
 
-	return { bot, lang, token, setToken, round, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint, viaJson, jsonError, onJsonChange, example, repoBad, onRepoBlur, shotBad, onShotBlur, urlLabel, withShot, shotFile, onShotFile, shotRequired, shotNote };
+	// What the form hands Captcha, and the retry that renders a fresh widget after a failure.
+	const onCheckToken = (next: string) => {
+		setToken(next);
+		if (next) setCheckFailed(false);
+	};
+	const onCheckFail = () => setCheckFailed(true);
+	const retryCheck = () => {
+		setCheckFailed(false);
+		setToken('');
+		setRound((n) => n + 1);
+	};
+	// Shown while the check has failed, so the visitor is not left reading sub_wait for a token that will not come.
+	const checkError = bot.enabled && checkFailed && !token && status.kind !== 'sending' && status.kind !== 'done' ? t.sub_check_fail : undefined;
+
+	return { bot, lang, token, onCheckToken, onCheckFail, retryCheck, checkError, round, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint, viaJson, jsonError, onJsonChange, example, repoBad, onRepoBlur, shotBad, onShotBlur, urlLabel, withShot, shotFile, onShotFile, shotRequired, shotNote };
 }

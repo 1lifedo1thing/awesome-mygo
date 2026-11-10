@@ -251,6 +251,8 @@
 	"m_link_tip": "贴 GitHub 仓库链接，会自动填好名称和作者。",
 	"sub_need": "还差{x}",
 	"sub_wait": "正在验证你不是机器人…",
+	"sub_check_fail": "人机验证没能完成。请重试，或用下面的 GitHub 方式提交。",
+	"sub_retry": "重试",
 	"sub_agent": "这份表单由 AI 代理填写：提交前请逐项核对。",
 	"sub_ai": "可以让 AI 帮你填：Chrome 已内置 WebMCP，支持它的 AI 可以直接调用本页的 {x} 工具填好表单，核对后由你提交。你的 AI 不支持时，可以装插件：",
 	"m_via": "填写方式",

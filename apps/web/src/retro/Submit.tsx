@@ -49,7 +49,7 @@ function Dialog() {
 	const { closeSubmit, form, setFormField, copy, copied, agentFilled } = useSite();
 	const t = useT();
 	const ref = useDialog<HTMLDivElement>();
-	const { bot, lang, round, setToken, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint, viaJson, jsonError, onJsonChange, example, repoBad, onRepoBlur, shotBad, onShotBlur, urlLabel, withShot, shotFile, onShotFile, shotRequired, shotNote } = useSubmit();
+	const { bot, lang, round, onCheckToken, onCheckFail, retryCheck, checkError, status, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint, viaJson, jsonError, onJsonChange, example, repoBad, onRepoBlur, shotBad, onShotBlur, urlLabel, withShot, shotFile, onShotFile, shotRequired, shotNote } = useSubmit();
 
 	// The screenshot: an image to upload, when the bot can take one, and in the form a link instead; under it what the bot found in the repository.
 	const shotField = (withLink: boolean) => (
@@ -291,8 +291,16 @@ function Dialog() {
 								</div>
 							) : (
 								<>
-									<Captcha siteKey={bot.siteKey} lang={lang} round={round} onToken={setToken} onFail={() => setStatus({ kind: 'error', message: t.sub_failed })} theme='light' />
+									<Captcha siteKey={bot.siteKey} lang={lang} round={round} onToken={onCheckToken} onFail={onCheckFail} theme='light' />
 									{status.kind === 'error' && <Err>{status.message}</Err>}
+									{checkError && (
+										<Err>
+											{checkError}{' '}
+											<button type='button' className={`${lnk} cursor-pointer border-0 bg-transparent p-0 font-[inherit] text-ink`} onClick={retryCheck}>
+												{t.sub_retry}
+											</button>
+										</Err>
+									)}
 									{hint && <p className='m-0 text-right text-muted' aria-live='polite'>{hint}</p>}
 									<div className='flex flex-wrap justify-end gap-2.5 pt-1'>
 										{copyBtn}

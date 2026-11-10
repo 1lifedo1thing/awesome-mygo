@@ -34,7 +34,7 @@ function Modal() {
 	const { closeSubmit, form, setFormField, copy, copied, agentFilled } = useSite();
 	const t = useT();
 	const ref = useDialog<HTMLDivElement>();
-	const { bot, lang, round, setToken, status, setStatus, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint, viaJson, jsonError, onJsonChange, example, repoBad, onRepoBlur, shotBad, onShotBlur, urlLabel, withShot, shotFile, onShotFile, shotRequired, shotNote } = useSubmit();
+	const { bot, lang, round, onCheckToken, onCheckFail, retryCheck, checkError, status, catLabel, isShow, max, urlBad, ok, withAuthor, file, entry, issue, edit, repoMissing, canSend, send, onUrlBlur, hint, viaJson, jsonError, onJsonChange, example, repoBad, onRepoBlur, shotBad, onShotBlur, urlLabel, withShot, shotFile, onShotFile, shotRequired, shotNote } = useSubmit();
 	const urlNote = urlBad ? 'f-url-err' : repoMissing ? 'f-url-repo' : isShow || withAuthor ? 'f-url-tip' : undefined;
 	// The screenshot: an image to upload, when the bot can take one, and in the form a link instead; under it what the bot found in the repository.
 	const shotField = (withLink: boolean) => (
@@ -349,7 +349,7 @@ function Modal() {
 							</details>
 						</>
 					)}
-					{bot.enabled && status.kind !== 'done' && <Captcha className='empty:hidden' siteKey={bot.siteKey} lang={lang} round={round} onToken={setToken} onFail={() => setStatus({ kind: 'error', message: t.sub_failed })} />}
+					{bot.enabled && status.kind !== 'done' && <Captcha className='empty:hidden' siteKey={bot.siteKey} lang={lang} round={round} onToken={onCheckToken} onFail={onCheckFail} />}
 				</div>
 				<div className='flex flex-none flex-wrap items-center justify-end gap-x-3 gap-y-2.5 border-t border-line-2 bg-panel px-[30px] py-3.5 max-md:px-6 max-md:pb-[calc(14px+env(safe-area-inset-bottom))] max-sm:px-4 max-xs:pt-3 max-xs:pb-[calc(12px+env(safe-area-inset-bottom))]'>
 					{bot.enabled ? (
@@ -365,6 +365,13 @@ function Modal() {
 								{status.kind === 'error' ? (
 									<p role='alert' className={`${HINT} text-err`}>
 										{status.message}
+									</p>
+								) : checkError ? (
+									<p role='alert' className={`${HINT} text-err`}>
+										{checkError}{' '}
+										<button type='button' className='cursor-pointer border-0 bg-transparent p-0 font-[inherit] text-cyan underline underline-offset-2 hover:text-fg' onClick={retryCheck}>
+											{t.sub_retry}
+										</button>
 									</p>
 								) : (
 									<p className={`${HINT} text-fg-3`} aria-live='polite'>
