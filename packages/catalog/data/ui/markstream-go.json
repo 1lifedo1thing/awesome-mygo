@@ -1,0 +1,14 @@
+{
+	"$schema": "../schema/ui.schema.json",
+	"slug": "markstream-go",
+	"name": "markstream-go",
+	"author": "zerob13",
+	"tag": "theme",
+	"surface": "native",
+	"summary": {
+		"en": "Streaming Markdown components for MyGo, with an independent Go renderer."
+	},
+	"repo": "zerob13/markstream-go",
+	"url": "https://github.com/zerob13/markstream-go",
+	"added": "2026-11-11T03:45:32Z"
+}
