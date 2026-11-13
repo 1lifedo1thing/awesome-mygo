@@ -1,0 +1,35 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "framely",
+	"name": "Framely · 取景",
+	"author": "wildalley",
+	"kind": "native",
+	"platforms": [
+		"win",
+		"linux",
+		"mac"
+	],
+	"category": "UtilitiesApplication",
+	"group": "system",
+	"url": "https://github.com/wildalley/framely",
+	"repo": "wildalley/framely",
+	"summary": {
+		"en": "An open-source screenshot, annotation and image pinning tool with native UI.",
+		"zh-CN": "使用原生 UI 的开源截图、标注与钉图工具。",
+		"zh-TW": "使用原生 UI 的開源截圖、標註與釘圖工具。",
+		"ja": "ネイティブ UI を使ったオープンソースのスクリーンショット・注釈・画像固定ツール。",
+		"ko": "네이티브 UI로 만든 오픈소스 스크린샷, 주석 및 이미지 고정 도구."
+	},
+	"description": {
+		"en": "A tray app for Windows, Linux and macOS, built with Go and MyGo native UI. Capture and adjust a region, annotate it, copy or save it, or pin the image above other windows. It also records silent video, recognizes Chinese and English text offline, and translates text with optional offline models or your own online service keys. Scrolling screenshots are supported on Windows and Linux.",
+		"zh-CN": "使用 Go 和 MyGo 原生 UI 构建的 Windows、Linux 与 macOS 托盘工具。框选并调整截图区域，标注、复制、保存或将图片钉在其他窗口上方；还支持无声录屏、离线中英文取字，以及通过可选离线模型或自备在线服务密钥翻译文字。Windows 与 Linux 支持长截图。",
+		"zh-TW": "使用 Go 和 MyGo 原生 UI 建構的 Windows、Linux 與 macOS 系統匣工具。框選並調整截圖區域，標註、複製、儲存或將圖片釘在其他視窗上方；也支援無聲螢幕錄影、離線中英文文字辨識，以及透過選用的離線模型或自備線上服務金鑰翻譯文字。Windows 與 Linux 支援捲動截圖。",
+		"ja": "Go と MyGo のネイティブ UI で作られた Windows・Linux・macOS 用の常駐アプリ。範囲を選択・調整して撮影し、注釈、コピー、保存、画像の最前面固定ができます。音声なしの画面録画、中国語・英語のオフライン文字認識、任意のオフラインモデルや自分のオンラインサービスキーによる翻訳にも対応。スクロール撮影は Windows と Linux で利用できます。",
+		"ko": "Go와 MyGo 네이티브 UI로 만든 Windows, Linux, macOS용 트레이 앱입니다. 영역을 선택하고 조정해 캡처한 뒤 주석을 달거나 복사, 저장하고 이미지를 다른 창 위에 고정할 수 있습니다. 무음 화면 녹화, 오프라인 중국어·영어 문자 인식, 선택적으로 설치하는 오프라인 모델 또는 개인 온라인 서비스 키를 이용한 번역도 지원합니다. 스크롤 캡처는 Windows와 Linux에서 사용할 수 있습니다."
+	},
+	"screenshot": "framely.webp",
+	"icon": {
+		"file": "framely.webp"
+	},
+	"added": "2026-11-12T11:37:23Z"
+}
