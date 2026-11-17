@@ -1,0 +1,37 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "astrlink",
+	"name": "AstrLink",
+	"author": "Calcium-Ion",
+	"kind": "web",
+	"platforms": [
+		"win",
+		"linux",
+		"mac"
+	],
+	"group": "agents",
+	"url": "https://astrlink.com",
+	"repo": "Calcium-Ion/AstrLink",
+	"summary": {
+		"en": "Local gateway for AI agents: redacts sensitive data on-device and unifies subscriptions and APIs.",
+		"zh-CN": "面向 AI 智能体的本地网关：在本机为敏感内容脱敏，统一接入订阅与 API。",
+		"zh-TW": "為 AI 代理打造的本機閘道：在本機遮蔽敏感內容，統一串接訂閱與 API。",
+		"ja": "AI エージェント向けローカルゲートウェイ。機密情報を端末内でマスクし、サブスクと API をまとめる。",
+		"ko": "AI 에이전트용 로컬 게이트웨이. 민감한 내용을 기기에서 가리고 구독과 API를 한곳에 모읍니다."
+	},
+	"description": {
+		"en": "A local gateway for AI agents, built on MyGo with a web frontend. Before a request reaches a provider, it detects secrets, email addresses and phone numbers on the device and warns, blocks or redacts them, restoring the values in the response. It also puts Codex, Claude and Grok subscriptions and API providers behind one endpoint, with model routing, failover and request records.",
+		"zh-CN": "基于 MyGo 与 Web 前端构建的 AI 智能体本地网关。请求发往模型服务商之前，它在本机用规则或本地隐私模型识别密钥、邮箱地址和电话号码等敏感内容，按策略警告、拦截或脱敏，并可在响应中还原原值。它还把 Codex、Claude、Grok 订阅与各家 API 服务商汇聚到同一入口，提供模型路由、故障转移和请求记录。",
+		"zh-TW": "以 MyGo 搭配 Web 前端打造的 AI 代理本機閘道。請求送往模型服務商之前，它會在本機以規則或本地隱私模型偵測金鑰、電子郵件地址與電話號碼等敏感內容，依政策警告、阻擋或遮蔽，並可在回應中還原原值。它也把 Codex、Claude、Grok 訂閱與各家 API 服務商整合到同一入口，提供模型路由、容錯移轉與請求紀錄。",
+		"ja": "MyGo と Web フロントエンドで作られた、AI エージェント向けのローカルゲートウェイ。リクエストがモデルの提供元に届く前に、ローカルのルールやプライバシーモデルでシークレット、メールアドレス、電話番号などを検出し、ポリシーに従って警告、ブロック、マスクを行い、応答では元の値に戻せます。Codex・Claude・Grok のサブスクリプションと各種 API プロバイダーを一つの窓口にまとめ、モデルのルーティング、フェイルオーバー、リクエスト記録も備えます。",
+		"ko": "MyGo와 웹 프런트엔드로 만든 AI 에이전트용 로컬 게이트웨이입니다. 요청이 모델 제공업체로 가기 전에 기기에서 비밀 키, 이메일 주소, 전화번호 같은 민감한 내용을 찾아 정책에 따라 경고, 차단, 마스킹하고, 응답에서는 원래 값으로 되돌릴 수 있습니다. Codex, Claude, Grok 구독과 여러 API 제공업체를 하나의 엔드포인트로 묶고 모델 라우팅, 장애 조치, 요청 기록을 제공합니다."
+	},
+	"icon": {
+		"file": "astrlink.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "astrlink.webp",
+	"added": "2026-11-16T02:31:59Z"
+}
