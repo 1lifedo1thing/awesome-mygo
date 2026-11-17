@@ -4,11 +4,14 @@
 	"name": "Candle",
 	"author": "margbug01",
 	"kind": "native",
-	"platforms": ["win", "mac"],
+	"platforms": [
+		"win",
+		"mac"
+	],
 	"category": "BusinessApplication",
 	"group": "notes",
-	"url": "https://github.com/margbug01/Candle",
-	"repo": "margbug01/Candle",
+	"url": "https://github.com/margbug01/OpenBar",
+	"repo": "margbug01/OpenBar",
 	"summary": {
 		"en": "TradingView-style candlestick charts for crypto, CME futures and US, A-share and HK stocks.",
 		"zh-CN": "仿 TradingView 的 K 线图：加密货币、CME 期货、美股、A 股与港股。",
