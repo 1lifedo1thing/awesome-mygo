@@ -1,0 +1,35 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "sshclipboard",
+	"name": "SSHClipboard",
+	"author": "josexy",
+	"kind": "native",
+	"platforms": [
+		"win"
+	],
+	"group": "dev",
+	"url": "https://github.com/josexy/sshclipboard",
+	"repo": "josexy/sshclipboard",
+	"summary": {
+		"en": "Windows tray app: uploads screenshots and copied files over SFTP and copies the remote path back.",
+		"zh-CN": "Windows 托盘工具：截图和复制的文件经 SFTP 上传，远程路径自动放回剪贴板。",
+		"zh-TW": "Windows 系統匣工具：截圖和複製的檔案經 SFTP 上傳，遠端路徑放回剪貼簿。",
+		"ja": "スクショやコピーしたファイルを SFTP でサーバーへ送り、リモートパスをクリップボードに戻す。",
+		"ko": "Windows 트레이 앱. 스크린샷과 파일을 SFTP로 올리고 원격 경로를 클립보드에 넣습니다."
+	},
+	"description": {
+		"en": "A Windows 11 tray app for x64 and Arm PCs, drawn with MyGo's native UI. When you take a screenshot or copy a file, it uploads it to a Linux server over SFTP and puts the remote path on the clipboard, ready to paste into your SSH session; text stays on your computer unless you ask for it. Rules decide what is uploaded, and passwords are kept in the Windows Credential Manager.",
+		"zh-CN": "运行在 Windows 11 托盘中的工具，支持 x64 与 Arm 电脑，由 MyGo 原生 UI 绘制。截图或复制文件后，它会经 SFTP 上传到 Linux 服务器，并把远程路径放回剪贴板，可直接粘贴到 SSH 会话中；文本默认留在本机。上传哪些内容由规则决定，密码保存在 Windows 凭据管理器中。",
+		"zh-TW": "常駐於 Windows 11 系統匣的工具，支援 x64 與 Arm 電腦，由 MyGo 原生 UI 繪製。截圖或複製檔案後，它會經 SFTP 上傳到 Linux 伺服器，並把遠端路徑放回剪貼簿，可直接貼到 SSH 工作階段中；文字預設留在本機。上傳哪些內容由規則決定，密碼存放在 Windows 認證管理員中。",
+		"ja": "MyGo のネイティブ UI で描かれた、Windows 11（x64・Arm）向けのタスクトレイ常駐アプリ。スクリーンショットを撮ったりファイルをコピーしたりすると、SFTP で Linux サーバーへアップロードし、リモートのパスをクリップボードに戻すので、そのまま SSH セッションに貼り付けられます。テキストは指示しない限り送りません。何を送るかはルールで決まり、パスワードは Windows 資格情報マネージャーに保存されます。",
+		"ko": "MyGo의 네이티브 UI로 그린 Windows 11(x64·Arm)용 트레이 앱입니다. 스크린샷을 찍거나 파일을 복사하면 SFTP로 Linux 서버에 올리고 원격 경로를 클립보드에 넣어 주므로 SSH 세션에 바로 붙여 넣을 수 있습니다. 텍스트는 요청하지 않으면 보내지 않습니다. 무엇을 올릴지는 규칙으로 정하고, 비밀번호는 Windows 자격 증명 관리자에 보관합니다."
+	},
+	"icon": {
+		"file": "sshclipboard.webp"
+	},
+	"provisional": [
+		"icon"
+	],
+	"screenshot": "sshclipboard.webp",
+	"added": "2026-11-16T03:18:31Z"
+}
