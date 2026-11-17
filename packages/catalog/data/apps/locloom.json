@@ -1,0 +1,34 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "locloom",
+	"name": "LocLoom",
+	"author": "cxxzsh",
+	"kind": "native",
+	"platforms": [
+		"win",
+		"linux",
+		"mac"
+	],
+	"group": "dev",
+	"url": "https://github.com/cxxzsh/locloom",
+	"repo": "cxxzsh/locloom",
+	"summary": {
+		"en": "A localization workbench that fills translations in eight string formats and saves files intact.",
+		"zh-CN": "本地化工作台：为 8 种字符串文件格式补全翻译，并原样无损写回。",
+		"zh-TW": "在地化工作台：為 8 種字串檔案格式補齊翻譯，並原樣無損寫回。",
+		"ja": "8 種類の文字列ファイル形式に翻訳を埋め、書式を崩さず書き戻すローカライズ作業ツール。",
+		"ko": "8가지 문자열 파일 형식의 번역을 채우고 원래 형식 그대로 저장하는 현지화 작업 도구."
+	},
+	"description": {
+		"en": "A localization workbench for macOS, Windows and Linux, drawn with MyGo's native UI. It opens Qt .ts, Gettext .po, JSON, ARB, .xcstrings, Android strings.xml, .resx and XLIFF files, fills gaps through a chain of ten translation sources from a local glossary to DeepL and LLMs, exports .xlsx sheets for review, and writes changes back without disturbing the rest of the file.",
+		"zh-CN": "适用于 macOS、Windows 与 Linux 的本地化工作台，由 MyGo 原生 UI 绘制。可打开 Qt .ts、Gettext .po、JSON、ARB、.xcstrings、Android strings.xml、.resx 与 XLIFF 文件，依次调用从本地术语表到 DeepL 和 LLM 的十个翻译来源补全缺失译文，导出 .xlsx 供审校，并无损写回修改。",
+		"zh-TW": "適用於 macOS、Windows 與 Linux 的在地化工作台，由 MyGo 原生 UI 繪製。可開啟 Qt .ts、Gettext .po、JSON、ARB、.xcstrings、Android strings.xml、.resx 與 XLIFF 檔案，依序呼叫從本機詞彙表到 DeepL 與 LLM 的十個翻譯來源補齊缺漏譯文，匯出 .xlsx 供審校，並無損寫回修改。",
+		"ja": "MyGo のネイティブ UI で描かれた、macOS・Windows・Linux 向けのローカライズ作業ツール。Qt .ts、Gettext .po、JSON、ARB、.xcstrings、Android strings.xml、.resx、XLIFF のファイルを開き、ローカルの用語集から DeepL や LLM まで 10 の翻訳ソースを順に使って未訳を埋めます。レビュー用に .xlsx を書き出し、変更はファイルのほかの部分を崩さずに書き戻します。",
+		"ko": "MyGo의 네이티브 UI로 그린 macOS·Windows·Linux용 현지화 작업 도구입니다. Qt .ts, Gettext .po, JSON, ARB, .xcstrings, Android strings.xml, .resx, XLIFF 파일을 열고, 로컬 용어집부터 DeepL과 LLM까지 10개 번역 소스를 차례로 써서 빠진 번역을 채웁니다. 검토용 .xlsx를 내보내고, 변경 사항은 파일의 나머지 부분을 건드리지 않고 다시 씁니다."
+	},
+	"icon": {
+		"file": "locloom.webp"
+	},
+	"screenshot": "locloom.webp",
+	"added": "2026-11-16T16:53:03Z"
+}
