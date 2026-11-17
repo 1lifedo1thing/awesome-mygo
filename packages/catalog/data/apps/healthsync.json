@@ -10,8 +10,8 @@
 		"mac"
 	],
 	"group": "devices",
-	"url": "https://github.com/HeroSizy/healthsync-server",
-	"repo": "HeroSizy/healthsync-server",
+	"url": "https://github.com/HeroSizy/healthfolio-server",
+	"repo": "HeroSizy/healthfolio-server",
 	"summary": {
 		"en": "Receives Apple Health data from the HealthSync iPhone app into a local SQLite database.",
 		"zh-CN": "把 HealthSync iPhone 应用的健康数据存入本机 SQLite。",
