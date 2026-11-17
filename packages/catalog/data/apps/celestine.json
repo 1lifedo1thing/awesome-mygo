@@ -1,0 +1,30 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "celestine",
+	"name": "Celestine",
+	"author": "imhalid",
+	"kind": "native",
+	"platforms": [
+		"win",
+		"linux",
+		"mac"
+	],
+	"group": "notes",
+	"url": "https://celestine.halid.dev/",
+	"summary": {
+		"en": "A native notes app: pages format as you type, a daily journal, and end-to-end encrypted sync.",
+		"zh-CN": "原生笔记应用：页面边写边排版，附每日日记，同步端到端加密。",
+		"zh-TW": "原生筆記應用程式：頁面邊寫邊排版，附每日日誌，同步採端對端加密。",
+		"ja": "ネイティブなノートアプリ。入力中に整形されるページ、毎日のジャーナル、エンドツーエンド暗号化の同期。",
+		"ko": "네이티브 노트 앱. 입력하며 서식이 잡히는 페이지, 일별 저널, 종단간 암호화 동기화."
+	},
+	"description": {
+		"en": "A notes app for macOS, Windows and Linux built with MyGo's native UI. Pages format as you type, collections can be shown as a list, table, board or calendar, and a journal keeps a page for every day. Sync is end-to-end encrypted.",
+		"zh-CN": "用 MyGo 原生 UI 构建的笔记应用，支持 macOS、Windows 与 Linux。页面在输入时自动排版，集合可显示为列表、表格、看板或日历，日记功能为每一天保留一页，同步采用端到端加密。",
+		"zh-TW": "以 MyGo 原生 UI 打造的筆記應用程式，支援 macOS、Windows 與 Linux。頁面在輸入時自動排版，集合可顯示為清單、表格、看板或行事曆，日誌功能為每一天保留一頁，同步採用端對端加密。",
+		"ja": "MyGo のネイティブ UI で作られた、macOS・Windows・Linux 向けのノートアプリ。ページは入力しながら整形され、コレクションはリスト、テーブル、ボード、カレンダーで表示できます。ジャーナルは日ごとに1ページを用意し、同期はエンドツーエンドで暗号化されます。",
+		"ko": "MyGo의 네이티브 UI로 만든 macOS·Windows·Linux용 노트 앱입니다. 페이지는 입력하는 동안 서식이 적용되고, 컬렉션은 목록, 표, 보드, 캘린더로 볼 수 있으며, 저널은 하루마다 한 페이지를 둡니다. 동기화는 종단간 암호화됩니다."
+	},
+	"screenshot": "celestine.webp",
+	"added": "2026-11-15T18:10:52Z"
+}
