@@ -1,0 +1,33 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "sailry",
+	"name": "Sailry",
+	"author": "sailry",
+	"kind": "native",
+	"platforms": [
+		"win",
+		"mac"
+	],
+	"group": "agents",
+	"url": "https://github.com/sailry/sailry-harness",
+	"repo": "sailry/sailry-harness",
+	"summary": {
+		"en": "Drive AI agent teams running on your own Mac or Linux machines from a native desktop app.",
+		"zh-CN": "原生桌面应用，指挥运行在你自己 Mac 或 Linux 机器上的 AI 智能体团队。",
+		"zh-TW": "原生桌面應用程式，指揮在你自己 Mac 或 Linux 機器上執行的 AI 代理團隊。",
+		"ja": "自分の Mac や Linux で動く AI エージェントチームを操る、ネイティブなデスクトップアプリ。",
+		"ko": "내 Mac이나 Linux 머신에서 돌아가는 AI 에이전트 팀을 지휘하는 네이티브 데스크톱 앱."
+	},
+	"description": {
+		"en": "The desktop client of Sailry, an open-source AI agent harness, drawn with MyGo's native UI without Electron or a bundled browser engine. It drives agent teams on your own Mac or Linux Hosts, next to your code and data, giving each subagent its own model, with built-in tools for Git, databases, SSH and a browser the agent operates. The Host service and the Android and iOS apps are built separately.",
+		"zh-CN": "开源 AI 智能体框架 Sailry 的桌面客户端，由 MyGo 原生 UI 绘制，没有 Electron，也不内置浏览器引擎。它指挥运行在你自己 Mac 或 Linux Host 上、贴近代码与数据的智能体团队，每个子智能体可用不同模型，并内置 Git、数据库、SSH 以及可由智能体操作的浏览器。Host 服务和 Android、iOS 应用另行开发，不由 MyGo 构建。",
+		"zh-TW": "開源 AI 代理框架 Sailry 的桌面用戶端，由 MyGo 原生 UI 繪製，沒有 Electron，也不內建瀏覽器引擎。它指揮在你自己 Mac 或 Linux Host 上、貼近程式碼與資料執行的代理團隊，每個子代理可用不同模型，並內建 Git、資料庫、SSH 以及可由代理操作的瀏覽器。Host 服務和 Android、iOS 應用程式另行開發，不是以 MyGo 建置。",
+		"ja": "オープンソースの AI エージェントハーネス Sailry のデスクトップクライアント。MyGo のネイティブ UI で描かれ、Electron もブラウザエンジンの同梱もありません。自分の Mac や Linux の Host 上でコードやデータのそばに動くエージェントチームを操作し、サブエージェントごとに別のモデルを割り当てられます。Git、データベース、SSH、エージェントが操作できるブラウザも内蔵しています。Host サービスと Android・iOS アプリは MyGo 以外で作られています。",
+		"ko": "오픈소스 AI 에이전트 하네스 Sailry의 데스크톱 클라이언트로, MyGo의 네이티브 UI로 그려 Electron도 내장 브라우저 엔진도 없습니다. 내 Mac이나 Linux Host에서 코드와 데이터 곁에 돌아가는 에이전트 팀을 지휘하며, 하위 에이전트마다 다른 모델을 쓸 수 있고 Git, 데이터베이스, SSH, 에이전트가 조작하는 브라우저를 내장했습니다. Host 서비스와 Android·iOS 앱은 MyGo가 아닌 별도 방식으로 만듭니다."
+	},
+	"icon": {
+		"file": "sailry.webp"
+	},
+	"screenshot": "sailry.webp",
+	"added": "2026-11-15T02:30:04Z"
+}
