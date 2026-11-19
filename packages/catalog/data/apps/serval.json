@@ -1,0 +1,35 @@
+{
+	"$schema": "../schema/app.schema.json",
+	"slug": "serval",
+	"name": "Serval",
+	"author": "jhzhang09",
+	"kind": "native",
+	"platforms": [
+		"win",
+		"linux",
+		"mac"
+	],
+	"category": "DeveloperApplication",
+	"group": "dev",
+	"url": "https://github.com/jhzhang09/serval",
+	"repo": "jhzhang09/serval",
+	"summary": {
+		"en": "Native SSH client with split terminals, dual-pane SFTP, AI Agent, and encrypted vault sync.",
+		"zh-CN": "原生 SSH 客户端，支持分屏终端、双栏 SFTP、AI Agent 与加密同步。",
+		"zh-TW": "原生 SSH 用戶端，支援分割終端、雙欄 SFTP、AI Agent 與加密同步。",
+		"ja": "分割ターミナル・SFTP・AI エージェント・暗号化同期を備えたネイティブ SSH クライアント。",
+		"ko": "분할 터미널, SFTP, AI 에이전트, 암호화 동기화를 갖춘 네이티브 SSH 클라이언트."
+	},
+	"description": {
+		"en": "Serval is a lightweight, native SSH client built with Go and MyGo without WebView. It supports multi-tab split terminals, jump hosts, SOCKS5/HTTP proxies, port forwarding, dual-pane SFTP with inline editing, ZMODEM transfers, real-time server metrics, an AI Agent drawer, and zero-knowledge encrypted vault sync via WebDAV, S3, or GitHub Gist.",
+		"zh-CN": "Serval 是基于 Go 与 MyGo 原生界面（无 WebView）构建的轻量级 SSH 客户端。支持多标签分屏终端、跳板机与代理、端口转发、双栏 SFTP 与在线编辑、ZMODEM 传输、实时服务器监控、AI Agent 运维侧栏，以及基于 WebDAV / S3 / GitHub Gist 的端到端加密保险库同步。",
+		"zh-TW": "Serval 是基於 Go 與 MyGo 原生介面（無 WebView）建構的輕量級 SSH 用戶端。支援多分頁分割終端、跳板機與代理、連接埠轉發、雙欄 SFTP 與線上編輯、ZMODEM 傳輸、即時伺服器監控、AI Agent 維運側欄，以及基於 WebDAV / S3 / GitHub Gist 的端對端加密保險庫同步。",
+		"ja": "Serval は Go と MyGo のネイティブ UI（WebView なし）で構築された軽量 SSH クライアントです。マルチタブ分割ターミナル、踏み台・プロキシ、ポートフォワーディング、デュアルペイン SFTP と直接編集、ZMODEM 転送、リアルタイムサーバー監視、AI エージェント、WebDAV / S3 / GitHub Gist によるエンドツーエンド暗号化同期に対応します。",
+		"ko": "Serval은 Go와 MyGo 네이티브 UI(WebView 없음)로 제작된 경량 SSH 클라이언트입니다. 멀티 탭 분할 터미널, 점프 호스트 및 프록시, 포트 포워딩, 듀얼 페인 SFTP 및 인라인 편집, ZMODEM 전송, 실시간 서버 모니터링, AI 에이전트, WebDAV / S3 / GitHub Gist 기반 종단간 암호화 볼트 동기화를 지원합니다."
+	},
+	"screenshot": "serval.webp",
+	"icon": {
+		"file": "serval.webp"
+	},
+	"added": "2026-11-19T09:48:00Z"
+}
