@@ -4,21 +4,24 @@
 	"name": "Sonora",
 	"author": "hfx123456",
 	"kind": "native",
-	"platforms": ["win", "mac"],
+	"platforms": [
+		"win",
+		"mac"
+	],
 	"category": "MultimediaApplication",
 	"group": "media",
 	"url": "https://github.com/hfx123456/Sonora",
 	"repo": "hfx123456/Sonora",
 	"summary": {
-		"en": "Windows & macOS Spotify and local player with bilingual lyrics, Dynamic Island & Flow.",
-		"zh-CN": "支持双语逐字歌词、跨屏灵动岛、流光背景与本地音乐的 Windows / macOS 播放器。",
-		"zh-TW": "支援雙語逐字歌詞、跨螢幕靈動島、流光背景與本機音樂的 Windows / macOS 播放器。",
-		"ja": "二言語歌詞・マルチモニター対応アイランド・Flow 背景を備えた Windows / macOS 向け音楽プレーヤー。",
-		"ko": "이중 언어 가사, 다중 모니터 다이내믹 아일랜드, Flow 배경을 지원하는 Windows·macOS 플레이어."
+		"en": "Windows & macOS Spotify & 6-cloud music player with bilingual lyrics, Dynamic Island & Flow.",
+		"zh-CN": "支持 6 大个人音乐云盘、双语逐字歌词、跨屏灵动岛与流光背景的 Windows / macOS 播放器。",
+		"zh-TW": "支援 6 大個人音樂雲端、雙語逐字歌詞、跨螢幕靈動島與流光背景的 Windows / macOS 播放器。",
+		"ja": "6 つのクラウド音楽ドライブ・二言語歌詞・マルチモニター対応アイランド・Flow 背景を備えた音楽プレーヤー。",
+		"ko": "6대 클라우드 음악 드라이브, 이중 언어 가사, 다이내믹 아일랜드, Flow 배경을 지원하는 플레이어."
 	},
 	"description": {
-		"en": "An independent fork of MySpotify for Windows and macOS built with MyGo's native UI. Adds an embedded multi-source bilingual lyrics engine (NetEase, QQ Music, LRCLIB via Lyricify Lyrics Helper), a draggable multi-monitor Dynamic Island with instant click-through unlock, word-timed bilingual stage animations, Apple Music-style GPU Flow backdrop, iOS-style Liquid Glass controls, local music playback, and sticky playlist search.",
-		"zh-CN": "基于 MyGo 原生界面开发的 MySpotify 独立定制分支，支持 Windows 与 macOS。内置多源双语歌词检索（网易云、QQ 音乐、LRCLIB），提供可自由拖动跨屏的灵动岛（锁定点击穿透后点击直接浮出解锁按钮）、双语逐字弹跳律动模式、Apple Music 风格 GPU 流光背景、iOS 风格液态玻璃控件、本地音乐播放与歌单简繁吸顶搜索。"
+		"en": "An independent fork of MySpotify for Windows and macOS built with MyGo's native UI. Adds a personal Cloud Music Disk supporting 6 providers (OneDrive, Google Drive, Baidu Netdisk, Quark Drive, 115 Drive, WebDAV) with visual folder picking, play-while-caching, and automatic matching for local Spotify playlist tracks, alongside an embedded multi-source bilingual lyrics engine (NetEase, QQ Music, LRCLIB), a draggable multi-monitor Dynamic Island with instant click-through unlock, word-timed bilingual stage animations, Apple Music-style GPU Flow backdrop, iOS-style Liquid Glass controls, unified track covers, and sticky playlist search.",
+		"zh-CN": "基于 MyGo 原生界面开发的独立定制版播放器，支持 Windows 与 macOS。新增 6 大个人音乐云盘直连（OneDrive、Google Drive、百度网盘、夸克网盘、115 网盘、WebDAV），支持可视化选目录、边播边缓存与自动点亮歌单灰歌；内置多源双语逐字歌词（网易云、QQ 音乐、LRCLIB）、自由拖动跨屏灵动岛与锁定悬停解锁、Apple Music 风格 GPU 流光背景、iOS 风格液态玻璃控件、统一专辑封面与歌单简繁吸顶搜索。"
 	},
 	"icon": {
 		"file": "sonora.webp"
