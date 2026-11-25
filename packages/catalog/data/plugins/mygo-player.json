@@ -1,0 +1,25 @@
+{
+	"$schema": "../schema/plugin.schema.json",
+	"slug": "mygo-player",
+	"name": "mygo-player",
+	"mark": "vp",
+	"official": false,
+	"surface": "native",
+	"import": "github.com/arixbit/mygo-player",
+	"tags": [
+		"video",
+		"player",
+		"mpv",
+		"subtitles",
+		"media"
+	],
+	"docs": "https://github.com/arixbit/mygo-player",
+	"summary": {
+		"en": "Zero-cgo libmpv video player plugin for MyGo native UI with MKV and full-format playback, multi-audio tracks, embedded and external SRT/ASS/VTT subtitles, custom HTTP stream headers, and prebuilt LGPL binaries for macOS, Windows and Linux.",
+		"zh-CN": "面向 MyGo 原生 UI 的零 cgo libmpv 视频播放器插件，支持 MKV 等全格式播放、多音轨切换、内嵌与外挂 SRT/ASS/VTT 字幕、在线流自定义 HTTP 请求头，并提供 macOS、Windows 与 Linux 预构建 LGPL 动态库。",
+		"zh-TW": "面向 MyGo 原生 UI 的零 cgo libmpv 影片播放器外掛，支援 MKV 等全格式播放、多音軌切換、內嵌與外掛 SRT/ASS/VTT 字幕、線上串流自訂 HTTP 標頭，並提供 macOS、Windows 與 Linux 預建 LGPL 動態函式庫。",
+		"ja": "MyGo ネイティブ UI 向けの cgo 不要な libmpv 動画プレーヤープラグイン。MKV を含む各種形式、マルチ音声トラック、内蔵・外部 SRT/ASS/VTT 字幕、カスタム HTTP ヘッダーに対応し、macOS・Windows・Linux 向け LGPL バイナリを同梱します。",
+		"ko": "MyGo 네이티브 UI용 zero-cgo libmpv 비디오 플레이어 플러그인으로 MKV 등 다양한 포맷 재생, 다중 오디오 트랙, 내장 및 외부 SRT/ASS/VTT 자막, 스트림용 커스텀 HTTP 헤더와 macOS·Windows·Linux용 사전 빌드 LGPL 라이브러리를 제공합니다."
+	},
+	"added": "2026-11-24T09:05:26Z"
+}
